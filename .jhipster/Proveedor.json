@@ -1,0 +1,80 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "empresa",
+            "otherEntityName": "empresa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombreProveedor",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "razonSocial",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "cuit",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "telefono",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "\\(\\d{3}\\)\\d{3}-?\\d{4}"
+        },
+        {
+            "fieldName": "fechaAlta",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "domicilio",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$"
+        },
+        {
+            "fieldName": "notas",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "changelogDate": "20190408003410",
+    "dto": "mapstruct",
+    "searchEngine": "elasticsearch",
+    "service": "serviceImpl",
+    "entityTableName": "proveedor",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

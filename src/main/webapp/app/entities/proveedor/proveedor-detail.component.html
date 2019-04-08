@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="proveedor">
+            <h2><span jhiTranslate="craftBeerStoreApp.proveedor.detail.title">Proveedor</span> {{proveedor.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.nombreProveedor">Nombre Proveedor</span></dt>
+                <dd>
+                    <span>{{proveedor.nombreProveedor}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.razonSocial">Razon Social</span></dt>
+                <dd>
+                    <span>{{proveedor.razonSocial}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.cuit">Cuit</span></dt>
+                <dd>
+                    <span>{{proveedor.cuit}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.telefono">Telefono</span></dt>
+                <dd>
+                    <span>{{proveedor.telefono}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.fechaAlta">Fecha Alta</span></dt>
+                <dd>
+                    <span>{{proveedor.fechaAlta}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.domicilio">Domicilio</span></dt>
+                <dd>
+                    <span>{{proveedor.domicilio}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.email">Email</span></dt>
+                <dd>
+                    <span>{{proveedor.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.notas">Notas</span></dt>
+                <dd>
+                    <span>{{proveedor.notas}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="proveedor.empresaId">
+                        <a [routerLink]="['/empresa', proveedor.empresaId, 'view']">{{proveedor.empresaId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/proveedor', proveedor.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
