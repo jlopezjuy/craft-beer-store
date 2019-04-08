@@ -9,6 +9,8 @@
             "entities": {
                 "main": "Entities",
                 "empresa": "Empresa",
+                "insumo": "Insumo",
+                "producto": "Producto",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

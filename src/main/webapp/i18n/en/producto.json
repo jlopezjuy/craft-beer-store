@@ -1,0 +1,28 @@
+{
+    "craftBeerStoreApp": {
+        "producto": {
+            "home": {
+                "title": "Productos",
+                "createLabel": "Create a new Producto",
+                "createOrEditLabel": "Create or edit a Producto",
+                "search": "Search for Producto"
+            },
+            "created": "A new Producto is created with identifier {{ param }}",
+            "updated": "A Producto is updated with identifier {{ param }}",
+            "deleted": "A Producto is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Producto {{ id }}?"
+            },
+            "detail": {
+                "title": "Producto"
+            },
+            "nombreProducto": "Nombre Producto",
+            "estilo": "Estilo",
+            "nombreComercial": "Nombre Comercial",
+            "precioLitro": "Precio Litro",
+            "tipoProducto": "Tipo Producto",
+            "imagen": "Imagen",
+            "empresa": "Empresa"
+        }
+    }
+}
