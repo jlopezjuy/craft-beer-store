@@ -1,0 +1,15 @@
+{
+    "craftBeerStoreApp": {
+        "Unidad": {
+            "null": "",
+            "KILOGRAMO": "KILOGRAMO",
+            "GRAMO": "GRAMO",
+            "VEINTICINCO_KILOS": "VEINTICINCO_KILOS",
+            "DIES_KILOS": "DIES_KILOS",
+            "LITRO": "LITRO",
+            "CM3": "CM3",
+            "ML": "ML",
+            "UNIDAD": "UNIDAD"
+        }
+    }
+}
