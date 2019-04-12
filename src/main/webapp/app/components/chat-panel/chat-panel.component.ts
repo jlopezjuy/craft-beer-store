@@ -18,7 +18,7 @@ import { ChatPanelService } from 'app/components/chat-panel/chat-panel.service';
 import { FuseSidebarService } from '../../../@fuse/components/sidebar/sidebar.service';
 
 @Component({
-    selector: 'chat-panel',
+    selector: 'jhi-chat-panel',
     templateUrl: './chat-panel.component.html',
     styleUrls: ['./chat-panel.component.scss'],
     encapsulation: ViewEncapsulation.None

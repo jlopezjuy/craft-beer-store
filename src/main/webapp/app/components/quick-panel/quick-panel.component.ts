@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-    selector: 'quick-panel',
+    selector: 'jhi-quick-panel',
     templateUrl: './quick-panel.component.html',
     styleUrls: ['./quick-panel.component.scss'],
     encapsulation: ViewEncapsulation.None

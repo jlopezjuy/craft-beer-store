@@ -4,7 +4,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'fuse-countdown',
+    selector: 'jhi-fuse-countdown',
     templateUrl: './countdown.component.html',
     styleUrls: ['./countdown.component.scss'],
     encapsulation: ViewEncapsulation.None

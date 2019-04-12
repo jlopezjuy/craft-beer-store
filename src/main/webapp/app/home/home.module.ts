@@ -1,6 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { CraftBeerStoreSharedModule } from 'app/shared';
 import { HOME_ROUTE, HomeComponent } from './';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,33 +16,6 @@ import { AppStoreModule } from 'app/store/store.module';
 import { fuseConfig } from 'app/fuse-config';
 import { LayoutModule } from 'app/layouts/layout.module';
 
-const appRoutes: Routes = [
-    {
-        path: 'apps',
-        loadChildren: './main/apps/apps.module#AppsModule'
-    },
-    {
-        path: 'pages',
-        loadChildren: './main/pages/pages.module#PagesModule'
-    },
-    {
-        path: 'ui',
-        loadChildren: './main/ui/ui.module#UIModule'
-    },
-    {
-        path: 'documentation',
-        loadChildren: './main/documentation/documentation.module#DocumentationModule'
-    },
-    {
-        path: 'angular-material-elements',
-        loadChildren: './main/angular-material-elements/angular-material-elements.module#AngularMaterialElementsModule'
-    },
-    {
-        path: '**',
-        redirectTo: 'apps/dashboards/analytics'
-    }
-];
-
 @NgModule({
     imports: [
         CraftBeerStoreSharedModule,
@@ -52,27 +24,22 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         // RouterModule.forRoot(appRoutes),
-
         TranslateModule.forRoot(),
         // InMemoryWebApiModule.forRoot(FakeDbService, {
         //     delay             : 0,
         //     passThruUnknownUrl: true
         // }),
-
         // Material moment date module
         MatMomentDateModule,
-
         // Material
         MatButtonModule,
         MatIconModule,
-
         // Fuse modules
         FuseModule.forRoot(fuseConfig),
         FuseProgressBarModule,
         FuseSharedModule,
         FuseSidebarModule,
         FuseThemeOptionsModule,
-
         // App modules
         LayoutModule,
         AppStoreModule

@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FuseConfigService } from '../../services/config.service';
 
 @Component({
-    selector: 'fuse-search-bar',
+    selector: 'jhi-fuse-search-bar',
     templateUrl: './search-bar.component.html',
     styleUrls: ['./search-bar.component.scss']
 })

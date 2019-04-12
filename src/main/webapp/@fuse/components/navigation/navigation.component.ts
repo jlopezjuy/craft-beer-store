@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FuseNavigationService } from './navigation.service';
 
 @Component({
-    selector: 'fuse-navigation',
+    selector: 'jhi-fuse-navigation',
     templateUrl: './navigation.component.html',
     styleUrls: ['./navigation.component.scss'],
     encapsulation: ViewEncapsulation.None,

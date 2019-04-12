@@ -7,7 +7,7 @@ import { FuseMatchMediaService } from '../../services/match-media.service';
 import { FuseNavigationService } from '../navigation/navigation.service';
 
 @Component({
-    selector: 'fuse-shortcuts',
+    selector: 'jhi-fuse-shortcuts',
     templateUrl: './shortcuts.component.html',
     styleUrls: ['./shortcuts.component.scss']
 })
