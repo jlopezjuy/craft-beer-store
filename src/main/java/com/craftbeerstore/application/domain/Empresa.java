@@ -42,7 +42,7 @@ public class Empresa implements Serializable {
     private String correo;
 
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(unique = true, nullable = true)
     private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

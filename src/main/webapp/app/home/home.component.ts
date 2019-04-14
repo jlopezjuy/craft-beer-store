@@ -4,11 +4,6 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { LoginModalService, AccountService, Account } from 'app/core';
 import { DOCUMENT } from '@angular/common';
-import { FuseConfigService } from '../../@fuse/services/config.service';
-import { FuseNavigationService } from '../../@fuse/components/navigation/navigation.service';
-import { FuseSidebarService } from '../../@fuse/components/sidebar/sidebar.service';
-import { FuseSplashScreenService } from '../../@fuse/services/splash-screen.service';
-import { FuseTranslationLoaderService } from '../../@fuse/services/translation-loader.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil } from 'rxjs/operators';
@@ -16,6 +11,12 @@ import { Subject } from 'rxjs';
 import { navigation } from 'app/navigate/navigation';
 import { locale as navigationEnglish } from 'app/navigate/i18n/en';
 import { locale as navigationSpanish } from 'app/navigate/i18n/es';
+import { FuseConfigService } from '../../fuse/services/config.service';
+import { FuseNavigationService } from '../../fuse/components/navigation/navigation.service';
+import { FuseSidebarService } from '../../fuse/components/sidebar/sidebar.service';
+import { FuseSplashScreenService } from '../../fuse/services/splash-screen.service';
+import { FuseTranslationLoaderService } from '../../fuse/services/translation-loader.service';
+
 @Component({
     selector: 'jhi-home',
     templateUrl: './home.component.html',

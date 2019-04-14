@@ -30,7 +30,7 @@ export const MY_FORMATS = {
 
 /** @title Datepicker with custom formats */
 @Component({
-    selector: 'datepicker-formats-example',
+    selector: 'jhi-datepicker-formats-example',
     templateUrl: 'datepicker-formats-example.html',
     styleUrls: ['datepicker-formats-example.css'],
     providers: [

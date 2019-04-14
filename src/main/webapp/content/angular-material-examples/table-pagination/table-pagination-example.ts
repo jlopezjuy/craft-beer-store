@@ -5,7 +5,7 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
  * @title Table with pagination
  */
 @Component({
-    selector: 'table-pagination-example',
+    selector: 'jhi-table-pagination-example',
     styleUrls: ['table-pagination-example.css'],
     templateUrl: 'table-pagination-example.html'
 })

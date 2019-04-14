@@ -7,7 +7,7 @@ import { map, startWith } from 'rxjs/operators';
  * @title Highlight the first autocomplete option
  */
 @Component({
-    selector: 'autocomplete-auto-active-first-option-example',
+    selector: 'jhi-autocomplete-auto-active-first-option-example',
     templateUrl: 'autocomplete-auto-active-first-option-example.html',
     styleUrls: ['autocomplete-auto-active-first-option-example.css']
 })

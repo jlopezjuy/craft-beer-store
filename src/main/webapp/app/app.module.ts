@@ -2,7 +2,7 @@ import './vendor.ts';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Ng2Webstorage } from 'ngx-webstorage';
 import { NgJhipsterModule } from 'ng-jhipster';
@@ -22,7 +22,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import {
+    JhiMainComponent,
+    NavbarFuseComponent,
+    FooterComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    ErrorComponent
+} from './layouts';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatButtonModule, MatIconModule } from '@angular/material';
+import { AppStoreModule } from 'app/store/store.module';
+import { LayoutFuseModule } from 'app/layout/layout.module';
+import { FuseModule } from '../fuse/fuse.module';
+import { fuseConfig } from 'app/fuse-config';
+import { FuseProgressBarModule, FuseSidebarModule, FuseThemeOptionsModule } from '../fuse/components';
+import { FuseSharedModule } from '../fuse/shared.module';
 
 @NgModule({
     imports: [
@@ -43,9 +58,20 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         CraftBeerStoreAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         CraftBeerStoreEntityModule,
-        CraftBeerStoreAppRoutingModule
+        CraftBeerStoreAppRoutingModule,
+        HttpClientModule,
+        MatMomentDateModule,
+        MatButtonModule,
+        MatIconModule,
+        FuseModule.forRoot(fuseConfig),
+        FuseProgressBarModule,
+        FuseSharedModule,
+        FuseSidebarModule,
+        FuseThemeOptionsModule,
+        LayoutFuseModule,
+        AppStoreModule
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    declarations: [JhiMainComponent, NavbarFuseComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

@@ -3,7 +3,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 
 /** @title Monitoring autofill state with AutofillMonitor */
 @Component({
-    selector: 'text-field-autofill-monitor-example',
+    selector: 'jhi-text-field-autofill-monitor-example',
     templateUrl: './text-field-autofill-monitor-example.html',
     styleUrls: ['./text-field-autofill-monitor-example.css']
 })

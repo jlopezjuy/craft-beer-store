@@ -7,7 +7,7 @@ import { map, startWith } from 'rxjs/operators';
  * @title Filter autocomplete
  */
 @Component({
-    selector: 'autocomplete-filter-example',
+    selector: 'jhi-autocomplete-filter-example',
     templateUrl: 'autocomplete-filter-example.html',
     styleUrls: ['autocomplete-filter-example.css']
 })

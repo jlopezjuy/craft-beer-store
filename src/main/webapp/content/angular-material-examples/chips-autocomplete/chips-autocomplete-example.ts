@@ -9,7 +9,7 @@ import { map, startWith } from 'rxjs/operators';
  * @title Chips Autocomplete
  */
 @Component({
-    selector: 'chips-autocomplete-example',
+    selector: 'jhi-chips-autocomplete-example',
     templateUrl: 'chips-autocomplete-example.html',
     styleUrls: ['chips-autocomplete-example.css']
 })

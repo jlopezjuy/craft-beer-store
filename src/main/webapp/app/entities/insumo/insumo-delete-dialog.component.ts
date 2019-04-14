@@ -43,7 +43,10 @@ export class InsumoDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ insumo }) => {
             setTimeout(() => {
-                this.ngbModalRef = this.modalService.open(InsumoDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef = this.modalService.open(InsumoDeleteDialogComponent as Component, {
+                    size: 'lg',
+                    backdrop: 'static'
+                });
                 this.ngbModalRef.componentInstance.insumo = insumo;
                 this.ngbModalRef.result.then(
                     result => {

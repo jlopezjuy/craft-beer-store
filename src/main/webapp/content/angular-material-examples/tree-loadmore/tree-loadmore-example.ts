@@ -87,7 +87,7 @@ export class LoadmoreDatabase {
  * @title Tree with partially loaded data
  */
 @Component({
-    selector: 'tree-loadmore-example',
+    selector: 'jhi-tree-loadmore-example',
     templateUrl: 'tree-loadmore-example.html',
     styleUrls: ['tree-loadmore-example.css'],
     providers: [LoadmoreDatabase]

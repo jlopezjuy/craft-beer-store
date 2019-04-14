@@ -26,6 +26,7 @@ export class ProveedorDetailComponent implements OnInit {
     openFile(contentType, field) {
         return this.dataUtils.openFile(contentType, field);
     }
+
     previousState() {
         window.history.back();
     }

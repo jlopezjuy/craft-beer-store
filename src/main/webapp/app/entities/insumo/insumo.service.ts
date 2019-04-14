@@ -39,6 +39,9 @@ export class InsumoService {
 
     search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<IInsumo[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
+        return this.http.get<IInsumo[]>(this.resourceSearchUrl, {
+            params: options,
+            observe: 'response'
+        });
     }
 }

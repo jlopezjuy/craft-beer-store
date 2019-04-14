@@ -11,7 +11,7 @@ export interface Tile {
  * @title Dynamic grid-list
  */
 @Component({
-    selector: 'grid-list-dynamic-example',
+    selector: 'jhi-grid-list-dynamic-example',
     templateUrl: 'grid-list-dynamic-example.html',
     styleUrls: ['grid-list-dynamic-example.css']
 })

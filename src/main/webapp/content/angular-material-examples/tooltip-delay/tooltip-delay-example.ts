@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
  * @title Tooltip with a show and hide delay
  */
 @Component({
-    selector: 'tooltip-delay-example',
+    selector: 'jhi-tooltip-delay-example',
     templateUrl: 'tooltip-delay-example.html',
     styleUrls: ['tooltip-delay-example.css']
 })

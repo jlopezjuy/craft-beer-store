@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 /** @title Datepicker with filter validation */
 @Component({
-    selector: 'datepicker-filter-example',
+    selector: 'jhi-datepicker-filter-example',
     templateUrl: 'datepicker-filter-example.html',
     styleUrls: ['datepicker-filter-example.css']
 })

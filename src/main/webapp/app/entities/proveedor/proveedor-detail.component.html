@@ -1,15 +1,19 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="proveedor">
-            <h2><span jhiTranslate="craftBeerStoreApp.proveedor.detail.title">Proveedor</span> {{proveedor.id}}</h2>
+            <h2><span
+                jhiTranslate="craftBeerStoreApp.proveedor.detail.title">Proveedor</span> {{proveedor.id}}
+            </h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.nombreProveedor">Nombre Proveedor</span></dt>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.nombreProveedor">Nombre Proveedor</span>
+                </dt>
                 <dd>
                     <span>{{proveedor.nombreProveedor}}</span>
                 </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.razonSocial">Razon Social</span></dt>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.razonSocial">Razon Social</span>
+                </dt>
                 <dd>
                     <span>{{proveedor.razonSocial}}</span>
                 </dd>
@@ -21,7 +25,8 @@
                 <dd>
                     <span>{{proveedor.telefono}}</span>
                 </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.fechaAlta">Fecha Alta</span></dt>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.fechaAlta">Fecha Alta</span>
+                </dt>
                 <dd>
                     <span>{{proveedor.fechaAlta}}</span>
                 </dd>
@@ -48,13 +53,15 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span
+                jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/proveedor', proveedor.id, 'edit']"
                     class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span
+                jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

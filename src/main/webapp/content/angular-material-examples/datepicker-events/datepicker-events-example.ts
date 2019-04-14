@@ -3,7 +3,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 /** @title Datepicker input and change events */
 @Component({
-    selector: 'datepicker-events-example',
+    selector: 'jhi-datepicker-events-example',
     templateUrl: 'datepicker-events-example.html',
     styleUrls: ['datepicker-events-example.css']
 })

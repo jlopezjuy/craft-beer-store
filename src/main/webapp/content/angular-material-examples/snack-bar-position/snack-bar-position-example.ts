@@ -5,7 +5,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
  * @title Snack-bar with configurable position
  */
 @Component({
-    selector: 'snack-bar-position-example',
+    selector: 'jhi-snack-bar-position-example',
     templateUrl: 'snack-bar-position-example.html'
 })
 export class SnackBarPositionExample {

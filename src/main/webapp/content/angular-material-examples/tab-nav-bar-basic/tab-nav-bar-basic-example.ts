@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
  * @title Basic use of the tab nav bar
  */
 @Component({
-    selector: 'tab-nav-bar-basic-example',
+    selector: 'jhi-tab-nav-bar-basic-example',
     templateUrl: 'tab-nav-bar-basic-example.html',
     styleUrls: ['tab-nav-bar-basic-example.css']
 })

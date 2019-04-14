@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
  * @title Stepper overview
  */
 @Component({
-    selector: 'stepper-overview-example',
+    selector: 'jhi-stepper-overview-example',
     templateUrl: 'stepper-overview-example.html',
     styleUrls: ['stepper-overview-example.css']
 })

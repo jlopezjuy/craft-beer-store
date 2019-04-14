@@ -26,7 +26,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
  * @title Table example that shows how to wrap a table component for definition and behavior reuse.
  */
 @Component({
-    selector: 'table-wrapped-example',
+    selector: 'jhi-table-wrapped-example',
     styleUrls: ['table-wrapped-example.css'],
     templateUrl: 'table-wrapped-example.html'
 })

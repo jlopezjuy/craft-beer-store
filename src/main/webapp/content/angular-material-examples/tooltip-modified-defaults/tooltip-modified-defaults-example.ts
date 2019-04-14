@@ -12,7 +12,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
  * @title Tooltip with a show and hide delay
  */
 @Component({
-    selector: 'tooltip-modified-defaults-example',
+    selector: 'jhi-tooltip-modified-defaults-example',
     templateUrl: 'tooltip-modified-defaults-example.html',
     styleUrls: ['tooltip-modified-defaults-example.css'],
     providers: [{ provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: myCustomTooltipDefaults }]

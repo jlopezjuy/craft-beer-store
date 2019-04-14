@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material';
  * @title Dialog with header, scrollable content and actions
  */
 @Component({
-    selector: 'dialog-content-example',
+    selector: 'jhi-dialog-content-example',
     templateUrl: 'dialog-content-example.html',
     styleUrls: ['dialog-content-example.css']
 })
@@ -22,7 +22,7 @@ export class DialogContentExample {
 }
 
 @Component({
-    selector: 'dialog-content-example-dialog',
+    selector: 'jhi-dialog-content-example-dialog',
     templateUrl: 'dialog-content-example-dialog.html'
 })
 export class DialogContentExampleDialog {}

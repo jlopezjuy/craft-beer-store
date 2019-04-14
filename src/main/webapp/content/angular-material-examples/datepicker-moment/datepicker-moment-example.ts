@@ -16,7 +16,7 @@ const moment = _moment;
 
 /** @title Datepicker that uses Moment.js dates */
 @Component({
-    selector: 'datepicker-moment-example',
+    selector: 'jhi-datepicker-moment-example',
     templateUrl: 'datepicker-moment-example.html',
     styleUrls: ['datepicker-moment-example.css'],
     providers: [

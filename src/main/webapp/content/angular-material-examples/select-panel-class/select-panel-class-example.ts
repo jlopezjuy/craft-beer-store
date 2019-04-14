@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
  * @title Select with custom panel styling
  */
 @Component({
-    selector: 'select-panel-class-example',
+    selector: 'jhi-select-panel-class-example',
     templateUrl: 'select-panel-class-example.html',
     styleUrls: ['select-panel-class-example.css'],
     // Encapsulation has to be disabled in order for the

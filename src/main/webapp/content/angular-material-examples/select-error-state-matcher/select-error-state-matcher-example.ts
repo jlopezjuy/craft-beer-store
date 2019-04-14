@@ -12,7 +12,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 /** @title Select with a custom ErrorStateMatcher */
 @Component({
-    selector: 'select-error-state-matcher-example',
+    selector: 'jhi-select-error-state-matcher-example',
     templateUrl: 'select-error-state-matcher-example.html',
     styleUrls: ['select-error-state-matcher-example.css']
 })

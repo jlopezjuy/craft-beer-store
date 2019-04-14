@@ -8,7 +8,7 @@ export interface Animal {
 
 /** @title Select with form field features */
 @Component({
-    selector: 'select-hint-error-example',
+    selector: 'jhi-select-hint-error-example',
     templateUrl: 'select-hint-error-example.html',
     styleUrls: ['select-hint-error-example.css']
 })

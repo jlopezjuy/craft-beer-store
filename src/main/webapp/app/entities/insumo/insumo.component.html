@@ -1,9 +1,11 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="craftBeerStoreApp.insumo.home.title">Insumos</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-insumo" [routerLink]="['/insumo/new']">
+        <button id="jh-create-entity"
+                class="btn btn-primary float-right jh-create-entity create-insumo"
+                [routerLink]="['/insumo/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.insumo.home.createLabel">
+            <span class="hidden-sm-down" jhiTranslate="craftBeerStoreApp.insumo.home.createLabel">
             Create new Insumo
             </span>
         </button>
@@ -13,11 +15,14 @@
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.insumo.home.search' | translate }}">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch"
+                           id="currentSearch" name="currentSearch"
+                           placeholder="{{ 'craftBeerStoreApp.insumo.home.search' | translate }}">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
-                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                    <button class="input-group-append btn btn-danger" (click)="clear()"
+                            *ngIf="currentSearch">
                         <fa-icon [icon]="'trash-alt'"></fa-icon>
                     </button>
                 </div>
@@ -28,16 +33,38 @@
     <div class="table-responsive" *ngIf="insumos">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nombreInsumo"><span jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="marca"><span jhiTranslate="craftBeerStoreApp.insumo.marca">Marca</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="stock"><span jhiTranslate="craftBeerStoreApp.insumo.stock">Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="unidad"><span jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.insumo.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="imagen"><span jhiTranslate="craftBeerStoreApp.insumo.imagen">Imagen</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empresaId"><span jhiTranslate="craftBeerStoreApp.insumo.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                [callback]="transition.bind(this)">
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="nombreInsumo"><span
+                    jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="marca"><span
+                    jhiTranslate="craftBeerStoreApp.insumo.marca">Marca</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="stock"><span
+                    jhiTranslate="craftBeerStoreApp.insumo.stock">Stock</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="unidad"><span
+                    jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.insumo.tipo">Tipo</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="imagen"><span
+                    jhiTranslate="craftBeerStoreApp.insumo.imagen">Imagen</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="empresaId"><span jhiTranslate="craftBeerStoreApp.insumo.empresa">Empresa</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -49,14 +76,17 @@
                 <td jhiTranslate="{{'craftBeerStoreApp.Unidad.' + insumo.unidad}}">{{insumo.unidad}}</td>
                 <td jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumo.tipo}}">{{insumo.tipo}}</td>
                 <td>
-                    <a *ngIf="insumo.imagen" (click)="openFile(insumo.imagenContentType, insumo.imagen)">
-                        <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen" style="max-height: 30px;" alt="insumo image"/>
+                    <a *ngIf="insumo.imagen"
+                       (click)="openFile(insumo.imagenContentType, insumo.imagen)">
+                        <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen"
+                             style="max-height: 30px;" alt="insumo image"/>
                     </a>
-                    <span *ngIf="insumo.imagen">{{insumo.imagenContentType}}, {{byteSize(insumo.imagen)}}</span>
+                    <span *ngIf="insumo.imagen">{{insumo.imagenContentType}}, {{byteSize(
+                        insumo.imagen)}}</span>
                 </td>
                 <td>
                     <div *ngIf="insumo.empresaId">
-                        <a [routerLink]="['../empresa', insumo.empresaId , 'view' ]" >{{insumo.empresaId}}</a>
+                        <a [routerLink]="['../empresa', insumo.empresaId , 'view' ]">{{insumo.empresaId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -65,13 +95,15 @@
                                 [routerLink]="['/insumo', insumo.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            <span class="d-none d-md-inline"
+                                  jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/insumo', insumo.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            <span class="d-none d-md-inline"
+                                  jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', 'insumo', { outlets: { popup: insumo.id + '/delete'} }]"
@@ -89,10 +121,13 @@
     </div>
     <div *ngIf="insumos && insumos.length">
         <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5"
+                            [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                            [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

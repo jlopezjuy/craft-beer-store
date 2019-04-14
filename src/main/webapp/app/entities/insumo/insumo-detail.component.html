@@ -1,11 +1,14 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="insumo">
-            <h2><span jhiTranslate="craftBeerStoreApp.insumo.detail.title">Insumo</span> {{insumo.id}}</h2>
+            <h2><span
+                jhiTranslate="craftBeerStoreApp.insumo.detail.title">Insumo</span> {{insumo.id}}
+            </h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</span></dt>
+                <dt><span jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</span>
+                </dt>
                 <dd>
                     <span>{{insumo.nombreInsumo}}</span>
                 </dd>
@@ -19,17 +22,21 @@
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span></dt>
                 <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.Unidad.' + insumo.unidad}}">{{insumo.unidad}}</span>
+                    <span
+                        jhiTranslate="{{'craftBeerStoreApp.Unidad.' + insumo.unidad}}">{{insumo.unidad}}</span>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.insumo.tipo">Tipo</span></dt>
                 <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumo.tipo}}">{{insumo.tipo}}</span>
+                    <span
+                        jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumo.tipo}}">{{insumo.tipo}}</span>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.insumo.imagen">Imagen</span></dt>
                 <dd>
                     <div *ngIf="insumo.imagen">
                         <a (click)="openFile(insumo.imagenContentType, insumo.imagen)">
-                            <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen" style="max-width: 100%;" alt="insumo image"/>
+                            <img
+                                [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen"
+                                style="max-width: 100%;" alt="insumo image"/>
                         </a>
                         {{insumo.imagenContentType}}, {{byteSize(insumo.imagen)}}
                     </div>
@@ -45,13 +52,15 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span
+                jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/insumo', insumo.id, 'edit']"
                     class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span
+                jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
     </div>

@@ -47,7 +47,10 @@ export class ProveedorDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ proveedor }) => {
             setTimeout(() => {
-                this.ngbModalRef = this.modalService.open(ProveedorDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef = this.modalService.open(ProveedorDeleteDialogComponent as Component, {
+                    size: 'lg',
+                    backdrop: 'static'
+                });
                 this.ngbModalRef.componentInstance.proveedor = proveedor;
                 this.ngbModalRef.result.then(
                     result => {

@@ -4,7 +4,7 @@ import { take } from 'rxjs/operators';
 
 /** @title Auto-resizing textarea */
 @Component({
-    selector: 'text-field-autosize-textarea-example',
+    selector: 'jhi-text-field-autosize-textarea-example',
     templateUrl: './text-field-autosize-textarea-example.html',
     styleUrls: ['./text-field-autosize-textarea-example.css']
 })

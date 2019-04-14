@@ -4,7 +4,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 
 /** @title Datepicker with different locale */
 @Component({
-    selector: 'datepicker-locale-example',
+    selector: 'jhi-datepicker-locale-example',
     templateUrl: 'datepicker-locale-example.html',
     styleUrls: ['datepicker-locale-example.css'],
     providers: [

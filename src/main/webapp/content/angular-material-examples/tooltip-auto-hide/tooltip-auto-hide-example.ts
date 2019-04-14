@@ -6,7 +6,7 @@ import { TooltipPosition } from '@angular/material';
  * @title Tooltip that demonstrates auto-hiding when it clips out of its scrolling container.
  */
 @Component({
-    selector: 'tooltip-auto-hide-example',
+    selector: 'jhi-tooltip-auto-hide-example',
     templateUrl: 'tooltip-auto-hide-example.html',
     styleUrls: ['tooltip-auto-hide-example.css']
 })

@@ -5,7 +5,7 @@ import { MatAccordion } from '@angular/material';
  * @title Accordion with expand/collapse all toggles
  */
 @Component({
-    selector: 'expansion-toggle-all-example',
+    selector: 'jhi-expansion-toggle-all-example',
     templateUrl: 'expansion-expand-collapse-all-example.html',
     styleUrls: ['expansion-expand-collapse-all-example.css']
 })

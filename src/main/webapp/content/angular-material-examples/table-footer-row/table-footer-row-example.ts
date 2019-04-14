@@ -9,7 +9,7 @@ export interface Transaction {
  * @title Footer row table
  */
 @Component({
-    selector: 'table-footer-row-example',
+    selector: 'jhi-table-footer-row-example',
     styleUrls: ['table-footer-row-example.css'],
     templateUrl: 'table-footer-row-example.html'
 })

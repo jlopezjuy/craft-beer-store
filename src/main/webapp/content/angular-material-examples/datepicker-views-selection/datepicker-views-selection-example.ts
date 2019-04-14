@@ -32,7 +32,7 @@ export const MY_FORMATS = {
 
 /** @title Datepicker emulating a Year and month picker */
 @Component({
-    selector: 'datepicker-views-selection-example',
+    selector: 'jhi-datepicker-views-selection-example',
     templateUrl: 'datepicker-views-selection-example.html',
     styleUrls: ['datepicker-views-selection-example.css'],
     providers: [

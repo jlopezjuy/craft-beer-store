@@ -6,7 +6,7 @@ import { TooltipPosition } from '@angular/material';
  * @title Tooltip with a custom position
  */
 @Component({
-    selector: 'tooltip-position-example',
+    selector: 'jhi-tooltip-position-example',
     templateUrl: 'tooltip-position-example.html',
     styleUrls: ['tooltip-position-example.css']
 })

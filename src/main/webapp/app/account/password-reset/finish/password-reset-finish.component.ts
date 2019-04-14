@@ -47,15 +47,20 @@ export class PasswordResetFinishComponent implements OnInit, AfterViewInit {
         if (this.resetAccount.password !== this.confirmPassword) {
             this.doNotMatch = 'ERROR';
         } else {
-            this.passwordResetFinishService.save({ key: this.key, newPassword: this.resetAccount.password }).subscribe(
-                () => {
-                    this.success = 'OK';
-                },
-                () => {
-                    this.success = null;
-                    this.error = 'ERROR';
-                }
-            );
+            this.passwordResetFinishService
+                .save({
+                    key: this.key,
+                    newPassword: this.resetAccount.password
+                })
+                .subscribe(
+                    () => {
+                        this.success = 'OK';
+                    },
+                    () => {
+                        this.success = null;
+                        this.error = 'ERROR';
+                    }
+                );
         }
     }
 

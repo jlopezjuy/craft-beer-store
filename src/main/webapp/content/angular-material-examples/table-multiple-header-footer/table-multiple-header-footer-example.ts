@@ -10,7 +10,7 @@ export interface Transaction {
  * @title Table with multiple header and footer rows
  */
 @Component({
-    selector: 'table-multiple-header-footer-example',
+    selector: 'jhi-table-multiple-header-footer-example',
     styleUrls: ['table-multiple-header-footer-example.css'],
     templateUrl: 'table-multiple-header-footer-example.html'
 })

@@ -28,7 +28,8 @@
                 <dd>{{user.createdDate | date:'dd/MM/yy HH:mm' }}</dd>
                 <dt><span jhiTranslate="userManagement.lastModifiedBy">Last Modified By</span></dt>
                 <dd>{{user.lastModifiedBy}}</dd>
-                <dt><span jhiTranslate="userManagement.lastModifiedDate">Last Modified Date</span></dt>
+                <dt><span jhiTranslate="userManagement.lastModifiedDate">Last Modified Date</span>
+                </dt>
                 <dd>{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</dd>
                 <dt><span jhiTranslate="userManagement.profiles">Profiles</span></dt>
                 <dd>
@@ -42,7 +43,8 @@
             <button type="submit"
                     routerLink="../../"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span
+                jhiTranslate="entity.action.back"> Back</span>
             </button>
         </div>
     </div>

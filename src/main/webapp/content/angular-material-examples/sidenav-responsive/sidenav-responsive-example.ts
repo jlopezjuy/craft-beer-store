@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 
 /** @title Responsive sidenav */
 @Component({
-    selector: 'sidenav-responsive-example',
+    selector: 'jhi-sidenav-responsive-example',
     templateUrl: 'sidenav-responsive-example.html',
     styleUrls: ['sidenav-responsive-example.css']
 })

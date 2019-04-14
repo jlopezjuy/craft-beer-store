@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
  * @title Stepper label bottom position
  */
 @Component({
-    selector: 'stepper-label-position-bottom-example',
+    selector: 'jhi-stepper-label-position-bottom-example',
     templateUrl: 'stepper-label-position-bottom-example.html',
     styleUrls: ['stepper-label-position-bottom-example.css']
 })

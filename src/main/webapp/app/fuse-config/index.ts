@@ -5,7 +5,7 @@
  * changed per component basis. See `app/main/pages/authentication/login/login.component.ts`
  * constructor method to learn more about changing these options per component basis.
  */
-import { FuseConfig } from '../../@fuse/types';
+import { FuseConfig } from '../../fuse/types';
 
 export const fuseConfig: FuseConfig = {
     // Color themes can be defined in src/app/app.theme.scss

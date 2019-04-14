@@ -1,10 +1,11 @@
 <!-- SIDE PANEL -->
-<ng-container *ngIf="!fuseConfig.layout.sidepanel.hidden && fuseConfig.layout.sidepanel.position === 'left'">
+<ng-container
+    *ngIf="!fuseConfig.layout.sidepanel.hidden && fuseConfig.layout.sidepanel.position === 'left'">
 
     <!-- CHAT PANEL -->
     <jhi-fuse-sidebar name="chatPanel" position="left" class="chat-panel left-chat-panel"
-                  [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false"
-                  lockedOpen="gt-md">
+                      [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false"
+                      lockedOpen="gt-md">
         <jhi-chat-panel></jhi-chat-panel>
     </jhi-fuse-sidebar>
     <!-- / CHAT PANEL -->
@@ -36,7 +37,7 @@
             </ng-container>
             <!-- / TOOLBAR: Below fixed -->
 
-            <div id="container-3" class="container" fusePerfectScrollbar
+            <div id="container-3" class="container" jhifusePerfectScrollbar
                  [fusePerfectScrollbarOptions]="{suppressScrollX: true, updateOnRouteChange : true}">
 
                 <!-- TOOLBAR: Below static -->
@@ -82,12 +83,13 @@
 </div>
 
 <!-- SIDE PANEL -->
-<ng-container *ngIf="!fuseConfig.layout.sidepanel.hidden && fuseConfig.layout.sidepanel.position === 'right'">
+<ng-container
+    *ngIf="!fuseConfig.layout.sidepanel.hidden && fuseConfig.layout.sidepanel.position === 'right'">
 
     <!-- CHAT PANEL -->
     <jhi-fuse-sidebar name="chatPanel" position="right" class="chat-panel right-chat-panel"
-                  [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false"
-                  lockedOpen="gt-md">
+                      [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false"
+                      lockedOpen="gt-md">
         <jhi-chat-panel></jhi-chat-panel>
     </jhi-fuse-sidebar>
     <!-- / CHAT PANEL -->
@@ -108,7 +110,7 @@
 <!-- TOOLBAR -->
 <ng-template #toolbar>
     <jhi-toolbar *ngIf="!fuseConfig.layout.toolbar.hidden"
-             [ngClass]="fuseConfig.layout.toolbar.customBackgroundColor === true ? fuseConfig.layout.toolbar.position + ' ' + fuseConfig.layout.toolbar.background : fuseConfig.layout.toolbar.position">
+                 [ngClass]="fuseConfig.layout.toolbar.customBackgroundColor === true ? fuseConfig.layout.toolbar.position + ' ' + fuseConfig.layout.toolbar.background : fuseConfig.layout.toolbar.position">
     </jhi-toolbar>
 </ng-template>
 <!-- / TOOLBAR -->
@@ -116,7 +118,7 @@
 <!-- FOOTER -->
 <ng-template #footer>
     <jhi-fuse-footer *ngIf="!fuseConfig.layout.footer.hidden"
-            [ngClass]="fuseConfig.layout.footer.customBackgroundColor === true ? fuseConfig.layout.footer.position + ' ' + fuseConfig.layout.footer.background : fuseConfig.layout.footer.position">
+                     [ngClass]="fuseConfig.layout.footer.customBackgroundColor === true ? fuseConfig.layout.footer.position + ' ' + fuseConfig.layout.footer.background : fuseConfig.layout.footer.position">
     </jhi-fuse-footer>
 </ng-template>
 <!-- / FOOTER -->
@@ -124,10 +126,11 @@
 <!-- LEFT NAVBAR -->
 <ng-template #leftNavbar>
     <jhi-fuse-sidebar name="navbar" class="navbar-fuse-sidebar"
-                  [folded]="fuseConfig.layout.navbar.folded"
-                  lockedOpen="gt-md"
-                  *ngIf="!fuseConfig.layout.navbar.hidden">
-        <jhi-fuse-navbar [variant]="fuseConfig.layout.navbar.variant" class="left-navbar"></jhi-fuse-navbar>
+                      [folded]="fuseConfig.layout.navbar.folded"
+                      lockedOpen="gt-md"
+                      *ngIf="!fuseConfig.layout.navbar.hidden">
+        <jhi-fuse-navbar [variant]="fuseConfig.layout.navbar.variant"
+                         class="left-navbar"></jhi-fuse-navbar>
     </jhi-fuse-sidebar>
 </ng-template>
 <!-- / LEFT NAVBAR -->
@@ -135,10 +138,11 @@
 <!-- RIGHT NAVBAR -->
 <ng-template #rightNavbar>
     <jhi-fuse-sidebar name="navbar" position="right" class="navbar-fuse-sidebar"
-                  [folded]="fuseConfig.layout.navbar.folded"
-                  lockedOpen="gt-md"
-                  *ngIf="!fuseConfig.layout.navbar.hidden">
-        <jhi-fuse-navbar [variant]="fuseConfig.layout.navbar.variant" class="right-navbar"></jhi-fuse-navbar>
+                      [folded]="fuseConfig.layout.navbar.folded"
+                      lockedOpen="gt-md"
+                      *ngIf="!fuseConfig.layout.navbar.hidden">
+        <jhi-fuse-navbar [variant]="fuseConfig.layout.navbar.variant"
+                         class="right-navbar"></jhi-fuse-navbar>
     </jhi-fuse-sidebar>
 </ng-template>
 <!-- / RIGHT NAVBAR -->

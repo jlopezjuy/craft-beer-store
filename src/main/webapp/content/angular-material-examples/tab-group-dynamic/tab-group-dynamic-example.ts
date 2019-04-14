@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
  * @title Tab group with dynamically changing tabs
  */
 @Component({
-    selector: 'tab-group-dynamic-example',
+    selector: 'jhi-tab-group-dynamic-example',
     templateUrl: 'tab-group-dynamic-example.html',
     styleUrls: ['tab-group-dynamic-example.css']
 })

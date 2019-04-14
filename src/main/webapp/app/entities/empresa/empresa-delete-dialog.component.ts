@@ -43,7 +43,10 @@ export class EmpresaDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ empresa }) => {
             setTimeout(() => {
-                this.ngbModalRef = this.modalService.open(EmpresaDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+                this.ngbModalRef = this.modalService.open(EmpresaDeleteDialogComponent as Component, {
+                    size: 'lg',
+                    backdrop: 'static'
+                });
                 this.ngbModalRef.componentInstance.empresa = empresa;
                 this.ngbModalRef.result.then(
                     result => {

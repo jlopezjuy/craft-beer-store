@@ -12,11 +12,13 @@ import { Subscription } from 'rxjs';
                     <pre [innerHTML]="alert.msg"></pre>
                 </ngb-alert>
             </div>
-        </div>`
+        </div>
+    `
 })
 export class JhiAlertErrorComponent implements OnDestroy {
     alerts: any[];
     cleanHttpErrorListener: Subscription;
+
     /* tslint:disable */
     constructor(private alertService: JhiAlertService, private eventManager: JhiEventManager, private translateService: TranslateService) {
         /* tslint:enable */

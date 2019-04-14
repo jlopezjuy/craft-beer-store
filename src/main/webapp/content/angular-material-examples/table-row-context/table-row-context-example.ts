@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
  * @title Table showing each row context properties.
  */
 @Component({
-    selector: 'table-row-context-example',
+    selector: 'jhi-table-row-context-example',
     styleUrls: ['table-row-context-example.css'],
     templateUrl: 'table-row-context-example.html'
 })

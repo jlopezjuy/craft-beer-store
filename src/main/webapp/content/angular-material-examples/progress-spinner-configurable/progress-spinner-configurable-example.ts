@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
  * @title Configurable progress spinner
  */
 @Component({
-    selector: 'progress-spinner-configurable-example',
+    selector: 'jhi-progress-spinner-configurable-example',
     templateUrl: 'progress-spinner-configurable-example.html',
     styleUrls: ['progress-spinner-configurable-example.css']
 })

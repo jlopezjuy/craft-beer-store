@@ -24,7 +24,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
  * @title Basic use of `<mat-table>` (uses display flex)
  */
 @Component({
-    selector: 'table-basic-flex-example',
+    selector: 'jhi-table-basic-flex-example',
     styleUrls: ['table-basic-flex-example.css'],
     templateUrl: 'table-basic-flex-example.html'
 })

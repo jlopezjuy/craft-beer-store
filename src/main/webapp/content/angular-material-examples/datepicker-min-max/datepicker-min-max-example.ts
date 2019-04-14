@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 /** @title Datepicker with min & max validation */
 @Component({
-    selector: 'datepicker-min-max-example',
+    selector: 'jhi-datepicker-min-max-example',
     templateUrl: 'datepicker-min-max-example.html',
     styleUrls: ['datepicker-min-max-example.css']
 })

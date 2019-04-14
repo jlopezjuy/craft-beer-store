@@ -5,6 +5,7 @@ import { NgbDateMomentAdapter } from './util/datepicker-adapter';
 import { CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
 
 import { JhMaterialModule } from 'app/shared/jh-material.module';
+
 @NgModule({
     imports: [JhMaterialModule, CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule],
     declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],
