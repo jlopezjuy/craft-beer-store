@@ -28,6 +28,10 @@ export class EmpresaService {
         return this.http.get<IEmpresa>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    findEmpresa(): Observable<EntityResponseType> {
+        return this.http.get<IEmpresa>(`${this.resourceUrl}/usuario`, { observe: 'response' });
+    }
+
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IEmpresa[]>(this.resourceUrl, { params: options, observe: 'response' });

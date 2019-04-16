@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { LoginModalService, AccountService, Account } from 'app/core';
+import { LoginModalService, AccountService, Account, UserService } from 'app/core';
+import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-home',
@@ -16,7 +18,9 @@ export class HomeComponent implements OnInit {
     constructor(
         private accountService: AccountService,
         private loginModalService: LoginModalService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private empresaService: EmpresaService,
+        private $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {
@@ -30,6 +34,9 @@ export class HomeComponent implements OnInit {
         this.eventManager.subscribe('authenticationSuccess', message => {
             this.accountService.identity().then(account => {
                 this.account = account;
+                this.empresaService.findEmpresa().subscribe(resp => {
+                    this.$localStorage.store('empresa', resp.body);
+                });
             });
         });
     }

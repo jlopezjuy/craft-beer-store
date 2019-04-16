@@ -110,4 +110,10 @@ public class EmpresaServiceImpl implements EmpresaService {
         return empresaSearchRepository.search(queryStringQuery(query), pageable)
             .map(empresaMapper::toDto);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<EmpresaDTO> findOne() {
+        return empresaRepository.findByUserIsCurrentUser().map(empresaMapper::toDto);
+    }
 }

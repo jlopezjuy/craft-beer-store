@@ -10,6 +10,7 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { InsumoService } from './insumo.service';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-insumo',
@@ -39,7 +40,8 @@ export class InsumoComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected dataUtils: JhiDataUtils,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        private $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -55,6 +57,7 @@ export class InsumoComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        const empresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
             this.insumoService
                 .search({
@@ -70,11 +73,14 @@ export class InsumoComponent implements OnInit, OnDestroy {
             return;
         }
         this.insumoService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
+            .query(
+                {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                },
+                empresa.id
+            )
             .subscribe(
                 (res: HttpResponse<IInsumo[]>) => this.paginateInsumos(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)

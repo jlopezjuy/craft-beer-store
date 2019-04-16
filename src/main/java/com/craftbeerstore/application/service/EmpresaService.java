@@ -53,4 +53,6 @@ public interface EmpresaService {
      * @return the list of entities
      */
     Page<EmpresaDTO> search(String query, Pageable pageable);
+
+    Optional<EmpresaDTO> findOne();
 }

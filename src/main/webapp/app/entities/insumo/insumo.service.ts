@@ -28,9 +28,9 @@ export class InsumoService {
         return this.http.get<IInsumo>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
+    query(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<IInsumo[]>(this.resourceUrl, { params: options, observe: 'response' });
+        return this.http.get<IInsumo[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' });
     }
 
     delete(id: number): Observable<HttpResponse<any>> {

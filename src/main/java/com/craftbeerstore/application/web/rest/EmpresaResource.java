@@ -108,6 +108,13 @@ public class EmpresaResource {
         return ResponseUtil.wrapOrNotFound(empresaDTO);
     }
 
+    @GetMapping("/empresas/usuario")
+    public ResponseEntity<EmpresaDTO> getEmpresa() {
+        log.debug("REST request to get Empresa by Loged User");
+        Optional<EmpresaDTO> empresaDTO = empresaService.findOne();
+        return ResponseUtil.wrapOrNotFound(empresaDTO);
+    }
+
     /**
      * DELETE  /empresas/:id : delete the "id" empresa.
      *
