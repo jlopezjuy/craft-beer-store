@@ -3,23 +3,23 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { IProducto } from 'app/shared/model/producto.model';
+import { IPresentacion } from 'app/shared/model/presentacion.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { ProductoService } from './producto.service';
+import { PresentacionService } from './presentacion.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IEmpresa } from 'app/shared/model/empresa.model';
+import { IProducto } from 'app/shared/model/producto.model';
 
 @Component({
-    selector: 'jhi-producto',
-    templateUrl: './producto.component.html'
+    selector: 'jhi-presentacion',
+    templateUrl: './presentacion.component.html'
 })
-export class ProductoComponent implements OnInit, OnDestroy {
+export class PresentacionComponent implements OnInit, OnDestroy {
     currentAccount: any;
-    productos: IProducto[];
+    presentacions: IPresentacion[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -34,12 +34,11 @@ export class ProductoComponent implements OnInit, OnDestroy {
     reverse: any;
 
     constructor(
-        protected productoService: ProductoService,
+        protected presentacionService: PresentacionService,
         protected parseLinks: JhiParseLinks,
         protected jhiAlertService: JhiAlertService,
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
-        protected dataUtils: JhiDataUtils,
         protected router: Router,
         protected eventManager: JhiEventManager,
         private $localStorage: LocalStorageService
@@ -58,9 +57,10 @@ export class ProductoComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
+        const producto: IProducto = this.$localStorage.retrieve('producto');
+        console.log(producto);
         if (this.currentSearch) {
-            this.productoService
+            this.presentacionService
                 .search({
                     page: this.page - 1,
                     query: this.currentSearch,
@@ -68,22 +68,22 @@ export class ProductoComponent implements OnInit, OnDestroy {
                     sort: this.sort()
                 })
                 .subscribe(
-                    (res: HttpResponse<IProducto[]>) => this.paginateProductos(res.body, res.headers),
+                    (res: HttpResponse<IPresentacion[]>) => this.paginatePresentacions(res.body, res.headers),
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
             return;
         }
-        this.productoService
+        this.presentacionService
             .query(
                 {
                     page: this.page - 1,
                     size: this.itemsPerPage,
                     sort: this.sort()
                 },
-                empresa.id
+                producto.id
             )
             .subscribe(
-                (res: HttpResponse<IProducto[]>) => this.paginateProductos(res.body, res.headers),
+                (res: HttpResponse<IPresentacion[]>) => this.paginatePresentacions(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -96,7 +96,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/producto'], {
+        this.router.navigate(['/presentacion'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -111,7 +111,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.page = 0;
         this.currentSearch = '';
         this.router.navigate([
-            '/producto',
+            '/presentacion',
             {
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -127,7 +127,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.page = 0;
         this.currentSearch = query;
         this.router.navigate([
-            '/producto',
+            '/presentacion',
             {
                 search: this.currentSearch,
                 page: this.page,
@@ -142,27 +142,19 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInProductos();
+        this.registerChangeInPresentacions();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: IProducto) {
+    trackId(index: number, item: IPresentacion) {
         return item.id;
     }
 
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
-
-    registerChangeInProductos() {
-        this.eventSubscriber = this.eventManager.subscribe('productoListModification', response => this.loadAll());
+    registerChangeInPresentacions() {
+        this.eventSubscriber = this.eventManager.subscribe('presentacionListModification', response => this.loadAll());
     }
 
     sort() {
@@ -173,19 +165,19 @@ export class ProductoComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    protected paginateProductos(data: IProducto[], headers: HttpHeaders) {
+    protected paginatePresentacions(data: IPresentacion[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-        this.productos = data;
+        this.presentacions = data;
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    goPresentacion(producto: IProducto) {
-        console.log(producto);
-        this.$localStorage.store('producto', producto);
-        this.router.navigate(['/presentacion']);
+    previousState() {
+        this.$localStorage.clear('producto');
+        console.log('se borro el producto');
+        window.history.back();
     }
 }

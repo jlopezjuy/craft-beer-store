@@ -1,0 +1,14 @@
+{
+    "craftBeerStoreApp": {
+        "TipoPresentacion": {
+            "null": "",
+            "BOTELLA_330": "BOTELLA_330",
+            "BOTELLA_355": "BOTELLA_355",
+            "BOTELLA_500": "BOTELLA_500",
+            "BOTELLA_1000": "BOTELLA_1000",
+            "BARRIL_20": "BARRIL_20",
+            "BARRIL_30": "BARRIL_30",
+            "BARRIL_50": "BARRIL_50"
+        }
+    }
+}

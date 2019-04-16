@@ -1,0 +1,25 @@
+{
+    "craftBeerStoreApp": {
+        "presentacion": {
+            "home": {
+                "title": "Presentacions",
+                "createLabel": "Crear nuevo Presentacion",
+                "createOrEditLabel": "Crear o editar Presentacion",
+                "search": "Search for Presentacion"
+            },
+            "created": "Un nuevo Presentacion ha sido creado con el identificador {{ param }}",
+            "updated": "Un Presentacion ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Presentacion ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Presentacion {{ id }}?"
+            },
+            "detail": {
+                "title": "Presentacion"
+            },
+            "tipoPresentacion": "Tipo Presentacion",
+            "cantidad": "Cantidad",
+            "fecha": "Fecha",
+            "producto": "Producto"
+        }
+    }
+}

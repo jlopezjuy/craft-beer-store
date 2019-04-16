@@ -9,10 +9,12 @@
     <include file="config/liquibase/changelog/20190408000453_added_entity_Insumo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408001803_added_entity_Producto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408003410_added_entity_Proveedor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190416033705_added_entity_Presentacion.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190407234855_added_entity_constraints_Empresa.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408000453_added_entity_constraints_Insumo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408001803_added_entity_constraints_Producto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408003410_added_entity_constraints_Proveedor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190416033705_added_entity_constraints_Presentacion.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

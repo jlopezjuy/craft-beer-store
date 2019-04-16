@@ -73,6 +73,10 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
+                        <button type="button" (click)="goPresentacion(producto)" class="btn btn-success">
+                            <fa-icon [icon]="'store'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="craftBeerStoreApp.producto.presentacion">Presentacion</span>
+                        </button>
                         <button type="submit"
                                 [routerLink]="['/', 'producto', { outlets: { popup: producto.id + '/delete'} }]"
                                 replaceUrl="true"

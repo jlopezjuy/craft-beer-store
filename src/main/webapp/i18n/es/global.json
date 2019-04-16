@@ -11,6 +11,7 @@
                 "insumo": "Insumo",
                 "producto": "Producto",
                 "proveedor": "Proveedor",
+                "presentacion": "Presentacion",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
