@@ -4,7 +4,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { IPresentacion } from 'app/shared/model/presentacion.model';
 import { PresentacionService } from './presentacion.service';
@@ -21,6 +20,7 @@ export class PresentacionUpdateComponent implements OnInit {
     isSaving: boolean;
 
     producto: IProducto;
+    fechaDp: any;
     fecha: string;
 
     constructor(
@@ -35,7 +35,6 @@ export class PresentacionUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ presentacion }) => {
             this.presentacion = presentacion;
-            this.fecha = this.presentacion.fecha != null ? this.presentacion.fecha.format(DATE_TIME_FORMAT) : null;
         });
         this.producto = this.$localStorage.retrieve('producto');
     }
@@ -47,7 +46,7 @@ export class PresentacionUpdateComponent implements OnInit {
     save() {
         this.presentacion.productoId = this.producto.id;
         this.isSaving = true;
-        this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_TIME_FORMAT) : null;
+        // this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_TIME_FORMAT) : null;
         if (this.presentacion.id !== undefined) {
             this.subscribeToSaveResponse(this.presentacionService.update(this.presentacion));
         } else {

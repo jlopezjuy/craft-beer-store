@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.TipoPresentacion;
@@ -41,9 +41,10 @@ public class Presentacion implements Serializable {
 
     @NotNull
     @Column(name = "fecha", nullable = false)
-    private Instant fecha;
+    private LocalDate fecha;
 
     @ManyToOne
+    @JsonIgnoreProperties("presentacions")
     private Producto producto;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -81,16 +82,16 @@ public class Presentacion implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Instant getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public Presentacion fecha(Instant fecha) {
+    public Presentacion fecha(LocalDate fecha) {
         this.fecha = fecha;
         return this;
     }
 
-    public void setFecha(Instant fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

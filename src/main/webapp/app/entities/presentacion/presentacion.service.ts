@@ -59,7 +59,7 @@ export class PresentacionService {
 
     protected convertDateFromClient(presentacion: IPresentacion): IPresentacion {
         const copy: IPresentacion = Object.assign({}, presentacion, {
-            fecha: presentacion.fecha != null && presentacion.fecha.isValid() ? presentacion.fecha.toJSON() : null
+            fecha: presentacion.fecha != null && presentacion.fecha.isValid() ? presentacion.fecha.format(DATE_FORMAT) : null
         });
         return copy;
     }

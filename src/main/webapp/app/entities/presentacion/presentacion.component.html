@@ -45,7 +45,7 @@
                 <td><a [routerLink]="['/presentacion', presentacion.id, 'view' ]">{{presentacion.id}}</a></td>
                 <td jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}">{{presentacion.tipoPresentacion}}</td>
                 <td>{{presentacion.cantidad}}</td>
-                <td>{{presentacion.fecha | date:'medium'}}</td>
+                <td>{{presentacion.fecha | date:'mediumDate'}}</td>
                 <td>
                     <div *ngIf="presentacion.productoId">
                         <a [routerLink]="['../producto', presentacion.productoId , 'view' ]" >{{presentacion.productoId}}</a>

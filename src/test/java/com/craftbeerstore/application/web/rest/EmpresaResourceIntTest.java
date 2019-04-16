@@ -3,6 +3,7 @@ package com.craftbeerstore.application.web.rest;
 import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.domain.User;
 import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.repository.search.EmpresaSearchRepository;
 import com.craftbeerstore.application.service.EmpresaService;
@@ -10,6 +11,7 @@ import com.craftbeerstore.application.service.dto.EmpresaDTO;
 import com.craftbeerstore.application.service.mapper.EmpresaMapper;
 import com.craftbeerstore.application.web.rest.errors.ExceptionTranslator;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,6 +62,29 @@ public class EmpresaResourceIntTest {
 
     private static final String DEFAULT_CORREO = "QV@4D\\DLSND";
     private static final String UPDATED_CORREO = "4@E\\[LFZCZ";
+
+    private static final String DEFAULT_LOGIN = "johndoe";
+    private static final String UPDATED_LOGIN = "jhipster";
+
+    private static final Long DEFAULT_ID = 1L;
+
+    private static final String DEFAULT_PASSWORD = "passjohndoe";
+    private static final String UPDATED_PASSWORD = "passjhipster";
+
+    private static final String DEFAULT_EMAIL = "johndoe@localhost";
+    private static final String UPDATED_EMAIL = "jhipster@localhost";
+
+    private static final String DEFAULT_FIRSTNAME = "john";
+    private static final String UPDATED_FIRSTNAME = "jhipsterFirstName";
+
+    private static final String DEFAULT_LASTNAME = "doe";
+    private static final String UPDATED_LASTNAME = "jhipsterLastName";
+
+    private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
+    private static final String UPDATED_IMAGEURL = "http://placehold.it/40x40";
+
+    private static final String DEFAULT_LANGKEY = "en";
+    private static final String UPDATED_LANGKEY = "fr";
 
     @Autowired
     private EmpresaRepository empresaRepository;
@@ -124,9 +149,29 @@ public class EmpresaResourceIntTest {
         return empresa;
     }
 
+    /**
+     * Create a User.
+     *
+     * This is a static method, as tests for other entities might also need it,
+     * if they test an entity which has a required relationship to the User entity.
+     */
+    public static User createUserEntity(EntityManager em) {
+        User user = new User();
+        user.setLogin(DEFAULT_LOGIN + RandomStringUtils.randomAlphabetic(5));
+        user.setPassword(RandomStringUtils.random(60));
+        user.setActivated(true);
+        user.setEmail(RandomStringUtils.randomAlphabetic(5) + DEFAULT_EMAIL);
+        user.setFirstName(DEFAULT_FIRSTNAME);
+        user.setLastName(DEFAULT_LASTNAME);
+        user.setImageUrl(DEFAULT_IMAGEURL);
+        user.setLangKey(DEFAULT_LANGKEY);
+        return user;
+    }
+
     @Before
     public void initTest() {
         empresa = createEntity(em);
+        empresa.user(createUserEntity(em));
     }
 
     @Test

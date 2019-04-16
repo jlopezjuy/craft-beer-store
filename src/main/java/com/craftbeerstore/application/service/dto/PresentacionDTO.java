@@ -1,5 +1,5 @@
 package com.craftbeerstore.application.service.dto;
-import java.time.Instant;
+import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,7 +19,7 @@ public class PresentacionDTO implements Serializable {
     private Long cantidad;
 
     @NotNull
-    private Instant fecha;
+    private LocalDate fecha;
 
 
     private Long productoId;
@@ -48,11 +48,11 @@ public class PresentacionDTO implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Instant getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Instant fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

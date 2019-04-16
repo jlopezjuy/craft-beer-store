@@ -28,8 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,8 +58,8 @@ public class PresentacionResourceIntTest {
     private static final Long DEFAULT_CANTIDAD = 1L;
     private static final Long UPDATED_CANTIDAD = 2L;
 
-    private static final Instant DEFAULT_FECHA = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_FECHA = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final LocalDate DEFAULT_FECHA = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FECHA = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private PresentacionRepository presentacionRepository;
