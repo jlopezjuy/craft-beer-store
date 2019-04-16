@@ -65,7 +65,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Transactional(readOnly = true)
     public Page<EmpresaDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Empresas");
-        return empresaRepository.findAll(pageable)
+        return empresaRepository.findByUserIsCurrentUser(pageable)
             .map(empresaMapper::toDto);
     }
 
