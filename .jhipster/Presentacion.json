@@ -28,7 +28,7 @@
         },
         {
             "fieldName": "fecha",
-            "fieldType": "Instant",
+            "fieldType": "LocalDate",
             "fieldValidateRules": [
                 "required"
             ]

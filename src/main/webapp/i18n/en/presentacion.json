@@ -2,10 +2,10 @@
     "craftBeerStoreApp": {
         "presentacion": {
             "home": {
-                "title": "Presentacions",
-                "createLabel": "Create a new Presentacion",
-                "createOrEditLabel": "Create or edit a Presentacion",
-                "search": "Search for Presentacion"
+                "title": "Presentaciones",
+                "createLabel": "Create a new Presentación",
+                "createOrEditLabel": "Create or edit a Presentación",
+                "search": "Search for Presentación"
             },
             "created": "A new Presentacion is created with identifier {{ param }}",
             "updated": "A Presentacion is updated with identifier {{ param }}",
