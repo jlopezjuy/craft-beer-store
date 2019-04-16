@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ProveedorService } from './proveedor.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { IEmpresa } from 'app/shared/model/empresa.model';
 
 @Component({
     selector: 'jhi-proveedor',
@@ -39,7 +41,8 @@ export class ProveedorComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected dataUtils: JhiDataUtils,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        private $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -55,6 +58,7 @@ export class ProveedorComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
             this.proveedorService
                 .search({
@@ -70,11 +74,14 @@ export class ProveedorComponent implements OnInit, OnDestroy {
             return;
         }
         this.proveedorService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
+            .query(
+                {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                },
+                empresa.id
+            )
             .subscribe(
                 (res: HttpResponse<IProveedor[]>) => this.paginateProveedors(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)

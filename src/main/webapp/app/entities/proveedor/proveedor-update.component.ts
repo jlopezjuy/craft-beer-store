@@ -9,6 +9,7 @@ import { IProveedor } from 'app/shared/model/proveedor.model';
 import { ProveedorService } from './proveedor.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-proveedor-update',
@@ -18,7 +19,7 @@ export class ProveedorUpdateComponent implements OnInit {
     proveedor: IProveedor;
     isSaving: boolean;
 
-    empresas: IEmpresa[];
+    empresa: IEmpresa;
     fechaAltaDp: any;
 
     constructor(
@@ -26,7 +27,8 @@ export class ProveedorUpdateComponent implements OnInit {
         protected jhiAlertService: JhiAlertService,
         protected proveedorService: ProveedorService,
         protected empresaService: EmpresaService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        private $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {
@@ -34,13 +36,7 @@ export class ProveedorUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ proveedor }) => {
             this.proveedor = proveedor;
         });
-        this.empresaService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IEmpresa[]>) => response.body)
-            )
-            .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.empresa = this.$localStorage.retrieve('empresa');
     }
 
     byteSize(field) {
@@ -60,6 +56,7 @@ export class ProveedorUpdateComponent implements OnInit {
     }
 
     save() {
+        this.proveedor.empresaId = this.empresa.id;
         this.isSaving = true;
         if (this.proveedor.id !== undefined) {
             this.subscribeToSaveResponse(this.proveedorService.update(this.proveedor));

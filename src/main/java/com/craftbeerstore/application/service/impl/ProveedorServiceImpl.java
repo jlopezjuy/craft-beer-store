@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.ProveedorService;
 import com.craftbeerstore.application.domain.Proveedor;
 import com.craftbeerstore.application.repository.ProveedorRepository;
@@ -33,10 +35,15 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     private final ProveedorSearchRepository proveedorSearchRepository;
 
-    public ProveedorServiceImpl(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper, ProveedorSearchRepository proveedorSearchRepository) {
+    private final EmpresaRepository empresaRepository;
+
+    public ProveedorServiceImpl(ProveedorRepository proveedorRepository,
+        ProveedorMapper proveedorMapper, ProveedorSearchRepository proveedorSearchRepository,
+        EmpresaRepository empresaRepository) {
         this.proveedorRepository = proveedorRepository;
         this.proveedorMapper = proveedorMapper;
         this.proveedorSearchRepository = proveedorSearchRepository;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -67,6 +74,18 @@ public class ProveedorServiceImpl implements ProveedorService {
         log.debug("Request to get all Proveedors");
         return proveedorRepository.findAll(pageable)
             .map(proveedorMapper::toDto);
+    }
+
+    /**
+     *
+     * @param pageable
+     * @param empresaId
+     * @return
+     */
+    @Override
+    public Page<ProveedorDTO> findAllByEmpresa(Pageable pageable, Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return proveedorRepository.findAllByEmpresa(pageable, empresa).map(proveedorMapper::toDto);
     }
 
 

@@ -54,7 +54,7 @@ public class Proveedor implements Serializable {
     private String domicilio;
 
     @NotNull
-    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")
+    @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     @Column(name = "email", nullable = false)
     private String email;
 

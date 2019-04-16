@@ -96,6 +96,20 @@ public class ProductoResource {
     }
 
     /**
+     * GET /productos/empresa/{empresaId} : get all the productos by empresa
+     * @param pageable the pagination information
+     * @param empresaId the id of empresaDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and the list of productos by empresa in body
+     */
+    @GetMapping("/productos/empresa/{empresaId}")
+    public ResponseEntity<List<ProductoDTO>> getAllProductosByEmpresa(Pageable pageable, @PathVariable Long empresaId){
+        log.debug("REST request to get a page of Productos by empresa");
+        Page<ProductoDTO> page = productoService.findAllByEmpresa(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/productos/empresa/{empresaId}");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * GET  /productos/:id : get the "id" producto.
      *
      * @param id the id of the productoDTO to retrieve

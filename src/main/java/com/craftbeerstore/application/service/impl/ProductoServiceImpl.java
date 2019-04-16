@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.ProductoService;
 import com.craftbeerstore.application.domain.Producto;
 import com.craftbeerstore.application.repository.ProductoRepository;
@@ -33,10 +35,15 @@ public class ProductoServiceImpl implements ProductoService {
 
     private final ProductoSearchRepository productoSearchRepository;
 
-    public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper, ProductoSearchRepository productoSearchRepository) {
+    private final EmpresaRepository empresaRepository;
+
+    public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper,
+        ProductoSearchRepository productoSearchRepository,
+        EmpresaRepository empresaRepository) {
         this.productoRepository = productoRepository;
         this.productoMapper = productoMapper;
         this.productoSearchRepository = productoSearchRepository;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -67,6 +74,12 @@ public class ProductoServiceImpl implements ProductoService {
         log.debug("Request to get all Productos");
         return productoRepository.findAll(pageable)
             .map(productoMapper::toDto);
+    }
+
+    @Override
+    public Page<ProductoDTO> findAllByEmpresa(Pageable pageable, Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return productoRepository.findAllByEmpresa(pageable, empresa).map(productoMapper::toDto);
     }
 
 

@@ -39,10 +39,10 @@ export class ProveedorService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
+    query(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http
-            .get<IProveedor[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .get<IProveedor[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
