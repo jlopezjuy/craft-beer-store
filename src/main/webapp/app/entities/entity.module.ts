@@ -35,6 +35,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'cliente',
                 loadChildren: './cliente/cliente.module#CraftBeerStoreClienteModule'
+            },
+            {
+                path: 'movimientos',
+                loadChildren: './movimientos/movimientos.module#CraftBeerStoreMovimientosModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

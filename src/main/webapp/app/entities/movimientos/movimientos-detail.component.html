@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="movimientos">
+            <h2><span jhiTranslate="craftBeerStoreApp.movimientos.detail.title">Movimientos</span> {{movimientos.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientos.tipoMovimiento">Tipo Movimiento</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoMovimiento.' + movimientos.tipoMovimiento}}">{{movimientos.tipoMovimiento}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientos.fechaMovimiento">Fecha Movimiento</span></dt>
+                <dd>
+                    <span>{{movimientos.fechaMovimiento}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientos.precioTotal">Precio Total</span></dt>
+                <dd>
+                    <span>{{movimientos.precioTotal}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento">Numero Movimiento</span></dt>
+                <dd>
+                    <span>{{movimientos.numeroMovimiento}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientos.estado">Estado</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoMovimiento.' + movimientos.estado}}">{{movimientos.estado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientos.cliente">Cliente</span></dt>
+                <dd>
+                    <div *ngIf="movimientos.clienteId">
+                        <a [routerLink]="['/cliente', movimientos.clienteId, 'view']">{{movimientos.clienteNombeApellido}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientos.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="movimientos.empresaId">
+                        <a [routerLink]="['/empresa', movimientos.empresaId, 'view']">{{movimientos.empresaNombreEmpresa}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/movimientos', movimientos.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-movimientos-heading" jhiTranslate="craftBeerStoreApp.movimientos.home.createOrEditLabel">Create or edit a Movimientos</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!movimientos.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="movimientos.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientos.tipoMovimiento" for="field_tipoMovimiento">Tipo Movimiento</label>
+                    <select class="form-control" name="tipoMovimiento" [(ngModel)]="movimientos.tipoMovimiento" id="field_tipoMovimiento"  required>
+                        <option value="PRESUPUESTO">{{'craftBeerStoreApp.TipoMovimiento.PRESUPUESTO' | translate}}</option>
+                        <option value="VENTA">{{'craftBeerStoreApp.TipoMovimiento.VENTA' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.tipoMovimiento?.dirty && editForm.controls.tipoMovimiento?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.tipoMovimiento?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientos.fechaMovimiento" for="field_fechaMovimiento">Fecha Movimiento</label>
+                    <div class="input-group">
+                        <input id="field_fechaMovimiento" type="text" class="form-control" name="fechaMovimiento" ngbDatepicker  #fechaMovimientoDp="ngbDatepicker" [(ngModel)]="movimientos.fechaMovimiento"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaMovimientoDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.fechaMovimiento?.dirty && editForm.controls.fechaMovimiento?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.fechaMovimiento?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientos.precioTotal" for="field_precioTotal">Precio Total</label>
+                    <input type="number" class="form-control" name="precioTotal" id="field_precioTotal"
+                        [(ngModel)]="movimientos.precioTotal" required/>
+                    <div [hidden]="!(editForm.controls.precioTotal?.dirty && editForm.controls.precioTotal?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.precioTotal?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.precioTotal?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento" for="field_numeroMovimiento">Numero Movimiento</label>
+                    <input type="text" class="form-control" name="numeroMovimiento" id="field_numeroMovimiento"
+                        [(ngModel)]="movimientos.numeroMovimiento" required/>
+                    <div [hidden]="!(editForm.controls.numeroMovimiento?.dirty && editForm.controls.numeroMovimiento?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.numeroMovimiento?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientos.estado" for="field_estado">Estado</label>
+                    <select class="form-control" name="estado" [(ngModel)]="movimientos.estado" id="field_estado"  required>
+                        <option value="ACTIVO">{{'craftBeerStoreApp.EstadoMovimiento.ACTIVO' | translate}}</option>
+                        <option value="INACTIVO">{{'craftBeerStoreApp.EstadoMovimiento.INACTIVO' | translate}}</option>
+                        <option value="ENTREGADO">{{'craftBeerStoreApp.EstadoMovimiento.ENTREGADO' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.estado?.dirty && editForm.controls.estado?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.estado?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientos.cliente" for="field_cliente">Cliente</label>
+                    <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="movimientos.clienteId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.nombeApellido}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientos.empresa" for="field_empresa">Empresa</label>
+                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="movimientos.empresaId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.nombreEmpresa}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
