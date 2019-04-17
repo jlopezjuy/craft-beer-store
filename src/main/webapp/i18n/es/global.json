@@ -12,6 +12,7 @@
                 "producto": "Producto",
                 "proveedor": "Proveedor",
                 "presentacion": "Presentación",
+                "cliente": "Cliente",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
