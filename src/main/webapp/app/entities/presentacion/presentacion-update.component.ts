@@ -74,4 +74,16 @@ export class PresentacionUpdateComponent implements OnInit {
     trackProductoById(index: number, item: IProducto) {
         return item.id;
     }
+
+    changePrecioUnitario() {
+        if(this.presentacion.cantidad) {
+            this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
+        }
+    }
+
+    changePrecioVenta() {
+        if(this.presentacion.cantidad) {
+            this.presentacion.precioTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
+        }
+    }
 }

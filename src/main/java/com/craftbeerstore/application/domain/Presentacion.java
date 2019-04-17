@@ -56,6 +56,10 @@ public class Presentacion implements Serializable {
     @Column(name = "precio_total", precision = 10, scale = 2, nullable = false)
     private BigDecimal precioTotal;
 
+    @NotNull
+    @Column(name = "precio_costo_total", precision = 10, scale = 2, nullable = false)
+    private BigDecimal precioCostoTotal;
+
     @ManyToOne
     @JsonIgnoreProperties("presentacions")
     private Producto producto;
@@ -147,6 +151,19 @@ public class Presentacion implements Serializable {
         this.precioTotal = precioTotal;
     }
 
+    public BigDecimal getPrecioCostoTotal() {
+        return precioCostoTotal;
+    }
+
+    public Presentacion precioCostoTotal(BigDecimal precioCostoTotal) {
+        this.precioCostoTotal = precioCostoTotal;
+        return this;
+    }
+
+    public void setPrecioCostoTotal(BigDecimal precioCostoTotal) {
+        this.precioCostoTotal = precioCostoTotal;
+    }
+
     public Producto getProducto() {
         return producto;
     }
@@ -191,6 +208,7 @@ public class Presentacion implements Serializable {
             ", costoUnitario=" + getCostoUnitario() +
             ", precioVentaUnitario=" + getPrecioVentaUnitario() +
             ", precioTotal=" + getPrecioTotal() +
+            ", precioCostoTotal=" + getPrecioCostoTotal() +
             "}";
     }
 }

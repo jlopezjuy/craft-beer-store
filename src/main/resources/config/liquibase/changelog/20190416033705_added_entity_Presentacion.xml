@@ -46,6 +46,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="precio_costo_total" type="decimal(10,2)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="producto_id" type="bigint">
                 <constraints nullable="true" />
             </column>

@@ -31,6 +31,9 @@ public class PresentacionDTO implements Serializable {
     @NotNull
     private BigDecimal precioTotal;
 
+    @NotNull
+    private BigDecimal precioCostoTotal;
+
 
     private Long productoId;
 
@@ -90,6 +93,14 @@ public class PresentacionDTO implements Serializable {
         this.precioTotal = precioTotal;
     }
 
+    public BigDecimal getPrecioCostoTotal() {
+        return precioCostoTotal;
+    }
+
+    public void setPrecioCostoTotal(BigDecimal precioCostoTotal) {
+        this.precioCostoTotal = precioCostoTotal;
+    }
+
     public Long getProductoId() {
         return productoId;
     }
@@ -129,6 +140,7 @@ public class PresentacionDTO implements Serializable {
             ", costoUnitario=" + getCostoUnitario() +
             ", precioVentaUnitario=" + getPrecioVentaUnitario() +
             ", precioTotal=" + getPrecioTotal() +
+            ", precioCostoTotal=" + getPrecioCostoTotal() +
             ", producto=" + getProductoId() +
             "}";
     }

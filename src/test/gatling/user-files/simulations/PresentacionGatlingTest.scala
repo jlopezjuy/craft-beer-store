@@ -78,6 +78,7 @@ class PresentacionGatlingTest extends Simulation {
                 , "costoUnitario":"0"
                 , "precioVentaUnitario":"0"
                 , "precioTotal":"0"
+                , "precioCostoTotal":"0"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_presentacion_url"))).exitHereIfFailed

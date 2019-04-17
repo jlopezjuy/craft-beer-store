@@ -8,7 +8,7 @@
             "relationshipType": "many-to-one",
             "relationshipValidateRules": [],
             "otherEntityField": "id",
-            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "presentacion"
         }
     ],
@@ -51,6 +51,13 @@
         },
         {
             "fieldName": "precioTotal",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "precioCostoTotal",
             "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"

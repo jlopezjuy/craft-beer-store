@@ -18,6 +18,7 @@ export interface IPresentacion {
     costoUnitario?: number;
     precioVentaUnitario?: number;
     precioTotal?: number;
+    precioCostoTotal?: number;
     productoId?: number;
 }
 
@@ -30,6 +31,7 @@ export class Presentacion implements IPresentacion {
         public costoUnitario?: number,
         public precioVentaUnitario?: number,
         public precioTotal?: number,
+        public precioCostoTotal?: number,
         public productoId?: number
     ) {}
 }
