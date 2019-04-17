@@ -96,6 +96,21 @@ public class MovimientosResource {
     }
 
     /**
+     * GET /movimientos : get all the movimientos by Empresa
+     *
+     * @param pageable the pagination information.
+     * @param empresaId the id of empresa entity
+     * @return the ResponseEntity eith status 200 (OK) and the list of movimientos by emprsa in body
+     */
+    @GetMapping("/movimientos/empresa/{empresaId}")
+    public ResponseEntity<List<MovimientosDTO>> getAllMovimientosByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Movimientos by Empresa");
+        Page<MovimientosDTO> page = movimientosService.findAll(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/movimientos/empresa/{empresaId}");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * GET  /movimientos/:id : get the "id" movimientos.
      *
      * @param id the id of the movimientosDTO to retrieve

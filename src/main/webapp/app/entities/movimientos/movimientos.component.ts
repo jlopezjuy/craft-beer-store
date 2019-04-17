@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { MovimientosService } from './movimientos.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import {IEmpresa} from 'app/shared/model/empresa.model';
 
 @Component({
     selector: 'jhi-movimientos',
@@ -38,7 +40,8 @@ export class MovimientosComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        protected $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -54,6 +57,8 @@ export class MovimientosComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
+        console.log(empresa);
         if (this.currentSearch) {
             this.movimientosService
                 .search({
@@ -73,7 +78,7 @@ export class MovimientosComponent implements OnInit, OnDestroy {
                 page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort()
-            })
+            }, empresa.id)
             .subscribe(
                 (res: HttpResponse<IMovimientos[]>) => this.paginateMovimientos(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)

@@ -28,6 +28,15 @@ public interface MovimientosService {
      */
     Page<MovimientosDTO> findAll(Pageable pageable);
 
+    /**
+     * Get all movimientos by empresa
+     *
+     * @param pageable the pagination information
+     * @param empresaId the id of empresa entity
+     * @return the list of entities
+     */
+    Page<MovimientosDTO> findAll(Pageable pageable, Long empresaId);
+
 
     /**
      * Get the "id" movimientos.

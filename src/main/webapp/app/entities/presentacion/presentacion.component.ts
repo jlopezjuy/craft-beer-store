@@ -178,7 +178,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
 
     previousState() {
         this.$localStorage.clear('producto');
-        console.log('se borro el producto');
         window.history.back();
     }
 }

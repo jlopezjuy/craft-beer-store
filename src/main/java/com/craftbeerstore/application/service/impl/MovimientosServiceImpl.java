@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.MovimientosService;
 import com.craftbeerstore.application.domain.Movimientos;
 import com.craftbeerstore.application.repository.MovimientosRepository;
@@ -33,10 +35,16 @@ public class MovimientosServiceImpl implements MovimientosService {
 
     private final MovimientosSearchRepository movimientosSearchRepository;
 
-    public MovimientosServiceImpl(MovimientosRepository movimientosRepository, MovimientosMapper movimientosMapper, MovimientosSearchRepository movimientosSearchRepository) {
+    private final EmpresaRepository empresaRepository;
+
+    public MovimientosServiceImpl(MovimientosRepository movimientosRepository,
+        MovimientosMapper movimientosMapper,
+        MovimientosSearchRepository movimientosSearchRepository,
+        EmpresaRepository empresaRepository) {
         this.movimientosRepository = movimientosRepository;
         this.movimientosMapper = movimientosMapper;
         this.movimientosSearchRepository = movimientosSearchRepository;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -66,6 +74,13 @@ public class MovimientosServiceImpl implements MovimientosService {
     public Page<MovimientosDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Movimientos");
         return movimientosRepository.findAll(pageable)
+            .map(movimientosMapper::toDto);
+    }
+
+    @Override
+    public Page<MovimientosDTO> findAll(Pageable pageable, Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return movimientosRepository.findAllByEmpresa(pageable, empresa)
             .map(movimientosMapper::toDto);
     }
 

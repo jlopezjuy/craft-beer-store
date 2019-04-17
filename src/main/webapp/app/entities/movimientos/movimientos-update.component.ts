@@ -11,6 +11,7 @@ import { ICliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from 'app/entities/cliente';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-movimientos-update',
@@ -22,7 +23,7 @@ export class MovimientosUpdateComponent implements OnInit {
 
     clientes: ICliente[];
 
-    empresas: IEmpresa[];
+    empresa: IEmpresa;
     fechaMovimientoDp: any;
 
     constructor(
@@ -30,7 +31,8 @@ export class MovimientosUpdateComponent implements OnInit {
         protected movimientosService: MovimientosService,
         protected clienteService: ClienteService,
         protected empresaService: EmpresaService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        private $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {
@@ -38,20 +40,15 @@ export class MovimientosUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ movimientos }) => {
             this.movimientos = movimientos;
         });
+        this.empresa = this.$localStorage.retrieve('empresa');
         this.clienteService
-            .query()
+            .query(null, this.empresa.id)
             .pipe(
                 filter((mayBeOk: HttpResponse<ICliente[]>) => mayBeOk.ok),
                 map((response: HttpResponse<ICliente[]>) => response.body)
             )
             .subscribe((res: ICliente[]) => (this.clientes = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.empresaService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IEmpresa[]>) => response.body)
-            )
-            .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+
     }
 
     previousState() {
@@ -59,6 +56,7 @@ export class MovimientosUpdateComponent implements OnInit {
     }
 
     save() {
+        this.movimientos.empresaId = this.empresa.id;
         this.isSaving = true;
         if (this.movimientos.id !== undefined) {
             this.subscribeToSaveResponse(this.movimientosService.update(this.movimientos));
