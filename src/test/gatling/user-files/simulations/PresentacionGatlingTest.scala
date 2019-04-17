@@ -75,6 +75,9 @@ class PresentacionGatlingTest extends Simulation {
                 , "tipoPresentacion":"BOTELLA_330"
                 , "cantidad":null
                 , "fecha":"2020-01-01T00:00:00.000Z"
+                , "costoUnitario":"0"
+                , "precioVentaUnitario":"0"
+                , "precioTotal":"0"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_presentacion_url"))).exitHereIfFailed

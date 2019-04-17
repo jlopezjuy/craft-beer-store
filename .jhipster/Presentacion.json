@@ -7,7 +7,9 @@
             "otherEntityName": "producto",
             "relationshipType": "many-to-one",
             "relationshipValidateRules": [],
-            "otherEntityField": "id"
+            "otherEntityField": "id",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "presentacion"
         }
     ],
     "fields": [
@@ -29,6 +31,27 @@
         {
             "fieldName": "fecha",
             "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "costoUnitario",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "precioVentaUnitario",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "precioTotal",
+            "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"
             ]

@@ -2,6 +2,7 @@ package com.craftbeerstore.application.service.dto;
 import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import com.craftbeerstore.application.domain.enumeration.TipoPresentacion;
 
@@ -20,6 +21,15 @@ public class PresentacionDTO implements Serializable {
 
     @NotNull
     private LocalDate fecha;
+
+    @NotNull
+    private BigDecimal costoUnitario;
+
+    @NotNull
+    private BigDecimal precioVentaUnitario;
+
+    @NotNull
+    private BigDecimal precioTotal;
 
 
     private Long productoId;
@@ -54,6 +64,30 @@ public class PresentacionDTO implements Serializable {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+    public BigDecimal getCostoUnitario() {
+        return costoUnitario;
+    }
+
+    public void setCostoUnitario(BigDecimal costoUnitario) {
+        this.costoUnitario = costoUnitario;
+    }
+
+    public BigDecimal getPrecioVentaUnitario() {
+        return precioVentaUnitario;
+    }
+
+    public void setPrecioVentaUnitario(BigDecimal precioVentaUnitario) {
+        this.precioVentaUnitario = precioVentaUnitario;
+    }
+
+    public BigDecimal getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(BigDecimal precioTotal) {
+        this.precioTotal = precioTotal;
     }
 
     public Long getProductoId() {
@@ -92,6 +126,9 @@ public class PresentacionDTO implements Serializable {
             ", tipoPresentacion='" + getTipoPresentacion() + "'" +
             ", cantidad=" + getCantidad() +
             ", fecha='" + getFecha() + "'" +
+            ", costoUnitario=" + getCostoUnitario() +
+            ", precioVentaUnitario=" + getPrecioVentaUnitario() +
+            ", precioTotal=" + getPrecioTotal() +
             ", producto=" + getProductoId() +
             "}";
     }

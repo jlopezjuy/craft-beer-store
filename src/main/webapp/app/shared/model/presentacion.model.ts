@@ -15,6 +15,9 @@ export interface IPresentacion {
     tipoPresentacion?: TipoPresentacion;
     cantidad?: number;
     fecha?: Moment;
+    costoUnitario?: number;
+    precioVentaUnitario?: number;
+    precioTotal?: number;
     productoId?: number;
 }
 
@@ -24,6 +27,9 @@ export class Presentacion implements IPresentacion {
         public tipoPresentacion?: TipoPresentacion,
         public cantidad?: number,
         public fecha?: Moment,
+        public costoUnitario?: number,
+        public precioVentaUnitario?: number,
+        public precioTotal?: number,
         public productoId?: number
     ) {}
 }

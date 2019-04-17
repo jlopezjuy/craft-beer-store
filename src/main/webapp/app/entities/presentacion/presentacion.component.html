@@ -36,6 +36,10 @@
             <th jhiSortBy="tipoPresentacion"><span jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cantidad"><span jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="fecha"><span jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="costoUnitario"><span jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario">Costo Unitario</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="precioVentaUnitario"><span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario">Precio Venta Unitario</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="precioTotal"><span jhiTranslate="craftBeerStoreApp.presentacion.precioTotal">Recio Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="productoId"><span jhiTranslate="craftBeerStoreApp.presentacion.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th></th>
             </tr>
             </thead>
@@ -45,6 +49,14 @@
                 <td jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}">{{presentacion.tipoPresentacion}}</td>
                 <td>{{presentacion.cantidad}}</td>
                 <td>{{presentacion.fecha | date:'mediumDate'}}</td>
+                <td>{{presentacion.costoUnitario}}</td>
+                <td>{{presentacion.precioVentaUnitario}}</td>
+                <td>{{presentacion.precioTotal}}</td>
+                <!--<td>-->
+                    <!--<div *ngIf="presentacion.productoId">-->
+                        <!--<a [routerLink]="['../producto', presentacion.productoId , 'view' ]" >{{presentacion.productoId}}</a>-->
+                    <!--</div>-->
+                <!--</td>-->
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

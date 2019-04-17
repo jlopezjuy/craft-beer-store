@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Presentacion(0, TipoPresentacion.BOTELLA_330, 0, currentDate);
+            elemDefault = new Presentacion(0, TipoPresentacion.BOTELLA_330, 0, currentDate, 0, 0, 0);
         });
 
         describe('Service methods', async () => {
@@ -72,7 +72,10 @@ describe('Service Tests', () => {
                     {
                         tipoPresentacion: 'BBBBBB',
                         cantidad: 1,
-                        fecha: currentDate.format(DATE_FORMAT)
+                        fecha: currentDate.format(DATE_FORMAT),
+                        costoUnitario: 1,
+                        precioVentaUnitario: 1,
+                        precioTotal: 1
                     },
                     elemDefault
                 );
@@ -96,7 +99,10 @@ describe('Service Tests', () => {
                     {
                         tipoPresentacion: 'BBBBBB',
                         cantidad: 1,
-                        fecha: currentDate.format(DATE_FORMAT)
+                        fecha: currentDate.format(DATE_FORMAT),
+                        costoUnitario: 1,
+                        precioVentaUnitario: 1,
+                        precioTotal: 1
                     },
                     elemDefault
                 );

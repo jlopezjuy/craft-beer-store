@@ -10,6 +10,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -42,6 +43,18 @@ public class Presentacion implements Serializable {
     @NotNull
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
+
+    @NotNull
+    @Column(name = "costo_unitario", precision = 10, scale = 2, nullable = false)
+    private BigDecimal costoUnitario;
+
+    @NotNull
+    @Column(name = "precio_venta_unitario", precision = 10, scale = 2, nullable = false)
+    private BigDecimal precioVentaUnitario;
+
+    @NotNull
+    @Column(name = "precio_total", precision = 10, scale = 2, nullable = false)
+    private BigDecimal precioTotal;
 
     @ManyToOne
     @JsonIgnoreProperties("presentacions")
@@ -95,6 +108,45 @@ public class Presentacion implements Serializable {
         this.fecha = fecha;
     }
 
+    public BigDecimal getCostoUnitario() {
+        return costoUnitario;
+    }
+
+    public Presentacion costoUnitario(BigDecimal costoUnitario) {
+        this.costoUnitario = costoUnitario;
+        return this;
+    }
+
+    public void setCostoUnitario(BigDecimal costoUnitario) {
+        this.costoUnitario = costoUnitario;
+    }
+
+    public BigDecimal getPrecioVentaUnitario() {
+        return precioVentaUnitario;
+    }
+
+    public Presentacion precioVentaUnitario(BigDecimal precioVentaUnitario) {
+        this.precioVentaUnitario = precioVentaUnitario;
+        return this;
+    }
+
+    public void setPrecioVentaUnitario(BigDecimal precioVentaUnitario) {
+        this.precioVentaUnitario = precioVentaUnitario;
+    }
+
+    public BigDecimal getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public Presentacion precioTotal(BigDecimal precioTotal) {
+        this.precioTotal = precioTotal;
+        return this;
+    }
+
+    public void setPrecioTotal(BigDecimal precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
     public Producto getProducto() {
         return producto;
     }
@@ -136,6 +188,9 @@ public class Presentacion implements Serializable {
             ", tipoPresentacion='" + getTipoPresentacion() + "'" +
             ", cantidad=" + getCantidad() +
             ", fecha='" + getFecha() + "'" +
+            ", costoUnitario=" + getCostoUnitario() +
+            ", precioVentaUnitario=" + getPrecioVentaUnitario() +
+            ", precioTotal=" + getPrecioTotal() +
             "}";
     }
 }

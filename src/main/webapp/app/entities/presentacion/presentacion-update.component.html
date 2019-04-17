@@ -58,6 +58,51 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario" for="field_costoUnitario">Costo Unitario</label>
+                    <input type="number" class="form-control" name="costoUnitario" id="field_costoUnitario"
+                        [(ngModel)]="presentacion.costoUnitario" required/>
+                    <div [hidden]="!(editForm.controls.costoUnitario?.dirty && editForm.controls.costoUnitario?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.costoUnitario?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.costoUnitario?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario" for="field_precioVentaUnitario">Precio Venta Unitario</label>
+                    <input type="number" class="form-control" name="precioVentaUnitario" id="field_precioVentaUnitario"
+                        [(ngModel)]="presentacion.precioVentaUnitario" required/>
+                    <div [hidden]="!(editForm.controls.precioVentaUnitario?.dirty && editForm.controls.precioVentaUnitario?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.precioVentaUnitario?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.precioVentaUnitario?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.presentacion.precioTotal" for="field_precioTotal">Recio Total</label>
+                    <input type="number" class="form-control" name="precioTotal" id="field_precioTotal"
+                        [(ngModel)]="presentacion.precioTotal" required/>
+                    <div [hidden]="!(editForm.controls.precioTotal?.dirty && editForm.controls.precioTotal?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.precioTotal?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.precioTotal?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <!--<label class="form-control-label" jhiTranslate="craftBeerStoreApp.presentacion.producto" for="field_producto">Producto</label>-->
