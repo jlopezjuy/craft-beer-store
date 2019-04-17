@@ -32,6 +32,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    producto: IProducto;
 
     constructor(
         protected presentacionService: PresentacionService,
@@ -57,8 +58,8 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        const producto: IProducto = this.$localStorage.retrieve('producto');
-        console.log(producto);
+        this.producto = this.$localStorage.retrieve('producto');
+        console.log(this.producto);
         if (this.currentSearch) {
             this.presentacionService
                 .search({
@@ -80,7 +81,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
                     size: this.itemsPerPage,
                     sort: this.sort()
                 },
-                producto.id
+                this.producto.id
             )
             .subscribe(
                 (res: HttpResponse<IPresentacion[]>) => this.paginatePresentacions(res.body, res.headers),

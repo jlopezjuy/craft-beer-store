@@ -35,7 +35,6 @@
             <th jhiSortBy="tipoCliente"><span jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="telefono"><span jhiTranslate="craftBeerStoreApp.cliente.telefono">Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="correo"><span jhiTranslate="craftBeerStoreApp.cliente.correo">Correo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empresaId"><span jhiTranslate="craftBeerStoreApp.cliente.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -47,11 +46,6 @@
                 <td jhiTranslate="{{'craftBeerStoreApp.TipoCliente.' + cliente.tipoCliente}}">{{cliente.tipoCliente}}</td>
                 <td>{{cliente.telefono}}</td>
                 <td>{{cliente.correo}}</td>
-                <td>
-                    <div *ngIf="cliente.empresaId">
-                        <a [routerLink]="['../empresa', cliente.empresaId , 'view' ]" >{{cliente.empresaId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

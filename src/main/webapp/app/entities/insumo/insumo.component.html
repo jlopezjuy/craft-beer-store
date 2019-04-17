@@ -36,7 +36,6 @@
             <th jhiSortBy="unidad"><span jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.insumo.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="imagen"><span jhiTranslate="craftBeerStoreApp.insumo.imagen">Imagen</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empresaId"><span jhiTranslate="craftBeerStoreApp.insumo.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -53,11 +52,6 @@
                         <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen" style="max-height: 30px;" alt="insumo image"/>
                     </a>
                     <span *ngIf="insumo.imagen">{{insumo.imagenContentType}}, {{byteSize(insumo.imagen)}}</span>
-                </td>
-                <td>
-                    <div *ngIf="insumo.empresaId">
-                        <a [routerLink]="['../empresa', insumo.empresaId , 'view' ]" >{{insumo.empresaId}}</a>
-                    </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
