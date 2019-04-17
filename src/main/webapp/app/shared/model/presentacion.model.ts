@@ -20,6 +20,10 @@ export interface IPresentacion {
     precioTotal?: number;
     precioCostoTotal?: number;
     productoId?: number;
+    /**
+     * transient
+     */
+    nombreComercial?: string;
 }
 
 export class Presentacion implements IPresentacion {
@@ -32,6 +36,10 @@ export class Presentacion implements IPresentacion {
         public precioVentaUnitario?: number,
         public precioTotal?: number,
         public precioCostoTotal?: number,
-        public productoId?: number
+        public productoId?: number,
+        /**
+         * transient
+         */
+        public nombreComercial?: string
     ) {}
 }

@@ -19,6 +19,11 @@ export interface IProducto {
     imagenContentType?: string;
     imagen?: any;
     empresaId?: number;
+    /**
+     * transient
+     */
+    presentacionId?: number;
+    cantidadPresentacion?: number;
 }
 
 export class Producto implements IProducto {
@@ -31,6 +36,11 @@ export class Producto implements IProducto {
         public tipoProducto?: TipoProducto,
         public imagenContentType?: string,
         public imagen?: any,
-        public empresaId?: number
+        public empresaId?: number,
+        /**
+         * transient
+         */
+        public presentacionId?: number,
+        public cantidadPresentacion?: number
     ) {}
 }
