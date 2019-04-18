@@ -15,11 +15,12 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-6">
+                            {{isEditable}}
                             <label class="form-control-label"
                                    jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento"
                                    for="field_numeroMovimiento">Numero Movimiento</label>
                             <input type="text" class="form-control" name="numeroMovimiento"
-                                   id="field_numeroMovimiento"
+                                   id="field_numeroMovimiento" [disabled]="!isEditable"
                                    [(ngModel)]="movimientos.numeroMovimiento" required/>
                             <div
                                 [hidden]="!(editForm.controls.numeroMovimiento?.dirty && editForm.controls.numeroMovimiento?.invalid)">
@@ -34,7 +35,7 @@
                             <label class="form-control-label"
                                    jhiTranslate="craftBeerStoreApp.movimientos.estado"
                                    for="field_estado">Estado</label>
-                            <select class="form-control" name="estado"
+                            <select class="form-control" name="estado" [disabled]="!isEditable"
                                     [(ngModel)]="movimientos.estado" id="field_estado" required>
                                 <option
                                     value="ACTIVO">{{'craftBeerStoreApp.EstadoMovimiento.ACTIVO' | translate}}</option>
@@ -58,7 +59,7 @@
                             <label class="form-control-label"
                                    jhiTranslate="craftBeerStoreApp.movimientos.cliente"
                                    for="field_cliente">Cliente</label>
-                            <select class="form-control" id="field_cliente" name="cliente"
+                            <select class="form-control" id="field_cliente" name="cliente" [disabled]="!isEditable"
                                     [(ngModel)]="movimientos.clienteId">
                                 <option [ngValue]="null"></option>
                                 <option [ngValue]="clienteOption.id"
@@ -72,7 +73,7 @@
                             <label class="form-control-label"
                                    jhiTranslate="craftBeerStoreApp.movimientos.tipoMovimiento"
                                    for="field_tipoMovimiento">Tipo Movimiento</label>
-                            <select class="form-control" name="tipoMovimiento"
+                            <select class="form-control" name="tipoMovimiento" [disabled]="!isEditable"
                                     [(ngModel)]="movimientos.tipoMovimiento"
                                     id="field_tipoMovimiento" required>
                                 <option
@@ -95,7 +96,7 @@
                                    for="field_fechaMovimiento">Fecha Movimiento</label>
                             <div class="input-group">
                                 <input id="field_fechaMovimiento" type="text" class="form-control"
-                                       name="fechaMovimiento" ngbDatepicker
+                                       name="fechaMovimiento" ngbDatepicker [disabled]="!isEditable"
                                        #fechaMovimientoDp="ngbDatepicker"
                                        [(ngModel)]="movimientos.fechaMovimiento"
                                        required/>
@@ -116,8 +117,8 @@
                         </div>
                     </div>
                     <br/>
-                    <div class="row">
-                        <div class="container">
+                    <div class="row" [hidden]="!isEditable">
+                        <div class="container" *ngIf="!movimientos.id">
                             <div class="card bg-info text-white">
                                 <div class="card-body">
                                     <div class="row">
@@ -253,7 +254,7 @@
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
                     jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="button" id="save-entity" (click)="saveMovimiento()"
+                <button type="button" id="save-entity" (click)="saveMovimiento()" [hidden]="movimientos.id"
                         [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
                     jhiTranslate="entity.action.save">Save</span>

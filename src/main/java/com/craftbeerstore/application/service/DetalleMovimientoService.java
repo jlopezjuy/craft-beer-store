@@ -53,4 +53,12 @@ public interface DetalleMovimientoService {
      * @return the list of entities
      */
     Page<DetalleMovimientoDTO> search(String query, Pageable pageable);
+
+    /**
+     *
+     * @param pageable
+     * @param movimientoId
+     * @return
+     */
+    Page<DetalleMovimientoDTO> findAllByMovimiento(Pageable pageable, Long movimientoId);
 }

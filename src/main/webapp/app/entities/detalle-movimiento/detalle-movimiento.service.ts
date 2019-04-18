@@ -33,6 +33,14 @@ export class DetalleMovimientoService {
         return this.http.get<IDetalleMovimiento[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
+    queryByMovimiento(req?: any, movimientoId?: number): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http.get<IDetalleMovimiento[]>(`${this.resourceUrl}/movimiento/${movimientoId}`, {
+            params: options,
+            observe: 'response'
+        });
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

@@ -95,6 +95,14 @@ public class DetalleMovimientoResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/detalle-movimientos/movimiento/{movimientoId}")
+    public ResponseEntity<List<DetalleMovimientoDTO>> getAllDetalleMovimientosByMovimiento(Pageable pageable, @PathVariable Long movimientoId){
+        log.debug("REST request to get a page of DetalleMovimientos by Movimiento");
+        Page<DetalleMovimientoDTO> page = detalleMovimientoService.findAllByMovimiento(pageable, movimientoId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/detalle-movimientos/movimiento/{movimientoId}");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     /**
      * GET  /detalle-movimientos/:id : get the "id" detalleMovimiento.
      *

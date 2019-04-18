@@ -12,7 +12,7 @@ import { ClienteService } from 'app/entities/cliente';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IPresentacion } from 'app/shared/model/presentacion.model';
+import { IPresentacion, Presentacion } from 'app/shared/model/presentacion.model';
 import { ProductoService } from 'app/entities/producto';
 import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { PresentacionService } from 'app/entities/presentacion';
@@ -36,6 +36,7 @@ export class MovimientosUpdateComponent implements OnInit {
     productoId: number;
     productos: IProducto[];
     productoSave: Producto;
+    isEditable: boolean;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -54,6 +55,10 @@ export class MovimientosUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ movimientos }) => {
             this.movimientos = movimientos;
             this.movimientos.precioTotal = this.movimientos.precioTotal === undefined ? 0 : this.movimientos.precioTotal;
+            this.isEditable = this.movimientos.id === undefined ? true : false;
+            if (this.movimientos.id !== undefined) {
+                this.loadAllOnEdit();
+            }
         });
         this.empresa = this.$localStorage.retrieve('empresa');
         this.clienteService
@@ -126,7 +131,6 @@ export class MovimientosUpdateComponent implements OnInit {
     productoChange(value: number) {
         if (value && value.toString() !== 'null') {
             this.presentacionService.query(null, value).subscribe(resp => {
-                console.log(resp);
                 this.presentacionesAdd = resp.body;
             });
         } else {
@@ -137,20 +141,15 @@ export class MovimientosUpdateComponent implements OnInit {
     }
 
     presentacionChange(value: any) {
-        console.log(value);
         this.presentacionService.find(value).subscribe(response => {
-            console.log(response.body);
             this.productoSave.precioUnitario = response.body.precioVentaUnitario;
         });
     }
 
     addPresentacion() {
-        console.log(this.productoSave);
         this.presentacionService.find(this.productoSave.presentacionId).subscribe(resp => {
             this.productoService.find(resp.body.productoId).subscribe(prod => {
-                console.log(resp);
                 const pres = resp.body;
-                console.log(pres);
                 pres.cantidad = this.productoSave.cantidadPresentacion;
                 pres.nombreComercial = prod.body.nombreComercial;
                 pres.precioTotal = pres.cantidad * pres.precioVentaUnitario;
@@ -163,5 +162,25 @@ export class MovimientosUpdateComponent implements OnInit {
 
     saveMovimiento() {
         this.save();
+    }
+
+    loadAllOnEdit() {
+        this.detalleMovimientoService.queryByMovimiento(null, this.movimientos.id).subscribe(detalle => {
+            console.log(detalle.body);
+
+            detalle.body.forEach(det => {
+                const presentacion: IPresentacion = new Presentacion();
+                presentacion.cantidad = det.cantidad;
+                presentacion.precioTotal = det.precioTotal;
+                this.presentacionService.find(det.presentacionId).subscribe(presen => {
+                    presentacion.tipoPresentacion = presen.body.tipoPresentacion;
+                    this.productoService.find(presen.body.productoId).subscribe(prod => {
+                        presentacion.nombreComercial = prod.body.nombreComercial;
+                    });
+                });
+
+                this.presentacions.push(presentacion);
+            });
+        });
     }
 }

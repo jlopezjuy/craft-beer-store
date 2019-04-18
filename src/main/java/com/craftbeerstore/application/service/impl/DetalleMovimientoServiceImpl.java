@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Movimientos;
+import com.craftbeerstore.application.repository.MovimientosRepository;
 import com.craftbeerstore.application.service.DetalleMovimientoService;
 import com.craftbeerstore.application.domain.DetalleMovimiento;
 import com.craftbeerstore.application.repository.DetalleMovimientoRepository;
@@ -33,10 +35,16 @@ public class DetalleMovimientoServiceImpl implements DetalleMovimientoService {
 
     private final DetalleMovimientoSearchRepository detalleMovimientoSearchRepository;
 
-    public DetalleMovimientoServiceImpl(DetalleMovimientoRepository detalleMovimientoRepository, DetalleMovimientoMapper detalleMovimientoMapper, DetalleMovimientoSearchRepository detalleMovimientoSearchRepository) {
+    private final MovimientosRepository movimientosRepository;
+
+    public DetalleMovimientoServiceImpl(DetalleMovimientoRepository detalleMovimientoRepository,
+        DetalleMovimientoMapper detalleMovimientoMapper,
+        DetalleMovimientoSearchRepository detalleMovimientoSearchRepository,
+        MovimientosRepository movimientosRepository) {
         this.detalleMovimientoRepository = detalleMovimientoRepository;
         this.detalleMovimientoMapper = detalleMovimientoMapper;
         this.detalleMovimientoSearchRepository = detalleMovimientoSearchRepository;
+        this.movimientosRepository = movimientosRepository;
     }
 
     /**
@@ -108,6 +116,19 @@ public class DetalleMovimientoServiceImpl implements DetalleMovimientoService {
     public Page<DetalleMovimientoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of DetalleMovimientos for query {}", query);
         return detalleMovimientoSearchRepository.search(queryStringQuery(query), pageable)
+            .map(detalleMovimientoMapper::toDto);
+    }
+
+    /**
+     *
+     * @param pageable
+     * @param movimientoId
+     * @return
+     */
+    @Override
+    public Page<DetalleMovimientoDTO> findAllByMovimiento(Pageable pageable, Long movimientoId) {
+        Movimientos movimientos = this.movimientosRepository.getOne(movimientoId);
+        return detalleMovimientoRepository.findAllByMovimientos(pageable, movimientos)
             .map(detalleMovimientoMapper::toDto);
     }
 }
