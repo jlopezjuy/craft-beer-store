@@ -227,7 +227,7 @@
                                    jhiTranslate="craftBeerStoreApp.movimientos.precioTotal"
                                    for="field_precioTotal">Precio Total</label>
                             <input type="number" class="form-control" name="precioTotal"
-                                   id="field_precioTotal"
+                                   id="field_precioTotal" disabled
                                    [(ngModel)]="movimientos.precioTotal" required/>
                             <div
                                 [hidden]="!(editForm.controls.precioTotal?.dirty && editForm.controls.precioTotal?.invalid)">

@@ -36,7 +36,6 @@
             <th jhiSortBy="numeroMovimiento"><span jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento">Numero Movimiento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="estado"><span jhiTranslate="craftBeerStoreApp.movimientos.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="clienteNombeApellido"><span jhiTranslate="craftBeerStoreApp.movimientos.cliente">Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empresaNombreEmpresa"><span jhiTranslate="craftBeerStoreApp.movimientos.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -53,25 +52,20 @@
                         <a [routerLink]="['../cliente', movimientos.clienteId , 'view' ]" >{{movimientos.clienteNombeApellido}}</a>
                     </div>
                 </td>
-                <td>
-                    <div *ngIf="movimientos.empresaId">
-                        <a [routerLink]="['../empresa', movimientos.empresaId , 'view' ]" >{{movimientos.empresaNombreEmpresa}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/movimientos', movimientos.id, 'view' ]"
+                                [routerLink]="['/movimientos', movimientos.id, 'edit' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/movimientos', movimientos.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
+                        <!--<button type="submit"-->
+                                <!--[routerLink]="['/movimientos', movimientos.id, 'edit']"-->
+                                <!--class="btn btn-primary btn-sm">-->
+                            <!--<fa-icon [icon]="'pencil-alt'"></fa-icon>-->
+                            <!--<span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>-->
+                        <!--</button>-->
                         <button type="submit"
                                 [routerLink]="['/', 'movimientos', { outlets: { popup: movimientos.id + '/delete'} }]"
                                 replaceUrl="true"
