@@ -16,6 +16,8 @@ import { IPresentacion } from 'app/shared/model/presentacion.model';
 import { ProductoService } from 'app/entities/producto';
 import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { PresentacionService } from 'app/entities/presentacion';
+import { DetalleMovimientoService } from 'app/entities/detalle-movimiento';
+import { DetalleMovimiento } from 'app/shared/model/detalle-movimiento.model';
 
 @Component({
     selector: 'jhi-movimientos-update',
@@ -43,6 +45,7 @@ export class MovimientosUpdateComponent implements OnInit {
         protected activatedRoute: ActivatedRoute,
         protected productoService: ProductoService,
         protected presentacionService: PresentacionService,
+        protected detalleMovimientoService: DetalleMovimientoService,
         private $localStorage: LocalStorageService
     ) {}
 
@@ -50,6 +53,7 @@ export class MovimientosUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ movimientos }) => {
             this.movimientos = movimientos;
+            this.movimientos.precioTotal = this.movimientos.precioTotal === undefined ? 0 : this.movimientos.precioTotal;
         });
         this.empresa = this.$localStorage.retrieve('empresa');
         this.clienteService
@@ -85,11 +89,21 @@ export class MovimientosUpdateComponent implements OnInit {
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IMovimientos>>) {
-        result.subscribe((res: HttpResponse<IMovimientos>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<IMovimientos>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    protected onSaveSuccess() {
+    protected onSaveSuccess(res: HttpResponse<IMovimientos>) {
         this.isSaving = false;
+        const movimiento: IMovimientos = res.body;
+        const movimientoId = movimiento.id;
+        this.presentacions.forEach(pres => {
+            const detalle: DetalleMovimiento = new DetalleMovimiento();
+            detalle.movimientosId = movimientoId;
+            detalle.presentacionId = pres.id;
+            detalle.cantidad = pres.cantidad;
+            detalle.precioTotal = pres.precioTotal;
+            this.detalleMovimientoService.create(detalle).subscribe(det => {});
+        });
         this.previousState();
     }
 
@@ -109,16 +123,25 @@ export class MovimientosUpdateComponent implements OnInit {
         return item.id;
     }
 
-    productoChange(value: any) {
-        console.dir(value.toString());
-        this.presentacionService.query(null, value).subscribe(resp => {
-            console.log(resp);
-            this.presentacionesAdd = resp.body;
-        });
+    productoChange(value: number) {
+        if (value && value.toString() !== 'null') {
+            this.presentacionService.query(null, value).subscribe(resp => {
+                console.log(resp);
+                this.presentacionesAdd = resp.body;
+            });
+        } else {
+            this.presentacionesAdd = [];
+            this.productoSave.precioUnitario = null;
+            this.productoSave.cantidadPresentacion = null;
+        }
     }
 
     presentacionChange(value: any) {
         console.log(value);
+        this.presentacionService.find(value).subscribe(response => {
+            console.log(response.body);
+            this.productoSave.precioUnitario = response.body.precioVentaUnitario;
+        });
     }
 
     addPresentacion() {
@@ -131,8 +154,14 @@ export class MovimientosUpdateComponent implements OnInit {
                 pres.cantidad = this.productoSave.cantidadPresentacion;
                 pres.nombreComercial = prod.body.nombreComercial;
                 pres.precioTotal = pres.cantidad * pres.precioVentaUnitario;
+                pres.movimientoId = resp.body.movimientoId;
                 this.presentacions.push(pres);
+                this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioTotal;
             });
         });
+    }
+
+    saveMovimiento() {
+        this.save();
     }
 }

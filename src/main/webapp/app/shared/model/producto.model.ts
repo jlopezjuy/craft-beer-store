@@ -24,6 +24,8 @@ export interface IProducto {
      */
     presentacionId?: number;
     cantidadPresentacion?: number;
+    precioUnitario?: number;
+    movimientoId?: number;
 }
 
 export class Producto implements IProducto {
@@ -41,6 +43,8 @@ export class Producto implements IProducto {
          * transient
          */
         public presentacionId?: number,
-        public cantidadPresentacion?: number
+        public cantidadPresentacion?: number,
+        public precioUnitario?: number,
+        public movimientoId?: number
     ) {}
 }

@@ -24,6 +24,7 @@ export interface IPresentacion {
      * transient
      */
     nombreComercial?: string;
+    movimientoId?: number;
 }
 
 export class Presentacion implements IPresentacion {
@@ -40,6 +41,7 @@ export class Presentacion implements IPresentacion {
         /**
          * transient
          */
-        public nombreComercial?: string
+        public nombreComercial?: string,
+        public movimientoId?: number
     ) {}
 }

@@ -1,6 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <!--<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">-->
+        <form name="editForm" role="form" novalidate #editForm="ngForm">
             <h2 id="jhi-movimientos-heading"
                 jhiTranslate="craftBeerStoreApp.movimientos.home.createOrEditLabel">Create or edit a
                 Movimientos</h2>
@@ -114,9 +115,10 @@
                             </div>
                         </div>
                     </div>
+                    <br/>
                     <div class="row">
                         <div class="container">
-                            <div class="card bg-secondary text-white">
+                            <div class="card bg-info text-white">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-6">
@@ -139,7 +141,7 @@
                                                     name="presentacion" #presentacion
                                                     [(ngModel)]="productoSave.presentacionId"
                                                     (change)="presentacionChange($event.target.value)">
-                                                <option [value]="null"></option>
+                                                <option [value]=""></option>
                                                 <option [value]="presentacionOption.id"
                                                         *ngFor="let presentacionOption of presentacionesAdd; trackBy: trackProductoById">
                                                 <span
@@ -167,8 +169,14 @@
 
                                         </div>
                                         <div class="col-6">
-                                            <button type="button" class="btn btn-default" (click)="addPresentacion()"> agregar</button>
+                                            <label class="form-control-label" jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario" for="field_precioVentaUnitario">Precio Venta Unitario</label>
+                                            <input type="number" class="form-control" name="precioVentaUnitario" id="field_precioVentaUnitario"
+                                                   [(ngModel)]="productoSave.precioUnitario" disabled/>
                                         </div>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <button type="button" class="btn btn-success" (click)="addPresentacion()"> Agregar</button>
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +253,7 @@
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
                     jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity"
+                <button type="button" id="save-entity" (click)="saveMovimiento()"
                         [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
                     jhiTranslate="entity.action.save">Save</span>
