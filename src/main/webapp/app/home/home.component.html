@@ -20,6 +20,24 @@
                 <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>&nbsp;
                 <a class="alert-link" routerLink="register" jhiTranslate="global.messages.info.register.link">Register a new account</a>
             </div>
+
+
+            <div *ngSwitchCase="true">
+                <div class="row" *ngIf="!noEmpresa">
+                    <div>
+                        <h1 class="display-4" jhiTranslate="home.configurarEmpresa">No configuro aun su cuenta empresa!</h1>
+                    </div>
+                    <br/>
+                </div>
+                <div class="row" *ngIf="!noEmpresa">
+                    <div class="alert alert-warning">
+                        <a class="alert-link" (click)="goNewEmpresa()" jhiTranslate="home.newEmpresa">Register a new account</a>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
 
         <p jhiTranslate="home.question">
