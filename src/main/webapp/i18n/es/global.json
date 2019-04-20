@@ -140,5 +140,5 @@
         "idexists": "A new {{entityName}} cannot already have an ID",
         "idnull": "Invalid ID"
     },
-    "footer": "pie de página"
+    "footer": "CraftBeerStore Derechos reservados"
 }
