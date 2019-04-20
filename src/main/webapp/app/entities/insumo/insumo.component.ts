@@ -73,7 +73,7 @@ export class InsumoComponent implements OnInit, OnDestroy {
             return;
         }
         this.insumoService
-            .query(
+            .queryByEmpresa(
                 {
                     page: this.page - 1,
                     size: this.itemsPerPage,

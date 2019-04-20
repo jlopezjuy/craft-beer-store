@@ -74,7 +74,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
             return;
         }
         this.productoService
-            .query(
+            .queryByEmpresa(
                 {
                     page: this.page - 1,
                     size: this.itemsPerPage,

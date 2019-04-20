@@ -75,7 +75,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
             return;
         }
         this.presentacionService
-            .query(
+            .queryByProducto(
                 {
                     page: this.page - 1,
                     size: this.itemsPerPage,

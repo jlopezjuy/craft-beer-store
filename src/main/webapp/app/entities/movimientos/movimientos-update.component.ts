@@ -62,7 +62,7 @@ export class MovimientosUpdateComponent implements OnInit {
         });
         this.empresa = this.$localStorage.retrieve('empresa');
         this.clienteService
-            .query(null, this.empresa.id)
+            .queryByEmpresa(null, this.empresa.id)
             .pipe(
                 filter((mayBeOk: HttpResponse<ICliente[]>) => mayBeOk.ok),
                 map((response: HttpResponse<ICliente[]>) => response.body)
@@ -70,7 +70,7 @@ export class MovimientosUpdateComponent implements OnInit {
             .subscribe((res: ICliente[]) => (this.clientes = res), (res: HttpErrorResponse) => this.onError(res.message));
 
         this.productoService
-            .query(null, this.empresa.id)
+            .queryByEmpresa(null, this.empresa.id)
             .pipe(
                 filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IProducto[]>) => response.body)
@@ -128,9 +128,13 @@ export class MovimientosUpdateComponent implements OnInit {
         return item.id;
     }
 
+    trackProductoById(index: number, item: IProducto) {
+        return item.id;
+    }
+
     productoChange(value: number) {
         if (value && value.toString() !== 'null') {
-            this.presentacionService.query(null, value).subscribe(resp => {
+            this.presentacionService.queryByProducto(null, value).subscribe(resp => {
                 this.presentacionesAdd = resp.body;
             });
         } else {

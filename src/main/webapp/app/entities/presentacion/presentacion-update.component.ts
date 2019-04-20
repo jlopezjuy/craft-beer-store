@@ -76,13 +76,13 @@ export class PresentacionUpdateComponent implements OnInit {
     }
 
     changePrecioUnitario() {
-        if(this.presentacion.cantidad) {
+        if (this.presentacion.cantidad) {
             this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
         }
     }
 
     changePrecioVenta() {
-        if(this.presentacion.cantidad) {
+        if (this.presentacion.cantidad) {
             this.presentacion.precioTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
         }
     }

@@ -74,7 +74,7 @@ export class ProveedorComponent implements OnInit, OnDestroy {
             return;
         }
         this.proveedorService
-            .query(
+            .queryByEmpresa(
                 {
                     page: this.page - 1,
                     size: this.itemsPerPage,

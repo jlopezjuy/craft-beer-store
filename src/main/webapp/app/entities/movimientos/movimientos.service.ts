@@ -39,7 +39,14 @@ export class MovimientosService {
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
     }
 
-    query(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
+    query(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http
+            .get<IMovimientos[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http
             .get<IMovimientos[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' })

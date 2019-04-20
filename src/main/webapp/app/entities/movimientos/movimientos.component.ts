@@ -11,7 +11,7 @@ import { AccountService } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { MovimientosService } from './movimientos.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import {IEmpresa} from 'app/shared/model/empresa.model';
+import { IEmpresa } from 'app/shared/model/empresa.model';
 
 @Component({
     selector: 'jhi-movimientos',
@@ -74,11 +74,14 @@ export class MovimientosComponent implements OnInit, OnDestroy {
             return;
         }
         this.movimientosService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            }, empresa.id)
+            .queryByEmpresa(
+                {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                },
+                empresa.id
+            )
             .subscribe(
                 (res: HttpResponse<IMovimientos[]>) => this.paginateMovimientos(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)

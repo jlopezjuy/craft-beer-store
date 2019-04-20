@@ -73,7 +73,7 @@ export class ClienteComponent implements OnInit, OnDestroy {
             return;
         }
         this.clienteService
-            .query(
+            .queryByEmpresa(
                 {
                     page: this.page - 1,
                     size: this.itemsPerPage,
