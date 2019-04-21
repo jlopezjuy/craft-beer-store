@@ -8,6 +8,7 @@ import { ICliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from './cliente.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-cliente-update',
@@ -17,13 +18,14 @@ export class ClienteUpdateComponent implements OnInit {
     cliente: ICliente;
     isSaving: boolean;
 
-    empresas: IEmpresa[];
+    empresa: IEmpresa;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected clienteService: ClienteService,
         protected empresaService: EmpresaService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        private $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {
@@ -31,13 +33,7 @@ export class ClienteUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ cliente }) => {
             this.cliente = cliente;
         });
-        this.empresaService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IEmpresa[]>) => response.body)
-            )
-            .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.empresa = this.$localStorage.retrieve('empresa');
     }
 
     previousState() {
@@ -45,6 +41,7 @@ export class ClienteUpdateComponent implements OnInit {
     }
 
     save() {
+        this.cliente.empresaId = this.empresa.id;
         this.isSaving = true;
         if (this.cliente.id !== undefined) {
             this.subscribeToSaveResponse(this.clienteService.update(this.cliente));

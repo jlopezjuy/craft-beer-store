@@ -184,7 +184,6 @@ export class ProductoComponent implements OnInit, OnDestroy {
     }
 
     goPresentacion(producto: IProducto) {
-        console.log(producto);
         this.$localStorage.store('producto', producto);
         this.router.navigate(['/presentacion']);
     }

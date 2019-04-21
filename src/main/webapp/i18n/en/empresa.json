@@ -20,7 +20,8 @@
             "direccion": "Direccion",
             "telefono": "Telefono",
             "correo": "Correo",
-            "user": "User"
+            "user": "User",
+            "mailError": "This email already exist!"
         }
     }
 }

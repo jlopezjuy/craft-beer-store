@@ -108,6 +108,22 @@ public class EmpresaResource {
         return ResponseUtil.wrapOrNotFound(empresaDTO);
     }
 
+    /**
+     *
+     * @param email
+     * @return
+     */
+    @GetMapping("/empresas/email/{email}")
+    public ResponseEntity<EmpresaDTO> getEmpresaByMail(@PathVariable String email) {
+        log.debug("REST request to get Empresa : {}", email);
+        Optional<EmpresaDTO> empresaDTO = empresaService.findOneByEmail(email);
+        return ResponseUtil.wrapOrNotFound(empresaDTO);
+    }
+
+    /**
+     *
+     * @return
+     */
     @GetMapping("/empresas/usuario")
     public ResponseEntity<EmpresaDTO> getEmpresa() {
         log.debug("REST request to get Empresa by Loged User");

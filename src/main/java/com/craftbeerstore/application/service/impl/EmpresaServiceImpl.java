@@ -116,4 +116,9 @@ public class EmpresaServiceImpl implements EmpresaService {
     public Optional<EmpresaDTO> findOne() {
         return empresaRepository.findByUserIsCurrentUser().map(empresaMapper::toDto);
     }
+
+    @Override
+    public Optional<EmpresaDTO> findOneByEmail(String email) {
+        return empresaRepository.findByCorreo(email).map(empresaMapper::toDto);
+    }
 }

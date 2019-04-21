@@ -58,7 +58,6 @@ export class MovimientosComponent implements OnInit, OnDestroy {
 
     loadAll() {
         const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
-        console.log(empresa);
         if (this.currentSearch) {
             this.movimientosService
                 .search({

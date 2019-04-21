@@ -42,7 +42,10 @@ export class EmpresaUpdateComponent implements OnInit {
                 map((response: HttpResponse<IUser[]>) => response.body)
             )
             .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.account = this.$localStorage.retrieve('account');
+        this.accountService.identity().then((account: Account) => {
+            this.account = account;
+        });
+        // this.account = this.$localStorage.retrieve('account');
     }
 
     previousState() {
@@ -51,6 +54,7 @@ export class EmpresaUpdateComponent implements OnInit {
 
     save() {
         this.empresa.userId = this.account.id;
+        console.log(this.account);
         this.isSaving = true;
         if (this.empresa.id !== undefined) {
             this.subscribeToSaveResponse(this.empresaService.update(this.empresa));
@@ -80,5 +84,18 @@ export class EmpresaUpdateComponent implements OnInit {
 
     trackUserById(index: number, item: IUser) {
         return item.id;
+    }
+
+    onBlurEmail(email: string) {
+        this.empresaService.findByEmail(email).subscribe(
+            resp => {
+                console.log(resp.body);
+                this.jhiAlertService.error('craftBeerStoreApp.empresa.mailError', null, null);
+                this.empresa.correo = null;
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
 }

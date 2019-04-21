@@ -59,7 +59,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
 
     loadAll() {
         this.producto = this.$localStorage.retrieve('producto');
-        console.log(this.producto);
         if (this.currentSearch) {
             this.presentacionService
                 .search({

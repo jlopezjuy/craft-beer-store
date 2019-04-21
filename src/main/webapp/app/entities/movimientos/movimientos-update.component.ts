@@ -170,8 +170,6 @@ export class MovimientosUpdateComponent implements OnInit {
 
     loadAllOnEdit() {
         this.detalleMovimientoService.queryByMovimiento(null, this.movimientos.id).subscribe(detalle => {
-            console.log(detalle.body);
-
             detalle.body.forEach(det => {
                 const presentacion: IPresentacion = new Presentacion();
                 presentacion.cantidad = det.cantidad;
@@ -182,7 +180,6 @@ export class MovimientosUpdateComponent implements OnInit {
                         presentacion.nombreComercial = prod.body.nombreComercial;
                     });
                 });
-
                 this.presentacions.push(presentacion);
             });
         });
