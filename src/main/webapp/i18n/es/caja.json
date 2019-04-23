@@ -23,7 +23,8 @@
             "importe": "Importe",
             "fecha": "Fecha",
             "proveedor": "Proveedor",
-            "cliente": "Cliente"
+            "cliente": "Cliente",
+            "empresa": "Empresa"
         }
     }
 }

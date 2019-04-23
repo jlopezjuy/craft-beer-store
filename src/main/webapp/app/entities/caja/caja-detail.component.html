@@ -41,6 +41,12 @@
                         <a [routerLink]="['/cliente', caja.clienteId, 'view']">{{caja.clienteNombeApellido}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="caja.empresaId">
+                        <a [routerLink]="['/empresa', caja.empresaId, 'view']">{{caja.empresaId}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

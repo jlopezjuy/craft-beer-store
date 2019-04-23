@@ -59,10 +59,16 @@ public class Caja implements Serializable {
     private LocalDate fecha;
 
     @ManyToOne
+    @JsonIgnoreProperties("cajas")
     private Proveedor proveedor;
 
     @ManyToOne
+    @JsonIgnoreProperties("cajas")
     private Cliente cliente;
+
+    @ManyToOne
+    @JsonIgnoreProperties("cajas")
+    private Empresa empresa;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -175,6 +181,19 @@ public class Caja implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public Caja empresa(Empresa empresa) {
+        this.empresa = empresa;
+        return this;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

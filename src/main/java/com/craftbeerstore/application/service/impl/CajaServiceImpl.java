@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.CajaService;
 import com.craftbeerstore.application.domain.Caja;
 import com.craftbeerstore.application.repository.CajaRepository;
@@ -33,10 +35,15 @@ public class CajaServiceImpl implements CajaService {
 
     private final CajaSearchRepository cajaSearchRepository;
 
-    public CajaServiceImpl(CajaRepository cajaRepository, CajaMapper cajaMapper, CajaSearchRepository cajaSearchRepository) {
+    private final EmpresaRepository empresaRepository;
+
+    public CajaServiceImpl(CajaRepository cajaRepository, CajaMapper cajaMapper,
+        CajaSearchRepository cajaSearchRepository,
+        EmpresaRepository empresaRepository) {
         this.cajaRepository = cajaRepository;
         this.cajaMapper = cajaMapper;
         this.cajaSearchRepository = cajaSearchRepository;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -66,6 +73,13 @@ public class CajaServiceImpl implements CajaService {
     public Page<CajaDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Cajas");
         return cajaRepository.findAll(pageable)
+            .map(cajaMapper::toDto);
+    }
+
+    @Override
+    public Page<CajaDTO> findAll(Pageable pageable, Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return cajaRepository.findAllByEmpresa(pageable, empresa)
             .map(cajaMapper::toDto);
     }
 

@@ -6,13 +6,25 @@
             "relationshipName": "proveedor",
             "otherEntityName": "proveedor",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nombreProveedor"
+            "otherEntityField": "nombreProveedor",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "caja"
         },
         {
             "relationshipName": "cliente",
             "otherEntityName": "cliente",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nombeApellido"
+            "otherEntityField": "nombeApellido",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "caja"
+        },
+        {
+            "relationshipName": "empresa",
+            "otherEntityName": "empresa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "caja",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

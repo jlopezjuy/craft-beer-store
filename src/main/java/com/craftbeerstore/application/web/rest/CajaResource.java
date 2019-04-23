@@ -96,6 +96,20 @@ public class CajaResource {
     }
 
     /**
+     * GET  /cajas : get all the cajas.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of cajas in body
+     */
+    @GetMapping("/cajas/empresa/{empresaId}")
+    public ResponseEntity<List<CajaDTO>> getAllCajasByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Cajas by empresa : {}", empresaId);
+        Page<CajaDTO> page = cajaService.findAll(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cajas/empresa/{empresaId}");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * GET  /cajas/:id : get the "id" caja.
      *
      * @param id the id of the cajaDTO to retrieve

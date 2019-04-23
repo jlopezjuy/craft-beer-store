@@ -11,6 +11,8 @@ import { IProveedor } from 'app/shared/model/proveedor.model';
 import { ProveedorService } from 'app/entities/proveedor';
 import { ICliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from 'app/entities/cliente';
+import { IEmpresa } from 'app/shared/model/empresa.model';
+import { EmpresaService } from 'app/entities/empresa';
 
 @Component({
     selector: 'jhi-caja-update',
@@ -23,6 +25,8 @@ export class CajaUpdateComponent implements OnInit {
     proveedors: IProveedor[];
 
     clientes: ICliente[];
+
+    empresas: IEmpresa[];
     fechaDp: any;
 
     constructor(
@@ -31,6 +35,7 @@ export class CajaUpdateComponent implements OnInit {
         protected cajaService: CajaService,
         protected proveedorService: ProveedorService,
         protected clienteService: ClienteService,
+        protected empresaService: EmpresaService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -53,6 +58,13 @@ export class CajaUpdateComponent implements OnInit {
                 map((response: HttpResponse<ICliente[]>) => response.body)
             )
             .subscribe((res: ICliente[]) => (this.clientes = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.empresaService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IEmpresa[]>) => response.body)
+            )
+            .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -102,6 +114,10 @@ export class CajaUpdateComponent implements OnInit {
     }
 
     trackClienteById(index: number, item: ICliente) {
+        return item.id;
+    }
+
+    trackEmpresaById(index: number, item: IEmpresa) {
         return item.id;
     }
 }

@@ -28,6 +28,14 @@ public interface CajaService {
      */
     Page<CajaDTO> findAll(Pageable pageable);
 
+    /**
+     *
+     * @param pageable
+     * @param empresaId
+     * @return
+     */
+    Page<CajaDTO> findAll(Pageable pageable, Long empresaId);
+
 
     /**
      * Get the "id" caja.
