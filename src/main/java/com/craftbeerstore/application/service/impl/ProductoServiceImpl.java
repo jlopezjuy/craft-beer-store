@@ -8,6 +8,8 @@ import com.craftbeerstore.application.repository.ProductoRepository;
 import com.craftbeerstore.application.repository.search.ProductoSearchRepository;
 import com.craftbeerstore.application.service.dto.ProductoDTO;
 import com.craftbeerstore.application.service.mapper.ProductoMapper;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,7 +122,19 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional(readOnly = true)
     public Page<ProductoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Productos for query {}", query);
-        return productoSearchRepository.search(queryStringQuery(query), pageable)
+        Empresa empresa = this.empresaRepository.getOne(Long.valueOf(1));
+        QueryBuilder queryBuilder = QueryBuilders.boolQuery().filter(queryStringQuery(query)).must(QueryBuilders.termsQuery("empresa", empresa));
+
+        return productoSearchRepository.search(queryBuilder, pageable)
             .map(productoMapper::toDto);
+    }
+
+    @Override
+    public Page<ProductoDTO> search(Long empresaId, String nombreComercial,
+        String nombreProducto, Pageable pageable) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return productoSearchRepository.findByNombreComercialLikeOrNombreProductoLikeAndEmpresa(nombreComercial, nombreProducto, empresa, pageable)
+            .map(productoMapper::toDto);
+
     }
 }

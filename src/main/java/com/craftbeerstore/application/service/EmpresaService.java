@@ -56,6 +56,15 @@ public interface EmpresaService {
 
     /**
      *
+     * @param query
+     * @param pageable
+     * @param usuarioId
+     * @return
+     */
+    Page<EmpresaDTO> searchByEmpresa(String query, Pageable pageable, Long usuarioId);
+
+    /**
+     *
      * @return
      */
     Optional<EmpresaDTO> findOne();

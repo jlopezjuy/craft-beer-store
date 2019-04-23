@@ -15,6 +15,7 @@
                 "cliente": "Cliente",
                 "movimientos": "Movimientos",
                 "detalleMovimiento": "Detalle Movimiento",
+                "caja": "Caja",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

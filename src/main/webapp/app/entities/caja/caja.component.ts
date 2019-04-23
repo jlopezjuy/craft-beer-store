@@ -5,21 +5,19 @@ import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
-import { IProducto } from 'app/shared/model/producto.model';
+import { ICaja } from 'app/shared/model/caja.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { ProductoService } from './producto.service';
-import { LocalStorageService } from 'ngx-webstorage';
-import { IEmpresa } from 'app/shared/model/empresa.model';
+import { CajaService } from './caja.service';
 
 @Component({
-    selector: 'jhi-producto',
-    templateUrl: './producto.component.html'
+    selector: 'jhi-caja',
+    templateUrl: './caja.component.html'
 })
-export class ProductoComponent implements OnInit, OnDestroy {
+export class CajaComponent implements OnInit, OnDestroy {
     currentAccount: any;
-    productos: IProducto[];
+    cajas: ICaja[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -32,19 +30,16 @@ export class ProductoComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
-    nombreComercial: string;
-    nombreProducto: string;
 
     constructor(
-        protected productoService: ProductoService,
+        protected cajaService: CajaService,
         protected parseLinks: JhiParseLinks,
         protected jhiAlertService: JhiAlertService,
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected dataUtils: JhiDataUtils,
         protected router: Router,
-        protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService
+        protected eventManager: JhiEventManager
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -60,34 +55,28 @@ export class ProductoComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
-            this.productoService
+            this.cajaService
                 .search({
                     page: this.page - 1,
                     query: this.currentSearch,
                     size: this.itemsPerPage,
-                    sort: this.sort(),
-                    nombreComercial: this.nombreComercial,
-                    nombreProducto: this.nombreProducto
+                    sort: this.sort()
                 })
                 .subscribe(
-                    (res: HttpResponse<IProducto[]>) => this.paginateProductos(res.body, res.headers),
+                    (res: HttpResponse<ICaja[]>) => this.paginateCajas(res.body, res.headers),
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
             return;
         }
-        this.productoService
-            .queryByEmpresa(
-                {
-                    page: this.page - 1,
-                    size: this.itemsPerPage,
-                    sort: this.sort()
-                },
-                empresa.id
-            )
+        this.cajaService
+            .query({
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            })
             .subscribe(
-                (res: HttpResponse<IProducto[]>) => this.paginateProductos(res.body, res.headers),
+                (res: HttpResponse<ICaja[]>) => this.paginateCajas(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -100,7 +89,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/producto'], {
+        this.router.navigate(['/caja'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -115,7 +104,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.page = 0;
         this.currentSearch = '';
         this.router.navigate([
-            '/producto',
+            '/caja',
             {
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -131,7 +120,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.page = 0;
         this.currentSearch = query;
         this.router.navigate([
-            '/producto',
+            '/caja',
             {
                 search: this.currentSearch,
                 page: this.page,
@@ -146,14 +135,14 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInProductos();
+        this.registerChangeInCajas();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: IProducto) {
+    trackId(index: number, item: ICaja) {
         return item.id;
     }
 
@@ -165,8 +154,8 @@ export class ProductoComponent implements OnInit, OnDestroy {
         return this.dataUtils.openFile(contentType, field);
     }
 
-    registerChangeInProductos() {
-        this.eventSubscriber = this.eventManager.subscribe('productoListModification', response => this.loadAll());
+    registerChangeInCajas() {
+        this.eventSubscriber = this.eventManager.subscribe('cajaListModification', response => this.loadAll());
     }
 
     sort() {
@@ -177,18 +166,13 @@ export class ProductoComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    protected paginateProductos(data: IProducto[], headers: HttpHeaders) {
+    protected paginateCajas(data: ICaja[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-        this.productos = data;
+        this.cajas = data;
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
-    }
-
-    goPresentacion(producto: IProducto) {
-        this.$localStorage.store('producto', producto);
-        this.router.navigate(['/presentacion']);
     }
 }

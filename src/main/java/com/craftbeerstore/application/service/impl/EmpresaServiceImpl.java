@@ -112,6 +112,11 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
+    public Page<EmpresaDTO> searchByEmpresa(String query, Pageable pageable, Long usuarioId) {
+        return null;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Optional<EmpresaDTO> findOne() {
         return empresaRepository.findByUserIsCurrentUser().map(empresaMapper::toDto);
