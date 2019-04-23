@@ -38,7 +38,6 @@
             <th jhiSortBy="fecha"><span jhiTranslate="craftBeerStoreApp.caja.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="proveedorNombreProveedor"><span jhiTranslate="craftBeerStoreApp.caja.proveedor">Proveedor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="clienteNombeApellido"><span jhiTranslate="craftBeerStoreApp.caja.cliente">Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empresaId"><span jhiTranslate="craftBeerStoreApp.caja.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -59,11 +58,6 @@
                 <td>
                     <div *ngIf="caja.clienteId">
                         <a [routerLink]="['../cliente', caja.clienteId , 'view' ]" >{{caja.clienteNombeApellido}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="caja.empresaId">
-                        <a [routerLink]="['../empresa', caja.empresaId , 'view' ]" >{{caja.empresaId}}</a>
                     </div>
                 </td>
                 <td class="text-right">

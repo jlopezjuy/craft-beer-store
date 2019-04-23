@@ -13,6 +13,7 @@ import { ICliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from 'app/entities/cliente';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-caja-update',
@@ -26,7 +27,7 @@ export class CajaUpdateComponent implements OnInit {
 
     clientes: ICliente[];
 
-    empresas: IEmpresa[];
+    empresa: IEmpresa;
     fechaDp: any;
 
     constructor(
@@ -36,7 +37,8 @@ export class CajaUpdateComponent implements OnInit {
         protected proveedorService: ProveedorService,
         protected clienteService: ClienteService,
         protected empresaService: EmpresaService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        protected $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {
@@ -44,27 +46,21 @@ export class CajaUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ caja }) => {
             this.caja = caja;
         });
+        this.empresa = this.$localStorage.retrieve('empresa');
         this.proveedorService
-            .query()
+            .queryByEmpresa(null, this.empresa.id)
             .pipe(
                 filter((mayBeOk: HttpResponse<IProveedor[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IProveedor[]>) => response.body)
             )
             .subscribe((res: IProveedor[]) => (this.proveedors = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.clienteService
-            .query()
+            .queryByEmpresa(null, this.empresa.id)
             .pipe(
                 filter((mayBeOk: HttpResponse<ICliente[]>) => mayBeOk.ok),
                 map((response: HttpResponse<ICliente[]>) => response.body)
             )
             .subscribe((res: ICliente[]) => (this.clientes = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.empresaService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IEmpresa[]>) => response.body)
-            )
-            .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -84,6 +80,7 @@ export class CajaUpdateComponent implements OnInit {
     }
 
     save() {
+        this.caja.empresaId = this.empresa.id;
         this.isSaving = true;
         if (this.caja.id !== undefined) {
             this.subscribeToSaveResponse(this.cajaService.update(this.caja));

@@ -25,7 +25,7 @@ export class ClienteUpdateComponent implements OnInit {
         protected clienteService: ClienteService,
         protected empresaService: EmpresaService,
         protected activatedRoute: ActivatedRoute,
-        private $localStorage: LocalStorageService
+        protected $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {

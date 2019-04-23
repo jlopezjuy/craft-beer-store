@@ -122,8 +122,9 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional(readOnly = true)
     public Page<ProductoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Productos for query {}", query);
-        Empresa empresa = this.empresaRepository.getOne(Long.valueOf(1));
-        QueryBuilder queryBuilder = QueryBuilders.boolQuery().filter(queryStringQuery(query)).must(QueryBuilders.termsQuery("empresa", empresa));
+//        Empresa empresa = this.empresaRepository.getOne(Long.valueOf(1));
+//        QueryBuilder queryBuilder = QueryBuilders.boolQuery().filter(queryStringQuery(query)).must(QueryBuilders.termsQuery("empresa", empresa));
+        QueryBuilder queryBuilder = QueryBuilders.boolQuery().filter(queryStringQuery(query));
 
         return productoSearchRepository.search(queryBuilder, pageable)
             .map(productoMapper::toDto);

@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { CajaService } from './caja.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { IEmpresa } from 'app/shared/model/empresa.model';
 
 @Component({
     selector: 'jhi-caja',
@@ -39,7 +41,8 @@ export class CajaComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected dataUtils: JhiDataUtils,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        private $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -55,6 +58,7 @@ export class CajaComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
             this.cajaService
                 .search({
@@ -70,11 +74,14 @@ export class CajaComponent implements OnInit, OnDestroy {
             return;
         }
         this.cajaService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
+            .queryByEmpresa(
+                {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                },
+                empresa.id
+            )
             .subscribe(
                 (res: HttpResponse<ICaja[]>) => this.paginateCajas(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
