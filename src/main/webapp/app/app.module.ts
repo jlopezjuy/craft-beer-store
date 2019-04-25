@@ -18,6 +18,7 @@ import { CraftBeerStoreHomeModule } from './home/home.module';
 import { CraftBeerStoreAccountModule } from './account/account.module';
 import { CraftBeerStoreEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
+import { CraftBeerStoreDashboardModule } from './dashboard/dashboard.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 
@@ -36,6 +37,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         CraftBeerStoreCoreModule,
         CraftBeerStoreHomeModule,
         CraftBeerStoreAccountModule,
+        CraftBeerStoreDashboardModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         CraftBeerStoreEntityModule,
         CraftBeerStoreAppRoutingModule
@@ -63,6 +65,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
             multi: true
         }
     ],
+    exports: [CraftBeerStoreDashboardModule],
     bootstrap: [JhiMainComponent]
 })
 export class CraftBeerStoreAppModule {

@@ -1,5 +1,6 @@
 package com.craftbeerstore.application.service;
 
+import com.craftbeerstore.application.service.dto.CajaChartDTO;
 import com.craftbeerstore.application.service.dto.CajaDTO;
 
 import org.springframework.data.domain.Page;
@@ -61,4 +62,6 @@ public interface CajaService {
      * @return the list of entities
      */
     Page<CajaDTO> search(String query, Pageable pageable);
+
+    Optional<CajaChartDTO> searchIngresoEgreso(Long empresaId);
 }

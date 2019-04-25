@@ -64,6 +64,12 @@ export class CajaService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
+    findIngresoEgreso(empresaId: number): Observable<EntityResponseType> {
+        return this.http
+            .get<ICaja>(`${this.resourceUrl}/graph-ingreso-egreso/${empresaId}`, { observe: 'response' })
+            .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    }
+
     protected convertDateFromClient(caja: ICaja): ICaja {
         const copy: ICaja = Object.assign({}, caja, {
             fecha: caja.fecha != null && caja.fecha.isValid() ? caja.fecha.format(DATE_FORMAT) : null

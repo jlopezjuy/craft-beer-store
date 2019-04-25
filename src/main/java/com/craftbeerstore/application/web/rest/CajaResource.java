@@ -1,5 +1,6 @@
 package com.craftbeerstore.application.web.rest;
 import com.craftbeerstore.application.service.CajaService;
+import com.craftbeerstore.application.service.dto.CajaChartDTO;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.web.rest.util.HeaderUtil;
 import com.craftbeerstore.application.web.rest.util.PaginationUtil;
@@ -149,6 +150,17 @@ public class CajaResource {
         Page<CajaDTO> page = cajaService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/cajas");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     *
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/cajas/graph-ingreso-egreso/{empresaId}")
+    public ResponseEntity<CajaChartDTO> searchIngresoEgreso(@PathVariable Long empresaId) {
+        Optional<CajaChartDTO> response = this.cajaService.searchIngresoEgreso(empresaId);
+        return ResponseUtil.wrapOrNotFound(response);
     }
 
 }

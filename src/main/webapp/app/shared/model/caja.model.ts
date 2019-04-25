@@ -25,6 +25,11 @@ export interface ICaja {
     clienteNombeApellido?: string;
     clienteId?: number;
     empresaId?: number;
+    /**
+     * transient
+     */
+    ingreso?: number;
+    egreso?: number;
 }
 
 export class Caja implements ICaja {
@@ -40,6 +45,11 @@ export class Caja implements ICaja {
         public proveedorId?: number,
         public clienteNombeApellido?: string,
         public clienteId?: number,
-        public empresaId?: number
+        public empresaId?: number,
+        /**
+         * transient
+         */
+        public ingreso?: number,
+        public egreso?: number
     ) {}
 }

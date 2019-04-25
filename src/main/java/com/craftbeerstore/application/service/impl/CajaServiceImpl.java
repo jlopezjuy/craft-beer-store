@@ -1,13 +1,16 @@
 package com.craftbeerstore.application.service.impl;
 
 import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.domain.enumeration.TipoMovimientoCaja;
 import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.CajaService;
 import com.craftbeerstore.application.domain.Caja;
 import com.craftbeerstore.application.repository.CajaRepository;
 import com.craftbeerstore.application.repository.search.CajaSearchRepository;
+import com.craftbeerstore.application.service.dto.CajaChartDTO;
 import com.craftbeerstore.application.service.dto.CajaDTO;
 import com.craftbeerstore.application.service.mapper.CajaMapper;
+import java.math.BigDecimal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -123,5 +126,15 @@ public class CajaServiceImpl implements CajaService {
         log.debug("Request to search for a page of Cajas for query {}", query);
         return cajaSearchRepository.search(queryStringQuery(query), pageable)
             .map(cajaMapper::toDto);
+    }
+
+    @Override
+    public Optional<CajaChartDTO> searchIngresoEgreso(Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        BigDecimal ingreso = this.cajaRepository
+            .sumIngreso(empresa, TipoMovimientoCaja.INGRESO);
+        BigDecimal egreso = this.cajaRepository.sumIngreso(empresa, TipoMovimientoCaja.EGRESO);
+
+        return Optional.of(new CajaChartDTO(ingreso, egreso));
     }
 }
