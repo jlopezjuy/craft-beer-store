@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
-import { ICaja } from 'app/shared/model/caja.model';
+import { ICaja, TipoMovimientoCaja } from 'app/shared/model/caja.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
@@ -32,6 +31,7 @@ export class CajaComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    saldo: number;
 
     constructor(
         protected cajaService: CajaService,
@@ -177,6 +177,14 @@ export class CajaComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.cajas = data;
+        this.saldo = 0;
+        this.cajas.forEach(caja => {
+            if (caja.tipoMovimiento === TipoMovimientoCaja.INGRESO) {
+                this.saldo = this.saldo + caja.importe;
+            } else {
+                this.saldo = this.saldo - caja.importe;
+            }
+        });
     }
 
     protected onError(errorMessage: string) {

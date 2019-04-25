@@ -5,7 +5,8 @@
                 "title": "Cajas",
                 "createLabel": "Create a new Caja",
                 "createOrEditLabel": "Create or edit a Caja",
-                "search": "Search for Caja"
+                "search": "Search for Caja",
+                "saldo": "Current Balance"
             },
             "created": "A new Caja is created with identifier {{ param }}",
             "updated": "A Caja is updated with identifier {{ param }}",

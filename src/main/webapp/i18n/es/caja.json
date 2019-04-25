@@ -5,7 +5,8 @@
                 "title": "Cajas",
                 "createLabel": "Crear nuevo Caja",
                 "createOrEditLabel": "Crear o editar Caja",
-                "search": "Search for Caja"
+                "search": "Search for Caja",
+                "saldo": "Saldo Actual"
             },
             "created": "Un nuevo Caja ha sido creado con el identificador {{ param }}",
             "updated": "Un Caja ha sido actualizado con el identificador {{ param }}",
