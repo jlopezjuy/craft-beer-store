@@ -7,7 +7,7 @@
             "dashboard": {
                 "main": "Dashboard",
                 "barchart": "BarChart",
-                "doughnutchart": "DoughnutChart",
+                "doughnutchart": "Ingresos / Egresos",
                 "linechart": "LineChart",
                 "piechart": "PieChart",
                 "polarareachart": "PolarAreaChart",

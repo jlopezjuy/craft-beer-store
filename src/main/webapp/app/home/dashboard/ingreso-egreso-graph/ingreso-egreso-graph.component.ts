@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
 import { CajaService } from 'app/entities/caja';
-import { IEmpresa } from 'app/shared/model/empresa.model';
 import { LocalStorageService } from 'ngx-webstorage';
+import { IEmpresa } from 'app/shared/model/empresa.model';
 
 @Component({
-    selector: 'jhi-piechart',
-    templateUrl: './doughnutchart.component.html',
+    selector: 'jhi-ingreso-egreso-graph',
+    templateUrl: './ingreso-egreso-graph.component.html',
     styles: []
 })
-export class DoughnutchartComponent implements OnInit {
-    data: any;
-
+export class IngresoEgresoGraphComponent implements OnInit {
+    public data: any;
     constructor(protected cajaService: CajaService, private $localStorage: LocalStorageService) {}
 
     ngOnInit() {
