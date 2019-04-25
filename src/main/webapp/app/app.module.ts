@@ -43,6 +43,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         CraftBeerStoreAppRoutingModule
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    // entryComponents: [CraftBeerStoreDashboardModule],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
