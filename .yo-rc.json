@@ -13,7 +13,7 @@
         "enableHibernateCache": true,
         "websocket": "spring-websocket",
         "databaseType": "sql",
-        "devDatabaseType": "h2Disk",
+        "devDatabaseType": "mysql",
         "prodDatabaseType": "mysql",
         "searchEngine": "elasticsearch",
         "enableSwaggerCodegen": false,
