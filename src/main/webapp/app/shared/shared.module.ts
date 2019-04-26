@@ -4,12 +4,13 @@ import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateMomentAdapter } from './util/datepicker-adapter';
 import { CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
 
+import { JhMaterialModule } from 'app/shared/jh-material.module';
 @NgModule({
-    imports: [CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule],
+    imports: [JhMaterialModule, CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule],
     declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],
     providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
     entryComponents: [JhiLoginModalComponent],
-    exports: [CraftBeerStoreSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
+    exports: [JhMaterialModule, CraftBeerStoreSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CraftBeerStoreSharedModule {

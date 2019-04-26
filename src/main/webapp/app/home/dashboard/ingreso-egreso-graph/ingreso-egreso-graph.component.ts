@@ -6,7 +6,7 @@ import { IEmpresa } from 'app/shared/model/empresa.model';
 @Component({
     selector: 'jhi-ingreso-egreso-graph',
     templateUrl: './ingreso-egreso-graph.component.html',
-    styles: []
+    styleUrls: ['ingreso-egreso-graph.scss']
 })
 export class IngresoEgresoGraphComponent implements OnInit {
     public data: any;

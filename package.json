@@ -34,9 +34,13 @@
         "webstomp-client": "1.2.6",
         "tslib": "1.9.3",
         "zone.js": "0.8.29",
-        "@angular/animations": "7.2.4",
+        "@angular/animations": "latest",
         "chart.js": "2.7.2",
-        "primeng": "6.1.4"
+        "primeng": "6.1.4",
+        "hammerjs": "latest",
+        "@angular/material": "latest",
+        "@angular/cdk": "latest",
+        "@angular/flex-layout": "latest"
     },
     "devDependencies": {
         "@angular/cli": "7.3.1",

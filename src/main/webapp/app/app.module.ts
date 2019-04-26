@@ -18,12 +18,18 @@ import { CraftBeerStoreHomeModule } from './home/home.module';
 import { CraftBeerStoreAccountModule } from './account/account.module';
 import { CraftBeerStoreEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import 'hammerjs';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import { CraftBeerStoreDashboardModule } from 'app/dashboard/dashboard.module';
 
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
+        FlexLayoutModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         NgJhipsterModule.forRoot({
             // set below to true to make alerts look like toast
@@ -36,7 +42,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         CraftBeerStoreCoreModule,
         CraftBeerStoreHomeModule,
         CraftBeerStoreAccountModule,
-        // CraftBeerStoreDashboardModule,
+        CraftBeerStoreDashboardModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         CraftBeerStoreEntityModule,
         CraftBeerStoreAppRoutingModule
