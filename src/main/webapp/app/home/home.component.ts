@@ -6,6 +6,7 @@ import { LoginModalService, AccountService, Account, UserService } from 'app/cor
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'jhi-home',
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
         private eventManager: JhiEventManager,
         private empresaService: EmpresaService,
         private $localStorage: LocalStorageService,
-        private router: Router
+        private router: Router,
+        private ngxLoader: NgxUiLoaderService
     ) {}
 
     ngOnInit() {
@@ -33,7 +35,6 @@ export class HomeComponent implements OnInit {
         });
         this.registerAuthenticationSuccess();
         this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
-        console.log(this.noEmpresa);
     }
 
     registerAuthenticationSuccess() {

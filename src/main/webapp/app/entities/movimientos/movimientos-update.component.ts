@@ -18,6 +18,7 @@ import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { PresentacionService } from 'app/entities/presentacion';
 import { DetalleMovimientoService } from 'app/entities/detalle-movimiento';
 import { DetalleMovimiento } from 'app/shared/model/detalle-movimiento.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'jhi-movimientos-update',
@@ -47,7 +48,8 @@ export class MovimientosUpdateComponent implements OnInit {
         protected productoService: ProductoService,
         protected presentacionService: PresentacionService,
         protected detalleMovimientoService: DetalleMovimientoService,
-        private $localStorage: LocalStorageService
+        private $localStorage: LocalStorageService,
+        private ngxService: NgxUiLoaderService
     ) {}
 
     ngOnInit() {

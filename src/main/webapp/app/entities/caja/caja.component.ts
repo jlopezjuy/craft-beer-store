@@ -11,6 +11,7 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { CajaService } from './caja.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'jhi-caja',
@@ -42,7 +43,8 @@ export class CajaComponent implements OnInit, OnDestroy {
         protected dataUtils: JhiDataUtils,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService
+        private $localStorage: LocalStorageService,
+        private ngxLoader: NgxUiLoaderService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -58,6 +60,7 @@ export class CajaComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        this.ngxLoader.start();
         const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
             this.cajaService
@@ -185,6 +188,8 @@ export class CajaComponent implements OnInit, OnDestroy {
                 this.saldo = this.saldo - caja.importe;
             }
         });
+
+        this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {

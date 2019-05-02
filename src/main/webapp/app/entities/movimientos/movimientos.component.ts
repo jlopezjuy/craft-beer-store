@@ -12,6 +12,7 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { MovimientosService } from './movimientos.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'jhi-movimientos',
@@ -41,7 +42,9 @@ export class MovimientosComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        protected $localStorage: LocalStorageService
+        protected $localStorage: LocalStorageService,
+        private ngxService: NgxUiLoaderService,
+        private ngxLoader: NgxUiLoaderService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -137,6 +140,7 @@ export class MovimientosComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.ngxLoader.start();
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
@@ -168,6 +172,7 @@ export class MovimientosComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.movimientos = data;
+        this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {

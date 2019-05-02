@@ -12,6 +12,7 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { ProductoService } from './producto.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'jhi-producto',
@@ -44,7 +45,8 @@ export class ProductoComponent implements OnInit, OnDestroy {
         protected dataUtils: JhiDataUtils,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService
+        private $localStorage: LocalStorageService,
+        private ngxLoader: NgxUiLoaderService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -60,6 +62,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        this.ngxLoader.start();
         const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
             this.productoService
@@ -181,6 +184,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.productos = data;
+        this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {

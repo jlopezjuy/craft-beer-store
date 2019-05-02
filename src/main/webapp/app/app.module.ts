@@ -24,7 +24,26 @@ import 'hammerjs';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { CraftBeerStoreDashboardModule } from 'app/dashboard/dashboard.module';
-
+import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+    bgsColor: '#OOACC1',
+    bgsOpacity: 0.5,
+    blur: 8,
+    bgsPosition: POSITION.bottomCenter,
+    bgsSize: 60,
+    bgsType: SPINNER.rectangleBounce,
+    fgsColor: '#00ACC1',
+    fgsPosition: POSITION.centerCenter,
+    fgsSize: 60,
+    fgsType: SPINNER.chasingDots,
+    logoUrl: '../content/images/icon.svg',
+    pbColor: '#FF0000',
+    pbDirection: PB_DIRECTION.leftToRight,
+    pbThickness: 5,
+    // text: '',
+    textColor: '#FFFFFF',
+    textPosition: POSITION.centerCenter
+};
 @NgModule({
     imports: [
         BrowserModule,
@@ -45,7 +64,8 @@ import { CraftBeerStoreDashboardModule } from 'app/dashboard/dashboard.module';
         CraftBeerStoreDashboardModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         CraftBeerStoreEntityModule,
-        CraftBeerStoreAppRoutingModule
+        CraftBeerStoreAppRoutingModule,
+        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     // entryComponents: [CraftBeerStoreDashboardModule],
