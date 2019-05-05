@@ -1,5 +1,6 @@
 package com.craftbeerstore.application.web.rest;
 import com.craftbeerstore.application.service.MovimientosService;
+import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.web.rest.util.HeaderUtil;
 import com.craftbeerstore.application.web.rest.util.PaginationUtil;
@@ -150,6 +151,14 @@ public class MovimientosResource {
         Page<MovimientosDTO> page = movimientosService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/movimientos");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/movimientos/semana/{empresaId}")
+    public ResponseEntity<List<MovimientosSemanaDTO>> getAllMovimientosSemanal(@PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Movimientos by Empresa");
+        List<MovimientosSemanaDTO> list = movimientosService
+            .findMovimientosSemana(empresaId);
+        return ResponseEntity.ok().body(list);
     }
 
 }

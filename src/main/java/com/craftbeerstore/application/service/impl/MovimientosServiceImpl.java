@@ -1,13 +1,19 @@
 package com.craftbeerstore.application.service.impl;
 
 import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.domain.enumeration.TipoMovimiento;
 import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.MovimientosService;
 import com.craftbeerstore.application.domain.Movimientos;
 import com.craftbeerstore.application.repository.MovimientosRepository;
 import com.craftbeerstore.application.repository.search.MovimientosSearchRepository;
 import com.craftbeerstore.application.service.dto.MovimientosDTO;
+import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
 import com.craftbeerstore.application.service.mapper.MovimientosMapper;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -124,5 +130,21 @@ public class MovimientosServiceImpl implements MovimientosService {
         log.debug("Request to search for a page of Movimientos for query {}", query);
         return movimientosSearchRepository.search(queryStringQuery(query), pageable)
             .map(movimientosMapper::toDto);
+    }
+
+    @Override
+    public List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId) {
+        List<MovimientosSemanaDTO> list = new ArrayList<>();
+        List<Object[]> movimientos = this.movimientosRepository.queryMovimientoSemana(empresaId);
+        movimientos.forEach(mov -> {
+//            System.out.println(mov);
+            System.out.println(mov[0]);
+            System.out.println(mov[1]);
+            System.out.println(mov[2]);
+            System.out.println(mov[3]);
+            list.add(new MovimientosSemanaDTO(Long.valueOf(mov[0].toString()), TipoMovimiento.valueOf(mov[1].toString()), LocalDate.parse(mov[2].toString()),
+                BigDecimal.valueOf(Double.valueOf(mov[3].toString()))));
+        });
+        return list;
     }
 }

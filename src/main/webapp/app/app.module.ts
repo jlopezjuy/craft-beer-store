@@ -37,7 +37,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     fgsSize: 60,
     fgsType: SPINNER.chasingDots,
     logoUrl: '../content/images/icon.svg',
-    pbColor: '#FF0000',
+    pbColor: '#77DD77',
     pbDirection: PB_DIRECTION.leftToRight,
     pbThickness: 5,
     // text: '',

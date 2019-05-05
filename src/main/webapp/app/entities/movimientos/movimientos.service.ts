@@ -8,9 +8,11 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IMovimientos } from 'app/shared/model/movimientos.model';
+import { IMovimientosSemana } from 'app/shared/model/movimientos-semana.model';
 
 type EntityResponseType = HttpResponse<IMovimientos>;
 type EntityArrayResponseType = HttpResponse<IMovimientos[]>;
+type EntitySemanaArrayResponseType = HttpResponse<IMovimientosSemana[]>;
 
 @Injectable({ providedIn: 'root' })
 export class MovimientosService {
@@ -51,6 +53,13 @@ export class MovimientosService {
         return this.http
             .get<IMovimientos[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    queryBySemanaEmpresa(req?: any, empresaId?: number): Observable<EntitySemanaArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http
+            .get<IMovimientos[]>(`${this.resourceUrl}/semana/${empresaId}`, { params: options, observe: 'response' })
+            .pipe(map((res: EntitySemanaArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
     delete(id: number): Observable<HttpResponse<any>> {

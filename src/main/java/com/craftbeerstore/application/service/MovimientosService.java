@@ -2,6 +2,8 @@ package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.MovimientosDTO;
 
+import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -62,4 +64,11 @@ public interface MovimientosService {
      * @return the list of entities
      */
     Page<MovimientosDTO> search(String query, Pageable pageable);
+
+    /**
+     *
+     * @param empresaId
+     * @return
+     */
+    List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId);
 }

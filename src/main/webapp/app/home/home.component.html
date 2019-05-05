@@ -22,7 +22,7 @@
             <!--</div>-->
 
 
-            <div *ngSwitchCase="true">
+            <div *ngSwitchCase="true" class="col-12">
                 <div class="row" *ngIf="!noEmpresa">
                     <div>
                         <h1 class="display-4" jhiTranslate="home.configurarEmpresa">No configuro aun su cuenta empresa!</h1>
@@ -35,8 +35,11 @@
                     </div>
                 </div>
                 <div class="row" *ngIf="noEmpresa">
-                    <div>
+                    <div class="col-6">
                         <jhi-ingreso-egreso-graph></jhi-ingreso-egreso-graph>
+                    </div>
+                    <div class="col-6">
+                        <jhi-movimiento-semana-graph></jhi-movimiento-semana-graph>
                     </div>
                 </div>
             </div>
