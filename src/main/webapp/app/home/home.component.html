@@ -35,11 +35,11 @@
                     </div>
                 </div>
                 <div class="row" *ngIf="noEmpresa">
-                    <div class="col-6">
-                        <jhi-ingreso-egreso-graph></jhi-ingreso-egreso-graph>
+                    <div class="col-6" *ngIf="empresa">
+                        <jhi-ingreso-egreso-graph [empresa]="empresa"></jhi-ingreso-egreso-graph>
                     </div>
-                    <div class="col-6">
-                        <jhi-movimiento-semana-graph></jhi-movimiento-semana-graph>
+                    <div class="col-6" *ngIf="empresa">
+                        <jhi-movimiento-semana-graph [empresa]="empresa"></jhi-movimiento-semana-graph>
                     </div>
                 </div>
             </div>

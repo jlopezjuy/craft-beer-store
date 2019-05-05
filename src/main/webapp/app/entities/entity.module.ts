@@ -47,6 +47,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'caja',
                 loadChildren: './caja/caja.module#CraftBeerStoreCajaModule'
+            },
+            {
+                path: 'evento',
+                loadChildren: './evento/evento.module#CraftBeerStoreEventoModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

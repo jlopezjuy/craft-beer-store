@@ -47,6 +47,7 @@ public class CacheConfiguration {
             cm.createCache(com.craftbeerstore.application.domain.Movimientos.class.getName(), jcacheConfiguration);
             cm.createCache(com.craftbeerstore.application.domain.DetalleMovimiento.class.getName(), jcacheConfiguration);
             cm.createCache(com.craftbeerstore.application.domain.Caja.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.Evento.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -7,6 +7,7 @@ import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { IEmpresa } from 'app/shared/model/empresa.model';
 
 @Component({
     selector: 'jhi-home',
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
     noEmpresa: boolean;
-
+    empresa: IEmpresa;
     constructor(
         private accountService: AccountService,
         private loginModalService: LoginModalService,
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
         this.noEmpresa = false;
         this.accountService.identity().then((account: Account) => {
             this.account = account;
+            this.loadBaseData();
         });
         this.registerAuthenticationSuccess();
         this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
@@ -41,23 +43,27 @@ export class HomeComponent implements OnInit {
         this.eventManager.subscribe('authenticationSuccess', message => {
             this.accountService.identity().then(account => {
                 this.account = account;
-                this.$localStorage.store('account', this.account);
-                this.empresaService.findEmpresa().subscribe(
-                    resp => {
-                        console.log(resp);
-
-                        this.$localStorage.store('empresa', resp.body);
-                        this.$localStorage.store('empresaActiva', true);
-                        this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
-                    },
-                    error => {
-                        console.log('error');
-                        this.$localStorage.store('empresaActiva', false);
-                        this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
-                    }
-                );
+                this.loadBaseData();
             });
         });
+    }
+
+    loadBaseData() {
+        this.$localStorage.store('account', this.account);
+        this.empresaService.findEmpresa().subscribe(
+            resp => {
+                this.empresa = resp.body;
+
+                this.$localStorage.store('empresa', resp.body);
+                this.$localStorage.store('empresaActiva', true);
+                this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
+            },
+            error => {
+                console.log('error');
+                this.$localStorage.store('empresaActiva', false);
+                this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
+            }
+        );
     }
 
     isAuthenticated() {

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MovimientosService } from 'app/entities/movimientos';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { TipoMovimiento } from 'app/shared/model/movimientos.model';
@@ -12,23 +11,19 @@ import { TipoMovimiento } from 'app/shared/model/movimientos.model';
 })
 export class MovimientoSemanaGraphComponent implements OnInit {
     data: any;
+    @Input() empresa: IEmpresa;
 
-    constructor(
-        private $localStorage: LocalStorageService,
-        private movimientoService: MovimientosService,
-        private ngxLoader: NgxUiLoaderService
-    ) {}
+    constructor(private $localStorage: LocalStorageService, private movimientoService: MovimientosService) {}
 
     ngOnInit() {
         this.loadGraph();
     }
 
     loadGraph() {
-        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
-        let label: string[] = [];
-        let ventas = [];
-        let presupuesto = [];
-        this.movimientoService.queryBySemanaEmpresa(null, empresa.id).subscribe(resp => {
+        const label: string[] = [];
+        const ventas = [];
+        const presupuesto = [];
+        this.movimientoService.queryBySemanaEmpresa(null, this.empresa.id).subscribe(resp => {
             console.log(resp);
             resp.body.forEach(sem => {
                 label.push(sem.fechaMovimiento.format('DD/MM').toString());

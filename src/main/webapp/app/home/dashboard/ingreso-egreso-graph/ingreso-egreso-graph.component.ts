@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CajaService } from 'app/entities/caja';
-import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'jhi-ingreso-egreso-graph',
@@ -11,16 +9,16 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class IngresoEgresoGraphComponent implements OnInit {
     public data: any;
-    constructor(protected cajaService: CajaService, private $localStorage: LocalStorageService, private ngxLoader: NgxUiLoaderService) {}
+    @Input() empresa: IEmpresa;
+
+    constructor(protected cajaService: CajaService) {}
 
     ngOnInit() {
         this.loadChart();
     }
 
     loadChart() {
-        this.ngxLoader.start();
-        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
-        this.cajaService.findIngresoEgreso(empresa.id).subscribe(resp => {
+        this.cajaService.findIngresoEgreso(this.empresa.id).subscribe(resp => {
             this.data = {
                 labels: ['Ingresos', 'Egresos'],
                 datasets: [
@@ -31,7 +29,6 @@ export class IngresoEgresoGraphComponent implements OnInit {
                     }
                 ]
             };
-            this.ngxLoader.stop();
         });
     }
 }
