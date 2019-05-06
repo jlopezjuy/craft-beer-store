@@ -26,6 +26,7 @@ export interface IProducto {
     cantidadPresentacion?: number;
     precioUnitario?: number;
     movimientoId?: number;
+    eventoId?: number;
 }
 
 export class Producto implements IProducto {
@@ -45,6 +46,7 @@ export class Producto implements IProducto {
         public presentacionId?: number,
         public cantidadPresentacion?: number,
         public precioUnitario?: number,
-        public movimientoId?: number
+        public movimientoId?: number,
+        public eventoId?: number
     ) {}
 }

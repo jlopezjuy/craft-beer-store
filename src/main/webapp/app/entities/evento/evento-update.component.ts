@@ -115,10 +115,15 @@ export class EventoUpdateComponent implements OnInit {
 
     saveEventoProducto(eventoId: number) {
         this.productosList.forEach(prod => {
-            let eventoProducto: IEventoProducto = new EventoProducto();
+            const eventoProducto: IEventoProducto = new EventoProducto();
             eventoProducto.eventoId = eventoId;
             eventoProducto.productoId = prod.id;
-            this.eventoProductoService.create(eventoProducto).subscribe(resp => {});
+            eventoProducto.id = prod.eventoId;
+            if (eventoProducto.id) {
+                this.eventoProductoService.update(eventoProducto).subscribe(resp => {});
+            } else {
+                this.eventoProductoService.create(eventoProducto).subscribe(resp => {});
+            }
         });
     }
 
@@ -126,7 +131,9 @@ export class EventoUpdateComponent implements OnInit {
         this.eventoProductoService.queryByEvento(eventoId).subscribe(resp => {
             resp.body.forEach(evento => {
                 this.productoService.find(evento.productoId).subscribe(prod => {
-                    this.productosList.push(prod.body);
+                    const producto = prod.body;
+                    producto.eventoId = eventoId;
+                    this.productosList.push(producto);
                 });
             });
         });
