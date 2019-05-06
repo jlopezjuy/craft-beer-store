@@ -20,7 +20,10 @@
             "fechaEvento": "Fecha Evento",
             "cantidadBarriles": "Cantidad Barriles",
             "precioPinta": "Precio Pinta",
-            "empresa": "Empresa"
+            "empresa": "Empresa",
+            "validate": {
+                "producto": "El producto ya se encuentra en la lista."
+            }
         }
     }
 }
