@@ -162,8 +162,16 @@ export class MovimientosUpdateComponent implements OnInit {
                 pres.movimientoId = resp.body.movimientoId;
                 this.presentacions.push(pres);
                 this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioTotal;
+                this.clearFormProduct();
             });
         });
+    }
+
+    clearFormProduct() {
+        this.productoSave.id = null;
+        this.productoSave.presentacionId = null;
+        this.productoSave.cantidadPresentacion = 0;
+        this.productoSave.precioUnitario = null;
     }
 
     saveMovimiento() {

@@ -15,6 +15,7 @@
     <include file="config/liquibase/changelog/20190417182456_added_entity_DetalleMovimiento.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190423005359_added_entity_Caja.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190505113135_added_entity_Evento.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190506003908_added_entity_EventoProducto.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190407234855_added_entity_constraints_Empresa.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408000453_added_entity_constraints_Insumo.xml" relativeToChangelogFile="false"/>
@@ -26,5 +27,6 @@
     <include file="config/liquibase/changelog/20190417182456_added_entity_constraints_DetalleMovimiento.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190423005359_added_entity_constraints_Caja.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190505113135_added_entity_constraints_Evento.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190506003908_added_entity_constraints_EventoProducto.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

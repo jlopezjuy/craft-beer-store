@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="eventoProducto">
+            <h2><span jhiTranslate="craftBeerStoreApp.eventoProducto.detail.title">Evento Producto</span> {{eventoProducto.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span></dt>
+                <dd>
+                    <div *ngIf="eventoProducto.productoId">
+                        <a [routerLink]="['/producto', eventoProducto.productoId, 'view']">{{eventoProducto.productoNombreProducto}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.evento">Evento</span></dt>
+                <dd>
+                    <div *ngIf="eventoProducto.eventoId">
+                        <a [routerLink]="['/evento', eventoProducto.eventoId, 'view']">{{eventoProducto.eventoId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/evento-producto', eventoProducto.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

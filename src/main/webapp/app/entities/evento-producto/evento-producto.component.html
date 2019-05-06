@@ -1,10 +1,10 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="craftBeerStoreApp.evento.home.title">Eventos</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-evento" [routerLink]="['/evento/new']">
+        <span jhiTranslate="craftBeerStoreApp.eventoProducto.home.title">Evento Productos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-evento-producto" [routerLink]="['/evento-producto/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.evento.home.createLabel">
-            Create new Evento
+            <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.eventoProducto.home.createLabel">
+            Create new Evento Producto
             </span>
         </button>
     </h2>
@@ -13,7 +13,7 @@
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.evento.home.search' | translate }}">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.eventoProducto.home.search' | translate }}">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
@@ -25,41 +25,45 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="eventos">
+    <div class="table-responsive" *ngIf="eventoProductos">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nombreEvento"><span jhiTranslate="craftBeerStoreApp.evento.nombreEvento">Nombre Evento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fechaEvento"><span jhiTranslate="craftBeerStoreApp.evento.fechaEvento">Fecha Evento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="cantidadBarriles"><span jhiTranslate="craftBeerStoreApp.evento.cantidadBarriles">Cantidad Barriles</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="precioPinta"><span jhiTranslate="craftBeerStoreApp.evento.precioPinta">Precio Pinta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="productoNombreProducto"><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="eventoId"><span jhiTranslate="craftBeerStoreApp.eventoProducto.evento">Evento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let evento of eventos ;trackBy: trackId">
-                <td><a [routerLink]="['/evento', evento.id, 'view' ]">{{evento.id}}</a></td>
-                <td>{{evento.nombreEvento}}</td>
-                <td>{{evento.fechaEvento | date:'mediumDate'}}</td>
-                <td>{{evento.cantidadBarriles}}</td>
-                <td>{{evento.precioPinta}}</td>
+            <tr *ngFor="let eventoProducto of eventoProductos ;trackBy: trackId">
+                <td><a [routerLink]="['/evento-producto', eventoProducto.id, 'view' ]">{{eventoProducto.id}}</a></td>
+                <td>
+                    <div *ngIf="eventoProducto.productoId">
+                        <a [routerLink]="['../producto', eventoProducto.productoId , 'view' ]" >{{eventoProducto.productoNombreProducto}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="eventoProducto.eventoId">
+                        <a [routerLink]="['../evento', eventoProducto.eventoId , 'view' ]" >{{eventoProducto.eventoId}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/evento', evento.id, 'view' ]"
+                                [routerLink]="['/evento-producto', eventoProducto.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/evento', evento.id, 'edit']"
+                                [routerLink]="['/evento-producto', eventoProducto.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', 'evento', { outlets: { popup: evento.id + '/delete'} }]"
+                                [routerLink]="['/', 'evento-producto', { outlets: { popup: eventoProducto.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
@@ -72,7 +76,7 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="eventos && eventos.length">
+    <div *ngIf="eventoProductos && eventoProductos.length">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>

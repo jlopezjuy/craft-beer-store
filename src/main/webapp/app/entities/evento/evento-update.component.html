@@ -72,12 +72,48 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.evento.empresa" for="field_empresa">Empresa</label>
-                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="evento.empresaId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>
-                    </select>
+                    <div class="container">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-control-label"
+                                               jhiTranslate="craftBeerStoreApp.presentacion.producto"
+                                               for="field_producto">Producto</label>
+                                        <select class="form-control" id="field_producto"
+                                                name="producto" #producto [(ngModel)]="productoSave.id"
+                                                (change)="productoChange($event.target.value)">
+                                            <option [value]="null"></option>
+                                            <option [value]="productoOption.id"
+                                                    *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-success" (click)="addProducto()"> Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="table-responsive" *ngIf="productosList">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span jhiTranslate="craftBeerStoreApp.producto.nombreProducto">Nombre Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th><span jhiTranslate="craftBeerStoreApp.producto.estilo">Estilo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let producto of productosList ;trackBy: trackId">
+                        <td>{{producto.nombreProducto}}</td>
+                        <td jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.estilo}}">{{producto.estilo}}</td>
+                        <td>{{producto.nombreComercial}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
