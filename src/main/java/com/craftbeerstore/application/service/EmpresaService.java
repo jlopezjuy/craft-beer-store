@@ -53,4 +53,26 @@ public interface EmpresaService {
      * @return the list of entities
      */
     Page<EmpresaDTO> search(String query, Pageable pageable);
+
+    /**
+     *
+     * @param query
+     * @param pageable
+     * @param usuarioId
+     * @return
+     */
+    Page<EmpresaDTO> searchByEmpresa(String query, Pageable pageable, Long usuarioId);
+
+    /**
+     *
+     * @return
+     */
+    Optional<EmpresaDTO> findOne();
+
+    /**
+     *
+     * @param email
+     * @return
+     */
+    Optional<EmpresaDTO> findOneByEmail(String email);
 }

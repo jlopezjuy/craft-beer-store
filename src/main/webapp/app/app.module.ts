@@ -18,12 +18,37 @@ import { CraftBeerStoreHomeModule } from './home/home.module';
 import { CraftBeerStoreAccountModule } from './account/account.module';
 import { CraftBeerStoreEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import 'hammerjs';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
-
+import { CraftBeerStoreDashboardModule } from 'app/dashboard/dashboard.module';
+import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+    bgsColor: '#OOACC1',
+    bgsOpacity: 0.5,
+    blur: 8,
+    bgsPosition: POSITION.bottomCenter,
+    bgsSize: 60,
+    bgsType: SPINNER.rectangleBounce,
+    fgsColor: '#00ACC1',
+    fgsPosition: POSITION.centerCenter,
+    fgsSize: 60,
+    fgsType: SPINNER.chasingDots,
+    logoUrl: '../content/images/icon.svg',
+    pbColor: '#77DD77',
+    pbDirection: PB_DIRECTION.leftToRight,
+    pbThickness: 5,
+    // text: '',
+    textColor: '#FFFFFF',
+    textPosition: POSITION.centerCenter
+};
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
+        FlexLayoutModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         NgJhipsterModule.forRoot({
             // set below to true to make alerts look like toast
@@ -36,11 +61,14 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         CraftBeerStoreCoreModule,
         CraftBeerStoreHomeModule,
         CraftBeerStoreAccountModule,
+        CraftBeerStoreDashboardModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         CraftBeerStoreEntityModule,
-        CraftBeerStoreAppRoutingModule
+        CraftBeerStoreAppRoutingModule,
+        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    // entryComponents: [CraftBeerStoreDashboardModule],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

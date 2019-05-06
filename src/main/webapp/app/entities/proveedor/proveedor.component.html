@@ -37,8 +37,6 @@
             <th jhiSortBy="fechaAlta"><span jhiTranslate="craftBeerStoreApp.proveedor.fechaAlta">Fecha Alta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="domicilio"><span jhiTranslate="craftBeerStoreApp.proveedor.domicilio">Domicilio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="email"><span jhiTranslate="craftBeerStoreApp.proveedor.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="notas"><span jhiTranslate="craftBeerStoreApp.proveedor.notas">Notas</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empresaId"><span jhiTranslate="craftBeerStoreApp.proveedor.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -52,12 +50,6 @@
                 <td>{{proveedor.fechaAlta | date:'mediumDate'}}</td>
                 <td>{{proveedor.domicilio}}</td>
                 <td>{{proveedor.email}}</td>
-                <td>{{proveedor.notas}}</td>
-                <td>
-                    <div *ngIf="proveedor.empresaId">
-                        <a [routerLink]="['../empresa', proveedor.empresaId , 'view' ]" >{{proveedor.empresaId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

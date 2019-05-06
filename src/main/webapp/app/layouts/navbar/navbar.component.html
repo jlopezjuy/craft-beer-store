@@ -16,6 +16,53 @@
                     </span>
                 </a>
             </li>
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="dashboard-menu">
+                    <span>
+                        <i class="fa fa-area-chart" aria-hidden="true"></i>
+                        <span jhiTranslate="global.menu.dashboard.main">Dashboard</span>
+                        <b class="caret"></b>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" routerLink="barchart" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-bar-chart" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.dashboard.barchart">BarChart</span>
+                        </a>
+                    </li>
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" routerLink="doughnutchart" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-circle-o-notch" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.dashboard.doughnutchart">BarChart</span>
+                        </a>
+                    </li>
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" routerLink="linechart" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-line-chart" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.dashboard.linechart">LineChart</span>
+                        </a>
+                    </li>
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" routerLink="piechart" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-pie-chart" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.dashboard.piechart">PieChart</span>
+                        </a>
+                    </li>
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" routerLink="polarareachart" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-bullseye" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.dashboard.polarareachart">PolarAreaChart</span>
+                        </a>
+                    </li>
+                    <li uiSrefActive="active">
+                        <a class="dropdown-item" routerLink="radarchart" routerLinkActive="active" (click)="collapseNavbar()">
+                            <i class="fa fa-fw fa-star-o" aria-hidden="true"></i>
+                            <span jhiTranslate="global.menu.dashboard.radarchart">RadarChart</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
@@ -26,22 +73,22 @@
                         </span>
                     </span>
                 </a>
-                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu" *ngIf="empresaActiva">
                     <li>
                         <a class="dropdown-item" routerLink="empresa" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <fa-icon icon="building" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.empresa">Empresa</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="insumo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <fa-icon icon="barcode" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.insumo">Insumo</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="producto" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <fa-icon icon="beer" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.producto">Producto</span>
                         </a>
                     </li>
@@ -49,6 +96,48 @@
                         <a class="dropdown-item" routerLink="proveedor" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.proveedor">Proveedor</span>
+                        </a>
+                    </li>
+                    <!--<li>-->
+                        <!--<a class="dropdown-item" routerLink="presentacion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">-->
+                            <!--<fa-icon icon="asterisk" fixedWidth="true"></fa-icon>-->
+                            <!--<span jhiTranslate="global.menu.entities.presentacion">Presentacion</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <li>
+                        <a class="dropdown-item" routerLink="cliente" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="users" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.cliente">Cliente</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="movimientos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="cash-register" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.movimientos">Movimientos</span>
+                        </a>
+                    </li>
+                    <!--<li>-->
+                        <!--<a class="dropdown-item" routerLink="detalle-movimiento" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">-->
+                            <!--<fa-icon icon="asterisk" fixedWidth="true"></fa-icon>-->
+                            <!--<span jhiTranslate="global.menu.entities.detalleMovimiento">Detalle Movimiento</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <li>
+                        <a class="dropdown-item" routerLink="caja" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.caja">Caja</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="evento" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.evento">Evento</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="evento-producto" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.eventoProducto">Evento Producto</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

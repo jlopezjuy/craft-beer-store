@@ -5,6 +5,7 @@ import com.craftbeerstore.application.web.rest.util.HeaderUtil;
 import com.craftbeerstore.application.web.rest.util.PaginationUtil;
 import com.craftbeerstore.application.service.dto.ProveedorDTO;
 import io.github.jhipster.web.util.ResponseUtil;
+import javax.xml.ws.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -92,6 +93,20 @@ public class ProveedorResource {
         log.debug("REST request to get a page of Proveedors");
         Page<ProveedorDTO> page = proveedorService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/proveedors");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET /proveedors/empresa/{empresaId} : get all the proveedors by empresa
+     * @param pageable the pagination information
+     * @param empresaId the id of empresaDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and the list of productos by empresa in body
+     */
+    @GetMapping("/proveedors/empresa/{empresaId}")
+    public ResponseEntity<List<ProveedorDTO>> getAllProveedorsByEmpresa(Pageable pageable, @PathVariable Long empresaId){
+        log.debug("REST request to get a page of Proveedors");
+        Page<ProveedorDTO> page = proveedorService.findAllByEmpresa(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/proveedors/empresa/{empresaId}");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

@@ -42,6 +42,13 @@ public class CacheConfiguration {
             cm.createCache(com.craftbeerstore.application.domain.Insumo.class.getName(), jcacheConfiguration);
             cm.createCache(com.craftbeerstore.application.domain.Producto.class.getName(), jcacheConfiguration);
             cm.createCache(com.craftbeerstore.application.domain.Proveedor.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.Presentacion.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.Cliente.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.Movimientos.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.DetalleMovimiento.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.Caja.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.Evento.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.EventoProducto.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

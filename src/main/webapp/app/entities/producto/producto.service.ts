@@ -33,6 +33,11 @@ export class ProductoService {
         return this.http.get<IProducto[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
+    queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http.get<IProducto[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' });
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

@@ -28,6 +28,14 @@ public interface InsumoService {
      */
     Page<InsumoDTO> findAll(Pageable pageable);
 
+    /**
+     *
+     * @param pageable
+     * @param empresaId
+     * @return
+     */
+    Page<InsumoDTO> findAllByEmpresa(Pageable pageable, Long empresaId);
+
 
     /**
      * Get the "id" insumo.

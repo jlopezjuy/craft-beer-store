@@ -109,6 +109,29 @@ public class EmpresaResource {
     }
 
     /**
+     *
+     * @param email
+     * @return
+     */
+    @GetMapping("/empresas/email/{email}")
+    public ResponseEntity<EmpresaDTO> getEmpresaByMail(@PathVariable String email) {
+        log.debug("REST request to get Empresa : {}", email);
+        Optional<EmpresaDTO> empresaDTO = empresaService.findOneByEmail(email);
+        return ResponseUtil.wrapOrNotFound(empresaDTO);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @GetMapping("/empresas/usuario")
+    public ResponseEntity<EmpresaDTO> getEmpresa() {
+        log.debug("REST request to get Empresa by Loged User");
+        Optional<EmpresaDTO> empresaDTO = empresaService.findOne();
+        return ResponseUtil.wrapOrNotFound(empresaDTO);
+    }
+
+    /**
      * DELETE  /empresas/:id : delete the "id" empresa.
      *
      * @param id the id of the empresaDTO to delete
@@ -131,6 +154,22 @@ public class EmpresaResource {
      */
     @GetMapping("/_search/empresas")
     public ResponseEntity<List<EmpresaDTO>> searchEmpresas(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Empresas for query {}", query);
+        Page<EmpresaDTO> page = empresaService.search(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/empresas");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * SEARCH  /_search/empresas?query=:query : search for the empresa corresponding
+     * to the query.
+     *
+     * @param query the query of the empresa search
+     * @param pageable the pagination information
+     * @return the result of the search
+     */
+    @GetMapping("/_search/empresas/empresa{empresaId}")
+    public ResponseEntity<List<EmpresaDTO>> searchEmpresasByEmpresa(@RequestParam String query, Pageable pageable) {
         log.debug("REST request to search for a page of Empresas for query {}", query);
         Page<EmpresaDTO> page = empresaService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/empresas");

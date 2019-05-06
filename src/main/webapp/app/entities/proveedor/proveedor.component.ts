@@ -10,6 +10,9 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ProveedorService } from './proveedor.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { IEmpresa } from 'app/shared/model/empresa.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'jhi-proveedor',
@@ -39,7 +42,9 @@ export class ProveedorComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected dataUtils: JhiDataUtils,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        private $localStorage: LocalStorageService,
+        private ngxLoader: NgxUiLoaderService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -55,6 +60,8 @@ export class ProveedorComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        this.ngxLoader.start();
+        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
             this.proveedorService
                 .search({
@@ -70,11 +77,14 @@ export class ProveedorComponent implements OnInit, OnDestroy {
             return;
         }
         this.proveedorService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
+            .queryByEmpresa(
+                {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                },
+                empresa.id
+            )
             .subscribe(
                 (res: HttpResponse<IProveedor[]>) => this.paginateProveedors(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -170,6 +180,7 @@ export class ProveedorComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.proveedors = data;
+        this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {

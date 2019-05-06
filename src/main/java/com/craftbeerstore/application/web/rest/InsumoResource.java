@@ -96,6 +96,20 @@ public class InsumoResource {
     }
 
     /**
+     * GET /insumos/:empresaId : get all the insumos by empresa
+     * @param pageable
+     * @param empresaId
+     * @return the ResponseEntity with status 200 (OK) and the list of insumos by empresa in body
+     */
+    @GetMapping("/insumos/empresa/{empresaId}")
+    public ResponseEntity<List<InsumoDTO>> getAllInsumosByEmpresa(Pageable pageable, @PathVariable Long empresaId){
+        log.debug("REST request to get a page of Insumos by Empresa");
+        Page<InsumoDTO> page = insumoService.findAllByEmpresa(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/insumos/{empresaId}");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * GET  /insumos/:id : get the "id" insumo.
      *
      * @param id the id of the insumoDTO to retrieve

@@ -1,0 +1,79 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "proveedor",
+            "otherEntityName": "proveedor",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreProveedor",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "caja"
+        },
+        {
+            "relationshipName": "cliente",
+            "otherEntityName": "cliente",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombeApellido",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "caja"
+        },
+        {
+            "relationshipName": "empresa",
+            "otherEntityName": "empresa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "caja",
+            "otherEntityRelationshipNameUndefined": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "tipoMovimiento",
+            "fieldType": "TipoMovimientoCaja",
+            "fieldValues": "INGRESO,EGRESO",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "tipoPago",
+            "fieldType": "TipoPago",
+            "fieldValues": "EFECTIVO,TARJETA_CREDITO,TARJETA_DEBITO,CHEQUE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "saldoCtaCte",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "importe",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fecha",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20190423005359",
+    "dto": "mapstruct",
+    "searchEngine": "elasticsearch",
+    "service": "serviceImpl",
+    "entityTableName": "caja",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cliente">
+            <h2><span jhiTranslate="craftBeerStoreApp.cliente.detail.title">Cliente</span> {{cliente.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.nombeApellido">Nombe Apellido</span></dt>
+                <dd>
+                    <span>{{cliente.nombeApellido}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.domicilio">Domicilio</span></dt>
+                <dd>
+                    <span>{{cliente.domicilio}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoCliente.' + cliente.tipoCliente}}">{{cliente.tipoCliente}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.telefono">Telefono</span></dt>
+                <dd>
+                    <span>{{cliente.telefono}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.correo">Correo</span></dt>
+                <dd>
+                    <span>{{cliente.correo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="cliente.empresaId">
+                        <a [routerLink]="['/empresa', cliente.empresaId, 'view']">{{cliente.empresaId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cliente', cliente.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

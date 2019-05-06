@@ -28,6 +28,13 @@ public interface ProveedorService {
      */
     Page<ProveedorDTO> findAll(Pageable pageable);
 
+    /**
+     *
+     * @param pageable
+     * @param empresaId
+     * @return
+     */
+    Page<ProveedorDTO> findAllByEmpresa(Pageable pageable, Long empresaId);
 
     /**
      * Get the "id" proveedor.

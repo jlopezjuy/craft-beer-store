@@ -4,6 +4,15 @@
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
             "home": "Inicio",
+            "dashboard": {
+                "main": "Dashboard",
+                "barchart": "BarChart",
+                "doughnutchart": "Ingresos / Egresos",
+                "linechart": "LineChart",
+                "piechart": "PieChart",
+                "polarareachart": "PolarAreaChart",
+                "radarchart": "RadarChart"
+            },
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entidades",
@@ -11,6 +20,14 @@
                 "insumo": "Insumo",
                 "producto": "Producto",
                 "proveedor": "Proveedor",
+                "presentacion": "Presentación",
+                "cliente": "Cliente",
+                "presentacion": "Presentacion",
+                "movimientos": "Movimientos",
+                "detalleMovimiento": "Detalle Movimiento",
+                "caja": "Caja",
+                "evento": "Evento",
+                "eventoProducto": "Evento Producto",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -135,5 +152,5 @@
         "idexists": "A new {{entityName}} cannot already have an ID",
         "idnull": "Invalid ID"
     },
-    "footer": "pie de página"
+    "footer": "CraftBeerStore Derechos reservados"
 }

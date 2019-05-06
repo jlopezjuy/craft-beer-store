@@ -1,0 +1,264 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <!--<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">-->
+        <form name="editForm" role="form" novalidate #editForm="ngForm">
+            <h2 id="jhi-movimientos-heading"
+                jhiTranslate="craftBeerStoreApp.movimientos.home.createOrEditLabel">Create or edit a
+                Movimientos</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!movimientos.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                           [(ngModel)]="movimientos.id" readonly/>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-control-label"
+                                   jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento"
+                                   for="field_numeroMovimiento">Numero Movimiento</label>
+                            <input type="text" class="form-control" name="numeroMovimiento"
+                                   id="field_numeroMovimiento" [disabled]="!isEditable"
+                                   [(ngModel)]="movimientos.numeroMovimiento" required/>
+                            <div
+                                [hidden]="!(editForm.controls.numeroMovimiento?.dirty && editForm.controls.numeroMovimiento?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.numeroMovimiento?.errors?.required"
+                                       jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-control-label"
+                                   jhiTranslate="craftBeerStoreApp.movimientos.estado"
+                                   for="field_estado">Estado</label>
+                            <select class="form-control" name="estado" [disabled]="!isEditable"
+                                    [(ngModel)]="movimientos.estado" id="field_estado" required>
+                                <option
+                                    value="ACTIVO">{{'craftBeerStoreApp.EstadoMovimiento.ACTIVO' | translate}}</option>
+                                <option
+                                    value="INACTIVO">{{'craftBeerStoreApp.EstadoMovimiento.INACTIVO' | translate}}</option>
+                                <option
+                                    value="ENTREGADO">{{'craftBeerStoreApp.EstadoMovimiento.ENTREGADO' | translate}}</option>
+                            </select>
+                            <div
+                                [hidden]="!(editForm.controls.estado?.dirty && editForm.controls.estado?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.estado?.errors?.required"
+                                       jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-control-label"
+                                   jhiTranslate="craftBeerStoreApp.movimientos.cliente"
+                                   for="field_cliente">Cliente</label>
+                            <select class="form-control" id="field_cliente" name="cliente" [disabled]="!isEditable"
+                                    [(ngModel)]="movimientos.clienteId">
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="clienteOption.id"
+                                        *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.nombeApellido}}</option>
+                            </select>
+                        </div>
+                        <div class="col-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-control-label"
+                                   jhiTranslate="craftBeerStoreApp.movimientos.tipoMovimiento"
+                                   for="field_tipoMovimiento">Tipo Movimiento</label>
+                            <select class="form-control" name="tipoMovimiento" [disabled]="!isEditable"
+                                    [(ngModel)]="movimientos.tipoMovimiento"
+                                    id="field_tipoMovimiento" required>
+                                <option
+                                    value="PRESUPUESTO">{{'craftBeerStoreApp.TipoMovimiento.PRESUPUESTO' | translate}}</option>
+                                <option
+                                    value="VENTA">{{'craftBeerStoreApp.TipoMovimiento.VENTA' | translate}}</option>
+                            </select>
+                            <div
+                                [hidden]="!(editForm.controls.tipoMovimiento?.dirty && editForm.controls.tipoMovimiento?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.tipoMovimiento?.errors?.required"
+                                       jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-control-label"
+                                   jhiTranslate="craftBeerStoreApp.movimientos.fechaMovimiento"
+                                   for="field_fechaMovimiento">Fecha Movimiento</label>
+                            <div class="input-group">
+                                <input id="field_fechaMovimiento" type="text" class="form-control"
+                                       name="fechaMovimiento" ngbDatepicker [disabled]="!isEditable"
+                                       #fechaMovimientoDp="ngbDatepicker"
+                                       [(ngModel)]="movimientos.fechaMovimiento"
+                                       required/>
+                                <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary"
+                                    (click)="fechaMovimientoDp.toggle()"><fa-icon
+                                [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                            </div>
+                            <div
+                                [hidden]="!(editForm.controls.fechaMovimiento?.dirty && editForm.controls.fechaMovimiento?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.fechaMovimiento?.errors?.required"
+                                       jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row" [hidden]="!isEditable">
+                        <div class="container" *ngIf="!movimientos.id">
+                            <div class="card bg-info text-white">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-control-label"
+                                                   jhiTranslate="craftBeerStoreApp.presentacion.producto"
+                                                   for="field_producto">Producto</label>
+                                            <select class="form-control" id="field_producto"
+                                                    name="producto" #producto [(ngModel)]="productoSave.id"
+                                                    (change)="productoChange($event.target.value)">
+                                                <option [value]="null"></option>
+                                                <option [value]="productoOption.id"
+                                                        *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-control-label"
+                                                   jhiTranslate="craftBeerStoreApp.producto.presentacion"
+                                                   for="field_presentacion">Presentacion</label>
+                                            <select class="form-control" id="field_presentacion"
+                                                    name="presentacion" #presentacion
+                                                    [(ngModel)]="productoSave.presentacionId"
+                                                    (change)="presentacionChange($event.target.value)">
+                                                <option [value]=""></option>
+                                                <option [value]="presentacionOption.id"
+                                                        *ngFor="let presentacionOption of presentacionesAdd; trackBy: trackProductoById">
+                                                <span
+                                                    jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacionOption.tipoPresentacion}}">{{presentacionOption.tipoPresentacion}}</span>
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="form-control-label" jhiTranslate="craftBeerStoreApp.presentacion.cantidad" for="field_cantidad">Cantidad</label>
+                                            <input type="number" class="form-control" name="cantidad" id="field_cantidad"
+                                                   [(ngModel)]="productoSave.cantidadPresentacion" required/>
+                                            <div [hidden]="!(editForm.controls.cantidad?.dirty && editForm.controls.cantidad?.invalid)">
+                                                <small class="form-text text-danger"
+                                                       [hidden]="!editForm.controls.cantidad?.errors?.required" jhiTranslate="entity.validation.required">
+                                                    This field is required.
+                                                </small>
+                                                <small class="form-text text-danger"
+                                                       [hidden]="!editForm.controls.cantidad?.errors?.number" jhiTranslate="entity.validation.number">
+                                                    This field should be a number.
+                                                </small>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-control-label" jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario" for="field_precioVentaUnitario">Precio Venta Unitario</label>
+                                            <input type="number" class="form-control" name="precioVentaUnitario" id="field_precioVentaUnitario"
+                                                   [(ngModel)]="productoSave.precioUnitario" disabled/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <button type="button" class="btn btn-success" (click)="addPresentacion()"> Agregar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <br/>
+                    <div class="row">
+                        <div class="table-responsive" *ngIf="presentacions">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th><span
+                                        jhiTranslate="craftBeerStoreApp.presentacion.producto">Producto</span>
+                                    </th>
+                                    <th><span
+                                        jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span>
+                                    </th>
+                                    <th><span
+                                        jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span>
+                                    </th>
+                                    <th><span
+                                        jhiTranslate="craftBeerStoreApp.presentacion.precioTotal">Precio Total</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let presentacion of presentacions">
+                                    <td>{{presentacion.nombreComercial}}</td>
+                                    <td jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}">{{presentacion.tipoPresentacion}}</td>
+                                    <td>{{presentacion.cantidad}}</td>
+                                    <td>{{presentacion.precioTotal}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-6">
+                            <label class="form-control-label"
+                                   jhiTranslate="craftBeerStoreApp.movimientos.precioTotal"
+                                   for="field_precioTotal">Precio Total</label>
+                            <input type="number" class="form-control" name="precioTotal"
+                                   id="field_precioTotal" disabled
+                                   [(ngModel)]="movimientos.precioTotal" required/>
+                            <div
+                                [hidden]="!(editForm.controls.precioTotal?.dirty && editForm.controls.precioTotal?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.precioTotal?.errors?.required"
+                                       jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.precioTotal?.errors?.number"
+                                       jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"
+                        (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
+                    jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="button" id="save-entity" (click)="saveMovimiento()" [hidden]="movimientos.id"
+                        [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
+                    jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

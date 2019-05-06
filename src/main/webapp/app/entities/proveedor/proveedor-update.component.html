@@ -87,7 +87,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.proveedor.email" for="field_email">Email</label>
                     <input type="text" class="form-control" name="email" id="field_email"
-                        [(ngModel)]="proveedor.email" required pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$"/>
+                        [(ngModel)]="proveedor.email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
                     <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
@@ -106,11 +106,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.proveedor.empresa" for="field_empresa">Empresa</label>
-                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="proveedor.empresaId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>
-                    </select>
+                    <!--<label class="form-control-label" jhiTranslate="craftBeerStoreApp.proveedor.empresa" for="field_empresa">Empresa</label>-->
+                    <!--<select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="proveedor.empresaId" >-->
+                        <!--<option [ngValue]="null"></option>-->
+                        <!--<option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>-->
+                    <!--</select>-->
                 </div>
             </div>
             <div>

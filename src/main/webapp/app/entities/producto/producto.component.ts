@@ -10,6 +10,9 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ProductoService } from './producto.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { IEmpresa } from 'app/shared/model/empresa.model';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
     selector: 'jhi-producto',
@@ -30,6 +33,8 @@ export class ProductoComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    nombreComercial: string;
+    nombreProducto: string;
 
     constructor(
         protected productoService: ProductoService,
@@ -39,7 +44,9 @@ export class ProductoComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected dataUtils: JhiDataUtils,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        private $localStorage: LocalStorageService,
+        private ngxLoader: NgxUiLoaderService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -55,13 +62,17 @@ export class ProductoComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        this.ngxLoader.start();
+        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
             this.productoService
                 .search({
                     page: this.page - 1,
                     query: this.currentSearch,
                     size: this.itemsPerPage,
-                    sort: this.sort()
+                    sort: this.sort(),
+                    nombreComercial: this.nombreComercial,
+                    nombreProducto: this.nombreProducto
                 })
                 .subscribe(
                     (res: HttpResponse<IProducto[]>) => this.paginateProductos(res.body, res.headers),
@@ -70,11 +81,14 @@ export class ProductoComponent implements OnInit, OnDestroy {
             return;
         }
         this.productoService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
+            .queryByEmpresa(
+                {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                },
+                empresa.id
+            )
             .subscribe(
                 (res: HttpResponse<IProducto[]>) => this.paginateProductos(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -170,9 +184,15 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.productos = data;
+        this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    goPresentacion(producto: IProducto) {
+        this.$localStorage.store('producto', producto);
+        this.router.navigate(['/presentacion']);
     }
 }
