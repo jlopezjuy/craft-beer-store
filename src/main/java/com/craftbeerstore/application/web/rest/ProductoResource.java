@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +19,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Producto.
@@ -96,6 +92,20 @@ public class ProductoResource {
     }
 
     /**
+     * GET /productos/empresa/{empresaId} : get all the productos by empresa
+     * @param pageable the pagination information
+     * @param empresaId the id of empresaDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and the list of productos by empresa in body
+     */
+    @GetMapping("/productos/empresa/{empresaId}")
+    public ResponseEntity<List<ProductoDTO>> getAllProductosByEmpresa(Pageable pageable, @PathVariable Long empresaId){
+        log.debug("REST request to get a page of Productos by empresa");
+        Page<ProductoDTO> page = productoService.findAllByEmpresa(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/productos/empresa/{empresaId}");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * GET  /productos/:id : get the "id" producto.
      *
      * @param id the id of the productoDTO to retrieve
@@ -134,6 +144,24 @@ public class ProductoResource {
         log.debug("REST request to search for a page of Productos for query {}", query);
         Page<ProductoDTO> page = productoService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/productos");
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * SEARCH  /_search/productos/empresa/{empresaId}?query=:query : search for the producto corresponding
+     * to the query.
+     *
+     * @param query the query of the producto search
+     * @param pageable the pagination information
+     * @param empresaId
+     * @return the result of the search
+     */
+    @GetMapping("/_search/productos/empresa/{empresaId}")
+    public ResponseEntity<List<ProductoDTO>> searchProductosByEmpresa(@RequestParam String nombreComercial, @RequestParam String nombreProducto, Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to search for a page of Productos for query {}", nombreProducto);
+        log.debug("REST request to search for a page of Productos for Empresa {}", empresaId);
+        Page<ProductoDTO> page = productoService.search(empresaId, nombreComercial, nombreProducto, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(nombreComercial, page, "/api/_search/productos");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 

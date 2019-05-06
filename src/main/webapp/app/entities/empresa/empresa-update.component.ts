@@ -3,10 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from './empresa.service';
-import { IUser, UserService } from 'app/core';
+import { Account, AccountService, IUser, UserService } from 'app/core';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-empresa-update',
@@ -15,6 +16,7 @@ import { IUser, UserService } from 'app/core';
 export class EmpresaUpdateComponent implements OnInit {
     empresa: IEmpresa;
     isSaving: boolean;
+    account: Account;
 
     users: IUser[];
 
@@ -22,7 +24,10 @@ export class EmpresaUpdateComponent implements OnInit {
         protected jhiAlertService: JhiAlertService,
         protected empresaService: EmpresaService,
         protected userService: UserService,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        protected $localStorage: LocalStorageService,
+        private eventManager: JhiEventManager,
+        private accountService: AccountService
     ) {}
 
     ngOnInit() {
@@ -37,6 +42,10 @@ export class EmpresaUpdateComponent implements OnInit {
                 map((response: HttpResponse<IUser[]>) => response.body)
             )
             .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.accountService.identity().then((account: Account) => {
+            this.account = account;
+        });
+        // this.account = this.$localStorage.retrieve('account');
     }
 
     previousState() {
@@ -44,6 +53,8 @@ export class EmpresaUpdateComponent implements OnInit {
     }
 
     save() {
+        this.empresa.userId = this.account.id;
+        console.log(this.account);
         this.isSaving = true;
         if (this.empresa.id !== undefined) {
             this.subscribeToSaveResponse(this.empresaService.update(this.empresa));
@@ -53,10 +64,12 @@ export class EmpresaUpdateComponent implements OnInit {
     }
 
     protected subscribeToSaveResponse(result: Observable<HttpResponse<IEmpresa>>) {
-        result.subscribe((res: HttpResponse<IEmpresa>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<IEmpresa>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    protected onSaveSuccess() {
+    protected onSaveSuccess(res: HttpResponse<IEmpresa>) {
+        this.$localStorage.store('empresa', res.body);
+        this.$localStorage.store('empresaActiva', true);
         this.isSaving = false;
         this.previousState();
     }
@@ -71,5 +84,18 @@ export class EmpresaUpdateComponent implements OnInit {
 
     trackUserById(index: number, item: IUser) {
         return item.id;
+    }
+
+    onBlurEmail(email: string) {
+        this.empresaService.findByEmail(email).subscribe(
+            resp => {
+                console.log(resp.body);
+                this.jhiAlertService.error('craftBeerStoreApp.empresa.mailError', null, null);
+                this.empresa.correo = null;
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
 }

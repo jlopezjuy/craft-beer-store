@@ -8,6 +8,7 @@ import { IInsumo } from 'app/shared/model/insumo.model';
 import { InsumoService } from './insumo.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-insumo-update',
@@ -17,7 +18,7 @@ export class InsumoUpdateComponent implements OnInit {
     insumo: IInsumo;
     isSaving: boolean;
 
-    empresas: IEmpresa[];
+    empresa: IEmpresa;
 
     constructor(
         protected dataUtils: JhiDataUtils,
@@ -25,7 +26,8 @@ export class InsumoUpdateComponent implements OnInit {
         protected insumoService: InsumoService,
         protected empresaService: EmpresaService,
         protected elementRef: ElementRef,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        private $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {
@@ -33,13 +35,7 @@ export class InsumoUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ insumo }) => {
             this.insumo = insumo;
         });
-        this.empresaService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IEmpresa[]>) => response.body)
-            )
-            .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.empresa = this.$localStorage.retrieve('empresa');
     }
 
     byteSize(field) {
@@ -64,6 +60,7 @@ export class InsumoUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.insumo.empresaId = this.empresa.id;
         if (this.insumo.id !== undefined) {
             this.subscribeToSaveResponse(this.insumoService.update(this.insumo));
         } else {

@@ -8,6 +8,7 @@ import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from './producto.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-producto-update',
@@ -17,7 +18,7 @@ export class ProductoUpdateComponent implements OnInit {
     producto: IProducto;
     isSaving: boolean;
 
-    empresas: IEmpresa[];
+    empresa: IEmpresa;
 
     constructor(
         protected dataUtils: JhiDataUtils,
@@ -25,7 +26,8 @@ export class ProductoUpdateComponent implements OnInit {
         protected productoService: ProductoService,
         protected empresaService: EmpresaService,
         protected elementRef: ElementRef,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        private $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {
@@ -33,13 +35,7 @@ export class ProductoUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ producto }) => {
             this.producto = producto;
         });
-        this.empresaService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IEmpresa[]>) => response.body)
-            )
-            .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.empresa = this.$localStorage.retrieve('empresa');
     }
 
     byteSize(field) {
@@ -63,6 +59,7 @@ export class ProductoUpdateComponent implements OnInit {
     }
 
     save() {
+        this.producto.empresaId = this.empresa.id;
         this.isSaving = true;
         if (this.producto.id !== undefined) {
             this.subscribeToSaveResponse(this.productoService.update(this.producto));

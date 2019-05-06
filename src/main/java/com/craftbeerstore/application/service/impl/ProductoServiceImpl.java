@@ -1,11 +1,15 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.ProductoService;
 import com.craftbeerstore.application.domain.Producto;
 import com.craftbeerstore.application.repository.ProductoRepository;
 import com.craftbeerstore.application.repository.search.ProductoSearchRepository;
 import com.craftbeerstore.application.service.dto.ProductoDTO;
 import com.craftbeerstore.application.service.mapper.ProductoMapper;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,10 +37,15 @@ public class ProductoServiceImpl implements ProductoService {
 
     private final ProductoSearchRepository productoSearchRepository;
 
-    public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper, ProductoSearchRepository productoSearchRepository) {
+    private final EmpresaRepository empresaRepository;
+
+    public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper,
+        ProductoSearchRepository productoSearchRepository,
+        EmpresaRepository empresaRepository) {
         this.productoRepository = productoRepository;
         this.productoMapper = productoMapper;
         this.productoSearchRepository = productoSearchRepository;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -67,6 +76,12 @@ public class ProductoServiceImpl implements ProductoService {
         log.debug("Request to get all Productos");
         return productoRepository.findAll(pageable)
             .map(productoMapper::toDto);
+    }
+
+    @Override
+    public Page<ProductoDTO> findAllByEmpresa(Pageable pageable, Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return productoRepository.findAllByEmpresa(pageable, empresa).map(productoMapper::toDto);
     }
 
 
@@ -107,7 +122,20 @@ public class ProductoServiceImpl implements ProductoService {
     @Transactional(readOnly = true)
     public Page<ProductoDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Productos for query {}", query);
-        return productoSearchRepository.search(queryStringQuery(query), pageable)
+//        Empresa empresa = this.empresaRepository.getOne(Long.valueOf(1));
+//        QueryBuilder queryBuilder = QueryBuilders.boolQuery().filter(queryStringQuery(query)).must(QueryBuilders.termsQuery("empresa", empresa));
+        QueryBuilder queryBuilder = QueryBuilders.boolQuery().filter(queryStringQuery(query));
+
+        return productoSearchRepository.search(queryBuilder, pageable)
             .map(productoMapper::toDto);
+    }
+
+    @Override
+    public Page<ProductoDTO> search(Long empresaId, String nombreComercial,
+        String nombreProducto, Pageable pageable) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return productoSearchRepository.findByNombreComercialLikeOrNombreProductoLikeAndEmpresa(nombreComercial, nombreProducto, empresa, pageable)
+            .map(productoMapper::toDto);
+
     }
 }

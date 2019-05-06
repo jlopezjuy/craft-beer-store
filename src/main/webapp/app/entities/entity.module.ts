@@ -23,6 +23,38 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'producto',
                 loadChildren: './producto/producto.module#CraftBeerStoreProductoModule'
+            },
+            {
+                path: 'proveedor',
+                loadChildren: './proveedor/proveedor.module#CraftBeerStoreProveedorModule'
+            },
+            {
+                path: 'presentacion',
+                loadChildren: './presentacion/presentacion.module#CraftBeerStorePresentacionModule'
+            },
+            {
+                path: 'cliente',
+                loadChildren: './cliente/cliente.module#CraftBeerStoreClienteModule'
+            },
+            {
+                path: 'movimientos',
+                loadChildren: './movimientos/movimientos.module#CraftBeerStoreMovimientosModule'
+            },
+            {
+                path: 'detalle-movimiento',
+                loadChildren: './detalle-movimiento/detalle-movimiento.module#CraftBeerStoreDetalleMovimientoModule'
+            },
+            {
+                path: 'caja',
+                loadChildren: './caja/caja.module#CraftBeerStoreCajaModule'
+            },
+            {
+                path: 'evento',
+                loadChildren: './evento/evento.module#CraftBeerStoreEventoModule'
+            },
+            {
+                path: 'evento-producto',
+                loadChildren: './evento-producto/evento-producto.module#CraftBeerStoreEventoProductoModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

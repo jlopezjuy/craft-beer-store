@@ -22,7 +22,8 @@
             "precioLitro": "Precio Litro",
             "tipoProducto": "Tipo Producto",
             "imagen": "Imagen",
-            "empresa": "Empresa"
+            "empresa": "Empresa",
+            "presentacion": "Presentación"
         }
     }
 }

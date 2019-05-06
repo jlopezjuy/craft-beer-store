@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
-import { SessionStorageService } from 'ngx-webstorage';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
 import { JhiLanguageHelper, AccountService, LoginModalService, LoginService } from 'app/core';
@@ -11,7 +11,7 @@ import { ProfileService } from 'app/layouts/profiles/profile.service';
 @Component({
     selector: 'jhi-navbar',
     templateUrl: './navbar.component.html',
-    styleUrls: ['navbar.css']
+    styleUrls: ['navbar.scss']
 })
 export class NavbarComponent implements OnInit {
     inProduction: boolean;
@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
+    empresaActiva: boolean;
 
     constructor(
         private loginService: LoginService,
@@ -29,7 +30,8 @@ export class NavbarComponent implements OnInit {
         private accountService: AccountService,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
-        private router: Router
+        private router: Router,
+        private $localStorage: LocalStorageService
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
@@ -44,6 +46,7 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
+        this.empresaActiva = this.$localStorage.retrieve('empresaActiva');
     }
 
     changeLanguage(languageKey: string) {
@@ -56,6 +59,7 @@ export class NavbarComponent implements OnInit {
     }
 
     isAuthenticated() {
+        this.empresaActiva = this.$localStorage.retrieve('empresaActiva');
         return this.accountService.isAuthenticated();
     }
 
@@ -64,6 +68,7 @@ export class NavbarComponent implements OnInit {
     }
 
     logout() {
+        this.$localStorage.store('empresaActiva', false);
         this.collapseNavbar();
         this.loginService.logout();
         this.router.navigate(['']);

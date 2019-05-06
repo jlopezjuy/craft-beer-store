@@ -1,0 +1,31 @@
+{
+    "craftBeerStoreApp": {
+        "caja": {
+            "home": {
+                "title": "Cajas",
+                "createLabel": "Crear nuevo Caja",
+                "createOrEditLabel": "Crear o editar Caja",
+                "search": "Search for Caja",
+                "saldo": "Saldo Actual"
+            },
+            "created": "Un nuevo Caja ha sido creado con el identificador {{ param }}",
+            "updated": "Un Caja ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Caja ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Caja {{ id }}?"
+            },
+            "detail": {
+                "title": "Caja"
+            },
+            "tipoMovimiento": "Tipo Movimiento",
+            "tipoPago": "Tipo Pago",
+            "descripcion": "Descripcion",
+            "saldoCtaCte": "Saldo Cta Cte",
+            "importe": "Importe",
+            "fecha": "Fecha",
+            "proveedor": "Proveedor",
+            "cliente": "Cliente",
+            "empresa": "Empresa"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "craftBeerStoreApp": {
+        "TipoMovimiento": {
+            "null": "",
+            "PRESUPUESTO": "PRESUPUESTO",
+            "VENTA": "VENTA"
+        }
+    }
+}

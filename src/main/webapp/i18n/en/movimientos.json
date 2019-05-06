@@ -1,0 +1,28 @@
+{
+    "craftBeerStoreApp": {
+        "movimientos": {
+            "home": {
+                "title": "Movimientos",
+                "createLabel": "Create a new Movimientos",
+                "createOrEditLabel": "Create or edit a Movimientos",
+                "search": "Search for Movimientos"
+            },
+            "created": "A new Movimientos is created with identifier {{ param }}",
+            "updated": "A Movimientos is updated with identifier {{ param }}",
+            "deleted": "A Movimientos is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Movimientos {{ id }}?"
+            },
+            "detail": {
+                "title": "Movimientos"
+            },
+            "tipoMovimiento": "Tipo Movimiento",
+            "fechaMovimiento": "Fecha Movimiento",
+            "precioTotal": "Precio Total",
+            "numeroMovimiento": "Numero Movimiento",
+            "estado": "Estado",
+            "cliente": "Cliente",
+            "empresa": "Empresa"
+        }
+    }
+}

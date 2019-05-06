@@ -1,0 +1,23 @@
+{
+    "craftBeerStoreApp": {
+        "eventoProducto": {
+            "home": {
+                "title": "Evento Productos",
+                "createLabel": "Create a new Evento Producto",
+                "createOrEditLabel": "Create or edit a Evento Producto",
+                "search": "Search for Evento Producto"
+            },
+            "created": "A new Evento Producto is created with identifier {{ param }}",
+            "updated": "A Evento Producto is updated with identifier {{ param }}",
+            "deleted": "A Evento Producto is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Evento Producto {{ id }}?"
+            },
+            "detail": {
+                "title": "Evento Producto"
+            },
+            "producto": "Producto",
+            "evento": "Evento"
+        }
+    }
+}

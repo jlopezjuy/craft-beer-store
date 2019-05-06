@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="caja">
+            <h2><span jhiTranslate="craftBeerStoreApp.caja.detail.title">Caja</span> {{caja.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.tipoMovimiento">Tipo Movimiento</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoMovimientoCaja.' + caja.tipoMovimiento}}">{{caja.tipoMovimiento}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.tipoPago">Tipo Pago</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoPago.' + caja.tipoPago}}">{{caja.tipoPago}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.descripcion">Descripcion</span></dt>
+                <dd>
+                    <span>{{caja.descripcion}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.saldoCtaCte">Saldo Cta Cte</span></dt>
+                <dd>
+                    <span>{{caja.saldoCtaCte}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.importe">Importe</span></dt>
+                <dd>
+                    <span>{{caja.importe}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.fecha">Fecha</span></dt>
+                <dd>
+                    <span>{{caja.fecha}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.proveedor">Proveedor</span></dt>
+                <dd>
+                    <div *ngIf="caja.proveedorId">
+                        <a [routerLink]="['/proveedor', caja.proveedorId, 'view']">{{caja.proveedorNombreProveedor}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.cliente">Cliente</span></dt>
+                <dd>
+                    <div *ngIf="caja.clienteId">
+                        <a [routerLink]="['/cliente', caja.clienteId, 'view']">{{caja.clienteNombeApellido}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.caja.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="caja.empresaId">
+                        <a [routerLink]="['/empresa', caja.empresaId, 'view']">{{caja.empresaId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/caja', caja.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

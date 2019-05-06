@@ -65,7 +65,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Transactional(readOnly = true)
     public Page<EmpresaDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Empresas");
-        return empresaRepository.findAll(pageable)
+        return empresaRepository.findByUserIsCurrentUser(pageable)
             .map(empresaMapper::toDto);
     }
 
@@ -109,5 +109,21 @@ public class EmpresaServiceImpl implements EmpresaService {
         log.debug("Request to search for a page of Empresas for query {}", query);
         return empresaSearchRepository.search(queryStringQuery(query), pageable)
             .map(empresaMapper::toDto);
+    }
+
+    @Override
+    public Page<EmpresaDTO> searchByEmpresa(String query, Pageable pageable, Long usuarioId) {
+        return null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<EmpresaDTO> findOne() {
+        return empresaRepository.findByUserIsCurrentUser().map(empresaMapper::toDto);
+    }
+
+    @Override
+    public Optional<EmpresaDTO> findOneByEmail(String email) {
+        return empresaRepository.findByCorreo(email).map(empresaMapper::toDto);
     }
 }

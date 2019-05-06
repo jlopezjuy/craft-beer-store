@@ -55,10 +55,16 @@ spring:
     liquibase:
         contexts: prod
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        host: smtp.gmail.com
+        port: 587
+        username: jlopezjuy@gmail.com  #Replace this field with your Gmail username.
+        password: mostro154122954           #Replace this field with your Gmail password.
+        protocol: smtp
+        tls: true
+        properties.mail.smtp:
+            auth: true
+            starttls.enable: true
+            ssl.trust: smtp.gmail.com
     thymeleaf:
         cache: true
 
@@ -111,13 +117,14 @@ jhipster:
                 # - In the JHipster Registry (which includes a Spring Cloud Config server)
                 # - In a separate `application-prod.yml` file, in the same folder as your executable WAR file
                 # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET` environment variable
-                base64-secret: YmM0NGRiM2RmMjZhZWI4YzYzNGQwYjA5MDY4ZWMxY2VlMTA1ODM2NzJhZGQzMzU1NWQwNzJkNWY0YmU5Yjg2ZTc0YjFmMzQ0ZWQ2MzlkMjRkZmU1OTY3NDkyYjYwNmVhM2NiNjUwMjY3MjRhZTI2N2IzNjgzYjczMDI1NDhkMWQ=
+                base64-secret: ZTA1OTkxYThlZWM1YWJkY2MzNjVmMDY5NDRjYzQyMjYxZjFjYjU4NDdjZjkzNjBjM2IyZjAyMjlkOWFiYTIxOGNmOGYwYmRjYzMwZjgxMDVkMmNkNGNmNDMyNjljNTcwMWMxMDdmNjY2NjY3NjlmNTdmODI3MTU0YmRjMjkzMzY=
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
-    mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: craftBeerStore@localhost
-        base-url: http://my-server-url-to-change # Modify according to your server's URL
+    mail:
+        enabled: true # If e-mail sending is enabled. The standard `spring.mail` keys will need to be configured
+        from: jhipster@localhost # The default "from" address for e-mails
+        base-url: http://craftbeer.ddns.net:8080 # URL to the application, used inside e-mails
     metrics:
         logs: # Reports metrics in the logs
             enabled: false
