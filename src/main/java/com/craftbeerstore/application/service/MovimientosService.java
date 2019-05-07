@@ -2,6 +2,7 @@ package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.MovimientosDTO;
 
+import com.craftbeerstore.application.service.dto.MovimientosProductoSemanaDTO;
 import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -71,4 +72,11 @@ public interface MovimientosService {
      * @return
      */
     List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId);
+
+    /**
+     *
+     * @param empresaId
+     * @return
+     */
+    List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId);
 }

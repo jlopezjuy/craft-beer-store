@@ -6,8 +6,8 @@
             "home": "Home",
             "dashboard": {
                 "main": "Dashboard",
-                "barchart": "BarChart",
-                "doughnutchart": "Ingresos / Egresos",
+                "barchart": "Movimiento: Ventas",
+                "doughnutchart": "Ingresos / Egresos de Caja",
                 "linechart": "LineChart",
                 "piechart": "PieChart",
                 "polarareachart": "PolarAreaChart",
