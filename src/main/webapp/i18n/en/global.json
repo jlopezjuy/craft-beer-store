@@ -27,6 +27,7 @@
                 "caja": "Caja",
                 "evento": "Evento",
                 "eventoProducto": "Evento Producto",
+                "estilos": "Estilos",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

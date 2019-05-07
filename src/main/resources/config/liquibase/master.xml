@@ -16,6 +16,8 @@
     <include file="config/liquibase/changelog/20190423005359_added_entity_Caja.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190505113135_added_entity_Evento.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190506003908_added_entity_EventoProducto.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190507170732_added_entity_Estilos.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190507170732_insert_entity_Estilos.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190407234855_added_entity_constraints_Empresa.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408000453_added_entity_constraints_Insumo.xml" relativeToChangelogFile="false"/>

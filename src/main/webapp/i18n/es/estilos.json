@@ -1,0 +1,36 @@
+{
+    "craftBeerStoreApp": {
+        "estilos": {
+            "home": {
+                "title": "Estilos",
+                "createLabel": "Crear nuevo Estilos",
+                "createOrEditLabel": "Crear o editar Estilos",
+                "search": "Search for Estilos"
+            },
+            "created": "Un nuevo Estilos ha sido creado con el identificador {{ param }}",
+            "updated": "Un Estilos ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Estilos ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Estilos {{ id }}?"
+            },
+            "detail": {
+                "title": "Estilos"
+            },
+            "number": "Number",
+            "nombreEstilo": "Nombre Estilo",
+            "categoriaEstilo": "Categoria Estilo",
+            "abvMin": "Abv Min",
+            "abvMax": "Abv Max",
+            "abvMed": "Abv Med",
+            "ibuMin": "Ibu Min",
+            "ibuMax": "Ibu Max",
+            "ibuMed": "Ibu Med",
+            "srmMin": "Srm Min",
+            "srmMax": "Srm Max",
+            "srmMed": "Srm Med",
+            "descripcion": "Descripcion",
+            "ejemploNombreComercial": "Ejemplo Nombre Comercial",
+            "ejemploImagenComercial": "Ejemplo Imagen Comercial"
+        }
+    }
+}

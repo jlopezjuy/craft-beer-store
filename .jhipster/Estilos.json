@@ -1,0 +1,75 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "number",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nombreEstilo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "categoriaEstilo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "abvMin",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "abvMax",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "abvMed",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "ibuMin",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "ibuMax",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "ibuMed",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "srmMin",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "srmMax",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "srmMed",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ejemploNombreComercial",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ejemploImagenComercial",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20190507170732",
+    "dto": "mapstruct",
+    "searchEngine": "elasticsearch",
+    "service": "serviceImpl",
+    "entityTableName": "estilos",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}
