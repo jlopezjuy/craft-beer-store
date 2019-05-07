@@ -9,6 +9,14 @@
             "otherEntityField": "id",
             "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "producto"
+        },
+        {
+            "relationshipName": "estilos",
+            "otherEntityName": "estilos",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreEstilo",
+            "otherEntityRelationshipName": "producto",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

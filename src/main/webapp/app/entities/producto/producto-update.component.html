@@ -80,6 +80,13 @@
                         <!--<option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>-->
                     <!--</select>-->
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.estilos" for="field_estilos">Estilos</label>
+                    <select class="form-control" id="field_estilos" name="estilos" [(ngModel)]="producto.estilosId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="estilosOption.id" *ngFor="let estilosOption of estilos; trackBy: trackEstilosById">{{estilosOption.nombreEstilo}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

@@ -9,6 +9,8 @@ import { ProductoService } from './producto.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
+import { IEstilos } from 'app/shared/model/estilos.model';
+import { EstilosService } from 'app/entities/estilos';
 
 @Component({
     selector: 'jhi-producto-update',
@@ -20,11 +22,14 @@ export class ProductoUpdateComponent implements OnInit {
 
     empresa: IEmpresa;
 
+    estilos: IEstilos[];
+
     constructor(
         protected dataUtils: JhiDataUtils,
         protected jhiAlertService: JhiAlertService,
         protected productoService: ProductoService,
         protected empresaService: EmpresaService,
+        protected estilosService: EstilosService,
         protected elementRef: ElementRef,
         protected activatedRoute: ActivatedRoute,
         private $localStorage: LocalStorageService
@@ -36,6 +41,13 @@ export class ProductoUpdateComponent implements OnInit {
             this.producto = producto;
         });
         this.empresa = this.$localStorage.retrieve('empresa');
+        this.estilosService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IEstilos[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IEstilos[]>) => response.body)
+            )
+            .subscribe((res: IEstilos[]) => (this.estilos = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     byteSize(field) {
@@ -86,6 +98,10 @@ export class ProductoUpdateComponent implements OnInit {
     }
 
     trackEmpresaById(index: number, item: IEmpresa) {
+        return item.id;
+    }
+
+    trackEstilosById(index: number, item: IEstilos) {
         return item.id;
     }
 }

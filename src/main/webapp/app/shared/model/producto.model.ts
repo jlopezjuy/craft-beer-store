@@ -19,6 +19,8 @@ export interface IProducto {
     imagenContentType?: string;
     imagen?: any;
     empresaId?: number;
+    estilosNombreEstilo?: string;
+    estilosId?: number;
     /**
      * transient
      */
@@ -40,6 +42,8 @@ export class Producto implements IProducto {
         public imagenContentType?: string,
         public imagen?: any,
         public empresaId?: number,
+        public estilosNombreEstilo?: string,
+        public estilosId?: number,
         /**
          * transient
          */

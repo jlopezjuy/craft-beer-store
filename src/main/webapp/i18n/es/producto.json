@@ -23,7 +23,8 @@
             "tipoProducto": "Tipo Producto",
             "imagen": "Imagen",
             "empresa": "Empresa",
-            "presentacion": "Presentación"
+            "presentacion": "Presentación",
+            "estilos": "Estilos"
         }
     }
 }

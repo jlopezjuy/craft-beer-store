@@ -33,6 +33,10 @@ public class ProductoDTO implements Serializable {
 
     private Long empresaId;
 
+    private Long estilosId;
+
+    private String estilosNombreEstilo;
+
     public Long getId() {
         return id;
     }
@@ -105,6 +109,22 @@ public class ProductoDTO implements Serializable {
         this.empresaId = empresaId;
     }
 
+    public Long getEstilosId() {
+        return estilosId;
+    }
+
+    public void setEstilosId(Long estilosId) {
+        this.estilosId = estilosId;
+    }
+
+    public String getEstilosNombreEstilo() {
+        return estilosNombreEstilo;
+    }
+
+    public void setEstilosNombreEstilo(String estilosNombreEstilo) {
+        this.estilosNombreEstilo = estilosNombreEstilo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -137,6 +157,8 @@ public class ProductoDTO implements Serializable {
             ", tipoProducto='" + getTipoProducto() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", empresa=" + getEmpresaId() +
+            ", estilos=" + getEstilosId() +
+            ", estilos='" + getEstilosNombreEstilo() + "'" +
             "}";
     }
 }

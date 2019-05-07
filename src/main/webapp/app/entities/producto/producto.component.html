@@ -36,6 +36,7 @@
             <th jhiSortBy="precioLitro"><span jhiTranslate="craftBeerStoreApp.producto.precioLitro">Precio Litro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoProducto"><span jhiTranslate="craftBeerStoreApp.producto.tipoProducto">Tipo Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="imagen"><span jhiTranslate="craftBeerStoreApp.producto.imagen">Imagen</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estilosNombreEstilo"><span jhiTranslate="craftBeerStoreApp.producto.estilos">Estilos</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -52,6 +53,11 @@
                         <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-height: 30px;" alt="producto image"/>
                     </a>
                     <span *ngIf="producto.imagen">{{producto.imagenContentType}}, {{byteSize(producto.imagen)}}</span>
+                </td>
+                <td>
+                    <div *ngIf="producto.estilosId">
+                        <a [routerLink]="['../estilos', producto.estilosId , 'view' ]" >{{producto.estilosNombreEstilo}}</a>
+                    </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
