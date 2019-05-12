@@ -33,6 +33,10 @@ export class EstilosService {
         return this.http.get<IEstilos[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
+    queryAll(): Observable<EntityArrayResponseType> {
+        return this.http.get<IEstilos[]>(this.resourceUrl + '/all', { observe: 'response' });
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

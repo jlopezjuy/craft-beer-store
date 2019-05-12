@@ -2,6 +2,7 @@ package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.EstilosDTO;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -53,4 +54,10 @@ public interface EstilosService {
      * @return the list of entities
      */
     Page<EstilosDTO> search(String query, Pageable pageable);
+
+    /**
+     *
+     * @return
+     */
+    List<EstilosDTO> findAllEstilos();
 }

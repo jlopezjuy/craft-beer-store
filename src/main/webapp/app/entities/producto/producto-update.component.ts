@@ -42,7 +42,7 @@ export class ProductoUpdateComponent implements OnInit {
         });
         this.empresa = this.$localStorage.retrieve('empresa');
         this.estilosService
-            .query()
+            .queryAll()
             .pipe(
                 filter((mayBeOk: HttpResponse<IEstilos[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IEstilos[]>) => response.body)

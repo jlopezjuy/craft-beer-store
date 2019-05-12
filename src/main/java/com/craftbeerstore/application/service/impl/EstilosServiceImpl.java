@@ -6,6 +6,7 @@ import com.craftbeerstore.application.repository.EstilosRepository;
 import com.craftbeerstore.application.repository.search.EstilosSearchRepository;
 import com.craftbeerstore.application.service.dto.EstilosDTO;
 import com.craftbeerstore.application.service.mapper.EstilosMapper;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,5 +110,10 @@ public class EstilosServiceImpl implements EstilosService {
         log.debug("Request to search for a page of Estilos for query {}", query);
         return estilosSearchRepository.search(queryStringQuery(query), pageable)
             .map(estilosMapper::toDto);
+    }
+
+    @Override
+    public List<EstilosDTO> findAllEstilos() {
+        return estilosMapper.toDto(estilosRepository.findAll());
     }
 }

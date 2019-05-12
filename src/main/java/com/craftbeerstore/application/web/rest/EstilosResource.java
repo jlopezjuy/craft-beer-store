@@ -86,6 +86,19 @@ public class EstilosResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of estilos in body
      */
+    @GetMapping("/estilos/all")
+    public ResponseEntity<List<EstilosDTO>> getAllEstilosSinPageable() {
+        log.debug("REST request to get a page of Estilos");
+        List<EstilosDTO> page = estilosService.findAllEstilos();
+        return ResponseEntity.ok().body(page);
+    }
+
+    /**
+     * GET  /estilos : get all the estilos.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of estilos in body
+     */
     @GetMapping("/estilos")
     public ResponseEntity<List<EstilosDTO>> getAllEstilos(Pageable pageable) {
         log.debug("REST request to get a page of Estilos");
