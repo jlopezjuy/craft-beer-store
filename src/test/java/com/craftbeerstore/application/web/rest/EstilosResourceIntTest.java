@@ -68,23 +68,23 @@ public class EstilosResourceIntTest {
     private static final BigDecimal DEFAULT_ABV_MED = new BigDecimal(1);
     private static final BigDecimal UPDATED_ABV_MED = new BigDecimal(2);
 
-    private static final Long DEFAULT_IBU_MIN = 1L;
-    private static final Long UPDATED_IBU_MIN = 2L;
+    private static final BigDecimal DEFAULT_IBU_MIN = new BigDecimal(1);
+    private static final BigDecimal UPDATED_IBU_MIN = new BigDecimal(2);
 
-    private static final Long DEFAULT_IBU_MAX = 1L;
-    private static final Long UPDATED_IBU_MAX = 2L;
+    private static final BigDecimal DEFAULT_IBU_MAX = new BigDecimal(1);
+    private static final BigDecimal UPDATED_IBU_MAX = new BigDecimal(2);
 
-    private static final Long DEFAULT_IBU_MED = 1L;
-    private static final Long UPDATED_IBU_MED = 2L;
+    private static final BigDecimal DEFAULT_IBU_MED = new BigDecimal(1);
+    private static final BigDecimal UPDATED_IBU_MED = new BigDecimal(2);
 
-    private static final Long DEFAULT_SRM_MIN = 1L;
-    private static final Long UPDATED_SRM_MIN = 2L;
+    private static final BigDecimal DEFAULT_SRM_MIN = new BigDecimal(1);
+    private static final BigDecimal UPDATED_SRM_MIN = new BigDecimal(2);
 
-    private static final Long DEFAULT_SRM_MAX = 1L;
-    private static final Long UPDATED_SRM_MAX = 2L;
+    private static final BigDecimal DEFAULT_SRM_MAX = new BigDecimal(1);
+    private static final BigDecimal UPDATED_SRM_MAX = new BigDecimal(2);
 
-    private static final Long DEFAULT_SRM_MED = 1L;
-    private static final Long UPDATED_SRM_MED = 2L;
+    private static final BigDecimal DEFAULT_SRM_MED = new BigDecimal(1);
+    private static final BigDecimal UPDATED_SRM_MED = new BigDecimal(2);
 
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";

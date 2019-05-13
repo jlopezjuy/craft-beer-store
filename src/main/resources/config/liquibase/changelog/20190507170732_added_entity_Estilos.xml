@@ -46,27 +46,27 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="ibu_min" type="bigint">
+            <column name="ibu_min" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="ibu_max" type="bigint">
+            <column name="ibu_max" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="ibu_med" type="bigint">
+            <column name="ibu_med" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="srm_min" type="bigint">
+            <column name="srm_min" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="srm_max" type="bigint">
+            <column name="srm_max" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="srm_med" type="bigint">
+            <column name="srm_med" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
 

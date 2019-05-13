@@ -44,23 +44,23 @@ public class Estilos implements Serializable {
     @Column(name = "abv_med", precision = 10, scale = 2)
     private BigDecimal abvMed;
 
-    @Column(name = "ibu_min")
-    private Long ibuMin;
+    @Column(name = "ibu_min", precision = 10, scale = 2)
+    private BigDecimal ibuMin;
 
-    @Column(name = "ibu_max")
-    private Long ibuMax;
+    @Column(name = "ibu_max", precision = 10, scale = 2)
+    private BigDecimal ibuMax;
 
-    @Column(name = "ibu_med")
-    private Long ibuMed;
+    @Column(name = "ibu_med", precision = 10, scale = 2)
+    private BigDecimal ibuMed;
 
-    @Column(name = "srm_min")
-    private Long srmMin;
+    @Column(name = "srm_min", precision = 10, scale = 2)
+    private BigDecimal srmMin;
 
-    @Column(name = "srm_max")
-    private Long srmMax;
+    @Column(name = "srm_max", precision = 10, scale = 2)
+    private BigDecimal srmMax;
 
-    @Column(name = "srm_med")
-    private Long srmMed;
+    @Column(name = "srm_med", precision = 10, scale = 2)
+    private BigDecimal srmMed;
 
     @Column(name = "descripcion")
     private String descripcion;
@@ -158,81 +158,81 @@ public class Estilos implements Serializable {
         this.abvMed = abvMed;
     }
 
-    public Long getIbuMin() {
+    public BigDecimal getIbuMin() {
         return ibuMin;
     }
 
-    public Estilos ibuMin(Long ibuMin) {
+    public Estilos ibuMin(BigDecimal ibuMin) {
         this.ibuMin = ibuMin;
         return this;
     }
 
-    public void setIbuMin(Long ibuMin) {
+    public void setIbuMin(BigDecimal ibuMin) {
         this.ibuMin = ibuMin;
     }
 
-    public Long getIbuMax() {
+    public BigDecimal getIbuMax() {
         return ibuMax;
     }
 
-    public Estilos ibuMax(Long ibuMax) {
+    public Estilos ibuMax(BigDecimal ibuMax) {
         this.ibuMax = ibuMax;
         return this;
     }
 
-    public void setIbuMax(Long ibuMax) {
+    public void setIbuMax(BigDecimal ibuMax) {
         this.ibuMax = ibuMax;
     }
 
-    public Long getIbuMed() {
+    public BigDecimal getIbuMed() {
         return ibuMed;
     }
 
-    public Estilos ibuMed(Long ibuMed) {
+    public Estilos ibuMed(BigDecimal ibuMed) {
         this.ibuMed = ibuMed;
         return this;
     }
 
-    public void setIbuMed(Long ibuMed) {
+    public void setIbuMed(BigDecimal ibuMed) {
         this.ibuMed = ibuMed;
     }
 
-    public Long getSrmMin() {
+    public BigDecimal getSrmMin() {
         return srmMin;
     }
 
-    public Estilos srmMin(Long srmMin) {
+    public Estilos srmMin(BigDecimal srmMin) {
         this.srmMin = srmMin;
         return this;
     }
 
-    public void setSrmMin(Long srmMin) {
+    public void setSrmMin(BigDecimal srmMin) {
         this.srmMin = srmMin;
     }
 
-    public Long getSrmMax() {
+    public BigDecimal getSrmMax() {
         return srmMax;
     }
 
-    public Estilos srmMax(Long srmMax) {
+    public Estilos srmMax(BigDecimal srmMax) {
         this.srmMax = srmMax;
         return this;
     }
 
-    public void setSrmMax(Long srmMax) {
+    public void setSrmMax(BigDecimal srmMax) {
         this.srmMax = srmMax;
     }
 
-    public Long getSrmMed() {
+    public BigDecimal getSrmMed() {
         return srmMed;
     }
 
-    public Estilos srmMed(Long srmMed) {
+    public Estilos srmMed(BigDecimal srmMed) {
         this.srmMed = srmMed;
         return this;
     }
 
-    public void setSrmMed(Long srmMed) {
+    public void setSrmMed(BigDecimal srmMed) {
         this.srmMed = srmMed;
     }
 

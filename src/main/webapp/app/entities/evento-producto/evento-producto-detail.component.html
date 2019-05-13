@@ -8,7 +8,7 @@
                 <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span></dt>
                 <dd>
                     <div *ngIf="eventoProducto.productoId">
-                        <a [routerLink]="['/producto', eventoProducto.productoId, 'view']">{{eventoProducto.productoNombreProducto}}</a>
+                        <a [routerLink]="['/producto', eventoProducto.productoId, 'view']">{{eventoProducto.productoDescripcion}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.evento">Evento</span></dt>

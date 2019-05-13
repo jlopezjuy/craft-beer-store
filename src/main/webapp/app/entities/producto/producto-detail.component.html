@@ -5,9 +5,9 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.nombreProducto">Nombre Producto</span></dt>
+                <dt><span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span></dt>
                 <dd>
-                    <span>{{producto.nombreProducto}}</span>
+                    <span>{{producto.descripcion}}</span>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.producto.estilo">Estilo</span></dt>
                 <dd>
@@ -33,6 +33,10 @@
                         </a>
                         {{producto.imagenContentType}}, {{byteSize(producto.imagen)}}
                     </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.producto.observacion">Observacion</span></dt>
+                <dd>
+                    <span>{{producto.observacion}}</span>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.producto.empresa">Empresa</span></dt>
                 <dd>

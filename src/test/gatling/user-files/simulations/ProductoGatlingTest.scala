@@ -72,12 +72,13 @@ class ProductoGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "nombreProducto":"SAMPLE_TEXT"
+                , "descripcion":"SAMPLE_TEXT"
                 , "estilo":"ALE"
                 , "nombreComercial":"SAMPLE_TEXT"
                 , "precioLitro":"0"
                 , "tipoProducto":"FIJO"
                 , "imagen":null
+                , "observacion":null
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_producto_url"))).exitHereIfFailed

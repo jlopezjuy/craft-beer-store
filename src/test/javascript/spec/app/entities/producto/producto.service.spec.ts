@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ProductoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Producto(0, 'AAAAAAA', EstiloCerveza.ALE, 'AAAAAAA', 0, TipoProducto.FIJO, 'image/png', 'AAAAAAA');
+            elemDefault = new Producto(0, 'AAAAAAA', EstiloCerveza.ALE, 'AAAAAAA', 0, TipoProducto.FIJO, 'image/png', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -55,12 +55,13 @@ describe('Service Tests', () => {
             it('should update a Producto', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        nombreProducto: 'BBBBBB',
+                        descripcion: 'BBBBBB',
                         estilo: 'BBBBBB',
                         nombreComercial: 'BBBBBB',
                         precioLitro: 1,
                         tipoProducto: 'BBBBBB',
-                        imagen: 'BBBBBB'
+                        imagen: 'BBBBBB',
+                        observacion: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -77,12 +78,13 @@ describe('Service Tests', () => {
             it('should return a list of Producto', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        nombreProducto: 'BBBBBB',
+                        descripcion: 'BBBBBB',
                         estilo: 'BBBBBB',
                         nombreComercial: 'BBBBBB',
                         precioLitro: 1,
                         tipoProducto: 'BBBBBB',
-                        imagen: 'BBBBBB'
+                        imagen: 'BBBBBB',
+                        observacion: 'BBBBBB'
                     },
                     elemDefault
                 );

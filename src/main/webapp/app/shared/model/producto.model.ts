@@ -11,13 +11,14 @@ export const enum TipoProducto {
 
 export interface IProducto {
     id?: number;
-    nombreProducto?: string;
+    descripcion?: string;
     estilo?: EstiloCerveza;
     nombreComercial?: string;
     precioLitro?: number;
     tipoProducto?: TipoProducto;
     imagenContentType?: string;
     imagen?: any;
+    observacion?: any;
     empresaId?: number;
     estilosNombreEstilo?: string;
     estilosId?: number;
@@ -34,13 +35,14 @@ export interface IProducto {
 export class Producto implements IProducto {
     constructor(
         public id?: number,
-        public nombreProducto?: string,
+        public descripcion?: string,
         public estilo?: EstiloCerveza,
         public nombreComercial?: string,
         public precioLitro?: number,
         public tipoProducto?: TipoProducto,
         public imagenContentType?: string,
         public imagen?: any,
+        public observacion?: any,
         public empresaId?: number,
         public estilosNombreEstilo?: string,
         public estilosId?: number,

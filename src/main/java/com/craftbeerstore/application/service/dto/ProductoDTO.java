@@ -15,7 +15,7 @@ public class ProductoDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String nombreProducto;
+    private String descripcion;
 
     private EstiloCerveza estilo;
 
@@ -30,6 +30,9 @@ public class ProductoDTO implements Serializable {
     private byte[] imagen;
 
     private String imagenContentType;
+    @Lob
+    private String observacion;
+
 
     private Long empresaId;
 
@@ -45,12 +48,12 @@ public class ProductoDTO implements Serializable {
         this.id = id;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public EstiloCerveza getEstilo() {
@@ -99,6 +102,14 @@ public class ProductoDTO implements Serializable {
 
     public void setImagenContentType(String imagenContentType) {
         this.imagenContentType = imagenContentType;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 
     public Long getEmpresaId() {
@@ -150,12 +161,13 @@ public class ProductoDTO implements Serializable {
     public String toString() {
         return "ProductoDTO{" +
             "id=" + getId() +
-            ", nombreProducto='" + getNombreProducto() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
             ", estilo='" + getEstilo() + "'" +
             ", nombreComercial='" + getNombreComercial() + "'" +
             ", precioLitro=" + getPrecioLitro() +
             ", tipoProducto='" + getTipoProducto() + "'" +
             ", imagen='" + getImagen() + "'" +
+            ", observacion='" + getObservacion() + "'" +
             ", empresa=" + getEmpresaId() +
             ", estilos=" + getEstilosId() +
             ", estilos='" + getEstilosNombreEstilo() + "'" +

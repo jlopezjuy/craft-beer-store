@@ -29,27 +29,27 @@
         },
         {
             "fieldName": "ibuMin",
-            "fieldType": "Long"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "ibuMax",
-            "fieldType": "Long"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "ibuMed",
-            "fieldType": "Long"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "srmMin",
-            "fieldType": "Long"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "srmMax",
-            "fieldType": "Long"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "srmMed",
-            "fieldType": "Long"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "descripcion",

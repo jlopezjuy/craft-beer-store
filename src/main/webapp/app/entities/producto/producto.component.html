@@ -30,12 +30,14 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nombreProducto"><span jhiTranslate="craftBeerStoreApp.producto.nombreProducto">Nombre Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="descripcion"><span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="estilo"><span jhiTranslate="craftBeerStoreApp.producto.estilo">Estilo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nombreComercial"><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="precioLitro"><span jhiTranslate="craftBeerStoreApp.producto.precioLitro">Precio Litro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoProducto"><span jhiTranslate="craftBeerStoreApp.producto.tipoProducto">Tipo Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="imagen"><span jhiTranslate="craftBeerStoreApp.producto.imagen">Imagen</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="observacion"><span jhiTranslate="craftBeerStoreApp.producto.observacion">Observacion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="empresaId"><span jhiTranslate="craftBeerStoreApp.producto.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="estilosNombreEstilo"><span jhiTranslate="craftBeerStoreApp.producto.estilos">Estilos</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -43,7 +45,7 @@
             <tbody>
             <tr *ngFor="let producto of productos ;trackBy: trackId">
                 <td><a [routerLink]="['/producto', producto.id, 'view' ]">{{producto.id}}</a></td>
-                <td>{{producto.nombreProducto}}</td>
+                <td>{{producto.descripcion}}</td>
                 <td jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.estilo}}">{{producto.estilo}}</td>
                 <td>{{producto.nombreComercial}}</td>
                 <td>{{producto.precioLitro}}</td>
@@ -53,6 +55,12 @@
                         <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-height: 30px;" alt="producto image"/>
                     </a>
                     <span *ngIf="producto.imagen">{{producto.imagenContentType}}, {{byteSize(producto.imagen)}}</span>
+                </td>
+                <td>{{producto.observacion}}</td>
+                <td>
+                    <div *ngIf="producto.empresaId">
+                        <a [routerLink]="['../empresa', producto.empresaId , 'view' ]" >{{producto.empresaId}}</a>
+                    </div>
                 </td>
                 <td>
                     <div *ngIf="producto.estilosId">

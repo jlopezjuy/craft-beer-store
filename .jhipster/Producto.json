@@ -16,12 +16,12 @@
             "relationshipType": "many-to-one",
             "otherEntityField": "nombreEstilo",
             "otherEntityRelationshipName": "producto",
-            "otherEntityRelationshipNameUndefined": true
+            "otherEntityRelationshipNameUndefined": false
         }
     ],
     "fields": [
         {
-            "fieldName": "nombreProducto",
+            "fieldName": "descripcion",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required"
@@ -52,6 +52,11 @@
             "fieldName": "imagen",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "observacion",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
         }
     ],
     "changelogDate": "20190408001803",

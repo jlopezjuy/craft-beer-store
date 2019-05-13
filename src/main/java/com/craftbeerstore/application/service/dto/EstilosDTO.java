@@ -22,17 +22,17 @@ public class EstilosDTO implements Serializable {
 
     private BigDecimal abvMed;
 
-    private Long ibuMin;
+    private BigDecimal ibuMin;
 
-    private Long ibuMax;
+    private BigDecimal ibuMax;
 
-    private Long ibuMed;
+    private BigDecimal ibuMed;
 
-    private Long srmMin;
+    private BigDecimal srmMin;
 
-    private Long srmMax;
+    private BigDecimal srmMax;
 
-    private Long srmMed;
+    private BigDecimal srmMed;
 
     private String descripcion;
 
@@ -97,51 +97,51 @@ public class EstilosDTO implements Serializable {
         this.abvMed = abvMed;
     }
 
-    public Long getIbuMin() {
+    public BigDecimal getIbuMin() {
         return ibuMin;
     }
 
-    public void setIbuMin(Long ibuMin) {
+    public void setIbuMin(BigDecimal ibuMin) {
         this.ibuMin = ibuMin;
     }
 
-    public Long getIbuMax() {
+    public BigDecimal getIbuMax() {
         return ibuMax;
     }
 
-    public void setIbuMax(Long ibuMax) {
+    public void setIbuMax(BigDecimal ibuMax) {
         this.ibuMax = ibuMax;
     }
 
-    public Long getIbuMed() {
+    public BigDecimal getIbuMed() {
         return ibuMed;
     }
 
-    public void setIbuMed(Long ibuMed) {
+    public void setIbuMed(BigDecimal ibuMed) {
         this.ibuMed = ibuMed;
     }
 
-    public Long getSrmMin() {
+    public BigDecimal getSrmMin() {
         return srmMin;
     }
 
-    public void setSrmMin(Long srmMin) {
+    public void setSrmMin(BigDecimal srmMin) {
         this.srmMin = srmMin;
     }
 
-    public Long getSrmMax() {
+    public BigDecimal getSrmMax() {
         return srmMax;
     }
 
-    public void setSrmMax(Long srmMax) {
+    public void setSrmMax(BigDecimal srmMax) {
         this.srmMax = srmMax;
     }
 
-    public Long getSrmMed() {
+    public BigDecimal getSrmMed() {
         return srmMed;
     }
 
-    public void setSrmMed(Long srmMed) {
+    public void setSrmMed(BigDecimal srmMed) {
         this.srmMed = srmMed;
     }
 

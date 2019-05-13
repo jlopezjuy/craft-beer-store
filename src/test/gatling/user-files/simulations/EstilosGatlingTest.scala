@@ -78,12 +78,12 @@ class EstilosGatlingTest extends Simulation {
                 , "abvMin":"0"
                 , "abvMax":"0"
                 , "abvMed":"0"
-                , "ibuMin":null
-                , "ibuMax":null
-                , "ibuMed":null
-                , "srmMin":null
-                , "srmMax":null
-                , "srmMed":null
+                , "ibuMin":"0"
+                , "ibuMax":"0"
+                , "ibuMed":"0"
+                , "srmMin":"0"
+                , "srmMax":"0"
+                , "srmMed":"0"
                 , "descripcion":"SAMPLE_TEXT"
                 , "ejemploNombreComercial":"SAMPLE_TEXT"
                 , "ejemploImagenComercial":"SAMPLE_TEXT"

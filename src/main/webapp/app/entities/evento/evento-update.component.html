@@ -85,7 +85,7 @@
                                                 (change)="productoChange($event.target.value)">
                                             <option [value]="null"></option>
                                             <option [value]="productoOption.id"
-                                                    *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>
+                                                    *ngFor="let productoOption of productos">{{productoOption.nombreComercial}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -101,14 +101,14 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th><span jhiTranslate="craftBeerStoreApp.producto.nombreProducto">Nombre Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                        <th><span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                         <th><span jhiTranslate="craftBeerStoreApp.producto.estilo">Estilo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                         <th><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let producto of productosList ;trackBy: trackId">
-                        <td>{{producto.nombreProducto}}</td>
+                    <tr *ngFor="let producto of productosList">
+                        <td>{{producto.descripcion}}</td>
                         <td jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.estilo}}">{{producto.estilo}}</td>
                         <td>{{producto.nombreComercial}}</td>
                     </tr>

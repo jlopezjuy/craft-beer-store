@@ -33,8 +33,8 @@ public class Producto implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "nombre_producto", nullable = false)
-    private String nombreProducto;
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estilo")
@@ -58,6 +58,10 @@ public class Producto implements Serializable {
     @Column(name = "imagen_content_type")
     private String imagenContentType;
 
+    @Lob
+    @Column(name = "observacion")
+    private String observacion;
+
     @ManyToOne
     @JsonIgnoreProperties("productos")
     private Empresa empresa;
@@ -75,17 +79,17 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public Producto nombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public Producto descripcion(String descripcion) {
+        this.descripcion = descripcion;
         return this;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public EstiloCerveza getEstilo() {
@@ -166,6 +170,19 @@ public class Producto implements Serializable {
         this.imagenContentType = imagenContentType;
     }
 
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public Producto observacion(String observacion) {
+        this.observacion = observacion;
+        return this;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -217,13 +234,14 @@ public class Producto implements Serializable {
     public String toString() {
         return "Producto{" +
             "id=" + getId() +
-            ", nombreProducto='" + getNombreProducto() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
             ", estilo='" + getEstilo() + "'" +
             ", nombreComercial='" + getNombreComercial() + "'" +
             ", precioLitro=" + getPrecioLitro() +
             ", tipoProducto='" + getTipoProducto() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", imagenContentType='" + getImagenContentType() + "'" +
+            ", observacion='" + getObservacion() + "'" +
             "}";
     }
 }

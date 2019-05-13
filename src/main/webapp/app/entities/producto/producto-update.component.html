@@ -4,28 +4,62 @@
             <h2 id="jhi-producto-heading" jhiTranslate="craftBeerStoreApp.producto.home.createOrEditLabel">Create or edit a Producto</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!producto.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="producto.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.estilos" for="field_estilos">Estilos</label>
-                    <select class="form-control" id="field_estilos" name="estilos" [(ngModel)]="producto.estilosId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="estilosOption.id" *ngFor="let estilosOption of estilos; trackBy: trackEstilosById">{{estilosOption.nombreEstilo}} - {{estilosOption.categoriaEstilo}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.nombreProducto" for="field_nombreProducto">Nombre Producto</label>
-                    <input type="text" class="form-control" name="nombreProducto" id="field_nombreProducto"
-                        [(ngModel)]="producto.nombreProducto" required/>
-                    <div [hidden]="!(editForm.controls.nombreProducto?.dirty && editForm.controls.nombreProducto?.invalid)">
+                <mat-form-field class="example-full-width" [hidden]="!producto.id">
+                    <!--<input matInput placeholder="Favorite food" value="Sushi">-->
+                    <input matInput type="text" class="form-control" id="id" name="id"
+                           [(ngModel)]="producto.id" readonly />
+                </mat-form-field>
+
+
+                <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.producto.estilos">Estilos</mat-label>
+                    <mat-select  id="field_estilos" name="estilos" [(ngModel)]="producto.estilosId">
+                        <mat-option *ngFor="let estilosOption of estilos; trackBy: trackEstilosById" [value]="estilosOption.id">
+                            {{estilosOption.nombreEstilo}} - {{estilosOption.categoriaEstilo}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</mat-label>
+                    <!--<input matInput placeholder="Favorite food" value="Sushi">-->
+                    <input matInput type="text" name="descripcion" id="field_descripcion"
+                           [(ngModel)]="producto.descripcion" required/>
+                    <!--<mat-error *ngIf="(!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">{{getErrorMessage()}}</mat-error>-->
+                    <mat-error [hidden]="!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.nombreProducto?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.descripcion?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
-                    </div>
+                    </mat-error>
+                </mat-form-field>
+
+                <!--<div class="form-group" [hidden]="!producto.id">-->
+                    <!--<label for="id" jhiTranslate="global.field.id">ID</label>-->
+                    <!--<input type="text" class="form-control" id="id" name="id"-->
+                        <!--[(ngModel)]="producto.id" readonly />-->
+                <!--</div>-->
+                <div class="form-group">
+                    <!--<label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.estilos" for="field_estilos">Estilos</label>-->
+                    <!--<select class="form-control" id="field_estilos" name="estilos" [(ngModel)]="producto.estilosId" >-->
+                        <!--<option [ngValue]="null"></option>-->
+                        <!--<option [ngValue]="estilosOption.id" *ngFor="let estilosOption of estilos; trackBy: trackEstilosById">{{estilosOption.nombreEstilo}} - {{estilosOption.categoriaEstilo}}</option>-->
+                    <!--</select>-->
+
+
+
+
+                </div>
+                <div class="form-group">
+                    <!--<label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.descripcion" for="field_descripcion">Descripcion</label>-->
+                    <!--<input type="text" class="form-control" name="descripcion" id="field_descripcion"-->
+                        <!--[(ngModel)]="producto.descripcion" required/>-->
+                    <!--<div [hidden]="!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">-->
+                        <!--<small class="form-text text-danger"-->
+                        <!--[hidden]="!editForm.controls.descripcion?.errors?.required" jhiTranslate="entity.validation.required">-->
+                        <!--This field is required.-->
+                        <!--</small>-->
+                    <!--</div>-->
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.estilo" for="field_estilo">Estilo</label>
@@ -79,15 +113,26 @@
                     <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
                         [(ngModel)]="producto.imagenContentType" />
                 </div>
-
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.observacion" for="field_observacion">Observacion</label>
+                    <textarea class="form-control" name="observacion" id="field_observacion"
+                        [(ngModel)]="producto.observacion" ></textarea>
+                </div>
+
+                <!--<div class="form-group">-->
                     <!--<label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.empresa" for="field_empresa">Empresa</label>-->
                     <!--<select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="producto.empresaId" >-->
                         <!--<option [ngValue]="null"></option>-->
                         <!--<option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>-->
                     <!--</select>-->
-                </div>
-
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.estilos" for="field_estilos">Estilos</label>-->
+                    <!--<select class="form-control" id="field_estilos" name="estilos" [(ngModel)]="producto.estilosId" >-->
+                        <!--<option [ngValue]="null"></option>-->
+                        <!--<option [ngValue]="estilosOption.id" *ngFor="let estilosOption of estilos; trackBy: trackEstilosById">{{estilosOption.nombreEstilo}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
