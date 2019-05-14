@@ -31,7 +31,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="descripcion"><span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="estilo"><span jhiTranslate="craftBeerStoreApp.producto.estilo">Estilo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nombreComercial"><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="precioLitro"><span jhiTranslate="craftBeerStoreApp.producto.precioLitro">Precio Litro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoProducto"><span jhiTranslate="craftBeerStoreApp.producto.tipoProducto">Tipo Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -46,7 +46,7 @@
             <tr *ngFor="let producto of productos ;trackBy: trackId">
                 <td><a [routerLink]="['/producto', producto.id, 'view' ]">{{producto.id}}</a></td>
                 <td>{{producto.descripcion}}</td>
-                <td jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.estilo}}">{{producto.estilo}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.tipo}}">{{producto.tipo}}</td>
                 <td>{{producto.nombreComercial}}</td>
                 <td>{{producto.precioLitro}}</td>
                 <td jhiTranslate="{{'craftBeerStoreApp.TipoProducto.' + producto.tipoProducto}}">{{producto.tipoProducto}}</td>

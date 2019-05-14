@@ -73,7 +73,7 @@ class ProductoGatlingTest extends Simulation {
             .body(StringBody("""{
                 "id":null
                 , "descripcion":"SAMPLE_TEXT"
-                , "estilo":"ALE"
+                , "tipo":"ALE"
                 , "nombreComercial":"SAMPLE_TEXT"
                 , "precioLitro":"0"
                 , "tipoProducto":"FIJO"

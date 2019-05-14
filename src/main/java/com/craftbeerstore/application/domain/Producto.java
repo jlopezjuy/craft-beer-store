@@ -37,8 +37,8 @@ public class Producto implements Serializable {
     private String descripcion;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "estilo")
-    private EstiloCerveza estilo;
+    @Column(name = "tipo")
+    private EstiloCerveza tipo;
 
     @Column(name = "nombre_comercial")
     private String nombreComercial;
@@ -92,17 +92,17 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public EstiloCerveza getEstilo() {
-        return estilo;
+    public EstiloCerveza getTipo() {
+        return tipo;
     }
 
-    public Producto estilo(EstiloCerveza estilo) {
-        this.estilo = estilo;
+    public Producto tipo(EstiloCerveza tipo) {
+        this.tipo = tipo;
         return this;
     }
 
-    public void setEstilo(EstiloCerveza estilo) {
-        this.estilo = estilo;
+    public void setTipo(EstiloCerveza tipo) {
+        this.tipo = tipo;
     }
 
     public String getNombreComercial() {
@@ -235,7 +235,7 @@ public class Producto implements Serializable {
         return "Producto{" +
             "id=" + getId() +
             ", descripcion='" + getDescripcion() + "'" +
-            ", estilo='" + getEstilo() + "'" +
+            ", tipo='" + getTipo() + "'" +
             ", nombreComercial='" + getNombreComercial() + "'" +
             ", precioLitro=" + getPrecioLitro() +
             ", tipoProducto='" + getTipoProducto() + "'" +

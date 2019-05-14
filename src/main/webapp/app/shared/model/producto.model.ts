@@ -12,7 +12,7 @@ export const enum TipoProducto {
 export interface IProducto {
     id?: number;
     descripcion?: string;
-    estilo?: EstiloCerveza;
+    tipo?: EstiloCerveza;
     nombreComercial?: string;
     precioLitro?: number;
     tipoProducto?: TipoProducto;
@@ -36,7 +36,7 @@ export class Producto implements IProducto {
     constructor(
         public id?: number,
         public descripcion?: string,
-        public estilo?: EstiloCerveza,
+        public tipo?: EstiloCerveza,
         public nombreComercial?: string,
         public precioLitro?: number,
         public tipoProducto?: TipoProducto,

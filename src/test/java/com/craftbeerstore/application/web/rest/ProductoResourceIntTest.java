@@ -56,8 +56,8 @@ public class ProductoResourceIntTest {
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
 
-    private static final EstiloCerveza DEFAULT_ESTILO = EstiloCerveza.ALE;
-    private static final EstiloCerveza UPDATED_ESTILO = EstiloCerveza.LAGER;
+    private static final EstiloCerveza DEFAULT_TIPO = EstiloCerveza.ALE;
+    private static final EstiloCerveza UPDATED_TIPO = EstiloCerveza.LAGER;
 
     private static final String DEFAULT_NOMBRE_COMERCIAL = "AAAAAAAAAA";
     private static final String UPDATED_NOMBRE_COMERCIAL = "BBBBBBBBBB";
@@ -133,7 +133,7 @@ public class ProductoResourceIntTest {
     public static Producto createEntity(EntityManager em) {
         Producto producto = new Producto()
             .descripcion(DEFAULT_DESCRIPCION)
-            .estilo(DEFAULT_ESTILO)
+            .tipo(DEFAULT_TIPO)
             .nombreComercial(DEFAULT_NOMBRE_COMERCIAL)
             .precioLitro(DEFAULT_PRECIO_LITRO)
             .tipoProducto(DEFAULT_TIPO_PRODUCTO)
@@ -165,7 +165,7 @@ public class ProductoResourceIntTest {
         assertThat(productoList).hasSize(databaseSizeBeforeCreate + 1);
         Producto testProducto = productoList.get(productoList.size() - 1);
         assertThat(testProducto.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
-        assertThat(testProducto.getEstilo()).isEqualTo(DEFAULT_ESTILO);
+        assertThat(testProducto.getTipo()).isEqualTo(DEFAULT_TIPO);
         assertThat(testProducto.getNombreComercial()).isEqualTo(DEFAULT_NOMBRE_COMERCIAL);
         assertThat(testProducto.getPrecioLitro()).isEqualTo(DEFAULT_PRECIO_LITRO);
         assertThat(testProducto.getTipoProducto()).isEqualTo(DEFAULT_TIPO_PRODUCTO);
@@ -250,7 +250,7 @@ public class ProductoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(producto.getId().intValue())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
-            .andExpect(jsonPath("$.[*].estilo").value(hasItem(DEFAULT_ESTILO.toString())))
+            .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())))
             .andExpect(jsonPath("$.[*].nombreComercial").value(hasItem(DEFAULT_NOMBRE_COMERCIAL.toString())))
             .andExpect(jsonPath("$.[*].precioLitro").value(hasItem(DEFAULT_PRECIO_LITRO.intValue())))
             .andExpect(jsonPath("$.[*].tipoProducto").value(hasItem(DEFAULT_TIPO_PRODUCTO.toString())))
@@ -271,7 +271,7 @@ public class ProductoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(producto.getId().intValue()))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION.toString()))
-            .andExpect(jsonPath("$.estilo").value(DEFAULT_ESTILO.toString()))
+            .andExpect(jsonPath("$.tipo").value(DEFAULT_TIPO.toString()))
             .andExpect(jsonPath("$.nombreComercial").value(DEFAULT_NOMBRE_COMERCIAL.toString()))
             .andExpect(jsonPath("$.precioLitro").value(DEFAULT_PRECIO_LITRO.intValue()))
             .andExpect(jsonPath("$.tipoProducto").value(DEFAULT_TIPO_PRODUCTO.toString()))
@@ -302,7 +302,7 @@ public class ProductoResourceIntTest {
         em.detach(updatedProducto);
         updatedProducto
             .descripcion(UPDATED_DESCRIPCION)
-            .estilo(UPDATED_ESTILO)
+            .tipo(UPDATED_TIPO)
             .nombreComercial(UPDATED_NOMBRE_COMERCIAL)
             .precioLitro(UPDATED_PRECIO_LITRO)
             .tipoProducto(UPDATED_TIPO_PRODUCTO)
@@ -321,7 +321,7 @@ public class ProductoResourceIntTest {
         assertThat(productoList).hasSize(databaseSizeBeforeUpdate);
         Producto testProducto = productoList.get(productoList.size() - 1);
         assertThat(testProducto.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
-        assertThat(testProducto.getEstilo()).isEqualTo(UPDATED_ESTILO);
+        assertThat(testProducto.getTipo()).isEqualTo(UPDATED_TIPO);
         assertThat(testProducto.getNombreComercial()).isEqualTo(UPDATED_NOMBRE_COMERCIAL);
         assertThat(testProducto.getPrecioLitro()).isEqualTo(UPDATED_PRECIO_LITRO);
         assertThat(testProducto.getTipoProducto()).isEqualTo(UPDATED_TIPO_PRODUCTO);
@@ -389,7 +389,7 @@ public class ProductoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(producto.getId().intValue())))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
-            .andExpect(jsonPath("$.[*].estilo").value(hasItem(DEFAULT_ESTILO.toString())))
+            .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())))
             .andExpect(jsonPath("$.[*].nombreComercial").value(hasItem(DEFAULT_NOMBRE_COMERCIAL)))
             .andExpect(jsonPath("$.[*].precioLitro").value(hasItem(DEFAULT_PRECIO_LITRO.intValue())))
             .andExpect(jsonPath("$.[*].tipoProducto").value(hasItem(DEFAULT_TIPO_PRODUCTO.toString())))

@@ -114,6 +114,6 @@ public class EstilosServiceImpl implements EstilosService {
 
     @Override
     public List<EstilosDTO> findAllEstilos() {
-        return estilosMapper.toDto(estilosRepository.findAll());
+        return estilosMapper.toDto(estilosRepository.findAllByOrderByNombreEstilo());
     }
 }

@@ -11,14 +11,28 @@
                 </mat-form-field>
 
 
+                <!--<mat-form-field class="example-full-width">-->
+                    <!--<mat-label jhiTranslate="craftBeerStoreApp.producto.estilos">Estilos</mat-label>-->
+                    <!--<mat-select  id="field_estilos" name="estilos" [(ngModel)]="producto.estilosId">-->
+                        <!--<mat-option *ngFor="let estilosOption of estilos; trackBy: trackEstilosById" [value]="estilosOption.id">-->
+                            <!--{{estilosOption.nombreEstilo}} - {{estilosOption.categoriaEstilo}}-->
+                        <!--</mat-option>-->
+                    <!--</mat-select>-->
+                <!--</mat-form-field>-->
+
+
                 <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.producto.estilos">Estilos</mat-label>
-                    <mat-select  id="field_estilos" name="estilos" [(ngModel)]="producto.estilosId">
-                        <mat-option *ngFor="let estilosOption of estilos; trackBy: trackEstilosById" [value]="estilosOption.id">
-                            {{estilosOption.nombreEstilo}} - {{estilosOption.categoriaEstilo}}
+                    <input type="text" id="field_estilos" name="estilos" placeholder="Busca estilo" aria-label="Number"
+                           matInput [(ngModel)]="producto.estilosId" [formControl]="myControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombreEstilo">
+                            {{option.nombreEstilo}}
                         </mat-option>
-                    </mat-select>
+                    </mat-autocomplete>
                 </mat-form-field>
+
+
 
                 <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</mat-label>
@@ -32,6 +46,21 @@
                             This field is required.
                         </small>
                     </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</mat-label>
+                    <mat-select  name="tipo" [(ngModel)]="producto.tipo" id="field_tipo">
+                        <mat-option value="ALE">{{'craftBeerStoreApp.EstiloCerveza.ALE' | translate}}</mat-option>
+                        <mat-option value="LAGER">{{'craftBeerStoreApp.EstiloCerveza.LAGER' | translate}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</mat-label>
+                    <input matInput type="text" class="form-control" id="nombreComercial" name="nombreComercial"
+                           [(ngModel)]="producto.nombreComercial" required />
                 </mat-form-field>
 
                 <!--<div class="form-group" [hidden]="!producto.id">-->
@@ -62,16 +91,16 @@
                     <!--</div>-->
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.estilo" for="field_estilo">Estilo</label>
-                    <select class="form-control" name="estilo" [(ngModel)]="producto.estilo" id="field_estilo" >
-                        <option value="ALE">{{'craftBeerStoreApp.EstiloCerveza.ALE' | translate}}</option>
-                        <option value="LAGER">{{'craftBeerStoreApp.EstiloCerveza.LAGER' | translate}}</option>
-                    </select>
+                    <!--<label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.tipo" for="field_tipo">Tipo</label>-->
+                    <!--<select class="form-control" name="tipo" [(ngModel)]="producto.tipo" id="field_tipo" >-->
+                        <!--<option value="ALE">{{'craftBeerStoreApp.EstiloCerveza.ALE' | translate}}</option>-->
+                        <!--<option value="LAGER">{{'craftBeerStoreApp.EstiloCerveza.LAGER' | translate}}</option>-->
+                    <!--</select>-->
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.nombreComercial" for="field_nombreComercial">Nombre Comercial</label>
-                    <input type="text" class="form-control" name="nombreComercial" id="field_nombreComercial"
-                        [(ngModel)]="producto.nombreComercial" />
+                    <!--<label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.nombreComercial" for="field_nombreComercial">Nombre Comercial</label>-->
+                    <!--<input type="text" class="form-control" name="nombreComercial" id="field_nombreComercial"-->
+                        <!--[(ngModel)]="producto.nombreComercial" />-->
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.precioLitro" for="field_precioLitro">Precio Litro</label>

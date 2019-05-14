@@ -17,7 +17,7 @@ public class ProductoDTO implements Serializable {
     @NotNull
     private String descripcion;
 
-    private EstiloCerveza estilo;
+    private EstiloCerveza tipo;
 
     private String nombreComercial;
 
@@ -56,12 +56,12 @@ public class ProductoDTO implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public EstiloCerveza getEstilo() {
-        return estilo;
+    public EstiloCerveza getTipo() {
+        return tipo;
     }
 
-    public void setEstilo(EstiloCerveza estilo) {
-        this.estilo = estilo;
+    public void setTipo(EstiloCerveza tipo) {
+        this.tipo = tipo;
     }
 
     public String getNombreComercial() {
@@ -162,7 +162,7 @@ public class ProductoDTO implements Serializable {
         return "ProductoDTO{" +
             "id=" + getId() +
             ", descripcion='" + getDescripcion() + "'" +
-            ", estilo='" + getEstilo() + "'" +
+            ", tipo='" + getTipo() + "'" +
             ", nombreComercial='" + getNombreComercial() + "'" +
             ", precioLitro=" + getPrecioLitro() +
             ", tipoProducto='" + getTipoProducto() + "'" +

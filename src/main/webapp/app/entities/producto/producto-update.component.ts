@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from './producto.service';
@@ -11,6 +11,7 @@ import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEstilos } from 'app/shared/model/estilos.model';
 import { EstilosService } from 'app/entities/estilos';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'jhi-producto-update',
@@ -23,6 +24,12 @@ export class ProductoUpdateComponent implements OnInit {
     empresa: IEmpresa;
 
     estilos: IEstilos[];
+    estilosAutocomplete: IEstilos[];
+
+    myControl = new FormControl();
+    filteredOptions: Observable<IEstilos[]>;
+
+    initialValues = '';
 
     constructor(
         protected dataUtils: JhiDataUtils,
@@ -37,9 +44,7 @@ export class ProductoUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ producto }) => {
-            this.producto = producto;
-        });
+
         this.empresa = this.$localStorage.retrieve('empresa');
         this.estilosService
             .queryAll()
@@ -47,7 +52,21 @@ export class ProductoUpdateComponent implements OnInit {
                 filter((mayBeOk: HttpResponse<IEstilos[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IEstilos[]>) => response.body)
             )
-            .subscribe((res: IEstilos[]) => (this.estilos = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe(
+                (res: IEstilos[]) => {
+                    this.estilos = res;
+                    this.loadChange();
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        this.activatedRoute.data.subscribe(({ producto }) => {
+            this.producto = producto;
+            if (this.producto.id) {
+                this.loadEstilo(this.producto);
+            } else {
+                this.initialValues = '';
+            }
+        });
     }
 
     byteSize(field) {
@@ -72,6 +91,7 @@ export class ProductoUpdateComponent implements OnInit {
 
     save() {
         this.producto.empresaId = this.empresa.id;
+        this.producto.estilosId = this.estilosAutocomplete.pop().id;
         this.isSaving = true;
         if (this.producto.id !== undefined) {
             this.subscribeToSaveResponse(this.productoService.update(this.producto));
@@ -103,5 +123,34 @@ export class ProductoUpdateComponent implements OnInit {
 
     trackEstilosById(index: number, item: IEstilos) {
         return item.id;
+    }
+
+    private filter(value: string): IEstilos[] {
+        console.log(value);
+        const filterValue = value.toLowerCase();
+        const estilo = this.estilos.filter(option => {
+            const selec = option.nombreEstilo.toLowerCase().includes(filterValue);
+            return selec;
+        });
+        this.estilosAutocomplete = [];
+        this.estilosAutocomplete = estilo;
+        return estilo;
+    }
+
+    private loadEstilo(producto: IProducto) {
+        this.estilosService.find(producto.estilosId).subscribe(estilo => {
+            this.initialValues = estilo.body.nombreEstilo;
+            this.myControl.reset(estilo.body.nombreEstilo);
+            // this.loadChange();
+        });
+    }
+
+    loadChange() {
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+            startWith(this.initialValues),
+            map(value => {
+                return this.filter(value);
+            })
+        );
     }
 }

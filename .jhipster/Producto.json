@@ -28,7 +28,7 @@
             ]
         },
         {
-            "fieldName": "estilo",
+            "fieldName": "tipo",
             "fieldType": "EstiloCerveza",
             "fieldValues": "ALE,LAGER"
         },

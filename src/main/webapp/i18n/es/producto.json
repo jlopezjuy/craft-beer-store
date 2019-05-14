@@ -17,7 +17,7 @@
                 "title": "Producto"
             },
             "descripcion": "Descripcion",
-            "estilo": "Estilo",
+            "tipo": "Tipo",
             "nombreComercial": "Nombre Comercial",
             "precioLitro": "Precio Litro",
             "tipoProducto": "Tipo Producto",
