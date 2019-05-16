@@ -5,9 +5,9 @@
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <mat-form-field class="example-full-width" [hidden]="!producto.id">
-                    <!--<input matInput placeholder="Favorite food" value="Sushi">-->
-                    <input matInput type="text" class="form-control" id="id" name="id"
-                           [(ngModel)]="producto.id" readonly />
+                    <mat-label jhiTranslate="global.field.id">ID </mat-label>
+                    <input matInput placeholder="id" id="id" name="id"
+                           [(ngModel)]="producto.id" readonly>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">

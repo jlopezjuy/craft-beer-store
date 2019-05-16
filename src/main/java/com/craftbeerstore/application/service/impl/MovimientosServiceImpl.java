@@ -136,13 +136,8 @@ public class MovimientosServiceImpl implements MovimientosService {
     @Override
     public List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId) {
         List<MovimientosSemanaDTO> list = new ArrayList<>();
-        List<Object[]> movimientos = this.movimientosRepository.queryMovimientoSemana(empresaId);
+        List<Object[]> movimientos = this.movimientosRepository.queryMovimientoSemana(empresaId, LocalDate.now().minusDays(7), LocalDate.now());
         movimientos.forEach(mov -> {
-//            System.out.println(mov);
-            System.out.println(mov[0]);
-            System.out.println(mov[1]);
-            System.out.println(mov[2]);
-            System.out.println(mov[3]);
             list.add(new MovimientosSemanaDTO(Long.valueOf(mov[0].toString()), TipoMovimiento.valueOf(mov[1].toString()), LocalDate.parse(mov[2].toString()),
                 BigDecimal.valueOf(Double.valueOf(mov[3].toString()))));
         });
@@ -152,7 +147,7 @@ public class MovimientosServiceImpl implements MovimientosService {
     @Override
     public List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId) {
         List<MovimientosProductoSemanaDTO> list = new ArrayList<>();
-        List<Object[]> movimientos = this.movimientosRepository.queryVentaProductoSemana(empresaId);
+        List<Object[]> movimientos = this.movimientosRepository.queryVentaProductoSemana(empresaId, LocalDate.now().minusDays(7), LocalDate.now());
         movimientos.forEach(mov -> {
             list.add(new MovimientosProductoSemanaDTO(Long.valueOf(mov[0].toString()), TipoMovimiento.valueOf(mov[1].toString()), LocalDate.parse(mov[2].toString()),
                 BigDecimal.valueOf(Double.valueOf(mov[3].toString())), Long.valueOf(mov[4].toString()), mov[5].toString()));

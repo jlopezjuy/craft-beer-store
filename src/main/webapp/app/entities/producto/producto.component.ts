@@ -13,7 +13,7 @@ import { ProductoService } from './producto.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-producto',
@@ -199,5 +199,11 @@ export class ProductoComponent implements OnInit, OnDestroy {
     goPresentacion(producto: IProducto) {
         this.$localStorage.store('producto', producto);
         this.router.navigate(['/presentacion']);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        console.log(event);
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }

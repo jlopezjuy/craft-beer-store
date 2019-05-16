@@ -2,7 +2,7 @@
     "craftBeerStoreApp": {
         "proveedor": {
             "home": {
-                "title": "Proveedors",
+                "title": "Proveedores",
                 "createLabel": "Create a new Proveedor",
                 "createOrEditLabel": "Create or edit a Proveedor",
                 "search": "Search for Proveedor"

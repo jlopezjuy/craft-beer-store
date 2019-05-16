@@ -13,10 +13,12 @@ import { PresentacionService } from './presentacion.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IProducto } from 'app/shared/model/producto.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-presentacion',
-    templateUrl: './presentacion.component.html'
+    templateUrl: './presentacion.component.html',
+    styleUrls: ['presentacion.component.scss']
 })
 export class PresentacionComponent implements OnInit, OnDestroy {
     currentAccount: any;
@@ -34,6 +36,19 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     producto: IProducto;
+    dataSource: any;
+    displayedColumns: string[] = [
+        'id',
+        'tipoPresentacion',
+        'cantidad',
+        'fecha',
+        'costoUnitario',
+        'precioVentaUnitario',
+        'precioTotal',
+        'precioCostoTotal',
+        'actions'
+    ];
+    pageEvent: PageEvent;
 
     constructor(
         protected presentacionService: PresentacionService,
@@ -46,7 +61,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
         private $localStorage: LocalStorageService,
         private ngxLoader: NgxUiLoaderService
     ) {
-        this.itemsPerPage = ITEMS_PER_PAGE;
+        this.itemsPerPage = 4;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
             this.previousPage = data.pagingParams.page;
@@ -76,6 +91,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
                 );
             return;
         }
+        console.log(this.page);
         this.presentacionService
             .queryByProducto(
                 {
@@ -92,6 +108,9 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     }
 
     loadPage(page: number) {
+        console.log(page);
+        console.log(page);
+        console.log(this.previousPage);
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
@@ -99,6 +118,8 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     }
 
     transition() {
+        console.log('entro en transition...');
+        console.log(this.page);
         this.router.navigate(['/presentacion'], {
             queryParams: {
                 page: this.page,
@@ -107,6 +128,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
+        console.log('paso el navigate');
         this.loadAll();
     }
 
@@ -169,10 +191,12 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     }
 
     protected paginatePresentacions(data: IPresentacion[], headers: HttpHeaders) {
+        console.log(headers);
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.presentacions = data;
         this.ngxLoader.stop();
+        this.dataSource = new MatTableDataSource<IPresentacion>(this.presentacions);
     }
 
     protected onError(errorMessage: string) {
@@ -181,6 +205,13 @@ export class PresentacionComponent implements OnInit, OnDestroy {
 
     previousState() {
         this.$localStorage.clear('producto');
-        window.history.back();
+        // window.history.back();
+        this.router.navigate(['/producto']);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        console.log(event);
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }
