@@ -1,0 +1,67 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "empresa",
+            "otherEntityName": "empresa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreEmpresa"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombreEquipamiento",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "tipoEquipamiento",
+            "fieldType": "TipoEquipamiento",
+            "fieldValues": "MEDICION,MOLIENDA,ENFIADOR,FERMENTACION,EMBOTELLADO,CHOPERA,CANILLA,MACERACION,HERVIDO,TRASVASE,EMBARRILADO,LIMPIEZA,ACCESORIOS_VARIOS,FILTRADO",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "precio",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": "0"
+        },
+        {
+            "fieldName": "costoEnvio",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": "0"
+        },
+        {
+            "fieldName": "fechaCompra",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "imagen",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        }
+    ],
+    "changelogDate": "20190516013240",
+    "dto": "mapstruct",
+    "searchEngine": "elasticsearch",
+    "service": "serviceImpl",
+    "entityTableName": "equipamiento",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

@@ -1,0 +1,28 @@
+{
+    "craftBeerStoreApp": {
+        "equipamiento": {
+            "home": {
+                "title": "Equipamientos",
+                "createLabel": "Create a new Equipamiento",
+                "createOrEditLabel": "Create or edit a Equipamiento",
+                "search": "Search for Equipamiento"
+            },
+            "created": "A new Equipamiento is created with identifier {{ param }}",
+            "updated": "A Equipamiento is updated with identifier {{ param }}",
+            "deleted": "A Equipamiento is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Equipamiento {{ id }}?"
+            },
+            "detail": {
+                "title": "Equipamiento"
+            },
+            "nombreEquipamiento": "Nombre Equipamiento",
+            "tipoEquipamiento": "Tipo Equipamiento",
+            "precio": "Precio",
+            "costoEnvio": "Costo Envio",
+            "fechaCompra": "Fecha Compra",
+            "imagen": "Imagen",
+            "empresa": "Empresa"
+        }
+    }
+}

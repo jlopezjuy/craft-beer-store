@@ -50,7 +50,7 @@
             ]
         },
         {
-            "fieldName": "precioTotal",
+            "fieldName": "precioVentaTotal",
             "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "required"

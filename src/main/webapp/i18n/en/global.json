@@ -28,6 +28,7 @@
                 "evento": "Evento",
                 "eventoProducto": "Evento Producto",
                 "estilos": "Estilos",
+                "equipamiento": "Equipamiento",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
