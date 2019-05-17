@@ -74,12 +74,10 @@
                         </small>
                     </mat-error>
                 </mat-form-field>
-
                 <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.proveedor">Proveedor</mat-label>
                     <mat-select  name="proveedor" [(ngModel)]="caja.proveedorId" id="field_proveedor" required>
                         <mat-option value="null"></mat-option>
-<!--                        <mat-option [ngValue]="proveedorOption.id" *ngFor="let proveedorOption of proveedors; trackBy: trackProveedorById">{{proveedorOption.nombreProveedor}}</mat-option>-->
                         <mat-option *ngFor="let proveedorOption of proveedors; trackBy: trackProveedorById" [value]="proveedorOption.id">
                             {{proveedorOption.nombreProveedor}}
                         </mat-option>
@@ -89,21 +87,11 @@
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.cliente">Cliente</mat-label>
                     <mat-select  name="cliente" [(ngModel)]="caja.clienteId" id="field_cliente" required>
                         <mat-option value="null"></mat-option>
-                        <!--                        <mat-option [ngValue]="proveedorOption.id" *ngFor="let proveedorOption of proveedors; trackBy: trackProveedorById">{{proveedorOption.nombreProveedor}}</mat-option>-->
                         <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
                             {{clienteOption.nombeApellido}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-<!--                <div class="form-group">-->
-<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.caja.cliente" for="field_cliente">Cliente</label>-->
-<!--                    <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="caja.clienteId" >-->
-<!--                        <option [ngValue]="null"></option>-->
-<!--                        <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.nombeApellido}}</option>-->
-
-<!--                    </select>-->
-<!--                </div>-->
-
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

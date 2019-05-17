@@ -26,80 +26,65 @@
     </div>
     <br/>
     <div class="table-responsive" *ngIf="estilos">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="number"><span jhiTranslate="craftBeerStoreApp.estilos.number">Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nombreEstilo"><span jhiTranslate="craftBeerStoreApp.estilos.nombreEstilo">Nombre Estilo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="categoriaEstilo"><span jhiTranslate="craftBeerStoreApp.estilos.categoriaEstilo">Categoria Estilo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="abvMin"><span jhiTranslate="craftBeerStoreApp.estilos.abvMin">Abv Min</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="abvMax"><span jhiTranslate="craftBeerStoreApp.estilos.abvMax">Abv Max</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="abvMed"><span jhiTranslate="craftBeerStoreApp.estilos.abvMed">Abv Med</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="ibuMin"><span jhiTranslate="craftBeerStoreApp.estilos.ibuMin">Ibu Min</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="ibuMax"><span jhiTranslate="craftBeerStoreApp.estilos.ibuMax">Ibu Max</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="ibuMed"><span jhiTranslate="craftBeerStoreApp.estilos.ibuMed">Ibu Med</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="srmMin"><span jhiTranslate="craftBeerStoreApp.estilos.srmMin">Srm Min</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="srmMax"><span jhiTranslate="craftBeerStoreApp.estilos.srmMax">Srm Max</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="srmMed"><span jhiTranslate="craftBeerStoreApp.estilos.srmMed">Srm Med</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="descripcion"><span jhiTranslate="craftBeerStoreApp.estilos.descripcion">Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="ejemploNombreComercial"><span jhiTranslate="craftBeerStoreApp.estilos.ejemploNombreComercial">Ejemplo Nombre Comercial</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="ejemploImagenComercial"><span jhiTranslate="craftBeerStoreApp.estilos.ejemploImagenComercial">Ejemplo Imagen Comercial</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let estilos of estilos ;trackBy: trackId">
-                <td><a [routerLink]="['/estilos', estilos.id, 'view' ]">{{estilos.id}}</a></td>
-                <td>{{estilos.number}}</td>
-                <td>{{estilos.nombreEstilo}}</td>
-                <td>{{estilos.categoriaEstilo}}</td>
-                <td>{{estilos.abvMin}}</td>
-                <td>{{estilos.abvMax}}</td>
-                <td>{{estilos.abvMed}}</td>
-                <td>{{estilos.ibuMin}}</td>
-                <td>{{estilos.ibuMax}}</td>
-                <td>{{estilos.ibuMed}}</td>
-                <td>{{estilos.srmMin}}</td>
-                <td>{{estilos.srmMax}}</td>
-                <td>{{estilos.srmMed}}</td>
-                <td>{{estilos.descripcion}}</td>
-                <td>{{estilos.ejemploNombreComercial}}</td>
-                <td>{{estilos.ejemploImagenComercial}}</td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/estilos', estilos.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/estilos', estilos.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'estilos', { outlets: { popup: estilos.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf="estilos && estilos.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        <div class="mat-elevation-z8 table-responsive">
+            <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="id"> <span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let estilo"> {{estilo.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="number">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="number"> <span jhiTranslate="craftBeerStoreApp.estilos.number">Number</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let estilo"> {{estilo.number}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nombreEstilo">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="nombreEstilo"> <span jhiTranslate="craftBeerStoreApp.estilos.nombreEstilo">Nombre Estilo</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let estilo"> {{estilo.nombreEstilo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="categoriaEstilo">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="categoriaEstilo"> <span jhiTranslate="craftBeerStoreApp.estilos.categoriaEstilo">Categoria Estilo</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let estilo"> {{estilo.categoriaEstilo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ejemploNombreComercial">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="ejemploNombreComercial"> <span jhiTranslate="craftBeerStoreApp.estilos.ejemploNombreComercial">Ejemplo Nombre Comercial</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let estilo"> {{estilo.ejemploNombreComercial}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ejemploImagenComercial">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="ejemploImagenComercial"> <span jhiTranslate="craftBeerStoreApp.estilos.ejemploImagenComercial">Ejemplo Imagen Comercial</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let estilo"> <img [src]="estilo.ejemploImagenComercial" width="20px">  </td>
+                </ng-container>
+                <ng-container matColumnDef="actions" >
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let estilos" style="width: 20%">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/estilos', estilos.id, 'view' ]"
+                                    mat-raised-button color="primary">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/estilos', estilos.id, 'edit']"
+                                    mat-raised-button class="mat-edit">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/', 'estilos', { outlets: { popup: estilos.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    mat-raised-button color="warn">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="totalItems"
+                           [pageSize]="itemsPerPage"
+                           (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
         </div>
     </div>
 </div>

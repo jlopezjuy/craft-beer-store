@@ -4,12 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-
 import { IEstilos } from 'app/shared/model/estilos.model';
 import { AccountService } from 'app/core';
-
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { EstilosService } from './estilos.service';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-estilos',
@@ -30,6 +29,17 @@ export class EstilosComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    pageEvent: PageEvent;
+    dataSource: any;
+    displayedColumns: string[] = [
+        'id',
+        'number',
+        'nombreEstilo',
+        'categoriaEstilo',
+        'ejemploNombreComercial',
+        'ejemploImagenComercial',
+        'actions'
+    ];
 
     constructor(
         protected estilosService: EstilosService,
@@ -161,9 +171,16 @@ export class EstilosComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.estilos = data;
+        this.dataSource = new MatTableDataSource<IEstilos>(this.estilos);
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        console.log(event);
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }
