@@ -21,7 +21,7 @@
             "fecha": "Fecha",
             "costoUnitario": "Costo Unitario",
             "precioVentaUnitario": "Precio Venta Unitario",
-            "precioTotal": "Precio Total",
+            "precioVentaTotal": "Precio Venta Total",
             "precioCostoTotal": "Precio Costo Total",
             "producto": "Producto"
         }

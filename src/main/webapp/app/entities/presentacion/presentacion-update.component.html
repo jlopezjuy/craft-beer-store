@@ -88,16 +88,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.presentacion.precioTotal" for="field_precioTotal">Precio Total</label>
-                    <input type="number" class="form-control" name="precioTotal" id="field_precioTotal" disabled
-                        [(ngModel)]="presentacion.precioTotal" required/>
-                    <div [hidden]="!(editForm.controls.precioTotal?.dirty && editForm.controls.precioTotal?.invalid)">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal" for="field_precioVentaTotal">Precio Venta Total</label>
+                    <input type="number" class="form-control" name="precioVentaTotal" id="field_precioVentaTotal"
+                        [(ngModel)]="presentacion.precioVentaTotal" required/>
+                    <div [hidden]="!(editForm.controls.precioVentaTotal?.dirty && editForm.controls.precioVentaTotal?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.precioTotal?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.precioVentaTotal?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.precioTotal?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.controls.precioVentaTotal?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>

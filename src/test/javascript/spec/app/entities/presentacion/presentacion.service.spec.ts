@@ -75,7 +75,7 @@ describe('Service Tests', () => {
                         fecha: currentDate.format(DATE_FORMAT),
                         costoUnitario: 1,
                         precioVentaUnitario: 1,
-                        precioTotal: 1,
+                        precioVentaTotal: 1,
                         precioCostoTotal: 1
                     },
                     elemDefault
@@ -103,7 +103,7 @@ describe('Service Tests', () => {
                         fecha: currentDate.format(DATE_FORMAT),
                         costoUnitario: 1,
                         precioVentaUnitario: 1,
-                        precioTotal: 1,
+                        precioVentaTotal: 1,
                         precioCostoTotal: 1
                     },
                     elemDefault

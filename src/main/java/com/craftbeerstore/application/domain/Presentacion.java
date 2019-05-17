@@ -53,8 +53,8 @@ public class Presentacion implements Serializable {
     private BigDecimal precioVentaUnitario;
 
     @NotNull
-    @Column(name = "precio_total", precision = 10, scale = 2, nullable = false)
-    private BigDecimal precioTotal;
+    @Column(name = "precio_venta_total", precision = 10, scale = 2, nullable = false)
+    private BigDecimal precioVentaTotal;
 
     @NotNull
     @Column(name = "precio_costo_total", precision = 10, scale = 2, nullable = false)
@@ -138,17 +138,17 @@ public class Presentacion implements Serializable {
         this.precioVentaUnitario = precioVentaUnitario;
     }
 
-    public BigDecimal getPrecioTotal() {
-        return precioTotal;
+    public BigDecimal getPrecioVentaTotal() {
+        return precioVentaTotal;
     }
 
-    public Presentacion precioTotal(BigDecimal precioTotal) {
-        this.precioTotal = precioTotal;
+    public Presentacion precioVentaTotal(BigDecimal precioVentaTotal) {
+        this.precioVentaTotal = precioVentaTotal;
         return this;
     }
 
-    public void setPrecioTotal(BigDecimal precioTotal) {
-        this.precioTotal = precioTotal;
+    public void setPrecioVentaTotal(BigDecimal precioVentaTotal) {
+        this.precioVentaTotal = precioVentaTotal;
     }
 
     public BigDecimal getPrecioCostoTotal() {
@@ -207,7 +207,7 @@ public class Presentacion implements Serializable {
             ", fecha='" + getFecha() + "'" +
             ", costoUnitario=" + getCostoUnitario() +
             ", precioVentaUnitario=" + getPrecioVentaUnitario() +
-            ", precioTotal=" + getPrecioTotal() +
+            ", precioVentaTotal=" + getPrecioVentaTotal() +
             ", precioCostoTotal=" + getPrecioCostoTotal() +
             "}";
     }

@@ -68,8 +68,8 @@ public class PresentacionResourceIntTest {
     private static final BigDecimal DEFAULT_PRECIO_VENTA_UNITARIO = new BigDecimal(1);
     private static final BigDecimal UPDATED_PRECIO_VENTA_UNITARIO = new BigDecimal(2);
 
-    private static final BigDecimal DEFAULT_PRECIO_TOTAL = new BigDecimal(1);
-    private static final BigDecimal UPDATED_PRECIO_TOTAL = new BigDecimal(2);
+    private static final BigDecimal DEFAULT_PRECIO_VENTA_TOTAL = new BigDecimal(1);
+    private static final BigDecimal UPDATED_PRECIO_VENTA_TOTAL = new BigDecimal(2);
 
     private static final BigDecimal DEFAULT_PRECIO_COSTO_TOTAL = new BigDecimal(1);
     private static final BigDecimal UPDATED_PRECIO_COSTO_TOTAL = new BigDecimal(2);
@@ -135,7 +135,7 @@ public class PresentacionResourceIntTest {
             .fecha(DEFAULT_FECHA)
             .costoUnitario(DEFAULT_COSTO_UNITARIO)
             .precioVentaUnitario(DEFAULT_PRECIO_VENTA_UNITARIO)
-            .precioTotal(DEFAULT_PRECIO_TOTAL)
+            .precioVentaTotal(DEFAULT_PRECIO_VENTA_TOTAL)
             .precioCostoTotal(DEFAULT_PRECIO_COSTO_TOTAL);
         return presentacion;
     }
@@ -166,7 +166,7 @@ public class PresentacionResourceIntTest {
         assertThat(testPresentacion.getFecha()).isEqualTo(DEFAULT_FECHA);
         assertThat(testPresentacion.getCostoUnitario()).isEqualTo(DEFAULT_COSTO_UNITARIO);
         assertThat(testPresentacion.getPrecioVentaUnitario()).isEqualTo(DEFAULT_PRECIO_VENTA_UNITARIO);
-        assertThat(testPresentacion.getPrecioTotal()).isEqualTo(DEFAULT_PRECIO_TOTAL);
+        assertThat(testPresentacion.getPrecioVentaTotal()).isEqualTo(DEFAULT_PRECIO_VENTA_TOTAL);
         assertThat(testPresentacion.getPrecioCostoTotal()).isEqualTo(DEFAULT_PRECIO_COSTO_TOTAL);
 
         // Validate the Presentacion in Elasticsearch
@@ -293,10 +293,10 @@ public class PresentacionResourceIntTest {
 
     @Test
     @Transactional
-    public void checkPrecioTotalIsRequired() throws Exception {
+    public void checkPrecioVentaTotalIsRequired() throws Exception {
         int databaseSizeBeforeTest = presentacionRepository.findAll().size();
         // set the field null
-        presentacion.setPrecioTotal(null);
+        presentacion.setPrecioVentaTotal(null);
 
         // Create the Presentacion, which fails.
         PresentacionDTO presentacionDTO = presentacionMapper.toDto(presentacion);
@@ -345,7 +345,7 @@ public class PresentacionResourceIntTest {
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].costoUnitario").value(hasItem(DEFAULT_COSTO_UNITARIO.intValue())))
             .andExpect(jsonPath("$.[*].precioVentaUnitario").value(hasItem(DEFAULT_PRECIO_VENTA_UNITARIO.intValue())))
-            .andExpect(jsonPath("$.[*].precioTotal").value(hasItem(DEFAULT_PRECIO_TOTAL.intValue())))
+            .andExpect(jsonPath("$.[*].precioVentaTotal").value(hasItem(DEFAULT_PRECIO_VENTA_TOTAL.intValue())))
             .andExpect(jsonPath("$.[*].precioCostoTotal").value(hasItem(DEFAULT_PRECIO_COSTO_TOTAL.intValue())));
     }
     
@@ -365,7 +365,7 @@ public class PresentacionResourceIntTest {
             .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()))
             .andExpect(jsonPath("$.costoUnitario").value(DEFAULT_COSTO_UNITARIO.intValue()))
             .andExpect(jsonPath("$.precioVentaUnitario").value(DEFAULT_PRECIO_VENTA_UNITARIO.intValue()))
-            .andExpect(jsonPath("$.precioTotal").value(DEFAULT_PRECIO_TOTAL.intValue()))
+            .andExpect(jsonPath("$.precioVentaTotal").value(DEFAULT_PRECIO_VENTA_TOTAL.intValue()))
             .andExpect(jsonPath("$.precioCostoTotal").value(DEFAULT_PRECIO_COSTO_TOTAL.intValue()));
     }
 
@@ -395,7 +395,7 @@ public class PresentacionResourceIntTest {
             .fecha(UPDATED_FECHA)
             .costoUnitario(UPDATED_COSTO_UNITARIO)
             .precioVentaUnitario(UPDATED_PRECIO_VENTA_UNITARIO)
-            .precioTotal(UPDATED_PRECIO_TOTAL)
+            .precioVentaTotal(UPDATED_PRECIO_VENTA_TOTAL)
             .precioCostoTotal(UPDATED_PRECIO_COSTO_TOTAL);
         PresentacionDTO presentacionDTO = presentacionMapper.toDto(updatedPresentacion);
 
@@ -413,7 +413,7 @@ public class PresentacionResourceIntTest {
         assertThat(testPresentacion.getFecha()).isEqualTo(UPDATED_FECHA);
         assertThat(testPresentacion.getCostoUnitario()).isEqualTo(UPDATED_COSTO_UNITARIO);
         assertThat(testPresentacion.getPrecioVentaUnitario()).isEqualTo(UPDATED_PRECIO_VENTA_UNITARIO);
-        assertThat(testPresentacion.getPrecioTotal()).isEqualTo(UPDATED_PRECIO_TOTAL);
+        assertThat(testPresentacion.getPrecioVentaTotal()).isEqualTo(UPDATED_PRECIO_VENTA_TOTAL);
         assertThat(testPresentacion.getPrecioCostoTotal()).isEqualTo(UPDATED_PRECIO_COSTO_TOTAL);
 
         // Validate the Presentacion in Elasticsearch
@@ -480,7 +480,7 @@ public class PresentacionResourceIntTest {
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
             .andExpect(jsonPath("$.[*].costoUnitario").value(hasItem(DEFAULT_COSTO_UNITARIO.intValue())))
             .andExpect(jsonPath("$.[*].precioVentaUnitario").value(hasItem(DEFAULT_PRECIO_VENTA_UNITARIO.intValue())))
-            .andExpect(jsonPath("$.[*].precioTotal").value(hasItem(DEFAULT_PRECIO_TOTAL.intValue())))
+            .andExpect(jsonPath("$.[*].precioVentaTotal").value(hasItem(DEFAULT_PRECIO_VENTA_TOTAL.intValue())))
             .andExpect(jsonPath("$.[*].precioCostoTotal").value(hasItem(DEFAULT_PRECIO_COSTO_TOTAL.intValue())));
     }
 

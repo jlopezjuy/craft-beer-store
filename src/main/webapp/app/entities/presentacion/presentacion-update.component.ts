@@ -86,7 +86,7 @@ export class PresentacionUpdateComponent implements OnInit {
             this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
         }
         if (this.presentacion.cantidad) {
-            this.presentacion.precioTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
+            this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
         }
     }
 
@@ -98,7 +98,7 @@ export class PresentacionUpdateComponent implements OnInit {
 
     changePrecioVenta() {
         if (this.presentacion.cantidad) {
-            this.presentacion.precioTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
+            this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
         }
     }
 }

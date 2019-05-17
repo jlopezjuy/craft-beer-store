@@ -44,7 +44,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
         'fecha',
         'costoUnitario',
         'precioVentaUnitario',
-        'precioTotal',
+        'precioVentaTotal',
         'precioCostoTotal',
         'actions'
     ];
@@ -61,7 +61,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
         private $localStorage: LocalStorageService,
         private ngxLoader: NgxUiLoaderService
     ) {
-        this.itemsPerPage = 4;
+        this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
             this.previousPage = data.pagingParams.page;
@@ -118,8 +118,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        console.log('entro en transition...');
-        console.log(this.page);
         this.router.navigate(['/presentacion'], {
             queryParams: {
                 page: this.page,
@@ -128,7 +126,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
-        console.log('paso el navigate');
         this.loadAll();
     }
 
@@ -191,7 +188,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     }
 
     protected paginatePresentacions(data: IPresentacion[], headers: HttpHeaders) {
-        console.log(headers);
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.presentacions = data;
