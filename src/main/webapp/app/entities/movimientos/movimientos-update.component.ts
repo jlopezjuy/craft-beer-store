@@ -108,7 +108,7 @@ export class MovimientosUpdateComponent implements OnInit {
             detalle.movimientosId = movimientoId;
             detalle.presentacionId = pres.id;
             detalle.cantidad = pres.cantidad;
-            detalle.precioTotal = pres.precioTotal;
+            detalle.precioTotal = pres.precioVentaTotal;
             this.detalleMovimientoService.create(detalle).subscribe(det => {});
         });
         this.previousState();
@@ -158,10 +158,10 @@ export class MovimientosUpdateComponent implements OnInit {
                 const pres = resp.body;
                 pres.cantidad = this.productoSave.cantidadPresentacion;
                 pres.nombreComercial = prod.body.nombreComercial;
-                pres.precioTotal = pres.cantidad * pres.precioVentaUnitario;
+                pres.precioVentaTotal = pres.cantidad * pres.precioVentaUnitario;
                 pres.movimientoId = resp.body.movimientoId;
                 this.presentacions.push(pres);
-                this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioTotal;
+                this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioVentaTotal;
                 this.clearFormProduct();
             });
         });
@@ -183,7 +183,7 @@ export class MovimientosUpdateComponent implements OnInit {
             detalle.body.forEach(det => {
                 const presentacion: IPresentacion = new Presentacion();
                 presentacion.cantidad = det.cantidad;
-                presentacion.precioTotal = det.precioTotal;
+                presentacion.precioVentaTotal = det.precioTotal;
                 this.presentacionService.find(det.presentacionId).subscribe(presen => {
                     presentacion.tipoPresentacion = presen.body.tipoPresentacion;
                     this.productoService.find(presen.body.productoId).subscribe(prod => {

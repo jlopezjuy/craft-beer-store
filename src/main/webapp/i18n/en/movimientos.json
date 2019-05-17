@@ -2,7 +2,7 @@
     "craftBeerStoreApp": {
         "movimientos": {
             "home": {
-                "title": "Movimientos",
+                "title": "Ventas/",
                 "createLabel": "Create a new Movimientos",
                 "createOrEditLabel": "Create or edit a Movimientos",
                 "search": "Search for Movimientos"
