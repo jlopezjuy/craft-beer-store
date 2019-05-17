@@ -2,24 +2,24 @@
     "craftBeerStoreApp": {
         "movimientos": {
             "home": {
-                "title": "Movimientos",
-                "createLabel": "Crear nuevo Movimientos",
-                "createOrEditLabel": "Crear o editar Movimientos",
-                "search": "Search for Movimientos"
+                "title": "Ventas",
+                "createLabel": "Crear nueva Venta",
+                "createOrEditLabel": "Crear o editar Venta",
+                "search": "Search for Venta"
             },
-            "created": "Un nuevo Movimientos ha sido creado con el identificador {{ param }}",
-            "updated": "Un Movimientos ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Movimientos ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva Venta ha sido creada con el identificador {{ param }}",
+            "updated": "Una Venta ha sido actualizada con el identificador {{ param }}",
+            "deleted": "Una Venta ha sido eliminada con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Movimientos {{ id }}?"
+                "question": "¿Seguro que quiere eliminar Venta {{ id }}?"
             },
             "detail": {
-                "title": "Movimientos"
+                "title": "Venta"
             },
             "tipoMovimiento": "Tipo Movimiento",
-            "fechaMovimiento": "Fecha Movimiento",
+            "fechaMovimiento": "Fecha",
             "precioTotal": "Precio Total",
-            "numeroMovimiento": "Numero Movimiento",
+            "numeroMovimiento": "Numero",
             "estado": "Estado",
             "cliente": "Cliente",
             "empresa": "Empresa"
