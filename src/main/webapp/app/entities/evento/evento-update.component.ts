@@ -14,7 +14,7 @@ import { EventoProductoService } from 'app/entities/evento-producto';
 import { ProductoService } from 'app/entities/producto';
 import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { EventoProducto, IEventoProducto } from 'app/shared/model/evento-producto.model';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { Message } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { TranslateService } from '@ngx-translate/core';
@@ -35,6 +35,8 @@ export class EventoUpdateComponent implements OnInit {
     productosList: IProducto[];
     productoSave: Producto;
     msgs: Message[] = [];
+    dataSource: any;
+    displayedColumns: string[] = ['descripcion', 'tipo', 'nombreComercial'];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -120,6 +122,7 @@ export class EventoUpdateComponent implements OnInit {
             this.productoService.find(this.productoSave.id).subscribe(resp => {
                 if (this.validateProductoList(resp.body)) {
                     this.productosList.push(resp.body);
+                    this.dataSource = new MatTableDataSource<IProducto>(this.productosList);
                 } else {
                     this.jhiAlertService.warning('craftBeerStoreApp.evento.validate.producto');
                     this.translateService.get('craftBeerStoreApp.evento.validate.producto').subscribe(mess => {
@@ -162,6 +165,7 @@ export class EventoUpdateComponent implements OnInit {
                     const producto = prod.body;
                     producto.eventoId = eventoId;
                     this.productosList.push(producto);
+                    this.dataSource = new MatTableDataSource<IProducto>(this.productosList);
                 });
             });
         });

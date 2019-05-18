@@ -4,12 +4,12 @@
             <h2 id="jhi-evento-heading" jhiTranslate="craftBeerStoreApp.evento.home.createOrEditLabel">Create or edit a Evento</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <mat-form-field class="example-full-width" [hidden]="!evento.id">
+                <mat-form-field class="example-full-width" [hidden]="!evento.id" appearance="fill">
                     <mat-label jhiTranslate="global.field.id">ID </mat-label>
                     <input matInput placeholder="id" id="id" name="id"
                            [(ngModel)]="evento.id" readonly>
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.evento.nombreEvento" for="field_nombreEvento">Saldo Cta Cte</mat-label>
                     <input type="text" matInput name="nombreEvento" id="field_nombreEvento"
                            [(ngModel)]="evento.nombreEvento" required/>
@@ -20,7 +20,7 @@
                         </small>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field >
+                <mat-form-field class="mid-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.evento.fechaEvento">Fecha Evento</mat-label>
                     <input matInput name="fechaEvento" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fechaEventoDp" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -32,7 +32,7 @@
                         </small>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="mid-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.evento.cantidadBarriles" for="field_cantidadBarriles">Cantidad Barriles</mat-label>
                     <input type="number" matInput name="cantidadBarriles" id="field_cantidadBarriles"
                            [(ngModel)]="evento.cantidadBarriles" required min="1" jhiMin="1"/>
@@ -51,7 +51,7 @@
                         </small>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="mid-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.evento.precioPinta" for="field_precioPinta">Precio Pinta</mat-label>
                     <input type="text" matInput name="precioPinta" id="field_precioPinta"
                            [(ngModel)]="evento.precioPinta" required/>
@@ -67,35 +67,17 @@
                     </mat-error>
                 </mat-form-field>
 
-
-<!--                <div class="form-group">-->
-<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.evento.precioPinta" for="field_precioPinta">Precio Pinta</label>-->
-<!--                    <input type="number" class="form-control" name="precioPinta" id="field_precioPinta"-->
-<!--                        [(ngModel)]="evento.precioPinta" required/>-->
-<!--                    <div [hidden]="!(editForm.controls.precioPinta?.dirty && editForm.controls.precioPinta?.invalid)">-->
-<!--                        <small class="form-text text-danger"-->
-<!--                        [hidden]="!editForm.controls.precioPinta?.errors?.required" jhiTranslate="entity.validation.required">-->
-<!--                        This field is required.-->
-<!--                        </small>-->
-<!--                        <small class="form-text text-danger"-->
-<!--                            [hidden]="!editForm.controls.precioPinta?.errors?.number" jhiTranslate="entity.validation.number">-->
-<!--                            This field should be a number.-->
-<!--                        </small>-->
-<!--                    </div>-->
-<!--                </div>-->
-
                 <div class="form-group">
-                    <div class="container">
+                    <div class="container mat-elevation-z8">
                         <mat-card class="example-card">
-                            <mat-card-header [ngStyle]="{'background-color':'#0096d2'}">
-<!--                                <div mat-card-avatar class="example-header-image"></div>-->
+                            <mat-card-header>
                                 <mat-card-title>Productos para el Evento</mat-card-title>
                             </mat-card-header>
 
                             <mat-card-content>
                                 <mat-form-field class="example-full-width">
                                     <mat-label jhiTranslate="craftBeerStoreApp.presentacion.producto" for="field_producto">Producto</mat-label>
-                                    <mat-select  name="proveedor" [(ngModel)]="productoSave.id" id="field_producto" required>
+                                    <mat-select  name="proveedor" [(ngModel)]="productoSave.id" id="field_producto">
                                         <mat-option value="null"></mat-option>
                                         <mat-option *ngFor="let productoOption of productos" [value]="productoOption.id">
                                             {{productoOption.nombreComercial}}
@@ -107,43 +89,35 @@
                                 <button mat-button type="button" class="btn btn-success" (click)="addProducto()"> Agregar</button>
                             </mat-card-actions>
                         </mat-card>
-<!--                        <div class="card bg-info text-white">-->
-<!--                            <div class="card-body">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-6">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div>-->
-<!--                                    -->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                 </div>
             </div>
-            <div class="table-responsive" *ngIf="productosList">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th><span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                        <th><span jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                        <th><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let producto of productosList">
-                        <td>{{producto.descripcion}}</td>
-                        <td jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.tipo}}">{{producto.tipo}}</td>
-                        <td>{{producto.nombreComercial}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div *ngIf="productosList">
+                <div class="mat-elevation-z8 table-responsive">
+                    <table mat-table [dataSource]="dataSource" style="width: 100%;">
+                        <ng-container matColumnDef="descripcion">
+                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span></th>
+                            <td mat-cell *matCellDef="let producto"> {{producto.descripcion}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="tipo">
+                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</span></th>
+                            <td mat-cell *matCellDef="let producto" jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.tipo}}"> {{producto.tipo}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="nombreComercial">
+                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span></th>
+                            <td mat-cell *matCellDef="let producto"> {{producto.nombreComercial}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>
