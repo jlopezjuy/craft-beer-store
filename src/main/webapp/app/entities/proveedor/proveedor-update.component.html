@@ -63,7 +63,7 @@
                         <input id="field_fechaAlta" type="text" class="form-control" name="fechaAlta" ngbDatepicker  #fechaAltaDp="ngbDatepicker" [(ngModel)]="proveedor.fechaAlta"
                         required/>
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="fechaAltaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            <button type="button" mat-raised-button class="mat-cancel" (click)="fechaAltaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
                     </div>
                     <div [hidden]="!(editForm.controls.fechaAlta?.dirty && editForm.controls.fechaAlta?.invalid)">
@@ -114,10 +114,10 @@
                 </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

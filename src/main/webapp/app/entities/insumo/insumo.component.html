@@ -25,68 +25,77 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="insumos">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nombreInsumo"><span jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="marca"><span jhiTranslate="craftBeerStoreApp.insumo.marca">Marca</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="stock"><span jhiTranslate="craftBeerStoreApp.insumo.stock">Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="unidad"><span jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.insumo.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="imagen"><span jhiTranslate="craftBeerStoreApp.insumo.imagen">Imagen</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let insumo of insumos ;trackBy: trackId">
-                <td><a [routerLink]="['/insumo', insumo.id, 'view' ]">{{insumo.id}}</a></td>
-                <td>{{insumo.nombreInsumo}}</td>
-                <td>{{insumo.marca}}</td>
-                <td>{{insumo.stock}}</td>
-                <td jhiTranslate="{{'craftBeerStoreApp.Unidad.' + insumo.unidad}}">{{insumo.unidad}}</td>
-                <td jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumo.tipo}}">{{insumo.tipo}}</td>
-                <td>
-                    <a *ngIf="insumo.imagen" (click)="openFile(insumo.imagenContentType, insumo.imagen)">
-                        <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen" style="max-height: 30px;" alt="insumo image"/>
-                    </a>
-                    <span *ngIf="insumo.imagen">{{insumo.imagenContentType}}, {{byteSize(insumo.imagen)}}</span>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/insumo', insumo.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/insumo', insumo.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'insumo', { outlets: { popup: insumo.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf="insumos && insumos.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    <div *ngIf="insumos">
+        <div class="mat-elevation-z8 table-responsive">
+            <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="id"> <span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let insumo"> {{insumo.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nombreInsumo">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="nombreInsumo"> <span jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let insumo" > {{insumo.nombreInsumo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="marca">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="marca"> <span jhiTranslate="craftBeerStoreApp.insumo.marca">Marca</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let insumo" > {{insumo.marca}} </td>
+                </ng-container>
+                <ng-container matColumnDef="stock">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="stock"> <span jhiTranslate="craftBeerStoreApp.insumo.stock">Stock</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let insumo" > {{insumo.stock}} </td>
+                </ng-container>
+                <ng-container matColumnDef="unidad">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="unidad"> <span jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let insumo" jhiTranslate="{{'craftBeerStoreApp.Unidad.' + insumo.unidad}}"> {{insumo.unidad}} </td>
+                </ng-container>
+                <ng-container matColumnDef="tipo">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="tipo"> <span jhiTranslate="craftBeerStoreApp.insumo.tipo">Tipo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let insumo" jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumo.tipo}}"> {{insumo.tipo}} </td>
+                </ng-container>
+                <ng-container matColumnDef="imagen">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="imagen"> <span jhiTranslate="craftBeerStoreApp.insumo.imagen">Imagen</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let insumo" >
+                        <a *ngIf="insumo.imagen" (click)="openFile(insumo.imagenContentType, insumo.imagen)">
+                            <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen" style="max-height: 30px;" alt="insumo image"/>
+                        </a>
+                        <span *ngIf="insumo.imagen">{{insumo.imagenContentType}}, {{byteSize(insumo.imagen)}}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions" >
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let insumo" style="width: 20%">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/insumo', insumo.id, 'view' ]"
+                                    mat-raised-button color="primary">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/insumo', insumo.id, 'edit']"
+                                    mat-raised-button class="mat-edit">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/', 'insumo', { outlets: { popup: insumo.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    mat-raised-button color="warn">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="totalItems"
+                           [pageSize]="itemsPerPage"
+                           (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
         </div>
     </div>
 </div>

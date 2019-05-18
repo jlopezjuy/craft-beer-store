@@ -9,7 +9,7 @@
         <p id="jhi-delete-evento-heading" jhiTranslate="craftBeerStoreApp.evento.delete.question" [translateValues]="{id: evento.id}">Are you sure you want to delete this Evento?</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+        <button type="button" mat-raised-button class="mat-cancel" data-dismiss="modal" (click)="clear()">
             <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
         <button id="jhi-confirm-delete-evento" type="submit" class="btn btn-danger">

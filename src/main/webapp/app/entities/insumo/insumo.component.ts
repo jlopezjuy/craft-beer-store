@@ -12,6 +12,7 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { InsumoService } from './insumo.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-insumo',
@@ -32,6 +33,9 @@ export class InsumoComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    dataSource: any;
+    displayedColumns: string[] = ['id', 'nombreInsumo', 'marca', 'stock', 'unidad', 'tipo', 'imagen', 'actions'];
+    pageEvent: PageEvent;
 
     constructor(
         protected insumoService: InsumoService,
@@ -179,10 +183,17 @@ export class InsumoComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.insumos = data;
+        this.dataSource = new MatTableDataSource<IInsumo>(this.insumos);
         this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        console.log(event);
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }
