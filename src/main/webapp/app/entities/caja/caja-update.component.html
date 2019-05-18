@@ -4,12 +4,12 @@
             <h2 id="jhi-caja-heading" jhiTranslate="craftBeerStoreApp.caja.home.createOrEditLabel">Create or edit a Caja</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <mat-form-field class="example-full-width" [hidden]="!caja.id">
+                <mat-form-field class="example-full-width" [hidden]="!caja.id" appearance="fill">
                     <mat-label jhiTranslate="global.field.id">ID </mat-label>
                     <input matInput placeholder="id" id="id" name="id"
                            [(ngModel)]="caja.id" readonly>
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.tipoMovimiento">Tipo Movimiento</mat-label>
                     <mat-select  name="tipoMovimiento" [(ngModel)]="caja.tipoMovimiento" id="field_tipoMovimiento" required>
                         <mat-option value="INGRESO">{{'craftBeerStoreApp.TipoMovimientoCaja.INGRESO' | translate}}</mat-option>
@@ -22,7 +22,7 @@
                         </small>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.tipoPago">Tipo Pago</mat-label>
                     <mat-select  name="tipoPago" [(ngModel)]="caja.tipoPago" id="field_tipoPago" required>
                         <mat-option value="EFECTIVO">{{'craftBeerStoreApp.TipoPago.EFECTIVO' | translate}}</mat-option>
@@ -37,17 +37,17 @@
                         </small>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.descripcion">Nombre Comercial</mat-label>
                     <textarea matInput type="text" id="descripcion" name="descripcion"
                               [(ngModel)]="caja.descripcion" ></textarea>
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.saldoCtaCte" for="field_saldoCtaCte">Saldo Cta Cte</mat-label>
                     <input type="number" matInput name="saldoCtaCte" id="field_saldoCtaCte"
                            [(ngModel)]="caja.saldoCtaCte" />
                 </mat-form-field>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.importe" for="field_importe">Importe</mat-label>
                     <input type="number" matInput name="importe" id="field_importe"
                            [(ngModel)]="caja.importe" required/>
@@ -62,7 +62,7 @@
                         </small>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field >
+                <mat-form-field appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.fecha">Fecha</mat-label>
                     <input matInput name="fecha" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fecha" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
