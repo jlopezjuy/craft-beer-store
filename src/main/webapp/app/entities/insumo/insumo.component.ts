@@ -192,7 +192,6 @@ export class InsumoComponent implements OnInit, OnDestroy {
     }
 
     onPaginateChange(event: PageEvent) {
-        console.log(event);
         this.page = event.pageIndex + 1;
         this.loadPage(event.pageIndex + 1);
     }

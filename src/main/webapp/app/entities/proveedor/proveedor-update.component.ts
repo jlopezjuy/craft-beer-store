@@ -10,6 +10,7 @@ import { ProveedorService } from './proveedor.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
+import { DATE_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-proveedor-update',
@@ -35,6 +36,9 @@ export class ProveedorUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ proveedor }) => {
             this.proveedor = proveedor;
+            if (this.proveedor.id) {
+                this.fechaAltaDp = moment(this.proveedor.fechaAlta, 'dd/MM/yyy').format();
+            }
         });
         this.empresa = this.$localStorage.retrieve('empresa');
     }
@@ -57,6 +61,7 @@ export class ProveedorUpdateComponent implements OnInit {
 
     save() {
         this.proveedor.empresaId = this.empresa.id;
+        this.proveedor.fechaAlta = this.fechaAltaDp != null ? moment(this.fechaAltaDp, DATE_FORMAT) : null;
         this.isSaving = true;
         if (this.proveedor.id !== undefined) {
             this.subscribeToSaveResponse(this.proveedorService.update(this.proveedor));
