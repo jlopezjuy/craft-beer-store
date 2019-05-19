@@ -13,6 +13,7 @@ import { EquipamientoService } from './equipamiento.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-equipamiento',
@@ -33,6 +34,18 @@ export class EquipamientoComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    dataSource: any;
+    displayedColumns: string[] = [
+        'id',
+        'nombreEquipamiento',
+        'tipoEquipamiento',
+        'precio',
+        'costoEnvio',
+        'fechaCompra',
+        'imagen',
+        'actions'
+    ];
+    pageEvent: PageEvent;
 
     constructor(
         protected equipamientoService: EquipamientoService,
@@ -180,10 +193,16 @@ export class EquipamientoComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.equipamientos = data;
+        this.dataSource = new MatTableDataSource<IEquipamiento>(this.equipamientos);
         this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }

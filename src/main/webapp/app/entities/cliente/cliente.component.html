@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="craftBeerStoreApp.cliente.home.title">Clientes</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cliente" [routerLink]="['/cliente/new']">
+        <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-cliente" [routerLink]="['/cliente/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.cliente.home.createLabel">
             Create new Cliente
@@ -25,38 +25,45 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="clientes">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nombeApellido"><span jhiTranslate="craftBeerStoreApp.cliente.nombeApellido">Nombe Apellido</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="domicilio"><span jhiTranslate="craftBeerStoreApp.cliente.domicilio">Domicilio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tipoCliente"><span jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="telefono"><span jhiTranslate="craftBeerStoreApp.cliente.telefono">Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="correo"><span jhiTranslate="craftBeerStoreApp.cliente.correo">Correo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let cliente of clientes ;trackBy: trackId">
-                <td><a [routerLink]="['/cliente', cliente.id, 'view' ]">{{cliente.id}}</a></td>
-                <td>{{cliente.nombeApellido}}</td>
-                <td>{{cliente.domicilio}}</td>
-                <td jhiTranslate="{{'craftBeerStoreApp.TipoCliente.' + cliente.tipoCliente}}">{{cliente.tipoCliente}}</td>
-                <td>{{cliente.telefono}}</td>
-                <td>{{cliente.correo}}</td>
-                <td class="text-right">
+    <div class="mat-elevation-z8 table-responsive" *ngIf="clientes">
+        <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef jhiSortBy="id"> <span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="nombeApellido">
+                <th mat-header-cell *matHeaderCellDef jhiSortBy="nombeApellido"> <span jhiTranslate="craftBeerStoreApp.cliente.nombeApellido">Nombre y Apellido</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                <td mat-cell *matCellDef="let cliente" > {{cliente.nombeApellido}} </td>
+            </ng-container>
+            <ng-container matColumnDef="domicilio">
+                <th mat-header-cell *matHeaderCellDef jhiSortBy="domicilio"> <span jhiTranslate="craftBeerStoreApp.cliente.domicilio">Domicilio</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                <td mat-cell *matCellDef="let cliente" > {{cliente.domicilio}} </td>
+            </ng-container>
+            <ng-container matColumnDef="tipoCliente">
+                <th mat-header-cell *matHeaderCellDef jhiSortBy="tipoCliente"> <span jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                <td mat-cell *matCellDef="let cliente" jhiTranslate="{{'craftBeerStoreApp.TipoCliente.' + cliente.tipoCliente}}"> {{cliente.tipoCliente}} </td>
+            </ng-container>
+            <ng-container matColumnDef="telefono">
+                <th mat-header-cell *matHeaderCellDef jhiSortBy="telefono"> <span jhiTranslate="craftBeerStoreApp.cliente.telefono">Telefono</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                <td mat-cell *matCellDef="let cliente" > {{cliente.telefono}} </td>
+            </ng-container>
+            <ng-container matColumnDef="correo">
+                <th mat-header-cell *matHeaderCellDef jhiSortBy="correo"> <span jhiTranslate="craftBeerStoreApp.cliente.correo">Correo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                <td mat-cell *matCellDef="let cliente" > {{cliente.correo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions" >
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let cliente" style="width: 20%">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/cliente', cliente.id, 'view' ]"
-                                class="btn btn-info btn-sm">
+                                mat-raised-button color="primary">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/cliente', cliente.id, 'edit']"
-                                class="btn btn-primary btn-sm">
+                                mat-raised-button class="mat-edit">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
@@ -64,22 +71,20 @@
                                 [routerLink]="['/', 'cliente', { outlets: { popup: cliente.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
+                                mat-raised-button color="warn">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>
-            </tr>
-            </tbody>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-    </div>
-    <div *ngIf="clientes && clientes.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
+        <mat-paginator [length]="totalItems"
+                       [pageSize]="itemsPerPage"
+                       (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
     </div>
 </div>

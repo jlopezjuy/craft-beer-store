@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="craftBeerStoreApp.evento.home.title">Eventos</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-evento" [routerLink]="['/evento/new']">
+        <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-evento" [routerLink]="['/evento/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.evento.home.createLabel">
             Create new Evento
@@ -25,59 +25,64 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="eventos">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nombreEvento"><span jhiTranslate="craftBeerStoreApp.evento.nombreEvento">Nombre Evento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fechaEvento"><span jhiTranslate="craftBeerStoreApp.evento.fechaEvento">Fecha Evento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="cantidadBarriles"><span jhiTranslate="craftBeerStoreApp.evento.cantidadBarriles">Cantidad Barriles</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="precioPinta"><span jhiTranslate="craftBeerStoreApp.evento.precioPinta">Precio Pinta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let evento of eventos ;trackBy: trackId">
-                <td><a [routerLink]="['/evento', evento.id, 'view' ]">{{evento.id}}</a></td>
-                <td>{{evento.nombreEvento}}</td>
-                <td>{{evento.fechaEvento | date:'mediumDate'}}</td>
-                <td>{{evento.cantidadBarriles}}</td>
-                <td>{{evento.precioPinta}}</td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/evento', evento.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/evento', evento.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'evento', { outlets: { popup: evento.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf="eventos && eventos.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    <div *ngIf="eventos">
+
+        <div class="mat-elevation-z8 table-responsive">
+            <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="id"> <span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let evento"> {{evento.id}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nombreEvento">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="nombreEvento"> <span jhiTranslate="craftBeerStoreApp.evento.nombreEvento">Nombre Evento</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let evento"> {{evento.nombreEvento}} </td>
+                </ng-container>
+                <ng-container matColumnDef="fechaEvento">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="fechaEvento"> <span jhiTranslate="craftBeerStoreApp.evento.fechaEvento">Fecha Evento</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let evento"> {{evento.fechaEvento | date:'mediumDate'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="cantidadBarriles">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="cantidadBarriles"> <span jhiTranslate="craftBeerStoreApp.evento.cantidadBarriles">Cantidad Barriles</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let evento"> {{evento.cantidadBarriles}} </td>
+                </ng-container>
+                <ng-container matColumnDef="precioPinta">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="precioPinta"> <span jhiTranslate="craftBeerStoreApp.evento.precioPinta">Precio Pinta</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let evento"> {{evento.precioPinta}} </td>
+                </ng-container>
+                <ng-container matColumnDef="actions" >
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let evento" style="width: 20%">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/evento', evento.id, 'view' ]"
+                                    mat-raised-button color="primary">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/evento', evento.id, 'edit']"
+                                    mat-raised-button class="mat-edit">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/', 'evento', { outlets: { popup: evento.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    mat-raised-button color="warn">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [length]="totalItems"
+                           [pageSize]="itemsPerPage"
+                           (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
         </div>
     </div>
 </div>

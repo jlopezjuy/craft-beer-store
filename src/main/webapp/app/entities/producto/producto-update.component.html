@@ -93,18 +93,19 @@
                     <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
                         [(ngModel)]="producto.imagenContentType" />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.observacion" for="field_observacion">Observacion</label>
-                    <textarea class="form-control" name="observacion" id="field_observacion"
-                        [(ngModel)]="producto.observacion" ></textarea>
-                </div>
+                <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.producto.observacion">Observacion</mat-label>
+                    <textarea matInput type="text" class="form-control" id="observacion" name="observacion"
+                              [(ngModel)]="producto.observacion"></textarea>
+                </mat-form-field>
+
 
             </div>
             <div>
-                <button type="button" id="cancel-save" mat-raised-button  (click)="previousState()">
+                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button color="primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

@@ -100,7 +100,7 @@
                                        [(ngModel)]="movimientos.fechaMovimiento"
                                        required/>
                                 <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary"
+                            <button type="button" mat-raised-button class="mat-cancel"
                                     (click)="fechaMovimientoDp.toggle()"><fa-icon
                                 [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
@@ -248,13 +248,13 @@
 
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"
+                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"
                         (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
                     jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
                 <button type="button" id="save-entity" (click)="saveMovimiento()" [hidden]="movimientos.id"
-                        [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                        [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
                     jhiTranslate="entity.action.save">Save</span>
                 </button>

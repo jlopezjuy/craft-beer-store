@@ -228,12 +228,16 @@ ui bootstrap tweaks
     width: 100%;
 }
 
+.mid-width {
+    width: 50%;
+}
+
 .mat-success {
     background-color: #77dd77;
     color: #fff;
 }
 .mat-edit {
-    background-color: #51d1f6;
+    background-color: #4ea7cb;
     color: #fff;
 }
 .mat-prim {
@@ -242,5 +246,10 @@ ui bootstrap tweaks
 }
 .mat-back {
     background-color: #646264;
+    color: #fff;
+}
+
+.mat-cancel {
+    background-color: #969496;
     color: #fff;
 }
