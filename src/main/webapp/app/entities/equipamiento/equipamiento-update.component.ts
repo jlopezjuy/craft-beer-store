@@ -10,6 +10,7 @@ import { EquipamientoService } from './equipamiento.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
+import { DATE_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-equipamiento-update',
@@ -36,6 +37,9 @@ export class EquipamientoUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ equipamiento }) => {
             this.equipamiento = equipamiento;
+            if (this.equipamiento.id) {
+                this.fechaCompraDp = moment(this.equipamiento.fechaCompra, 'dd/MM/yyy').format();
+            }
         });
         this.empresa = this.$localStorage.retrieve('empresa');
     }
@@ -63,6 +67,7 @@ export class EquipamientoUpdateComponent implements OnInit {
     save() {
         this.equipamiento.empresaId = this.empresa.id;
         this.isSaving = true;
+        this.equipamiento.fechaCompra = this.fechaCompraDp != null ? moment(this.fechaCompraDp, DATE_FORMAT) : null;
         if (this.equipamiento.id !== undefined) {
             this.subscribeToSaveResponse(this.equipamientoService.update(this.equipamiento));
         } else {

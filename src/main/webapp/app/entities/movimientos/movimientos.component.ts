@@ -13,6 +13,7 @@ import { MovimientosService } from './movimientos.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-movimientos',
@@ -33,6 +34,18 @@ export class MovimientosComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    dataSource: any;
+    displayedColumns: string[] = [
+        'id',
+        'tipoMovimiento',
+        'fechaMovimiento',
+        'precioTotal',
+        'numeroMovimiento',
+        'estado',
+        'clienteNombeApellido',
+        'actions'
+    ];
+    pageEvent: PageEvent;
 
     constructor(
         protected movimientosService: MovimientosService,
@@ -172,10 +185,16 @@ export class MovimientosComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.movimientos = data;
+        this.dataSource = new MatTableDataSource<IMovimientos>(this.movimientos);
         this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }
