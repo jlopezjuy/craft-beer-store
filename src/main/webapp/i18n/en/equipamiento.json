@@ -2,27 +2,27 @@
     "craftBeerStoreApp": {
         "equipamiento": {
             "home": {
-                "title": "Equipamientos",
-                "createLabel": "Create a new Equipamiento",
-                "createOrEditLabel": "Create or edit a Equipamiento",
-                "search": "Search for Equipamiento"
+                "title": "Equipment",
+                "createLabel": "Create a new Equipment",
+                "createOrEditLabel": "Create or edit a Equipment",
+                "search": "Search for Equipment"
             },
-            "created": "A new Equipamiento is created with identifier {{ param }}",
-            "updated": "A Equipamiento is updated with identifier {{ param }}",
-            "deleted": "A Equipamiento is deleted with identifier {{ param }}",
+            "created": "A new Equipment is created with identifier {{ param }}",
+            "updated": "A Equipment is updated with identifier {{ param }}",
+            "deleted": "A Equipment is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Equipamiento {{ id }}?"
+                "question": "Are you sure you want to delete Equipment {{ id }}?"
             },
             "detail": {
-                "title": "Equipamiento"
+                "title": "Equipment"
             },
-            "nombreEquipamiento": "Nombre Equipamiento",
-            "tipoEquipamiento": "Tipo Equipamiento",
-            "precio": "Precio",
-            "costoEnvio": "Costo Envio",
-            "fechaCompra": "Fecha Compra",
-            "imagen": "Imagen",
-            "empresa": "Empresa"
+            "nombreEquipamiento": "Name",
+            "tipoEquipamiento": "Equipment Type",
+            "precio": "Price",
+            "costoEnvio": "Shipping cost",
+            "fechaCompra": "Purchase date",
+            "imagen": "Picture",
+            "empresa": "Compaby"
         }
     }
 }

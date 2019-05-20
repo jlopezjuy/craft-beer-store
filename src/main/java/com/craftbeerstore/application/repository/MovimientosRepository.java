@@ -28,24 +28,25 @@ public interface MovimientosRepository extends JpaRepository<Movimientos, Long> 
 
     @Query(value = "SELECT id, tipo_movimiento, fecha_movimiento, sum(precio_total) as total FROM craftbeerstore.movimientos "
         + "WHERE fecha_movimiento >= :dateFrom "
-        + "AND fecha_movimiento < :dateTo "
+        + "AND fecha_movimiento <= :dateTo "
+        + "AND tipo_movimiento='VENTA' "
         + "AND empresa_id = :empresa "
         + "group by fecha_movimiento", nativeQuery = true)
     List<Object[]> queryMovimientoSemana(@Param("empresa")Long empresaId, @Param("dateFrom")LocalDate from, @Param("dateTo")LocalDate to);
 
     @Query(value = "SELECT m.id, m.tipo_movimiento, m.fecha_movimiento, sum(m.precio_total) as total , sum(detmov.cantidad) as cantidad, "
-        + "        prod.nombre_producto "
+        + "        prod.nombre_comercial "
         + "    FROM "
         + "        craftbeerstore.movimientos m, craftbeerstore.detalle_movimiento detmov, "
         + "        craftbeerstore.presentacion p, craftbeerstore.producto prod "
         + "    WHERE "
         + "        m.fecha_movimiento >= :dateFrom "
-        + "        AND m.fecha_movimiento < :dateTo "
+        + "        AND m.fecha_movimiento <= :dateTo "
         + "        and detmov.movimientos_id = m.id "
         + "        and detmov.presentacion_id = p.id "
         + "        and prod.id = p.producto_id "
         + "        and m.tipo_movimiento = 'VENTA' "
         + "        AND m.empresa_id = :empresa "
-        + "        group by prod.nombre_producto", nativeQuery = true)
+        + "        group by prod.nombre_comercial", nativeQuery = true)
     List<Object[]> queryVentaProductoSemana(@Param("empresa")Long empresaId, @Param("dateFrom")LocalDate from, @Param("dateTo")LocalDate to);
 }

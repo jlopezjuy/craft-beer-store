@@ -16,9 +16,9 @@
             "detail": {
                 "title": "Empresa"
             },
-            "nombreEmpresa": "Nombre Empresa",
-            "direccion": "Direccion",
-            "telefono": "Telefono",
+            "nombreEmpresa": "Nombre de Empresa",
+            "direccion": "Dirección",
+            "telefono": "Teléfono",
             "correo": "Correo",
             "user": "User",
             "mailError": "La cuenta de correo ya existe!"

@@ -2,7 +2,7 @@
     "craftBeerStoreApp": {
         "evento": {
             "home": {
-                "title": "Eventos",
+                "title": "Lista de Eventos",
                 "createLabel": "Crear nuevo Evento",
                 "createOrEditLabel": "Crear o editar Evento",
                 "search": "Search for Evento"
@@ -11,15 +11,15 @@
             "updated": "Un Evento ha sido actualizado con el identificador {{ param }}",
             "deleted": "Un Evento ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Evento {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el Evento {{ id }}?"
             },
             "detail": {
                 "title": "Evento"
             },
-            "nombreEvento": "Nombre Evento",
-            "fechaEvento": "Fecha Evento",
-            "cantidadBarriles": "Cantidad Barriles",
-            "precioPinta": "Precio Pinta",
+            "nombreEvento": "Nombre de Evento",
+            "fechaEvento": "Fecha del Evento",
+            "cantidadBarriles": "Cantidad de Barriles",
+            "precioPinta": "Precio por Pinta",
             "empresa": "Empresa",
             "validate": {
                 "producto": "El producto ya se encuentra en la lista."

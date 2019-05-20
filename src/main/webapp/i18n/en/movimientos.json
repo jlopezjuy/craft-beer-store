@@ -19,7 +19,7 @@
             "tipoMovimiento": "Sales Type",
             "fechaMovimiento": "Sale Date",
             "precioTotal": "Total price",
-            "numeroMovimiento": "Sale number",
+            "numeroMovimiento": "Invoice number",
             "estado": "State",
             "cliente": "Client",
             "empresa": "Company"

@@ -3,26 +3,26 @@
         "presentacion": {
             "home": {
                 "title": "Presentaciones",
-                "createLabel": "Crear nuevo Presentacion",
+                "createLabel": "Crear nuevo Presentación",
                 "createOrEditLabel": "Crear o editar Presentacion",
                 "search": "Search for Presentacion"
             },
-            "created": "Un nuevo Presentacion ha sido creado con el identificador {{ param }}",
-            "updated": "Un Presentacion ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Presentacion ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva Presentación ha sido creada con el identificador {{ param }}",
+            "updated": "Una Presentación ha sido actualizada con el identificador {{ param }}",
+            "deleted": "Una Presentación ha sido eliminada con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Presentacion {{ id }}?"
+                "question": "¿Seguro que quiere eliminar la Presentación {{ id }}?"
             },
             "detail": {
-                "title": "Presentacion"
+                "title": "Presentación"
             },
-            "tipoPresentacion": "Tipo Presentacion",
+            "tipoPresentacion": "Tipo de Presentación",
             "cantidad": "Cantidad",
             "fecha": "Fecha",
             "costoUnitario": "Costo Unitario",
-            "precioVentaUnitario": "Precio Venta Unitario",
-            "precioVentaTotal": "Precio Venta Total",
-            "precioCostoTotal": "Precio Costo Total",
+            "precioVentaUnitario": "Precio de Venta Unitario",
+            "precioVentaTotal": "Precio de Venta Total",
+            "precioCostoTotal": "Precio de Costo Total",
             "producto": "Producto"
         }
     }

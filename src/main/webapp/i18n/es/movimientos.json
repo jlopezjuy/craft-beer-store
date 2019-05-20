@@ -5,7 +5,7 @@
                 "title": "Ventas",
                 "createLabel": "Crear nueva Venta",
                 "createOrEditLabel": "Crear o editar Venta",
-                "search": "Search for Venta"
+                "search": "Buscar una Venta"
             },
             "created": "Una nueva Venta ha sido creada con el identificador {{ param }}",
             "updated": "Una Venta ha sido actualizada con el identificador {{ param }}",
@@ -16,10 +16,10 @@
             "detail": {
                 "title": "Venta"
             },
-            "tipoMovimiento": "Tipo Movimiento",
+            "tipoMovimiento": "Tipo de Movimiento",
             "fechaMovimiento": "Fecha",
             "precioTotal": "Precio Total",
-            "numeroMovimiento": "Numero",
+            "numeroMovimiento": "Numero de Comprobante",
             "estado": "Estado",
             "cliente": "Cliente",
             "empresa": "Empresa"

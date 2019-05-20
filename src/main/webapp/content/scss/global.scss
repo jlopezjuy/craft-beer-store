@@ -253,3 +253,11 @@ ui bootstrap tweaks
     background-color: #969496;
     color: #fff;
 }
+
+.readonly-wrapper {
+    cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+    pointer-events: none;
+}

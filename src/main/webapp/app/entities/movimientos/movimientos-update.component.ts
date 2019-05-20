@@ -19,10 +19,12 @@ import { PresentacionService } from 'app/entities/presentacion';
 import { DetalleMovimientoService } from 'app/entities/detalle-movimiento';
 import { DetalleMovimiento } from 'app/shared/model/detalle-movimiento.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { DATE_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-movimientos-update',
-    templateUrl: './movimientos-update.component.html'
+    templateUrl: './movimientos-update.component.html',
+    styleUrls: ['movimientos-update.component.scss']
 })
 export class MovimientosUpdateComponent implements OnInit {
     movimientos: IMovimientos;
@@ -60,6 +62,7 @@ export class MovimientosUpdateComponent implements OnInit {
             this.isEditable = this.movimientos.id === undefined ? true : false;
             if (this.movimientos.id !== undefined) {
                 this.loadAllOnEdit();
+                this.fechaMovimientoDp = moment(this.movimientos.fechaMovimiento, 'dd/MM/yyy').format();
             }
         });
         this.empresa = this.$localStorage.retrieve('empresa');
@@ -88,6 +91,7 @@ export class MovimientosUpdateComponent implements OnInit {
     save() {
         this.movimientos.empresaId = this.empresa.id;
         this.isSaving = true;
+        this.movimientos.fechaMovimiento = this.fechaMovimientoDp != null ? moment(this.fechaMovimientoDp, DATE_FORMAT) : null;
         if (this.movimientos.id !== undefined) {
             this.subscribeToSaveResponse(this.movimientosService.update(this.movimientos));
         } else {
@@ -135,6 +139,7 @@ export class MovimientosUpdateComponent implements OnInit {
     }
 
     productoChange(value: number) {
+        console.log(value);
         if (value && value.toString() !== 'null') {
             this.presentacionService.queryByProducto(null, value).subscribe(resp => {
                 this.presentacionesAdd = resp.body;

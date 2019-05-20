@@ -16,13 +16,13 @@
             "detail": {
                 "title": "Proveedor"
             },
-            "nombreProveedor": "Nombre Proveedor",
+            "nombreProveedor": "Nombre del Proveedor",
             "razonSocial": "Razon Social",
             "cuit": "Cuit",
-            "telefono": "Telefono",
-            "fechaAlta": "Fecha Alta",
+            "telefono": "Teléfono",
+            "fechaAlta": "Fecha de Alta",
             "domicilio": "Domicilio",
-            "email": "Email",
+            "email": "Correo",
             "notas": "Notas",
             "empresa": "Empresa"
         }
