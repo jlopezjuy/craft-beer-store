@@ -1,0 +1,17 @@
+{
+    "manual-usuario": {
+        "page": {
+            "title": "[EN] Manual Usuario"
+        },
+        "title": "[EN] What is coverb?",
+        "description": "[EN] It is a page generator for jhipster application",
+        "feature": {
+            "title": "[EN] Features",
+            "description": "[EN] What we offer?"
+        },
+        "portafolio": {
+            "title": "[EN] Portafolio",
+            "description": "[EN] What did we already created?"
+        }
+    }
+}

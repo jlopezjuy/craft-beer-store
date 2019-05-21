@@ -50,7 +50,11 @@ import {
     faTruckMoving,
     faUserCog,
     faBarcode,
-    faUsers
+    faUsers,
+    faTools,
+    faWineBottle,
+    faWineGlass,
+    faShoePrints
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
@@ -100,6 +104,10 @@ library.add(faUserCog);
 library.add(faUserPlus);
 library.add(faBarcode);
 library.add(faUsers);
+library.add(faTools);
+library.add(faWineBottle);
+library.add(faWineGlass);
+library.add(faShoePrints);
 
 import 'chart.js/src/chart.js';
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here

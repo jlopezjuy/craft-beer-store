@@ -26,7 +26,7 @@ public interface MovimientosRepository extends JpaRepository<Movimientos, Long> 
      */
     Page<Movimientos> findAllByEmpresa(Pageable pageable, Empresa empresa);
 
-    @Query(value = "SELECT id, tipo_movimiento, fecha_movimiento, sum(precio_total) as total FROM craftbeerstore.movimientos "
+    @Query(value = "SELECT tipo_movimiento, fecha_movimiento, sum(precio_total) as total FROM craftbeerstore.movimientos "
         + "WHERE fecha_movimiento >= :dateFrom "
         + "AND fecha_movimiento <= :dateTo "
         + "AND tipo_movimiento='VENTA' "

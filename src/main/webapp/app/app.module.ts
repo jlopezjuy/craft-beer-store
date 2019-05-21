@@ -21,6 +21,9 @@ import * as moment from 'moment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
+import { CraftBeerStoreCraftBeerStoreModule } from 'app/craft-beer-store/module';
+import { CraftBeerStoreManualUsuarioModule } from 'app/manual-usuario/module';
+import { CraftBeerStoreResumeModule } from 'app/resume/module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { CraftBeerStoreDashboardModule } from 'app/dashboard/dashboard.module';
@@ -62,6 +65,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         CraftBeerStoreHomeModule,
         CraftBeerStoreAccountModule,
         CraftBeerStoreDashboardModule,
+        CraftBeerStoreCraftBeerStoreModule,
+        CraftBeerStoreManualUsuarioModule,
+        CraftBeerStoreResumeModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         CraftBeerStoreEntityModule,
         CraftBeerStoreAppRoutingModule,

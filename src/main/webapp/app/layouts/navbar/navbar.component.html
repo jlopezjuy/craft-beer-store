@@ -63,6 +63,24 @@
 <!--                    </li>-->
 <!--                </ul>-->
 <!--            </li>-->
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="craft-beer-store" (click)="collapseNavbar()">
+                    <fa-icon [icon]="'cube'" [fixedWidth]="true"></fa-icon>
+                    <span jhiTranslate="global.menu.craft-beer-store">Craft Beer Store</span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="manual-usuario" (click)="collapseNavbar()">
+                    <fa-icon [icon]="'cube'" [fixedWidth]="true"></fa-icon>
+                    <span jhiTranslate="global.menu.manual-usuario">Manual Usuario</span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="resume" (click)="collapseNavbar()">
+                    <fa-icon [icon]="'cube'" [fixedWidth]="true"></fa-icon>
+                    <span jhiTranslate="global.menu.resume">Resume</span>
+                </a>
+            </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">

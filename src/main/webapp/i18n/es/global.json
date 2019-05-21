@@ -13,6 +13,9 @@
                 "polarareachart": "PolarAreaChart",
                 "radarchart": "RadarChart"
             },
+            "craft-beer-store": "Craft Beer Store",
+            "manual-usuario": "Manual Usuario",
+            "resume": "Resume",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entidades",
