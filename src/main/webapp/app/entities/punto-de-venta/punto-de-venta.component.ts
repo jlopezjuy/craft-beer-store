@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { PuntoDeVentaService } from './punto-de-venta.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { ICliente } from 'app/shared/model/cliente.model';
 
 @Component({
     selector: 'jhi-punto-de-venta',
@@ -30,6 +32,7 @@ export class PuntoDeVentaComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    cliente: ICliente;
 
     constructor(
         protected puntoDeVentaService: PuntoDeVentaService,
@@ -39,7 +42,8 @@ export class PuntoDeVentaComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected dataUtils: JhiDataUtils,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        protected $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -55,6 +59,7 @@ export class PuntoDeVentaComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
+        this.cliente = this.$localStorage.retrieve('cliente');
         if (this.currentSearch) {
             this.puntoDeVentaService
                 .search({
@@ -70,11 +75,14 @@ export class PuntoDeVentaComponent implements OnInit, OnDestroy {
             return;
         }
         this.puntoDeVentaService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
+            .queryByCliente(
+                {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                },
+                this.cliente.id
+            )
             .subscribe(
                 (res: HttpResponse<IPuntoDeVenta[]>) => this.paginatePuntoDeVentas(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -174,5 +182,11 @@ export class PuntoDeVentaComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    previousState() {
+        this.$localStorage.clear('cliente');
+        // window.history.back();
+        this.router.navigate(['/cliente']);
     }
 }

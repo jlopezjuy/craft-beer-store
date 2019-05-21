@@ -37,13 +37,6 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "precioLitro",
-            "fieldType": "BigDecimal",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "tipoProducto",
             "fieldType": "TipoProducto",
             "fieldValues": "FIJO,ROTATIVO,ESPECIAL"

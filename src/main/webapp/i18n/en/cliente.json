@@ -21,7 +21,8 @@
             "tipoCliente": "Customer Type",
             "telefono": "Phone number",
             "correo": "E-mail",
-            "empresa": "Company"
+            "empresa": "Company",
+            "puntoDeVenta": "Punto de Venta"
         }
     }
 }

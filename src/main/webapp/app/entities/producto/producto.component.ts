@@ -38,7 +38,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
     nombreComercial: string;
     nombreProducto: string;
     dataSource: any;
-    displayedColumns: string[] = ['id', 'descripcion', 'tipo', 'nombreComercial', 'precioLitro', 'imagen', 'actions'];
+    displayedColumns: string[] = ['id', 'descripcion', 'tipo', 'nombreComercial', 'imagen', 'actions'];
     pageEvent: PageEvent;
 
     constructor(

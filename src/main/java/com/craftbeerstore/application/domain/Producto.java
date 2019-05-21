@@ -44,7 +44,7 @@ public class Producto implements Serializable {
     private String nombreComercial;
 
     @NotNull
-    @Column(name = "precio_litro", precision = 10, scale = 2, nullable = false)
+    @Column(name = "precio_litro", precision = 10, scale = 2)
     private BigDecimal precioLitro;
 
     @Enumerated(EnumType.STRING)

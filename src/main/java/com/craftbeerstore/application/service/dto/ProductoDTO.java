@@ -21,7 +21,6 @@ public class ProductoDTO implements Serializable {
 
     private String nombreComercial;
 
-    @NotNull
     private BigDecimal precioLitro;
 
     private TipoProducto tipoProducto;

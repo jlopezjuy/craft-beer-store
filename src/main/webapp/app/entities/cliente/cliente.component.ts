@@ -187,4 +187,9 @@ export class ClienteComponent implements OnInit, OnDestroy {
         this.page = event.pageIndex + 1;
         this.loadPage(event.pageIndex + 1);
     }
+
+    goPuntoDeVenta(cliente: ICliente) {
+        this.$localStorage.store('cliente', cliente);
+        this.router.navigate(['/punto-de-venta']);
+    }
 }

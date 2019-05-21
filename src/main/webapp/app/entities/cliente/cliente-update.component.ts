@@ -108,9 +108,4 @@ export class ClienteUpdateComponent implements OnInit {
         this.puntoDeVenta = new PuntoDeVenta();
         this.dataSource = new MatTableDataSource<IPuntoDeVenta>(this.puntosDeVenta);
     }
-
-    goPuntoDeVenta(cliente: ICliente) {
-        this.$localStorage.store('cliente', cliente);
-        this.router.navigate(['/presentacion']);
-    }
 }

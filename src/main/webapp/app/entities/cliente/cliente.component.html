@@ -67,6 +67,10 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
+                        <button type="button" (click)="goPuntoDeVenta(cliente)" mat-raised-button class="mat-success">
+                            <fa-icon [icon]="'store'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="craftBeerStoreApp.cliente.puntoDeVenta">Punto de Venta</span>
+                        </button>
                         <button type="submit"
                                 [routerLink]="['/', 'cliente', { outlets: { popup: cliente.id + '/delete'} }]"
                                 replaceUrl="true"

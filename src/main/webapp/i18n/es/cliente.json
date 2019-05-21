@@ -21,7 +21,8 @@
             "tipoCliente": "Tipo de Cliente",
             "telefono": "Telefono",
             "correo": "Correo",
-            "empresa": "Empresa"
+            "empresa": "Empresa",
+            "puntoDeVenta": "Punto de Venta"
         }
     }
 }
