@@ -44,7 +44,7 @@
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.proveedor.telefono" for="field_telefono">Telefono</mat-label>
-                    <input type="text" matInput name="telefono" id="field_telefono" required pattern="\(\d{3}\)\d{3}-?\d{4}"
+                    <input type="text" matInput name="telefono" id="field_telefono" required mask="(000) 000 00 00"
                            [(ngModel)]="proveedor.telefono" />
                     <mat-error [hidden]="!(editForm.controls.telefono?.dirty && editForm.controls.telefono?.invalid)">
                         <small class="form-text text-danger"

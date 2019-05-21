@@ -28,6 +28,10 @@ import { CraftBeerStoreResumeModule } from 'app/resume/module';
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { CraftBeerStoreDashboardModule } from 'app/dashboard/dashboard.module';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
+
+export const options: Partial<IConfig> | (() => Partial<IConfig>);
+
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     bgsColor: '#OOACC1',
     bgsOpacity: 0.5,
@@ -71,7 +75,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         // jhipster-needle-angular-add-module JHipster will add new module here
         CraftBeerStoreEntityModule,
         CraftBeerStoreAppRoutingModule,
-        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
+        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+        NgxMaskModule.forRoot(options)
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     // entryComponents: [CraftBeerStoreDashboardModule],

@@ -20,6 +20,8 @@ export class ProveedorUpdateComponent implements OnInit {
     proveedor: IProveedor;
     isSaving: boolean;
 
+    phonemask = ['(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
+
     empresa: IEmpresa;
     fechaAltaDp: any;
 
