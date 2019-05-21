@@ -14,7 +14,6 @@ export interface IProducto {
     descripcion?: string;
     tipo?: EstiloCerveza;
     nombreComercial?: string;
-    precioLitro?: number;
     tipoProducto?: TipoProducto;
     imagenContentType?: string;
     imagen?: any;
@@ -38,7 +37,6 @@ export class Producto implements IProducto {
         public descripcion?: string,
         public tipo?: EstiloCerveza,
         public nombreComercial?: string,
-        public precioLitro?: number,
         public tipoProducto?: TipoProducto,
         public imagenContentType?: string,
         public imagen?: any,

@@ -75,7 +75,6 @@ class ProductoGatlingTest extends Simulation {
                 , "descripcion":"SAMPLE_TEXT"
                 , "tipo":"ALE"
                 , "nombreComercial":"SAMPLE_TEXT"
-                , "precioLitro":"0"
                 , "tipoProducto":"FIJO"
                 , "imagen":null
                 , "observacion":null

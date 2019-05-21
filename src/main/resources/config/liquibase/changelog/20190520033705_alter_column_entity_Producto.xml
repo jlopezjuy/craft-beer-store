@@ -23,6 +23,10 @@
             columnName="precio_litro"
             tableName="producto"/>
     </changeSet>
-
+    <changeSet id="20190517033705-2" author="jlopez">
+        <dropColumn
+            columnName="precio_litro"
+            tableName="producto"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

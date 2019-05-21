@@ -1,7 +1,6 @@
 package com.craftbeerstore.application.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Lob;
 import com.craftbeerstore.application.domain.enumeration.EstiloCerveza;
@@ -20,8 +19,6 @@ public class ProductoDTO implements Serializable {
     private EstiloCerveza tipo;
 
     private String nombreComercial;
-
-    private BigDecimal precioLitro;
 
     private TipoProducto tipoProducto;
 
@@ -69,14 +66,6 @@ public class ProductoDTO implements Serializable {
 
     public void setNombreComercial(String nombreComercial) {
         this.nombreComercial = nombreComercial;
-    }
-
-    public BigDecimal getPrecioLitro() {
-        return precioLitro;
-    }
-
-    public void setPrecioLitro(BigDecimal precioLitro) {
-        this.precioLitro = precioLitro;
     }
 
     public TipoProducto getTipoProducto() {
@@ -163,7 +152,6 @@ public class ProductoDTO implements Serializable {
             ", descripcion='" + getDescripcion() + "'" +
             ", tipo='" + getTipo() + "'" +
             ", nombreComercial='" + getNombreComercial() + "'" +
-            ", precioLitro=" + getPrecioLitro() +
             ", tipoProducto='" + getTipoProducto() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", observacion='" + getObservacion() + "'" +

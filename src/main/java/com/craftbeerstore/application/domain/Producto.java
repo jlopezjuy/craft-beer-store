@@ -10,7 +10,6 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.EstiloCerveza;
@@ -42,10 +41,6 @@ public class Producto implements Serializable {
 
     @Column(name = "nombre_comercial")
     private String nombreComercial;
-
-    @NotNull
-    @Column(name = "precio_litro", precision = 10, scale = 2)
-    private BigDecimal precioLitro;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_producto")
@@ -116,19 +111,6 @@ public class Producto implements Serializable {
 
     public void setNombreComercial(String nombreComercial) {
         this.nombreComercial = nombreComercial;
-    }
-
-    public BigDecimal getPrecioLitro() {
-        return precioLitro;
-    }
-
-    public Producto precioLitro(BigDecimal precioLitro) {
-        this.precioLitro = precioLitro;
-        return this;
-    }
-
-    public void setPrecioLitro(BigDecimal precioLitro) {
-        this.precioLitro = precioLitro;
     }
 
     public TipoProducto getTipoProducto() {
@@ -237,7 +219,6 @@ public class Producto implements Serializable {
             ", descripcion='" + getDescripcion() + "'" +
             ", tipo='" + getTipo() + "'" +
             ", nombreComercial='" + getNombreComercial() + "'" +
-            ", precioLitro=" + getPrecioLitro() +
             ", tipoProducto='" + getTipoProducto() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", imagenContentType='" + getImagenContentType() + "'" +

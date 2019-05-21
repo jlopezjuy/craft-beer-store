@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ProductoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Producto(0, 'AAAAAAA', EstiloCerveza.ALE, 'AAAAAAA', 0, TipoProducto.FIJO, 'image/png', 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new Producto(0, 'AAAAAAA', EstiloCerveza.ALE, 'AAAAAAA', TipoProducto.FIJO, 'image/png', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -58,7 +58,6 @@ describe('Service Tests', () => {
                         descripcion: 'BBBBBB',
                         tipo: 'BBBBBB',
                         nombreComercial: 'BBBBBB',
-                        precioLitro: 1,
                         tipoProducto: 'BBBBBB',
                         imagen: 'BBBBBB',
                         observacion: 'BBBBBB'
@@ -81,7 +80,6 @@ describe('Service Tests', () => {
                         descripcion: 'BBBBBB',
                         tipo: 'BBBBBB',
                         nombreComercial: 'BBBBBB',
-                        precioLitro: 1,
                         tipoProducto: 'BBBBBB',
                         imagen: 'BBBBBB',
                         observacion: 'BBBBBB'
