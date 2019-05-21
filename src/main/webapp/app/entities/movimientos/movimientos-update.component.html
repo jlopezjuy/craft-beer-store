@@ -56,7 +56,7 @@
                                 <mat-select  name="cliente" [(ngModel)]="movimientos.clienteId" id="field_cliente" required [disabled]="!isEditable">
                                     <mat-option value="null"></mat-option>
                                     <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
-                                        {{clienteOption.nombeApellido}}
+                                        {{clienteOption.nombreApellido}}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>

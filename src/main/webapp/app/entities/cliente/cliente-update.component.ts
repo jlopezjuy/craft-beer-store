@@ -9,6 +9,8 @@ import { ClienteService } from './cliente.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
+import {PuntoDeVentaService} from 'app/entities/punto-de-venta';
+import {IPuntoDeVenta, PuntoDeVenta} from 'app/shared/model/punto-de-venta.model';
 
 @Component({
     selector: 'jhi-cliente-update',
@@ -17,7 +19,8 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class ClienteUpdateComponent implements OnInit {
     cliente: ICliente;
     isSaving: boolean;
-
+    puntosDeVenta: IPuntoDeVenta[] = [];
+    puntoDeVenta: IPuntoDeVenta = new PuntoDeVenta();
     empresa: IEmpresa;
 
     constructor(
@@ -25,13 +28,17 @@ export class ClienteUpdateComponent implements OnInit {
         protected clienteService: ClienteService,
         protected empresaService: EmpresaService,
         protected activatedRoute: ActivatedRoute,
-        protected $localStorage: LocalStorageService
+        protected $localStorage: LocalStorageService,
+        protected puntoDeVentaService: PuntoDeVentaService
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ cliente }) => {
             this.cliente = cliente;
+            if (this.cliente.id) {
+                this.loadPuntosDeVenta(this.cliente.id);
+            }
         });
         this.empresa = this.$localStorage.retrieve('empresa');
     }
@@ -69,5 +76,16 @@ export class ClienteUpdateComponent implements OnInit {
 
     trackEmpresaById(index: number, item: IEmpresa) {
         return item.id;
+    }
+
+    protected loadPuntosDeVenta(clienteId: number) {
+        this.puntoDeVentaService.queryByCliente(null, clienteId).subscribe(resp => {
+            this.puntosDeVenta = resp.body;
+        });
+    }
+
+    addPuntoDeVenta() {
+        this.puntosDeVenta.push(this.puntoDeVenta);
+        this.puntoDeVenta = new PuntoDeVenta();
     }
 }

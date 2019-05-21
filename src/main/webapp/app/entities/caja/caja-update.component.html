@@ -88,7 +88,7 @@
                     <mat-select  name="cliente" [(ngModel)]="caja.clienteId" id="field_cliente">
                         <mat-option value="null"></mat-option>
                         <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
-                            {{clienteOption.nombeApellido}}
+                            {{clienteOption.nombreApellido}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

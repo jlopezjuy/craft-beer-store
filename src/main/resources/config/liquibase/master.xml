@@ -19,6 +19,7 @@
     <include file="config/liquibase/changelog/20190507170732_added_entity_Estilos.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190507170732_insert_entity_Estilos.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190516013240_added_entity_Equipamiento.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190521170700_added_entity_PuntoDeVenta.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190407234855_added_entity_constraints_Empresa.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408000453_added_entity_constraints_Insumo.xml" relativeToChangelogFile="false"/>
@@ -34,5 +35,6 @@
     <include file="config/liquibase/changelog/20190507001803_alter_entity_Producto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190516013240_added_entity_constraints_Equipamiento.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190517033705_alter_column_entity_Presentacion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190521170700_added_entity_constraints_PuntoDeVenta.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

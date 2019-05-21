@@ -1,0 +1,26 @@
+{
+    "craftBeerStoreApp": {
+        "puntoDeVenta": {
+            "home": {
+                "title": "Punto De Ventas",
+                "createLabel": "Crear nuevo Punto De Venta",
+                "createOrEditLabel": "Crear o editar Punto De Venta",
+                "search": "Search for Punto De Venta"
+            },
+            "created": "Un nuevo Punto De Venta ha sido creado con el identificador {{ param }}",
+            "updated": "Un Punto De Venta ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Punto De Venta ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Punto De Venta {{ id }}?"
+            },
+            "detail": {
+                "title": "Punto De Venta"
+            },
+            "nombre": "Nombre",
+            "direccionDeEntrega": "Direccion De Entrega",
+            "localidad": "Localidad",
+            "notas": "Notas",
+            "cliente": "Cliente"
+        }
+    }
+}

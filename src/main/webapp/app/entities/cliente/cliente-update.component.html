@@ -10,12 +10,12 @@
                            [(ngModel)]="cliente.id" readonly>
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label jhiTranslate="craftBeerStoreApp.cliente.nombeApellido" for="field_nombeApellido">Nombre Apellido</mat-label>
-                    <input type="text" matInput name="nombeApellido" id="field_nombeApellido"
-                           [(ngModel)]="cliente.nombeApellido" required/>
-                    <mat-error [hidden]="!(editForm.controls.nombeApellido?.dirty && editForm.controls.nombeApellido?.invalid)">
+                    <mat-label jhiTranslate="craftBeerStoreApp.cliente.nombreApellido" for="field_nombreApellido">Nombre Apellido</mat-label>
+                    <input type="text" matInput name="nombreApellido" id="field_nombreApellido"
+                           [(ngModel)]="cliente.nombreApellido" required/>
+                    <mat-error [hidden]="!(editForm.controls.nombreApellido?.dirty && editForm.controls.nombreApellido?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.nombeApellido?.errors?.required" jhiTranslate="entity.validation.required">
+                               [hidden]="!editForm.controls.nombreApellido?.errors?.required" jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                     </mat-error>
@@ -61,6 +61,94 @@
                         </small>
                     </mat-error>
                 </mat-form-field>
+
+                <div class="row">
+                    <div class="container" *ngIf="!cliente.id">
+                        <div class="card mat-elevation-z8">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre" for="field_nombre">Nombre</label>
+                                            <input type="text" class="form-control" name="nombre" id="field_nombre"
+                                                   [(ngModel)]="puntoDeVenta.nombre" required/>
+                                            <div [hidden]="!(editForm.controls.nombre?.dirty && editForm.controls.nombre?.invalid)">
+                                                <small class="form-text text-danger"
+                                                       [hidden]="!editForm.controls.nombre?.errors?.required" jhiTranslate="entity.validation.required">
+                                                    This field is required.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega" for="field_direccionDeEntrega">Direccion De Entrega</label>
+                                            <input type="text" class="form-control" name="direccionDeEntrega" id="field_direccionDeEntrega"
+                                                   [(ngModel)]="puntoDeVenta.direccionDeEntrega" required/>
+                                            <div [hidden]="!(editForm.controls.direccionDeEntrega?.dirty && editForm.controls.direccionDeEntrega?.invalid)">
+                                                <small class="form-text text-danger"
+                                                       [hidden]="!editForm.controls.direccionDeEntrega?.errors?.required" jhiTranslate="entity.validation.required">
+                                                    This field is required.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad" for="field_localidad">Localidad</label>
+                                            <input type="text" class="form-control" name="localidad" id="field_localidad"
+                                                   [(ngModel)]="puntoDeVenta.localidad" required/>
+                                            <div [hidden]="!(editForm.controls.localidad?.dirty && editForm.controls.localidad?.invalid)">
+                                                <small class="form-text text-danger"
+                                                       [hidden]="!editForm.controls.localidad?.errors?.required" jhiTranslate="entity.validation.required">
+                                                    This field is required.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas" for="field_notas">Notas</label>
+                                            <textarea class="form-control" name="notas" id="field_notas"
+                                                      [(ngModel)]="puntoDeVenta.notas" ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="button" mat-raised-button class="mat-success" (click)="addPuntoDeVenta()"> Agregar</button>
+                                    </div>
+                                    <div class="col-6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="table-responsive" *ngIf="puntosDeVenta">
+                        <thead>
+                        <tr>
+                            <th><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre">Nombre</span></th>
+                            <th><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega">Direccion De Entrega</span></th>
+                            <th><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad">Localidad</span></th>
+                            <th><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas">Notas</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let puntoDeVenta of puntosDeVenta">
+                            <td>{{puntoDeVenta.nombre}}</td>
+                            <td>{{puntoDeVenta.direccionDeEntrega}}</td>
+                            <td>{{puntoDeVenta.localidad}}</td>
+                            <td>{{puntoDeVenta.notas}}</td>
+                        </tr>
+                        </tbody>
+                    </div>
+                </div>
+
             </div>
             <div>
                 <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">

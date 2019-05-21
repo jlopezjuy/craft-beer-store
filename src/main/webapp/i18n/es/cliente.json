@@ -16,7 +16,7 @@
             "detail": {
                 "title": "Cliente"
             },
-            "nombeApellido": "Nombe y Apellido",
+            "nombreApellido": "Nombe y Apellido",
             "domicilio": "Domicilio",
             "tipoCliente": "Tipo de Cliente",
             "telefono": "Telefono",

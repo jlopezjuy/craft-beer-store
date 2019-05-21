@@ -55,7 +55,7 @@ describe('Service Tests', () => {
             it('should update a Cliente', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        nombeApellido: 'BBBBBB',
+                        nombreApellido: 'BBBBBB',
                         domicilio: 'BBBBBB',
                         tipoCliente: 'BBBBBB',
                         telefono: 'BBBBBB',
@@ -76,7 +76,7 @@ describe('Service Tests', () => {
             it('should return a list of Cliente', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        nombeApellido: 'BBBBBB',
+                        nombreApellido: 'BBBBBB',
                         domicilio: 'BBBBBB',
                         tipoCliente: 'BBBBBB',
                         telefono: 'BBBBBB',

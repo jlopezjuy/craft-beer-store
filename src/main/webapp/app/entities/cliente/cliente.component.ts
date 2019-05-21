@@ -35,7 +35,7 @@ export class ClienteComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     dataSource: any;
-    displayedColumns: string[] = ['id', 'nombeApellido', 'domicilio', 'tipoCliente', 'telefono', 'correo', 'actions'];
+    displayedColumns: string[] = ['id', 'nombreApellido', 'domicilio', 'tipoCliente', 'telefono', 'correo', 'actions'];
     pageEvent: PageEvent;
 
     constructor(

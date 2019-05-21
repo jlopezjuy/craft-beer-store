@@ -30,8 +30,8 @@ public class Cliente implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "nombe_apellido", nullable = false)
-    private String nombeApellido;
+    @Column(name = "nombre_apellido", nullable = false)
+    private String nombreApellido;
 
     @NotNull
     @Column(name = "domicilio", nullable = false)
@@ -61,17 +61,17 @@ public class Cliente implements Serializable {
         this.id = id;
     }
 
-    public String getNombeApellido() {
-        return nombeApellido;
+    public String getNombreApellido() {
+        return nombreApellido;
     }
 
-    public Cliente nombeApellido(String nombeApellido) {
-        this.nombeApellido = nombeApellido;
+    public Cliente nombreApellido(String nombreApellido) {
+        this.nombreApellido = nombreApellido;
         return this;
     }
 
-    public void setNombeApellido(String nombeApellido) {
-        this.nombeApellido = nombeApellido;
+    public void setNombreApellido(String nombreApellido) {
+        this.nombreApellido = nombreApellido;
     }
 
     public String getDomicilio() {
@@ -164,7 +164,7 @@ public class Cliente implements Serializable {
     public String toString() {
         return "Cliente{" +
             "id=" + getId() +
-            ", nombeApellido='" + getNombeApellido() + "'" +
+            ", nombreApellido='" + getNombreApellido() + "'" +
             ", domicilio='" + getDomicilio() + "'" +
             ", tipoCliente='" + getTipoCliente() + "'" +
             ", telefono='" + getTelefono() + "'" +

@@ -51,11 +51,11 @@
                 <th mat-header-cell *matHeaderCellDef jhiSortBy="estado"> <span jhiTranslate="craftBeerStoreApp.movimientos.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                 <td mat-cell *matCellDef="let movimiento" jhiTranslate="{{'craftBeerStoreApp.EstadoMovimiento.' + movimiento.estado}}"> {{movimiento.estado}} </td>
             </ng-container>
-            <ng-container matColumnDef="clienteNombeApellido">
-                <th mat-header-cell *matHeaderCellDef jhiSortBy="clienteNombeApellido"> <span jhiTranslate="craftBeerStoreApp.movimientos.cliente">Numero Movimiento</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <ng-container matColumnDef="clienteNombreApellido">
+                <th mat-header-cell *matHeaderCellDef jhiSortBy="clienteNombreApellido"> <span jhiTranslate="craftBeerStoreApp.movimientos.cliente">Numero Movimiento</span><fa-icon [icon]="'sort'"></fa-icon> </th>
                 <td mat-cell *matCellDef="let movimiento" >
                     <div *ngIf="movimiento.clienteId">
-                        <a [routerLink]="['../cliente', movimiento.clienteId , 'view' ]" >{{movimiento.clienteNombeApellido}}</a>
+                        <a [routerLink]="['../cliente', movimiento.clienteId , 'view' ]" >{{movimiento.clienteNombreApellido}}</a>
                     </div>
                 </td>
             </ng-container>

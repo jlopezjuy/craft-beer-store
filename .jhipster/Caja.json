@@ -14,7 +14,7 @@
             "relationshipName": "cliente",
             "otherEntityName": "cliente",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nombeApellido",
+            "otherEntityField": "nombreApellido",
             "otherEntityRelationshipNameUndefined": true,
             "otherEntityRelationshipName": "caja"
         },

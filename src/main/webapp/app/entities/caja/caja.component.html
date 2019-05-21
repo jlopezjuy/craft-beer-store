@@ -64,11 +64,11 @@
                         </div>
                     </td>
                 </ng-container>
-                <ng-container matColumnDef="clienteNombeApellido">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="clienteNombeApellido"> <span jhiTranslate="craftBeerStoreApp.caja.cliente">Cliente</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                <ng-container matColumnDef="clienteNombreApellido">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="clienteNombreApellido"> <span jhiTranslate="craftBeerStoreApp.caja.cliente">Cliente</span><fa-icon [icon]="'sort'"></fa-icon> </th>
                     <td mat-cell *matCellDef="let caja" >
                         <div *ngIf="caja.clienteId">
-                            <a [routerLink]="['../cliente', caja.clienteId , 'view' ]" >{{caja.clienteNombeApellido}}</a>
+                            <a [routerLink]="['../cliente', caja.clienteId , 'view' ]" >{{caja.clienteNombreApellido}}</a>
                         </div>
                     </td>
                 </ng-container>

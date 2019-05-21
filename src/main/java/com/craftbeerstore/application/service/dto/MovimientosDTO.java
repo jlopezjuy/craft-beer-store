@@ -32,7 +32,7 @@ public class MovimientosDTO implements Serializable {
 
     private Long clienteId;
 
-    private String clienteNombeApellido;
+    private String clienteNombreApellido;
 
     private Long empresaId;
 
@@ -94,12 +94,12 @@ public class MovimientosDTO implements Serializable {
         this.clienteId = clienteId;
     }
 
-    public String getClienteNombeApellido() {
-        return clienteNombeApellido;
+    public String getClienteNombreApellido() {
+        return clienteNombreApellido;
     }
 
-    public void setClienteNombeApellido(String clienteNombeApellido) {
-        this.clienteNombeApellido = clienteNombeApellido;
+    public void setClienteNombreApellido(String clienteNombreApellido) {
+        this.clienteNombreApellido = clienteNombreApellido;
     }
 
     public Long getEmpresaId() {
@@ -149,7 +149,7 @@ public class MovimientosDTO implements Serializable {
             ", numeroMovimiento='" + getNumeroMovimiento() + "'" +
             ", estado='" + getEstado() + "'" +
             ", cliente=" + getClienteId() +
-            ", cliente='" + getClienteNombeApellido() + "'" +
+            ", cliente='" + getClienteNombreApellido() + "'" +
             ", empresa=" + getEmpresaId() +
             ", empresa='" + getEmpresaNombreEmpresa() + "'" +
             "}";

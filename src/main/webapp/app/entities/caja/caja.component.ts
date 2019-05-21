@@ -44,7 +44,7 @@ export class CajaComponent implements OnInit, OnDestroy {
         'importe',
         'fecha',
         'proveedorNombreProveedor',
-        'clienteNombeApellido',
+        'clienteNombreApellido',
         'actions'
     ];
     pageEvent: PageEvent;

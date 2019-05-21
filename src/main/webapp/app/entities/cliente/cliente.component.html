@@ -31,9 +31,9 @@
                 <th mat-header-cell *matHeaderCellDef jhiSortBy="id"> <span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                 <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
             </ng-container>
-            <ng-container matColumnDef="nombeApellido">
-                <th mat-header-cell *matHeaderCellDef jhiSortBy="nombeApellido"> <span jhiTranslate="craftBeerStoreApp.cliente.nombeApellido">Nombre y Apellido</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                <td mat-cell *matCellDef="let cliente" > {{cliente.nombeApellido}} </td>
+            <ng-container matColumnDef="nombreApellido">
+                <th mat-header-cell *matHeaderCellDef jhiSortBy="nombreApellido"> <span jhiTranslate="craftBeerStoreApp.cliente.nombreApellido">Nombre y Apellido</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                <td mat-cell *matCellDef="let cliente" > {{cliente.nombreApellido}} </td>
             </ng-container>
             <ng-container matColumnDef="domicilio">
                 <th mat-header-cell *matHeaderCellDef jhiSortBy="domicilio"> <span jhiTranslate="craftBeerStoreApp.cliente.domicilio">Domicilio</span><fa-icon [icon]="'sort'"></fa-icon> </th>

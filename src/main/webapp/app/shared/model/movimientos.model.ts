@@ -18,7 +18,7 @@ export interface IMovimientos {
     precioTotal?: number;
     numeroMovimiento?: string;
     estado?: EstadoMovimiento;
-    clienteNombeApellido?: string;
+    clienteNombreApellido?: string;
     clienteId?: number;
     empresaNombreEmpresa?: string;
     empresaId?: number;
@@ -32,7 +32,7 @@ export class Movimientos implements IMovimientos {
         public precioTotal?: number,
         public numeroMovimiento?: string,
         public estado?: EstadoMovimiento,
-        public clienteNombeApellido?: string,
+        public clienteNombreApellido?: string,
         public clienteId?: number,
         public empresaNombreEmpresa?: string,
         public empresaId?: number

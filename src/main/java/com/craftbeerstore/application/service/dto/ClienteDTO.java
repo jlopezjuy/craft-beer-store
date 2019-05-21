@@ -12,7 +12,7 @@ public class ClienteDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String nombeApellido;
+    private String nombreApellido;
 
     @NotNull
     private String domicilio;
@@ -25,7 +25,6 @@ public class ClienteDTO implements Serializable {
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     private String correo;
 
-
     private Long empresaId;
 
     public Long getId() {
@@ -36,12 +35,12 @@ public class ClienteDTO implements Serializable {
         this.id = id;
     }
 
-    public String getNombeApellido() {
-        return nombeApellido;
+    public String getNombreApellido() {
+        return nombreApellido;
     }
 
-    public void setNombeApellido(String nombeApellido) {
-        this.nombeApellido = nombeApellido;
+    public void setNombreApellido(String nombreApellido) {
+        this.nombreApellido = nombreApellido;
     }
 
     public String getDomicilio() {
@@ -109,7 +108,7 @@ public class ClienteDTO implements Serializable {
     public String toString() {
         return "ClienteDTO{" +
             "id=" + getId() +
-            ", nombeApellido='" + getNombeApellido() + "'" +
+            ", nombreApellido='" + getNombreApellido() + "'" +
             ", domicilio='" + getDomicilio() + "'" +
             ", tipoCliente='" + getTipoCliente() + "'" +
             ", telefono='" + getTelefono() + "'" +

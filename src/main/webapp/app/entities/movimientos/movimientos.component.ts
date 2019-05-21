@@ -42,7 +42,7 @@ export class MovimientosComponent implements OnInit, OnDestroy {
         'precioTotal',
         'numeroMovimiento',
         'estado',
-        'clienteNombeApellido',
+        'clienteNombreApellido',
         'actions'
     ];
     pageEvent: PageEvent;

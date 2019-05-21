@@ -24,5 +24,13 @@
             tableName="presentacion"
             columnDataType="decimal(10,2)"/>
     </changeSet>
+
+    <changeSet id="20190517033705-2" author="jlopez">
+        <renameColumn
+            newColumnName="nombre_apellido"
+            oldColumnName="nombe_apellido"
+            tableName="cliente"
+            columnDataType="varchar(255)"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
