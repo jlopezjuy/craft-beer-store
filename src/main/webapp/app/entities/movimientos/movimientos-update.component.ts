@@ -162,33 +162,36 @@ export class MovimientosUpdateComponent implements OnInit {
         this.presentacionService.find(this.productoSave.presentacionId).subscribe(resp => {
             this.productoService.find(resp.body.productoId).subscribe(prod => {
                 const pres = resp.body;
+                console.log(pres);
                 pres.cantidad = this.productoSave.cantidadPresentacion;
                 pres.nombreComercial = prod.body.nombreComercial;
                 pres.precioVentaTotal = pres.cantidad * pres.precioVentaUnitario;
                 pres.movimientoId = resp.body.movimientoId;
                 this.presentacions.push(pres);
                 this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioVentaTotal;
-                this.movimientos.litrosTotales = this.movimientos.litrosTotales + this.loadCantidadLitros(resp.body);
+                this.movimientos.litrosTotales = this.movimientos.litrosTotales + this.loadCantidadLitros(this.productoSave);
+                console.log(this.movimientos.litrosTotales);
+
                 this.clearFormProduct();
             });
         });
     }
 
-    loadCantidadLitros(producto: Producto) {
-        let litrosFinales: number = 0;
+    loadCantidadLitros(producto: IProducto) {
+        let litrosFinales;
+        console.log(producto);
+        console.log(producto.cantidadPresentacion);
         switch (producto.tipoPresentacion) {
             case TipoPresentacion.BOTELLA_330: {
-                const litros = producto.cantidadPresentacion / 3;
-                litrosFinales = litrosFinales + litros;
+                litrosFinales = Number(producto.cantidadPresentacion / 3).toFixed(2);
                 break;
             }
             case TipoPresentacion.BOTELLA_355: {
-                const litros = producto.cantidadPresentacion / 3;
-                litrosFinales = litrosFinales + litros;
+                litrosFinales = Number(producto.cantidadPresentacion / 3).toFixed(2);
                 break;
             }
             case TipoPresentacion.BOTELLA_500: {
-                const litros = producto.cantidadPresentacion / 2;
+                const litros = parseFloat(Math.round(producto.cantidadPresentacion / 2).toFixed(2));
                 litrosFinales = litrosFinales + litros;
                 break;
             }
@@ -202,7 +205,8 @@ export class MovimientosUpdateComponent implements OnInit {
                 break;
             }
         }
-        return litrosFinales;
+        console.log(+litrosFinales);
+        return +litrosFinales;
     }
 
     clearFormProduct() {
