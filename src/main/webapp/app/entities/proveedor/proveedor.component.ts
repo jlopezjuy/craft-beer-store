@@ -35,7 +35,17 @@ export class ProveedorComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     dataSource: any;
-    displayedColumns: string[] = ['id', 'nombreProveedor', 'razonSocial', 'cuit', 'telefono', 'fechaAlta', 'domicilio', 'email', 'actions'];
+    displayedColumns: string[] = [
+        'id',
+        'nombreProveedor',
+        'razonSocial',
+        'cuit',
+        'telefono',
+        'fechaAlta',
+        'domicilio',
+        'correo',
+        'actions'
+    ];
     pageEvent: PageEvent;
 
     constructor(

@@ -40,7 +40,7 @@ export interface IProveedor {
     telefono?: string;
     fechaAlta?: Moment;
     domicilio?: string;
-    email?: string;
+    correo?: string;
     notas?: any;
     condicionFiscal?: CondicionFiscal;
     localidad?: string;
@@ -59,7 +59,7 @@ export class Proveedor implements IProveedor {
         public telefono?: string,
         public fechaAlta?: Moment,
         public domicilio?: string,
-        public email?: string,
+        public correo?: string,
         public notas?: any,
         public condicionFiscal?: CondicionFiscal,
         public localidad?: string,

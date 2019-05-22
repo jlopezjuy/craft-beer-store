@@ -45,7 +45,6 @@ public class Proveedor implements Serializable {
     private String cuit;
 
     @NotNull
-//    @Pattern(regexp = "\\(\\d{3}\\)\\d{3}-?\\d{4}")
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
@@ -59,8 +58,8 @@ public class Proveedor implements Serializable {
 
     @NotNull
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "correo", nullable = false)
+    private String correo;
 
     @Lob
     @Column(name = "notas")
@@ -174,17 +173,17 @@ public class Proveedor implements Serializable {
         this.domicilio = domicilio;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public Proveedor email(String email) {
-        this.email = email;
+    public Proveedor correo(String correo) {
+        this.correo = correo;
         return this;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getNotas() {
@@ -309,7 +308,7 @@ public class Proveedor implements Serializable {
             ", telefono='" + getTelefono() + "'" +
             ", fechaAlta='" + getFechaAlta() + "'" +
             ", domicilio='" + getDomicilio() + "'" +
-            ", email='" + getEmail() + "'" +
+            ", correo='" + getCorreo() + "'" +
             ", notas='" + getNotas() + "'" +
             ", condicionFiscal='" + getCondicionFiscal() + "'" +
             ", localidad='" + getLocalidad() + "'" +

@@ -63,8 +63,8 @@ public class ProveedorResourceIntTest {
     private static final String DEFAULT_CUIT = "AAAAAAAAAA";
     private static final String UPDATED_CUIT = "BBBBBBBBBB";
 
-    private static final String DEFAULT_TELEFONO = "(186)205-6359";
-    private static final String UPDATED_TELEFONO = "(942)262-5281";
+    private static final String DEFAULT_TELEFONO = "AAAAAAAAAA";
+    private static final String UPDATED_TELEFONO = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_FECHA_ALTA = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA_ALTA = LocalDate.now(ZoneId.systemDefault());
@@ -72,8 +72,8 @@ public class ProveedorResourceIntTest {
     private static final String DEFAULT_DOMICILIO = "AAAAAAAAAA";
     private static final String UPDATED_DOMICILIO = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EMAIL = "R@R\\3RLIDJ";
-    private static final String UPDATED_EMAIL = "JW@1\\cTDHFY";
+    private static final String DEFAULT_CORREO = "t@b8.kf";
+    private static final String UPDATED_CORREO = "0@cx.jsg";
 
     private static final String DEFAULT_NOTAS = "AAAAAAAAAA";
     private static final String UPDATED_NOTAS = "BBBBBBBBBB";
@@ -155,7 +155,7 @@ public class ProveedorResourceIntTest {
             .telefono(DEFAULT_TELEFONO)
             .fechaAlta(DEFAULT_FECHA_ALTA)
             .domicilio(DEFAULT_DOMICILIO)
-            .email(DEFAULT_EMAIL)
+            .correo(DEFAULT_CORREO)
             .notas(DEFAULT_NOTAS)
             .condicionFiscal(DEFAULT_CONDICION_FISCAL)
             .localidad(DEFAULT_LOCALIDAD)
@@ -192,7 +192,7 @@ public class ProveedorResourceIntTest {
         assertThat(testProveedor.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
         assertThat(testProveedor.getFechaAlta()).isEqualTo(DEFAULT_FECHA_ALTA);
         assertThat(testProveedor.getDomicilio()).isEqualTo(DEFAULT_DOMICILIO);
-        assertThat(testProveedor.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testProveedor.getCorreo()).isEqualTo(DEFAULT_CORREO);
         assertThat(testProveedor.getNotas()).isEqualTo(DEFAULT_NOTAS);
         assertThat(testProveedor.getCondicionFiscal()).isEqualTo(DEFAULT_CONDICION_FISCAL);
         assertThat(testProveedor.getLocalidad()).isEqualTo(DEFAULT_LOCALIDAD);
@@ -343,10 +343,10 @@ public class ProveedorResourceIntTest {
 
     @Test
     @Transactional
-    public void checkEmailIsRequired() throws Exception {
+    public void checkCorreoIsRequired() throws Exception {
         int databaseSizeBeforeTest = proveedorRepository.findAll().size();
         // set the field null
-        proveedor.setEmail(null);
+        proveedor.setCorreo(null);
 
         // Create the Proveedor, which fails.
         ProveedorDTO proveedorDTO = proveedorMapper.toDto(proveedor);
@@ -377,7 +377,7 @@ public class ProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())))
             .andExpect(jsonPath("$.[*].fechaAlta").value(hasItem(DEFAULT_FECHA_ALTA.toString())))
             .andExpect(jsonPath("$.[*].domicilio").value(hasItem(DEFAULT_DOMICILIO.toString())))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
+            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO.toString())))
             .andExpect(jsonPath("$.[*].notas").value(hasItem(DEFAULT_NOTAS.toString())))
             .andExpect(jsonPath("$.[*].condicionFiscal").value(hasItem(DEFAULT_CONDICION_FISCAL.toString())))
             .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD.toString())))
@@ -403,7 +403,7 @@ public class ProveedorResourceIntTest {
             .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO.toString()))
             .andExpect(jsonPath("$.fechaAlta").value(DEFAULT_FECHA_ALTA.toString()))
             .andExpect(jsonPath("$.domicilio").value(DEFAULT_DOMICILIO.toString()))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
+            .andExpect(jsonPath("$.correo").value(DEFAULT_CORREO.toString()))
             .andExpect(jsonPath("$.notas").value(DEFAULT_NOTAS.toString()))
             .andExpect(jsonPath("$.condicionFiscal").value(DEFAULT_CONDICION_FISCAL.toString()))
             .andExpect(jsonPath("$.localidad").value(DEFAULT_LOCALIDAD.toString()))
@@ -439,7 +439,7 @@ public class ProveedorResourceIntTest {
             .telefono(UPDATED_TELEFONO)
             .fechaAlta(UPDATED_FECHA_ALTA)
             .domicilio(UPDATED_DOMICILIO)
-            .email(UPDATED_EMAIL)
+            .correo(UPDATED_CORREO)
             .notas(UPDATED_NOTAS)
             .condicionFiscal(UPDATED_CONDICION_FISCAL)
             .localidad(UPDATED_LOCALIDAD)
@@ -463,7 +463,7 @@ public class ProveedorResourceIntTest {
         assertThat(testProveedor.getTelefono()).isEqualTo(UPDATED_TELEFONO);
         assertThat(testProveedor.getFechaAlta()).isEqualTo(UPDATED_FECHA_ALTA);
         assertThat(testProveedor.getDomicilio()).isEqualTo(UPDATED_DOMICILIO);
-        assertThat(testProveedor.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testProveedor.getCorreo()).isEqualTo(UPDATED_CORREO);
         assertThat(testProveedor.getNotas()).isEqualTo(UPDATED_NOTAS);
         assertThat(testProveedor.getCondicionFiscal()).isEqualTo(UPDATED_CONDICION_FISCAL);
         assertThat(testProveedor.getLocalidad()).isEqualTo(UPDATED_LOCALIDAD);
@@ -536,7 +536,7 @@ public class ProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
             .andExpect(jsonPath("$.[*].fechaAlta").value(hasItem(DEFAULT_FECHA_ALTA.toString())))
             .andExpect(jsonPath("$.[*].domicilio").value(hasItem(DEFAULT_DOMICILIO)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)))
             .andExpect(jsonPath("$.[*].notas").value(hasItem(DEFAULT_NOTAS.toString())))
             .andExpect(jsonPath("$.[*].condicionFiscal").value(hasItem(DEFAULT_CONDICION_FISCAL.toString())))
             .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD)))

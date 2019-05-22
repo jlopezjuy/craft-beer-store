@@ -56,9 +56,9 @@
                     <th mat-header-cell *matHeaderCellDef jhiSortBy="domicilio"> <span jhiTranslate="craftBeerStoreApp.proveedor.domicilio">Domicilio</span><fa-icon [icon]="'sort'"></fa-icon> </th>
                     <td mat-cell *matCellDef="let proveedor" > {{proveedor.domicilio}} </td>
                 </ng-container>
-                <ng-container matColumnDef="email">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="email"> <span jhiTranslate="craftBeerStoreApp.proveedor.email">Email</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                    <td mat-cell *matCellDef="let proveedor" > {{proveedor.email}} </td>
+                <ng-container matColumnDef="correo">
+                    <th mat-header-cell *matHeaderCellDef jhiSortBy="correo"> <span jhiTranslate="craftBeerStoreApp.proveedor.correo">Correo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                    <td mat-cell *matCellDef="let proveedor" > {{proveedor.correo}} </td>
                 </ng-container>
                 <ng-container matColumnDef="actions" >
                     <th mat-header-cell *matHeaderCellDef></th>

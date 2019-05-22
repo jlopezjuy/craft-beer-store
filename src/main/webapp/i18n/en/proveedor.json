@@ -2,34 +2,34 @@
     "craftBeerStoreApp": {
         "proveedor": {
             "home": {
-                "title": "Proveedors",
-                "createLabel": "Create a new Proveedor",
-                "createOrEditLabel": "Create or edit a Proveedor",
-                "search": "Search for Proveedor"
+                "title": "Dealers",
+                "createLabel": "Create a new Dealer",
+                "createOrEditLabel": "Create or edit a Dealer",
+                "search": "Search for Dealer"
             },
-            "created": "A new Proveedor is created with identifier {{ param }}",
-            "updated": "A Proveedor is updated with identifier {{ param }}",
-            "deleted": "A Proveedor is deleted with identifier {{ param }}",
+            "created": "A new Dealer is created with identifier {{ param }}",
+            "updated": "A Dealer is updated with identifier {{ param }}",
+            "deleted": "A Dealer is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Proveedor {{ id }}?"
+                "question": "Are you sure you want to delete Dealer {{ id }}?"
             },
             "detail": {
-                "title": "Proveedor"
+                "title": "Dealer"
             },
-            "nombreProveedor": "Nombre Proveedor",
-            "razonSocial": "Razon Social",
+            "nombreProveedor": "Dealer Name",
+            "razonSocial": "Business Name",
             "cuit": "Cuit",
-            "telefono": "Telefono",
-            "fechaAlta": "Fecha Alta",
-            "domicilio": "Domicilio",
-            "email": "Email",
-            "notas": "Notas",
+            "telefono": "Phone",
+            "fechaAlta": "Date in",
+            "domicilio": "Address",
+            "correo": "Email",
+            "notas": "Notes",
             "condicionFiscal": "Condicion Fiscal",
             "localidad": "Localidad",
             "codigoPostal": "Codigo Postal",
             "provincia": "Provincia",
-            "contacto": "Contacto",
-            "empresa": "Empresa"
+            "contacto": "Contact",
+            "empresa": "Company"
         }
     }
 }

@@ -44,5 +44,13 @@
             </column>
         </addColumn>
     </changeSet>
+
+    <changeSet id="201905210214815-0" author="jlopez">
+        <renameColumn
+            newColumnName="correo"
+            oldColumnName="email"
+            tableName="proveedor"
+            columnDataType="varchar(255)"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

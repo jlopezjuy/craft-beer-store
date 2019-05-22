@@ -130,16 +130,16 @@
 
 
                 <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label jhiTranslate="craftBeerStoreApp.proveedor.email" for="field_email">Domicilio</mat-label>
-                    <input type="text" matInput name="email" id="field_email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                           [(ngModel)]="proveedor.email" />
-                    <mat-error [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                    <mat-label jhiTranslate="craftBeerStoreApp.proveedor.correo" for="field_correo">Domicilio</mat-label>
+                    <input type="text" matInput name="correo" id="field_correo" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                           [(ngModel)]="proveedor.correo" />
+                    <mat-error [hidden]="!(editForm.controls.correo?.dirty && editForm.controls.correo?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
+                               [hidden]="!editForm.controls.correo?.errors?.required" jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.email?.errors?.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Email' }">
+                               [hidden]="!editForm.controls.correo?.errors?.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Email' }">
                             This field should follow pattern for "Email".
                         </small>
                     </mat-error>

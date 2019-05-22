@@ -24,7 +24,6 @@ public class ProveedorDTO implements Serializable {
     private String cuit;
 
     @NotNull
-//    @Pattern(regexp = "\\(\\d{3}\\)\\d{3}-?\\d{4}")
     private String telefono;
 
     @NotNull
@@ -35,7 +34,7 @@ public class ProveedorDTO implements Serializable {
 
     @NotNull
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-    private String email;
+    private String correo;
 
     @Lob
     private String notas;
@@ -109,12 +108,12 @@ public class ProveedorDTO implements Serializable {
         this.domicilio = domicilio;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getNotas() {
@@ -204,7 +203,7 @@ public class ProveedorDTO implements Serializable {
             ", telefono='" + getTelefono() + "'" +
             ", fechaAlta='" + getFechaAlta() + "'" +
             ", domicilio='" + getDomicilio() + "'" +
-            ", email='" + getEmail() + "'" +
+            ", correo='" + getCorreo() + "'" +
             ", notas='" + getNotas() + "'" +
             ", condicionFiscal='" + getCondicionFiscal() + "'" +
             ", localidad='" + getLocalidad() + "'" +
