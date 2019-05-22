@@ -2,6 +2,8 @@ package com.craftbeerstore.application.repository;
 
 import com.craftbeerstore.application.domain.Cliente;
 import com.craftbeerstore.application.domain.PuntoDeVenta;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -17,4 +19,6 @@ public interface PuntoDeVentaRepository extends JpaRepository<PuntoDeVenta, Long
 
 
     Page<PuntoDeVenta> findAllByCliente(Pageable pageable, Cliente cliente);
+
+    List<PuntoDeVenta> findAllByCliente(Cliente cliente);
 }

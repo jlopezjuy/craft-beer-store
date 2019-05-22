@@ -2,6 +2,7 @@ package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.PuntoDeVentaDTO;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -61,4 +62,11 @@ public interface PuntoDeVentaService {
      * @return the list of entities
      */
     Page<PuntoDeVentaDTO> search(String query, Pageable pageable);
+
+    /**
+     *
+     * @param clienteId
+     * @return
+     */
+    List<PuntoDeVentaDTO> findOneByCliente(Long clienteId);
 }

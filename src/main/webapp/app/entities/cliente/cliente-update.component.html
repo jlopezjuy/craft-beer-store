@@ -106,21 +106,18 @@
                                for="field_telefono">Telefono
                     </mat-label>
                     <input type="text" matInput name="telefono" id="field_telefono"
-                           [(ngModel)]="cliente.telefono" required/>
+                           [(ngModel)]="cliente.telefono"/>
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.cliente.correo" for="field_correo">
                         Correo
                     </mat-label>
                     <input type="text" matInput name="correo" id="field_correo"
-                           [(ngModel)]="cliente.correo" required/>
-                    <mat-error
-                        [hidden]="!(editForm.controls.correo?.dirty && editForm.controls.correo?.invalid)">
+                           [(ngModel)]="cliente.correo" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                    <mat-error [hidden]="!(editForm.controls.correo?.dirty && editForm.controls.correo?.invalid)">
                         <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.correo?.errors?.pattern"
-                               jhiTranslate="entity.validation.pattern"
-                               [translateValues]="{ pattern: 'Correo' }">
-                            This field should follow pattern for "Correo".
+                               [hidden]="!editForm.controls.correo?.errors?.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Email' }">
+                            This field should follow pattern for "Email".
                         </small>
                     </mat-error>
                 </mat-form-field>
@@ -168,7 +165,7 @@
                                                     Notas
                                                 </mat-label>
                                                 <textarea type="text" matInput name="notas" id="field_notas"
-                                                          [(ngModel)]="puntoDeVenta.localidad"></textarea>
+                                                          [(ngModel)]="puntoDeVenta.notas"></textarea>
                                             </mat-form-field>
                                         </div>
                                     </div>

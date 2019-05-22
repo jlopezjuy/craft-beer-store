@@ -40,6 +40,8 @@ public class MovimientosDTO implements Serializable {
 
     private String empresaNombreEmpresa;
 
+    private Long puntoDeVentaId;
+
     public Long getId() {
         return id;
     }
@@ -128,6 +130,14 @@ public class MovimientosDTO implements Serializable {
         this.empresaNombreEmpresa = empresaNombreEmpresa;
     }
 
+    public Long getPuntoDeVentaId() {
+        return puntoDeVentaId;
+    }
+
+    public void setPuntoDeVentaId(Long puntoDeVentaId) {
+        this.puntoDeVentaId = puntoDeVentaId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -163,6 +173,7 @@ public class MovimientosDTO implements Serializable {
             ", cliente='" + getClienteNombreApellido() + "'" +
             ", empresa=" + getEmpresaId() +
             ", empresa='" + getEmpresaNombreEmpresa() + "'" +
+            ", puntoDeVenta=" + getPuntoDeVentaId() +
             "}";
     }
 }

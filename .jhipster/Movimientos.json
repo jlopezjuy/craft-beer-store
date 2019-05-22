@@ -17,6 +17,14 @@
             "otherEntityField": "nombreEmpresa",
             "otherEntityRelationshipName": "movimientos",
             "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "puntoDeVenta",
+            "otherEntityName": "puntoDeVenta",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "movimientos",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

@@ -28,6 +28,10 @@ export class PuntoDeVentaService {
         return this.http.get<IPuntoDeVenta>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    findByCliente(clienteId: number): Observable<EntityArrayResponseType> {
+        return this.http.get<IPuntoDeVenta[]>(`${this.resourceUrl}/cliente/puntos/${clienteId}`, { observe: 'response' });
+    }
+
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IPuntoDeVenta[]>(this.resourceUrl, { params: options, observe: 'response' });

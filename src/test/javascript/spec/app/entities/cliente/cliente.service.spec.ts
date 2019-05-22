@@ -5,7 +5,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { ClienteService } from 'app/entities/cliente/cliente.service';
-import { ICliente, Cliente, CondicionFiscal, Provincia, TipoCliente } from 'app/shared/model/cliente.model';
+import { ICliente, Cliente, TipoCliente } from 'app/shared/model/cliente.model';
+import { Provincia } from 'app/shared/model/proveedor.model';
 
 describe('Service Tests', () => {
     describe('Cliente Service', () => {
