@@ -2,27 +2,28 @@
     "craftBeerStoreApp": {
         "movimientos": {
             "home": {
-                "title": "Sales",
-                "createLabel": "Create a new Sale",
-                "createOrEditLabel": "Create or edit a Sale",
+                "title": "Movimientos",
+                "createLabel": "Create a new Movimientos",
+                "createOrEditLabel": "Create or edit a Movimientos",
                 "search": "Search for Movimientos"
             },
-            "created": "A new Sale is created with identifier {{ param }}",
-            "updated": "A Sale is updated with identifier {{ param }}",
-            "deleted": "A Sale is deleted with identifier {{ param }}",
+            "created": "A new Movimientos is created with identifier {{ param }}",
+            "updated": "A Movimientos is updated with identifier {{ param }}",
+            "deleted": "A Movimientos is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Sale {{ id }}?"
+                "question": "Are you sure you want to delete Movimientos {{ id }}?"
             },
             "detail": {
-                "title": "Sale"
+                "title": "Movimientos"
             },
-            "tipoMovimiento": "Sales Type",
-            "fechaMovimiento": "Sale Date",
-            "precioTotal": "Total price",
-            "numeroMovimiento": "Invoice number",
-            "estado": "State",
-            "cliente": "Client",
-            "empresa": "Company"
+            "tipoMovimiento": "Tipo Movimiento",
+            "fechaMovimiento": "Fecha Movimiento",
+            "precioTotal": "Precio Total",
+            "numeroMovimiento": "Numero Movimiento",
+            "estado": "Estado",
+            "litrosTotales": "Litros Totales",
+            "cliente": "Cliente",
+            "empresa": "Empresa"
         }
     }
 }

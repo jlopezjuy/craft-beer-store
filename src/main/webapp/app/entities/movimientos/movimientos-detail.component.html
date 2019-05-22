@@ -25,6 +25,10 @@
                 <dd>
                     <span jhiTranslate="{{'craftBeerStoreApp.EstadoMovimiento.' + movimientos.estado}}">{{movimientos.estado}}</span>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientos.litrosTotales">Litros Totales</span></dt>
+                <dd>
+                    <span>{{movimientos.litrosTotales}}</span>
+                </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.movimientos.cliente">Cliente</span></dt>
                 <dd>
                     <div *ngIf="movimientos.clienteId">

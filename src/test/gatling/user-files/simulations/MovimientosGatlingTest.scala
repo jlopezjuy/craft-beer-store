@@ -77,6 +77,7 @@ class MovimientosGatlingTest extends Simulation {
                 , "precioTotal":"0"
                 , "numeroMovimiento":"SAMPLE_TEXT"
                 , "estado":"ACTIVO"
+                , "litrosTotales":"0"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_movimientos_url"))).exitHereIfFailed

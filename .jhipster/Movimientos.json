@@ -7,7 +7,7 @@
             "otherEntityName": "cliente",
             "relationshipType": "many-to-one",
             "otherEntityField": "nombreApellido",
-            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "movimientos"
         },
         {
@@ -16,7 +16,7 @@
             "relationshipType": "many-to-one",
             "otherEntityField": "nombreEmpresa",
             "otherEntityRelationshipName": "movimientos",
-            "otherEntityRelationshipNameUndefined": true
+            "otherEntityRelationshipNameUndefined": false
         }
     ],
     "fields": [
@@ -56,6 +56,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "litrosTotales",
+            "fieldType": "BigDecimal"
         }
     ],
     "changelogDate": "20190417170831",

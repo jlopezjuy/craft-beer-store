@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Movimientos(0, TipoMovimiento.PRESUPUESTO, currentDate, 0, 'AAAAAAA', EstadoMovimiento.ACTIVO);
+            elemDefault = new Movimientos(0, TipoMovimiento.PRESUPUESTO, currentDate, 0, 'AAAAAAA', EstadoMovimiento.ACTIVO, 0);
         });
 
         describe('Service methods', async () => {
@@ -74,7 +74,8 @@ describe('Service Tests', () => {
                         fechaMovimiento: currentDate.format(DATE_FORMAT),
                         precioTotal: 1,
                         numeroMovimiento: 'BBBBBB',
-                        estado: 'BBBBBB'
+                        estado: 'BBBBBB',
+                        litrosTotales: 1
                     },
                     elemDefault
                 );
@@ -100,7 +101,8 @@ describe('Service Tests', () => {
                         fechaMovimiento: currentDate.format(DATE_FORMAT),
                         precioTotal: 1,
                         numeroMovimiento: 'BBBBBB',
-                        estado: 'BBBBBB'
+                        estado: 'BBBBBB',
+                        litrosTotales: 1
                     },
                     elemDefault
                 );

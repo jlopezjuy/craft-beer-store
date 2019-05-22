@@ -1,3 +1,5 @@
+import { TipoPresentacion } from 'app/shared/model/presentacion.model';
+
 export const enum EstiloCerveza {
     ALE = 'ALE',
     LAGER = 'LAGER'
@@ -29,6 +31,7 @@ export interface IProducto {
     precioUnitario?: number;
     movimientoId?: number;
     eventoId?: number;
+    tipoPresentacion?: TipoPresentacion;
 }
 
 export class Producto implements IProducto {
@@ -51,6 +54,7 @@ export class Producto implements IProducto {
         public cantidadPresentacion?: number,
         public precioUnitario?: number,
         public movimientoId?: number,
-        public eventoId?: number
+        public eventoId?: number,
+        public tipoPresentacion?: TipoPresentacion
     ) {}
 }

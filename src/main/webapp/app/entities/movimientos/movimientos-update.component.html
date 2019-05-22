@@ -203,27 +203,19 @@
 
 
                     <div class="row">
-                        <div class="col-6"></div>
                         <div class="col-6">
-                            <label class="form-control-label"
-                                   jhiTranslate="craftBeerStoreApp.movimientos.precioTotal"
-                                   for="field_precioTotal">Precio Total</label>
-                            <input type="number" class="form-control" name="precioTotal"
-                                   id="field_precioTotal" disabled
-                                   [(ngModel)]="movimientos.precioTotal" required/>
-                            <div
-                                [hidden]="!(editForm.controls.precioTotal?.dirty && editForm.controls.precioTotal?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.precioTotal?.errors?.required"
-                                       jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.precioTotal?.errors?.number"
-                                       jhiTranslate="entity.validation.number">
-                                    This field should be a number.
-                                </small>
-                            </div>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.litrosTotales" for="field_litrosTotales">Saldo Cta Cte</mat-label>
+                                <input type="text" matInput name="litrosTotales" id="field_litrosTotales"
+                                       [(ngModel)]="movimientos.litrosTotales" disabled/>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6">
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.precioTotal" for="field_precioTotal">Saldo Cta Cte</mat-label>
+                                <input type="text" matInput name="precioTotal" id="field_precioTotal"
+                                       [(ngModel)]="movimientos.precioTotal" disabled/>
+                            </mat-form-field>
                         </div>
                     </div>
 

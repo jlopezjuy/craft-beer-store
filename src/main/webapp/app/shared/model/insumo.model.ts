@@ -15,6 +15,7 @@ export const enum TipoInsumo {
     LEVADURA = 'LEVADURA',
     ACIDO = 'ACIDO',
     SAL = 'SAL',
+    CLARIFICANTE = 'CLARIFICANTE',
     OTROS = 'OTROS'
 }
 
