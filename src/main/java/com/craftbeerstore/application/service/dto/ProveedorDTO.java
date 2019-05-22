@@ -17,22 +17,17 @@ public class ProveedorDTO implements Serializable {
     @NotNull
     private String nombreProveedor;
 
-    @NotNull
     private String razonSocial;
 
-    @NotNull
     private String cuit;
 
-    @NotNull
     private String telefono;
 
     @NotNull
     private LocalDate fechaAlta;
 
-    @NotNull
     private String domicilio;
 
-    @NotNull
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     private String correo;
 

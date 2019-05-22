@@ -134,7 +134,7 @@ public class MovimientosServiceImpl implements MovimientosService {
     }
 
     @Override
-    public List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId) {
+    public List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId, String dias) {
         List<MovimientosSemanaDTO> list = new ArrayList<>();
         List<Object[]> movimientos = this.movimientosRepository.queryMovimientoSemana(empresaId, LocalDate.now().minusDays(7), LocalDate.now());
         movimientos.forEach(mov -> {
@@ -145,7 +145,8 @@ public class MovimientosServiceImpl implements MovimientosService {
     }
 
     @Override
-    public List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId) {
+    public List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId,
+        String dias) {
         List<MovimientosProductoSemanaDTO> list = new ArrayList<>();
         List<Object[]> movimientos = this.movimientosRepository.queryVentaProductoSemana(empresaId, LocalDate.now().minusDays(7), LocalDate.now());
         movimientos.forEach(mov -> {

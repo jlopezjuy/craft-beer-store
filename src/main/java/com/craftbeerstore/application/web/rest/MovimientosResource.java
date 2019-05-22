@@ -7,13 +7,11 @@ import com.craftbeerstore.application.web.rest.util.HeaderUtil;
 import com.craftbeerstore.application.web.rest.util.PaginationUtil;
 import com.craftbeerstore.application.service.dto.MovimientosDTO;
 import io.github.jhipster.web.util.ResponseUtil;
-import javax.xml.ws.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +21,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Movimientos.
@@ -161,11 +156,11 @@ public class MovimientosResource {
      * @param empresaId
      * @return
      */
-    @GetMapping("/movimientos/semana/{empresaId}")
-    public ResponseEntity<List<MovimientosSemanaDTO>> getAllMovimientosSemanal(@PathVariable Long empresaId) {
+    @GetMapping("/movimientos/semana/{empresaId}/{dias}")
+    public ResponseEntity<List<MovimientosSemanaDTO>> getAllMovimientosSemanal(@PathVariable Long empresaId, @PathVariable String dias) {
         log.debug("REST request to get a page of Movimientos by Empresa");
         List<MovimientosSemanaDTO> list = movimientosService
-            .findMovimientosSemana(empresaId);
+            .findMovimientosSemana(empresaId, dias);
         return ResponseEntity.ok().body(list);
     }
 
@@ -174,9 +169,9 @@ public class MovimientosResource {
      * @param empresaId
      * @return
      */
-    @GetMapping("/movimientos/semana/venta/{empresaId}")
-    public ResponseEntity<List<MovimientosProductoSemanaDTO>> getAllMovimientosProductoSemanal(@PathVariable Long empresaId){
-        List<MovimientosProductoSemanaDTO> list = movimientosService.findMovimientoProductoSemana(empresaId);
+    @GetMapping("/movimientos/semana/venta/{empresaId}/{dias}")
+    public ResponseEntity<List<MovimientosProductoSemanaDTO>> getAllMovimientosProductoSemanal(@PathVariable Long empresaId, @PathVariable String dias){
+        List<MovimientosProductoSemanaDTO> list = movimientosService.findMovimientoProductoSemana(empresaId, dias);
         return ResponseEntity.ok().body(list);
     }
 

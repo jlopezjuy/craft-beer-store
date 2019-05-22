@@ -69,14 +69,17 @@ public interface MovimientosService {
     /**
      *
      * @param empresaId
+     * @param dias
      * @return
      */
-    List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId);
+    List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId, String dias);
 
     /**
      *
      * @param empresaId
+     * @param dias
      * @return
      */
-    List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId);
+    List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId,
+        String dias);
 }
