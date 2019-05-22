@@ -121,7 +121,7 @@ public class ClienteResourceIntTest {
      */
     public static Cliente createEntity(EntityManager em) {
         Cliente cliente = new Cliente()
-            .nombeApellido(DEFAULT_NOMBE_APELLIDO)
+            .nombreApellido(DEFAULT_NOMBE_APELLIDO)
             .domicilio(DEFAULT_DOMICILIO)
             .tipoCliente(DEFAULT_TIPO_CLIENTE)
             .telefono(DEFAULT_TELEFONO)
@@ -150,7 +150,7 @@ public class ClienteResourceIntTest {
         List<Cliente> clienteList = clienteRepository.findAll();
         assertThat(clienteList).hasSize(databaseSizeBeforeCreate + 1);
         Cliente testCliente = clienteList.get(clienteList.size() - 1);
-        assertThat(testCliente.getNombeApellido()).isEqualTo(DEFAULT_NOMBE_APELLIDO);
+        assertThat(testCliente.getNombreApellido()).isEqualTo(DEFAULT_NOMBE_APELLIDO);
         assertThat(testCliente.getDomicilio()).isEqualTo(DEFAULT_DOMICILIO);
         assertThat(testCliente.getTipoCliente()).isEqualTo(DEFAULT_TIPO_CLIENTE);
         assertThat(testCliente.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
@@ -185,10 +185,10 @@ public class ClienteResourceIntTest {
 
     @Test
     @Transactional
-    public void checkNombeApellidoIsRequired() throws Exception {
+    public void checkNombreApellidoIsRequired() throws Exception {
         int databaseSizeBeforeTest = clienteRepository.findAll().size();
         // set the field null
-        cliente.setNombeApellido(null);
+        cliente.setNombreApellido(null);
 
         // Create the Cliente, which fails.
         ClienteDTO clienteDTO = clienteMapper.toDto(cliente);
@@ -251,7 +251,7 @@ public class ClienteResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cliente.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombeApellido").value(hasItem(DEFAULT_NOMBE_APELLIDO.toString())))
+            .andExpect(jsonPath("$.[*].nombreApellido").value(hasItem(DEFAULT_NOMBE_APELLIDO.toString())))
             .andExpect(jsonPath("$.[*].domicilio").value(hasItem(DEFAULT_DOMICILIO.toString())))
             .andExpect(jsonPath("$.[*].tipoCliente").value(hasItem(DEFAULT_TIPO_CLIENTE.toString())))
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())))
@@ -269,7 +269,7 @@ public class ClienteResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(cliente.getId().intValue()))
-            .andExpect(jsonPath("$.nombeApellido").value(DEFAULT_NOMBE_APELLIDO.toString()))
+            .andExpect(jsonPath("$.nombreApellido").value(DEFAULT_NOMBE_APELLIDO.toString()))
             .andExpect(jsonPath("$.domicilio").value(DEFAULT_DOMICILIO.toString()))
             .andExpect(jsonPath("$.tipoCliente").value(DEFAULT_TIPO_CLIENTE.toString()))
             .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO.toString()))
@@ -297,7 +297,7 @@ public class ClienteResourceIntTest {
         // Disconnect from session so that the updates on updatedCliente are not directly saved in db
         em.detach(updatedCliente);
         updatedCliente
-            .nombeApellido(UPDATED_NOMBE_APELLIDO)
+            .nombreApellido(UPDATED_NOMBE_APELLIDO)
             .domicilio(UPDATED_DOMICILIO)
             .tipoCliente(UPDATED_TIPO_CLIENTE)
             .telefono(UPDATED_TELEFONO)
@@ -313,7 +313,7 @@ public class ClienteResourceIntTest {
         List<Cliente> clienteList = clienteRepository.findAll();
         assertThat(clienteList).hasSize(databaseSizeBeforeUpdate);
         Cliente testCliente = clienteList.get(clienteList.size() - 1);
-        assertThat(testCliente.getNombeApellido()).isEqualTo(UPDATED_NOMBE_APELLIDO);
+        assertThat(testCliente.getNombreApellido()).isEqualTo(UPDATED_NOMBE_APELLIDO);
         assertThat(testCliente.getDomicilio()).isEqualTo(UPDATED_DOMICILIO);
         assertThat(testCliente.getTipoCliente()).isEqualTo(UPDATED_TIPO_CLIENTE);
         assertThat(testCliente.getTelefono()).isEqualTo(UPDATED_TELEFONO);
@@ -378,7 +378,7 @@ public class ClienteResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cliente.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombeApellido").value(hasItem(DEFAULT_NOMBE_APELLIDO)))
+            .andExpect(jsonPath("$.[*].nombreApellido").value(hasItem(DEFAULT_NOMBE_APELLIDO)))
             .andExpect(jsonPath("$.[*].domicilio").value(hasItem(DEFAULT_DOMICILIO)))
             .andExpect(jsonPath("$.[*].tipoCliente").value(hasItem(DEFAULT_TIPO_CLIENTE.toString())))
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))

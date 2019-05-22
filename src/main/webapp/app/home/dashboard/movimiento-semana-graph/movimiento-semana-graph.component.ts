@@ -7,7 +7,7 @@ import { TipoMovimiento } from 'app/shared/model/movimientos.model';
 @Component({
     selector: 'jhi-movimiento-semana-graph',
     templateUrl: './movimiento-semana-graph.component.html',
-    styles: []
+    styleUrls: ['movimiento-semana-graph.scss']
 })
 export class MovimientoSemanaGraphComponent implements OnInit {
     data: any;
@@ -24,7 +24,6 @@ export class MovimientoSemanaGraphComponent implements OnInit {
         const ventas = [];
         const presupuesto = [];
         this.movimientoService.queryBySemanaEmpresa(null, this.empresa.id).subscribe(resp => {
-            console.log(resp);
             resp.body.forEach(sem => {
                 label.push(sem.fechaMovimiento.format('DD/MM').toString());
                 if (sem.tipoMovimiento === TipoMovimiento.VENTA) {

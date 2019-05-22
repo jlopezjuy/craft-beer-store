@@ -77,7 +77,7 @@ class PresentacionGatlingTest extends Simulation {
                 , "fecha":"2020-01-01T00:00:00.000Z"
                 , "costoUnitario":"0"
                 , "precioVentaUnitario":"0"
-                , "precioTotal":"0"
+                , "precioVentaTotal":"0"
                 , "precioCostoTotal":"0"
                 }""")).asJSON
             .check(status.is(201))

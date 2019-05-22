@@ -19,10 +19,8 @@ export class DoughnutchartComponent implements OnInit {
     }
 
     loadChart() {
-        console.log('entro a cargar el grafico !!!!!');
         const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
         this.cajaService.findIngresoEgreso(empresa.id).subscribe(resp => {
-            console.log(resp);
             this.data = {
                 labels: ['Ingresos', 'Egresos'],
                 datasets: [
@@ -33,7 +31,6 @@ export class DoughnutchartComponent implements OnInit {
                     }
                 ]
             };
-            console.log(this.data);
         });
     }
 }

@@ -18,6 +18,7 @@ import {
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
+    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
@@ -42,6 +43,7 @@ import {
     MatTooltipModule,
     MatTreeModule
 } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     exports: [
@@ -85,7 +87,9 @@ import {
         MatToolbarModule,
         MatTooltipModule,
         MatTreeModule,
-        ScrollingModule
+        ScrollingModule,
+        ReactiveFormsModule,
+        MatFormFieldModule
     ]
 })
 export class JhMaterialModule {}

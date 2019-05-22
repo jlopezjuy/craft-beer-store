@@ -8,7 +8,7 @@
                 <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span></dt>
                 <dd>
                     <div *ngIf="eventoProducto.productoId">
-                        <a [routerLink]="['/producto', eventoProducto.productoId, 'view']">{{eventoProducto.productoNombreProducto}}</a>
+                        <a [routerLink]="['/producto', eventoProducto.productoId, 'view']">{{eventoProducto.productoDescripcion}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.evento">Evento</span></dt>
@@ -21,13 +21,13 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info">
+                    mat-raised-button class="mat-back">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/evento-producto', eventoProducto.id, 'edit']"
-                    class="btn btn-primary">
+                    mat-raised-button class="mat-success">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>

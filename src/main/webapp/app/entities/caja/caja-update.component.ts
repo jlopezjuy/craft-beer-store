@@ -14,6 +14,7 @@ import { ClienteService } from 'app/entities/cliente';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
+import { DATE_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-caja-update',
@@ -29,6 +30,7 @@ export class CajaUpdateComponent implements OnInit {
 
     empresa: IEmpresa;
     fechaDp: any;
+    fecha: any;
 
     constructor(
         protected dataUtils: JhiDataUtils,
@@ -45,6 +47,9 @@ export class CajaUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ caja }) => {
             this.caja = caja;
+            if (this.caja.id) {
+                this.fecha = moment(this.caja.fecha, 'dd/MM/yyy').format();
+            }
         });
         this.empresa = this.$localStorage.retrieve('empresa');
         this.proveedorService
@@ -82,6 +87,7 @@ export class CajaUpdateComponent implements OnInit {
     save() {
         this.caja.empresaId = this.empresa.id;
         this.isSaving = true;
+        this.caja.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
         if (this.caja.id !== undefined) {
             this.subscribeToSaveResponse(this.cajaService.update(this.caja));
         } else {

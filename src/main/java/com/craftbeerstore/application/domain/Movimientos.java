@@ -55,6 +55,9 @@ public class Movimientos implements Serializable {
     @Column(name = "estado", nullable = false)
     private EstadoMovimiento estado;
 
+    @Column(name = "litros_totales", precision = 10, scale = 2)
+    private BigDecimal litrosTotales;
+
     @ManyToOne
     @JsonIgnoreProperties("movimientos")
     private Cliente cliente;
@@ -137,6 +140,19 @@ public class Movimientos implements Serializable {
         this.estado = estado;
     }
 
+    public BigDecimal getLitrosTotales() {
+        return litrosTotales;
+    }
+
+    public Movimientos litrosTotales(BigDecimal litrosTotales) {
+        this.litrosTotales = litrosTotales;
+        return this;
+    }
+
+    public void setLitrosTotales(BigDecimal litrosTotales) {
+        this.litrosTotales = litrosTotales;
+    }
+
     public Cliente getCliente() {
         return cliente;
     }
@@ -193,6 +209,7 @@ public class Movimientos implements Serializable {
             ", precioTotal=" + getPrecioTotal() +
             ", numeroMovimiento='" + getNumeroMovimiento() + "'" +
             ", estado='" + getEstado() + "'" +
+            ", litrosTotales=" + getLitrosTotales() +
             "}";
     }
 }

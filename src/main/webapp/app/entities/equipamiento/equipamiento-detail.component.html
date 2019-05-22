@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="equipamiento">
+            <h2><span jhiTranslate="craftBeerStoreApp.equipamiento.detail.title">Equipamiento</span> {{equipamiento.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.equipamiento.nombreEquipamiento">Nombre Equipamiento</span></dt>
+                <dd>
+                    <span>{{equipamiento.nombreEquipamiento}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.equipamiento.tipoEquipamiento">Tipo Equipamiento</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoEquipamiento.' + equipamiento.tipoEquipamiento}}">{{equipamiento.tipoEquipamiento}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.equipamiento.precio">Precio</span></dt>
+                <dd>
+                    <span>{{equipamiento.precio}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.equipamiento.costoEnvio">Costo Envio</span></dt>
+                <dd>
+                    <span>{{equipamiento.costoEnvio}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.equipamiento.fechaCompra">Fecha Compra</span></dt>
+                <dd>
+                    <span>{{equipamiento.fechaCompra}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.equipamiento.imagen">Imagen</span></dt>
+                <dd>
+                    <div *ngIf="equipamiento.imagen">
+                        <a (click)="openFile(equipamiento.imagenContentType, equipamiento.imagen)">
+                            <img [src]="'data:' + equipamiento.imagenContentType + ';base64,' + equipamiento.imagen" style="max-width: 100%;" alt="equipamiento image"/>
+                        </a>
+                        {{equipamiento.imagenContentType}}, {{byteSize(equipamiento.imagen)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.equipamiento.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="equipamiento.empresaId">
+                        <a [routerLink]="['/empresa', equipamiento.empresaId, 'view']">{{equipamiento.empresaNombreEmpresa}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    mat-raised-button class="mat-back">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/equipamiento', equipamiento.id, 'edit']"
+                    mat-raised-button class="mat-success">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

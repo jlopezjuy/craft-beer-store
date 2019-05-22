@@ -2,8 +2,8 @@
     "craftBeerStoreApp": {
         "caja": {
             "home": {
-                "title": "Cajas",
-                "createLabel": "Crear nuevo Caja",
+                "title": "Movimientos de caja",
+                "createLabel": "Crear movimiento de caja",
                 "createOrEditLabel": "Crear o editar Caja",
                 "search": "Search for Caja",
                 "saldo": "Saldo Actual"
@@ -15,12 +15,12 @@
                 "question": "¿Seguro que quiere eliminar Caja {{ id }}?"
             },
             "detail": {
-                "title": "Caja"
+                "title": "Movimiento de Caja"
             },
-            "tipoMovimiento": "Tipo Movimiento",
-            "tipoPago": "Tipo Pago",
-            "descripcion": "Descripcion",
-            "saldoCtaCte": "Saldo Cta Cte",
+            "tipoMovimiento": "Tipo de Movimiento",
+            "tipoPago": "Forma de Pago",
+            "descripcion": "Descripción",
+            "saldoCtaCte": "Saldo",
             "importe": "Importe",
             "fecha": "Fecha",
             "proveedor": "Proveedor",

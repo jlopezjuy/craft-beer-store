@@ -37,7 +37,7 @@
         {
             "fieldName": "tipo",
             "fieldType": "TipoInsumo",
-            "fieldValues": "MALTA,LUPULO,LEVADURA,ACIDO,SAL,OTROS"
+            "fieldValues": "MALTA,LUPULO,LEVADURA,ACIDO,CLARIFICANTE,SAL,OTROS"
         },
         {
             "fieldName": "imagen",

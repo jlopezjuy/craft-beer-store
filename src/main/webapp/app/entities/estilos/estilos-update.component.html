@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-estilos-heading" jhiTranslate="craftBeerStoreApp.estilos.home.createOrEditLabel">Create or edit a Estilos</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!estilos.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="estilos.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.number" for="field_number">Number</label>
+                    <input type="text" class="form-control" name="number" id="field_number"
+                        [(ngModel)]="estilos.number" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.nombreEstilo" for="field_nombreEstilo">Nombre Estilo</label>
+                    <input type="text" class="form-control" name="nombreEstilo" id="field_nombreEstilo"
+                        [(ngModel)]="estilos.nombreEstilo" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.categoriaEstilo" for="field_categoriaEstilo">Categoria Estilo</label>
+                    <input type="text" class="form-control" name="categoriaEstilo" id="field_categoriaEstilo"
+                        [(ngModel)]="estilos.categoriaEstilo" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.abvMin" for="field_abvMin">Abv Min</label>
+                    <input type="number" class="form-control" name="abvMin" id="field_abvMin"
+                        [(ngModel)]="estilos.abvMin" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.abvMax" for="field_abvMax">Abv Max</label>
+                    <input type="number" class="form-control" name="abvMax" id="field_abvMax"
+                        [(ngModel)]="estilos.abvMax" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.abvMed" for="field_abvMed">Abv Med</label>
+                    <input type="number" class="form-control" name="abvMed" id="field_abvMed"
+                        [(ngModel)]="estilos.abvMed" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.ibuMin" for="field_ibuMin">Ibu Min</label>
+                    <input type="number" class="form-control" name="ibuMin" id="field_ibuMin"
+                        [(ngModel)]="estilos.ibuMin" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.ibuMax" for="field_ibuMax">Ibu Max</label>
+                    <input type="number" class="form-control" name="ibuMax" id="field_ibuMax"
+                        [(ngModel)]="estilos.ibuMax" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.ibuMed" for="field_ibuMed">Ibu Med</label>
+                    <input type="number" class="form-control" name="ibuMed" id="field_ibuMed"
+                        [(ngModel)]="estilos.ibuMed" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.srmMin" for="field_srmMin">Srm Min</label>
+                    <input type="number" class="form-control" name="srmMin" id="field_srmMin"
+                        [(ngModel)]="estilos.srmMin" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.srmMax" for="field_srmMax">Srm Max</label>
+                    <input type="number" class="form-control" name="srmMax" id="field_srmMax"
+                        [(ngModel)]="estilos.srmMax" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.srmMed" for="field_srmMed">Srm Med</label>
+                    <input type="number" class="form-control" name="srmMed" id="field_srmMed"
+                        [(ngModel)]="estilos.srmMed" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.descripcion" for="field_descripcion">Descripcion</label>
+                    <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                        [(ngModel)]="estilos.descripcion" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.ejemploNombreComercial" for="field_ejemploNombreComercial">Ejemplo Nombre Comercial</label>
+                    <input type="text" class="form-control" name="ejemploNombreComercial" id="field_ejemploNombreComercial"
+                        [(ngModel)]="estilos.ejemploNombreComercial" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.estilos.ejemploImagenComercial" for="field_ejemploImagenComercial">Ejemplo Imagen Comercial</label>
+                    <input type="text" class="form-control" name="ejemploImagenComercial" id="field_ejemploImagenComercial"
+                        [(ngModel)]="estilos.ejemploImagenComercial" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

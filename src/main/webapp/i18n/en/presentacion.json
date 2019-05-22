@@ -2,28 +2,28 @@
     "craftBeerStoreApp": {
         "presentacion": {
             "home": {
-                "title": "Presentaciones",
-                "createLabel": "Create a new Presentación",
-                "createOrEditLabel": "Create or edit a Presentación",
-                "search": "Search for Presentacion"
+                "title": "Presentation",
+                "createLabel": "Create a new Presentation",
+                "createOrEditLabel": "Create or edit a Presentation",
+                "search": "Search for Presentation"
             },
-            "created": "A new Presentacion is created with identifier {{ param }}",
-            "updated": "A Presentacion is updated with identifier {{ param }}",
-            "deleted": "A Presentacion is deleted with identifier {{ param }}",
+            "created": "A new Presentation is created with identifier {{ param }}",
+            "updated": "A Presentation is updated with identifier {{ param }}",
+            "deleted": "A Presentation is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Presentación {{ id }}?"
+                "question": "Are you sure you want to delete Presentation {{ id }}?"
             },
             "detail": {
-                "title": "Presentación"
+                "title": "Presentation"
             },
-            "tipoPresentacion": "Tipo Presentación",
-            "cantidad": "Cantidad",
-            "fecha": "Fecha",
-            "costoUnitario": "Costo Unitario",
-            "precioVentaUnitario": "Precio Venta Unitario",
-            "precioTotal": "Precio Total",
-            "precioCostoTotal": "Precio Costo Total",
-            "producto": "Producto"
+            "tipoPresentacion": "Presentation type",
+            "cantidad": "Amount",
+            "fecha": "Date",
+            "costoUnitario": "Unit Cost",
+            "precioVentaUnitario": "Unit sale price",
+            "precioVentaTotal": "Total sale price",
+            "precioCostoTotal": "Total price cost",
+            "producto": "Product"
         }
     }
 }

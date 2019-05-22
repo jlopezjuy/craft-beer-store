@@ -1,3 +1,5 @@
+import { TipoPresentacion } from 'app/shared/model/presentacion.model';
+
 export const enum EstiloCerveza {
     ALE = 'ALE',
     LAGER = 'LAGER'
@@ -11,14 +13,16 @@ export const enum TipoProducto {
 
 export interface IProducto {
     id?: number;
-    nombreProducto?: string;
-    estilo?: EstiloCerveza;
+    descripcion?: string;
+    tipo?: EstiloCerveza;
     nombreComercial?: string;
-    precioLitro?: number;
     tipoProducto?: TipoProducto;
     imagenContentType?: string;
     imagen?: any;
+    observacion?: any;
     empresaId?: number;
+    estilosNombreEstilo?: string;
+    estilosId?: number;
     /**
      * transient
      */
@@ -27,19 +31,22 @@ export interface IProducto {
     precioUnitario?: number;
     movimientoId?: number;
     eventoId?: number;
+    tipoPresentacion?: TipoPresentacion;
 }
 
 export class Producto implements IProducto {
     constructor(
         public id?: number,
-        public nombreProducto?: string,
-        public estilo?: EstiloCerveza,
+        public descripcion?: string,
+        public tipo?: EstiloCerveza,
         public nombreComercial?: string,
-        public precioLitro?: number,
         public tipoProducto?: TipoProducto,
         public imagenContentType?: string,
         public imagen?: any,
+        public observacion?: any,
         public empresaId?: number,
+        public estilosNombreEstilo?: string,
+        public estilosId?: number,
         /**
          * transient
          */
@@ -47,6 +54,7 @@ export class Producto implements IProducto {
         public cantidadPresentacion?: number,
         public precioUnitario?: number,
         public movimientoId?: number,
-        public eventoId?: number
+        public eventoId?: number,
+        public tipoPresentacion?: TipoPresentacion
     ) {}
 }

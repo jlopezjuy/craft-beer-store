@@ -12,6 +12,7 @@ import { CajaService } from './caja.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-caja',
@@ -33,6 +34,20 @@ export class CajaComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     saldo: number;
+    dataSource: any;
+    displayedColumns: string[] = [
+        'id',
+        'tipoMovimiento',
+        'tipoPago',
+        'descripcion',
+        'saldoCtaCte',
+        'importe',
+        'fecha',
+        'proveedorNombreProveedor',
+        'clienteNombreApellido',
+        'actions'
+    ];
+    pageEvent: PageEvent;
 
     constructor(
         protected cajaService: CajaService,
@@ -188,11 +203,16 @@ export class CajaComponent implements OnInit, OnDestroy {
                 this.saldo = this.saldo - caja.importe;
             }
         });
-
+        this.dataSource = new MatTableDataSource<ICaja>(this.cajas);
         this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }

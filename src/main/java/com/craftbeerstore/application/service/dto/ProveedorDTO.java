@@ -4,6 +4,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Lob;
+import com.craftbeerstore.application.domain.enumeration.CondicionFiscal;
+import com.craftbeerstore.application.domain.enumeration.Provincia;
 
 /**
  * A DTO for the Proveedor entity.
@@ -22,7 +24,6 @@ public class ProveedorDTO implements Serializable {
     private String cuit;
 
     @NotNull
-    @Pattern(regexp = "\\(\\d{3}\\)\\d{3}-?\\d{4}")
     private String telefono;
 
     @NotNull
@@ -33,10 +34,20 @@ public class ProveedorDTO implements Serializable {
 
     @NotNull
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-    private String email;
+    private String correo;
 
     @Lob
     private String notas;
+
+    private CondicionFiscal condicionFiscal;
+
+    private String localidad;
+
+    private Long codigoPostal;
+
+    private Provincia provincia;
+
+    private String contacto;
 
 
     private Long empresaId;
@@ -97,12 +108,12 @@ public class ProveedorDTO implements Serializable {
         this.domicilio = domicilio;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getNotas() {
@@ -111,6 +122,46 @@ public class ProveedorDTO implements Serializable {
 
     public void setNotas(String notas) {
         this.notas = notas;
+    }
+
+    public CondicionFiscal getCondicionFiscal() {
+        return condicionFiscal;
+    }
+
+    public void setCondicionFiscal(CondicionFiscal condicionFiscal) {
+        this.condicionFiscal = condicionFiscal;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Long getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
     }
 
     public Long getEmpresaId() {
@@ -152,8 +203,13 @@ public class ProveedorDTO implements Serializable {
             ", telefono='" + getTelefono() + "'" +
             ", fechaAlta='" + getFechaAlta() + "'" +
             ", domicilio='" + getDomicilio() + "'" +
-            ", email='" + getEmail() + "'" +
+            ", correo='" + getCorreo() + "'" +
             ", notas='" + getNotas() + "'" +
+            ", condicionFiscal='" + getCondicionFiscal() + "'" +
+            ", localidad='" + getLocalidad() + "'" +
+            ", codigoPostal=" + getCodigoPostal() +
+            ", provincia='" + getProvincia() + "'" +
+            ", contacto='" + getContacto() + "'" +
             ", empresa=" + getEmpresaId() +
             "}";
     }

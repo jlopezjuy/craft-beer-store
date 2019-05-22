@@ -13,6 +13,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.craftbeerstore.application.domain.enumeration.CondicionFiscal;
+
+import com.craftbeerstore.application.domain.enumeration.Provincia;
+
 /**
  * A Proveedor.
  */
@@ -41,7 +45,6 @@ public class Proveedor implements Serializable {
     private String cuit;
 
     @NotNull
-    @Pattern(regexp = "\\(\\d{3}\\)\\d{3}-?\\d{4}")
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
@@ -55,14 +58,32 @@ public class Proveedor implements Serializable {
 
     @NotNull
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "correo", nullable = false)
+    private String correo;
 
     @Lob
     @Column(name = "notas")
     private String notas;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "condicion_fiscal")
+    private CondicionFiscal condicionFiscal;
+
+    @Column(name = "localidad")
+    private String localidad;
+
+    @Column(name = "codigo_postal")
+    private Long codigoPostal;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "provincia")
+    private Provincia provincia;
+
+    @Column(name = "contacto")
+    private String contacto;
+
     @ManyToOne
+    @JsonIgnoreProperties("proveedors")
     private Empresa empresa;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -152,17 +173,17 @@ public class Proveedor implements Serializable {
         this.domicilio = domicilio;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public Proveedor email(String email) {
-        this.email = email;
+    public Proveedor correo(String correo) {
+        this.correo = correo;
         return this;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getNotas() {
@@ -176,6 +197,71 @@ public class Proveedor implements Serializable {
 
     public void setNotas(String notas) {
         this.notas = notas;
+    }
+
+    public CondicionFiscal getCondicionFiscal() {
+        return condicionFiscal;
+    }
+
+    public Proveedor condicionFiscal(CondicionFiscal condicionFiscal) {
+        this.condicionFiscal = condicionFiscal;
+        return this;
+    }
+
+    public void setCondicionFiscal(CondicionFiscal condicionFiscal) {
+        this.condicionFiscal = condicionFiscal;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public Proveedor localidad(String localidad) {
+        this.localidad = localidad;
+        return this;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Long getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public Proveedor codigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+        return this;
+    }
+
+    public void setCodigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public Proveedor provincia(Provincia provincia) {
+        this.provincia = provincia;
+        return this;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getContacto() {
+        return contacto;
+    }
+
+    public Proveedor contacto(String contacto) {
+        this.contacto = contacto;
+        return this;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
     }
 
     public Empresa getEmpresa() {
@@ -222,8 +308,13 @@ public class Proveedor implements Serializable {
             ", telefono='" + getTelefono() + "'" +
             ", fechaAlta='" + getFechaAlta() + "'" +
             ", domicilio='" + getDomicilio() + "'" +
-            ", email='" + getEmail() + "'" +
+            ", correo='" + getCorreo() + "'" +
             ", notas='" + getNotas() + "'" +
+            ", condicionFiscal='" + getCondicionFiscal() + "'" +
+            ", localidad='" + getLocalidad() + "'" +
+            ", codigoPostal=" + getCodigoPostal() +
+            ", provincia='" + getProvincia() + "'" +
+            ", contacto='" + getContacto() + "'" +
             "}";
     }
 }

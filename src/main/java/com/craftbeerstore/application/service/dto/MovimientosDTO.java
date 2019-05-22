@@ -29,10 +29,12 @@ public class MovimientosDTO implements Serializable {
     @NotNull
     private EstadoMovimiento estado;
 
+    private BigDecimal litrosTotales;
+
 
     private Long clienteId;
 
-    private String clienteNombeApellido;
+    private String clienteNombreApellido;
 
     private Long empresaId;
 
@@ -86,6 +88,14 @@ public class MovimientosDTO implements Serializable {
         this.estado = estado;
     }
 
+    public BigDecimal getLitrosTotales() {
+        return litrosTotales;
+    }
+
+    public void setLitrosTotales(BigDecimal litrosTotales) {
+        this.litrosTotales = litrosTotales;
+    }
+
     public Long getClienteId() {
         return clienteId;
     }
@@ -94,12 +104,12 @@ public class MovimientosDTO implements Serializable {
         this.clienteId = clienteId;
     }
 
-    public String getClienteNombeApellido() {
-        return clienteNombeApellido;
+    public String getClienteNombreApellido() {
+        return clienteNombreApellido;
     }
 
-    public void setClienteNombeApellido(String clienteNombeApellido) {
-        this.clienteNombeApellido = clienteNombeApellido;
+    public void setClienteNombreApellido(String clienteNombreApellido) {
+        this.clienteNombreApellido = clienteNombreApellido;
     }
 
     public Long getEmpresaId() {
@@ -148,8 +158,9 @@ public class MovimientosDTO implements Serializable {
             ", precioTotal=" + getPrecioTotal() +
             ", numeroMovimiento='" + getNumeroMovimiento() + "'" +
             ", estado='" + getEstado() + "'" +
+            ", litrosTotales=" + getLitrosTotales() +
             ", cliente=" + getClienteId() +
-            ", cliente='" + getClienteNombeApellido() + "'" +
+            ", cliente='" + getClienteNombreApellido() + "'" +
             ", empresa=" + getEmpresaId() +
             ", empresa='" + getEmpresaNombreEmpresa() + "'" +
             "}";

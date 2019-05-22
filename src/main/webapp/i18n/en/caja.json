@@ -2,10 +2,10 @@
     "craftBeerStoreApp": {
         "caja": {
             "home": {
-                "title": "Cajas",
-                "createLabel": "Create a new Caja",
-                "createOrEditLabel": "Create or edit a Caja",
-                "search": "Search for Caja",
+                "title": "Cash Flow",
+                "createLabel": "Add Cash Flow",
+                "createOrEditLabel": "Add or Edit Cash Flow",
+                "search": "Search for Cash Flow",
                 "saldo": "Current Balance"
             },
             "created": "A new Caja is created with identifier {{ param }}",
@@ -17,15 +17,15 @@
             "detail": {
                 "title": "Caja"
             },
-            "tipoMovimiento": "Tipo Movimiento",
-            "tipoPago": "Tipo Pago",
-            "descripcion": "Descripcion",
-            "saldoCtaCte": "Saldo Cta Cte",
-            "importe": "Importe",
-            "fecha": "Fecha",
-            "proveedor": "Proveedor",
-            "cliente": "Cliente",
-            "empresa": "Empresa"
+            "tipoMovimiento": "Transaction type",
+            "tipoPago": "Payment method",
+            "descripcion": "Description",
+            "saldoCtaCte": "Balance",
+            "importe": "Amount",
+            "fecha": "Date",
+            "proveedor": "Dealer",
+            "cliente": "Client",
+            "empresa": "Company"
         }
     }
 }

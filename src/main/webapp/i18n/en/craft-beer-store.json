@@ -1,0 +1,21 @@
+{
+    "craft-beer-store": {
+        "page": {
+            "title": "[EN] Craft Beer Store"
+        },
+        "name": "[EN] Jhipster latino",
+        "description": "[EN] Development tools and courses for build better jhipster applications",
+        "service": {
+            "title": "[EN] Services",
+            "description": "[EN] What we offer?"
+        },
+        "portafolio": {
+            "title": "[EN] Portafolio",
+            "description": "[EN] What did we already created?"
+        },
+        "pricing": {
+            "title": "[EN] Pricing",
+            "description": "[EN] Choose a payment plan that works for you"
+        }
+    }
+}

@@ -54,7 +54,6 @@ export class EmpresaUpdateComponent implements OnInit {
 
     save() {
         this.empresa.userId = this.account.id;
-        console.log(this.account);
         this.isSaving = true;
         if (this.empresa.id !== undefined) {
             this.subscribeToSaveResponse(this.empresaService.update(this.empresa));
@@ -89,7 +88,6 @@ export class EmpresaUpdateComponent implements OnInit {
     onBlurEmail(email: string) {
         this.empresaService.findByEmail(email).subscribe(
             resp => {
-                console.log(resp.body);
                 this.jhiAlertService.error('craftBeerStoreApp.empresa.mailError', null, null);
                 this.empresa.correo = null;
             },

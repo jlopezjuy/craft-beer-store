@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="craftBeerStoreApp.eventoProducto.home.title">Evento Productos</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-evento-producto" [routerLink]="['/evento-producto/new']">
+        <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-evento-producto" [routerLink]="['/evento-producto/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.eventoProducto.home.createLabel">
             Create new Evento Producto
@@ -30,7 +30,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="productoNombreProducto"><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="productoDescripcion"><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="eventoId"><span jhiTranslate="craftBeerStoreApp.eventoProducto.evento">Evento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -40,7 +40,7 @@
                 <td><a [routerLink]="['/evento-producto', eventoProducto.id, 'view' ]">{{eventoProducto.id}}</a></td>
                 <td>
                     <div *ngIf="eventoProducto.productoId">
-                        <a [routerLink]="['../producto', eventoProducto.productoId , 'view' ]" >{{eventoProducto.productoNombreProducto}}</a>
+                        <a [routerLink]="['../producto', eventoProducto.productoId , 'view' ]" >{{eventoProducto.productoDescripcion}}</a>
                     </div>
                 </td>
                 <td>

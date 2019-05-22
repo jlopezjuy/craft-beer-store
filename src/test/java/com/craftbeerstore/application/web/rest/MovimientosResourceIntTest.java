@@ -69,6 +69,9 @@ public class MovimientosResourceIntTest {
     private static final EstadoMovimiento DEFAULT_ESTADO = EstadoMovimiento.ACTIVO;
     private static final EstadoMovimiento UPDATED_ESTADO = EstadoMovimiento.INACTIVO;
 
+    private static final BigDecimal DEFAULT_LITROS_TOTALES = new BigDecimal(1);
+    private static final BigDecimal UPDATED_LITROS_TOTALES = new BigDecimal(2);
+
     @Autowired
     private MovimientosRepository movimientosRepository;
 
@@ -129,7 +132,8 @@ public class MovimientosResourceIntTest {
             .fechaMovimiento(DEFAULT_FECHA_MOVIMIENTO)
             .precioTotal(DEFAULT_PRECIO_TOTAL)
             .numeroMovimiento(DEFAULT_NUMERO_MOVIMIENTO)
-            .estado(DEFAULT_ESTADO);
+            .estado(DEFAULT_ESTADO)
+            .litrosTotales(DEFAULT_LITROS_TOTALES);
         return movimientos;
     }
 
@@ -159,6 +163,7 @@ public class MovimientosResourceIntTest {
         assertThat(testMovimientos.getPrecioTotal()).isEqualTo(DEFAULT_PRECIO_TOTAL);
         assertThat(testMovimientos.getNumeroMovimiento()).isEqualTo(DEFAULT_NUMERO_MOVIMIENTO);
         assertThat(testMovimientos.getEstado()).isEqualTo(DEFAULT_ESTADO);
+        assertThat(testMovimientos.getLitrosTotales()).isEqualTo(DEFAULT_LITROS_TOTALES);
 
         // Validate the Movimientos in Elasticsearch
         verify(mockMovimientosSearchRepository, times(1)).save(testMovimientos);
@@ -297,7 +302,8 @@ public class MovimientosResourceIntTest {
             .andExpect(jsonPath("$.[*].fechaMovimiento").value(hasItem(DEFAULT_FECHA_MOVIMIENTO.toString())))
             .andExpect(jsonPath("$.[*].precioTotal").value(hasItem(DEFAULT_PRECIO_TOTAL.intValue())))
             .andExpect(jsonPath("$.[*].numeroMovimiento").value(hasItem(DEFAULT_NUMERO_MOVIMIENTO.toString())))
-            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())));
+            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].litrosTotales").value(hasItem(DEFAULT_LITROS_TOTALES.intValue())));
     }
     
     @Test
@@ -315,7 +321,8 @@ public class MovimientosResourceIntTest {
             .andExpect(jsonPath("$.fechaMovimiento").value(DEFAULT_FECHA_MOVIMIENTO.toString()))
             .andExpect(jsonPath("$.precioTotal").value(DEFAULT_PRECIO_TOTAL.intValue()))
             .andExpect(jsonPath("$.numeroMovimiento").value(DEFAULT_NUMERO_MOVIMIENTO.toString()))
-            .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.toString()));
+            .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.toString()))
+            .andExpect(jsonPath("$.litrosTotales").value(DEFAULT_LITROS_TOTALES.intValue()));
     }
 
     @Test
@@ -343,7 +350,8 @@ public class MovimientosResourceIntTest {
             .fechaMovimiento(UPDATED_FECHA_MOVIMIENTO)
             .precioTotal(UPDATED_PRECIO_TOTAL)
             .numeroMovimiento(UPDATED_NUMERO_MOVIMIENTO)
-            .estado(UPDATED_ESTADO);
+            .estado(UPDATED_ESTADO)
+            .litrosTotales(UPDATED_LITROS_TOTALES);
         MovimientosDTO movimientosDTO = movimientosMapper.toDto(updatedMovimientos);
 
         restMovimientosMockMvc.perform(put("/api/movimientos")
@@ -360,6 +368,7 @@ public class MovimientosResourceIntTest {
         assertThat(testMovimientos.getPrecioTotal()).isEqualTo(UPDATED_PRECIO_TOTAL);
         assertThat(testMovimientos.getNumeroMovimiento()).isEqualTo(UPDATED_NUMERO_MOVIMIENTO);
         assertThat(testMovimientos.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testMovimientos.getLitrosTotales()).isEqualTo(UPDATED_LITROS_TOTALES);
 
         // Validate the Movimientos in Elasticsearch
         verify(mockMovimientosSearchRepository, times(1)).save(testMovimientos);
@@ -424,7 +433,8 @@ public class MovimientosResourceIntTest {
             .andExpect(jsonPath("$.[*].fechaMovimiento").value(hasItem(DEFAULT_FECHA_MOVIMIENTO.toString())))
             .andExpect(jsonPath("$.[*].precioTotal").value(hasItem(DEFAULT_PRECIO_TOTAL.intValue())))
             .andExpect(jsonPath("$.[*].numeroMovimiento").value(hasItem(DEFAULT_NUMERO_MOVIMIENTO)))
-            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())));
+            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
+            .andExpect(jsonPath("$.[*].litrosTotales").value(hasItem(DEFAULT_LITROS_TOTALES.intValue())));
     }
 
     @Test

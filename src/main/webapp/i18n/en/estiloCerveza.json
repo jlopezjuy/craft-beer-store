@@ -2,8 +2,8 @@
     "craftBeerStoreApp": {
         "EstiloCerveza": {
             "null": "",
-            "ALE": "ALE",
-            "LAGER": "LAGER"
+            "ALE": "Ale",
+            "LAGER": "Lager"
         }
     }
 }

@@ -14,7 +14,7 @@ public interface CajaMapper extends EntityMapper<CajaDTO, Caja> {
     @Mapping(source = "proveedor.id", target = "proveedorId")
     @Mapping(source = "proveedor.nombreProveedor", target = "proveedorNombreProveedor")
     @Mapping(source = "cliente.id", target = "clienteId")
-    @Mapping(source = "cliente.nombeApellido", target = "clienteNombeApellido")
+    @Mapping(source = "cliente.nombreApellido", target = "clienteNombreApellido")
     @Mapping(source = "empresa.id", target = "empresaId")
     CajaDTO toDto(Caja caja);
 

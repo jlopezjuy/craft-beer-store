@@ -4,7 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
 import { IEvento } from 'app/shared/model/evento.model';
 import { EventoService } from './evento.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
@@ -14,10 +14,16 @@ import { EventoProductoService } from 'app/entities/evento-producto';
 import { ProductoService } from 'app/entities/producto';
 import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { EventoProducto, IEventoProducto } from 'app/shared/model/evento-producto.model';
+import { MatSnackBar, MatTableDataSource } from '@angular/material';
+import { Message } from 'primeng/components/common/api';
+import { MessageService } from 'primeng/components/common/messageservice';
+import { TranslateService } from '@ngx-translate/core';
+import { DATE_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-evento-update',
-    templateUrl: './evento-update.component.html'
+    templateUrl: './evento-update.component.html',
+    providers: [MessageService]
 })
 export class EventoUpdateComponent implements OnInit {
     evento: IEvento;
@@ -28,6 +34,9 @@ export class EventoUpdateComponent implements OnInit {
     productos: IProducto[];
     productosList: IProducto[];
     productoSave: Producto;
+    msgs: Message[] = [];
+    dataSource: any;
+    displayedColumns: string[] = ['descripcion', 'tipo', 'nombreComercial'];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -36,7 +45,10 @@ export class EventoUpdateComponent implements OnInit {
         protected activatedRoute: ActivatedRoute,
         protected $localStorage: LocalStorageService,
         protected eventoProductoService: EventoProductoService,
-        protected productoService: ProductoService
+        protected productoService: ProductoService,
+        private snackBar: MatSnackBar,
+        private languageService: JhiLanguageService,
+        private translateService: TranslateService
     ) {}
 
     ngOnInit() {
@@ -46,6 +58,7 @@ export class EventoUpdateComponent implements OnInit {
             this.evento = evento;
             if (this.evento.id) {
                 this.loadProductos(this.evento.id);
+                this.fechaEventoDp = moment(this.evento.fechaEvento, 'dd/MM/yyy').format();
             }
         });
         this.empresa = this.$localStorage.retrieve('empresa');
@@ -66,6 +79,7 @@ export class EventoUpdateComponent implements OnInit {
     save() {
         this.isSaving = true;
         this.evento.empresaId = this.empresa.id;
+        this.evento.fechaEvento = this.fechaEventoDp != null ? moment(this.fechaEventoDp, DATE_FORMAT) : null;
         if (this.evento.id !== undefined) {
             this.subscribeToSaveResponse(this.eventoService.update(this.evento));
         } else {
@@ -106,11 +120,28 @@ export class EventoUpdateComponent implements OnInit {
     addProducto() {
         if (this.productoSave.id) {
             this.productoService.find(this.productoSave.id).subscribe(resp => {
-                this.productosList.push(resp.body);
-                console.log(this.productosList);
+                if (this.validateProductoList(resp.body)) {
+                    this.productosList.push(resp.body);
+                    this.dataSource = new MatTableDataSource<IProducto>(this.productosList);
+                } else {
+                    this.jhiAlertService.warning('craftBeerStoreApp.evento.validate.producto');
+                    this.translateService.get('craftBeerStoreApp.evento.validate.producto').subscribe(mess => {
+                        this.openSnackBar(mess, '');
+                    });
+                }
                 this.productoSave.id = null;
             });
         }
+    }
+
+    validateProductoList(producto: IProducto) {
+        let validate = true;
+        this.productosList.forEach(prod => {
+            if (prod.id === producto.id) {
+                validate = false;
+            }
+        });
+        return validate;
     }
 
     saveEventoProducto(eventoId: number) {
@@ -134,8 +165,15 @@ export class EventoUpdateComponent implements OnInit {
                     const producto = prod.body;
                     producto.eventoId = eventoId;
                     this.productosList.push(producto);
+                    this.dataSource = new MatTableDataSource<IProducto>(this.productosList);
                 });
             });
+        });
+    }
+
+    openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 2000
         });
     }
 }

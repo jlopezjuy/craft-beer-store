@@ -9,31 +9,32 @@
             "otherEntityField": "id",
             "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "producto"
+        },
+        {
+            "relationshipName": "estilos",
+            "otherEntityName": "estilos",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreEstilo",
+            "otherEntityRelationshipName": "producto",
+            "otherEntityRelationshipNameUndefined": false
         }
     ],
     "fields": [
         {
-            "fieldName": "nombreProducto",
+            "fieldName": "descripcion",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "estilo",
+            "fieldName": "tipo",
             "fieldType": "EstiloCerveza",
             "fieldValues": "ALE,LAGER"
         },
         {
             "fieldName": "nombreComercial",
             "fieldType": "String"
-        },
-        {
-            "fieldName": "precioLitro",
-            "fieldType": "BigDecimal",
-            "fieldValidateRules": [
-                "required"
-            ]
         },
         {
             "fieldName": "tipoProducto",
@@ -44,6 +45,11 @@
             "fieldName": "imagen",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "observacion",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
         }
     ],
     "changelogDate": "20190408001803",

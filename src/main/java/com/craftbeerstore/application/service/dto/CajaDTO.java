@@ -39,7 +39,7 @@ public class CajaDTO implements Serializable {
 
     private Long clienteId;
 
-    private String clienteNombeApellido;
+    private String clienteNombreApellido;
 
     private Long empresaId;
 
@@ -123,12 +123,12 @@ public class CajaDTO implements Serializable {
         this.clienteId = clienteId;
     }
 
-    public String getClienteNombeApellido() {
-        return clienteNombeApellido;
+    public String getClienteNombreApellido() {
+        return clienteNombreApellido;
     }
 
-    public void setClienteNombeApellido(String clienteNombeApellido) {
-        this.clienteNombeApellido = clienteNombeApellido;
+    public void setClienteNombreApellido(String clienteNombreApellido) {
+        this.clienteNombreApellido = clienteNombreApellido;
     }
 
     public Long getEmpresaId() {
@@ -173,7 +173,7 @@ public class CajaDTO implements Serializable {
             ", proveedor=" + getProveedorId() +
             ", proveedor='" + getProveedorNombreProveedor() + "'" +
             ", cliente=" + getClienteId() +
-            ", cliente='" + getClienteNombeApellido() + "'" +
+            ", cliente='" + getClienteNombreApellido() + "'" +
             ", empresa=" + getEmpresaId() +
             "}";
     }

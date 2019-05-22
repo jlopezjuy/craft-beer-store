@@ -16,14 +16,16 @@
             "detail": {
                 "title": "Producto"
             },
-            "nombreProducto": "Nombre Producto",
-            "estilo": "Estilo",
+            "descripcion": "Descripción",
+            "tipo": "Tipo",
             "nombreComercial": "Nombre Comercial",
-            "precioLitro": "Precio Litro",
-            "tipoProducto": "Tipo Producto",
+            "precioLitro": "Precio por Litro",
+            "tipoProducto": "Tipo de Producto",
             "imagen": "Imagen",
+            "observacion": "Observación",
             "empresa": "Empresa",
-            "presentacion": "Presentación"
+            "presentacion": "Presentación",
+            "estilos": "Estilos"
         }
     }
 }

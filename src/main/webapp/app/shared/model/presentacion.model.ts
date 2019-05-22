@@ -17,7 +17,7 @@ export interface IPresentacion {
     fecha?: Moment;
     costoUnitario?: number;
     precioVentaUnitario?: number;
-    precioTotal?: number;
+    precioVentaTotal?: number;
     precioCostoTotal?: number;
     productoId?: number;
     /**
@@ -35,7 +35,7 @@ export class Presentacion implements IPresentacion {
         public fecha?: Moment,
         public costoUnitario?: number,
         public precioVentaUnitario?: number,
-        public precioTotal?: number,
+        public precioVentaTotal?: number,
         public precioCostoTotal?: number,
         public productoId?: number,
         /**

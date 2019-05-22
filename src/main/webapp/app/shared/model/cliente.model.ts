@@ -6,7 +6,7 @@ export const enum TipoCliente {
 
 export interface ICliente {
     id?: number;
-    nombeApellido?: string;
+    nombreApellido?: string;
     domicilio?: string;
     tipoCliente?: TipoCliente;
     telefono?: string;
@@ -17,7 +17,7 @@ export interface ICliente {
 export class Cliente implements ICliente {
     constructor(
         public id?: number,
-        public nombeApellido?: string,
+        public nombreApellido?: string,
         public domicilio?: string,
         public tipoCliente?: TipoCliente,
         public telefono?: string,

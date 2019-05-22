@@ -22,7 +22,7 @@ export interface ICaja {
     fecha?: Moment;
     proveedorNombreProveedor?: string;
     proveedorId?: number;
-    clienteNombeApellido?: string;
+    clienteNombreApellido?: string;
     clienteId?: number;
     empresaId?: number;
     /**
@@ -43,7 +43,7 @@ export class Caja implements ICaja {
         public fecha?: Moment,
         public proveedorNombreProveedor?: string,
         public proveedorId?: number,
-        public clienteNombeApellido?: string,
+        public clienteNombreApellido?: string,
         public clienteId?: number,
         public empresaId?: number,
         /**

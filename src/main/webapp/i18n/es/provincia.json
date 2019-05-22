@@ -1,0 +1,31 @@
+{
+    "craftBeerStoreApp": {
+        "Provincia": {
+            "null": "",
+            "MISIONES": "Misiones",
+            "SAN_LUIS": "San Luis",
+            "SAN_JUAN": "San Juan",
+            "ENTRE_RIOS": "Entre Ríos",
+            "SANTA_CRUZ": "Santa Cruz",
+            "RIO_NEGRO": "Río Negro",
+            "CHUBUT": "Chubut",
+            "CORDOBA": "Córdoba",
+            "MENDOZA": "Mendoza",
+            "LA_RIOJA": "La Rioja",
+            "CATAMARCA": "Catamarca",
+            "LA_PAMPA": "La Pampa",
+            "SANTIAGO_DEL_ESTERO": "Santiago del Estero",
+            "CORRIENTES": "Corrientes",
+            "SANTA_FE": "Santa Fe",
+            "TUCUMAN": "Tucumán",
+            "NEUQUEN": "Neuquén",
+            "SALTA": "Salta",
+            "CHACO": "Chaco",
+            "FORMOSA": "Formosa",
+            "JUJUY": "Jujuy",
+            "CIUDAD_AUTONOMA_DE_BUENOS_AIRES": "Ciudad Autónoma de Buenos Aires",
+            "BUENOS_AIRES": "Buenos Aires",
+            "TIERRA_DEL_FUEGO_ANTARTIDA_E_ISLAS_DEL_ATLANTICO_SUR": "Tierra del Fuego, Antártida e Islas del Atlántico Sur"
+        }
+    }
+}

@@ -25,10 +25,14 @@
                 <dd>
                     <span jhiTranslate="{{'craftBeerStoreApp.EstadoMovimiento.' + movimientos.estado}}">{{movimientos.estado}}</span>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientos.litrosTotales">Litros Totales</span></dt>
+                <dd>
+                    <span>{{movimientos.litrosTotales}}</span>
+                </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.movimientos.cliente">Cliente</span></dt>
                 <dd>
                     <div *ngIf="movimientos.clienteId">
-                        <a [routerLink]="['/cliente', movimientos.clienteId, 'view']">{{movimientos.clienteNombeApellido}}</a>
+                        <a [routerLink]="['/cliente', movimientos.clienteId, 'view']">{{movimientos.clienteNombreApellido}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.movimientos.empresa">Empresa</span></dt>
@@ -41,13 +45,13 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info">
+                    mat-raised-button class="mat-back">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/movimientos', movimientos.id, 'edit']"
-                    class="btn btn-primary">
+                    mat-raised-button class="mat-edit">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>

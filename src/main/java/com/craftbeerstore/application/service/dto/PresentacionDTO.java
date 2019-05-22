@@ -29,7 +29,7 @@ public class PresentacionDTO implements Serializable {
     private BigDecimal precioVentaUnitario;
 
     @NotNull
-    private BigDecimal precioTotal;
+    private BigDecimal precioVentaTotal;
 
     @NotNull
     private BigDecimal precioCostoTotal;
@@ -85,12 +85,12 @@ public class PresentacionDTO implements Serializable {
         this.precioVentaUnitario = precioVentaUnitario;
     }
 
-    public BigDecimal getPrecioTotal() {
-        return precioTotal;
+    public BigDecimal getPrecioVentaTotal() {
+        return precioVentaTotal;
     }
 
-    public void setPrecioTotal(BigDecimal precioTotal) {
-        this.precioTotal = precioTotal;
+    public void setPrecioVentaTotal(BigDecimal precioVentaTotal) {
+        this.precioVentaTotal = precioVentaTotal;
     }
 
     public BigDecimal getPrecioCostoTotal() {
@@ -139,7 +139,7 @@ public class PresentacionDTO implements Serializable {
             ", fecha='" + getFecha() + "'" +
             ", costoUnitario=" + getCostoUnitario() +
             ", precioVentaUnitario=" + getPrecioVentaUnitario() +
-            ", precioTotal=" + getPrecioTotal() +
+            ", precioVentaTotal=" + getPrecioVentaTotal() +
             ", precioCostoTotal=" + getPrecioCostoTotal() +
             ", producto=" + getProductoId() +
             "}";

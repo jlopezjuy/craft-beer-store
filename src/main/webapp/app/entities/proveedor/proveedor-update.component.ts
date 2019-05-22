@@ -10,6 +10,7 @@ import { ProveedorService } from './proveedor.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
+import { DATE_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-proveedor-update',
@@ -18,6 +19,8 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class ProveedorUpdateComponent implements OnInit {
     proveedor: IProveedor;
     isSaving: boolean;
+
+    phonemask = ['(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/];
 
     empresa: IEmpresa;
     fechaAltaDp: any;
@@ -35,6 +38,11 @@ export class ProveedorUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ proveedor }) => {
             this.proveedor = proveedor;
+            if (this.proveedor.id) {
+                this.fechaAltaDp = moment(this.proveedor.fechaAlta, 'dd/MM/yyy').format();
+            } else {
+                this.fechaAltaDp = moment(moment(), 'dd/MM/yyy').format();
+            }
         });
         this.empresa = this.$localStorage.retrieve('empresa');
     }
@@ -57,6 +65,7 @@ export class ProveedorUpdateComponent implements OnInit {
 
     save() {
         this.proveedor.empresaId = this.empresa.id;
+        this.proveedor.fechaAlta = this.fechaAltaDp != null ? moment(this.fechaAltaDp, DATE_FORMAT) : null;
         this.isSaving = true;
         if (this.proveedor.id !== undefined) {
             this.subscribeToSaveResponse(this.proveedorService.update(this.proveedor));

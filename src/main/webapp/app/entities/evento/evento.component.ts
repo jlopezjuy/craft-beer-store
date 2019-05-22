@@ -12,6 +12,7 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { EventoService } from './evento.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-evento',
@@ -32,6 +33,9 @@ export class EventoComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    dataSource: any;
+    displayedColumns: string[] = ['id', 'nombreEvento', 'fechaEvento', 'cantidadBarriles', 'precioPinta', 'actions'];
+    pageEvent: PageEvent;
 
     constructor(
         protected eventoService: EventoService,
@@ -170,10 +174,16 @@ export class EventoComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.eventos = data;
+        this.dataSource = new MatTableDataSource<IEvento>(this.eventos);
         this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }

@@ -1,7 +1,6 @@
 package com.craftbeerstore.application.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 import javax.persistence.Lob;
 import com.craftbeerstore.application.domain.enumeration.EstiloCerveza;
@@ -15,14 +14,11 @@ public class ProductoDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private String nombreProducto;
+    private String descripcion;
 
-    private EstiloCerveza estilo;
+    private EstiloCerveza tipo;
 
     private String nombreComercial;
-
-    @NotNull
-    private BigDecimal precioLitro;
 
     private TipoProducto tipoProducto;
 
@@ -30,8 +26,15 @@ public class ProductoDTO implements Serializable {
     private byte[] imagen;
 
     private String imagenContentType;
+    @Lob
+    private String observacion;
+
 
     private Long empresaId;
+
+    private Long estilosId;
+
+    private String estilosNombreEstilo;
 
     public Long getId() {
         return id;
@@ -41,20 +44,20 @@ public class ProductoDTO implements Serializable {
         this.id = id;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public EstiloCerveza getEstilo() {
-        return estilo;
+    public EstiloCerveza getTipo() {
+        return tipo;
     }
 
-    public void setEstilo(EstiloCerveza estilo) {
-        this.estilo = estilo;
+    public void setTipo(EstiloCerveza tipo) {
+        this.tipo = tipo;
     }
 
     public String getNombreComercial() {
@@ -63,14 +66,6 @@ public class ProductoDTO implements Serializable {
 
     public void setNombreComercial(String nombreComercial) {
         this.nombreComercial = nombreComercial;
-    }
-
-    public BigDecimal getPrecioLitro() {
-        return precioLitro;
-    }
-
-    public void setPrecioLitro(BigDecimal precioLitro) {
-        this.precioLitro = precioLitro;
     }
 
     public TipoProducto getTipoProducto() {
@@ -97,12 +92,36 @@ public class ProductoDTO implements Serializable {
         this.imagenContentType = imagenContentType;
     }
 
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
     public Long getEmpresaId() {
         return empresaId;
     }
 
     public void setEmpresaId(Long empresaId) {
         this.empresaId = empresaId;
+    }
+
+    public Long getEstilosId() {
+        return estilosId;
+    }
+
+    public void setEstilosId(Long estilosId) {
+        this.estilosId = estilosId;
+    }
+
+    public String getEstilosNombreEstilo() {
+        return estilosNombreEstilo;
+    }
+
+    public void setEstilosNombreEstilo(String estilosNombreEstilo) {
+        this.estilosNombreEstilo = estilosNombreEstilo;
     }
 
     @Override
@@ -130,13 +149,15 @@ public class ProductoDTO implements Serializable {
     public String toString() {
         return "ProductoDTO{" +
             "id=" + getId() +
-            ", nombreProducto='" + getNombreProducto() + "'" +
-            ", estilo='" + getEstilo() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
+            ", tipo='" + getTipo() + "'" +
             ", nombreComercial='" + getNombreComercial() + "'" +
-            ", precioLitro=" + getPrecioLitro() +
             ", tipoProducto='" + getTipoProducto() + "'" +
             ", imagen='" + getImagen() + "'" +
+            ", observacion='" + getObservacion() + "'" +
             ", empresa=" + getEmpresaId() +
+            ", estilos=" + getEstilosId() +
+            ", estilos='" + getEstilosNombreEstilo() + "'" +
             "}";
     }
 }

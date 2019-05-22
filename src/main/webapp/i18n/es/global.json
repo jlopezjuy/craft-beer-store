@@ -1,18 +1,21 @@
 {
     "global": {
-        "title": "CraftBeerStore",
+        "title": "Craft Beer Store",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
             "home": "Inicio",
             "dashboard": {
                 "main": "Dashboard",
-                "barchart": "BarChart",
-                "doughnutchart": "Ingresos / Egresos",
+                "barchart": "Movimiento: Ventas",
+                "doughnutchart": "Ingresos / Egresos de Caja",
                 "linechart": "LineChart",
                 "piechart": "PieChart",
                 "polarareachart": "PolarAreaChart",
                 "radarchart": "RadarChart"
             },
+            "craft-beer-store": "Craft Beer Store",
+            "manual-usuario": "Manual Usuario",
+            "resume": "Resume",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entidades",
@@ -23,11 +26,14 @@
                 "presentacion": "Presentación",
                 "cliente": "Cliente",
                 "presentacion": "Presentacion",
-                "movimientos": "Movimientos",
+                "movimientos": "Ventas",
                 "detalleMovimiento": "Detalle Movimiento",
                 "caja": "Caja",
                 "evento": "Evento",
                 "eventoProducto": "Evento Producto",
+                "estilos": "Estilos",
+                "equipamiento": "Equipamiento",
+                "puntoDeVenta": "Punto De Venta",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -152,5 +158,5 @@
         "idexists": "A new {{entityName}} cannot already have an ID",
         "idnull": "Invalid ID"
     },
-    "footer": "CraftBeerStore Derechos reservados"
+    "footer": "Craft Beer Store Derechos reservados"
 }

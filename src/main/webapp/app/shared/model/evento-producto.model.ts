@@ -1,10 +1,10 @@
 export interface IEventoProducto {
     id?: number;
-    productoNombreProducto?: string;
+    productoDescripcion?: string;
     productoId?: number;
     eventoId?: number;
 }
 
 export class EventoProducto implements IEventoProducto {
-    constructor(public id?: number, public productoNombreProducto?: string, public productoId?: number, public eventoId?: number) {}
+    constructor(public id?: number, public productoDescripcion?: string, public productoId?: number, public eventoId?: number) {}
 }

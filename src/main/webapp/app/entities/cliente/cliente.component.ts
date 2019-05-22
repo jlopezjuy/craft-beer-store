@@ -13,6 +13,7 @@ import { ClienteService } from './cliente.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-cliente',
@@ -33,6 +34,9 @@ export class ClienteComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    dataSource: any;
+    displayedColumns: string[] = ['id', 'nombreApellido', 'domicilio', 'tipoCliente', 'telefono', 'correo', 'actions'];
+    pageEvent: PageEvent;
 
     constructor(
         protected clienteService: ClienteService,
@@ -171,10 +175,21 @@ export class ClienteComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.clientes = data;
+        this.dataSource = new MatTableDataSource<ICliente>(this.clientes);
         this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
+    }
+
+    goPuntoDeVenta(cliente: ICliente) {
+        this.$localStorage.store('cliente', cliente);
+        this.router.navigate(['/punto-de-venta']);
     }
 }

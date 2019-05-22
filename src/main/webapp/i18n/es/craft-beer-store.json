@@ -1,0 +1,21 @@
+{
+    "craft-beer-store": {
+        "page": {
+            "title": "Craft Beer Store"
+        },
+        "name": "Craft Beer Store",
+        "description": "Programa para gestionar la producción de cerveza artesanal",
+        "service": {
+            "title": "Servicios",
+            "description": "¿Que ofrecemos?"
+        },
+        "portafolio": {
+            "title": "Portafolio",
+            "description": "What did we already created?"
+        },
+        "pricing": {
+            "title": "Precio",
+            "description": "Choose a payment plan that works for you"
+        }
+    }
+}

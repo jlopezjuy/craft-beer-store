@@ -5,9 +5,9 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.nombeApellido">Nombe Apellido</span></dt>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.nombreApellido">Nombre Apellido</span></dt>
                 <dd>
-                    <span>{{cliente.nombeApellido}}</span>
+                    <span>{{cliente.nombreApellido}}</span>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.cliente.domicilio">Domicilio</span></dt>
                 <dd>
@@ -35,13 +35,13 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info">
+                    mat-raised-button class="mat-back">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/cliente', cliente.id, 'edit']"
-                    class="btn btn-primary">
+                    mat-raised-button class="mat-success">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>

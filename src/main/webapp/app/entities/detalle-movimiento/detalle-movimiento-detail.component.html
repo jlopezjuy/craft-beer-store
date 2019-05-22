@@ -29,13 +29,13 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info">
+                    mat-raised-button class="mat-back">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/detalle-movimiento', detalleMovimiento.id, 'edit']"
-                    class="btn btn-primary">
+                    mat-raised-button class="mat-edit">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>

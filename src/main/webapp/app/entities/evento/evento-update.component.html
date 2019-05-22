@@ -4,122 +4,120 @@
             <h2 id="jhi-evento-heading" jhiTranslate="craftBeerStoreApp.evento.home.createOrEditLabel">Create or edit a Evento</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!evento.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="evento.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.evento.nombreEvento" for="field_nombreEvento">Nombre Evento</label>
-                    <input type="text" class="form-control" name="nombreEvento" id="field_nombreEvento"
-                        [(ngModel)]="evento.nombreEvento" required/>
-                    <div [hidden]="!(editForm.controls.nombreEvento?.dirty && editForm.controls.nombreEvento?.invalid)">
+                <mat-form-field class="example-full-width" [hidden]="!evento.id" appearance="fill">
+                    <mat-label jhiTranslate="global.field.id">ID </mat-label>
+                    <input matInput placeholder="id" id="id" name="id"
+                           [(ngModel)]="evento.id" readonly>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label jhiTranslate="craftBeerStoreApp.evento.nombreEvento" for="field_nombreEvento">Saldo Cta Cte</mat-label>
+                    <input type="text" matInput name="nombreEvento" id="field_nombreEvento"
+                           [(ngModel)]="evento.nombreEvento" required/>
+                    <mat-error [hidden]="!(editForm.controls.nombreEvento?.dirty && editForm.controls.nombreEvento?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.nombreEvento?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.nombreEvento?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.evento.fechaEvento" for="field_fechaEvento">Fecha Evento</label>
-                    <div class="input-group">
-                        <input id="field_fechaEvento" type="text" class="form-control" name="fechaEvento" ngbDatepicker  #fechaEventoDp="ngbDatepicker" [(ngModel)]="evento.fechaEvento"
-                        required/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="fechaEventoDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
-                    </div>
-                    <div [hidden]="!(editForm.controls.fechaEvento?.dirty && editForm.controls.fechaEvento?.invalid)">
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="mid-width" appearance="fill">
+                    <mat-label jhiTranslate="craftBeerStoreApp.evento.fechaEvento">Fecha Evento</mat-label>
+                    <input matInput name="fechaEvento" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fechaEventoDp" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error [hidden]="!(editForm.controls.fechaEvento?.dirty && editForm.controls.fechaEvento?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.fechaEvento?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.fechaEvento?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.evento.cantidadBarriles" for="field_cantidadBarriles">Cantidad Barriles</label>
-                    <input type="number" class="form-control" name="cantidadBarriles" id="field_cantidadBarriles"
-                        [(ngModel)]="evento.cantidadBarriles" required min="1" jhiMin="1"/>
-                    <div [hidden]="!(editForm.controls.cantidadBarriles?.dirty && editForm.controls.cantidadBarriles?.invalid)">
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="mid-width" appearance="fill">
+                    <mat-label jhiTranslate="craftBeerStoreApp.evento.cantidadBarriles" for="field_cantidadBarriles">Cantidad Barriles</mat-label>
+                    <input type="number" matInput name="cantidadBarriles" id="field_cantidadBarriles"
+                           [(ngModel)]="evento.cantidadBarriles" required min="1" jhiMin="1"/>
+                    <mat-error [hidden]="!(editForm.controls.cantidadBarriles?.dirty && editForm.controls.cantidadBarriles?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.cantidadBarriles?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.cantidadBarriles?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.cantidadBarriles?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">
+                               [hidden]="!editForm.controls.cantidadBarriles?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">
                             This field should be at least 1.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.cantidadBarriles?.errors?.number" jhiTranslate="entity.validation.number">
+                               [hidden]="!editForm.controls.cantidadBarriles?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.evento.precioPinta" for="field_precioPinta">Precio Pinta</label>
-                    <input type="number" class="form-control" name="precioPinta" id="field_precioPinta"
-                        [(ngModel)]="evento.precioPinta" required/>
-                    <div [hidden]="!(editForm.controls.precioPinta?.dirty && editForm.controls.precioPinta?.invalid)">
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="mid-width" appearance="fill">
+                    <mat-label jhiTranslate="craftBeerStoreApp.evento.precioPinta" for="field_precioPinta">Precio Pinta</mat-label>
+                    <input type="text" matInput name="precioPinta" id="field_precioPinta"
+                           [(ngModel)]="evento.precioPinta" required/>
+                    <mat-error [hidden]="!(editForm.controls.precioPinta?.dirty && editForm.controls.precioPinta?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.precioPinta?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.precioPinta?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.precioPinta?.errors?.number" jhiTranslate="entity.validation.number">
+                               [hidden]="!editForm.controls.precioPinta?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
-                    </div>
-                </div>
+                    </mat-error>
+                </mat-form-field>
 
                 <div class="form-group">
-                    <div class="container">
-                        <div class="card bg-info text-white">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label class="form-control-label"
-                                               jhiTranslate="craftBeerStoreApp.presentacion.producto"
-                                               for="field_producto">Producto</label>
-                                        <select class="form-control" id="field_producto"
-                                                name="producto" #producto [(ngModel)]="productoSave.id"
-                                                (change)="productoChange($event.target.value)">
-                                            <option [value]="null"></option>
-                                            <option [value]="productoOption.id"
-                                                    *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-success" (click)="addProducto()"> Agregar</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="container mat-elevation-z8">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title>Productos para el Evento</mat-card-title>
+                            </mat-card-header>
+
+                            <mat-card-content>
+                                <mat-form-field class="example-full-width">
+                                    <mat-label jhiTranslate="craftBeerStoreApp.presentacion.producto" for="field_producto">Producto</mat-label>
+                                    <mat-select  name="proveedor" [(ngModel)]="productoSave.id" id="field_producto">
+                                        <mat-option value="null"></mat-option>
+                                        <mat-option *ngFor="let productoOption of productos" [value]="productoOption.id">
+                                            {{productoOption.nombreComercial}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button mat-button type="button" class="btn btn-success" (click)="addProducto()"> Agregar</button>
+                            </mat-card-actions>
+                        </mat-card>
                     </div>
                 </div>
             </div>
-            <div class="table-responsive" *ngIf="productosList">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th><span jhiTranslate="craftBeerStoreApp.producto.nombreProducto">Nombre Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                        <th><span jhiTranslate="craftBeerStoreApp.producto.estilo">Estilo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                        <th><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let producto of productosList ;trackBy: trackId">
-                        <td>{{producto.nombreProducto}}</td>
-                        <td jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.estilo}}">{{producto.estilo}}</td>
-                        <td>{{producto.nombreComercial}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div *ngIf="productosList">
+                <div class="mat-elevation-z8 table-responsive">
+                    <table mat-table [dataSource]="dataSource" style="width: 100%;">
+                        <ng-container matColumnDef="descripcion">
+                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span></th>
+                            <td mat-cell *matCellDef="let producto"> {{producto.descripcion}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="tipo">
+                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</span></th>
+                            <td mat-cell *matCellDef="let producto" jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.tipo}}"> {{producto.tipo}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="nombreComercial">
+                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span></th>
+                            <td mat-cell *matCellDef="let producto"> {{producto.nombreComercial}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

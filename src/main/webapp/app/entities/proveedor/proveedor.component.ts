@@ -13,6 +13,7 @@ import { ProveedorService } from './proveedor.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-proveedor',
@@ -33,6 +34,19 @@ export class ProveedorComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    dataSource: any;
+    displayedColumns: string[] = [
+        'id',
+        'nombreProveedor',
+        'razonSocial',
+        'cuit',
+        'telefono',
+        'fechaAlta',
+        'domicilio',
+        'correo',
+        'actions'
+    ];
+    pageEvent: PageEvent;
 
     constructor(
         protected proveedorService: ProveedorService,
@@ -180,10 +194,16 @@ export class ProveedorComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.proveedors = data;
+        this.dataSource = new MatTableDataSource<IProveedor>(this.proveedors);
         this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }

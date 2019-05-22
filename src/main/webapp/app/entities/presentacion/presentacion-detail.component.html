@@ -25,9 +25,9 @@
                 <dd>
                     <span>{{presentacion.precioVentaUnitario}}</span>
                 </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.precioTotal">Precio Total</span></dt>
+                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio Venta Total</span></dt>
                 <dd>
-                    <span>{{presentacion.precioTotal}}</span>
+                    <span>{{presentacion.precioVentaTotal}}</span>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span></dt>
                 <dd>
@@ -43,13 +43,13 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info">
+                    mat-raised-button class="mat-back">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/presentacion', presentacion.id, 'edit']"
-                    class="btn btn-primary">
+                    mat-raised-button class="mat-success">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>

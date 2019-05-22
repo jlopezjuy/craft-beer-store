@@ -1,0 +1,17 @@
+{
+    "manual-usuario": {
+        "page": {
+            "title": "Manual Usuario"
+        },
+        "title": "Manual básico ",
+        "description": "Es una aplicacion para administrar nuestra cerveceria artesanal.",
+        "feature": {
+            "title": "Features",
+            "description": "¿Que es lo que ofrecemos?"
+        },
+        "portafolio": {
+            "title": "Portafolio",
+            "description": "What did we already created?"
+        }
+    }
+}

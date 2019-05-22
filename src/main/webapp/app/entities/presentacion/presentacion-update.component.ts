@@ -10,6 +10,7 @@ import { PresentacionService } from './presentacion.service';
 import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
 import { LocalStorageService } from 'ngx-webstorage';
+import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-presentacion-update',
@@ -21,7 +22,7 @@ export class PresentacionUpdateComponent implements OnInit {
 
     producto: IProducto;
     fechaDp: any;
-    fecha: string;
+    fecha: any;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -35,6 +36,9 @@ export class PresentacionUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ presentacion }) => {
             this.presentacion = presentacion;
+            if (this.presentacion.id) {
+                this.fecha = moment(this.presentacion.fecha, 'dd/MM/yyy').format();
+            }
         });
         this.producto = this.$localStorage.retrieve('producto');
     }
@@ -46,7 +50,7 @@ export class PresentacionUpdateComponent implements OnInit {
     save() {
         this.presentacion.productoId = this.producto.id;
         this.isSaving = true;
-        // this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_TIME_FORMAT) : null;
+        this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
         if (this.presentacion.id !== undefined) {
             this.subscribeToSaveResponse(this.presentacionService.update(this.presentacion));
         } else {
@@ -75,6 +79,15 @@ export class PresentacionUpdateComponent implements OnInit {
         return item.id;
     }
 
+    changeCantidad() {
+        if (this.presentacion.cantidad) {
+            this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
+        }
+        if (this.presentacion.cantidad) {
+            this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
+        }
+    }
+
     changePrecioUnitario() {
         if (this.presentacion.cantidad) {
             this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
@@ -83,7 +96,7 @@ export class PresentacionUpdateComponent implements OnInit {
 
     changePrecioVenta() {
         if (this.presentacion.cantidad) {
-            this.presentacion.precioTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
+            this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
         }
     }
 }

@@ -1,0 +1,21 @@
+{
+    "craftBeerStoreApp": {
+        "TipoEquipamiento": {
+            "null": "",
+            "MEDICION": "Medición",
+            "MOLIENDA": "Molienda",
+            "ENFIADOR": "Enfriador",
+            "FERMENTACION": "Fermentación",
+            "EMBOTELLADO": "Embotellado",
+            "CHOPERA": "Chopera",
+            "CANILLA": "Canilla",
+            "MACERACION": "Maceración",
+            "HERVIDO": "Hervido",
+            "TRASVASE": "Trasvase",
+            "EMBARRILADO": "Embarrilado",
+            "LIMPIEZA": "Limpieza",
+            "ACCESORIOS_VARIOS": "Accesorios Varios",
+            "FILTRADO": "Filtrado"
+        }
+    }
+}

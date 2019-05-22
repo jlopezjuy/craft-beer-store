@@ -38,7 +38,7 @@
                 <dt><span jhiTranslate="craftBeerStoreApp.caja.cliente">Cliente</span></dt>
                 <dd>
                     <div *ngIf="caja.clienteId">
-                        <a [routerLink]="['/cliente', caja.clienteId, 'view']">{{caja.clienteNombeApellido}}</a>
+                        <a [routerLink]="['/cliente', caja.clienteId, 'view']">{{caja.clienteNombreApellido}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.caja.empresa">Empresa</span></dt>
@@ -51,13 +51,13 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info">
+                    mat-raised-button class="mat-back">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/caja', caja.id, 'edit']"
-                    class="btn btn-primary">
+                    mat-raised-button class="mat-success">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>

@@ -72,7 +72,7 @@ class ClienteGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "nombeApellido":"SAMPLE_TEXT"
+                , "nombreApellido":"SAMPLE_TEXT"
                 , "domicilio":"SAMPLE_TEXT"
                 , "tipoCliente":"CONSUMIDOR_FINAL"
                 , "telefono":"SAMPLE_TEXT"

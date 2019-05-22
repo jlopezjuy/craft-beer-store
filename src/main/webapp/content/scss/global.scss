@@ -224,3 +224,40 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+.example-full-width {
+    width: 100%;
+}
+
+.mid-width {
+    width: 50%;
+}
+
+.mat-success {
+    background-color: #77dd77;
+    color: #fff;
+}
+.mat-edit {
+    background-color: #4ea7cb;
+    color: #fff;
+}
+.mat-prim {
+    background-color: #00aae4;
+    color: #fff;
+}
+.mat-back {
+    background-color: #646264;
+    color: #fff;
+}
+
+.mat-cancel {
+    background-color: #969496;
+    color: #fff;
+}
+
+.readonly-wrapper {
+    cursor: not-allowed;
+}
+
+.readonly-wrapper .readonly-block {
+    pointer-events: none;
+}

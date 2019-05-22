@@ -12,7 +12,7 @@ import org.mapstruct.*;
 public interface MovimientosMapper extends EntityMapper<MovimientosDTO, Movimientos> {
 
     @Mapping(source = "cliente.id", target = "clienteId")
-    @Mapping(source = "cliente.nombeApellido", target = "clienteNombeApellido")
+    @Mapping(source = "cliente.nombreApellido", target = "clienteNombreApellido")
     @Mapping(source = "empresa.id", target = "empresaId")
     @Mapping(source = "empresa.nombreEmpresa", target = "empresaNombreEmpresa")
     MovimientosDTO toDto(Movimientos movimientos);

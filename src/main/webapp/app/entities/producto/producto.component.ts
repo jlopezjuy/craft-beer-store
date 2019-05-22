@@ -13,10 +13,12 @@ import { ProductoService } from './producto.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-producto',
-    templateUrl: './producto.component.html'
+    templateUrl: './producto.component.html',
+    styleUrls: ['producto.component.scss']
 })
 export class ProductoComponent implements OnInit, OnDestroy {
     currentAccount: any;
@@ -35,6 +37,9 @@ export class ProductoComponent implements OnInit, OnDestroy {
     reverse: any;
     nombreComercial: string;
     nombreProducto: string;
+    dataSource: any;
+    displayedColumns: string[] = ['id', 'descripcion', 'tipo', 'nombreComercial', 'imagen', 'actions'];
+    pageEvent: PageEvent;
 
     constructor(
         protected productoService: ProductoService,
@@ -185,6 +190,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.productos = data;
         this.ngxLoader.stop();
+        this.dataSource = new MatTableDataSource<IProducto>(this.productos);
     }
 
     protected onError(errorMessage: string) {
@@ -194,5 +200,10 @@ export class ProductoComponent implements OnInit, OnDestroy {
     goPresentacion(producto: IProducto) {
         this.$localStorage.store('producto', producto);
         this.router.navigate(['/presentacion']);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 }

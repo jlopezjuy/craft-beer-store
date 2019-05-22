@@ -2,12 +2,12 @@
     "dashboard": {
         "barchart": {
             "home": {
-                "title": "BarChart"
+                "title": "Movimientos: Ventas"
             }
         },
         "doughnutchart": {
             "home": {
-                "title": "Ingresos / Egresos"
+                "title": "Ingresos / Egresos de Caja"
             }
         },
         "linechart": {
@@ -22,7 +22,7 @@
         },
         "polarareachart": {
             "home": {
-                "title": "PolarAreaChart"
+                "title": "Productos Vendidos"
             }
         },
         "radarchart": {

@@ -31,7 +31,6 @@ describe('Component Tests', () => {
             it('Should call update service on save for existing entity', fakeAsync(() => {
                 // GIVEN
                 const entity = new Producto(123);
-                entity.empresaId = 1;
                 spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
                 comp.producto = entity;
                 // WHEN
@@ -46,7 +45,6 @@ describe('Component Tests', () => {
             it('Should call create service on save for new entity', fakeAsync(() => {
                 // GIVEN
                 const entity = new Producto();
-                entity.empresaId = 1;
                 spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
                 comp.producto = entity;
                 // WHEN

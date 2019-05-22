@@ -61,15 +61,4 @@ public interface ProductoService {
      * @return the list of entities
      */
     Page<ProductoDTO> search(String query, Pageable pageable);
-
-    /**
-     *
-     * @param empresaId
-     * @param nombreComercial
-     * @param nombreProducto
-     * @param pageable
-     * @return
-     */
-    Page<ProductoDTO> search(Long empresaId, String nombreComercial,
-        String nombreProducto, Pageable pageable);
 }

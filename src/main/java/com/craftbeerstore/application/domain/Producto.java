@@ -10,7 +10,6 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.EstiloCerveza;
@@ -33,19 +32,15 @@ public class Producto implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "nombre_producto", nullable = false)
-    private String nombreProducto;
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "estilo")
-    private EstiloCerveza estilo;
+    @Column(name = "tipo")
+    private EstiloCerveza tipo;
 
     @Column(name = "nombre_comercial")
     private String nombreComercial;
-
-    @NotNull
-    @Column(name = "precio_litro", precision = 10, scale = 2, nullable = false)
-    private BigDecimal precioLitro;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_producto")
@@ -58,9 +53,17 @@ public class Producto implements Serializable {
     @Column(name = "imagen_content_type")
     private String imagenContentType;
 
+    @Lob
+    @Column(name = "observacion")
+    private String observacion;
+
     @ManyToOne
     @JsonIgnoreProperties("productos")
     private Empresa empresa;
+
+    @ManyToOne
+    @JsonIgnoreProperties("productos")
+    private Estilos estilos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -71,30 +74,30 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public Producto nombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public Producto descripcion(String descripcion) {
+        this.descripcion = descripcion;
         return this;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public EstiloCerveza getEstilo() {
-        return estilo;
+    public EstiloCerveza getTipo() {
+        return tipo;
     }
 
-    public Producto estilo(EstiloCerveza estilo) {
-        this.estilo = estilo;
+    public Producto tipo(EstiloCerveza tipo) {
+        this.tipo = tipo;
         return this;
     }
 
-    public void setEstilo(EstiloCerveza estilo) {
-        this.estilo = estilo;
+    public void setTipo(EstiloCerveza tipo) {
+        this.tipo = tipo;
     }
 
     public String getNombreComercial() {
@@ -108,19 +111,6 @@ public class Producto implements Serializable {
 
     public void setNombreComercial(String nombreComercial) {
         this.nombreComercial = nombreComercial;
-    }
-
-    public BigDecimal getPrecioLitro() {
-        return precioLitro;
-    }
-
-    public Producto precioLitro(BigDecimal precioLitro) {
-        this.precioLitro = precioLitro;
-        return this;
-    }
-
-    public void setPrecioLitro(BigDecimal precioLitro) {
-        this.precioLitro = precioLitro;
     }
 
     public TipoProducto getTipoProducto() {
@@ -162,6 +152,19 @@ public class Producto implements Serializable {
         this.imagenContentType = imagenContentType;
     }
 
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public Producto observacion(String observacion) {
+        this.observacion = observacion;
+        return this;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -173,6 +176,19 @@ public class Producto implements Serializable {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+
+    public Estilos getEstilos() {
+        return estilos;
+    }
+
+    public Producto estilos(Estilos estilos) {
+        this.estilos = estilos;
+        return this;
+    }
+
+    public void setEstilos(Estilos estilos) {
+        this.estilos = estilos;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -200,13 +216,13 @@ public class Producto implements Serializable {
     public String toString() {
         return "Producto{" +
             "id=" + getId() +
-            ", nombreProducto='" + getNombreProducto() + "'" +
-            ", estilo='" + getEstilo() + "'" +
+            ", descripcion='" + getDescripcion() + "'" +
+            ", tipo='" + getTipo() + "'" +
             ", nombreComercial='" + getNombreComercial() + "'" +
-            ", precioLitro=" + getPrecioLitro() +
             ", tipoProducto='" + getTipoProducto() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", imagenContentType='" + getImagenContentType() + "'" +
+            ", observacion='" + getObservacion() + "'" +
             "}";
     }
 }

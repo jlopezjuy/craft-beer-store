@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -12,17 +12,19 @@ import { ClienteService } from 'app/entities/cliente';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IPresentacion, Presentacion } from 'app/shared/model/presentacion.model';
+import { IPresentacion, Presentacion, TipoPresentacion } from 'app/shared/model/presentacion.model';
 import { ProductoService } from 'app/entities/producto';
 import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { PresentacionService } from 'app/entities/presentacion';
 import { DetalleMovimientoService } from 'app/entities/detalle-movimiento';
 import { DetalleMovimiento } from 'app/shared/model/detalle-movimiento.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { DATE_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-movimientos-update',
-    templateUrl: './movimientos-update.component.html'
+    templateUrl: './movimientos-update.component.html',
+    styleUrls: ['movimientos-update.component.scss']
 })
 export class MovimientosUpdateComponent implements OnInit {
     movimientos: IMovimientos;
@@ -57,9 +59,11 @@ export class MovimientosUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ movimientos }) => {
             this.movimientos = movimientos;
             this.movimientos.precioTotal = this.movimientos.precioTotal === undefined ? 0 : this.movimientos.precioTotal;
+            this.movimientos.litrosTotales = this.movimientos.litrosTotales === undefined ? 0 : this.movimientos.litrosTotales;
             this.isEditable = this.movimientos.id === undefined ? true : false;
             if (this.movimientos.id !== undefined) {
                 this.loadAllOnEdit();
+                this.fechaMovimientoDp = moment(this.movimientos.fechaMovimiento, 'dd/MM/yyy').format();
             }
         });
         this.empresa = this.$localStorage.retrieve('empresa');
@@ -88,6 +92,7 @@ export class MovimientosUpdateComponent implements OnInit {
     save() {
         this.movimientos.empresaId = this.empresa.id;
         this.isSaving = true;
+        this.movimientos.fechaMovimiento = this.fechaMovimientoDp != null ? moment(this.fechaMovimientoDp, DATE_FORMAT) : null;
         if (this.movimientos.id !== undefined) {
             this.subscribeToSaveResponse(this.movimientosService.update(this.movimientos));
         } else {
@@ -108,7 +113,7 @@ export class MovimientosUpdateComponent implements OnInit {
             detalle.movimientosId = movimientoId;
             detalle.presentacionId = pres.id;
             detalle.cantidad = pres.cantidad;
-            detalle.precioTotal = pres.precioTotal;
+            detalle.precioTotal = pres.precioVentaTotal;
             this.detalleMovimientoService.create(detalle).subscribe(det => {});
         });
         this.previousState();
@@ -149,6 +154,7 @@ export class MovimientosUpdateComponent implements OnInit {
     presentacionChange(value: any) {
         this.presentacionService.find(value).subscribe(response => {
             this.productoSave.precioUnitario = response.body.precioVentaUnitario;
+            this.productoSave.tipoPresentacion = response.body.tipoPresentacion;
         });
     }
 
@@ -156,15 +162,51 @@ export class MovimientosUpdateComponent implements OnInit {
         this.presentacionService.find(this.productoSave.presentacionId).subscribe(resp => {
             this.productoService.find(resp.body.productoId).subscribe(prod => {
                 const pres = resp.body;
+                console.log(pres);
                 pres.cantidad = this.productoSave.cantidadPresentacion;
                 pres.nombreComercial = prod.body.nombreComercial;
-                pres.precioTotal = pres.cantidad * pres.precioVentaUnitario;
+                pres.precioVentaTotal = pres.cantidad * pres.precioVentaUnitario;
                 pres.movimientoId = resp.body.movimientoId;
                 this.presentacions.push(pres);
-                this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioTotal;
+                this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioVentaTotal;
+                this.movimientos.litrosTotales = this.movimientos.litrosTotales + this.loadCantidadLitros(this.productoSave);
+                console.log(this.movimientos.litrosTotales);
+
                 this.clearFormProduct();
             });
         });
+    }
+
+    loadCantidadLitros(producto: IProducto) {
+        let litrosFinales;
+        console.log(producto);
+        console.log(producto.cantidadPresentacion);
+        switch (producto.tipoPresentacion) {
+            case TipoPresentacion.BOTELLA_330: {
+                litrosFinales = Number(producto.cantidadPresentacion / 3).toFixed(2);
+                break;
+            }
+            case TipoPresentacion.BOTELLA_355: {
+                litrosFinales = Number(producto.cantidadPresentacion / 3).toFixed(2);
+                break;
+            }
+            case TipoPresentacion.BOTELLA_500: {
+                const litros = parseFloat(Math.round(producto.cantidadPresentacion / 2).toFixed(2));
+                litrosFinales = litrosFinales + litros;
+                break;
+            }
+            case TipoPresentacion.BOTELLA_1000: {
+                const litros = producto.cantidadPresentacion;
+                litrosFinales = litrosFinales + litros;
+                break;
+            }
+            default: {
+                console.log('Invalid choice');
+                break;
+            }
+        }
+        console.log(+litrosFinales);
+        return +litrosFinales;
     }
 
     clearFormProduct() {
@@ -183,7 +225,7 @@ export class MovimientosUpdateComponent implements OnInit {
             detalle.body.forEach(det => {
                 const presentacion: IPresentacion = new Presentacion();
                 presentacion.cantidad = det.cantidad;
-                presentacion.precioTotal = det.precioTotal;
+                presentacion.precioVentaTotal = det.precioTotal;
                 this.presentacionService.find(det.presentacionId).subscribe(presen => {
                     presentacion.tipoPresentacion = presen.body.tipoPresentacion;
                     this.productoService.find(presen.body.productoId).subscribe(prod => {

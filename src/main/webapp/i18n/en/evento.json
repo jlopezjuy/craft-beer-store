@@ -2,7 +2,7 @@
     "craftBeerStoreApp": {
         "evento": {
             "home": {
-                "title": "Eventos",
+                "title": "Event list",
                 "createLabel": "Create a new Evento",
                 "createOrEditLabel": "Create or edit a Evento",
                 "search": "Search for Evento"
@@ -16,11 +16,14 @@
             "detail": {
                 "title": "Evento"
             },
-            "nombreEvento": "Nombre Evento",
-            "fechaEvento": "Fecha Evento",
-            "cantidadBarriles": "Cantidad Barriles",
-            "precioPinta": "Precio Pinta",
-            "empresa": "Empresa"
+            "nombreEvento": "Event name",
+            "fechaEvento": "Event Date",
+            "cantidadBarriles": "Beer barrels amount",
+            "precioPinta": "Pint Price",
+            "empresa": "Company",
+            "validate": {
+                "producto": "Product is already on the list."
+            }
         }
     }
 }
