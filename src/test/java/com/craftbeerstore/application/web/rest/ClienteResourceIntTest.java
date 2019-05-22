@@ -40,6 +40,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.craftbeerstore.application.domain.enumeration.CondicionFiscal;
+import com.craftbeerstore.application.domain.enumeration.Provincia;
 import com.craftbeerstore.application.domain.enumeration.TipoCliente;
 /**
  * Test class for the ClienteResource REST controller.
@@ -50,11 +52,20 @@ import com.craftbeerstore.application.domain.enumeration.TipoCliente;
 @SpringBootTest(classes = CraftBeerStoreApp.class)
 public class ClienteResourceIntTest {
 
-    private static final String DEFAULT_NOMBE_APELLIDO = "AAAAAAAAAA";
-    private static final String UPDATED_NOMBE_APELLIDO = "BBBBBBBBBB";
+    private static final String DEFAULT_NOMBRE_APELLIDO = "AAAAAAAAAA";
+    private static final String UPDATED_NOMBRE_APELLIDO = "BBBBBBBBBB";
 
     private static final String DEFAULT_DOMICILIO = "AAAAAAAAAA";
     private static final String UPDATED_DOMICILIO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_LOCALIDAD = "AAAAAAAAAA";
+    private static final String UPDATED_LOCALIDAD = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_CODIGO_POSTAL = 1L;
+    private static final Long UPDATED_CODIGO_POSTAL = 2L;
+
+    private static final Provincia DEFAULT_PROVINCIA = Provincia.MISIONES;
+    private static final Provincia UPDATED_PROVINCIA = Provincia.SAN_LUIS;
 
     private static final TipoCliente DEFAULT_TIPO_CLIENTE = TipoCliente.CONSUMIDOR_FINAL;
     private static final TipoCliente UPDATED_TIPO_CLIENTE = TipoCliente.RESPONSABLE_INSCRIPTO;
@@ -121,8 +132,11 @@ public class ClienteResourceIntTest {
      */
     public static Cliente createEntity(EntityManager em) {
         Cliente cliente = new Cliente()
-            .nombreApellido(DEFAULT_NOMBE_APELLIDO)
+            .nombreApellido(DEFAULT_NOMBRE_APELLIDO)
             .domicilio(DEFAULT_DOMICILIO)
+            .localidad(DEFAULT_LOCALIDAD)
+            .codigoPostal(DEFAULT_CODIGO_POSTAL)
+            .provincia(DEFAULT_PROVINCIA)
             .tipoCliente(DEFAULT_TIPO_CLIENTE)
             .telefono(DEFAULT_TELEFONO)
             .correo(DEFAULT_CORREO);
@@ -150,8 +164,11 @@ public class ClienteResourceIntTest {
         List<Cliente> clienteList = clienteRepository.findAll();
         assertThat(clienteList).hasSize(databaseSizeBeforeCreate + 1);
         Cliente testCliente = clienteList.get(clienteList.size() - 1);
-        assertThat(testCliente.getNombreApellido()).isEqualTo(DEFAULT_NOMBE_APELLIDO);
+        assertThat(testCliente.getNombreApellido()).isEqualTo(DEFAULT_NOMBRE_APELLIDO);
         assertThat(testCliente.getDomicilio()).isEqualTo(DEFAULT_DOMICILIO);
+        assertThat(testCliente.getLocalidad()).isEqualTo(DEFAULT_LOCALIDAD);
+        assertThat(testCliente.getCodigoPostal()).isEqualTo(DEFAULT_CODIGO_POSTAL);
+        assertThat(testCliente.getProvincia()).isEqualTo(DEFAULT_PROVINCIA);
         assertThat(testCliente.getTipoCliente()).isEqualTo(DEFAULT_TIPO_CLIENTE);
         assertThat(testCliente.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
         assertThat(testCliente.getCorreo()).isEqualTo(DEFAULT_CORREO);
@@ -251,8 +268,11 @@ public class ClienteResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cliente.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombreApellido").value(hasItem(DEFAULT_NOMBE_APELLIDO.toString())))
+            .andExpect(jsonPath("$.[*].nombreApellido").value(hasItem(DEFAULT_NOMBRE_APELLIDO.toString())))
             .andExpect(jsonPath("$.[*].domicilio").value(hasItem(DEFAULT_DOMICILIO.toString())))
+            .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD.toString())))
+            .andExpect(jsonPath("$.[*].codigoPostal").value(hasItem(DEFAULT_CODIGO_POSTAL.intValue())))
+            .andExpect(jsonPath("$.[*].provincia").value(hasItem(DEFAULT_PROVINCIA.toString())))
             .andExpect(jsonPath("$.[*].tipoCliente").value(hasItem(DEFAULT_TIPO_CLIENTE.toString())))
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())))
             .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO.toString())));
@@ -269,8 +289,11 @@ public class ClienteResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(cliente.getId().intValue()))
-            .andExpect(jsonPath("$.nombreApellido").value(DEFAULT_NOMBE_APELLIDO.toString()))
+            .andExpect(jsonPath("$.nombreApellido").value(DEFAULT_NOMBRE_APELLIDO.toString()))
             .andExpect(jsonPath("$.domicilio").value(DEFAULT_DOMICILIO.toString()))
+            .andExpect(jsonPath("$.localidad").value(DEFAULT_LOCALIDAD.toString()))
+            .andExpect(jsonPath("$.codigoPostal").value(DEFAULT_CODIGO_POSTAL.intValue()))
+            .andExpect(jsonPath("$.provincia").value(DEFAULT_PROVINCIA.toString()))
             .andExpect(jsonPath("$.tipoCliente").value(DEFAULT_TIPO_CLIENTE.toString()))
             .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO.toString()))
             .andExpect(jsonPath("$.correo").value(DEFAULT_CORREO.toString()));
@@ -297,8 +320,11 @@ public class ClienteResourceIntTest {
         // Disconnect from session so that the updates on updatedCliente are not directly saved in db
         em.detach(updatedCliente);
         updatedCliente
-            .nombreApellido(UPDATED_NOMBE_APELLIDO)
+            .nombreApellido(UPDATED_NOMBRE_APELLIDO)
             .domicilio(UPDATED_DOMICILIO)
+            .localidad(UPDATED_LOCALIDAD)
+            .codigoPostal(UPDATED_CODIGO_POSTAL)
+            .provincia(UPDATED_PROVINCIA)
             .tipoCliente(UPDATED_TIPO_CLIENTE)
             .telefono(UPDATED_TELEFONO)
             .correo(UPDATED_CORREO);
@@ -313,8 +339,11 @@ public class ClienteResourceIntTest {
         List<Cliente> clienteList = clienteRepository.findAll();
         assertThat(clienteList).hasSize(databaseSizeBeforeUpdate);
         Cliente testCliente = clienteList.get(clienteList.size() - 1);
-        assertThat(testCliente.getNombreApellido()).isEqualTo(UPDATED_NOMBE_APELLIDO);
+        assertThat(testCliente.getNombreApellido()).isEqualTo(UPDATED_NOMBRE_APELLIDO);
         assertThat(testCliente.getDomicilio()).isEqualTo(UPDATED_DOMICILIO);
+        assertThat(testCliente.getLocalidad()).isEqualTo(UPDATED_LOCALIDAD);
+        assertThat(testCliente.getCodigoPostal()).isEqualTo(UPDATED_CODIGO_POSTAL);
+        assertThat(testCliente.getProvincia()).isEqualTo(UPDATED_PROVINCIA);
         assertThat(testCliente.getTipoCliente()).isEqualTo(UPDATED_TIPO_CLIENTE);
         assertThat(testCliente.getTelefono()).isEqualTo(UPDATED_TELEFONO);
         assertThat(testCliente.getCorreo()).isEqualTo(UPDATED_CORREO);
@@ -378,8 +407,11 @@ public class ClienteResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(cliente.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombreApellido").value(hasItem(DEFAULT_NOMBE_APELLIDO)))
+            .andExpect(jsonPath("$.[*].nombreApellido").value(hasItem(DEFAULT_NOMBRE_APELLIDO)))
             .andExpect(jsonPath("$.[*].domicilio").value(hasItem(DEFAULT_DOMICILIO)))
+            .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD)))
+            .andExpect(jsonPath("$.[*].codigoPostal").value(hasItem(DEFAULT_CODIGO_POSTAL.intValue())))
+            .andExpect(jsonPath("$.[*].provincia").value(hasItem(DEFAULT_PROVINCIA.toString())))
             .andExpect(jsonPath("$.[*].tipoCliente").value(hasItem(DEFAULT_TIPO_CLIENTE.toString())))
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
             .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)));

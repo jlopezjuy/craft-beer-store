@@ -2,7 +2,7 @@
     "craftBeerStoreApp": {
         "cliente": {
             "home": {
-                "title": "Customer",
+                "title": "Customers",
                 "createLabel": "Create a new Customer",
                 "createOrEditLabel": "Create or edit a Customer",
                 "search": "Search for Customer"
@@ -18,6 +18,9 @@
             },
             "nombreApellido": "Name and Surname",
             "domicilio": "Address",
+            "localidad": "Localidad",
+            "codigoPostal": "Codigo Postal",
+            "provincia": "Provincia",
             "tipoCliente": "Customer Type",
             "telefono": "Phone number",
             "correo": "E-mail",

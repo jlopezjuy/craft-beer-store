@@ -13,6 +13,22 @@
                 <dd>
                     <span>{{cliente.domicilio}}</span>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.condicionFiscal">Condicion Fiscal</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.CondicionFiscal.' + cliente.condicionFiscal}}">{{cliente.condicionFiscal}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.localidad">Localidad</span></dt>
+                <dd>
+                    <span>{{cliente.localidad}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.codigoPostal">Codigo Postal</span></dt>
+                <dd>
+                    <span>{{cliente.codigoPostal}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.cliente.provincia">Provincia</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.Provincia.' + cliente.provincia}}">{{cliente.provincia}}</span>
+                </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente</span></dt>
                 <dd>
                     <span jhiTranslate="{{'craftBeerStoreApp.TipoCliente.' + cliente.tipoCliente}}">{{cliente.tipoCliente}}</span>
@@ -35,13 +51,13 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    mat-raised-button class="mat-back">
+                    class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/cliente', cliente.id, 'edit']"
-                    mat-raised-button class="mat-success">
+                    class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>

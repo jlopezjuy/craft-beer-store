@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { ClienteService } from 'app/entities/cliente/cliente.service';
-import { ICliente, Cliente, TipoCliente } from 'app/shared/model/cliente.model';
+import { ICliente, Cliente, CondicionFiscal, Provincia, TipoCliente } from 'app/shared/model/cliente.model';
 
 describe('Service Tests', () => {
     describe('Cliente Service', () => {
@@ -21,7 +21,17 @@ describe('Service Tests', () => {
             service = injector.get(ClienteService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Cliente(0, 'AAAAAAA', 'AAAAAAA', TipoCliente.CONSUMIDOR_FINAL, 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new Cliente(
+                0,
+                'AAAAAAA',
+                'AAAAAAA',
+                'AAAAAAA',
+                0,
+                Provincia.MISIONES,
+                TipoCliente.CONSUMIDOR_FINAL,
+                'AAAAAAA',
+                'AAAAAAA'
+            );
         });
 
         describe('Service methods', async () => {
@@ -57,6 +67,9 @@ describe('Service Tests', () => {
                     {
                         nombreApellido: 'BBBBBB',
                         domicilio: 'BBBBBB',
+                        localidad: 'BBBBBB',
+                        codigoPostal: 1,
+                        provincia: 'BBBBBB',
                         tipoCliente: 'BBBBBB',
                         telefono: 'BBBBBB',
                         correo: 'BBBBBB'
@@ -78,6 +91,9 @@ describe('Service Tests', () => {
                     {
                         nombreApellido: 'BBBBBB',
                         domicilio: 'BBBBBB',
+                        localidad: 'BBBBBB',
+                        codigoPostal: 1,
+                        provincia: 'BBBBBB',
                         tipoCliente: 'BBBBBB',
                         telefono: 'BBBBBB',
                         correo: 'BBBBBB'
