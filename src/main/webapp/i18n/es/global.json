@@ -1,8 +1,7 @@
 {
     "global": {
-        "title": "CraftBeerStore",
-        "browsehappy":
-            "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
+        "title": "Craft Beer Store",
+        "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
             "home": "Inicio",
             "dashboard": {
@@ -78,8 +77,7 @@
                 "authenticated": {
                     "prefix": "Si desea ",
                     "link": "iniciar una sesión",
-                    "suffix":
-                        ", puede intentar con las cuentas predeterminadas:<br/>- Administrator (usuario=\"admin\" y contraseña=\"admin\") <br/>- Usuario (usuario=\"user\" y contraseña=\"user\")."
+                    "suffix": ", puede intentar con las cuentas predeterminadas:<br/>- Administrator (usuario=\"admin\" y contraseña=\"admin\") <br/>- Usuario (usuario=\"user\" y contraseña=\"user\")."
                 },
                 "register": {
                     "noaccount": "¿No tienes una cuenta todavía?",
@@ -160,5 +158,5 @@
         "idexists": "A new {{entityName}} cannot already have an ID",
         "idnull": "Invalid ID"
     },
-    "footer": "CraftBeerStore Derechos reservados"
+    "footer": "Craft Beer Store Derechos reservados"
 }
