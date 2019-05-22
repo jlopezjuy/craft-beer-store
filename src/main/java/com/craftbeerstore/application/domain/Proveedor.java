@@ -13,6 +13,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.craftbeerstore.application.domain.enumeration.CondicionFiscal;
+
+import com.craftbeerstore.application.domain.enumeration.Provincia;
+
 /**
  * A Proveedor.
  */
@@ -62,7 +66,25 @@ public class Proveedor implements Serializable {
     @Column(name = "notas")
     private String notas;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "condicion_fiscal")
+    private CondicionFiscal condicionFiscal;
+
+    @Column(name = "localidad")
+    private String localidad;
+
+    @Column(name = "codigo_postal")
+    private Long codigoPostal;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "provincia")
+    private Provincia provincia;
+
+    @Column(name = "contacto")
+    private String contacto;
+
     @ManyToOne
+    @JsonIgnoreProperties("proveedors")
     private Empresa empresa;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -178,6 +200,71 @@ public class Proveedor implements Serializable {
         this.notas = notas;
     }
 
+    public CondicionFiscal getCondicionFiscal() {
+        return condicionFiscal;
+    }
+
+    public Proveedor condicionFiscal(CondicionFiscal condicionFiscal) {
+        this.condicionFiscal = condicionFiscal;
+        return this;
+    }
+
+    public void setCondicionFiscal(CondicionFiscal condicionFiscal) {
+        this.condicionFiscal = condicionFiscal;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public Proveedor localidad(String localidad) {
+        this.localidad = localidad;
+        return this;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Long getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public Proveedor codigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+        return this;
+    }
+
+    public void setCodigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public Proveedor provincia(Provincia provincia) {
+        this.provincia = provincia;
+        return this;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getContacto() {
+        return contacto;
+    }
+
+    public Proveedor contacto(String contacto) {
+        this.contacto = contacto;
+        return this;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -224,6 +311,11 @@ public class Proveedor implements Serializable {
             ", domicilio='" + getDomicilio() + "'" +
             ", email='" + getEmail() + "'" +
             ", notas='" + getNotas() + "'" +
+            ", condicionFiscal='" + getCondicionFiscal() + "'" +
+            ", localidad='" + getLocalidad() + "'" +
+            ", codigoPostal=" + getCodigoPostal() +
+            ", provincia='" + getProvincia() + "'" +
+            ", contacto='" + getContacto() + "'" +
             "}";
     }
 }

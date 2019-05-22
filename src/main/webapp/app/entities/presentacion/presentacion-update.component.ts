@@ -38,7 +38,6 @@ export class PresentacionUpdateComponent implements OnInit {
             this.presentacion = presentacion;
             if (this.presentacion.id) {
                 this.fecha = moment(this.presentacion.fecha, 'dd/MM/yyy').format();
-                console.log(this.fecha);
             }
         });
         this.producto = this.$localStorage.retrieve('producto');
@@ -81,7 +80,6 @@ export class PresentacionUpdateComponent implements OnInit {
     }
 
     changeCantidad() {
-        console.log(this.presentacion.cantidad);
         if (this.presentacion.cantidad) {
             this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
         }

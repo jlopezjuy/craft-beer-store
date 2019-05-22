@@ -91,7 +91,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
                 );
             return;
         }
-        console.log(this.page);
         this.presentacionService
             .queryByProducto(
                 {
@@ -108,9 +107,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     }
 
     loadPage(page: number) {
-        console.log(page);
-        console.log(page);
-        console.log(this.previousPage);
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();

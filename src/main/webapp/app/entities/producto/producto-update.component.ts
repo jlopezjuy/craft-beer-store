@@ -126,7 +126,6 @@ export class ProductoUpdateComponent implements OnInit {
     }
 
     private filter(value: string): IEstilos[] {
-        console.log(value);
         const filterValue = value.toLowerCase();
         const estilo = this.estilos.filter(option => {
             const selec = option.nombreEstilo.toLowerCase().includes(filterValue);

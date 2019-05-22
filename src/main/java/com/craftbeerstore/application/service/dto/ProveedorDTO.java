@@ -4,6 +4,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Lob;
+import com.craftbeerstore.application.domain.enumeration.CondicionFiscal;
+import com.craftbeerstore.application.domain.enumeration.Provincia;
 
 /**
  * A DTO for the Proveedor entity.
@@ -37,6 +39,16 @@ public class ProveedorDTO implements Serializable {
 
     @Lob
     private String notas;
+
+    private CondicionFiscal condicionFiscal;
+
+    private String localidad;
+
+    private Long codigoPostal;
+
+    private Provincia provincia;
+
+    private String contacto;
 
 
     private Long empresaId;
@@ -113,6 +125,46 @@ public class ProveedorDTO implements Serializable {
         this.notas = notas;
     }
 
+    public CondicionFiscal getCondicionFiscal() {
+        return condicionFiscal;
+    }
+
+    public void setCondicionFiscal(CondicionFiscal condicionFiscal) {
+        this.condicionFiscal = condicionFiscal;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Long getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
     public Long getEmpresaId() {
         return empresaId;
     }
@@ -154,6 +206,11 @@ public class ProveedorDTO implements Serializable {
             ", domicilio='" + getDomicilio() + "'" +
             ", email='" + getEmail() + "'" +
             ", notas='" + getNotas() + "'" +
+            ", condicionFiscal='" + getCondicionFiscal() + "'" +
+            ", localidad='" + getLocalidad() + "'" +
+            ", codigoPostal=" + getCodigoPostal() +
+            ", provincia='" + getProvincia() + "'" +
+            ", contacto='" + getContacto() + "'" +
             ", empresa=" + getEmpresaId() +
             "}";
     }

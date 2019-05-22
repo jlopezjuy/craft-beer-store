@@ -14,11 +14,9 @@ export class MovimientoProductosSemanaComponent implements OnInit {
     constructor(protected movimientosService: MovimientosService) {}
 
     ngOnInit() {
-        console.log(this.empresa);
         const label = [];
         const cantidades = [];
         this.movimientosService.queryProductoBySemanaEmpresa(this.empresa.id).subscribe(resp => {
-            console.log(resp.body);
             resp.body.forEach(mov => {
                 label.push(mov.nombreProducto);
                 cantidades.push(mov.cantidad);

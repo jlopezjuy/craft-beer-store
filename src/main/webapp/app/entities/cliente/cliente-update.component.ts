@@ -68,7 +68,6 @@ export class ClienteUpdateComponent implements OnInit {
 
     protected onSaveSuccess(cliente: ICliente) {
         this.isSaving = false;
-        console.log(this.puntosDeVenta);
         this.puntosDeVenta.forEach(punto => {
             punto.clienteId = cliente.id;
             if (punto.id) {

@@ -32,6 +32,14 @@
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label jhiTranslate="craftBeerStoreApp.proveedor.condicionFiscal" for="field_condicionFiscal">Razon Social</mat-label>
+                    <mat-select name="condicionFiscal" [(ngModel)]="proveedor.condicionFiscal" id="field_condicionFiscal">
+                        <mat-option value="RESPONSABLE_INSCRIPTO">{{'craftBeerStoreApp.CondicionFiscal.RESPONSABLE_INSCRIPTO' | translate}}</mat-option>
+                        <mat-option value="MONOTRIBUTISTA">{{'craftBeerStoreApp.CondicionFiscal.MONOTRIBUTISTA' | translate}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.proveedor.cuit" for="field_cuit">CUIT</mat-label>
                     <input type="text" matInput name="cuit" id="field_cuit" required
                            [(ngModel)]="proveedor.cuit" />
@@ -80,6 +88,47 @@
                         </small>
                     </mat-error>
                 </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label jhiTranslate="craftBeerStoreApp.proveedor.localidad" for="field_localidad">Domicilio</mat-label>
+                    <input type="text" matInput name="localidad" id="field_localidad" required
+                           [(ngModel)]="proveedor.localidad" />
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label jhiTranslate="craftBeerStoreApp.proveedor.codigoPostal" for="field_codigoPostal">Domicilio</mat-label>
+                    <input type="text" matInput name="codigoPostal" id="field_codigoPostal" required
+                           [(ngModel)]="proveedor.codigoPostal" />
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label jhiTranslate="craftBeerStoreApp.proveedor.provincia" for="field_provincia">Razon Social</mat-label>
+                    <mat-select name="provincia" [(ngModel)]="proveedor.provincia" id="field_provincia">
+                        <mat-option value="MISIONES">{{'craftBeerStoreApp.Provincia.MISIONES' | translate}}</mat-option>
+                        <mat-option value="SAN_LUIS">{{'craftBeerStoreApp.Provincia.SAN_LUIS' | translate}}</mat-option>
+                        <mat-option value="SAN_JUAN">{{'craftBeerStoreApp.Provincia.SAN_JUAN' | translate}}</mat-option>
+                        <mat-option value="ENTRE_RIOS">{{'craftBeerStoreApp.Provincia.ENTRE_RIOS' | translate}}</mat-option>
+                        <mat-option value="SANTA_CRUZ">{{'craftBeerStoreApp.Provincia.SANTA_CRUZ' | translate}}</mat-option>
+                        <mat-option value="RIO_NEGRO">{{'craftBeerStoreApp.Provincia.RIO_NEGRO' | translate}}</mat-option>
+                        <mat-option value="CHUBUT">{{'craftBeerStoreApp.Provincia.CHUBUT' | translate}}</mat-option>
+                        <mat-option value="CORDOBA">{{'craftBeerStoreApp.Provincia.CORDOBA' | translate}}</mat-option>
+                        <mat-option value="MENDOZA">{{'craftBeerStoreApp.Provincia.MENDOZA' | translate}}</mat-option>
+                        <mat-option value="LA_RIOJA">{{'craftBeerStoreApp.Provincia.LA_RIOJA' | translate}}</mat-option>
+                        <mat-option value="CATAMARCA">{{'craftBeerStoreApp.Provincia.CATAMARCA' | translate}}</mat-option>
+                        <mat-option value="LA_PAMPA">{{'craftBeerStoreApp.Provincia.LA_PAMPA' | translate}}</mat-option>
+                        <mat-option value="SANTIAGO_DEL_ESTERO">{{'craftBeerStoreApp.Provincia.SANTIAGO_DEL_ESTERO' | translate}}</mat-option>
+                        <mat-option value="CORRIENTES">{{'craftBeerStoreApp.Provincia.CORRIENTES' | translate}}</mat-option>
+                        <mat-option value="SANTA_FE">{{'craftBeerStoreApp.Provincia.SANTA_FE' | translate}}</mat-option>
+                        <mat-option value="TUCUMAN">{{'craftBeerStoreApp.Provincia.TUCUMAN' | translate}}</mat-option>
+                        <mat-option value="NEUQUEN">{{'craftBeerStoreApp.Provincia.NEUQUEN' | translate}}</mat-option>
+                        <mat-option value="SALTA">{{'craftBeerStoreApp.Provincia.SALTA' | translate}}</mat-option>
+                        <mat-option value="CHACO">{{'craftBeerStoreApp.Provincia.CHACO' | translate}}</mat-option>
+                        <mat-option value="FORMOSA">{{'craftBeerStoreApp.Provincia.FORMOSA' | translate}}</mat-option>
+                        <mat-option value="JUJUY">{{'craftBeerStoreApp.Provincia.JUJUY' | translate}}</mat-option>
+                        <mat-option value="CIUDAD_AUTONOMA_DE_BUENOS_AIRES">{{'craftBeerStoreApp.Provincia.CIUDAD_AUTONOMA_DE_BUENOS_AIRES' | translate}}</mat-option>
+                        <mat-option value="BUENOS_AIRES">{{'craftBeerStoreApp.Provincia.BUENOS_AIRES' | translate}}</mat-option>
+                        <mat-option value="TIERRA_DEL_FUEGO_ANTARTIDA_E_ISLAS_DEL_ATLANTICO_SUR">{{'craftBeerStoreApp.Provincia.TIERRA_DEL_FUEGO_ANTARTIDA_E_ISLAS_DEL_ATLANTICO_SUR' | translate}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label jhiTranslate="craftBeerStoreApp.proveedor.email" for="field_email">Domicilio</mat-label>
                     <input type="text" matInput name="email" id="field_email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"

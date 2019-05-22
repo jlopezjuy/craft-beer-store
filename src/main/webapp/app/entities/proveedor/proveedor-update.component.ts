@@ -40,6 +40,8 @@ export class ProveedorUpdateComponent implements OnInit {
             this.proveedor = proveedor;
             if (this.proveedor.id) {
                 this.fechaAltaDp = moment(this.proveedor.fechaAlta, 'dd/MM/yyy').format();
+            } else {
+                this.fechaAltaDp = moment(moment(), 'dd/MM/yyy').format();
             }
         });
         this.empresa = this.$localStorage.retrieve('empresa');

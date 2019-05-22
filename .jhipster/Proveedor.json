@@ -6,7 +6,9 @@
             "relationshipName": "empresa",
             "otherEntityName": "empresa",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "id",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "proveedor"
         }
     ],
     "fields": [
@@ -35,10 +37,8 @@
             "fieldName": "telefono",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
-                "pattern"
-            ],
-            "fieldValidateRulesPattern": "\\(\\d{3}\\)\\d{3}-?\\d{4}"
+                "required"
+            ]
         },
         {
             "fieldName": "fechaAlta",
@@ -55,18 +55,40 @@
             ]
         },
         {
-            "fieldName": "email",
+            "fieldName": "correo",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
                 "pattern"
             ],
-            "fieldValidateRulesPattern": "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$"
+            "fieldValidateRulesPattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
         },
         {
             "fieldName": "notas",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "condicionFiscal",
+            "fieldType": "CondicionFiscal",
+            "fieldValues": "RESPONSABLE_INSCRIPTO,MONOTRIBUTISTA"
+        },
+        {
+            "fieldName": "localidad",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "codigoPostal",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "provincia",
+            "fieldType": "Provincia",
+            "fieldValues": "MISIONES,SAN_LUIS,SAN_JUAN,ENTRE_RIOS,SANTA_CRUZ,RIO_NEGRO,CHUBUT,CORDOBA,MENDOZA,LA_RIOJA,CATAMARCA,LA_PAMPA,SANTIAGO_DEL_ESTERO,CORRIENTES,SANTA_FE,TUCUMAN,NEUQUEN,SALTA,CHACO,FORMOSA,JUJUY,CIUDAD_AUTONOMA_DE_BUENOS_AIRES,BUENOS_AIRES,TIERRA_DEL_FUEGO_ANTARTIDA_E_ISLAS_DEL_ATLANTICO_SUR"
+        },
+        {
+            "fieldName": "contacto",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20190408003410",

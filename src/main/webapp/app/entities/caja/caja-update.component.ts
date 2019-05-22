@@ -49,7 +49,6 @@ export class CajaUpdateComponent implements OnInit {
             this.caja = caja;
             if (this.caja.id) {
                 this.fecha = moment(this.caja.fecha, 'dd/MM/yyy').format();
-                console.log(this.fecha);
             }
         });
         this.empresa = this.$localStorage.retrieve('empresa');

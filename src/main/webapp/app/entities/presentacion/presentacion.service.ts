@@ -48,7 +48,6 @@ export class PresentacionService {
 
     queryByProducto(req?: any, productoId?: number): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        console.log(options);
         return this.http
             .get<IPresentacion[]>(`${this.resourceUrl}/producto/${productoId}`, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));

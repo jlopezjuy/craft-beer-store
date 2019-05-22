@@ -139,7 +139,6 @@ export class MovimientosUpdateComponent implements OnInit {
     }
 
     productoChange(value: number) {
-        console.log(value);
         if (value && value.toString() !== 'null') {
             this.presentacionService.queryByProducto(null, value).subscribe(resp => {
                 this.presentacionesAdd = resp.body;

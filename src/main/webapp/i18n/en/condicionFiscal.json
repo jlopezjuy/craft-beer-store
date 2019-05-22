@@ -1,0 +1,9 @@
+{
+    "craftBeerStoreApp": {
+        "CondicionFiscal": {
+            "null": "",
+            "RESPONSABLE_INSCRIPTO": "Responsable Inscripto",
+            "MONOTRIBUTISTA": "Monotributista"
+        }
+    }
+}

@@ -7,7 +7,7 @@ import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { ProveedorService } from 'app/entities/proveedor/proveedor.service';
-import { IProveedor, Proveedor } from 'app/shared/model/proveedor.model';
+import { IProveedor, Proveedor, CondicionFiscal, Provincia } from 'app/shared/model/proveedor.model';
 
 describe('Service Tests', () => {
     describe('Proveedor Service', () => {
@@ -25,7 +25,22 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Proveedor(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', currentDate, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new Proveedor(
+                0,
+                'AAAAAAA',
+                'AAAAAAA',
+                'AAAAAAA',
+                'AAAAAAA',
+                currentDate,
+                'AAAAAAA',
+                'AAAAAAA',
+                'AAAAAAA',
+                CondicionFiscal.RESPONSABLE_INSCRIPTO,
+                'AAAAAAA',
+                0,
+                Provincia.MISIONES,
+                'AAAAAAA'
+            );
         });
 
         describe('Service methods', async () => {
@@ -77,7 +92,12 @@ describe('Service Tests', () => {
                         fechaAlta: currentDate.format(DATE_FORMAT),
                         domicilio: 'BBBBBB',
                         email: 'BBBBBB',
-                        notas: 'BBBBBB'
+                        notas: 'BBBBBB',
+                        condicionFiscal: 'BBBBBB',
+                        localidad: 'BBBBBB',
+                        codigoPostal: 1,
+                        provincia: 'BBBBBB',
+                        contacto: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -106,7 +126,12 @@ describe('Service Tests', () => {
                         fechaAlta: currentDate.format(DATE_FORMAT),
                         domicilio: 'BBBBBB',
                         email: 'BBBBBB',
-                        notas: 'BBBBBB'
+                        notas: 'BBBBBB',
+                        condicionFiscal: 'BBBBBB',
+                        localidad: 'BBBBBB',
+                        codigoPostal: 1,
+                        provincia: 'BBBBBB',
+                        contacto: 'BBBBBB'
                     },
                     elemDefault
                 );

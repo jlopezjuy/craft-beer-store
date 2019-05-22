@@ -2,7 +2,7 @@
     "craftBeerStoreApp": {
         "proveedor": {
             "home": {
-                "title": "Proveedores",
+                "title": "Proveedors",
                 "createLabel": "Crear nuevo Proveedor",
                 "createOrEditLabel": "Crear o editar Proveedor",
                 "search": "Search for Proveedor"
@@ -16,14 +16,19 @@
             "detail": {
                 "title": "Proveedor"
             },
-            "nombreProveedor": "Nombre del Proveedor",
+            "nombreProveedor": "Nombre Proveedor",
             "razonSocial": "Razon Social",
             "cuit": "Cuit",
-            "telefono": "Teléfono",
-            "fechaAlta": "Fecha de Alta",
+            "telefono": "Telefono",
+            "fechaAlta": "Fecha Alta",
             "domicilio": "Domicilio",
-            "email": "Correo",
+            "email": "Email",
             "notas": "Notas",
+            "condicionFiscal": "Condicion Fiscal",
+            "localidad": "Localidad",
+            "codigoPostal": "Codigo Postal",
+            "provincia": "Provincia",
+            "contacto": "Contacto",
             "empresa": "Empresa"
         }
     }

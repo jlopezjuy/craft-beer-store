@@ -80,6 +80,11 @@ class ProveedorGatlingTest extends Simulation {
                 , "domicilio":"SAMPLE_TEXT"
                 , "email":"SAMPLE_TEXT"
                 , "notas":null
+                , "condicionFiscal":"RESPONSABLE_INSCRIPTO"
+                , "localidad":"SAMPLE_TEXT"
+                , "codigoPostal":null
+                , "provincia":"MISIONES"
+                , "contacto":"SAMPLE_TEXT"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_proveedor_url"))).exitHereIfFailed

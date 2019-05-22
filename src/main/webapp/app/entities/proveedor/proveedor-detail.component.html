@@ -37,6 +37,26 @@
                 <dd>
                     <span>{{proveedor.notas}}</span>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.condicionFiscal">Condicion Fiscal</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.CondicionFiscal.' + proveedor.condicionFiscal}}">{{proveedor.condicionFiscal}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.localidad">Localidad</span></dt>
+                <dd>
+                    <span>{{proveedor.localidad}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.codigoPostal">Codigo Postal</span></dt>
+                <dd>
+                    <span>{{proveedor.codigoPostal}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.provincia">Provincia</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.Provincia.' + proveedor.provincia}}">{{proveedor.provincia}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.contacto">Contacto</span></dt>
+                <dd>
+                    <span>{{proveedor.contacto}}</span>
+                </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.proveedor.empresa">Empresa</span></dt>
                 <dd>
                     <div *ngIf="proveedor.empresaId">
@@ -47,13 +67,13 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    mat-raised-button class="mat-back">
+                    class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/proveedor', proveedor.id, 'edit']"
-                    mat-raised-button class="mat-success">
+                    class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>
