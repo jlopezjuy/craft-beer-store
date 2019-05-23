@@ -18,11 +18,6 @@ logging:
         ROOT: DEBUG
         io.github.jhipster: DEBUG
         com.craftbeerstore.application: DEBUG
-        org:
-            springframework:
-                data:
-                    elasticsearch:
-                        core: DEBUG
 
 spring:
     profiles:
@@ -41,9 +36,9 @@ spring:
             indent-output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:mysql://localhost:3306/craftBeerStore?useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/craftBeerStore?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
         username: root
-        password: root
+        password:
         hikari:
             poolName: Hikari
             auto-commit: false
@@ -63,9 +58,6 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.BeanClassLoaderAwareJCacheRegionFactory
-            hibernate.show_sql: true
-            hibernate.use_sql_comments: true
-            hibernate.format_sql: true
     data:
         elasticsearch:
             properties:
@@ -74,23 +66,17 @@ spring:
     liquibase:
         contexts: dev
     mail:
-        host: smtp.gmail.com
-        port: 587
-        username: jlopezjuy@gmail.com  #Replace this field with your Gmail username.
-        password: mostro154122954           #Replace this field with your Gmail password.
-        protocol: smtp
-        tls: true
-        properties.mail.smtp:
-            auth: true
-            starttls.enable: true
-            ssl.trust: smtp.gmail.com
+        host: localhost
+        port: 25
+        username:
+        password:
     messages:
         cache-duration: PT1S # 1 second, see the ISO 8601 standard
     thymeleaf:
         cache: false
 
 server:
-    port: 8080
+    port: 8082
 
 # ===================================================================
 # JHipster specific properties
@@ -123,7 +109,7 @@ jhipster:
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: craftBeerStore@localhost
-        base-url: http://127.0.0.1:8080
+        base-url: http://127.0.0.1:8082
     metrics:
         logs: # Reports metrics in the logs
             enabled: false

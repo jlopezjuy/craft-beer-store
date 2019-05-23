@@ -16,16 +16,6 @@
         <!-- jhipster-needle-maven-plugin-repository -->
     </pluginRepositories>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://artifactory:8081/artifactory/libs-snapshot</url>
-        </snapshotRepository>
-        <repository>
-            <id>releases</id>
-            <url>http://artifactory:8081/artifactory/libs-release</url>
-        </repository>
-    </distributionManagement>
     <!-- jhipster-needle-distribution-management -->
 
     <properties>
@@ -365,20 +355,6 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-messaging</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
-        <dependency>
-            <groupId>net.sf.jasperreports</groupId>
-            <artifactId>jasperreports</artifactId>
-            <version>6.8.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-localconfig-connector</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-heroku-connector</artifactId>
-        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 
@@ -543,7 +519,7 @@
                               <arg>chmod +x /entrypoint.sh &amp;&amp; sync &amp;&amp; /entrypoint.sh</arg>
                           </entrypoint>
                           <ports>
-                              <port>8080</port>
+                              <port>8082</port>
                           </ports>
                           <environment>
                               <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
@@ -961,17 +937,17 @@
                                     <arguments>install</arguments>
                                 </configuration>
                             </execution>
-<!--                            <execution>-->
-<!--                                <id>webpack build test</id>-->
-<!--                                <goals>-->
-<!--                                    <goal>npm</goal>-->
-<!--                                </goals>-->
-<!--                                <phase>test</phase>-->
-<!--                                <configuration>-->
-<!--                                    <arguments>run webpack:test</arguments>-->
-<!--                                    <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>-->
-<!--                                </configuration>-->
-<!--                            </execution>-->
+                            <execution>
+                                <id>webpack build test</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>test</phase>
+                                <configuration>
+                                    <arguments>run webpack:test</arguments>
+                                    <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                                </configuration>
+                            </execution>
                             <execution>
                                 <id>webpack build prod</id>
                                 <goals>
@@ -1145,59 +1121,6 @@
                         </plugin>
                     </plugins>
                 </pluginManagement>
-            </build>
-        </profile>
-        <profile>
-            <id>heroku</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.liquibase</groupId>
-                        <artifactId>liquibase-maven-plugin</artifactId>
-                        <configuration combine.self="override">
-                            <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
-                            <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
-                            <driver></driver>
-                            <url>${env.JDBC_DATABASE_URL}</url>
-                            <defaultSchemaName></defaultSchemaName>
-                            <username>${env.JDBC_DATABASE_USERNAME}</username>
-                            <password>${env.JDBC_DATABASE_PASSWORD}</password>
-                            <referenceUrl>hibernate:spring:com.craftbeerstore.application.domain?dialect=org.hibernate.dialect.MySQL5InnoDBDialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
-                            <verbose>true</verbose>
-                            <logging>debug</logging>
-                            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-clean-plugin</artifactId>
-                        <version>${maven-clean-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>clean-artifacts</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>clean</goal>
-                                </goals>
-                                <configuration>
-                                    <excludeDefaultDirectories>true</excludeDefaultDirectories>
-                                    <filesets>
-                                        <fileset>
-                                            <directory>target</directory>
-                                            <excludes>
-                                                <exclude>*.war</exclude>
-                                            </excludes>
-                                            <followSymlinks>false</followSymlinks>
-                                        </fileset>
-                                        <fileset>
-                                            <directory>node_modules</directory>
-                                            <followSymlinks>false</followSymlinks>
-                                        </fileset>
-                                    </filesets>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
             </build>
         </profile>
         <!-- jhipster-needle-maven-add-profile -->

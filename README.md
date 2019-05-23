@@ -37,9 +37,9 @@ Service workers are commented by default, to enable them please uncomment the fo
 ```html
 <script>
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-        .register('./service-worker.js')
-        .then(function() { console.log('Service Worker Registered'); });
+        navigator.serviceWorker.register('./service-worker.js').then(function() {
+            console.log('Service Worker Registered');
+        });
     }
 </script>
 ```
@@ -98,7 +98,7 @@ To ensure everything worked, run:
 
     java -jar target/*.war
 
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
+Then navigate to [http://localhost:8082](http://localhost:8082) in your browser.
 
 Refer to [Using JHipster in production][] for more details.
 
