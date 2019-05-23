@@ -3,7 +3,6 @@ package com.craftbeerstore.application.web.rest;
 import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Empresa;
-import com.craftbeerstore.application.domain.User;
 import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.repository.search.EmpresaSearchRepository;
 import com.craftbeerstore.application.service.EmpresaService;
@@ -11,7 +10,6 @@ import com.craftbeerstore.application.service.dto.EmpresaDTO;
 import com.craftbeerstore.application.service.mapper.EmpresaMapper;
 import com.craftbeerstore.application.web.rest.errors.ExceptionTranslator;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,13 +40,14 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.craftbeerstore.application.domain.enumeration.Provincia;
 /**
  * Test class for the EmpresaResource REST controller.
  *
  * @see EmpresaResource
  */
 //@RunWith(SpringRunner.class)
-@SpringBootTest(classes = CraftBeerStoreApp.class)
+//@SpringBootTest(classes = CraftBeerStoreApp.class)
 public class EmpresaResourceIntTest {
 
 //    private static final String DEFAULT_NOMBRE_EMPRESA = "AAAAAAAAAA";
@@ -57,34 +56,20 @@ public class EmpresaResourceIntTest {
 //    private static final String DEFAULT_DIRECCION = "AAAAAAAAAA";
 //    private static final String UPDATED_DIRECCION = "BBBBBBBBBB";
 //
+//    private static final String DEFAULT_LOCALIDAD = "AAAAAAAAAA";
+//    private static final String UPDATED_LOCALIDAD = "BBBBBBBBBB";
+//
+//    private static final Long DEFAULT_CODIGO_POSTAL = 1L;
+//    private static final Long UPDATED_CODIGO_POSTAL = 2L;
+//
+//    private static final Provincia DEFAULT_PROVINCIA = Provincia.MISIONES;
+//    private static final Provincia UPDATED_PROVINCIA = Provincia.SAN_LUIS;
+//
 //    private static final String DEFAULT_TELEFONO = "AAAAAAAAAA";
 //    private static final String UPDATED_TELEFONO = "BBBBBBBBBB";
 //
 //    private static final String DEFAULT_CORREO = "QV@4D\\DLSND";
 //    private static final String UPDATED_CORREO = "4@E\\[LFZCZ";
-//
-//    private static final String DEFAULT_LOGIN = "johndoe";
-//    private static final String UPDATED_LOGIN = "jhipster";
-//
-//    private static final Long DEFAULT_ID = 1L;
-//
-//    private static final String DEFAULT_PASSWORD = "passjohndoe";
-//    private static final String UPDATED_PASSWORD = "passjhipster";
-//
-//    private static final String DEFAULT_EMAIL = "johndoe@localhost";
-//    private static final String UPDATED_EMAIL = "jhipster@localhost";
-//
-//    private static final String DEFAULT_FIRSTNAME = "john";
-//    private static final String UPDATED_FIRSTNAME = "jhipsterFirstName";
-//
-//    private static final String DEFAULT_LASTNAME = "doe";
-//    private static final String UPDATED_LASTNAME = "jhipsterLastName";
-//
-//    private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
-//    private static final String UPDATED_IMAGEURL = "http://placehold.it/40x40";
-//
-//    private static final String DEFAULT_LANGKEY = "en";
-//    private static final String UPDATED_LANGKEY = "fr";
 //
 //    @Autowired
 //    private EmpresaRepository empresaRepository;
@@ -144,34 +129,17 @@ public class EmpresaResourceIntTest {
 //        Empresa empresa = new Empresa()
 //            .nombreEmpresa(DEFAULT_NOMBRE_EMPRESA)
 //            .direccion(DEFAULT_DIRECCION)
+//            .localidad(DEFAULT_LOCALIDAD)
+//            .codigoPostal(DEFAULT_CODIGO_POSTAL)
+//            .provincia(DEFAULT_PROVINCIA)
 //            .telefono(DEFAULT_TELEFONO)
 //            .correo(DEFAULT_CORREO);
 //        return empresa;
 //    }
 //
-//    /**
-//     * Create a User.
-//     *
-//     * This is a static method, as tests for other entities might also need it,
-//     * if they test an entity which has a required relationship to the User entity.
-//     */
-//    public static User createUserEntity(EntityManager em) {
-//        User user = new User();
-//        user.setLogin(DEFAULT_LOGIN + RandomStringUtils.randomAlphabetic(5));
-//        user.setPassword(RandomStringUtils.random(60));
-//        user.setActivated(true);
-//        user.setEmail(RandomStringUtils.randomAlphabetic(5) + DEFAULT_EMAIL);
-//        user.setFirstName(DEFAULT_FIRSTNAME);
-//        user.setLastName(DEFAULT_LASTNAME);
-//        user.setImageUrl(DEFAULT_IMAGEURL);
-//        user.setLangKey(DEFAULT_LANGKEY);
-//        return user;
-//    }
-//
 //    @Before
 //    public void initTest() {
 //        empresa = createEntity(em);
-//        empresa.user(createUserEntity(em));
 //    }
 //
 //    @Test
@@ -192,6 +160,9 @@ public class EmpresaResourceIntTest {
 //        Empresa testEmpresa = empresaList.get(empresaList.size() - 1);
 //        assertThat(testEmpresa.getNombreEmpresa()).isEqualTo(DEFAULT_NOMBRE_EMPRESA);
 //        assertThat(testEmpresa.getDireccion()).isEqualTo(DEFAULT_DIRECCION);
+//        assertThat(testEmpresa.getLocalidad()).isEqualTo(DEFAULT_LOCALIDAD);
+//        assertThat(testEmpresa.getCodigoPostal()).isEqualTo(DEFAULT_CODIGO_POSTAL);
+//        assertThat(testEmpresa.getProvincia()).isEqualTo(DEFAULT_PROVINCIA);
 //        assertThat(testEmpresa.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
 //        assertThat(testEmpresa.getCorreo()).isEqualTo(DEFAULT_CORREO);
 //
@@ -273,6 +244,9 @@ public class EmpresaResourceIntTest {
 //            .andExpect(jsonPath("$.[*].id").value(hasItem(empresa.getId().intValue())))
 //            .andExpect(jsonPath("$.[*].nombreEmpresa").value(hasItem(DEFAULT_NOMBRE_EMPRESA.toString())))
 //            .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION.toString())))
+//            .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD.toString())))
+//            .andExpect(jsonPath("$.[*].codigoPostal").value(hasItem(DEFAULT_CODIGO_POSTAL.intValue())))
+//            .andExpect(jsonPath("$.[*].provincia").value(hasItem(DEFAULT_PROVINCIA.toString())))
 //            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())))
 //            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO.toString())));
 //    }
@@ -290,6 +264,9 @@ public class EmpresaResourceIntTest {
 //            .andExpect(jsonPath("$.id").value(empresa.getId().intValue()))
 //            .andExpect(jsonPath("$.nombreEmpresa").value(DEFAULT_NOMBRE_EMPRESA.toString()))
 //            .andExpect(jsonPath("$.direccion").value(DEFAULT_DIRECCION.toString()))
+//            .andExpect(jsonPath("$.localidad").value(DEFAULT_LOCALIDAD.toString()))
+//            .andExpect(jsonPath("$.codigoPostal").value(DEFAULT_CODIGO_POSTAL.intValue()))
+//            .andExpect(jsonPath("$.provincia").value(DEFAULT_PROVINCIA.toString()))
 //            .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO.toString()))
 //            .andExpect(jsonPath("$.correo").value(DEFAULT_CORREO.toString()));
 //    }
@@ -317,6 +294,9 @@ public class EmpresaResourceIntTest {
 //        updatedEmpresa
 //            .nombreEmpresa(UPDATED_NOMBRE_EMPRESA)
 //            .direccion(UPDATED_DIRECCION)
+//            .localidad(UPDATED_LOCALIDAD)
+//            .codigoPostal(UPDATED_CODIGO_POSTAL)
+//            .provincia(UPDATED_PROVINCIA)
 //            .telefono(UPDATED_TELEFONO)
 //            .correo(UPDATED_CORREO);
 //        EmpresaDTO empresaDTO = empresaMapper.toDto(updatedEmpresa);
@@ -332,6 +312,9 @@ public class EmpresaResourceIntTest {
 //        Empresa testEmpresa = empresaList.get(empresaList.size() - 1);
 //        assertThat(testEmpresa.getNombreEmpresa()).isEqualTo(UPDATED_NOMBRE_EMPRESA);
 //        assertThat(testEmpresa.getDireccion()).isEqualTo(UPDATED_DIRECCION);
+//        assertThat(testEmpresa.getLocalidad()).isEqualTo(UPDATED_LOCALIDAD);
+//        assertThat(testEmpresa.getCodigoPostal()).isEqualTo(UPDATED_CODIGO_POSTAL);
+//        assertThat(testEmpresa.getProvincia()).isEqualTo(UPDATED_PROVINCIA);
 //        assertThat(testEmpresa.getTelefono()).isEqualTo(UPDATED_TELEFONO);
 //        assertThat(testEmpresa.getCorreo()).isEqualTo(UPDATED_CORREO);
 //
@@ -396,6 +379,9 @@ public class EmpresaResourceIntTest {
 //            .andExpect(jsonPath("$.[*].id").value(hasItem(empresa.getId().intValue())))
 //            .andExpect(jsonPath("$.[*].nombreEmpresa").value(hasItem(DEFAULT_NOMBRE_EMPRESA)))
 //            .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION)))
+//            .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD)))
+//            .andExpect(jsonPath("$.[*].codigoPostal").value(hasItem(DEFAULT_CODIGO_POSTAL.intValue())))
+//            .andExpect(jsonPath("$.[*].provincia").value(hasItem(DEFAULT_PROVINCIA.toString())))
 //            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
 //            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)));
 //    }

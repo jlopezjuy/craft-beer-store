@@ -7,7 +7,7 @@
                 Movimientos</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <mat-form-field class="example-full-width" [hidden]="!movimientos.id" appearance="fill">
+                <mat-form-field class="example-full-width" [hidden]="!movimientos.id">
                     <mat-label jhiTranslate="global.field.id">ID </mat-label>
                     <input matInput placeholder="id" id="id" name="id"
                            [(ngModel)]="movimientos.id" readonly>
@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-sm-6">
-                            <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-form-field class="example-full-width">
                                 <mat-label jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento" for="field_numeroMovimiento">Saldo Cta Cte</mat-label>
                                 <input type="text" matInput name="saldoCtaCte" id="field_snumeroMovimiento" [readonly]="!isEditable"
                                        [(ngModel)]="movimientos.numeroMovimiento"/>
@@ -29,7 +29,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
-                            <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-form-field class="example-full-width">
                                 <mat-label jhiTranslate="craftBeerStoreApp.movimientos.estado">Tipo Pago</mat-label>
                                 <mat-select  name="estado" [(ngModel)]="movimientos.estado" id="field_estado" required [disabled]="!isEditable">
                                     <mat-option
@@ -55,7 +55,7 @@
                                 <mat-label jhiTranslate="craftBeerStoreApp.movimientos.cliente">Cliente</mat-label>
                                 <mat-select  name="cliente" [(ngModel)]="movimientos.clienteId" id="field_cliente" (selectionChange)="clienteChange($event.value)"
                                              required [disabled]="!isEditable">
-                                    <mat-option value="null"></mat-option>
+                                    <mat-option value=""></mat-option>
                                     <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
                                         {{clienteOption.nombreApellido}}
                                     </mat-option>
@@ -67,7 +67,7 @@
                                 <mat-label jhiTranslate="craftBeerStoreApp.movimientos.puntoDeVenta">Cliente</mat-label>
                                 <mat-select  name="puntoDeVenta" [(ngModel)]="movimientos.puntoDeVentaId" id="field_puntoDeVenta"
                                              required [disabled]="!isEditable">
-                                    <mat-option value="null"></mat-option>
+                                    <mat-option value=""></mat-option>
                                     <mat-option *ngFor="let puntoDeVentasOption of puntosDeVentas; trackBy: trackClienteById" [value]="puntoDeVentasOption.id">
                                         {{puntoDeVentasOption.nombre}}
                                     </mat-option>
@@ -77,7 +77,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-form-field class="example-full-width">
                                 <mat-label jhiTranslate="craftBeerStoreApp.movimientos.tipoMovimiento">Tipo MOvimiento</mat-label>
                                 <mat-select  name="tipoMovimiento" [(ngModel)]="movimientos.tipoMovimiento" id="field_tipoMovimiento" required [disabled]="!isEditable">
                                     <mat-option
@@ -96,9 +96,11 @@
                             </mat-form-field>
                         </div>
                         <div class="col-sm-6">
-                            <mat-form-field appearance="fill">
+                            <mat-form-field>
                                 <mat-label jhiTranslate="craftBeerStoreApp.movimientos.fechaMovimiento">Fecha Venta</mat-label>
-                                <input matInput name="fechaMovimiento" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fechaMovimientoDp" required [disabled]="!isEditable">
+                                <input matInput name="fechaMovimiento" [matDatepicker]="picker" placeholder="Choose a date"
+                                       [(ngModel)]="fechaMovimientoDp" required [disabled]="!isEditable"
+                                       [max]="maxDate">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                                 <mat-error [hidden]="!(editForm.controls.fechaMovimiento?.dirty && editForm.controls.fechaMovimiento?.invalid)">
@@ -120,7 +122,7 @@
                                             <mat-form-field class="example-full-width">
                                                 <mat-label jhiTranslate="craftBeerStoreApp.presentacion.producto">Cliente</mat-label>
                                                 <mat-select  name="producto" [(ngModel)]="productoSave.id" id="field_producto" (selectionChange)="productoChange($event.value)">
-                                                    <mat-option value="null"></mat-option>
+                                                    <mat-option value=""></mat-option>
                                                     <mat-option *ngFor="let productoOption of productos; trackBy: trackProductoById" [value]="productoOption.id">
                                                         {{productoOption.nombreComercial}}
                                                     </mat-option>
@@ -132,7 +134,7 @@
                                             <mat-form-field class="example-full-width">
                                                 <mat-label jhiTranslate="craftBeerStoreApp.producto.presentacion">Presentacion</mat-label>
                                                 <mat-select  name="presentacion" [(ngModel)]="productoSave.presentacionId" id="field_presentacion" (selectionChange)="presentacionChange($event.value)">
-                                                    <mat-option value="null"></mat-option>
+                                                    <mat-option value=""></mat-option>
                                                     <mat-option *ngFor="let presentacionOption of presentacionesAdd; trackBy: trackProductoById" [value]="presentacionOption.id">
                                                         <span
                                                             jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacionOption.tipoPresentacion}}">{{presentacionOption.tipoPresentacion}}</span>

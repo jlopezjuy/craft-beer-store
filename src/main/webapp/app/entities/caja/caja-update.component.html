@@ -77,7 +77,7 @@
                 <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.proveedor">Proveedor</mat-label>
                     <mat-select  name="proveedor" [(ngModel)]="caja.proveedorId" id="field_proveedor">
-                        <mat-option value="null"></mat-option>
+                        <mat-option value=""></mat-option>
                         <mat-option *ngFor="let proveedorOption of proveedors; trackBy: trackProveedorById" [value]="proveedorOption.id">
                             {{proveedorOption.nombreProveedor}}
                         </mat-option>
@@ -86,7 +86,7 @@
                 <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.caja.cliente">Cliente</mat-label>
                     <mat-select  name="cliente" [(ngModel)]="caja.clienteId" id="field_cliente">
-                        <mat-option value="null"></mat-option>
+                        <mat-option value=""></mat-option>
                         <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
                             {{clienteOption.nombreApellido}}
                         </mat-option>

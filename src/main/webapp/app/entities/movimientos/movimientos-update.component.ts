@@ -43,6 +43,7 @@ export class MovimientosUpdateComponent implements OnInit {
     productoSave: Producto;
     isEditable: boolean;
     puntosDeVentas: IPuntoDeVenta[];
+    maxDate = new Date();
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -145,10 +146,14 @@ export class MovimientosUpdateComponent implements OnInit {
 
     clienteChange(clienteId: number) {
         console.log(clienteId);
-        this.puntoDeVentaService.findByCliente(clienteId).subscribe(resp => {
-            console.log(resp);
-            this.puntosDeVentas = resp.body;
-        });
+        if (clienteId) {
+            this.puntoDeVentaService.findByCliente(clienteId).subscribe(resp => {
+                console.log(resp);
+                this.puntosDeVentas = resp.body;
+            });
+        } else {
+            this.puntosDeVentas = [];
+        }
     }
 
     productoChange(value: number) {

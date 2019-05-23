@@ -2,22 +2,25 @@
     "craftBeerStoreApp": {
         "empresa": {
             "home": {
-                "title": "Empresas",
-                "createLabel": "Crear nuevo Empresa",
-                "createOrEditLabel": "Crear o editar Empresa",
-                "search": "Search for Empresa"
+                "title": "Cerveceria",
+                "createLabel": "Crear nueva Cerveceria",
+                "createOrEditLabel": "Crear o editar Cerveceria",
+                "search": "Search for Cerveceria"
             },
-            "created": "Un nuevo Empresa ha sido creado con el identificador {{ param }}",
-            "updated": "Un Empresa ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Empresa ha sido eliminado con el identificador {{ param }}",
+            "created": "Un nueva Cerveceria ha sido creada con el identificador {{ param }}",
+            "updated": "Un Cerveceria ha sido actualizada con el identificador {{ param }}",
+            "deleted": "Un Cerveceria ha sido eliminada con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Empresa {{ id }}?"
+                "question": "¿Seguro que quiere eliminar la Cerveceria {{ id }}?"
             },
             "detail": {
-                "title": "Empresa"
+                "title": "Cerveceria"
             },
-            "nombreEmpresa": "Nombre de Empresa",
+            "nombreEmpresa": "Nombre de la Cerveceria",
             "direccion": "Dirección",
+            "localidad": "Localidad",
+            "codigoPostal": "Codigo Postal",
+            "provincia": "Provincia",
             "telefono": "Teléfono",
             "correo": "Correo",
             "user": "User",

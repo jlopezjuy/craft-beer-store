@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { IEmpresa, Empresa } from 'app/shared/model/empresa.model';
+import { Provincia } from 'app/shared/model/proveedor.model';
 
 describe('Service Tests', () => {
     describe('Empresa Service', () => {
@@ -21,7 +22,7 @@ describe('Service Tests', () => {
             service = injector.get(EmpresaService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Empresa(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new Empresa(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0, Provincia.MISIONES, 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -57,6 +58,9 @@ describe('Service Tests', () => {
                     {
                         nombreEmpresa: 'BBBBBB',
                         direccion: 'BBBBBB',
+                        localidad: 'BBBBBB',
+                        codigoPostal: 1,
+                        provincia: 'BBBBBB',
                         telefono: 'BBBBBB',
                         correo: 'BBBBBB'
                     },
@@ -77,6 +81,9 @@ describe('Service Tests', () => {
                     {
                         nombreEmpresa: 'BBBBBB',
                         direccion: 'BBBBBB',
+                        localidad: 'BBBBBB',
+                        codigoPostal: 1,
+                        provincia: 'BBBBBB',
                         telefono: 'BBBBBB',
                         correo: 'BBBBBB'
                     },
