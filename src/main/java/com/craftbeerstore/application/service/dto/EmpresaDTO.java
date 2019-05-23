@@ -2,6 +2,7 @@ package com.craftbeerstore.application.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import com.craftbeerstore.application.domain.enumeration.Provincia;
 
 /**
  * A DTO for the Empresa entity.
@@ -15,6 +16,12 @@ public class EmpresaDTO implements Serializable {
 
     @NotNull
     private String direccion;
+
+    private String localidad;
+
+    private Long codigoPostal;
+
+    private Provincia provincia;
 
     private String telefono;
 
@@ -48,6 +55,30 @@ public class EmpresaDTO implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Long getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
     }
 
     public String getTelefono() {
@@ -109,6 +140,9 @@ public class EmpresaDTO implements Serializable {
             "id=" + getId() +
             ", nombreEmpresa='" + getNombreEmpresa() + "'" +
             ", direccion='" + getDireccion() + "'" +
+            ", localidad='" + getLocalidad() + "'" +
+            ", codigoPostal=" + getCodigoPostal() +
+            ", provincia='" + getProvincia() + "'" +
             ", telefono='" + getTelefono() + "'" +
             ", correo='" + getCorreo() + "'" +
             ", user=" + getUserId() +

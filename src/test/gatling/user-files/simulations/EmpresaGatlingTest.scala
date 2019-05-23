@@ -74,6 +74,9 @@ class EmpresaGatlingTest extends Simulation {
                 "id":null
                 , "nombreEmpresa":"SAMPLE_TEXT"
                 , "direccion":"SAMPLE_TEXT"
+                , "localidad":"SAMPLE_TEXT"
+                , "codigoPostal":null
+                , "provincia":"MISIONES"
                 , "telefono":"SAMPLE_TEXT"
                 , "correo":"SAMPLE_TEXT"
                 }""")).asJSON

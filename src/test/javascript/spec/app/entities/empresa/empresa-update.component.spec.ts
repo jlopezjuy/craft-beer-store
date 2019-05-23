@@ -45,7 +45,6 @@ describe('Component Tests', () => {
             it('Should call create service on save for new entity', fakeAsync(() => {
                 // GIVEN
                 const entity = new Empresa();
-                entity.userId = 1;
                 spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
                 comp.empresa = entity;
                 // WHEN

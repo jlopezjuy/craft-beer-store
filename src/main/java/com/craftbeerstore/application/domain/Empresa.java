@@ -11,6 +11,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.craftbeerstore.application.domain.enumeration.Provincia;
+
 /**
  * A Empresa.
  */
@@ -33,6 +35,16 @@ public class Empresa implements Serializable {
     @NotNull
     @Column(name = "direccion", nullable = false)
     private String direccion;
+
+    @Column(name = "localidad")
+    private String localidad;
+
+    @Column(name = "codigo_postal")
+    private Long codigoPostal;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "provincia")
+    private Provincia provincia;
 
     @Column(name = "telefono")
     private String telefono;
@@ -78,6 +90,45 @@ public class Empresa implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public Empresa localidad(String localidad) {
+        this.localidad = localidad;
+        return this;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Long getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public Empresa codigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+        return this;
+    }
+
+    public void setCodigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public Empresa provincia(Provincia provincia) {
+        this.provincia = provincia;
+        return this;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
     }
 
     public String getTelefono() {
@@ -146,6 +197,9 @@ public class Empresa implements Serializable {
             "id=" + getId() +
             ", nombreEmpresa='" + getNombreEmpresa() + "'" +
             ", direccion='" + getDireccion() + "'" +
+            ", localidad='" + getLocalidad() + "'" +
+            ", codigoPostal=" + getCodigoPostal() +
+            ", provincia='" + getProvincia() + "'" +
             ", telefono='" + getTelefono() + "'" +
             ", correo='" + getCorreo() + "'" +
             "}";
