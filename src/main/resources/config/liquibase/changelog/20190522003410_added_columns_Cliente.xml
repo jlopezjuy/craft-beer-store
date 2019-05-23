@@ -17,29 +17,23 @@
     <!--
         Added the entity Proveedor.
     -->
-    <changeSet id="20190521003410-1" author="jlopez">
-        <addColumn tableName="movimientos">
-            <column name="litros_totales" type="decimal(10,2)">
+    <changeSet id="20190520003410-1" author="jlopez">
+        <addColumn tableName="cliente">
+            <column name="localidad" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
         </addColumn>
-
-    </changeSet>
-
-    <changeSet id="20190521003410-2" author="jlopez">
-        <addColumn tableName="movimientos">
-            <column name="punto_de_venta_id" type="bigint">
+        <addColumn tableName="cliente">
+            <column name="codigo_postal" type="bigint">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+        <addColumn tableName="cliente">
+            <column name="provincia" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
         </addColumn>
     </changeSet>
 
-    <changeSet id="20190522170831-1" author="jlopez">
-        <addForeignKeyConstraint baseColumnNames="punto_de_venta_id"
-            baseTableName="movimientos"
-            constraintName="fk_movimientos_punto_de_venta_id"
-            referencedColumnNames="id"
-            referencedTableName="punto_de_venta"/>
-    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

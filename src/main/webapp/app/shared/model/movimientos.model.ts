@@ -23,6 +23,7 @@ export interface IMovimientos {
     clienteId?: number;
     empresaNombreEmpresa?: string;
     empresaId?: number;
+    puntoDeVentaId?: number;
 }
 
 export class Movimientos implements IMovimientos {
@@ -37,6 +38,7 @@ export class Movimientos implements IMovimientos {
         public clienteNombreApellido?: string,
         public clienteId?: number,
         public empresaNombreEmpresa?: string,
-        public empresaId?: number
+        public empresaId?: number,
+        public puntoDeVentaId?: number
     ) {}
 }

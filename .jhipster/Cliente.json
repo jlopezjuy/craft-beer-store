@@ -25,6 +25,19 @@
             ]
         },
         {
+            "fieldName": "localidad",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "codigoPostal",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "provincia",
+            "fieldType": "Provincia",
+            "fieldValues": "MISIONES,SAN_LUIS,SAN_JUAN,ENTRE_RIOS,SANTA_CRUZ,RIO_NEGRO,CHUBUT,CORDOBA,MENDOZA,LA_RIOJA,CATAMARCA,LA_PAMPA,SANTIAGO_DEL_ESTERO,CORRIENTES,SANTA_FE,TUCUMAN,NEUQUEN,SALTA,CHACO,FORMOSA,JUJUY,CIUDAD_AUTONOMA_DE_BUENOS_AIRES,BUENOS_AIRES,TIERRA_DEL_FUEGO_ANTARTIDA_E_ISLAS_DEL_ATLANTICO_SUR"
+        },
+        {
             "fieldName": "tipoCliente",
             "fieldType": "TipoCliente",
             "fieldValues": "CONSUMIDOR_FINAL,RESPONSABLE_INSCRIPTO,OTRO",

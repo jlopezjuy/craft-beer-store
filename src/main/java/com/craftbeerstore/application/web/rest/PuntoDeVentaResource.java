@@ -123,6 +123,18 @@ public class PuntoDeVentaResource {
     }
 
     /**
+     *
+     * @param clienteId
+     * @return
+     */
+    @GetMapping("/punto-de-ventas/cliente/puntos/{clienteId}")
+    public ResponseEntity<List<PuntoDeVentaDTO>> getPuntoDeVentaByCliente(@PathVariable Long clienteId) {
+        log.debug("REST request to get PuntoDeVenta by clienteId : {}", clienteId);
+        List<PuntoDeVentaDTO> puntoDeVentaDTO = puntoDeVentaService.findOneByCliente(clienteId);
+        return ResponseEntity.ok().body(puntoDeVentaDTO);
+    }
+
+    /**
      * DELETE  /punto-de-ventas/:id : delete the "id" puntoDeVenta.
      *
      * @param id the id of the puntoDeVentaDTO to delete

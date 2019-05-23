@@ -8,17 +8,19 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Movimientos and its DTO MovimientosDTO.
  */
-@Mapper(componentModel = "spring", uses = {ClienteMapper.class, EmpresaMapper.class})
+@Mapper(componentModel = "spring", uses = {ClienteMapper.class, EmpresaMapper.class, PuntoDeVentaMapper.class})
 public interface MovimientosMapper extends EntityMapper<MovimientosDTO, Movimientos> {
 
     @Mapping(source = "cliente.id", target = "clienteId")
     @Mapping(source = "cliente.nombreApellido", target = "clienteNombreApellido")
     @Mapping(source = "empresa.id", target = "empresaId")
     @Mapping(source = "empresa.nombreEmpresa", target = "empresaNombreEmpresa")
+    @Mapping(source = "puntoDeVenta.id", target = "puntoDeVentaId")
     MovimientosDTO toDto(Movimientos movimientos);
 
     @Mapping(source = "clienteId", target = "cliente")
     @Mapping(source = "empresaId", target = "empresa")
+    @Mapping(source = "puntoDeVentaId", target = "puntoDeVenta")
     Movimientos toEntity(MovimientosDTO movimientosDTO);
 
     default Movimientos fromId(Long id) {

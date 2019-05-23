@@ -39,5 +39,6 @@
     <include file="config/liquibase/changelog/20190520033705_alter_column_entity_Producto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190521003410_added_columns_Proveedor.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190521003410_added_columns_Movimientos.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190522003410_added_columns_Cliente.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

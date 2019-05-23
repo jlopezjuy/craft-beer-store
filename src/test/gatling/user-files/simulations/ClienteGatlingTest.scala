@@ -74,6 +74,9 @@ class ClienteGatlingTest extends Simulation {
                 "id":null
                 , "nombreApellido":"SAMPLE_TEXT"
                 , "domicilio":"SAMPLE_TEXT"
+                , "localidad":"SAMPLE_TEXT"
+                , "codigoPostal":null
+                , "provincia":"MISIONES"
                 , "tipoCliente":"CONSUMIDOR_FINAL"
                 , "telefono":"SAMPLE_TEXT"
                 , "correo":"SAMPLE_TEXT"

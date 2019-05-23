@@ -8,6 +8,7 @@ import com.craftbeerstore.application.repository.PuntoDeVentaRepository;
 import com.craftbeerstore.application.repository.search.PuntoDeVentaSearchRepository;
 import com.craftbeerstore.application.service.dto.PuntoDeVentaDTO;
 import com.craftbeerstore.application.service.mapper.PuntoDeVentaMapper;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -123,5 +124,11 @@ public class PuntoDeVentaServiceImpl implements PuntoDeVentaService {
         log.debug("Request to search for a page of PuntoDeVentas for query {}", query);
         return puntoDeVentaSearchRepository.search(queryStringQuery(query), pageable)
             .map(puntoDeVentaMapper::toDto);
+    }
+
+    @Override
+    public List<PuntoDeVentaDTO> findOneByCliente(Long clienteId) {
+        Cliente cliente = this.clienteRepository.getOne(clienteId);
+        return this.puntoDeVentaMapper.toDto(this.puntoDeVentaRepository.findAllByCliente(cliente));
     }
 }

@@ -2,6 +2,8 @@ package com.craftbeerstore.application.service.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import com.craftbeerstore.application.domain.enumeration.CondicionFiscal;
+import com.craftbeerstore.application.domain.enumeration.Provincia;
 import com.craftbeerstore.application.domain.enumeration.TipoCliente;
 
 /**
@@ -17,6 +19,12 @@ public class ClienteDTO implements Serializable {
     @NotNull
     private String domicilio;
 
+    private String localidad;
+
+    private Long codigoPostal;
+
+    private Provincia provincia;
+
     @NotNull
     private TipoCliente tipoCliente;
 
@@ -24,6 +32,7 @@ public class ClienteDTO implements Serializable {
 
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     private String correo;
+
 
     private Long empresaId;
 
@@ -49,6 +58,30 @@ public class ClienteDTO implements Serializable {
 
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Long getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
     }
 
     public TipoCliente getTipoCliente() {
@@ -110,6 +143,9 @@ public class ClienteDTO implements Serializable {
             "id=" + getId() +
             ", nombreApellido='" + getNombreApellido() + "'" +
             ", domicilio='" + getDomicilio() + "'" +
+            ", localidad='" + getLocalidad() + "'" +
+            ", codigoPostal=" + getCodigoPostal() +
+            ", provincia='" + getProvincia() + "'" +
             ", tipoCliente='" + getTipoCliente() + "'" +
             ", telefono='" + getTelefono() + "'" +
             ", correo='" + getCorreo() + "'" +

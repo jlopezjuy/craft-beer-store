@@ -66,6 +66,10 @@ public class Movimientos implements Serializable {
     @JsonIgnoreProperties("movimientos")
     private Empresa empresa;
 
+    @ManyToOne
+    @JsonIgnoreProperties("movimientos")
+    private PuntoDeVenta puntoDeVenta;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -177,6 +181,19 @@ public class Movimientos implements Serializable {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+
+    public PuntoDeVenta getPuntoDeVenta() {
+        return puntoDeVenta;
+    }
+
+    public Movimientos puntoDeVenta(PuntoDeVenta puntoDeVenta) {
+        this.puntoDeVenta = puntoDeVenta;
+        return this;
+    }
+
+    public void setPuntoDeVenta(PuntoDeVenta puntoDeVenta) {
+        this.puntoDeVenta = puntoDeVenta;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

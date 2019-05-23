@@ -12,6 +12,10 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.craftbeerstore.application.domain.enumeration.CondicionFiscal;
+
+import com.craftbeerstore.application.domain.enumeration.Provincia;
+
 import com.craftbeerstore.application.domain.enumeration.TipoCliente;
 
 /**
@@ -37,6 +41,16 @@ public class Cliente implements Serializable {
     @Column(name = "domicilio", nullable = false)
     private String domicilio;
 
+    @Column(name = "localidad")
+    private String localidad;
+
+    @Column(name = "codigo_postal")
+    private Long codigoPostal;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "provincia")
+    private Provincia provincia;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_cliente", nullable = false)
@@ -50,6 +64,7 @@ public class Cliente implements Serializable {
     private String correo;
 
     @ManyToOne
+    @JsonIgnoreProperties("clientes")
     private Empresa empresa;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -85,6 +100,45 @@ public class Cliente implements Serializable {
 
     public void setDomicilio(String domicilio) {
         this.domicilio = domicilio;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public Cliente localidad(String localidad) {
+        this.localidad = localidad;
+        return this;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public Long getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public Cliente codigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+        return this;
+    }
+
+    public void setCodigoPostal(Long codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public Cliente provincia(Provincia provincia) {
+        this.provincia = provincia;
+        return this;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
     }
 
     public TipoCliente getTipoCliente() {
@@ -166,6 +220,9 @@ public class Cliente implements Serializable {
             "id=" + getId() +
             ", nombreApellido='" + getNombreApellido() + "'" +
             ", domicilio='" + getDomicilio() + "'" +
+            ", localidad='" + getLocalidad() + "'" +
+            ", codigoPostal=" + getCodigoPostal() +
+            ", provincia='" + getProvincia() + "'" +
             ", tipoCliente='" + getTipoCliente() + "'" +
             ", telefono='" + getTelefono() + "'" +
             ", correo='" + getCorreo() + "'" +

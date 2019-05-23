@@ -20,6 +20,8 @@ import { DetalleMovimientoService } from 'app/entities/detalle-movimiento';
 import { DetalleMovimiento } from 'app/shared/model/detalle-movimiento.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DATE_FORMAT } from 'app/shared';
+import { PuntoDeVentaService } from 'app/entities/punto-de-venta';
+import { IPuntoDeVenta } from 'app/shared/model/punto-de-venta.model';
 
 @Component({
     selector: 'jhi-movimientos-update',
@@ -40,6 +42,7 @@ export class MovimientosUpdateComponent implements OnInit {
     productos: IProducto[];
     productoSave: Producto;
     isEditable: boolean;
+    puntosDeVentas: IPuntoDeVenta[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -50,6 +53,7 @@ export class MovimientosUpdateComponent implements OnInit {
         protected productoService: ProductoService,
         protected presentacionService: PresentacionService,
         protected detalleMovimientoService: DetalleMovimientoService,
+        protected puntoDeVentaService: PuntoDeVentaService,
         private $localStorage: LocalStorageService,
         private ngxService: NgxUiLoaderService
     ) {}
@@ -139,6 +143,14 @@ export class MovimientosUpdateComponent implements OnInit {
         return item.id;
     }
 
+    clienteChange(clienteId: number) {
+        console.log(clienteId);
+        this.puntoDeVentaService.findByCliente(clienteId).subscribe(resp => {
+            console.log(resp);
+            this.puntosDeVentas = resp.body;
+        });
+    }
+
     productoChange(value: number) {
         if (value && value.toString() !== 'null') {
             this.presentacionService.queryByProducto(null, value).subscribe(resp => {
@@ -191,13 +203,11 @@ export class MovimientosUpdateComponent implements OnInit {
                 break;
             }
             case TipoPresentacion.BOTELLA_500: {
-                const litros = parseFloat(Math.round(producto.cantidadPresentacion / 2).toFixed(2));
-                litrosFinales = litrosFinales + litros;
+                litrosFinales = Number(producto.cantidadPresentacion / 2).toFixed(2);
                 break;
             }
             case TipoPresentacion.BOTELLA_1000: {
-                const litros = producto.cantidadPresentacion;
-                litrosFinales = litrosFinales + litros;
+                litrosFinales = producto.cantidadPresentacion;
                 break;
             }
             default: {
@@ -214,6 +224,7 @@ export class MovimientosUpdateComponent implements OnInit {
         this.productoSave.presentacionId = null;
         this.productoSave.cantidadPresentacion = 0;
         this.productoSave.precioUnitario = null;
+        this.puntosDeVentas = [];
     }
 
     saveMovimiento() {
@@ -230,6 +241,9 @@ export class MovimientosUpdateComponent implements OnInit {
                     presentacion.tipoPresentacion = presen.body.tipoPresentacion;
                     this.productoService.find(presen.body.productoId).subscribe(prod => {
                         presentacion.nombreComercial = prod.body.nombreComercial;
+                        this.puntoDeVentaService.findByCliente(this.movimientos.clienteId).subscribe(puntos => {
+                            this.puntosDeVentas = puntos.body;
+                        });
                     });
                 });
                 this.presentacions.push(presentacion);

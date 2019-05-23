@@ -47,6 +47,13 @@ export class ProveedorUpdateComponent implements OnInit {
         this.empresa = this.$localStorage.retrieve('empresa');
     }
 
+    clearFormBeforeSave() {
+        if (this.proveedor.correo.length < 1) {
+            console.log(this.proveedor.correo);
+            this.proveedor.correo = null;
+        }
+    }
+
     byteSize(field) {
         return this.dataUtils.byteSize(field);
     }
@@ -64,6 +71,7 @@ export class ProveedorUpdateComponent implements OnInit {
     }
 
     save() {
+        this.clearFormBeforeSave();
         this.proveedor.empresaId = this.empresa.id;
         this.proveedor.fechaAlta = this.fechaAltaDp != null ? moment(this.fechaAltaDp, DATE_FORMAT) : null;
         this.isSaving = true;

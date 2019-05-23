@@ -36,29 +36,24 @@ public class Proveedor implements Serializable {
     @Column(name = "nombre_proveedor", nullable = false)
     private String nombreProveedor;
 
-    @NotNull
-    @Column(name = "razon_social", nullable = false)
+    @Column(name = "razon_social")
     private String razonSocial;
 
-    @NotNull
-    @Column(name = "cuit", nullable = false)
+    @Column(name = "cuit")
     private String cuit;
 
-    @NotNull
-    @Column(name = "telefono", nullable = false)
+    @Column(name = "telefono")
     private String telefono;
 
     @NotNull
     @Column(name = "fecha_alta", nullable = false)
     private LocalDate fechaAlta;
 
-    @NotNull
-    @Column(name = "domicilio", nullable = false)
+    @Column(name = "domicilio")
     private String domicilio;
 
-    @NotNull
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-    @Column(name = "correo", nullable = false)
+    @Column(name = "correo")
     private String correo;
 
     @Lob
