@@ -31,6 +31,8 @@
         "jwtSecretKey": "ZTA1OTkxYThlZWM1YWJkY2MzNjVmMDY5NDRjYzQyMjYxZjFjYjU4NDdjZjkzNjBjM2IyZjAyMjlkOWFiYTIxOGNmOGYwYmRjYzMwZjgxMDVkMmNkNGNmNDMyNjljNTcwMWMxMDdmNjY2NjY3NjlmNTdmODI3MTU0YmRjMjkzMzY=",
         "entitySuffix": "",
         "dtoSuffix": "DTO",
-        "otherModules": []
+        "otherModules": [],
+        "herokuAppName": "craft-beer-store",
+        "herokuDeployType": "git"
     }
 }
