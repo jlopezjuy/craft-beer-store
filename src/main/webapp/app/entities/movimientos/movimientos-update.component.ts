@@ -203,13 +203,11 @@ export class MovimientosUpdateComponent implements OnInit {
                 break;
             }
             case TipoPresentacion.BOTELLA_500: {
-                const litros = parseFloat(Math.round(producto.cantidadPresentacion / 2).toFixed(2));
-                litrosFinales = litrosFinales + litros;
+                litrosFinales = Number(producto.cantidadPresentacion / 2).toFixed(2);
                 break;
             }
             case TipoPresentacion.BOTELLA_1000: {
-                const litros = producto.cantidadPresentacion;
-                litrosFinales = litrosFinales + litros;
+                litrosFinales = producto.cantidadPresentacion;
                 break;
             }
             default: {

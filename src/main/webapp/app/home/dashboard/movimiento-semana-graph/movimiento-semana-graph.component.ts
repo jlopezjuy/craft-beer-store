@@ -12,19 +12,23 @@ import { TipoMovimiento } from 'app/shared/model/movimientos.model';
 export class MovimientoSemanaGraphComponent implements OnInit {
     data: any;
     @Input() empresa: IEmpresa;
+    dias: string;
 
     constructor(private $localStorage: LocalStorageService, private movimientoService: MovimientosService) {}
 
     ngOnInit() {
+        this.dias = '7';
         this.loadGraph();
     }
 
     loadGraph() {
+        console.log(this.dias);
         const label: string[] = [];
         const ventas = [];
         const presupuesto = [];
-        this.movimientoService.queryBySemanaEmpresa(null, this.empresa.id).subscribe(resp => {
+        this.movimientoService.queryBySemanaEmpresa(this.empresa.id, this.dias).subscribe(resp => {
             resp.body.forEach(sem => {
+                console.log(sem);
                 label.push(sem.fechaMovimiento.format('DD/MM').toString());
                 if (sem.tipoMovimiento === TipoMovimiento.VENTA) {
                     ventas.push(sem.total);
@@ -38,7 +42,7 @@ export class MovimientoSemanaGraphComponent implements OnInit {
                     presupuesto.push('0');
                 }
             });
-
+            this.data = null;
             this.data = {
                 labels: label,
                 datasets: [
@@ -51,5 +55,11 @@ export class MovimientoSemanaGraphComponent implements OnInit {
                 ]
             };
         });
+    }
+
+    diasChange(dias: string) {
+        console.log(dias);
+        this.dias = dias;
+        this.loadGraph();
     }
 }

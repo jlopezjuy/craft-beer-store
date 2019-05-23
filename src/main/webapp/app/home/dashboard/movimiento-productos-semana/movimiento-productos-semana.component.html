@@ -1,5 +1,21 @@
 <mat-card>
-    <mat-card-header class="content-center">
+    <div class="row col-sm-6">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label jhiTranslate="craftBeerStoreApp.movimientos.dias">Dias</mat-label>
+            <mat-select name="dias" [(ngModel)]="dias" id="field_dias" (selectionChange)="diasChange($event.value)">
+                <mat-option
+                    value="7">7 Días
+                </mat-option>
+                <mat-option
+                    value="15">15 Días
+                </mat-option>
+                <mat-option
+                    value="30">30 Días
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-card-header class="content-center" *ngIf="data">
         <mat-card-title>
             <h5><span jhiTranslate="dashboard.polarareachart.home.title">PolarAreaChart</span></h5>
         </mat-card-title>
@@ -11,3 +27,4 @@
     </mat-card-content>
 
 </mat-card>
+

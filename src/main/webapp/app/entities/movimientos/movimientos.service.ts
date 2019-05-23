@@ -57,16 +57,16 @@ export class MovimientosService {
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    queryBySemanaEmpresa(req?: any, empresaId?: number): Observable<EntitySemanaArrayResponseType> {
-        const options = createRequestOption(req);
+    queryBySemanaEmpresa(empresaId: number, dias: string): Observable<EntitySemanaArrayResponseType> {
+        console.log(dias);
         return this.http
-            .get<IMovimientos[]>(`${this.resourceUrl}/semana/${empresaId}`, { params: options, observe: 'response' })
+            .get<IMovimientos[]>(`${this.resourceUrl}/semana/${empresaId}/${dias}`, { observe: 'response' })
             .pipe(map((res: EntitySemanaArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    queryProductoBySemanaEmpresa(empresaId?: number): Observable<EntityProductoSemanaArrayResponseType> {
+    queryProductoBySemanaEmpresa(empresaId: number, dias: string): Observable<EntityProductoSemanaArrayResponseType> {
         return this.http
-            .get<IMovimientos[]>(`${this.resourceUrl}/semana/venta/${empresaId}`, { observe: 'response' })
+            .get<IMovimientos[]>(`${this.resourceUrl}/semana/venta/${empresaId}/${dias}`, { observe: 'response' })
             .pipe(map((res: EntityProductoSemanaArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 

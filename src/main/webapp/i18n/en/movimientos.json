@@ -24,7 +24,8 @@
             "litrosTotales": "Total Litres",
             "cliente": "Client",
             "empresa": "Company",
-            "puntoDeVenta": "Punto De Venta"
+            "puntoDeVenta": "Punto De Venta",
+            "dias": "Cambiar cantidad de días"
         }
     }
 }
