@@ -78,7 +78,7 @@
                                 <mat-form-field class="example-full-width">
                                     <mat-label jhiTranslate="craftBeerStoreApp.presentacion.producto" for="field_producto">Producto</mat-label>
                                     <mat-select  name="proveedor" [(ngModel)]="productoSave.id" id="field_producto">
-                                        <mat-option value="null"></mat-option>
+                                        <mat-option value=""></mat-option>
                                         <mat-option *ngFor="let productoOption of productos" [value]="productoOption.id">
                                             {{productoOption.nombreComercial}}
                                         </mat-option>
