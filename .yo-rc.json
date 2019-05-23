@@ -5,7 +5,7 @@
         "baseName": "craftBeerStore",
         "packageName": "com.craftbeerstore.application",
         "packageFolder": "com/craftbeerstore/application",
-        "serverPort": 8080,
+        "serverPort": 8082,
         "serviceDiscoveryType": false,
         "authenticationType": "jwt",
         "uaaBaseName": "../uaa",
@@ -31,6 +31,8 @@
         "jwtSecretKey": "ZTA1OTkxYThlZWM1YWJkY2MzNjVmMDY5NDRjYzQyMjYxZjFjYjU4NDdjZjkzNjBjM2IyZjAyMjlkOWFiYTIxOGNmOGYwYmRjYzMwZjgxMDVkMmNkNGNmNDMyNjljNTcwMWMxMDdmNjY2NjY3NjlmNTdmODI3MTU0YmRjMjkzMzY=",
         "entitySuffix": "",
         "dtoSuffix": "DTO",
-        "otherModules": []
+        "otherModules": [],
+        "herokuAppName": "craft-beer-store",
+        "herokuDeployType": "git"
     }
 }
