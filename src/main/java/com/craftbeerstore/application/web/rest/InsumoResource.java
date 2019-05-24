@@ -103,8 +103,9 @@ public class InsumoResource {
      * @return
      */
     @GetMapping("/insumos/tipo/{empresaId}/{tipoInsumo}")
-    public ResponseEntity<List<InsumoDTO>> getAllInsumostIPO(Long empresaId, TipoInsumo tipoInsumo) {
-        log.debug("REST request to get a page of Insumos");
+    public ResponseEntity<List<InsumoDTO>> getAllInsumostIPO(@PathVariable Long empresaId, @PathVariable TipoInsumo tipoInsumo) {
+        log.debug("REST request to get a page of Insumos {}", empresaId);
+        log.debug("REST request to get a page of Insumos {}", tipoInsumo);
         List<InsumoDTO> page = insumoService.findAllByEmpresaAndTipo(empresaId, tipoInsumo);
         return ResponseEntity.ok().body(page);
     }

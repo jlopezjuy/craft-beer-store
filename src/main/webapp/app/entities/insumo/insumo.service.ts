@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { IInsumo } from 'app/shared/model/insumo.model';
+import { IInsumo, TipoInsumo } from 'app/shared/model/insumo.model';
 
 type EntityResponseType = HttpResponse<IInsumo>;
 type EntityArrayResponseType = HttpResponse<IInsumo[]>;
@@ -36,6 +36,10 @@ export class InsumoService {
     queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IInsumo[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' });
+    }
+
+    queryByEmpresaTipo(empresaId: number, tipoInsumo: TipoInsumo): Observable<EntityArrayResponseType> {
+        return this.http.get<IInsumo[]>(`${this.resourceUrl}/tipo/${empresaId}/${tipoInsumo}`, { observe: 'response' });
     }
 
     delete(id: number): Observable<HttpResponse<any>> {

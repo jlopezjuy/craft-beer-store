@@ -110,34 +110,66 @@
                     </div>
                 </div>
 
-<!--                <div class="form-group">-->
-<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.producto" for="field_producto">Producto</label>-->
-<!--                    <select class="form-control" id="field_producto" name="producto" [(ngModel)]="receta.productoId" >-->
-<!--                        <option [ngValue]="null"></option>-->
-<!--                        <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>-->
-<!--                    </select>-->
-<!--                </div>-->
+                <div class="row">
+                    <div class="container">
+                        <div class="mat-elevation-z8">
+                            <mat-card class="example-card">
+                                <mat-card-header>
+                                    <mat-card-title>Maltas</mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label jhiTranslate="craftBeerStoreApp.receta.maltas">Maltas</mat-label>
+                                                <mat-select  name="maltas" [(ngModel)]="receta.maltasId" id="field_maltas">
+                                                    <mat-option value=""></mat-option>
+                                                    <mat-option *ngFor="let insumoOption of maltas" [value]="insumoOption.id">
+                                                        {{insumoOption.nombreInsumo}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button type="button" mat-raised-button
+                                                    class="mat-success" (click)="addMalta()">
+                                                Agregar
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-6"></div>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+
 <!--                <div class="form-group">-->
 <!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.maltas" for="field_maltas">Maltas</label>-->
 <!--                    <select class="form-control" id="field_maltas" name="maltas" [(ngModel)]="receta.maltasId" >-->
 <!--                        <option [ngValue]="null"></option>-->
-<!--                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of insumos; trackBy: trackInsumoById">{{insumoOption.nombreInsumo}}</option>-->
+<!--                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of maltas">{{insumoOption.nombreInsumo}}</option>-->
 <!--                    </select>-->
 <!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.lupulo" for="field_lupulo">Lupulo</label>-->
-<!--                    <select class="form-control" id="field_lupulo" name="lupulo" [(ngModel)]="receta.lupuloId" >-->
-<!--                        <option [ngValue]="null"></option>-->
-<!--                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of insumos; trackBy: trackInsumoById">{{insumoOption.nombreInsumo}}</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.levadura" for="field_levadura">Levadura</label>-->
-<!--                    <select class="form-control" id="field_levadura" name="levadura" [(ngModel)]="receta.levaduraId" >-->
-<!--                        <option [ngValue]="null"></option>-->
-<!--                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of insumos; trackBy: trackInsumoById">{{insumoOption.nombreInsumo}}</option>-->
-<!--                    </select>-->
-<!--                </div>-->
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.lupulo" for="field_lupulo">Lupulo</label>
+                    <select class="form-control" id="field_lupulo" name="lupulo" [(ngModel)]="receta.lupuloId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of lupulos">{{insumoOption.nombreInsumo}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.levadura" for="field_levadura">Levadura</label>
+                    <select class="form-control" id="field_levadura" name="levadura" [(ngModel)]="receta.levaduraId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of levaduras">{{insumoOption.nombreInsumo}}</option>
+                    </select>
+                </div>
 <!--                <div class="form-group">-->
 <!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.otros" for="field_otros">Otros</label>-->
 <!--                    <select class="form-control" id="field_otros" name="otros" [(ngModel)]="receta.otrosId" >-->

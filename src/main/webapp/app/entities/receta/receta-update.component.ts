@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
 import { IReceta } from 'app/shared/model/receta.model';
@@ -12,6 +11,9 @@ import { ProductoService } from 'app/entities/producto';
 import { LocalStorageService } from 'ngx-webstorage';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DATE_FORMAT } from 'app/shared';
+import { InsumoService } from 'app/entities/insumo';
+import { IEmpresa } from 'app/shared/model/empresa.model';
+import { IInsumo, TipoInsumo } from 'app/shared/model/insumo.model';
 
 @Component({
     selector: 'jhi-receta-update',
@@ -23,12 +25,17 @@ export class RecetaUpdateComponent implements OnInit {
     fechaDp: any;
     producto: IProducto;
     maxDate = new Date();
+    empresa: IEmpresa;
+    maltas: IInsumo[];
+    lupulos: IInsumo[];
+    levaduras: IInsumo[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected recetaService: RecetaService,
         protected productoService: ProductoService,
         protected activatedRoute: ActivatedRoute,
+        protected insumoService: InsumoService,
         private $localStorage: LocalStorageService,
         private ngxLoader: NgxUiLoaderService
     ) {}
@@ -42,6 +49,17 @@ export class RecetaUpdateComponent implements OnInit {
             }
         });
         this.producto = this.$localStorage.retrieve('producto');
+        this.empresa = this.$localStorage.retrieve('empresa');
+        console.log(this.empresa);
+        this.insumoService.queryByEmpresaTipo(this.empresa.id, TipoInsumo.MALTA).subscribe(resp => {
+            this.maltas = resp.body;
+        });
+        this.insumoService.queryByEmpresaTipo(this.empresa.id, TipoInsumo.LUPULO).subscribe(resp => {
+            this.lupulos = resp.body;
+        });
+        this.insumoService.queryByEmpresaTipo(this.empresa.id, TipoInsumo.LEVADURA).subscribe(resp => {
+            this.levaduras = resp.body;
+        });
     }
 
     previousState() {
@@ -81,4 +99,6 @@ export class RecetaUpdateComponent implements OnInit {
     trackProductoById(index: number, item: IProducto) {
         return item.id;
     }
+
+    addMalta() {}
 }
