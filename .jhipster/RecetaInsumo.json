@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "insumo",
+            "otherEntityName": "insumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipName": "receta",
+            "otherEntityName": "receta",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "tipoInsumo",
+            "fieldType": "TipoInsumo",
+            "fieldValues": "MALTA,LUPULO,LEVADURA,ACIDO,SAL,CLARIFICANTE,OTROS"
+        }
+    ],
+    "changelogDate": "20190524205721",
+    "dto": "mapstruct",
+    "searchEngine": "elasticsearch",
+    "service": "serviceImpl",
+    "entityTableName": "receta_insumo",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}
