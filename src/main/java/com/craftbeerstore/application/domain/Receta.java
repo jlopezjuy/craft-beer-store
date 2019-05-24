@@ -58,15 +58,28 @@ public class Receta implements Serializable {
     @Column(name = "empaste", precision = 10, scale = 2)
     private BigDecimal empaste;
 
-    @Column(name = "temperatura_macerado", precision = 10, scale = 2)
-    private BigDecimal temperaturaMacerado;
-
     @Column(name = "fecha")
     private LocalDate fecha;
 
     @ManyToOne
     @JsonIgnoreProperties("recetas")
     private Producto producto;
+
+    @ManyToOne
+    @JsonIgnoreProperties("recetas")
+    private Insumo maltas;
+
+    @ManyToOne
+    @JsonIgnoreProperties("recetas")
+    private Insumo lupulo;
+
+    @ManyToOne
+    @JsonIgnoreProperties("recetas")
+    private Insumo levadura;
+
+    @ManyToOne
+    @JsonIgnoreProperties("recetas")
+    private Insumo otros;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -207,19 +220,6 @@ public class Receta implements Serializable {
         this.empaste = empaste;
     }
 
-    public BigDecimal getTemperaturaMacerado() {
-        return temperaturaMacerado;
-    }
-
-    public Receta temperaturaMacerado(BigDecimal temperaturaMacerado) {
-        this.temperaturaMacerado = temperaturaMacerado;
-        return this;
-    }
-
-    public void setTemperaturaMacerado(BigDecimal temperaturaMacerado) {
-        this.temperaturaMacerado = temperaturaMacerado;
-    }
-
     public LocalDate getFecha() {
         return fecha;
     }
@@ -244,6 +244,58 @@ public class Receta implements Serializable {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public Insumo getMaltas() {
+        return maltas;
+    }
+
+    public Receta maltas(Insumo insumo) {
+        this.maltas = insumo;
+        return this;
+    }
+
+    public void setMaltas(Insumo insumo) {
+        this.maltas = insumo;
+    }
+
+    public Insumo getLupulo() {
+        return lupulo;
+    }
+
+    public Receta lupulo(Insumo insumo) {
+        this.lupulo = insumo;
+        return this;
+    }
+
+    public void setLupulo(Insumo insumo) {
+        this.lupulo = insumo;
+    }
+
+    public Insumo getLevadura() {
+        return levadura;
+    }
+
+    public Receta levadura(Insumo insumo) {
+        this.levadura = insumo;
+        return this;
+    }
+
+    public void setLevadura(Insumo insumo) {
+        this.levadura = insumo;
+    }
+
+    public Insumo getOtros() {
+        return otros;
+    }
+
+    public Receta otros(Insumo insumo) {
+        this.otros = insumo;
+        return this;
+    }
+
+    public void setOtros(Insumo insumo) {
+        this.otros = insumo;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -281,7 +333,6 @@ public class Receta implements Serializable {
             ", ibu=" + getIbu() +
             ", srm=" + getSrm() +
             ", empaste=" + getEmpaste() +
-            ", temperaturaMacerado=" + getTemperaturaMacerado() +
             ", fecha='" + getFecha() + "'" +
             "}";
     }

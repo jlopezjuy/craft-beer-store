@@ -12,10 +12,17 @@ export interface IReceta {
     ibu?: number;
     srm?: number;
     empaste?: number;
-    temperaturaMacerado?: number;
     fecha?: Moment;
     productoNombreComercial?: string;
     productoId?: number;
+    maltasNombreInsumo?: string;
+    maltasId?: number;
+    lupuloNombreInsumo?: string;
+    lupuloId?: number;
+    levaduraNombreInsumo?: string;
+    levaduraId?: number;
+    otrosNombreInsumo?: string;
+    otrosId?: number;
 }
 
 export class Receta implements IReceta {
@@ -31,9 +38,16 @@ export class Receta implements IReceta {
         public ibu?: number,
         public srm?: number,
         public empaste?: number,
-        public temperaturaMacerado?: number,
         public fecha?: Moment,
         public productoNombreComercial?: string,
-        public productoId?: number
+        public productoId?: number,
+        public maltasNombreInsumo?: string,
+        public maltasId?: number,
+        public lupuloNombreInsumo?: string,
+        public lupuloId?: number,
+        public levaduraNombreInsumo?: string,
+        public levaduraId?: number,
+        public otrosNombreInsumo?: string,
+        public otrosId?: number
     ) {}
 }

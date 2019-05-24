@@ -82,9 +82,6 @@ public class RecetaResourceIntTest {
     private static final BigDecimal DEFAULT_EMPASTE = new BigDecimal(1);
     private static final BigDecimal UPDATED_EMPASTE = new BigDecimal(2);
 
-    private static final BigDecimal DEFAULT_TEMPERATURA_MACERADO = new BigDecimal(1);
-    private static final BigDecimal UPDATED_TEMPERATURA_MACERADO = new BigDecimal(2);
-
     private static final LocalDate DEFAULT_FECHA = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA = LocalDate.now(ZoneId.systemDefault());
 
@@ -154,7 +151,6 @@ public class RecetaResourceIntTest {
             .ibu(DEFAULT_IBU)
             .srm(DEFAULT_SRM)
             .empaste(DEFAULT_EMPASTE)
-            .temperaturaMacerado(DEFAULT_TEMPERATURA_MACERADO)
             .fecha(DEFAULT_FECHA);
         return receta;
     }
@@ -190,7 +186,6 @@ public class RecetaResourceIntTest {
         assertThat(testReceta.getIbu()).isEqualTo(DEFAULT_IBU);
         assertThat(testReceta.getSrm()).isEqualTo(DEFAULT_SRM);
         assertThat(testReceta.getEmpaste()).isEqualTo(DEFAULT_EMPASTE);
-        assertThat(testReceta.getTemperaturaMacerado()).isEqualTo(DEFAULT_TEMPERATURA_MACERADO);
         assertThat(testReceta.getFecha()).isEqualTo(DEFAULT_FECHA);
 
         // Validate the Receta in Elasticsearch
@@ -241,7 +236,6 @@ public class RecetaResourceIntTest {
             .andExpect(jsonPath("$.[*].ibu").value(hasItem(DEFAULT_IBU.intValue())))
             .andExpect(jsonPath("$.[*].srm").value(hasItem(DEFAULT_SRM.intValue())))
             .andExpect(jsonPath("$.[*].empaste").value(hasItem(DEFAULT_EMPASTE.intValue())))
-            .andExpect(jsonPath("$.[*].temperaturaMacerado").value(hasItem(DEFAULT_TEMPERATURA_MACERADO.intValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
     }
     
@@ -266,7 +260,6 @@ public class RecetaResourceIntTest {
             .andExpect(jsonPath("$.ibu").value(DEFAULT_IBU.intValue()))
             .andExpect(jsonPath("$.srm").value(DEFAULT_SRM.intValue()))
             .andExpect(jsonPath("$.empaste").value(DEFAULT_EMPASTE.intValue()))
-            .andExpect(jsonPath("$.temperaturaMacerado").value(DEFAULT_TEMPERATURA_MACERADO.intValue()))
             .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()));
     }
 
@@ -301,7 +294,6 @@ public class RecetaResourceIntTest {
             .ibu(UPDATED_IBU)
             .srm(UPDATED_SRM)
             .empaste(UPDATED_EMPASTE)
-            .temperaturaMacerado(UPDATED_TEMPERATURA_MACERADO)
             .fecha(UPDATED_FECHA);
         RecetaDTO recetaDTO = recetaMapper.toDto(updatedReceta);
 
@@ -324,7 +316,6 @@ public class RecetaResourceIntTest {
         assertThat(testReceta.getIbu()).isEqualTo(UPDATED_IBU);
         assertThat(testReceta.getSrm()).isEqualTo(UPDATED_SRM);
         assertThat(testReceta.getEmpaste()).isEqualTo(UPDATED_EMPASTE);
-        assertThat(testReceta.getTemperaturaMacerado()).isEqualTo(UPDATED_TEMPERATURA_MACERADO);
         assertThat(testReceta.getFecha()).isEqualTo(UPDATED_FECHA);
 
         // Validate the Receta in Elasticsearch
@@ -396,7 +387,6 @@ public class RecetaResourceIntTest {
             .andExpect(jsonPath("$.[*].ibu").value(hasItem(DEFAULT_IBU.intValue())))
             .andExpect(jsonPath("$.[*].srm").value(hasItem(DEFAULT_SRM.intValue())))
             .andExpect(jsonPath("$.[*].empaste").value(hasItem(DEFAULT_EMPASTE.intValue())))
-            .andExpect(jsonPath("$.[*].temperaturaMacerado").value(hasItem(DEFAULT_TEMPERATURA_MACERADO.intValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
     }
 

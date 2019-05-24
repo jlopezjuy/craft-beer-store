@@ -1,7 +1,9 @@
 package com.craftbeerstore.application.service;
 
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import com.craftbeerstore.application.service.dto.InsumoDTO;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -35,6 +37,14 @@ public interface InsumoService {
      * @return
      */
     Page<InsumoDTO> findAllByEmpresa(Pageable pageable, Long empresaId);
+
+    /**
+     *
+     * @param empresaId
+     * @param tipoInsumo
+     * @return
+     */
+    List<InsumoDTO> findAllByEmpresaAndTipo(Long empresaId, TipoInsumo tipoInsumo);
 
 
     /**

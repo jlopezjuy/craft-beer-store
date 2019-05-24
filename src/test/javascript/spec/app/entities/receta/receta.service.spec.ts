@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new Receta(0, 'AAAAAAA', 'AAAAAAA', 0, 0, 0, 0, 0, 0, 0, 0, 0, currentDate);
+            elemDefault = new Receta(0, 'AAAAAAA', 'AAAAAAA', 0, 0, 0, 0, 0, 0, 0, 0, currentDate);
         });
 
         describe('Service methods', async () => {
@@ -80,7 +80,6 @@ describe('Service Tests', () => {
                         ibu: 1,
                         srm: 1,
                         empaste: 1,
-                        temperaturaMacerado: 1,
                         fecha: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
@@ -113,7 +112,6 @@ describe('Service Tests', () => {
                         ibu: 1,
                         srm: 1,
                         empaste: 1,
-                        temperaturaMacerado: 1,
                         fecha: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault

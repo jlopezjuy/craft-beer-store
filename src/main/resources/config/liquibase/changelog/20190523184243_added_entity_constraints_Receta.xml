@@ -13,6 +13,5 @@
                                  constraintName="fk_receta_producto_id"
                                  referencedColumnNames="id"
                                  referencedTableName="producto"/>
-
     </changeSet>
 </databaseChangeLog>

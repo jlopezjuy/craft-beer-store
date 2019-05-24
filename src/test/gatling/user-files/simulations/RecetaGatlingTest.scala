@@ -82,7 +82,6 @@ class RecetaGatlingTest extends Simulation {
                 , "ibu":"0"
                 , "srm":"0"
                 , "empaste":"0"
-                , "temperaturaMacerado":"0"
                 , "fecha":"2020-01-01T00:00:00.000Z"
                 }""")).asJSON
             .check(status.is(201))

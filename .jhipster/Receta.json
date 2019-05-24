@@ -9,6 +9,38 @@
             "otherEntityField": "nombreComercial",
             "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "receta"
+        },
+        {
+            "relationshipName": "maltas",
+            "otherEntityName": "insumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreInsumo",
+            "otherEntityRelationshipName": "receta",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "lupulo",
+            "otherEntityName": "insumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreInsumo",
+            "otherEntityRelationshipName": "receta",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "levadura",
+            "otherEntityName": "insumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreInsumo",
+            "otherEntityRelationshipName": "receta",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "otros",
+            "otherEntityName": "insumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreInsumo",
+            "otherEntityRelationshipName": "receta",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [
@@ -50,10 +82,6 @@
         },
         {
             "fieldName": "empaste",
-            "fieldType": "BigDecimal"
-        },
-        {
-            "fieldName": "temperaturaMacerado",
             "fieldType": "BigDecimal"
         },
         {

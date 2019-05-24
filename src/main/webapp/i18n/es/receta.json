@@ -26,9 +26,12 @@
             "ibu": "Ibu",
             "srm": "Srm",
             "empaste": "Empaste",
-            "temperaturaMacerado": "Temperatura Macerado",
             "fecha": "Fecha",
-            "producto": "Producto"
+            "producto": "Producto",
+            "maltas": "Maltas",
+            "lupulo": "Lupulo",
+            "levadura": "Levadura",
+            "otros": "Otros"
         }
     }
 }

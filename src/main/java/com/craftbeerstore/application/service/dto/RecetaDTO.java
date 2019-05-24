@@ -31,14 +31,28 @@ public class RecetaDTO implements Serializable {
 
     private BigDecimal empaste;
 
-    private BigDecimal temperaturaMacerado;
-
     private LocalDate fecha;
 
 
     private Long productoId;
 
     private String productoNombreComercial;
+
+    private Long maltasId;
+
+    private String maltasNombreInsumo;
+
+    private Long lupuloId;
+
+    private String lupuloNombreInsumo;
+
+    private Long levaduraId;
+
+    private String levaduraNombreInsumo;
+
+    private Long otrosId;
+
+    private String otrosNombreInsumo;
 
     public Long getId() {
         return id;
@@ -128,14 +142,6 @@ public class RecetaDTO implements Serializable {
         this.empaste = empaste;
     }
 
-    public BigDecimal getTemperaturaMacerado() {
-        return temperaturaMacerado;
-    }
-
-    public void setTemperaturaMacerado(BigDecimal temperaturaMacerado) {
-        this.temperaturaMacerado = temperaturaMacerado;
-    }
-
     public LocalDate getFecha() {
         return fecha;
     }
@@ -158,6 +164,70 @@ public class RecetaDTO implements Serializable {
 
     public void setProductoNombreComercial(String productoNombreComercial) {
         this.productoNombreComercial = productoNombreComercial;
+    }
+
+    public Long getMaltasId() {
+        return maltasId;
+    }
+
+    public void setMaltasId(Long insumoId) {
+        this.maltasId = insumoId;
+    }
+
+    public String getMaltasNombreInsumo() {
+        return maltasNombreInsumo;
+    }
+
+    public void setMaltasNombreInsumo(String insumoNombreInsumo) {
+        this.maltasNombreInsumo = insumoNombreInsumo;
+    }
+
+    public Long getLupuloId() {
+        return lupuloId;
+    }
+
+    public void setLupuloId(Long insumoId) {
+        this.lupuloId = insumoId;
+    }
+
+    public String getLupuloNombreInsumo() {
+        return lupuloNombreInsumo;
+    }
+
+    public void setLupuloNombreInsumo(String insumoNombreInsumo) {
+        this.lupuloNombreInsumo = insumoNombreInsumo;
+    }
+
+    public Long getLevaduraId() {
+        return levaduraId;
+    }
+
+    public void setLevaduraId(Long insumoId) {
+        this.levaduraId = insumoId;
+    }
+
+    public String getLevaduraNombreInsumo() {
+        return levaduraNombreInsumo;
+    }
+
+    public void setLevaduraNombreInsumo(String insumoNombreInsumo) {
+        this.levaduraNombreInsumo = insumoNombreInsumo;
+    }
+
+    public Long getOtrosId() {
+        return otrosId;
+    }
+
+    public void setOtrosId(Long insumoId) {
+        this.otrosId = insumoId;
+    }
+
+    public String getOtrosNombreInsumo() {
+        return otrosNombreInsumo;
+    }
+
+    public void setOtrosNombreInsumo(String insumoNombreInsumo) {
+        this.otrosNombreInsumo = insumoNombreInsumo;
     }
 
     @Override
@@ -195,10 +265,17 @@ public class RecetaDTO implements Serializable {
             ", ibu=" + getIbu() +
             ", srm=" + getSrm() +
             ", empaste=" + getEmpaste() +
-            ", temperaturaMacerado=" + getTemperaturaMacerado() +
             ", fecha='" + getFecha() + "'" +
             ", producto=" + getProductoId() +
             ", producto='" + getProductoNombreComercial() + "'" +
+            ", maltas=" + getMaltasId() +
+            ", maltas='" + getMaltasNombreInsumo() + "'" +
+            ", lupulo=" + getLupuloId() +
+            ", lupulo='" + getLupuloNombreInsumo() + "'" +
+            ", levadura=" + getLevaduraId() +
+            ", levadura='" + getLevaduraNombreInsumo() + "'" +
+            ", otros=" + getOtrosId() +
+            ", otros='" + getOtrosNombreInsumo() + "'" +
             "}";
     }
 }

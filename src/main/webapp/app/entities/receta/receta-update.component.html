@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-10">
+    <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
             <h2 id="jhi-receta-heading" jhiTranslate="craftBeerStoreApp.receta.home.createOrEditLabel">Create or edit a Receta</h2>
             <div>
@@ -111,34 +111,46 @@
                 </div>
 
 <!--                <div class="form-group">-->
-<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.temperaturaMacerado" for="field_temperaturaMacerado">Temperatura Macerado</label>-->
-<!--                    <input type="number" class="form-control" name="temperaturaMacerado" id="field_temperaturaMacerado"-->
-<!--                        [(ngModel)]="receta.temperaturaMacerado" />-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.fecha" for="field_fecha">Fecha</label>-->
-<!--                    <div class="input-group">-->
-<!--                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="receta.fecha"-->
-<!--                        />-->
-<!--                        <span class="input-group-append">-->
-<!--                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>-->
-<!--                        </span>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="form-group">-->
 <!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.producto" for="field_producto">Producto</label>-->
 <!--                    <select class="form-control" id="field_producto" name="producto" [(ngModel)]="receta.productoId" >-->
 <!--                        <option [ngValue]="null"></option>-->
 <!--                        <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>-->
 <!--                    </select>-->
 <!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.maltas" for="field_maltas">Maltas</label>-->
+<!--                    <select class="form-control" id="field_maltas" name="maltas" [(ngModel)]="receta.maltasId" >-->
+<!--                        <option [ngValue]="null"></option>-->
+<!--                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of insumos; trackBy: trackInsumoById">{{insumoOption.nombreInsumo}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.lupulo" for="field_lupulo">Lupulo</label>-->
+<!--                    <select class="form-control" id="field_lupulo" name="lupulo" [(ngModel)]="receta.lupuloId" >-->
+<!--                        <option [ngValue]="null"></option>-->
+<!--                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of insumos; trackBy: trackInsumoById">{{insumoOption.nombreInsumo}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.levadura" for="field_levadura">Levadura</label>-->
+<!--                    <select class="form-control" id="field_levadura" name="levadura" [(ngModel)]="receta.levaduraId" >-->
+<!--                        <option [ngValue]="null"></option>-->
+<!--                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of insumos; trackBy: trackInsumoById">{{insumoOption.nombreInsumo}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.otros" for="field_otros">Otros</label>-->
+<!--                    <select class="form-control" id="field_otros" name="otros" [(ngModel)]="receta.otrosId" >-->
+<!--                        <option [ngValue]="null"></option>-->
+<!--                        <option [ngValue]="insumoOption.id" *ngFor="let insumoOption of insumos; trackBy: trackInsumoById">{{insumoOption.nombreInsumo}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
             </div>
             <div>
-                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>
