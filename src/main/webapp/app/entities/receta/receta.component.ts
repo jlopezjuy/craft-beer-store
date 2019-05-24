@@ -34,8 +34,9 @@ export class RecetaComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    producto: IProducto;
     dataSource: any;
-    displayedColumns: string[] = ['nombre', 'brewMaster', 'batch', 'temperaturaDeMacerado', 'actions'];
+    displayedColumns: string[] = ['nombre', 'brewMaster', 'fecha', 'batch', 'temperaturaDeMacerado', 'actions'];
     pageEvent: PageEvent;
 
     constructor(
@@ -64,8 +65,7 @@ export class RecetaComponent implements OnInit, OnDestroy {
 
     loadAll() {
         this.ngxLoader.start();
-        const producto: IProducto = this.$localStorage.retrieve('producto');
-        console.log(producto);
+        this.producto = this.$localStorage.retrieve('producto');
         if (this.currentSearch) {
             this.recetaService
                 .search({
@@ -87,7 +87,7 @@ export class RecetaComponent implements OnInit, OnDestroy {
                     size: this.itemsPerPage,
                     sort: this.sort()
                 },
-                producto.id
+                this.producto.id
             )
             .subscribe(
                 (res: HttpResponse<IReceta[]>) => this.paginateRecetas(res.body, res.headers),
@@ -178,6 +178,11 @@ export class RecetaComponent implements OnInit, OnDestroy {
         this.recetas = data;
         this.ngxLoader.stop();
         this.dataSource = new MatTableDataSource<IReceta>(this.recetas);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
     }
 
     protected onError(errorMessage: string) {

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
 import { IReceta } from 'app/shared/model/receta.model';
 import { RecetaService } from './receta.service';
@@ -10,6 +11,7 @@ import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
 import { LocalStorageService } from 'ngx-webstorage';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { DATE_FORMAT } from 'app/shared';
 
 @Component({
     selector: 'jhi-receta-update',
@@ -18,8 +20,9 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 export class RecetaUpdateComponent implements OnInit {
     receta: IReceta;
     isSaving: boolean;
-
+    fechaDp: any;
     producto: IProducto;
+    maxDate = new Date();
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -34,6 +37,9 @@ export class RecetaUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ receta }) => {
             this.receta = receta;
+            if (this.receta.id) {
+                this.fechaDp = moment(this.receta.fecha, 'dd/MM/yyy').format();
+            }
         });
         this.producto = this.$localStorage.retrieve('producto');
     }
@@ -46,6 +52,7 @@ export class RecetaUpdateComponent implements OnInit {
         this.ngxLoader.start();
         this.isSaving = true;
         this.receta.productoId = this.producto.id;
+        this.receta.fecha = this.fechaDp != null ? moment(this.fechaDp, DATE_FORMAT) : null;
         if (this.receta.id !== undefined) {
             this.subscribeToSaveResponse(this.recetaService.update(this.receta));
         } else {

@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-10">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
             <h2 id="jhi-receta-heading" jhiTranslate="craftBeerStoreApp.receta.home.createOrEditLabel">Create or edit a Receta</h2>
             <div>
@@ -9,71 +9,122 @@
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="receta.id" readonly />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.nombre" for="field_nombre">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="field_nombre"
-                        [(ngModel)]="receta.nombre" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.brewMaster" for="field_brewMaster">Brew Master</label>
-                    <input type="text" class="form-control" name="brewMaster" id="field_brewMaster"
-                        [(ngModel)]="receta.brewMaster" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.batch" for="field_batch">Batch</label>
-                    <input type="number" class="form-control" name="batch" id="field_batch"
-                        [(ngModel)]="receta.batch" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.temperaturaDeMacerado" for="field_temperaturaDeMacerado">Temperatura De Macerado</label>
-                    <input type="number" class="form-control" name="temperaturaDeMacerado" id="field_temperaturaDeMacerado"
-                        [(ngModel)]="receta.temperaturaDeMacerado" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.og" for="field_og">Og</label>
-                    <input type="number" class="form-control" name="og" id="field_og"
-                        [(ngModel)]="receta.og" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.fg" for="field_fg">Fg</label>
-                    <input type="number" class="form-control" name="fg" id="field_fg"
-                        [(ngModel)]="receta.fg" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.abv" for="field_abv">Abv</label>
-                    <input type="number" class="form-control" name="abv" id="field_abv"
-                        [(ngModel)]="receta.abv" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.ibu" for="field_ibu">Ibu</label>
-                    <input type="number" class="form-control" name="ibu" id="field_ibu"
-                        [(ngModel)]="receta.ibu" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.srm" for="field_srm">Srm</label>
-                    <input type="number" class="form-control" name="srm" id="field_srm"
-                        [(ngModel)]="receta.srm" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.empaste" for="field_empaste">Empaste</label>
-                    <input type="number" class="form-control" name="empaste" id="field_empaste"
-                        [(ngModel)]="receta.empaste" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.temperaturaMacerado" for="field_temperaturaMacerado">Temperatura Macerado</label>
-                    <input type="number" class="form-control" name="temperaturaMacerado" id="field_temperaturaMacerado"
-                        [(ngModel)]="receta.temperaturaMacerado" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.fecha" for="field_fecha">Fecha</label>
-                    <div class="input-group">
-                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="receta.fecha"
-                        />
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.producto" for="field_producto">Nombre</mat-label>
+                            <input type="text" matInput name="producto" id="field_producto"
+                                   [(ngModel)]="receta.productoNombreComercial" disabled/>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-3">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.nombre" for="field_nombre">Nombre</mat-label>
+                            <input type="text" matInput name="nombre" id="field_nombre"
+                                   [(ngModel)]="receta.nombre" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-3">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.brewMaster" for="field_brewMaster">Brew Master</mat-label>
+                            <input type="text" matInput name="brewMaster" id="field_brewMaster"
+                                   [(ngModel)]="receta.brewMaster" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-3">
+                        <mat-form-field>
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.fecha">Fecha</mat-label>
+                            <input matInput name="fecha" [matDatepicker]="picker" placeholder="Choose a date"
+                                   [(ngModel)]="fechaDp" [max]="maxDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.batch" for="field_batch">Brew Master</mat-label>
+                            <input type="number" matInput name="batch" id="field_batch"
+                                   [(ngModel)]="receta.batch" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.temperaturaDeMacerado" for="field_temperaturaDeMacerado">Brew Master</mat-label>
+                            <input type="number" matInput name="temperaturaDeMacerado" id="field_temperaturaDeMacerado"
+                                   [(ngModel)]="receta.temperaturaDeMacerado" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.og" for="field_og">OG</mat-label>
+                            <input type="number" matInput name="og" id="field_og"
+                                   [(ngModel)]="receta.og" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-2">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.fg" for="field_fg">OG</mat-label>
+                            <input type="number" matInput name="fg" id="field_fg"
+                                   [(ngModel)]="receta.fg" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-2">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.abv" for="field_abv">abv</mat-label>
+                            <input type="number" matInput name="abv" id="field_abv"
+                                   [(ngModel)]="receta.abv" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-2">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.ibu" for="field_ibu">ibu</mat-label>
+                            <input type="number" matInput name="abv" id="field_ibu"
+                                   [(ngModel)]="receta.ibu" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-2">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.srm" for="field_srm">SRM</mat-label>
+                            <input type="number" matInput name="srm" id="field_srm"
+                                    [(ngModel)]="receta.srm" />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-2">
+                        <mat-form-field class="example-full-width">
+                            <mat-label jhiTranslate="craftBeerStoreApp.receta.empaste" for="field_empaste">empaste</mat-label>
+                            <input type="number" matInput name="empaste" id="field_empaste"
+                                   [(ngModel)]="receta.empaste" />
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.temperaturaMacerado" for="field_temperaturaMacerado">Temperatura Macerado</label>-->
+<!--                    <input type="number" class="form-control" name="temperaturaMacerado" id="field_temperaturaMacerado"-->
+<!--                        [(ngModel)]="receta.temperaturaMacerado" />-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.fecha" for="field_fecha">Fecha</label>-->
+<!--                    <div class="input-group">-->
+<!--                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="receta.fecha"-->
+<!--                        />-->
+<!--                        <span class="input-group-append">-->
+<!--                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 <!--                <div class="form-group">-->
 <!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.producto" for="field_producto">Producto</label>-->
@@ -84,10 +135,10 @@
 <!--                </div>-->
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>
