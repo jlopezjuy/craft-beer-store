@@ -1,0 +1,106 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="craftBeerStoreApp.receta.home.title">Recetas</span>
+        <button (click)="previousState()" type="button" mat-raised-button class="mat-back">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-receta" [routerLink]="['/receta/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.receta.home.createLabel">
+            Create new Receta
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.receta.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="recetas">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nombre"><span jhiTranslate="craftBeerStoreApp.receta.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="brewMaster"><span jhiTranslate="craftBeerStoreApp.receta.brewMaster">Brew Master</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="batch"><span jhiTranslate="craftBeerStoreApp.receta.batch">Batch</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="temperaturaDeMacerado"><span jhiTranslate="craftBeerStoreApp.receta.temperaturaDeMacerado">Temperatura De Macerado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="og"><span jhiTranslate="craftBeerStoreApp.receta.og">Og</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fg"><span jhiTranslate="craftBeerStoreApp.receta.fg">Fg</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="abv"><span jhiTranslate="craftBeerStoreApp.receta.abv">Abv</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="ibu"><span jhiTranslate="craftBeerStoreApp.receta.ibu">Ibu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="srm"><span jhiTranslate="craftBeerStoreApp.receta.srm">Srm</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="empaste"><span jhiTranslate="craftBeerStoreApp.receta.empaste">Empaste</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="temperaturaMacerado"><span jhiTranslate="craftBeerStoreApp.receta.temperaturaMacerado">Temperatura Macerado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="productoNombreComercial"><span jhiTranslate="craftBeerStoreApp.receta.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let receta of recetas ;trackBy: trackId">
+                <td><a [routerLink]="['/receta', receta.id, 'view' ]">{{receta.id}}</a></td>
+                <td>{{receta.nombre}}</td>
+                <td>{{receta.brewMaster}}</td>
+                <td>{{receta.batch}}</td>
+                <td>{{receta.temperaturaDeMacerado}}</td>
+                <td>{{receta.og}}</td>
+                <td>{{receta.fg}}</td>
+                <td>{{receta.abv}}</td>
+                <td>{{receta.ibu}}</td>
+                <td>{{receta.srm}}</td>
+                <td>{{receta.empaste}}</td>
+                <td>{{receta.temperaturaMacerado}}</td>
+                <td>
+                    <div *ngIf="receta.productoId">
+                        <a [routerLink]="['../producto', receta.productoId , 'view' ]" >{{receta.productoNombreComercial}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/receta', receta.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/receta', receta.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'receta', { outlets: { popup: receta.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="recetas && recetas.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

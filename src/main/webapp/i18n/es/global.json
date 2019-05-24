@@ -34,6 +34,7 @@
                 "estilos": "Estilos",
                 "equipamiento": "Equipamiento",
                 "puntoDeVenta": "Punto De Venta",
+                "receta": "Receta",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

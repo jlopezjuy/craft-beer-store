@@ -1,0 +1,288 @@
+package com.craftbeerstore.application.domain;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+
+import org.springframework.data.elasticsearch.annotations.Document;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Objects;
+
+/**
+ * A Receta.
+ */
+@Entity
+@Table(name = "receta")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Document(indexName = "receta")
+public class Receta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Column(name = "brew_master")
+    private String brewMaster;
+
+    @Column(name = "batch", precision = 10, scale = 2)
+    private BigDecimal batch;
+
+    @Column(name = "temperatura_de_macerado", precision = 10, scale = 2)
+    private BigDecimal temperaturaDeMacerado;
+
+    @Column(name = "og", precision = 10, scale = 2)
+    private BigDecimal og;
+
+    @Column(name = "fg", precision = 10, scale = 2)
+    private BigDecimal fg;
+
+    @Column(name = "abv", precision = 10, scale = 2)
+    private BigDecimal abv;
+
+    @Column(name = "ibu", precision = 10, scale = 2)
+    private BigDecimal ibu;
+
+    @Column(name = "srm", precision = 10, scale = 2)
+    private BigDecimal srm;
+
+    @Column(name = "empaste", precision = 10, scale = 2)
+    private BigDecimal empaste;
+
+    @Column(name = "temperatura_macerado", precision = 10, scale = 2)
+    private BigDecimal temperaturaMacerado;
+
+    @Column(name = "fecha")
+    private LocalDate fecha;
+
+    @ManyToOne
+    @JsonIgnoreProperties("recetas")
+    private Producto producto;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Receta nombre(String nombre) {
+        this.nombre = nombre;
+        return this;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getBrewMaster() {
+        return brewMaster;
+    }
+
+    public Receta brewMaster(String brewMaster) {
+        this.brewMaster = brewMaster;
+        return this;
+    }
+
+    public void setBrewMaster(String brewMaster) {
+        this.brewMaster = brewMaster;
+    }
+
+    public BigDecimal getBatch() {
+        return batch;
+    }
+
+    public Receta batch(BigDecimal batch) {
+        this.batch = batch;
+        return this;
+    }
+
+    public void setBatch(BigDecimal batch) {
+        this.batch = batch;
+    }
+
+    public BigDecimal getTemperaturaDeMacerado() {
+        return temperaturaDeMacerado;
+    }
+
+    public Receta temperaturaDeMacerado(BigDecimal temperaturaDeMacerado) {
+        this.temperaturaDeMacerado = temperaturaDeMacerado;
+        return this;
+    }
+
+    public void setTemperaturaDeMacerado(BigDecimal temperaturaDeMacerado) {
+        this.temperaturaDeMacerado = temperaturaDeMacerado;
+    }
+
+    public BigDecimal getOg() {
+        return og;
+    }
+
+    public Receta og(BigDecimal og) {
+        this.og = og;
+        return this;
+    }
+
+    public void setOg(BigDecimal og) {
+        this.og = og;
+    }
+
+    public BigDecimal getFg() {
+        return fg;
+    }
+
+    public Receta fg(BigDecimal fg) {
+        this.fg = fg;
+        return this;
+    }
+
+    public void setFg(BigDecimal fg) {
+        this.fg = fg;
+    }
+
+    public BigDecimal getAbv() {
+        return abv;
+    }
+
+    public Receta abv(BigDecimal abv) {
+        this.abv = abv;
+        return this;
+    }
+
+    public void setAbv(BigDecimal abv) {
+        this.abv = abv;
+    }
+
+    public BigDecimal getIbu() {
+        return ibu;
+    }
+
+    public Receta ibu(BigDecimal ibu) {
+        this.ibu = ibu;
+        return this;
+    }
+
+    public void setIbu(BigDecimal ibu) {
+        this.ibu = ibu;
+    }
+
+    public BigDecimal getSrm() {
+        return srm;
+    }
+
+    public Receta srm(BigDecimal srm) {
+        this.srm = srm;
+        return this;
+    }
+
+    public void setSrm(BigDecimal srm) {
+        this.srm = srm;
+    }
+
+    public BigDecimal getEmpaste() {
+        return empaste;
+    }
+
+    public Receta empaste(BigDecimal empaste) {
+        this.empaste = empaste;
+        return this;
+    }
+
+    public void setEmpaste(BigDecimal empaste) {
+        this.empaste = empaste;
+    }
+
+    public BigDecimal getTemperaturaMacerado() {
+        return temperaturaMacerado;
+    }
+
+    public Receta temperaturaMacerado(BigDecimal temperaturaMacerado) {
+        this.temperaturaMacerado = temperaturaMacerado;
+        return this;
+    }
+
+    public void setTemperaturaMacerado(BigDecimal temperaturaMacerado) {
+        this.temperaturaMacerado = temperaturaMacerado;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public Receta fecha(LocalDate fecha) {
+        this.fecha = fecha;
+        return this;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public Receta producto(Producto producto) {
+        this.producto = producto;
+        return this;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Receta receta = (Receta) o;
+        if (receta.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), receta.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Receta{" +
+            "id=" + getId() +
+            ", nombre='" + getNombre() + "'" +
+            ", brewMaster='" + getBrewMaster() + "'" +
+            ", batch=" + getBatch() +
+            ", temperaturaDeMacerado=" + getTemperaturaDeMacerado() +
+            ", og=" + getOg() +
+            ", fg=" + getFg() +
+            ", abv=" + getAbv() +
+            ", ibu=" + getIbu() +
+            ", srm=" + getSrm() +
+            ", empaste=" + getEmpaste() +
+            ", temperaturaMacerado=" + getTemperaturaMacerado() +
+            ", fecha='" + getFecha() + "'" +
+            "}";
+    }
+}

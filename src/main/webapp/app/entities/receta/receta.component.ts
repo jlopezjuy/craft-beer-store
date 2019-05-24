@@ -3,26 +3,25 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { IProducto } from 'app/shared/model/producto.model';
+import { IReceta } from 'app/shared/model/receta.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { ProductoService } from './producto.service';
+import { RecetaService } from './receta.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { IEmpresa } from 'app/shared/model/empresa.model';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
+import { IProducto } from 'app/shared/model/producto.model';
 
 @Component({
-    selector: 'jhi-producto',
-    templateUrl: './producto.component.html',
-    styleUrls: ['producto.component.scss']
+    selector: 'jhi-receta',
+    templateUrl: './receta.component.html'
 })
-export class ProductoComponent implements OnInit, OnDestroy {
+export class RecetaComponent implements OnInit, OnDestroy {
     currentAccount: any;
-    productos: IProducto[];
+    recetas: IReceta[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -35,19 +34,16 @@ export class ProductoComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
-    nombreComercial: string;
-    nombreProducto: string;
     dataSource: any;
-    displayedColumns: string[] = ['id', 'descripcion', 'tipo', 'nombreComercial', 'imagen', 'actions'];
+    displayedColumns: string[] = ['nombre', 'brewMaster', 'batch', 'temperaturaDeMacerado', 'actions'];
     pageEvent: PageEvent;
 
     constructor(
-        protected productoService: ProductoService,
+        protected recetaService: RecetaService,
         protected parseLinks: JhiParseLinks,
         protected jhiAlertService: JhiAlertService,
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
-        protected dataUtils: JhiDataUtils,
         protected router: Router,
         protected eventManager: JhiEventManager,
         private $localStorage: LocalStorageService,
@@ -68,34 +64,33 @@ export class ProductoComponent implements OnInit, OnDestroy {
 
     loadAll() {
         this.ngxLoader.start();
-        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
+        const producto: IProducto = this.$localStorage.retrieve('producto');
+        console.log(producto);
         if (this.currentSearch) {
-            this.productoService
+            this.recetaService
                 .search({
                     page: this.page - 1,
                     query: this.currentSearch,
                     size: this.itemsPerPage,
-                    sort: this.sort(),
-                    nombreComercial: this.nombreComercial,
-                    nombreProducto: this.nombreProducto
+                    sort: this.sort()
                 })
                 .subscribe(
-                    (res: HttpResponse<IProducto[]>) => this.paginateProductos(res.body, res.headers),
+                    (res: HttpResponse<IReceta[]>) => this.paginateRecetas(res.body, res.headers),
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
             return;
         }
-        this.productoService
-            .queryByEmpresa(
+        this.recetaService
+            .queryByProducto(
                 {
                     page: this.page - 1,
                     size: this.itemsPerPage,
                     sort: this.sort()
                 },
-                empresa.id
+                producto.id
             )
             .subscribe(
-                (res: HttpResponse<IProducto[]>) => this.paginateProductos(res.body, res.headers),
+                (res: HttpResponse<IReceta[]>) => this.paginateRecetas(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -108,7 +103,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/producto'], {
+        this.router.navigate(['/receta'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -123,7 +118,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.page = 0;
         this.currentSearch = '';
         this.router.navigate([
-            '/producto',
+            '/receta',
             {
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -139,7 +134,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.page = 0;
         this.currentSearch = query;
         this.router.navigate([
-            '/producto',
+            '/receta',
             {
                 search: this.currentSearch,
                 page: this.page,
@@ -154,27 +149,19 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInProductos();
+        this.registerChangeInRecetas();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: IProducto) {
+    trackId(index: number, item: IReceta) {
         return item.id;
     }
 
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
-
-    registerChangeInProductos() {
-        this.eventSubscriber = this.eventManager.subscribe('productoListModification', response => this.loadAll());
+    registerChangeInRecetas() {
+        this.eventSubscriber = this.eventManager.subscribe('recetaListModification', response => this.loadAll());
     }
 
     sort() {
@@ -185,30 +172,20 @@ export class ProductoComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    protected paginateProductos(data: IProducto[], headers: HttpHeaders) {
+    protected paginateRecetas(data: IReceta[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-        this.productos = data;
+        this.recetas = data;
         this.ngxLoader.stop();
-        this.dataSource = new MatTableDataSource<IProducto>(this.productos);
+        this.dataSource = new MatTableDataSource<IReceta>(this.recetas);
     }
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    goPresentacion(producto: IProducto) {
-        this.$localStorage.store('producto', producto);
-        this.router.navigate(['/presentacion']);
-    }
-
-    goReceta(producto: IProducto) {
-        this.$localStorage.store('producto', producto);
-        this.router.navigate(['/receta']);
-    }
-
-    onPaginateChange(event: PageEvent) {
-        this.page = event.pageIndex + 1;
-        this.loadPage(event.pageIndex + 1);
+    previousState() {
+        this.$localStorage.clear('producto');
+        this.router.navigate(['/producto']);
     }
 }

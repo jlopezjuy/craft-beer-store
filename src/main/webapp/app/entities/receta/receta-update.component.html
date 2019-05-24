@@ -1,0 +1,96 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-receta-heading" jhiTranslate="craftBeerStoreApp.receta.home.createOrEditLabel">Create or edit a Receta</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!receta.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="receta.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.nombre" for="field_nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="field_nombre"
+                        [(ngModel)]="receta.nombre" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.brewMaster" for="field_brewMaster">Brew Master</label>
+                    <input type="text" class="form-control" name="brewMaster" id="field_brewMaster"
+                        [(ngModel)]="receta.brewMaster" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.batch" for="field_batch">Batch</label>
+                    <input type="number" class="form-control" name="batch" id="field_batch"
+                        [(ngModel)]="receta.batch" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.temperaturaDeMacerado" for="field_temperaturaDeMacerado">Temperatura De Macerado</label>
+                    <input type="number" class="form-control" name="temperaturaDeMacerado" id="field_temperaturaDeMacerado"
+                        [(ngModel)]="receta.temperaturaDeMacerado" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.og" for="field_og">Og</label>
+                    <input type="number" class="form-control" name="og" id="field_og"
+                        [(ngModel)]="receta.og" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.fg" for="field_fg">Fg</label>
+                    <input type="number" class="form-control" name="fg" id="field_fg"
+                        [(ngModel)]="receta.fg" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.abv" for="field_abv">Abv</label>
+                    <input type="number" class="form-control" name="abv" id="field_abv"
+                        [(ngModel)]="receta.abv" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.ibu" for="field_ibu">Ibu</label>
+                    <input type="number" class="form-control" name="ibu" id="field_ibu"
+                        [(ngModel)]="receta.ibu" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.srm" for="field_srm">Srm</label>
+                    <input type="number" class="form-control" name="srm" id="field_srm"
+                        [(ngModel)]="receta.srm" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.empaste" for="field_empaste">Empaste</label>
+                    <input type="number" class="form-control" name="empaste" id="field_empaste"
+                        [(ngModel)]="receta.empaste" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.temperaturaMacerado" for="field_temperaturaMacerado">Temperatura Macerado</label>
+                    <input type="number" class="form-control" name="temperaturaMacerado" id="field_temperaturaMacerado"
+                        [(ngModel)]="receta.temperaturaMacerado" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.fecha" for="field_fecha">Fecha</label>
+                    <div class="input-group">
+                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="receta.fecha"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.receta.producto" for="field_producto">Producto</label>-->
+<!--                    <select class="form-control" id="field_producto" name="producto" [(ngModel)]="receta.productoId" >-->
+<!--                        <option [ngValue]="null"></option>-->
+<!--                        <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="receta">
+            <h2><span jhiTranslate="craftBeerStoreApp.receta.detail.title">Receta</span> {{receta.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.nombre">Nombre</span></dt>
+                <dd>
+                    <span>{{receta.nombre}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.brewMaster">Brew Master</span></dt>
+                <dd>
+                    <span>{{receta.brewMaster}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.batch">Batch</span></dt>
+                <dd>
+                    <span>{{receta.batch}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.temperaturaDeMacerado">Temperatura De Macerado</span></dt>
+                <dd>
+                    <span>{{receta.temperaturaDeMacerado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.og">Og</span></dt>
+                <dd>
+                    <span>{{receta.og}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.fg">Fg</span></dt>
+                <dd>
+                    <span>{{receta.fg}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.abv">Abv</span></dt>
+                <dd>
+                    <span>{{receta.abv}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.ibu">Ibu</span></dt>
+                <dd>
+                    <span>{{receta.ibu}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.srm">Srm</span></dt>
+                <dd>
+                    <span>{{receta.srm}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.empaste">Empaste</span></dt>
+                <dd>
+                    <span>{{receta.empaste}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.temperaturaMacerado">Temperatura Macerado</span></dt>
+                <dd>
+                    <span>{{receta.temperaturaMacerado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.fecha">Fecha</span></dt>
+                <dd>
+                    <span>{{receta.fecha}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.receta.producto">Producto</span></dt>
+                <dd>
+                    <div *ngIf="receta.productoId">
+                        <a [routerLink]="['/producto', receta.productoId, 'view']">{{receta.productoNombreComercial}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/receta', receta.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
