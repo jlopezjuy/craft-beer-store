@@ -1,12 +1,4 @@
-export const enum TipoInsumo {
-    MALTA = 'MALTA',
-    LUPULO = 'LUPULO',
-    LEVADURA = 'LEVADURA',
-    ACIDO = 'ACIDO',
-    SAL = 'SAL',
-    CLARIFICANTE = 'CLARIFICANTE',
-    OTROS = 'OTROS'
-}
+import { TipoInsumo } from 'app/shared/model/insumo.model';
 
 export interface IRecetaInsumo {
     id?: number;

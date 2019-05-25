@@ -16,5 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RecetaInsumoRepository extends JpaRepository<RecetaInsumo, Long> {
 
-    List<RecetaInsumo> findAllByRecetaAndInsumoAndTipoInsumo(Receta receta, Insumo insumo, TipoInsumo tipoInsumo);
+    List<RecetaInsumo> findAllByRecetaAndTipoInsumo(Receta receta, TipoInsumo tipoInsumo);
+
+    List<RecetaInsumo> findAllByRecetaAndTipoInsumoNotIn(Receta receta, List<TipoInsumo> tipoInsumos);
 }

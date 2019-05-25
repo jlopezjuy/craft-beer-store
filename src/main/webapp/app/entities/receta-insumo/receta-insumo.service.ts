@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IRecetaInsumo } from 'app/shared/model/receta-insumo.model';
+import { TipoInsumo } from 'app/shared/model/insumo.model';
 
 type EntityResponseType = HttpResponse<IRecetaInsumo>;
 type EntityArrayResponseType = HttpResponse<IRecetaInsumo[]>;
@@ -31,6 +32,18 @@ export class RecetaInsumoService {
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IRecetaInsumo[]>(this.resourceUrl, { params: options, observe: 'response' });
+    }
+
+    queryByInsumo(recetaId: number, tipoInsumo: TipoInsumo): Observable<EntityArrayResponseType> {
+        return this.http.get<IRecetaInsumo[]>(`${this.resourceUrl}/receta-insumo-tipo/${recetaId}/${tipoInsumo}`, { observe: 'response' });
+    }
+
+    queryByInsumoNotIn(recetaId: number, req: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http.get<IRecetaInsumo[]>(`${this.resourceUrl}/receta-insumo-tipo/${recetaId}`, {
+            params: options,
+            observe: 'response'
+        });
     }
 
     delete(id: number): Observable<HttpResponse<any>> {

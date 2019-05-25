@@ -5,7 +5,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { RecetaInsumoService } from 'app/entities/receta-insumo/receta-insumo.service';
-import { IRecetaInsumo, RecetaInsumo, TipoInsumo } from 'app/shared/model/receta-insumo.model';
+import { IRecetaInsumo, RecetaInsumo } from 'app/shared/model/receta-insumo.model';
+import { TipoInsumo } from 'app/shared/model/insumo.model';
 
 describe('Service Tests', () => {
     describe('RecetaInsumo Service', () => {

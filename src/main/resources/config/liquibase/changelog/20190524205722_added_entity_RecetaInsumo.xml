@@ -25,5 +25,12 @@
         </addColumn>
         
     </changeSet>
+
+    <changeSet author="jlopez" id="20190524205721-3">
+        <modifyDataType
+            columnName="cantidad"
+            newDataType="decimal(15,5)"
+            tableName="receta_insumo"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

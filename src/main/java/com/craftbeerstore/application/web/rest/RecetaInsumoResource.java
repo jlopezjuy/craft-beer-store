@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +19,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing RecetaInsumo.
@@ -102,11 +98,19 @@ public class RecetaInsumoResource {
      * @param tipoInsumo
      * @return
      */
-    @GetMapping("/receta-insumos/receta-insumo-tipo/{recetaId}/{insumoId}/{tipoInsumo}")
+    @GetMapping("/receta-insumos/receta-insumo-tipo/{recetaId}/{tipoInsumo}")
     public ResponseEntity<List<RecetaInsumoDTO>> getAllRecetaInsumosTipo(@PathVariable Long recetaId,
-        @PathVariable Long insumoId, @PathVariable TipoInsumo tipoInsumo) {
+        @PathVariable TipoInsumo tipoInsumo) {
         log.debug("REST request to get a page of RecetaInsumos");
-        List<RecetaInsumoDTO> page = recetaInsumoService.findAllByRecetaImsumo(recetaId, insumoId, tipoInsumo);
+        List<RecetaInsumoDTO> page = recetaInsumoService.findAllByRecetaImsumo(recetaId, tipoInsumo);
+        return ResponseEntity.ok().body(page);
+    }
+
+    @GetMapping("/receta-insumos/receta-insumo-tipo/{recetaId}")
+    public ResponseEntity<List<RecetaInsumoDTO>> getAllRecetaInsumosTipoNotIn(@PathVariable Long recetaId,
+        @RequestParam List<TipoInsumo> tipoInsumos) {
+        log.debug("REST request to get a page of RecetaInsumos");
+        List<RecetaInsumoDTO> page = recetaInsumoService.findAllByRecetaImsumo(recetaId, tipoInsumos);
         return ResponseEntity.ok().body(page);
     }
 

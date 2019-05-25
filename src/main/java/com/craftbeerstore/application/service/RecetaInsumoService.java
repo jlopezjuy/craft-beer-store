@@ -33,11 +33,18 @@ public interface RecetaInsumoService {
     /**
      *
      * @param recetaId
-     * @param insumoId
      * @param tipoInsumo
      * @return
      */
-    List<RecetaInsumoDTO> findAllByRecetaImsumo(Long recetaId, Long insumoId, TipoInsumo tipoInsumo);
+    List<RecetaInsumoDTO> findAllByRecetaImsumo(Long recetaId, TipoInsumo tipoInsumo);
+
+    /**
+     *
+     * @param recetaId
+     * @param tipoInsumos
+     * @return
+     */
+    List<RecetaInsumoDTO> findAllByRecetaImsumo(Long recetaId, List<TipoInsumo> tipoInsumos);
 
 
     /**

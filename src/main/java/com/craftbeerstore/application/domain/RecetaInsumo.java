@@ -33,7 +33,7 @@ public class RecetaInsumo implements Serializable {
     @Column(name = "tipo_insumo")
     private TipoInsumo tipoInsumo;
 
-    @Column(name = "cantidad", precision = 10, scale = 2)
+    @Column(name = "cantidad", precision = 15, scale = 5)
     private BigDecimal cantidad;
 
     @ManyToOne

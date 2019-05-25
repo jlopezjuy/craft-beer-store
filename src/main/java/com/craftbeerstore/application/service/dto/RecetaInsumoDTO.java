@@ -15,7 +15,6 @@ public class RecetaInsumoDTO implements Serializable {
 
     private BigDecimal cantidad;
 
-
     private Long insumoId;
 
     private Long recetaId;

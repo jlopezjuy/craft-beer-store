@@ -85,12 +85,30 @@ public class RecetaInsumoServiceImpl implements RecetaInsumoService {
             .map(recetaInsumoMapper::toDto);
     }
 
+    /**
+     *
+     * @param recetaId
+     * @param tipoInsumo
+     * @return
+     */
     @Override
-    public List<RecetaInsumoDTO> findAllByRecetaImsumo(Long recetaId, Long insumoId,
+    public List<RecetaInsumoDTO> findAllByRecetaImsumo(Long recetaId,
         TipoInsumo tipoInsumo) {
         Receta receta = this.recetaRepository.getOne(recetaId);
-        Insumo insumo = this.insumoRepository.getOne(insumoId);
-        return recetaInsumoMapper.toDto(recetaInsumoRepository.findAllByRecetaAndInsumoAndTipoInsumo(receta, insumo, tipoInsumo));
+        return recetaInsumoMapper.toDto(recetaInsumoRepository.findAllByRecetaAndTipoInsumo(receta, tipoInsumo));
+    }
+
+    /**
+     *
+     * @param recetaId
+     * @param tipoInsumos
+     * @return
+     */
+    @Override
+    public List<RecetaInsumoDTO> findAllByRecetaImsumo(Long recetaId,
+        List<TipoInsumo> tipoInsumos) {
+        Receta receta = this.recetaRepository.getOne(recetaId);
+        return recetaInsumoMapper.toDto(recetaInsumoRepository.findAllByRecetaAndTipoInsumoNotIn(receta, tipoInsumos));
     }
 
 
