@@ -32,7 +32,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoInsumo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoInsumo">Tipo Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cantidad"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="insumoId"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.insumo">Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="insumoNombreInsumo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.insumo">Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="recetaId"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.receta">Receta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -44,7 +44,7 @@
                 <td>{{recetaInsumo.cantidad}}</td>
                 <td>
                     <div *ngIf="recetaInsumo.insumoId">
-                        <a [routerLink]="['../insumo', recetaInsumo.insumoId , 'view' ]" >{{recetaInsumo.insumoId}}</a>
+                        <a [routerLink]="['../insumo', recetaInsumo.insumoId , 'view' ]" >{{recetaInsumo.insumoNombreInsumo}}</a>
                     </div>
                 </td>
                 <td>

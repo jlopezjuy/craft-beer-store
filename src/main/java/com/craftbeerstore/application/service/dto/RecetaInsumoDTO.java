@@ -15,7 +15,10 @@ public class RecetaInsumoDTO implements Serializable {
 
     private BigDecimal cantidad;
 
+
     private Long insumoId;
+
+    private String insumoNombreInsumo;
 
     private Long recetaId;
 
@@ -49,6 +52,14 @@ public class RecetaInsumoDTO implements Serializable {
 
     public void setInsumoId(Long insumoId) {
         this.insumoId = insumoId;
+    }
+
+    public String getInsumoNombreInsumo() {
+        return insumoNombreInsumo;
+    }
+
+    public void setInsumoNombreInsumo(String insumoNombreInsumo) {
+        this.insumoNombreInsumo = insumoNombreInsumo;
     }
 
     public Long getRecetaId() {
@@ -87,6 +98,7 @@ public class RecetaInsumoDTO implements Serializable {
             ", tipoInsumo='" + getTipoInsumo() + "'" +
             ", cantidad=" + getCantidad() +
             ", insumo=" + getInsumoId() +
+            ", insumo='" + getInsumoNombreInsumo() + "'" +
             ", receta=" + getRecetaId() +
             "}";
     }

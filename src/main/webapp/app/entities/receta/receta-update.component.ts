@@ -160,7 +160,7 @@ export class RecetaUpdateComponent implements OnInit {
 
     addMalta() {
         this.insumoService.find(this.recetaInsumo.insumoId).subscribe(resp => {
-            this.recetaInsumo.nombreInsumo = resp.body.nombreInsumo;
+            this.recetaInsumo.insumoNombreInsumo = resp.body.nombreInsumo;
             this.recetaInsumo.cantidad = parseFloat(this.recetaInsumo.cantidad.toString());
             this.recetaInsumo.tipoInsumo = resp.body.tipo;
             this.maltasList.push(this.recetaInsumo);
@@ -171,7 +171,7 @@ export class RecetaUpdateComponent implements OnInit {
 
     addLupulo() {
         this.insumoService.find(this.recetaInsumoLupulo.insumoId).subscribe(resp => {
-            this.recetaInsumoLupulo.nombreInsumo = resp.body.nombreInsumo;
+            this.recetaInsumoLupulo.insumoNombreInsumo = resp.body.nombreInsumo;
             this.recetaInsumoLupulo.cantidad = parseFloat(this.recetaInsumoLupulo.cantidad.toString());
             this.recetaInsumoLupulo.tipoInsumo = resp.body.tipo;
             this.lupulosList.push(this.recetaInsumoLupulo);
@@ -182,7 +182,7 @@ export class RecetaUpdateComponent implements OnInit {
 
     addLevadura() {
         this.insumoService.find(this.recetaInsumoLeva.insumoId).subscribe(resp => {
-            this.recetaInsumoLeva.nombreInsumo = resp.body.nombreInsumo;
+            this.recetaInsumoLeva.insumoNombreInsumo = resp.body.nombreInsumo;
             this.recetaInsumoLeva.cantidad = parseFloat(this.recetaInsumoLeva.cantidad.toString());
             this.recetaInsumoLeva.tipoInsumo = resp.body.tipo;
             this.levadurasList.push(this.recetaInsumoLeva);
@@ -193,7 +193,7 @@ export class RecetaUpdateComponent implements OnInit {
 
     addOtros() {
         this.insumoService.find(this.recetaInsumoOtro.insumoId).subscribe(resp => {
-            this.recetaInsumoOtro.nombreInsumo = resp.body.nombreInsumo;
+            this.recetaInsumoOtro.insumoNombreInsumo = resp.body.nombreInsumo;
             this.recetaInsumoOtro.cantidad = parseFloat(this.recetaInsumoOtro.cantidad.toString());
             this.recetaInsumoOtro.tipoInsumo = resp.body.tipo;
             this.otrosList.push(this.recetaInsumoOtro);
@@ -205,42 +205,22 @@ export class RecetaUpdateComponent implements OnInit {
     loadDataEdit() {
         console.log('entro a cargar insumos');
         this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.MALTA).subscribe(malta => {
-            console.log(malta);
             this.maltasList = malta.body;
             this.dataSourceMalta = new MatTableDataSource<IRecetaInsumo>(this.maltasList);
         });
         this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.LUPULO).subscribe(lupulo => {
-            console.log(lupulo);
-
-            this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(
-                lupulo.body.map(lu => {
-                    lu.nombreInsumo = this.getNameInsumo(lu.insumoId);
-                    console.log(lu);
-                    return lu;
-                })
-            );
+            this.lupulosList = lupulo.body;
+            this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
         });
         this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.LEVADURA).subscribe(leva => {
-            console.log(leva);
             this.levadurasList = leva.body;
             this.dataSourceLeva = new MatTableDataSource<IRecetaInsumo>(this.levadurasList);
         });
         this.recetaInsumoService
             .queryByInsumoNotIn(this.receta.id, { tipoInsumos: [TipoInsumo.LEVADURA, TipoInsumo.MALTA, TipoInsumo.LUPULO] })
             .subscribe(leva => {
-                console.log(leva);
                 this.otrosList = leva.body;
                 this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
             });
-    }
-
-    private getNameInsumo(insumoId: number) {
-        let nombre: string;
-        this.insumoService.find(insumoId).subscribe(insumo => {
-            nombre = insumo.body.nombreInsumo;
-            console.log(nombre);
-            return nombre;
-        });
-        return nombre;
     }
 }

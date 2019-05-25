@@ -4,12 +4,9 @@ export interface IRecetaInsumo {
     id?: number;
     tipoInsumo?: TipoInsumo;
     cantidad?: number;
+    insumoNombreInsumo?: string;
     insumoId?: number;
     recetaId?: number;
-    /**
-     * transient
-     */
-    nombreInsumo?: string;
 }
 
 export class RecetaInsumo implements IRecetaInsumo {
@@ -17,11 +14,8 @@ export class RecetaInsumo implements IRecetaInsumo {
         public id?: number,
         public tipoInsumo?: TipoInsumo,
         public cantidad?: number,
+        public insumoNombreInsumo?: string,
         public insumoId?: number,
-        public recetaId?: number,
-        /**
-         * transient
-         */
-        public nombreInsumo?: string
+        public recetaId?: number
     ) {}
 }

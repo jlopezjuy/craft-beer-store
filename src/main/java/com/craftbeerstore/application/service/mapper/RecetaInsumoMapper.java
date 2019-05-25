@@ -12,6 +12,7 @@ import org.mapstruct.*;
 public interface RecetaInsumoMapper extends EntityMapper<RecetaInsumoDTO, RecetaInsumo> {
 
     @Mapping(source = "insumo.id", target = "insumoId")
+    @Mapping(source = "insumo.nombreInsumo", target = "insumoNombreInsumo")
     @Mapping(source = "receta.id", target = "recetaId")
     RecetaInsumoDTO toDto(RecetaInsumo recetaInsumo);
 

@@ -6,7 +6,7 @@
             "relationshipName": "insumo",
             "otherEntityName": "insumo",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id",
+            "otherEntityField": "nombreInsumo",
             "otherEntityRelationshipNameUndefined": true,
             "otherEntityRelationshipName": "recetaInsumo"
         },

@@ -125,7 +125,7 @@
                                                 <mat-select  name="maltas" [(ngModel)]="recetaInsumo.insumoId" id="field_maltas">
                                                     <mat-option value=""></mat-option>
                                                     <mat-option *ngFor="let insumoOption of maltas" [value]="insumoOption.id">
-                                                        {{insumoOption.nombreInsumo}}
+                                                        {{insumoOption.insumoNombreInsumo}}
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -152,7 +152,7 @@
                                             <table  mat-table [dataSource]="dataSourceMalta" style="width: 100%;">
                                                 <ng-container matColumnDef="nombreMalta">
                                                     <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreMalta">Nombre Malta</span></th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.nombreInsumo}} </td>
+                                                    <td mat-cell *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
                                                 </ng-container>
                                                 <ng-container matColumnDef="cantidad">
                                                     <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span></th>
@@ -187,7 +187,7 @@
                                                 <mat-select  name="maltas" [(ngModel)]="recetaInsumoLupulo.insumoId" id="field_maltas2">
                                                     <mat-option value=""></mat-option>
                                                     <mat-option *ngFor="let insumoOption of lupulos" [value]="insumoOption.id">
-                                                        {{insumoOption.nombreInsumo}}
+                                                        {{insumoOption.insumoNombreInsumo}}
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -214,7 +214,7 @@
                                             <table  mat-table [dataSource]="dataSourceLupulo" style="width: 100%;">
                                                 <ng-container matColumnDef="nombreMalta">
                                                     <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreLupulo">Nombre Malta</span></th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.nombreInsumo}} </td>
+                                                    <td mat-cell *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
                                                 </ng-container>
                                                 <ng-container matColumnDef="cantidad">
                                                     <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span></th>
@@ -247,7 +247,7 @@
                                                 <mat-select  name="maltas" [(ngModel)]="recetaInsumoLeva.insumoId" id="field_maltas3">
                                                     <mat-option value=""></mat-option>
                                                     <mat-option *ngFor="let insumoOption of levaduras" [value]="insumoOption.id">
-                                                        {{insumoOption.nombreInsumo}}
+                                                        {{insumoOption.insumoNombreInsumo}}
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -274,7 +274,7 @@
                                             <table  mat-table [dataSource]="dataSourceLeva" style="width: 100%;">
                                                 <ng-container matColumnDef="nombreMalta">
                                                     <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreLupulo">Nombre Malta</span></th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.nombreInsumo}} </td>
+                                                    <td mat-cell *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
                                                 </ng-container>
                                                 <ng-container matColumnDef="cantidad">
                                                     <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span></th>
@@ -307,7 +307,7 @@
                                                 <mat-select  name="maltas" [(ngModel)]="recetaInsumoOtro.insumoId" id="field_maltas4">
                                                     <mat-option value=""></mat-option>
                                                     <mat-option *ngFor="let insumoOption of otros" [value]="insumoOption.id">
-                                                        {{insumoOption.nombreInsumo}}
+                                                        {{insumoOption.insumoNombreInsumo}}
                                                     </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
@@ -334,7 +334,7 @@
                                             <table  mat-table [dataSource]="dataSourceOtro" style="width: 100%;">
                                                 <ng-container matColumnDef="nombreMalta">
                                                     <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreLupulo">Nombre Malta</span></th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.nombreInsumo}} </td>
+                                                    <td mat-cell *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
                                                 </ng-container>
                                                 <ng-container matColumnDef="cantidad">
                                                     <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span></th>
