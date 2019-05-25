@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
@@ -32,10 +33,15 @@ public class RecetaInsumo implements Serializable {
     @Column(name = "tipo_insumo")
     private TipoInsumo tipoInsumo;
 
+    @Column(name = "cantidad", precision = 10, scale = 2)
+    private BigDecimal cantidad;
+
     @ManyToOne
+    @JsonIgnoreProperties("recetaInsumos")
     private Insumo insumo;
 
     @ManyToOne
+    @JsonIgnoreProperties("recetaInsumos")
     private Receta receta;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -58,6 +64,19 @@ public class RecetaInsumo implements Serializable {
 
     public void setTipoInsumo(TipoInsumo tipoInsumo) {
         this.tipoInsumo = tipoInsumo;
+    }
+
+    public BigDecimal getCantidad() {
+        return cantidad;
+    }
+
+    public RecetaInsumo cantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
+        return this;
+    }
+
+    public void setCantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Insumo getInsumo() {
@@ -112,6 +131,7 @@ public class RecetaInsumo implements Serializable {
         return "RecetaInsumo{" +
             "id=" + getId() +
             ", tipoInsumo='" + getTipoInsumo() + "'" +
+            ", cantidad=" + getCantidad() +
             "}";
     }
 }

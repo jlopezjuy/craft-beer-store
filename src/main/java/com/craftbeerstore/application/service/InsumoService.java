@@ -46,6 +46,14 @@ public interface InsumoService {
      */
     List<InsumoDTO> findAllByEmpresaAndTipo(Long empresaId, TipoInsumo tipoInsumo);
 
+    /**
+     *
+     * @param empresaId
+     * @param tipoInsumo
+     * @return
+     */
+    List<InsumoDTO> findAllByEmpresaAndTipo(Long empresaId, List<TipoInsumo> tipoInsumo);
+
 
     /**
      * Get the "id" insumo.

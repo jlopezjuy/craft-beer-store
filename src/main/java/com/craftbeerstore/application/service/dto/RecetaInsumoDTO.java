@@ -1,5 +1,6 @@
 package com.craftbeerstore.application.service.dto;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 
@@ -11,6 +12,8 @@ public class RecetaInsumoDTO implements Serializable {
     private Long id;
 
     private TipoInsumo tipoInsumo;
+
+    private BigDecimal cantidad;
 
 
     private Long insumoId;
@@ -31,6 +34,14 @@ public class RecetaInsumoDTO implements Serializable {
 
     public void setTipoInsumo(TipoInsumo tipoInsumo) {
         this.tipoInsumo = tipoInsumo;
+    }
+
+    public BigDecimal getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(BigDecimal cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Long getInsumoId() {
@@ -75,6 +86,7 @@ public class RecetaInsumoDTO implements Serializable {
         return "RecetaInsumoDTO{" +
             "id=" + getId() +
             ", tipoInsumo='" + getTipoInsumo() + "'" +
+            ", cantidad=" + getCantidad() +
             ", insumo=" + getInsumoId() +
             ", receta=" + getRecetaId() +
             "}";

@@ -42,6 +42,12 @@ export class InsumoService {
         return this.http.get<IInsumo[]>(`${this.resourceUrl}/tipo/${empresaId}/${tipoInsumo}`, { observe: 'response' });
     }
 
+    queryByEmpresaNotInTipo(empresaId: number, req: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        console.log(options);
+        return this.http.get<IInsumo[]>(`${this.resourceUrl}/tipo/${empresaId}`, { params: options, observe: 'response' });
+    }
+
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }

@@ -21,6 +21,11 @@
                         <option value="OTROS">{{'craftBeerStoreApp.TipoInsumo.OTROS' | translate}}</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad" for="field_cantidad">Cantidad</label>
+                    <input type="number" class="form-control" name="cantidad" id="field_cantidad"
+                        [(ngModel)]="recetaInsumo.cantidad" />
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.insumo" for="field_insumo">Insumo</label>

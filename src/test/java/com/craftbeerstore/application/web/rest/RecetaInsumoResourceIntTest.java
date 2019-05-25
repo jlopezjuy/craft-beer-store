@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +53,9 @@ public class RecetaInsumoResourceIntTest {
 
     private static final TipoInsumo DEFAULT_TIPO_INSUMO = TipoInsumo.MALTA;
     private static final TipoInsumo UPDATED_TIPO_INSUMO = TipoInsumo.LUPULO;
+
+    private static final BigDecimal DEFAULT_CANTIDAD = new BigDecimal(1);
+    private static final BigDecimal UPDATED_CANTIDAD = new BigDecimal(2);
 
     @Autowired
     private RecetaInsumoRepository recetaInsumoRepository;
@@ -109,7 +113,8 @@ public class RecetaInsumoResourceIntTest {
      */
     public static RecetaInsumo createEntity(EntityManager em) {
         RecetaInsumo recetaInsumo = new RecetaInsumo()
-            .tipoInsumo(DEFAULT_TIPO_INSUMO);
+            .tipoInsumo(DEFAULT_TIPO_INSUMO)
+            .cantidad(DEFAULT_CANTIDAD);
         return recetaInsumo;
     }
 
@@ -135,6 +140,7 @@ public class RecetaInsumoResourceIntTest {
         assertThat(recetaInsumoList).hasSize(databaseSizeBeforeCreate + 1);
         RecetaInsumo testRecetaInsumo = recetaInsumoList.get(recetaInsumoList.size() - 1);
         assertThat(testRecetaInsumo.getTipoInsumo()).isEqualTo(DEFAULT_TIPO_INSUMO);
+        assertThat(testRecetaInsumo.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
 
         // Validate the RecetaInsumo in Elasticsearch
         verify(mockRecetaInsumoSearchRepository, times(1)).save(testRecetaInsumo);
@@ -174,7 +180,8 @@ public class RecetaInsumoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(recetaInsumo.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tipoInsumo").value(hasItem(DEFAULT_TIPO_INSUMO.toString())));
+            .andExpect(jsonPath("$.[*].tipoInsumo").value(hasItem(DEFAULT_TIPO_INSUMO.toString())))
+            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD.intValue())));
     }
     
     @Test
@@ -188,7 +195,8 @@ public class RecetaInsumoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(recetaInsumo.getId().intValue()))
-            .andExpect(jsonPath("$.tipoInsumo").value(DEFAULT_TIPO_INSUMO.toString()));
+            .andExpect(jsonPath("$.tipoInsumo").value(DEFAULT_TIPO_INSUMO.toString()))
+            .andExpect(jsonPath("$.cantidad").value(DEFAULT_CANTIDAD.intValue()));
     }
 
     @Test
@@ -212,7 +220,8 @@ public class RecetaInsumoResourceIntTest {
         // Disconnect from session so that the updates on updatedRecetaInsumo are not directly saved in db
         em.detach(updatedRecetaInsumo);
         updatedRecetaInsumo
-            .tipoInsumo(UPDATED_TIPO_INSUMO);
+            .tipoInsumo(UPDATED_TIPO_INSUMO)
+            .cantidad(UPDATED_CANTIDAD);
         RecetaInsumoDTO recetaInsumoDTO = recetaInsumoMapper.toDto(updatedRecetaInsumo);
 
         restRecetaInsumoMockMvc.perform(put("/api/receta-insumos")
@@ -225,6 +234,7 @@ public class RecetaInsumoResourceIntTest {
         assertThat(recetaInsumoList).hasSize(databaseSizeBeforeUpdate);
         RecetaInsumo testRecetaInsumo = recetaInsumoList.get(recetaInsumoList.size() - 1);
         assertThat(testRecetaInsumo.getTipoInsumo()).isEqualTo(UPDATED_TIPO_INSUMO);
+        assertThat(testRecetaInsumo.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
 
         // Validate the RecetaInsumo in Elasticsearch
         verify(mockRecetaInsumoSearchRepository, times(1)).save(testRecetaInsumo);
@@ -285,7 +295,8 @@ public class RecetaInsumoResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(recetaInsumo.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tipoInsumo").value(hasItem(DEFAULT_TIPO_INSUMO.toString())));
+            .andExpect(jsonPath("$.[*].tipoInsumo").value(hasItem(DEFAULT_TIPO_INSUMO.toString())))
+            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD.intValue())));
     }
 
     @Test

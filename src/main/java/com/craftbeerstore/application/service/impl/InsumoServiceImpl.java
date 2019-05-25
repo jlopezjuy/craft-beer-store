@@ -97,6 +97,12 @@ public class InsumoServiceImpl implements InsumoService {
         return insumoMapper.toDto(insumoRepository.findAllByEmpresaAndTipo(empresa, tipoInsumo));
     }
 
+    @Override
+    public List<InsumoDTO> findAllByEmpresaAndTipo(Long empresaId, List<TipoInsumo> tipoInsumo) {
+        Empresa empresa = empresaRepository.getOne(empresaId);
+        return insumoMapper.toDto(insumoRepository.findAllByEmpresaAndTipoNotIn(empresa, tipoInsumo));
+    }
+
     /**
      * Get one insumo by id.
      *

@@ -9,6 +9,10 @@
                 <dd>
                     <span jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + recetaInsumo.tipoInsumo}}">{{recetaInsumo.tipoInsumo}}</span>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.cantidad}}</span>
+                </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.insumo">Insumo</span></dt>
                 <dd>
                     <div *ngIf="recetaInsumo.insumoId">

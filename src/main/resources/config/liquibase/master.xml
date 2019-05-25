@@ -47,5 +47,6 @@
     <include file="config/liquibase/changelog/20190523184243_added_column_Receta.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190523304243_added_entity_constraints_Receta.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190524205721_added_entity_constraints_RecetaInsumo.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190524205722_added_entity_RecetaInsumo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

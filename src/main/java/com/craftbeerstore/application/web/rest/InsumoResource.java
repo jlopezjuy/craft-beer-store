@@ -111,6 +111,20 @@ public class InsumoResource {
     }
 
     /**
+     *
+     * @param empresaId
+     * @param tipoInsumos
+     * @return
+     */
+    @GetMapping("/insumos/tipo/{empresaId}")
+    public ResponseEntity<List<InsumoDTO>> getAllInsumostIPO(@PathVariable Long empresaId, @RequestParam List<TipoInsumo> tipoInsumos) {
+        log.debug("REST request to get a page of Insumos {}", empresaId);
+        log.debug("REST request to get a page of Insumos {}", tipoInsumos);
+        List<InsumoDTO> page = insumoService.findAllByEmpresaAndTipo(empresaId, tipoInsumos);
+        return ResponseEntity.ok().body(page);
+    }
+
+    /**
      * GET /insumos/:empresaId : get all the insumos by empresa
      * @param pageable
      * @param empresaId

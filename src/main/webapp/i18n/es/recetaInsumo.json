@@ -17,8 +17,13 @@
                 "title": "Receta Insumo"
             },
             "tipoInsumo": "Tipo Insumo",
+            "cantidad": "Cantidad Kg",
             "insumo": "Insumo",
-            "receta": "Receta"
+            "receta": "Receta",
+            "nombreMalta": "Malta",
+            "nombreLupulo": "Lúpulo",
+            "nombreLevadura": "Levadura",
+            "nombreOtro": "Otro"
         }
     }
 }

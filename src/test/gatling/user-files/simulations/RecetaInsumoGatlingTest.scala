@@ -73,6 +73,7 @@ class RecetaInsumoGatlingTest extends Simulation {
             .body(StringBody("""{
                 "id":null
                 , "tipoInsumo":"MALTA"
+                , "cantidad":"0"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_recetaInsumo_url"))).exitHereIfFailed
