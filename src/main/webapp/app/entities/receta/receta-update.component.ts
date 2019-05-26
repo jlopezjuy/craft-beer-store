@@ -45,7 +45,10 @@ export class RecetaUpdateComponent implements OnInit {
     otrosList: IRecetaInsumo[] = [];
 
     dataSourceMalta: any;
-    displayedColumnsMalta: string[] = ['nombreMalta', 'cantidad'];
+    displayedColumnsMalta: string[] = ['nombreMalta', 'cantidad', 'color', 'porcentaje', 'usoMalta'];
+    displayedColumnsLupulo: string[] = ['nombreMalta', 'cantidad', 'alpha', 'modoLupulo', 'gramos', 'usoLupulo', 'tiempo', 'ibu'];
+    displayedColumnsLevadura: string[] = ['nombreMalta', 'cantidad'];
+    displayedColumnsOtro: string[] = ['nombreMalta', 'cantidad'];
 
     dataSourceLupulo: any;
 
