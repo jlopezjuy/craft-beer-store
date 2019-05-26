@@ -46,9 +46,9 @@ export class RecetaUpdateComponent implements OnInit {
 
     dataSourceMalta: any;
     displayedColumnsMalta: string[] = ['nombreMalta', 'cantidad', 'color', 'porcentaje', 'usoMalta'];
-    displayedColumnsLupulo: string[] = ['nombreMalta', 'cantidad', 'alpha', 'modoLupulo', 'gramos', 'usoLupulo', 'tiempo', 'ibu'];
-    displayedColumnsLevadura: string[] = ['nombreMalta', 'cantidad'];
-    displayedColumnsOtro: string[] = ['nombreMalta', 'cantidad'];
+    displayedColumnsLupulo: string[] = ['nombreMalta', 'alpha', 'modoLupulo', 'gramos', 'usoLupulo', 'tiempo', 'ibu'];
+    displayedColumnsLevadura: string[] = ['nombreMalta', 'gramos', 'densidadLeva', 'tamSobre', 'atenuacion'];
+    displayedColumnsOtro: string[] = ['nombreMalta', 'gramos', 'tipoOtro', 'usoOtro', 'tiempoOtro'];
 
     dataSourceLupulo: any;
 
@@ -77,6 +77,7 @@ export class RecetaUpdateComponent implements OnInit {
             }
         });
         this.producto = this.$localStorage.retrieve('producto');
+        this.receta.productoNombreComercial = this.producto.nombreComercial;
         this.empresa = this.$localStorage.retrieve('empresa');
         console.log(this.empresa);
         this.insumoService.queryByEmpresaTipo(this.empresa.id, TipoInsumo.MALTA).subscribe(resp => {
@@ -125,27 +126,51 @@ export class RecetaUpdateComponent implements OnInit {
     saveRecetaInsumos(receta: IReceta) {
         this.maltasList.forEach(malta => {
             malta.recetaId = receta.id;
-            this.recetaInsumoService.create(malta).subscribe(res => {
-                console.log('');
-            });
+            if (malta.id) {
+                this.recetaInsumoService.update(malta).subscribe(res => {
+                    console.log('');
+                });
+            } else {
+                this.recetaInsumoService.create(malta).subscribe(res => {
+                    console.log('');
+                });
+            }
         });
         this.lupulosList.forEach(lupulo => {
             lupulo.recetaId = receta.id;
-            this.recetaInsumoService.create(lupulo).subscribe(res => {
-                console.log('');
-            });
+            if (lupulo.id) {
+                this.recetaInsumoService.update(lupulo).subscribe(res => {
+                    console.log('');
+                });
+            } else {
+                this.recetaInsumoService.create(lupulo).subscribe(res => {
+                    console.log('');
+                });
+            }
         });
         this.levadurasList.forEach(leva => {
             leva.recetaId = receta.id;
-            this.recetaInsumoService.create(leva).subscribe(res => {
-                console.log('');
-            });
+            if (leva.id) {
+                this.recetaInsumoService.update(leva).subscribe(res => {
+                    console.log('');
+                });
+            } else {
+                this.recetaInsumoService.create(leva).subscribe(res => {
+                    console.log('');
+                });
+            }
         });
         this.otrosList.forEach(otro => {
             otro.recetaId = receta.id;
-            this.recetaInsumoService.create(otro).subscribe(res => {
-                console.log('');
-            });
+            if (otro.id) {
+                this.recetaInsumoService.update(otro).subscribe(res => {
+                    console.log('');
+                });
+            } else {
+                this.recetaInsumoService.create(otro).subscribe(res => {
+                    console.log('');
+                });
+            }
         });
     }
 
@@ -175,7 +200,7 @@ export class RecetaUpdateComponent implements OnInit {
     addLupulo() {
         this.insumoService.find(this.recetaInsumoLupulo.insumoId).subscribe(resp => {
             this.recetaInsumoLupulo.insumoNombreInsumo = resp.body.nombreInsumo;
-            this.recetaInsumoLupulo.cantidad = parseFloat(this.recetaInsumoLupulo.cantidad.toString());
+            // this.recetaInsumoLupulo.cantidad = parseFloat(this.recetaInsumoLupulo.cantidad.toString());
             this.recetaInsumoLupulo.tipoInsumo = resp.body.tipo;
             this.lupulosList.push(this.recetaInsumoLupulo);
             this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
@@ -186,7 +211,7 @@ export class RecetaUpdateComponent implements OnInit {
     addLevadura() {
         this.insumoService.find(this.recetaInsumoLeva.insumoId).subscribe(resp => {
             this.recetaInsumoLeva.insumoNombreInsumo = resp.body.nombreInsumo;
-            this.recetaInsumoLeva.cantidad = parseFloat(this.recetaInsumoLeva.cantidad.toString());
+            // this.recetaInsumoLeva.cantidad = parseFloat(this.recetaInsumoLeva.cantidad.toString());
             this.recetaInsumoLeva.tipoInsumo = resp.body.tipo;
             this.levadurasList.push(this.recetaInsumoLeva);
             this.dataSourceLeva = new MatTableDataSource<IRecetaInsumo>(this.levadurasList);
@@ -197,7 +222,7 @@ export class RecetaUpdateComponent implements OnInit {
     addOtros() {
         this.insumoService.find(this.recetaInsumoOtro.insumoId).subscribe(resp => {
             this.recetaInsumoOtro.insumoNombreInsumo = resp.body.nombreInsumo;
-            this.recetaInsumoOtro.cantidad = parseFloat(this.recetaInsumoOtro.cantidad.toString());
+            // this.recetaInsumoOtro.cantidad = parseFloat(this.recetaInsumoOtro.cantidad.toString());
             this.recetaInsumoOtro.tipoInsumo = resp.body.tipo;
             this.otrosList.push(this.recetaInsumoOtro);
             this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
