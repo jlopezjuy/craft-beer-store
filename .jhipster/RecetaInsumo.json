@@ -7,7 +7,7 @@
             "otherEntityName": "insumo",
             "relationshipType": "many-to-one",
             "otherEntityField": "nombreInsumo",
-            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "recetaInsumo"
         },
         {
@@ -15,7 +15,7 @@
             "otherEntityName": "receta",
             "relationshipType": "many-to-one",
             "otherEntityField": "id",
-            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "recetaInsumo"
         }
     ],
@@ -28,6 +28,92 @@
         {
             "fieldName": "cantidad",
             "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "color",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "2",
+            "fieldValidateRulesMax": "40"
+        },
+        {
+            "fieldName": "porcentaje",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "max"
+            ],
+            "fieldValidateRulesMax": "100"
+        },
+        {
+            "fieldName": "usoMalta",
+            "fieldType": "UsoMalta",
+            "fieldValues": "MASH,RECIRCULATING,BOIL,FERMENTATION"
+        },
+        {
+            "fieldName": "alpha",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "max"
+            ],
+            "fieldValidateRulesMax": "100"
+        },
+        {
+            "fieldName": "modoLupulo",
+            "fieldType": "ModoLupulo",
+            "fieldValues": "PELLET,PLUG,WHOLE_LEAF"
+        },
+        {
+            "fieldName": "gramos",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "usoLupulo",
+            "fieldType": "UsoLupulo",
+            "fieldValues": "BOIL,FIRST_WORT,DRY_HOP,AROMA,MASH"
+        },
+        {
+            "fieldName": "tiempo",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "120"
+        },
+        {
+            "fieldName": "ibu",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "densidadLeva",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "tamSobre",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "atenuacion",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "tipoOtro",
+            "fieldType": "TipoOtro",
+            "fieldValues": "FINING,WATER_AGENT,SPICE,HERB,FLAVOR,OTHER"
+        },
+        {
+            "fieldName": "usoOtro",
+            "fieldType": "UsoOtro",
+            "fieldValues": "BOIL,MASH,LICOR,PRIMARY,SECONDARY"
+        },
+        {
+            "fieldName": "tiempoOtro",
+            "fieldType": "Long"
         }
     ],
     "changelogDate": "20190524205721",

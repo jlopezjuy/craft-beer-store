@@ -74,6 +74,21 @@ class RecetaInsumoGatlingTest extends Simulation {
                 "id":null
                 , "tipoInsumo":"MALTA"
                 , "cantidad":"0"
+                , "color":null
+                , "porcentaje":null
+                , "usoMalta":"MASH"
+                , "alpha":null
+                , "modoLupulo":"PELLET"
+                , "gramos":"0"
+                , "usoLupulo":"BOIL"
+                , "tiempo":null
+                , "ibu":"0"
+                , "densidadLeva":"0"
+                , "tamSobre":null
+                , "atenuacion":null
+                , "tipoOtro":"FINING"
+                , "usoOtro":"BOIL"
+                , "tiempoOtro":null
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_recetaInsumo_url"))).exitHereIfFailed

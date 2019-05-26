@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { RecetaInsumoService } from 'app/entities/receta-insumo/receta-insumo.service';
-import { IRecetaInsumo, RecetaInsumo } from 'app/shared/model/receta-insumo.model';
+import { IRecetaInsumo, RecetaInsumo, UsoMalta, ModoLupulo, UsoLupulo, TipoOtro, UsoOtro } from 'app/shared/model/receta-insumo.model';
 import { TipoInsumo } from 'app/shared/model/insumo.model';
 
 describe('Service Tests', () => {
@@ -22,7 +22,26 @@ describe('Service Tests', () => {
             service = injector.get(RecetaInsumoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new RecetaInsumo(0, TipoInsumo.MALTA, 0);
+            elemDefault = new RecetaInsumo(
+                0,
+                TipoInsumo.MALTA,
+                0,
+                0,
+                0,
+                UsoMalta.MASH,
+                0,
+                ModoLupulo.PELLET,
+                0,
+                UsoLupulo.BOIL,
+                0,
+                0,
+                0,
+                0,
+                0,
+                TipoOtro.FINING,
+                UsoOtro.BOIL,
+                0
+            );
         });
 
         describe('Service methods', async () => {
@@ -57,7 +76,22 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         tipoInsumo: 'BBBBBB',
-                        cantidad: 1
+                        cantidad: 1,
+                        color: 1,
+                        porcentaje: 1,
+                        usoMalta: 'BBBBBB',
+                        alpha: 1,
+                        modoLupulo: 'BBBBBB',
+                        gramos: 1,
+                        usoLupulo: 'BBBBBB',
+                        tiempo: 1,
+                        ibu: 1,
+                        densidadLeva: 1,
+                        tamSobre: 1,
+                        atenuacion: 1,
+                        tipoOtro: 'BBBBBB',
+                        usoOtro: 'BBBBBB',
+                        tiempoOtro: 1
                     },
                     elemDefault
                 );
@@ -75,7 +109,22 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         tipoInsumo: 'BBBBBB',
-                        cantidad: 1
+                        cantidad: 1,
+                        color: 1,
+                        porcentaje: 1,
+                        usoMalta: 'BBBBBB',
+                        alpha: 1,
+                        modoLupulo: 'BBBBBB',
+                        gramos: 1,
+                        usoLupulo: 'BBBBBB',
+                        tiempo: 1,
+                        ibu: 1,
+                        densidadLeva: 1,
+                        tamSobre: 1,
+                        atenuacion: 1,
+                        tipoOtro: 'BBBBBB',
+                        usoOtro: 'BBBBBB',
+                        tiempoOtro: 1
                     },
                     elemDefault
                 );

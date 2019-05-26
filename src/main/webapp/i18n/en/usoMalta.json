@@ -1,0 +1,11 @@
+{
+    "craftBeerStoreApp": {
+        "UsoMalta": {
+            "null": "",
+            "MASH": "MASH",
+            "RECIRCULATING": "RECIRCULATING",
+            "BOIL": "BOIL",
+            "FERMENTATION": "FERMENTATION"
+        }
+    }
+}

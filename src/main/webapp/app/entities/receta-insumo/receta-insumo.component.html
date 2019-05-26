@@ -32,6 +32,21 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoInsumo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoInsumo">Tipo Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cantidad"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="color"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.color">Color</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="porcentaje"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.porcentaje">Porcentaje</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="usoMalta"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta">Uso Malta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="alpha"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha">Alpha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="modoLupulo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo">Modo Lupulo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="gramos"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Gramos</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="usoLupulo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo">Uso Lupulo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tiempo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo">Tiempo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="ibu"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu">Ibu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="densidadLeva"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva">Densidad Leva</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tamSobre"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre">Tam Sobre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="atenuacion"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion">Atenuacion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipoOtro"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro">Tipo Otro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="usoOtro"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro">Uso Otro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tiempoOtro"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro">Tiempo Otro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="insumoNombreInsumo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.insumo">Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="recetaId"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.receta">Receta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -42,6 +57,21 @@
                 <td><a [routerLink]="['/receta-insumo', recetaInsumo.id, 'view' ]">{{recetaInsumo.id}}</a></td>
                 <td jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + recetaInsumo.tipoInsumo}}">{{recetaInsumo.tipoInsumo}}</td>
                 <td>{{recetaInsumo.cantidad}}</td>
+                <td>{{recetaInsumo.color}}</td>
+                <td>{{recetaInsumo.porcentaje}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.UsoMalta.' + recetaInsumo.usoMalta}}">{{recetaInsumo.usoMalta}}</td>
+                <td>{{recetaInsumo.alpha}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.ModoLupulo.' + recetaInsumo.modoLupulo}}">{{recetaInsumo.modoLupulo}}</td>
+                <td>{{recetaInsumo.gramos}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.UsoLupulo.' + recetaInsumo.usoLupulo}}">{{recetaInsumo.usoLupulo}}</td>
+                <td>{{recetaInsumo.tiempo}}</td>
+                <td>{{recetaInsumo.ibu}}</td>
+                <td>{{recetaInsumo.densidadLeva}}</td>
+                <td>{{recetaInsumo.tamSobre}}</td>
+                <td>{{recetaInsumo.atenuacion}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.TipoOtro.' + recetaInsumo.tipoOtro}}">{{recetaInsumo.tipoOtro}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.UsoOtro.' + recetaInsumo.usoOtro}}">{{recetaInsumo.usoOtro}}</td>
+                <td>{{recetaInsumo.tiempoOtro}}</td>
                 <td>
                     <div *ngIf="recetaInsumo.insumoId">
                         <a [routerLink]="['../insumo', recetaInsumo.insumoId , 'view' ]" >{{recetaInsumo.insumoNombreInsumo}}</a>
