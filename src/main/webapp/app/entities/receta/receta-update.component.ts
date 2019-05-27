@@ -70,6 +70,7 @@ export class RecetaUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ receta }) => {
             this.receta = receta;
             if (this.receta.id) {
+                console.log(this.receta);
                 this.fechaDp = moment(this.receta.fecha, 'dd/MM/yyy').format();
                 this.loadDataEdit();
             }
@@ -100,7 +101,7 @@ export class RecetaUpdateComponent implements OnInit {
 
     save() {
         this.ngxLoader.start();
-        this.calculoIbu();
+        // this.calculoIbu();
         this.calculoAlcohol();
         this.isSaving = true;
         this.receta.productoId = this.producto.id;
@@ -138,6 +139,7 @@ export class RecetaUpdateComponent implements OnInit {
         });
         this.lupulosList.forEach(lupulo => {
             lupulo.recetaId = receta.id;
+            console.log(lupulo);
             if (lupulo.id) {
                 this.recetaInsumoService.update(lupulo).subscribe(res => {
                     console.log('');
@@ -333,6 +335,7 @@ export class RecetaUpdateComponent implements OnInit {
         });
         this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.LUPULO).subscribe(lupulo => {
             this.lupulosList = lupulo.body;
+            console.log(lupulo.body);
             this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
         });
         this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.LEVADURA).subscribe(leva => {
@@ -345,5 +348,31 @@ export class RecetaUpdateComponent implements OnInit {
                 this.otrosList = leva.body;
                 this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
             });
+    }
+
+    changeIbuRow(recetaInsumo: IRecetaInsumo) {
+        console.log(recetaInsumo);
+
+        console.log(this.dataSourceLupulo);
+        console.log(this.dataSourceLupulo.data);
+        this.lupulosList = this.dataSourceLupulo.data;
+        this.calculoIbu();
+        this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
+        console.log(this.lupulosList);
+    }
+
+    randomName(recetaInsumo: IRecetaInsumo, val: any) {
+        if (recetaInsumo.id) {
+            return recetaInsumo.id + val;
+        } else {
+            let result = '';
+            const characters = '0123456789';
+            const charactersLength = characters.length;
+            for (let i = 0; i < 5; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            console.log(result);
+            return result;
+        }
     }
 }
