@@ -14,11 +14,9 @@ import { DATE_FORMAT } from 'app/shared';
 import { InsumoService } from 'app/entities/insumo';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { IInsumo, TipoInsumo } from 'app/shared/model/insumo.model';
-import { IRecetaInsumo, RecetaInsumo } from 'app/shared/model/receta-insumo.model';
+import { IRecetaInsumo, ModoLupulo, RecetaInsumo } from 'app/shared/model/receta-insumo.model';
 import { MatTableDataSource } from '@angular/material';
 import { RecetaInsumoService } from 'app/entities/receta-insumo';
-import { strict } from 'assert';
-import { stringify } from 'querystring';
 
 @Component({
     selector: 'jhi-receta-update',
@@ -102,6 +100,8 @@ export class RecetaUpdateComponent implements OnInit {
 
     save() {
         this.ngxLoader.start();
+        this.calculoIbu();
+        this.calculoAlcohol();
         this.isSaving = true;
         this.receta.productoId = this.producto.id;
         this.receta.fecha = this.fechaDp != null ? moment(this.fechaDp, DATE_FORMAT) : null;
@@ -174,6 +174,100 @@ export class RecetaUpdateComponent implements OnInit {
         });
     }
 
+    protected calculoAlcohol() {
+        this.receta.abv = +Number(((this.receta.og - this.receta.fg) * 131) / 1000).toFixed(2);
+    }
+
+    protected calculoIbu() {
+        let totalIbu = 0;
+        this.lupulosList.forEach(lupulo => {
+            console.log(lupulo);
+            const fc = 1 + (this.receta.og / 1000 - 1.05) / 0.2;
+            if (this.receta.og > 1050) {
+                const ibu = (lupulo.gramos * lupulo.alpha * this.getPlu(lupulo)) / (this.receta.batch * fc * 10);
+                lupulo.ibu = +Number(ibu).toFixed(2);
+                totalIbu = totalIbu + lupulo.ibu;
+            } else {
+                const ibu = (lupulo.gramos * lupulo.alpha * this.getPlu(lupulo)) / (this.receta.batch * 10);
+                lupulo.ibu = +Number(ibu).toFixed(2);
+                totalIbu = totalIbu + lupulo.ibu;
+            }
+        });
+        this.receta.ibu = totalIbu;
+    }
+
+    private getPlu(lupulo: IRecetaInsumo) {
+        switch (true) {
+            case lupulo.tiempo >= 75: {
+                if (lupulo.modoLupulo === ModoLupulo.PELLET) {
+                    return 35;
+                    break;
+                } else {
+                    return 27;
+                    break;
+                }
+            }
+            case lupulo.tiempo >= 60 && lupulo.tiempo <= 74: {
+                if (lupulo.modoLupulo === ModoLupulo.PELLET) {
+                    return 30;
+                    break;
+                } else {
+                    return 24;
+                    break;
+                }
+            }
+            case lupulo.tiempo >= 45 && lupulo.tiempo <= 59: {
+                if (lupulo.modoLupulo === ModoLupulo.PELLET) {
+                    return 27;
+                    break;
+                } else {
+                    return 22;
+                    break;
+                }
+            }
+            case lupulo.tiempo >= 30 && lupulo.tiempo <= 44: {
+                if (lupulo.modoLupulo === ModoLupulo.PELLET) {
+                    return 24;
+                    break;
+                } else {
+                    return 19;
+                    break;
+                }
+            }
+            case lupulo.tiempo >= 20 && lupulo.tiempo <= 29: {
+                if (lupulo.modoLupulo === ModoLupulo.PELLET) {
+                    return 19;
+                    break;
+                } else {
+                    return 15;
+                    break;
+                }
+            }
+            case lupulo.tiempo >= 10 && lupulo.tiempo <= 19: {
+                if (lupulo.modoLupulo === ModoLupulo.PELLET) {
+                    return 15;
+                    break;
+                } else {
+                    return 12;
+                    break;
+                }
+            }
+            case lupulo.tiempo >= 0 && lupulo.tiempo <= 9: {
+                if (lupulo.modoLupulo === ModoLupulo.PELLET) {
+                    return 6;
+                    break;
+                } else {
+                    return 5;
+                    break;
+                }
+            }
+            default: {
+                console.log('Invalid choice');
+                break;
+            }
+        }
+    }
+
     protected onSaveError() {
         this.isSaving = false;
     }
@@ -204,6 +298,7 @@ export class RecetaUpdateComponent implements OnInit {
             this.recetaInsumoLupulo.tipoInsumo = resp.body.tipo;
             this.lupulosList.push(this.recetaInsumoLupulo);
             this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
+            this.calculoIbu();
             this.recetaInsumoLupulo = new RecetaInsumo();
         });
     }

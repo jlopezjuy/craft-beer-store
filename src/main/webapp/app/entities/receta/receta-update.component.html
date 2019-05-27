@@ -97,7 +97,7 @@
                                 abv
                             </mat-label>
                             <input type="number" matInput name="abv" id="field_abv"
-                                   [(ngModel)]="receta.abv"/>
+                                   [(ngModel)]="receta.abv" disabled/>
                         </mat-form-field>
                     </div>
                     <div class="col-sm-2">
@@ -106,7 +106,7 @@
                                 ibu
                             </mat-label>
                             <input type="number" matInput name="abv" id="field_ibu"
-                                   [(ngModel)]="receta.ibu"/>
+                                   [(ngModel)]="receta.ibu" disabled/>
                         </mat-form-field>
                     </div>
                     <div class="col-sm-2">
@@ -115,16 +115,16 @@
                                 SRM
                             </mat-label>
                             <input type="number" matInput name="srm" id="field_srm"
-                                   [(ngModel)]="receta.srm"/>
+                                   [(ngModel)]="receta.srm" disabled/>
                         </mat-form-field>
                     </div>
                     <div class="col-sm-2">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.empaste"
-                                       for="field_empaste">empaste
-                            </mat-label>
-                            <input type="number" matInput name="empaste" id="field_empaste"
-                                   [(ngModel)]="receta.empaste"/>
+<!--                        <mat-form-field class="example-full-width">-->
+<!--                            <mat-label jhiTranslate="craftBeerStoreApp.receta.empaste"-->
+<!--                                       for="field_empaste">empaste-->
+<!--                            </mat-label>-->
+<!--                            <input type="number" matInput name="empaste" id="field_empaste"-->
+<!--                                   [(ngModel)]="receta.empaste"/>-->
                         </mat-form-field>
                     </div>
                 </div>
@@ -388,15 +388,15 @@
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-sm-1">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu"
-                                                           for="field_ibu">ibu
-                                                </mat-label>
-                                                <input type="number" matInput name="ibu" id="field_ibu"
-                                                       [(ngModel)]="recetaInsumoLupulo.ibu"/>
-                                            </mat-form-field>
-                                        </div>
+<!--                                        <div class="col-sm-1">-->
+<!--                                            <mat-form-field class="example-full-width">-->
+<!--                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu"-->
+<!--                                                           for="field_ibu">ibu-->
+<!--                                                </mat-label>-->
+<!--                                                <input type="number" matInput name="ibu" id="field_ibu"-->
+<!--                                                       [(ngModel)]="recetaInsumoLupulo.ibu"/>-->
+<!--                                            </mat-form-field>-->
+<!--                                        </div>-->
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
