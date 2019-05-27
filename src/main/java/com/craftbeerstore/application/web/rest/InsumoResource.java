@@ -1,4 +1,5 @@
 package com.craftbeerstore.application.web.rest;
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import com.craftbeerstore.application.service.InsumoService;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.web.rest.util.HeaderUtil;
@@ -93,6 +94,34 @@ public class InsumoResource {
         Page<InsumoDTO> page = insumoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/insumos");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     *
+     * @param empresaId
+     * @param tipoInsumo
+     * @return
+     */
+    @GetMapping("/insumos/tipo/{empresaId}/{tipoInsumo}")
+    public ResponseEntity<List<InsumoDTO>> getAllInsumostIPO(@PathVariable Long empresaId, @PathVariable TipoInsumo tipoInsumo) {
+        log.debug("REST request to get a page of Insumos {}", empresaId);
+        log.debug("REST request to get a page of Insumos {}", tipoInsumo);
+        List<InsumoDTO> page = insumoService.findAllByEmpresaAndTipo(empresaId, tipoInsumo);
+        return ResponseEntity.ok().body(page);
+    }
+
+    /**
+     *
+     * @param empresaId
+     * @param tipoInsumos
+     * @return
+     */
+    @GetMapping("/insumos/tipo/{empresaId}")
+    public ResponseEntity<List<InsumoDTO>> getAllInsumostIPO(@PathVariable Long empresaId, @RequestParam List<TipoInsumo> tipoInsumos) {
+        log.debug("REST request to get a page of Insumos {}", empresaId);
+        log.debug("REST request to get a page of Insumos {}", tipoInsumos);
+        List<InsumoDTO> page = insumoService.findAllByEmpresaAndTipo(empresaId, tipoInsumos);
+        return ResponseEntity.ok().body(page);
     }
 
     /**

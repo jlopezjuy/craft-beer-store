@@ -1,0 +1,100 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "producto",
+            "otherEntityName": "producto",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreComercial",
+            "otherEntityRelationshipNameUndefined": false,
+            "otherEntityRelationshipName": "receta"
+        },
+        {
+            "relationshipName": "maltas",
+            "otherEntityName": "insumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreInsumo",
+            "otherEntityRelationshipName": "receta",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "lupulo",
+            "otherEntityName": "insumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreInsumo",
+            "otherEntityRelationshipName": "receta",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "levadura",
+            "otherEntityName": "insumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreInsumo",
+            "otherEntityRelationshipName": "receta",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "otros",
+            "otherEntityName": "insumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreInsumo",
+            "otherEntityRelationshipName": "receta",
+            "otherEntityRelationshipNameUndefined": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "brewMaster",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "batch",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "temperaturaDeMacerado",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "og",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "fg",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "abv",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "ibu",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "srm",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "empaste",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "fecha",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20190523184243",
+    "dto": "mapstruct",
+    "searchEngine": "elasticsearch",
+    "service": "serviceImpl",
+    "entityTableName": "receta",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

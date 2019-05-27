@@ -1,0 +1,103 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="recetaInsumo">
+            <h2><span jhiTranslate="craftBeerStoreApp.recetaInsumo.detail.title">Receta Insumo</span> {{recetaInsumo.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoInsumo">Tipo Insumo</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + recetaInsumo.tipoInsumo}}">{{recetaInsumo.tipoInsumo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.cantidad}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.color">Color</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.color}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.porcentaje">Porcentaje</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.porcentaje}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta">Uso Malta</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.UsoMalta.' + recetaInsumo.usoMalta}}">{{recetaInsumo.usoMalta}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha">Alpha</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.alpha}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo">Modo Lupulo</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.ModoLupulo.' + recetaInsumo.modoLupulo}}">{{recetaInsumo.modoLupulo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Gramos</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.gramos}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo">Uso Lupulo</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.UsoLupulo.' + recetaInsumo.usoLupulo}}">{{recetaInsumo.usoLupulo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo">Tiempo</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.tiempo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu">Ibu</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.ibu}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva">Densidad Leva</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.densidadLeva}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre">Tam Sobre</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.tamSobre}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion">Atenuacion</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.atenuacion}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro">Tipo Otro</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoOtro.' + recetaInsumo.tipoOtro}}">{{recetaInsumo.tipoOtro}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro">Uso Otro</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.UsoOtro.' + recetaInsumo.usoOtro}}">{{recetaInsumo.usoOtro}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro">Tiempo Otro</span></dt>
+                <dd>
+                    <span>{{recetaInsumo.tiempoOtro}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.insumo">Insumo</span></dt>
+                <dd>
+                    <div *ngIf="recetaInsumo.insumoId">
+                        <a [routerLink]="['/insumo', recetaInsumo.insumoId, 'view']">{{recetaInsumo.insumoNombreInsumo}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.recetaInsumo.receta">Receta</span></dt>
+                <dd>
+                    <div *ngIf="recetaInsumo.recetaId">
+                        <a [routerLink]="['/receta', recetaInsumo.recetaId, 'view']">{{recetaInsumo.recetaId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/receta-insumo', recetaInsumo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

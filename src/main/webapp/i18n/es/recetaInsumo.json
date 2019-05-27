@@ -1,0 +1,44 @@
+{
+    "craftBeerStoreApp": {
+        "recetaInsumo": {
+            "home": {
+                "title": "Receta Insumos",
+                "createLabel": "Crear nuevo Receta Insumo",
+                "createOrEditLabel": "Crear o editar Receta Insumo",
+                "search": "Search for Receta Insumo"
+            },
+            "created": "Un nuevo Receta Insumo ha sido creado con el identificador {{ param }}",
+            "updated": "Un Receta Insumo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Receta Insumo ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Receta Insumo {{ id }}?"
+            },
+            "detail": {
+                "title": "Receta Insumo"
+            },
+            "tipoInsumo": "Tipo Insumo",
+            "cantidad": "Cantidad Kg",
+            "color": "Color",
+            "porcentaje": "Porcentaje",
+            "usoMalta": "Uso Malta",
+            "alpha": "Alpha",
+            "modoLupulo": "Modo Lupulo",
+            "gramos": "Gramos",
+            "usoLupulo": "Uso Lupulo",
+            "tiempo": "Tiempo",
+            "ibu": "Ibu",
+            "densidadLeva": "Densidad Leva",
+            "tamSobre": "Tam Sobre",
+            "atenuacion": "Atenuacion",
+            "tipoOtro": "Tipo Otro",
+            "usoOtro": "Uso Otro",
+            "tiempoOtro": "Tiempo Otro",
+            "insumo": "Insumo",
+            "receta": "Receta",
+            "nombreMalta": "Malta",
+            "nombreLupulo": "Lúpulo",
+            "nombreLevadura": "Levadura",
+            "nombreOtro": "Otro"
+        }
+    }
+}

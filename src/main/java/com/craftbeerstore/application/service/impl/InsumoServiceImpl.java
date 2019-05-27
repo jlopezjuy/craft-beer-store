@@ -1,6 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
 import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.InsumoService;
 import com.craftbeerstore.application.domain.Insumo;
@@ -9,6 +10,7 @@ import com.craftbeerstore.application.repository.search.InsumoSearchRepository;
 import com.craftbeerstore.application.service.dto.InsumoDTO;
 import com.craftbeerstore.application.service.mapper.InsumoMapper;
 import com.craftbeerstore.application.web.rest.EmpresaResource;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,6 +89,18 @@ public class InsumoServiceImpl implements InsumoService {
     public Page<InsumoDTO> findAllByEmpresa(Pageable pageable, Long empresaId) {
         Empresa empresa = empresaRepository.getOne(empresaId);
         return insumoRepository.findAllByEmpresa(pageable, empresa).map(insumoMapper::toDto);
+    }
+
+    @Override
+    public List<InsumoDTO> findAllByEmpresaAndTipo(Long empresaId, TipoInsumo tipoInsumo) {
+        Empresa empresa = empresaRepository.getOne(empresaId);
+        return insumoMapper.toDto(insumoRepository.findAllByEmpresaAndTipo(empresa, tipoInsumo));
+    }
+
+    @Override
+    public List<InsumoDTO> findAllByEmpresaAndTipo(Long empresaId, List<TipoInsumo> tipoInsumo) {
+        Empresa empresa = empresaRepository.getOne(empresaId);
+        return insumoMapper.toDto(insumoRepository.findAllByEmpresaAndTipoNotIn(empresa, tipoInsumo));
     }
 
     /**

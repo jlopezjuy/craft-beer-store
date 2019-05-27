@@ -202,6 +202,11 @@ export class ProductoComponent implements OnInit, OnDestroy {
         this.router.navigate(['/presentacion']);
     }
 
+    goReceta(producto: IProducto) {
+        this.$localStorage.store('producto', producto);
+        this.router.navigate(['/receta']);
+    }
+
     onPaginateChange(event: PageEvent) {
         this.page = event.pageIndex + 1;
         this.loadPage(event.pageIndex + 1);

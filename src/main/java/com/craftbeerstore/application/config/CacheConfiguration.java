@@ -52,6 +52,8 @@ public class CacheConfiguration {
             cm.createCache(com.craftbeerstore.application.domain.Estilos.class.getName(), jcacheConfiguration);
             cm.createCache(com.craftbeerstore.application.domain.Equipamiento.class.getName(), jcacheConfiguration);
             cm.createCache(com.craftbeerstore.application.domain.PuntoDeVenta.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.Receta.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.RecetaInsumo.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
