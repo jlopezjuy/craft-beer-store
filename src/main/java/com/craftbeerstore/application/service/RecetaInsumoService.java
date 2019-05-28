@@ -71,4 +71,6 @@ public interface RecetaInsumoService {
      * @return the list of entities
      */
     Page<RecetaInsumoDTO> search(String query, Pageable pageable);
+
+    void delete(List<String> list);
 }

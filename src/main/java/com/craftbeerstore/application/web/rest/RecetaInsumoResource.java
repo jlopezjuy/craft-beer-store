@@ -140,6 +140,13 @@ public class RecetaInsumoResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+    @DeleteMapping("/receta-insumos/delete")
+    public ResponseEntity<Void> deleteRecetaInsumo(@RequestParam("insumos") List<String> list) {
+        log.debug("REST request to delete RecetaInsumo : {}", list);
+        recetaInsumoService.delete(list);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "")).build();
+    }
+
     /**
      * SEARCH  /_search/receta-insumos?query=:query : search for the recetaInsumo corresponding
      * to the query.

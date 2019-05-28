@@ -58,7 +58,7 @@
                                        for="field_batch">Brew Master
                             </mat-label>
                             <input type="number" matInput name="batch" id="field_batch"
-                                   [(ngModel)]="receta.batch"/>
+                                   [(ngModel)]="receta.batch" required/>
                         </mat-form-field>
                     </div>
                     <div class="col-sm-6">
@@ -79,7 +79,7 @@
                                 OG
                             </mat-label>
                             <input type="number" matInput name="og" id="field_og"
-                                   [(ngModel)]="receta.og"/>
+                                   [(ngModel)]="receta.og" required/>
                         </mat-form-field>
                     </div>
                     <div class="col-sm-2">
@@ -88,7 +88,7 @@
                                 OG
                             </mat-label>
                             <input type="number" matInput name="fg" id="field_fg"
-                                   [(ngModel)]="receta.fg"/>
+                                   [(ngModel)]="receta.fg" required/>
                         </mat-form-field>
                     </div>
                     <div class="col-sm-2">
@@ -135,7 +135,7 @@
                         <div class="mat-elevation-z8">
                             <mat-card class="example-card">
                                 <mat-card-header>
-                                    <mat-card-title>Maltas</mat-card-title>
+                                    <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.maltas">Maltas</span></mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content>
                                     <div class="row">
@@ -295,7 +295,7 @@
                         <div class="mat-elevation-z8">
                             <mat-card class="example-card">
                                 <mat-card-header>
-                                    <mat-card-title>Lupulos</mat-card-title>
+                                    <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.lupulo">Lupulo</span></mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content>
                                     <div class="row">
@@ -485,7 +485,7 @@
                         <div class="mat-elevation-z8">
                             <mat-card class="example-card">
                                 <mat-card-header>
-                                    <mat-card-title>Levaduras</mat-card-title>
+                                    <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.levadura">Levadura</span></mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content>
                                     <div class="row">
@@ -611,7 +611,7 @@
                         <div class="mat-elevation-z8">
                             <mat-card class="example-card">
                                 <mat-card-header>
-                                    <mat-card-title>Otros</mat-card-title>
+                                    <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.otros">Otros</span></mat-card-title>
                                 </mat-card-header>
                                 <mat-card-content>
                                     <div class="row">

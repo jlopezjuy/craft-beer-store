@@ -124,6 +124,7 @@ export class RecetaUpdateComponent implements OnInit {
 
     protected onSaveSuccess(receta: IReceta) {
         this.isSaving = false;
+        this.removeInsumos();
         this.saveRecetaInsumos(receta);
         this.ngxLoader.stop();
         this.previousState();
@@ -134,11 +135,11 @@ export class RecetaUpdateComponent implements OnInit {
             malta.recetaId = receta.id;
             if (malta.id) {
                 this.recetaInsumoService.update(malta).subscribe(res => {
-                    console.log('');
+                    console.log('ok');
                 });
             } else {
                 this.recetaInsumoService.create(malta).subscribe(res => {
-                    console.log('');
+                    console.log('ok');
                 });
             }
         });
@@ -147,11 +148,11 @@ export class RecetaUpdateComponent implements OnInit {
             console.log(lupulo);
             if (lupulo.id) {
                 this.recetaInsumoService.update(lupulo).subscribe(res => {
-                    console.log('');
+                    console.log('ok');
                 });
             } else {
                 this.recetaInsumoService.create(lupulo).subscribe(res => {
-                    console.log('');
+                    console.log('ok');
                 });
             }
         });
@@ -159,11 +160,11 @@ export class RecetaUpdateComponent implements OnInit {
             leva.recetaId = receta.id;
             if (leva.id) {
                 this.recetaInsumoService.update(leva).subscribe(res => {
-                    console.log('');
+                    console.log('ok');
                 });
             } else {
                 this.recetaInsumoService.create(leva).subscribe(res => {
-                    console.log('');
+                    console.log('ok');
                 });
             }
         });
@@ -171,11 +172,11 @@ export class RecetaUpdateComponent implements OnInit {
             otro.recetaId = receta.id;
             if (otro.id) {
                 this.recetaInsumoService.update(otro).subscribe(res => {
-                    console.log('');
+                    console.log('ok');
                 });
             } else {
                 this.recetaInsumoService.create(otro).subscribe(res => {
-                    console.log('');
+                    console.log('ok');
                 });
             }
         });
@@ -455,6 +456,7 @@ export class RecetaUpdateComponent implements OnInit {
         const newList: IRecetaInsumo[] = this.maltasList.filter(malt => malt !== malta);
         this.maltasList = newList;
         this.dataSourceMalta = new MatTableDataSource<IRecetaInsumo>(this.maltasList);
+        this.changeSrmRow();
     }
 
     removeLupulo(malta: IRecetaInsumo) {
@@ -462,6 +464,7 @@ export class RecetaUpdateComponent implements OnInit {
         const newList: IRecetaInsumo[] = this.lupulosList.filter(malt => malt !== malta);
         this.lupulosList = newList;
         this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
+        this.calculoIbu();
     }
 
     removeLevadura(malta: IRecetaInsumo) {
@@ -476,5 +479,34 @@ export class RecetaUpdateComponent implements OnInit {
         const newList: IRecetaInsumo[] = this.otrosList.filter(malt => malt !== malta);
         this.otrosList = newList;
         this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
+    }
+
+    protected removeInsumos() {
+        const ids: number[] = [];
+        this.maltasListRemove.forEach(insumo => {
+            if (insumo.id) {
+                ids.push(insumo.id);
+            }
+        });
+        this.lupulosListRemove.forEach(insumo => {
+            if (insumo.id) {
+                ids.push(insumo.id);
+            }
+        });
+        this.levadurasListRemove.forEach(insumo => {
+            if (insumo.id) {
+                ids.push(insumo.id);
+            }
+        });
+        this.otrosListRemove.forEach(insumo => {
+            if (insumo.id) {
+                ids.push(insumo.id);
+            }
+        });
+        if (ids.length > 0) {
+            this.recetaInsumoService.deleteAll(ids).subscribe(resp => {
+                console.log('ok');
+            });
+        }
     }
 }

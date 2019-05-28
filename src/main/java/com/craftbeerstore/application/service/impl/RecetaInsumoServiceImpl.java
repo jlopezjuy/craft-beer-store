@@ -12,6 +12,7 @@ import com.craftbeerstore.application.repository.search.RecetaInsumoSearchReposi
 import com.craftbeerstore.application.service.dto.RecetaInsumoDTO;
 import com.craftbeerstore.application.service.mapper.RecetaInsumoMapper;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -151,5 +152,11 @@ public class RecetaInsumoServiceImpl implements RecetaInsumoService {
         log.debug("Request to search for a page of RecetaInsumos for query {}", query);
         return recetaInsumoSearchRepository.search(queryStringQuery(query), pageable)
             .map(recetaInsumoMapper::toDto);
+    }
+
+    @Override
+    public void delete(List<String> list) {
+        recetaInsumoRepository.deleteByIdIn(list.stream().map(id -> Long.valueOf(id)).collect(
+            Collectors.toList()));
     }
 }

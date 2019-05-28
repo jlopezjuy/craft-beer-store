@@ -34,11 +34,11 @@
             "usoOtro": "Uso Otro",
             "tiempoOtro": "Tiempo Otro",
             "insumo": "Insumo",
-            "receta": "Receta",
-            "nombreMalta": "Malta",
-            "nombreLupulo": "Lúpulo",
-            "nombreLevadura": "Levadura",
-            "nombreOtro": "Otro"
+            "receta": "Recipe",
+            "nombreMalta": "Malt",
+            "nombreLupulo": "Hop",
+            "nombreLevadura": "Yeast",
+            "nombreOtro": "Other"
         }
     }
 }

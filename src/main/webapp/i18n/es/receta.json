@@ -20,8 +20,8 @@
             "brewMaster": "Brew Master",
             "batch": "Batch",
             "temperaturaDeMacerado": "Temperatura De Macerado",
-            "og": "Og",
-            "fg": "Fg",
+            "og": "DI",
+            "fg": "DF",
             "abv": "Abv",
             "ibu": "Ibu",
             "srm": "Srm",
@@ -29,8 +29,8 @@
             "fecha": "Fecha",
             "producto": "Producto",
             "maltas": "Maltas",
-            "lupulo": "Lúpulo",
-            "levadura": "Levadura",
+            "lupulo": "Lúpulos",
+            "levadura": "Levaduras",
             "otros": "Otros"
         }
     }

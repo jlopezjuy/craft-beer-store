@@ -50,6 +50,10 @@ export class RecetaInsumoService {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    deleteAll(insumos: any): Observable<HttpResponse<any>> {
+        return this.http.delete<any>(`${this.resourceUrl}/delete`, { params: { insumos: insumos }, observe: 'response' });
+    }
+
     search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IRecetaInsumo[]>(this.resourceSearchUrl, { params: options, observe: 'response' });

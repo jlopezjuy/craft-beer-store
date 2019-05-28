@@ -19,4 +19,6 @@ public interface RecetaInsumoRepository extends JpaRepository<RecetaInsumo, Long
     List<RecetaInsumo> findAllByRecetaAndTipoInsumo(Receta receta, TipoInsumo tipoInsumo);
 
     List<RecetaInsumo> findAllByRecetaAndTipoInsumoNotIn(Receta receta, List<TipoInsumo> tipoInsumos);
+
+    void deleteByIdIn(List<Long> id);
 }
