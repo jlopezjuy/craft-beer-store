@@ -42,12 +42,16 @@ export class RecetaUpdateComponent implements OnInit {
     lupulosList: IRecetaInsumo[] = [];
     levadurasList: IRecetaInsumo[] = [];
     otrosList: IRecetaInsumo[] = [];
+    maltasListRemove: IRecetaInsumo[] = [];
+    lupulosListRemove: IRecetaInsumo[] = [];
+    levadurasListRemove: IRecetaInsumo[] = [];
+    otrosListRemove: IRecetaInsumo[] = [];
 
     dataSourceMalta: any;
-    displayedColumnsMalta: string[] = ['nombreMalta', 'cantidad', 'color', 'porcentaje', 'usoMalta'];
-    displayedColumnsLupulo: string[] = ['nombreMalta', 'alpha', 'modoLupulo', 'gramos', 'usoLupulo', 'tiempo', 'ibu'];
-    displayedColumnsLevadura: string[] = ['nombreMalta', 'gramos', 'densidadLeva', 'tamSobre', 'atenuacion'];
-    displayedColumnsOtro: string[] = ['nombreMalta', 'gramos', 'tipoOtro', 'usoOtro', 'tiempoOtro'];
+    displayedColumnsMalta: string[] = ['nombreMalta', 'cantidad', 'color', 'porcentaje', 'usoMalta', 'action'];
+    displayedColumnsLupulo: string[] = ['nombreMalta', 'alpha', 'modoLupulo', 'gramos', 'usoLupulo', 'tiempo', 'ibu', 'action'];
+    displayedColumnsLevadura: string[] = ['nombreMalta', 'gramos', 'densidadLeva', 'tamSobre', 'atenuacion', 'action'];
+    displayedColumnsOtro: string[] = ['nombreMalta', 'gramos', 'tipoOtro', 'usoOtro', 'tiempoOtro', 'action'];
 
     dataSourceLupulo: any;
 
@@ -394,46 +398,83 @@ export class RecetaUpdateComponent implements OnInit {
     }
 
     setMyStyles() {
-        const border = '20px solid ' + this.returnColor();
         return {
             'background-color': this.returnColor(),
-            border: border
+            border: '20px solid ' + this.returnColor()
         };
     }
 
     private returnColor() {
         const colorMap = {
-            1: '#F3F993',
-            2: ' #F5F75C',
-            3: ' #F6F513',
-            4: ' #EAE615',
-            5: ' #E0D01B',
-            6: ' #D5BC26',
-            7: ' #CDAA37',
-            8: ' #C1963C',
-            9: ' #BE8C3A',
-            10: ' #BE823A',
-            11: ' #C17A37',
-            12: ' #BF7138',
-            13: ' #BC6733',
-            14: ' #B26033',
-            15: ' #A85839',
-            16: ' #985336',
-            17: ' #8D4C32',
-            18: ' #7C452D',
-            19: ' #6B3A1E',
-            20: ' #5D341A',
-            21: ' #4E2A0C',
-            22: ' #4A2727',
-            23: ' #361F1B',
-            24: ' #261716',
-            25: ' #231716',
-            26: ' #19100F',
-            27: ' #16100F',
-            28: ' #120D0C',
-            29: ' #100B0A',
-            30: ' #050B0A'
+            1: '#FFE699',
+            2: '#FFD878',
+            3: '#FFCA5A',
+            4: '#FFBF42',
+            5: '#FBB123',
+            6: '#F8A600',
+            7: '#F39C00',
+            8: '#EA8F00',
+            9: '#E58500',
+            10: '#DE7C00',
+            11: '#D77200',
+            12: '#CF6900',
+            13: '#CB6200',
+            14: '#C35900',
+            15: '#BB5100',
+            16: '#B54C00',
+            17: '#B04500',
+            18: '#A63E00',
+            19: '#A13700',
+            20: '#9B3200',
+            21: '#952D00',
+            22: '#8E2900',
+            23: '#882300',
+            24: '#821E00',
+            25: '#7B1A00',
+            26: '#771900',
+            27: '#701400',
+            28: '#6A0E00',
+            29: '#660D00',
+            30: '#5E0B00',
+            31: '#5A0A02',
+            32: '#600903',
+            33: '#520907',
+            34: '#4C0505',
+            35: '#470606',
+            36: '#440607',
+            37: '#361F1B',
+            38: '#120D0C',
+            39: '#100B0A',
+            40: '#050B0A'
         };
         return colorMap[this.receta.srm];
+    }
+
+    removeMalta(malta: IRecetaInsumo) {
+        this.maltasListRemove.push(malta);
+        const newList: IRecetaInsumo[] = this.maltasList.filter(malt => malt !== malta);
+        this.maltasList = newList;
+        this.dataSourceMalta = new MatTableDataSource<IRecetaInsumo>(this.maltasList);
+    }
+
+    removeLupulo(malta: IRecetaInsumo) {
+        this.lupulosListRemove.push(malta);
+        const newList: IRecetaInsumo[] = this.lupulosList.filter(malt => malt !== malta);
+        this.lupulosList = newList;
+        this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
+    }
+
+    removeLevadura(malta: IRecetaInsumo) {
+        this.levadurasListRemove.push(malta);
+        const newList: IRecetaInsumo[] = this.levadurasList.filter(malt => malt !== malta);
+        this.levadurasList = newList;
+        this.dataSourceLeva = new MatTableDataSource<IRecetaInsumo>(this.levadurasList);
+    }
+
+    removeOtro(malta: IRecetaInsumo) {
+        this.otrosListRemove.push(malta);
+        const newList: IRecetaInsumo[] = this.otrosList.filter(malt => malt !== malta);
+        this.otrosList = newList;
+        this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
     }
 }
