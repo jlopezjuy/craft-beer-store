@@ -41,7 +41,7 @@
         },
         {
             "fieldName": "porcentaje",
-            "fieldType": "Long",
+            "fieldType": "BigDecimal",
             "fieldValidateRules": [
                 "max"
             ],

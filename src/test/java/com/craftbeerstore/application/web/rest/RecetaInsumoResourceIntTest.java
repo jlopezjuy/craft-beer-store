@@ -65,8 +65,8 @@ public class RecetaInsumoResourceIntTest {
     private static final Long DEFAULT_COLOR = 2L;
     private static final Long UPDATED_COLOR = 3L;
 
-    private static final Long DEFAULT_PORCENTAJE = 100L;
-    private static final Long UPDATED_PORCENTAJE = 99L;
+    private static final BigDecimal DEFAULT_PORCENTAJE = new BigDecimal(100);
+    private static final BigDecimal UPDATED_PORCENTAJE = new BigDecimal(99);
 
     private static final UsoMalta DEFAULT_USO_MALTA = UsoMalta.MASH;
     private static final UsoMalta UPDATED_USO_MALTA = UsoMalta.RECIRCULATING;

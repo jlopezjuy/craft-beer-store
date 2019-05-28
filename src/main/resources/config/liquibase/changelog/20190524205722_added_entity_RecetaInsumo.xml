@@ -32,5 +32,11 @@
             newDataType="decimal(15,5)"
             tableName="receta_insumo"/>
     </changeSet>
+    <changeSet author="jlopez" id="20190528205721-4">
+        <modifyDataType
+            columnName="porcentaje"
+            newDataType="decimal(15,5)"
+            tableName="receta_insumo"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

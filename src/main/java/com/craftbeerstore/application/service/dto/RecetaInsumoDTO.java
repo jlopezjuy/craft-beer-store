@@ -25,8 +25,8 @@ public class RecetaInsumoDTO implements Serializable {
     @Max(value = 40L)
     private Long color;
 
-    @Max(value = 100L)
-    private Long porcentaje;
+    @DecimalMax(value = "100")
+    private BigDecimal porcentaje;
 
     private UsoMalta usoMalta;
 
@@ -96,11 +96,11 @@ public class RecetaInsumoDTO implements Serializable {
         this.color = color;
     }
 
-    public Long getPorcentaje() {
+    public BigDecimal getPorcentaje() {
         return porcentaje;
     }
 
-    public void setPorcentaje(Long porcentaje) {
+    public void setPorcentaje(BigDecimal porcentaje) {
         this.porcentaje = porcentaje;
     }
 

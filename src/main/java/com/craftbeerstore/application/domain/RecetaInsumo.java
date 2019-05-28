@@ -52,9 +52,9 @@ public class RecetaInsumo implements Serializable {
     @Column(name = "color")
     private Long color;
 
-    @Max(value = 100L)
-    @Column(name = "porcentaje")
-    private Long porcentaje;
+    @DecimalMax(value = "100")
+    @Column(name = "porcentaje", precision = 10, scale = 2)
+    private BigDecimal porcentaje;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "uso_malta")
@@ -159,16 +159,16 @@ public class RecetaInsumo implements Serializable {
         this.color = color;
     }
 
-    public Long getPorcentaje() {
+    public BigDecimal getPorcentaje() {
         return porcentaje;
     }
 
-    public RecetaInsumo porcentaje(Long porcentaje) {
+    public RecetaInsumo porcentaje(BigDecimal porcentaje) {
         this.porcentaje = porcentaje;
         return this;
     }
 
-    public void setPorcentaje(Long porcentaje) {
+    public void setPorcentaje(BigDecimal porcentaje) {
         this.porcentaje = porcentaje;
     }
 

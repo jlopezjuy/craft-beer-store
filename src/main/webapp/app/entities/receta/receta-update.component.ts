@@ -20,7 +20,8 @@ import { RecetaInsumoService } from 'app/entities/receta-insumo';
 
 @Component({
     selector: 'jhi-receta-update',
-    templateUrl: './receta-update.component.html'
+    templateUrl: './receta-update.component.html',
+    styleUrls: ['receta-update.component.scss']
 })
 export class RecetaUpdateComponent implements OnInit {
     receta: IReceta;
@@ -288,7 +289,9 @@ export class RecetaUpdateComponent implements OnInit {
             this.recetaInsumo.cantidad = parseFloat(this.recetaInsumo.cantidad.toString());
             this.recetaInsumo.tipoInsumo = resp.body.tipo;
             this.maltasList.push(this.recetaInsumo);
+            this.calculatePercetage();
             this.dataSourceMalta = new MatTableDataSource<IRecetaInsumo>(this.maltasList);
+            this.changeSrmRow();
             this.recetaInsumo = new RecetaInsumo();
         });
     }
@@ -296,7 +299,6 @@ export class RecetaUpdateComponent implements OnInit {
     addLupulo() {
         this.insumoService.find(this.recetaInsumoLupulo.insumoId).subscribe(resp => {
             this.recetaInsumoLupulo.insumoNombreInsumo = resp.body.nombreInsumo;
-            // this.recetaInsumoLupulo.cantidad = parseFloat(this.recetaInsumoLupulo.cantidad.toString());
             this.recetaInsumoLupulo.tipoInsumo = resp.body.tipo;
             this.lupulosList.push(this.recetaInsumoLupulo);
             this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
@@ -308,7 +310,6 @@ export class RecetaUpdateComponent implements OnInit {
     addLevadura() {
         this.insumoService.find(this.recetaInsumoLeva.insumoId).subscribe(resp => {
             this.recetaInsumoLeva.insumoNombreInsumo = resp.body.nombreInsumo;
-            // this.recetaInsumoLeva.cantidad = parseFloat(this.recetaInsumoLeva.cantidad.toString());
             this.recetaInsumoLeva.tipoInsumo = resp.body.tipo;
             this.levadurasList.push(this.recetaInsumoLeva);
             this.dataSourceLeva = new MatTableDataSource<IRecetaInsumo>(this.levadurasList);
@@ -319,7 +320,6 @@ export class RecetaUpdateComponent implements OnInit {
     addOtros() {
         this.insumoService.find(this.recetaInsumoOtro.insumoId).subscribe(resp => {
             this.recetaInsumoOtro.insumoNombreInsumo = resp.body.nombreInsumo;
-            // this.recetaInsumoOtro.cantidad = parseFloat(this.recetaInsumoOtro.cantidad.toString());
             this.recetaInsumoOtro.tipoInsumo = resp.body.tipo;
             this.otrosList.push(this.recetaInsumoOtro);
             this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
@@ -328,14 +328,13 @@ export class RecetaUpdateComponent implements OnInit {
     }
 
     loadDataEdit() {
-        console.log('entro a cargar insumos');
         this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.MALTA).subscribe(malta => {
             this.maltasList = malta.body;
             this.dataSourceMalta = new MatTableDataSource<IRecetaInsumo>(this.maltasList);
         });
         this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.LUPULO).subscribe(lupulo => {
             this.lupulosList = lupulo.body;
-            console.log(lupulo.body);
+
             this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
         });
         this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.LEVADURA).subscribe(leva => {
@@ -349,12 +348,31 @@ export class RecetaUpdateComponent implements OnInit {
                 this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
             });
     }
+    changeSrmRow() {
+        let mcbu = 0;
+        this.maltasList.forEach(malta => {
+            mcbu = mcbu + malta.cantidad * malta.color;
+        });
+        mcbu = +Number(mcbu / this.receta.batch).toFixed(2);
+        const mcu = +Number(mcbu * (2.2 / 0.26)).toFixed(2);
+        const srm = +Number(1.5 * Math.pow(mcu, 0.7)).toFixed(0);
+        this.receta.srm = srm;
+        this.calculatePercetage();
+        this.dataSourceMalta = new MatTableDataSource<IRecetaInsumo>(this.maltasList);
+    }
+
+    calculatePercetage() {
+        let suma = 0;
+        this.maltasList.forEach(malta => {
+            suma = suma + malta.cantidad;
+        });
+
+        this.maltasList.forEach(malta => {
+            malta.porcentaje = +Number((malta.cantidad * 100) / suma).toFixed(2);
+        });
+    }
 
     changeIbuRow(recetaInsumo: IRecetaInsumo) {
-        console.log(recetaInsumo);
-
-        console.log(this.dataSourceLupulo);
-        console.log(this.dataSourceLupulo.data);
         this.lupulosList = this.dataSourceLupulo.data;
         this.calculoIbu();
         this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
@@ -363,7 +381,7 @@ export class RecetaUpdateComponent implements OnInit {
 
     randomName(recetaInsumo: IRecetaInsumo, val: any) {
         if (recetaInsumo.id) {
-            return recetaInsumo.id + val;
+            return recetaInsumo.id + '-' + val;
         } else {
             let result = '';
             const characters = '0123456789';
@@ -371,8 +389,51 @@ export class RecetaUpdateComponent implements OnInit {
             for (let i = 0; i < 5; i++) {
                 result += characters.charAt(Math.floor(Math.random() * charactersLength));
             }
-            console.log(result);
             return result;
         }
+    }
+
+    setMyStyles() {
+        const border = '20px solid ' + this.returnColor();
+        return {
+            'background-color': this.returnColor(),
+            border: border
+        };
+    }
+
+    private returnColor() {
+        const colorMap = {
+            1: '#F3F993',
+            2: ' #F5F75C',
+            3: ' #F6F513',
+            4: ' #EAE615',
+            5: ' #E0D01B',
+            6: ' #D5BC26',
+            7: ' #CDAA37',
+            8: ' #C1963C',
+            9: ' #BE8C3A',
+            10: ' #BE823A',
+            11: ' #C17A37',
+            12: ' #BF7138',
+            13: ' #BC6733',
+            14: ' #B26033',
+            15: ' #A85839',
+            16: ' #985336',
+            17: ' #8D4C32',
+            18: ' #7C452D',
+            19: ' #6B3A1E',
+            20: ' #5D341A',
+            21: ' #4E2A0C',
+            22: ' #4A2727',
+            23: ' #361F1B',
+            24: ' #261716',
+            25: ' #231716',
+            26: ' #19100F',
+            27: ' #16100F',
+            28: ' #120D0C',
+            29: ' #100B0A',
+            30: ' #050B0A'
+        };
+        return colorMap[this.receta.srm];
     }
 }

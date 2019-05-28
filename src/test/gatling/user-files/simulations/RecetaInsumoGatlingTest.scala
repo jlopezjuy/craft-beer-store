@@ -75,7 +75,7 @@ class RecetaInsumoGatlingTest extends Simulation {
                 , "tipoInsumo":"MALTA"
                 , "cantidad":"0"
                 , "color":null
-                , "porcentaje":null
+                , "porcentaje":"0"
                 , "usoMalta":"MASH"
                 , "alpha":null
                 , "modoLupulo":"PELLET"
