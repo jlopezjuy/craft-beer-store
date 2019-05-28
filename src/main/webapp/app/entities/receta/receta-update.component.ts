@@ -399,7 +399,6 @@ export class RecetaUpdateComponent implements OnInit {
     }
 
     setMyStyles() {
-        const image = 'background: url(' + '"../../../content/images/icon.svg"' + ') no-repeat center center';
         return {
             'background-color': this.returnColor(),
             border: '0px solid ' + this.returnColor(),

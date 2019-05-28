@@ -108,18 +108,23 @@
                                    [(ngModel)]="receta.ibu" disabled/>
                         </mat-form-field>
                     </div>
-                    <div class="col-sm-2">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.srm" for="field_srm">
-                                SRM
-                            </mat-label>
-                            <input type="number" matInput name="srm" id="field_srm"
-                                   [(ngModel)]="receta.srm" disabled/>
-                        </mat-form-field>
+                    <div class="col-sm-4">
+                        <div class="row">
+                            <div class="col-6">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label jhiTranslate="craftBeerStoreApp.receta.srm" for="field_srm">
+                                        SRM
+                                    </mat-label>
+                                    <input type="number" matInput name="srm" id="field_srm"
+                                           [(ngModel)]="receta.srm" disabled/>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <div [ngStyle]="setMyStyles()" class="logo-glass"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-2">
-                        <div [ngStyle]="setMyStyles()" class="logo-glass"></div>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
