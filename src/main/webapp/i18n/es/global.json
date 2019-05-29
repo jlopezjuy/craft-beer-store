@@ -36,6 +36,7 @@
                 "puntoDeVenta": "Punto De Venta",
                 "receta": "Receta",
                 "recetaInsumo": "Receta Insumo",
+                "insumoRecomendado": "Insumo Recomendado",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
