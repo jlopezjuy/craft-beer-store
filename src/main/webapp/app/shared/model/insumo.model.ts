@@ -14,8 +14,8 @@ export const enum TipoInsumo {
     LUPULO = 'LUPULO',
     LEVADURA = 'LEVADURA',
     ACIDO = 'ACIDO',
-    SAL = 'SAL',
     CLARIFICANTE = 'CLARIFICANTE',
+    SAL = 'SAL',
     OTROS = 'OTROS'
 }
 
@@ -29,6 +29,8 @@ export interface IInsumo {
     imagenContentType?: string;
     imagen?: any;
     empresaId?: number;
+    insumoRecomendadoNombre?: string;
+    insumoRecomendadoId?: number;
 }
 
 export class Insumo implements IInsumo {
@@ -41,6 +43,8 @@ export class Insumo implements IInsumo {
         public tipo?: TipoInsumo,
         public imagenContentType?: string,
         public imagen?: any,
-        public empresaId?: number
+        public empresaId?: number,
+        public insumoRecomendadoNombre?: string,
+        public insumoRecomendadoId?: number
     ) {}
 }

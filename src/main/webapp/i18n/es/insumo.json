@@ -22,7 +22,8 @@
             "unidad": "Unidad",
             "tipo": "Tipo",
             "imagen": "Imagen",
-            "empresa": "Empresa"
+            "empresa": "Empresa",
+            "insumoRecomendado": "Insumo Recomendado"
         }
     }
 }

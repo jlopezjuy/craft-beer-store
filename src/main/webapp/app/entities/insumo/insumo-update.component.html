@@ -82,11 +82,18 @@
                 </div>
 
                 <div class="form-group">
-                    <!--<label class="form-control-label" jhiTranslate="craftBeerStoreApp.insumo.empresa" for="field_empresa">Empresa</label>-->
-                    <!--<select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="insumo.empresaId" >-->
-                        <!--<option [ngValue]="null"></option>-->
-                        <!--<option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>-->
-                    <!--</select>-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.insumo.empresa" for="field_empresa">Empresa</label>-->
+<!--                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="insumo.empresaId" >-->
+<!--                        <option [ngValue]="null"></option>-->
+<!--                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>-->
+<!--                    </select>-->
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.insumo.insumoRecomendado" for="field_insumoRecomendado">Insumo Recomendado</label>
+                    <select class="form-control" id="field_insumoRecomendado" name="insumoRecomendado" [(ngModel)]="insumo.insumoRecomendadoId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="insumoRecomendadoOption.id" *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">{{insumoRecomendadoOption.nombre}}</option>
+                    </select>
                 </div>
             </div>
             <div>
