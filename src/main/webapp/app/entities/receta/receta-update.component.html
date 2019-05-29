@@ -162,7 +162,7 @@
                                             <mat-form-field class="example-full-width">
                                                 <mat-label
                                                     jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad"
-                                                    for="field_cantidad">empaste
+                                                    for="field_cantidad">cantidad
                                                 </mat-label>
                                                 <input type="number" matInput name="cantidad"
                                                        id="field_cantidad"
@@ -173,7 +173,7 @@
                                             <mat-form-field class="example-full-width">
                                                 <mat-label
                                                     jhiTranslate="craftBeerStoreApp.recetaInsumo.color"
-                                                    for="field_color">empaste
+                                                    for="field_color">color
                                                 </mat-label>
                                                 <input type="number" matInput name="color"
                                                        id="field_color"
@@ -213,13 +213,22 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
+                                        <div class="col-sm-2">
+                                            <div class="col-sm-6">
+                                                <button type="button" mat-raised-button
+                                                        class="mat-success" (click)="addMalta()">
+                                                    Agregar
+                                                </button>
+                                            </div>
+                                            <div class="col-sm-6">
+
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <button type="button" mat-raised-button
-                                                    class="mat-success" (click)="addMalta()">
-                                                Agregar
-                                            </button>
+
                                         </div>
                                         <div class="col-sm-6"></div>
                                     </div>
@@ -304,7 +313,7 @@
                                 </mat-card-header>
                                 <mat-card-content>
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <mat-form-field class="example-full-width">
                                                 <mat-label jhiTranslate="craftBeerStoreApp.receta.lupulo">
                                                     Lupulo
@@ -347,7 +356,7 @@
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-1">
                                             <mat-form-field class="example-full-width">
                                                 <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos"
                                                            for="field_gramos">alpha
@@ -391,15 +400,18 @@
                                                 </mat-error>
                                             </mat-form-field>
                                         </div>
+                                        <div class="col-sm-1">
+                                            <div class="col-sm-6">
+                                                <button type="button" mat-raised-button
+                                                        class="mat-success" (click)="addLupulo()">
+                                                    Agregar
+                                                </button>
+                                            </div>
+                                            <div class="col-sm-6"></div>
+                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <button type="button" mat-raised-button
-                                                    class="mat-success" (click)="addLupulo()">
-                                                Agregar
-                                            </button>
-                                        </div>
-                                        <div class="col-sm-6"></div>
+
                                     </div>
                                     <div class="row">
                                         <div class="table-responsive" *ngIf="lupulosList">
