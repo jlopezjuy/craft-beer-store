@@ -1,6 +1,7 @@
 package com.craftbeerstore.application.service.dto;
 import java.io.Serializable;
 import java.util.Objects;
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 
 /**
  * A DTO for the InsumoRecomendado entity.
@@ -12,6 +13,8 @@ public class InsumoRecomendadoDTO implements Serializable {
     private String nombre;
 
     private String marca;
+
+    private TipoInsumo tipo;
 
 
     public Long getId() {
@@ -36,6 +39,14 @@ public class InsumoRecomendadoDTO implements Serializable {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public TipoInsumo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoInsumo tipo) {
+        this.tipo = tipo;
     }
 
     @Override
@@ -65,6 +76,7 @@ public class InsumoRecomendadoDTO implements Serializable {
             "id=" + getId() +
             ", nombre='" + getNombre() + "'" +
             ", marca='" + getMarca() + "'" +
+            ", tipo='" + getTipo() + "'" +
             "}";
     }
 }

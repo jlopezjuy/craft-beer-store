@@ -74,6 +74,7 @@ class InsumoRecomendadoGatlingTest extends Simulation {
                 "id":null
                 , "nombre":"SAMPLE_TEXT"
                 , "marca":"SAMPLE_TEXT"
+                , "tipo":"MALTA"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_insumoRecomendado_url"))).exitHereIfFailed

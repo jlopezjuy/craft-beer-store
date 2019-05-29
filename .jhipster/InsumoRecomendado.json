@@ -10,6 +10,11 @@
         {
             "fieldName": "marca",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "tipo",
+            "fieldType": "TipoInsumo",
+            "fieldValues": "MALTA,LUPULO,LEVADURA,ACIDO,CLARIFICANTE,SAL,OTROS"
         }
     ],
     "changelogDate": "20190529172743",

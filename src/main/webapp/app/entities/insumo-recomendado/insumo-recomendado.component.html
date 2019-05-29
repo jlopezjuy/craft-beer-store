@@ -32,6 +32,7 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nombre"><span jhiTranslate="craftBeerStoreApp.insumoRecomendado.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="marca"><span jhiTranslate="craftBeerStoreApp.insumoRecomendado.marca">Marca</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.insumoRecomendado.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -40,6 +41,7 @@
                 <td><a [routerLink]="['/insumo-recomendado', insumoRecomendado.id, 'view' ]">{{insumoRecomendado.id}}</a></td>
                 <td>{{insumoRecomendado.nombre}}</td>
                 <td>{{insumoRecomendado.marca}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumoRecomendado.tipo}}">{{insumoRecomendado.tipo}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

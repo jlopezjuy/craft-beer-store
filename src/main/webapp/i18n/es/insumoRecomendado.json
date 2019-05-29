@@ -17,7 +17,8 @@
                 "title": "Insumo Recomendado"
             },
             "nombre": "Nombre",
-            "marca": "Marca"
+            "marca": "Marca",
+            "tipo": "Tipo"
         }
     }
 }

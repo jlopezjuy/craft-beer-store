@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { InsumoRecomendadoService } from 'app/entities/insumo-recomendado/insumo-recomendado.service';
 import { IInsumoRecomendado, InsumoRecomendado } from 'app/shared/model/insumo-recomendado.model';
+import { TipoInsumo } from 'app/shared/model/insumo.model';
 
 describe('Service Tests', () => {
     describe('InsumoRecomendado Service', () => {
@@ -21,7 +22,7 @@ describe('Service Tests', () => {
             service = injector.get(InsumoRecomendadoService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new InsumoRecomendado(0, 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new InsumoRecomendado(0, 'AAAAAAA', 'AAAAAAA', TipoInsumo.MALTA);
         });
 
         describe('Service methods', async () => {
@@ -56,7 +57,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         nombre: 'BBBBBB',
-                        marca: 'BBBBBB'
+                        marca: 'BBBBBB',
+                        tipo: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -74,7 +76,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         nombre: 'BBBBBB',
-                        marca: 'BBBBBB'
+                        marca: 'BBBBBB',
+                        tipo: 'BBBBBB'
                     },
                     elemDefault
                 );

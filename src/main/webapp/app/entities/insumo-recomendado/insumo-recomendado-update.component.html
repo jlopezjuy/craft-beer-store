@@ -19,6 +19,18 @@
                     <input type="text" class="form-control" name="marca" id="field_marca"
                         [(ngModel)]="insumoRecomendado.marca" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.insumoRecomendado.tipo" for="field_tipo">Tipo</label>
+                    <select class="form-control" name="tipo" [(ngModel)]="insumoRecomendado.tipo" id="field_tipo" >
+                        <option value="MALTA">{{'craftBeerStoreApp.TipoInsumo.MALTA' | translate}}</option>
+                        <option value="LUPULO">{{'craftBeerStoreApp.TipoInsumo.LUPULO' | translate}}</option>
+                        <option value="LEVADURA">{{'craftBeerStoreApp.TipoInsumo.LEVADURA' | translate}}</option>
+                        <option value="ACIDO">{{'craftBeerStoreApp.TipoInsumo.ACIDO' | translate}}</option>
+                        <option value="CLARIFICANTE">{{'craftBeerStoreApp.TipoInsumo.CLARIFICANTE' | translate}}</option>
+                        <option value="SAL">{{'craftBeerStoreApp.TipoInsumo.SAL' | translate}}</option>
+                        <option value="OTROS">{{'craftBeerStoreApp.TipoInsumo.OTROS' | translate}}</option>
+                    </select>
+                </div>
 
             </div>
             <div>

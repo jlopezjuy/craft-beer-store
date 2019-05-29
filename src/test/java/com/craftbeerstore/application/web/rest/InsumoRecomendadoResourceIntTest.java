@@ -40,6 +40,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 /**
  * Test class for the InsumoRecomendadoResource REST controller.
  *
@@ -54,6 +55,9 @@ public class InsumoRecomendadoResourceIntTest {
 
     private static final String DEFAULT_MARCA = "AAAAAAAAAA";
     private static final String UPDATED_MARCA = "BBBBBBBBBB";
+
+    private static final TipoInsumo DEFAULT_TIPO = TipoInsumo.MALTA;
+    private static final TipoInsumo UPDATED_TIPO = TipoInsumo.LUPULO;
 
     @Autowired
     private InsumoRecomendadoRepository insumoRecomendadoRepository;
@@ -112,7 +116,8 @@ public class InsumoRecomendadoResourceIntTest {
     public static InsumoRecomendado createEntity(EntityManager em) {
         InsumoRecomendado insumoRecomendado = new InsumoRecomendado()
             .nombre(DEFAULT_NOMBRE)
-            .marca(DEFAULT_MARCA);
+            .marca(DEFAULT_MARCA)
+            .tipo(DEFAULT_TIPO);
         return insumoRecomendado;
     }
 
@@ -139,6 +144,7 @@ public class InsumoRecomendadoResourceIntTest {
         InsumoRecomendado testInsumoRecomendado = insumoRecomendadoList.get(insumoRecomendadoList.size() - 1);
         assertThat(testInsumoRecomendado.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testInsumoRecomendado.getMarca()).isEqualTo(DEFAULT_MARCA);
+        assertThat(testInsumoRecomendado.getTipo()).isEqualTo(DEFAULT_TIPO);
 
         // Validate the InsumoRecomendado in Elasticsearch
         verify(mockInsumoRecomendadoSearchRepository, times(1)).save(testInsumoRecomendado);
@@ -179,7 +185,8 @@ public class InsumoRecomendadoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(insumoRecomendado.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE.toString())))
-            .andExpect(jsonPath("$.[*].marca").value(hasItem(DEFAULT_MARCA.toString())));
+            .andExpect(jsonPath("$.[*].marca").value(hasItem(DEFAULT_MARCA.toString())))
+            .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())));
     }
     
     @Test
@@ -194,7 +201,8 @@ public class InsumoRecomendadoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(insumoRecomendado.getId().intValue()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE.toString()))
-            .andExpect(jsonPath("$.marca").value(DEFAULT_MARCA.toString()));
+            .andExpect(jsonPath("$.marca").value(DEFAULT_MARCA.toString()))
+            .andExpect(jsonPath("$.tipo").value(DEFAULT_TIPO.toString()));
     }
 
     @Test
@@ -219,7 +227,8 @@ public class InsumoRecomendadoResourceIntTest {
         em.detach(updatedInsumoRecomendado);
         updatedInsumoRecomendado
             .nombre(UPDATED_NOMBRE)
-            .marca(UPDATED_MARCA);
+            .marca(UPDATED_MARCA)
+            .tipo(UPDATED_TIPO);
         InsumoRecomendadoDTO insumoRecomendadoDTO = insumoRecomendadoMapper.toDto(updatedInsumoRecomendado);
 
         restInsumoRecomendadoMockMvc.perform(put("/api/insumo-recomendados")
@@ -233,6 +242,7 @@ public class InsumoRecomendadoResourceIntTest {
         InsumoRecomendado testInsumoRecomendado = insumoRecomendadoList.get(insumoRecomendadoList.size() - 1);
         assertThat(testInsumoRecomendado.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testInsumoRecomendado.getMarca()).isEqualTo(UPDATED_MARCA);
+        assertThat(testInsumoRecomendado.getTipo()).isEqualTo(UPDATED_TIPO);
 
         // Validate the InsumoRecomendado in Elasticsearch
         verify(mockInsumoRecomendadoSearchRepository, times(1)).save(testInsumoRecomendado);
@@ -294,7 +304,8 @@ public class InsumoRecomendadoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(insumoRecomendado.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
-            .andExpect(jsonPath("$.[*].marca").value(hasItem(DEFAULT_MARCA)));
+            .andExpect(jsonPath("$.[*].marca").value(hasItem(DEFAULT_MARCA)))
+            .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())));
     }
 
     @Test
