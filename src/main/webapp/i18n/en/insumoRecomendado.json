@@ -1,0 +1,24 @@
+{
+    "craftBeerStoreApp": {
+        "insumoRecomendado": {
+            "home": {
+                "title": "Insumo Recomendados",
+                "createLabel": "Create a new Insumo Recomendado",
+                "createOrEditLabel": "Create or edit a Insumo Recomendado",
+                "search": "Search for Insumo Recomendado"
+            },
+            "created": "A new Insumo Recomendado is created with identifier {{ param }}",
+            "updated": "A Insumo Recomendado is updated with identifier {{ param }}",
+            "deleted": "A Insumo Recomendado is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Insumo Recomendado {{ id }}?"
+            },
+            "detail": {
+                "title": "Insumo Recomendado"
+            },
+            "nombre": "Nombre",
+            "marca": "Marca",
+            "tipo": "Tipo"
+        }
+    }
+}

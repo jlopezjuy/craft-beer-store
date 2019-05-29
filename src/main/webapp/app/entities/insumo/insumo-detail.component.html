@@ -40,6 +40,12 @@
                         <a [routerLink]="['/empresa', insumo.empresaId, 'view']">{{insumo.empresaId}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.insumo.insumoRecomendado">Insumo Recomendado</span></dt>
+                <dd>
+                    <div *ngIf="insumo.insumoRecomendadoId">
+                        <a [routerLink]="['/insumo-recomendado', insumo.insumoRecomendadoId, 'view']">{{insumo.insumoRecomendadoNombre}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

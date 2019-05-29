@@ -9,6 +9,8 @@ import { InsumoService } from './insumo.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
+import { IInsumoRecomendado } from 'app/shared/model/insumo-recomendado.model';
+import { InsumoRecomendadoService } from 'app/entities/insumo-recomendado';
 
 @Component({
     selector: 'jhi-insumo-update',
@@ -20,11 +22,14 @@ export class InsumoUpdateComponent implements OnInit {
 
     empresa: IEmpresa;
 
+    insumorecomendados: IInsumoRecomendado[];
+
     constructor(
         protected dataUtils: JhiDataUtils,
         protected jhiAlertService: JhiAlertService,
         protected insumoService: InsumoService,
         protected empresaService: EmpresaService,
+        protected insumoRecomendadoService: InsumoRecomendadoService,
         protected elementRef: ElementRef,
         protected activatedRoute: ActivatedRoute,
         private $localStorage: LocalStorageService
@@ -36,6 +41,16 @@ export class InsumoUpdateComponent implements OnInit {
             this.insumo = insumo;
         });
         this.empresa = this.$localStorage.retrieve('empresa');
+        this.insumoRecomendadoService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IInsumoRecomendado[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IInsumoRecomendado[]>) => response.body)
+            )
+            .subscribe(
+                (res: IInsumoRecomendado[]) => (this.insumorecomendados = res),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     byteSize(field) {
@@ -86,6 +101,10 @@ export class InsumoUpdateComponent implements OnInit {
     }
 
     trackEmpresaById(index: number, item: IEmpresa) {
+        return item.id;
+    }
+
+    trackInsumoRecomendadoById(index: number, item: IInsumoRecomendado) {
         return item.id;
     }
 }

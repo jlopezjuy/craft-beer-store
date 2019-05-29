@@ -33,6 +33,10 @@ public class InsumoDTO implements Serializable {
 
     private Long empresaId;
 
+    private Long insumoRecomendadoId;
+
+    private String insumoRecomendadoNombre;
+
     public Long getId() {
         return id;
     }
@@ -105,6 +109,22 @@ public class InsumoDTO implements Serializable {
         this.empresaId = empresaId;
     }
 
+    public Long getInsumoRecomendadoId() {
+        return insumoRecomendadoId;
+    }
+
+    public void setInsumoRecomendadoId(Long insumoRecomendadoId) {
+        this.insumoRecomendadoId = insumoRecomendadoId;
+    }
+
+    public String getInsumoRecomendadoNombre() {
+        return insumoRecomendadoNombre;
+    }
+
+    public void setInsumoRecomendadoNombre(String insumoRecomendadoNombre) {
+        this.insumoRecomendadoNombre = insumoRecomendadoNombre;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -137,6 +157,8 @@ public class InsumoDTO implements Serializable {
             ", tipo='" + getTipo() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", empresa=" + getEmpresaId() +
+            ", insumoRecomendado=" + getInsumoRecomendadoId() +
+            ", insumoRecomendado='" + getInsumoRecomendadoNombre() + "'" +
             "}";
     }
 }

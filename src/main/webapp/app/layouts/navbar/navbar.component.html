@@ -188,6 +188,12 @@
                             <span jhiTranslate="global.menu.entities.recetaInsumo">Receta Insumo</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="insumo-recomendado" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.insumoRecomendado">Insumo Recomendado</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>

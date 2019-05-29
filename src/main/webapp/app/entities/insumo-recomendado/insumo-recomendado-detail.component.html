@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="insumoRecomendado">
+            <h2><span jhiTranslate="craftBeerStoreApp.insumoRecomendado.detail.title">Insumo Recomendado</span> {{insumoRecomendado.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.insumoRecomendado.nombre">Nombre</span></dt>
+                <dd>
+                    <span>{{insumoRecomendado.nombre}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.insumoRecomendado.marca">Marca</span></dt>
+                <dd>
+                    <span>{{insumoRecomendado.marca}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.insumoRecomendado.tipo">Tipo</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumoRecomendado.tipo}}">{{insumoRecomendado.tipo}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/insumo-recomendado', insumoRecomendado.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

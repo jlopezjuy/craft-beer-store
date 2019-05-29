@@ -75,6 +75,10 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'receta-insumo',
                 loadChildren: './receta-insumo/receta-insumo.module#CraftBeerStoreRecetaInsumoModule'
+            },
+            {
+                path: 'insumo-recomendado',
+                loadChildren: './insumo-recomendado/insumo-recomendado.module#CraftBeerStoreInsumoRecomendadoModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

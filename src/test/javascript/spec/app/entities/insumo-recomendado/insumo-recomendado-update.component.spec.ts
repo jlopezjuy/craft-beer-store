@@ -4,35 +4,35 @@ import { HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { CraftBeerStoreTestModule } from '../../../test.module';
-import { InsumoUpdateComponent } from 'app/entities/insumo/insumo-update.component';
-import { InsumoService } from 'app/entities/insumo/insumo.service';
-import { Insumo } from 'app/shared/model/insumo.model';
+import { InsumoRecomendadoUpdateComponent } from 'app/entities/insumo-recomendado/insumo-recomendado-update.component';
+import { InsumoRecomendadoService } from 'app/entities/insumo-recomendado/insumo-recomendado.service';
+import { InsumoRecomendado } from 'app/shared/model/insumo-recomendado.model';
 
 describe('Component Tests', () => {
-    describe('Insumo Management Update Component', () => {
-        let comp: InsumoUpdateComponent;
-        let fixture: ComponentFixture<InsumoUpdateComponent>;
-        let service: InsumoService;
+    describe('InsumoRecomendado Management Update Component', () => {
+        let comp: InsumoRecomendadoUpdateComponent;
+        let fixture: ComponentFixture<InsumoRecomendadoUpdateComponent>;
+        let service: InsumoRecomendadoService;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [CraftBeerStoreTestModule],
-                declarations: [InsumoUpdateComponent]
+                declarations: [InsumoRecomendadoUpdateComponent]
             })
-                .overrideTemplate(InsumoUpdateComponent, '')
+                .overrideTemplate(InsumoRecomendadoUpdateComponent, '')
                 .compileComponents();
 
-            fixture = TestBed.createComponent(InsumoUpdateComponent);
+            fixture = TestBed.createComponent(InsumoRecomendadoUpdateComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(InsumoService);
+            service = fixture.debugElement.injector.get(InsumoRecomendadoService);
         });
 
         describe('save', () => {
             it('Should call update service on save for existing entity', fakeAsync(() => {
                 // GIVEN
-                const entity = new Insumo(123);
+                const entity = new InsumoRecomendado(123);
                 spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
-                comp.insumo = entity;
+                comp.insumoRecomendado = entity;
                 // WHEN
                 comp.save();
                 tick(); // simulate async
@@ -44,9 +44,9 @@ describe('Component Tests', () => {
 
             it('Should call create service on save for new entity', fakeAsync(() => {
                 // GIVEN
-                const entity = new Insumo();
+                const entity = new InsumoRecomendado();
                 spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
-                comp.insumo = entity;
+                comp.insumoRecomendado = entity;
                 // WHEN
                 comp.save();
                 tick(); // simulate async

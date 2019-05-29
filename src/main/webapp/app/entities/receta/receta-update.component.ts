@@ -505,9 +505,13 @@ export class RecetaUpdateComponent implements OnInit {
             }
         });
         if (ids.length > 0) {
-            this.recetaInsumoService.deleteAll(ids).subscribe(resp => {
-                console.log('ok');
-            });
+            this.recetaInsumoService
+                .deleteAll({
+                    insumos: ids
+                })
+                .subscribe(resp => {
+                    console.log('ok');
+                });
         }
     }
 }

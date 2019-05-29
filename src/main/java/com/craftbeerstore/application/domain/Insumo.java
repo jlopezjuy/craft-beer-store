@@ -59,7 +59,12 @@ public class Insumo implements Serializable {
     private String imagenContentType;
 
     @ManyToOne
+    @JsonIgnoreProperties("insumos")
     private Empresa empresa;
+
+    @ManyToOne
+    @JsonIgnoreProperties("insumos")
+    private InsumoRecomendado insumoRecomendado;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -172,6 +177,19 @@ public class Insumo implements Serializable {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+
+    public InsumoRecomendado getInsumoRecomendado() {
+        return insumoRecomendado;
+    }
+
+    public Insumo insumoRecomendado(InsumoRecomendado insumoRecomendado) {
+        this.insumoRecomendado = insumoRecomendado;
+        return this;
+    }
+
+    public void setInsumoRecomendado(InsumoRecomendado insumoRecomendado) {
+        this.insumoRecomendado = insumoRecomendado;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

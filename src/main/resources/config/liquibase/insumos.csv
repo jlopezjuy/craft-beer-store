@@ -1,0 +1,222 @@
+nombre;marca;tipo
+Avena;;MALTA
+Munich I;Avangard;MALTA
+Pale Ale;Avangard;MALTA
+Pilsner;Avangard;MALTA
+Vienna;Avangard;MALTA
+Wheat;Avangard;MALTA
+Ahumada;BA-Malt;MALTA
+Biscuit;BA-Malt;MALTA
+Brown;BA-Malt;MALTA
+Caramelo 120;BA-Malt;MALTA
+Caramelo 140;BA-Malt;MALTA
+Caramelo 30;BA-Malt;MALTA
+Caramelo 60;BA-Malt;MALTA
+Carapils;BA-Malt;MALTA
+Cebada tostada;BA-Malt;MALTA
+Chocolate;BA-Malt;MALTA
+Cramel wheat;BA-Malt;MALTA
+Dextrina;BA-Malt;MALTA
+Malta tostada;BA-Malt;MALTA
+Melanoidina;BA-Malt;MALTA
+Munich I;BA-Malt;MALTA
+Munich II;BA-Malt;MALTA
+Pale Ale;BA-Malt;MALTA
+Pale chocolate;BA-Malt;MALTA
+Pilsen;BA-Malt;MALTA
+Roasted wheat;BA-Malt;MALTA
+Trigo Malteado;BA-Malt;MALTA
+Vienna;BA-Malt;MALTA
+Wheat malt;BA-Malt;MALTA
+Acidulated;Bestmalz;MALTA
+Black;Bestmalz;MALTA
+Black eXtra;Bestmalz;MALTA
+Caramel Amber;Bestmalz;MALTA
+Caramel Hell;Bestmalz;MALTA
+Caramel Munich I;Bestmalz;MALTA
+Caramel Munich II;Bestmalz;MALTA
+Caramel Munich III;Bestmalz;MALTA
+Caramel Pils;Bestmalz;MALTA
+Chit;Bestmalz;MALTA
+Chocolate;Bestmalz;MALTA
+Heidelberg;Bestmalz;MALTA
+Heidelberg Wheat;Bestmalz;MALTA
+Melanoidin;Bestmalz;MALTA
+Melanoidin Light;Bestmalz;MALTA
+Munich;Bestmalz;MALTA
+Pale Ale;Bestmalz;MALTA
+Pilsen;Bestmalz;MALTA
+Red X;Bestmalz;MALTA
+Roasted Barley;Bestmalz;MALTA
+Smoked;Bestmalz;MALTA
+Special X;Bestmalz;MALTA
+Spelt;Bestmalz;MALTA
+Vienna;Bestmalz;MALTA
+Wheat;Bestmalz;MALTA
+Wheat Dark;Bestmalz;MALTA
+Black Malt;Cargill;MALTA
+Caramel (30);Cargill;MALTA
+Caramel (60);Cargill;MALTA
+Caramel (80);Cargill;MALTA
+Chocolate Malt;Cargill;MALTA
+Malted White Wheat;Cargill;MALTA
+Munich (AUS);Cargill;MALTA
+Munich (US);Cargill;MALTA
+Pale Ale (ARG);Cargill;MALTA
+Pilsen (ARG);Cargill;MALTA
+Roasted Malt;Cargill;MALTA
+Chateau Roasted Barley;Castle Malting;MALTA
+Malt Chateau;Castle Malting;MALTA
+Malt Chateau Abbey;Castle Malting;MALTA
+Malt Chateau Arome;Castle Malting;MALTA
+Malt Chateau Biscuit;Castle Malting;MALTA
+Malt Chateau Black;Castle Malting;MALTA
+Malt Chateau Cafe Light;Castle Malting;MALTA
+Malt Chateau Cara Blonde;Castle Malting;MALTA
+Malt Chateau Cara Clair;Castle Malting;MALTA
+Malt Chateau Cara Gold;Castle Malting;MALTA
+Malt Chateau Cara Ruby;Castle Malting;MALTA
+Malt Chateau Chocolate;Castle Malting;MALTA
+Malt Chateau Crystal;Castle Malting;MALTA
+Malt Chateau Melano;Castle Malting;MALTA
+Malt Chateau Munich;Castle Malting;MALTA
+Malt Chateau Munich Light;Castle Malting;MALTA
+Malt Chateau Pale Ale;Castle Malting;MALTA
+Malt Chateau Pale Ale Nature;Castle Malting;MALTA
+Malt Chateau Rye;Castle Malting;MALTA
+Malt Chateau Smoked;Castle Malting;MALTA
+Malt Chateau Special B;Castle Malting;MALTA
+Malt Chateau Vienna;Castle Malting;MALTA
+Malt Chateau Wheat Blanc;Castle Malting;MALTA
+Malt Chateau Whisky;Castle Malting;MALTA
+Pilsen;Castle Malting;MALTA
+Caramelo 120;Maltear;MALTA
+Caramelo 30;Maltear;MALTA
+Caramelo 60;Maltear;MALTA
+Cebada tostada;Maltear;MALTA
+Chocolate;Maltear;MALTA
+Diastásica;Maltear;MALTA
+Munich;Maltear;MALTA
+Negra;Maltear;MALTA
+Pilsen;Maltear;MALTA
+Trigo malteado;Maltear;MALTA
+Viena;Maltear;MALTA
+Brown 115L;Patagonia Malt;MALTA
+Caramel 110L;Patagonia Malt;MALTA
+Caramel 140L;Patagonia Malt;MALTA
+Caramel 15L;Patagonia Malt;MALTA
+Caramel 170L;Patagonia Malt;MALTA
+Caramel 190L;Patagonia Malt;MALTA
+Caramel 25L;Patagonia Malt;MALTA
+Caramel 35L;Patagonia Malt;MALTA
+Caramel 45L;Patagonia Malt;MALTA
+Caramel 55L;Patagonia Malt;MALTA
+Caramel 70L;Patagonia Malt;MALTA
+Caramel 90L;Patagonia Malt;MALTA
+Cebada Tostada;Patagonia Malt;MALTA
+Chocolate 350L;Patagonia Malt;MALTA
+Coffee 230L;Patagonia Malt;MALTA
+Extra Pale;Patagonia Malt;MALTA
+Munich;Patagonia Malt;MALTA
+Pale Ale;Patagonia Malt;MALTA
+Perla Negra 340L;Patagonia Malt;MALTA
+Pilsen;Patagonia Malt;MALTA
+Trigo;Patagonia Malt;MALTA
+Vienna;Patagonia Malt;MALTA
+Pale Ale;Tai Pan;MALTA
+Pilsen;Tai Pan;MALTA
+Abbey;Weyermann;MALTA
+Acidulated;Weyermann;MALTA
+Beech Smoked Barley;Weyermann;MALTA
+Cara Wheat;Weyermann;MALTA
+Caraamber;Weyermann;MALTA
+Caraaroma;Weyermann;MALTA
+Carabelg;Weyermann;MALTA
+Carafa I;Weyermann;MALTA
+Carafa II;Weyermann;MALTA
+Carafa III;Weyermann;MALTA
+Carafa special I;Weyermann;MALTA
+Carafa special III;Weyermann;MALTA
+Carafoam;Weyermann;MALTA
+Carahell;Weyermann;MALTA
+Caramunich I (Type 1);Weyermann;MALTA
+Caramunich I (Type 2);Weyermann;MALTA
+Caramunich I (Type 3);Weyermann;MALTA
+Carapils;Weyermann;MALTA
+Carared;Weyermann;MALTA
+Chocolate Wheat;Weyermann;MALTA
+Melanoidin;Weyermann;MALTA
+Munich I (Type 1);Weyermann;MALTA
+Munich II (Type 2);Weyermann;MALTA
+Pale Ale;Weyermann;MALTA
+Pale Rye;Weyermann;MALTA
+Pale Wheat;Weyermann;MALTA
+Pilsen;Weyermann;MALTA
+Roasted Barley;Weyermann;MALTA
+Special W;Weyermann;MALTA
+Vienna;Weyermann;MALTA
+Amarillo;;LUPULO
+Apollo;;LUPULO
+Bravo;;LUPULO
+Bullion Arg;;LUPULO
+Calypso;;LUPULO
+Cascade;;LUPULO
+Cascade Arg;;LUPULO
+Catarata Arg;;LUPULO
+Centennial;;LUPULO
+Chinook;;LUPULO
+Citra;;LUPULO
+Colombus;;LUPULO
+East Kent Golding;;LUPULO
+Ekuanot;;LUPULO
+Falconers;;LUPULO
+Fuggle;;LUPULO
+Hallertauer Blanc;;LUPULO
+Hallertauer Magnum;;LUPULO
+Hallertauer Tradition;;LUPULO
+Huell Melon;;LUPULO
+Lemondrop;;LUPULO
+Magnum Arg;;LUPULO
+Mandarina Bavaria;;LUPULO
+Mapuche Arg;;LUPULO
+Mosaic;;LUPULO
+Northern Brewer;;LUPULO
+Nugget;;LUPULO
+Nugget Arg;;LUPULO
+Perle;;LUPULO
+Saaz;;LUPULO
+Simcoe;;LUPULO
+Sorachi Ace;;LUPULO
+Spalter Arg;;LUPULO
+Styrian Golding;;LUPULO
+Tehuelche Arg;;LUPULO
+Tettnanger;;LUPULO
+Traful Arg;;LUPULO
+Victoria Arg;;LUPULO
+Willamette Arg;;LUPULO
+Zeus;;LUPULO
+Safale BE-134;Fermentis;LEVADURA
+Safale K-97;Fermentis;LEVADURA
+Safale S-04;Fermentis;LEVADURA
+Safale US-05;Fermentis;LEVADURA
+Safbrew BE-256 / Abbaye;Fermentis;LEVADURA
+Safbrew S-33;Fermentis;LEVADURA
+Safbrew T-58;Fermentis;LEVADURA
+Safbrew WB-06;Fermentis;LEVADURA
+Saflager S-189;Fermentis;LEVADURA
+Saflager S-23;Fermentis;LEVADURA
+Saflager W-34/70;Fermentis;LEVADURA
+Abbaye;Lallemand;LEVADURA
+Belle Saison;Lallemand;LEVADURA
+BRY-97;Lallemand;LEVADURA
+Diamond;Lallemand;LEVADURA
+London ESB;Lallemand;LEVADURA
+Munich;Lallemand;LEVADURA
+Munich Classic;Lallemand;LEVADURA
+Nottingham;Lallemand;LEVADURA
+Windsor;Lallemand;LEVADURA
+Silicagel;;CLARIFICANTE
+Isinglass;;CLARIFICANTE
+Irish Moss;;CLARIFICANTE
+Gelatina;;CLARIFICANTE
+Bentonita;;CLARIFICANTE
