@@ -1,68 +1,77 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="producto">
-            <h2><span jhiTranslate="craftBeerStoreApp.producto.detail.title">Producto</span> {{producto.id}}</h2>
+
             <hr>
             <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span></dt>
-                <dd>
-                    <span>{{producto.descripcion}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.tipo}}">{{producto.tipo}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span></dt>
-                <dd>
-                    <span>{{producto.nombreComercial}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.precioLitro">Precio Litro</span></dt>
-<!--                <dd>-->
-<!--                    <span>{{producto.precioLitro}}</span>-->
-<!--                </dd>-->
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.tipoProducto">Tipo Producto</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.TipoProducto.' + producto.tipoProducto}}">{{producto.tipoProducto}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.imagen">Imagen</span></dt>
-                <dd>
+            <div class="mat-elevation-z8">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title><h2>{{producto.nombreComercial}}</h2></mat-card-title>
+                    </mat-card-header>
                     <div *ngIf="producto.imagen">
                         <a (click)="openFile(producto.imagenContentType, producto.imagen)">
-                            <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-width: 100%;" alt="producto image"/>
+                            <img mat-card-image [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-width: 100%;" alt="producto image"/>
                         </a>
                         {{producto.imagenContentType}}, {{byteSize(producto.imagen)}}
                     </div>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.observacion">Observacion</span></dt>
-                <dd>
-                    <span>{{producto.observacion}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.empresa">Empresa</span></dt>
-                <dd>
-                    <div *ngIf="producto.empresaId">
-                        <a [routerLink]="['/empresa', producto.empresaId, 'view']">{{producto.empresaId}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.producto.estilos">Estilos</span></dt>
-                <dd>
-                    <div *ngIf="producto.estilosId">
-                        <a [routerLink]="['/estilos', producto.estilosId, 'view']">{{producto.estilosNombreEstilo}}</a>
-                    </div>
-                </dd>
-            </dl>
+                    <mat-card-content class="mat-elevation-z8">
+                        <dl class="row-md jh-entity-details">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span></dt>
+                                    <dd>
+                                        <span>{{producto.descripcion}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</span></dt>
+                                    <dd>
+                                        <span jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.tipo}}">{{producto.tipo}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span></dt>
+                                    <dd>
+                                        <span>{{producto.nombreComercial}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.producto.tipoProducto">Tipo Producto</span></dt>
+                                    <dd>
+                                        <span jhiTranslate="{{'craftBeerStoreApp.TipoProducto.' + producto.tipoProducto}}">{{producto.tipoProducto}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.producto.observacion">Observacion</span></dt>
+                                    <dd>
+                                        <span>{{producto.observacion}}</span>
+                                    </dd>
+                                </div>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    mat-raised-button class="mat-back">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
+                            </div>
+                        </dl>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button type="submit"
+                                (click)="previousState()"
+                                mat-raised-button class="mat-back">
+                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                        </button>
 
-            <button type="button"
-                    [routerLink]="['/producto', producto.id, 'edit']"
-                    mat-raised-button class="mat-success">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+                        <button type="button"
+                                [routerLink]="['/producto', producto.id, 'edit']"
+                                mat-raised-button class="mat-success">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>

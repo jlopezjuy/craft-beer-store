@@ -1,57 +1,92 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="presentacion">
-            <h2><span jhiTranslate="craftBeerStoreApp.presentacion.detail.title">Presentacion</span> {{presentacion.id}}</h2>
+
             <hr>
             <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}">{{presentacion.tipoPresentacion}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span></dt>
-                <dd>
-                    <span>{{presentacion.cantidad}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</span></dt>
-                <dd>
-                    <span>{{presentacion.fecha}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario">Costo Unitario</span></dt>
-                <dd>
-                    <span>{{presentacion.costoUnitario}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario">Precio Venta Unitario</span></dt>
-                <dd>
-                    <span>{{presentacion.precioVentaUnitario}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio Venta Total</span></dt>
-                <dd>
-                    <span>{{presentacion.precioVentaTotal}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span></dt>
-                <dd>
-                    <span>{{presentacion.precioCostoTotal}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.presentacion.producto">Producto</span></dt>
-                <dd>
-                    <div *ngIf="presentacion.productoId">
-                        <a [routerLink]="['/producto', presentacion.productoId, 'view']">{{presentacion.productoId}}</a>
-                    </div>
-                </dd>
-            </dl>
+            <div class="mat-elevation-z8">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <mat-card-title>
+                            <h2>
+                                <span jhiTranslate="craftBeerStoreApp.presentacion.detail.title">Presentacion</span>
+                                : <span jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}">{{presentacion.tipoPresentacion}}</span>
+                            </h2>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <dl class="row-md jh-entity-details">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span></dt>
+                                    <dd>
+                                        <span jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}">{{presentacion.tipoPresentacion}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span></dt>
+                                    <dd>
+                                        <span>{{presentacion.cantidad}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</span></dt>
+                                    <dd>
+                                        <span>{{presentacion.fecha | date:'mediumDate'}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario">Costo Unitario</span></dt>
+                                    <dd>
+                                        <span>${{presentacion.costoUnitario}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario">Precio Venta Unitario</span></dt>
+                                    <dd>
+                                        <span>${{presentacion.precioVentaUnitario}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio Venta Total</span></dt>
+                                    <dd>
+                                        <span>${{presentacion.precioVentaTotal}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span></dt>
+                                    <dd>
+                                        <span>${{presentacion.precioCostoTotal}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
 
-            <button type="submit"
-                    (click)="previousState()"
-                    mat-raised-button class="mat-back">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
+                                </div>
+                            </div>
 
-            <button type="button"
-                    [routerLink]="['/presentacion', presentacion.id, 'edit']"
-                    mat-raised-button class="mat-success">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+                        </dl>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button type="submit"
+                                (click)="previousState()"
+                                mat-raised-button class="mat-back">
+                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                        </button>
+
+                        <button type="button"
+                                [routerLink]="['/presentacion', presentacion.id, 'edit']"
+                                mat-raised-button class="mat-success">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>

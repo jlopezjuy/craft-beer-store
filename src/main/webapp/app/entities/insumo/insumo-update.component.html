@@ -89,16 +89,6 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-
-                    </div>
-                    <div class="col-sm-6">
-
-                    </div>
-                </div>
-                
-
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.insumo.imagen" for="field_imagen">Imagen</label>
                     <div>
@@ -116,15 +106,6 @@
                     <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
                         [(ngModel)]="insumo.imagenContentType" />
                 </div>
-
-                <div class="form-group">
-<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.insumo.empresa" for="field_empresa">Empresa</label>-->
-<!--                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="insumo.empresaId" >-->
-<!--                        <option [ngValue]="null"></option>-->
-<!--                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>-->
-<!--                    </select>-->
-                </div>
-
             </div>
             <div>
                 <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
