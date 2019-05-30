@@ -2,6 +2,7 @@ package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.InsumoRecomendadoDTO;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -53,4 +54,10 @@ public interface InsumoRecomendadoService {
      * @return the list of entities
      */
     Page<InsumoRecomendadoDTO> search(String query, Pageable pageable);
+
+    /**
+     *
+     * @return
+     */
+    List<InsumoRecomendadoDTO> findAll();
 }

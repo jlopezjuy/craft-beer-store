@@ -22,7 +22,7 @@ export class InsumoUpdateComponent implements OnInit {
 
     empresa: IEmpresa;
 
-    insumorecomendados: IInsumoRecomendado[];
+    insumorecomendados: IInsumoRecomendado[] = [];
 
     constructor(
         protected dataUtils: JhiDataUtils,
@@ -42,7 +42,7 @@ export class InsumoUpdateComponent implements OnInit {
         });
         this.empresa = this.$localStorage.retrieve('empresa');
         this.insumoRecomendadoService
-            .query()
+            .queryAll()
             .pipe(
                 filter((mayBeOk: HttpResponse<IInsumoRecomendado[]>) => mayBeOk.ok),
                 map((response: HttpResponse<IInsumoRecomendado[]>) => response.body)
@@ -106,5 +106,12 @@ export class InsumoUpdateComponent implements OnInit {
 
     trackInsumoRecomendadoById(index: number, item: IInsumoRecomendado) {
         return item.id;
+    }
+
+    insumoRecomendadoChange(value: any) {
+        const recom = this.insumorecomendados.filter(ins => ins.id === value).pop();
+        this.insumo.tipo = recom.tipo;
+        this.insumo.marca = recom.marca;
+        this.insumo.nombreInsumo = recom.nombre;
     }
 }

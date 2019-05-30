@@ -6,6 +6,7 @@ import com.craftbeerstore.application.repository.InsumoRecomendadoRepository;
 import com.craftbeerstore.application.repository.search.InsumoRecomendadoSearchRepository;
 import com.craftbeerstore.application.service.dto.InsumoRecomendadoDTO;
 import com.craftbeerstore.application.service.mapper.InsumoRecomendadoMapper;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -109,5 +110,14 @@ public class InsumoRecomendadoServiceImpl implements InsumoRecomendadoService {
         log.debug("Request to search for a page of InsumoRecomendados for query {}", query);
         return insumoRecomendadoSearchRepository.search(queryStringQuery(query), pageable)
             .map(insumoRecomendadoMapper::toDto);
+    }
+
+    /**
+     * Gel all insumos recomendados
+     * @return
+     */
+    @Override
+    public List<InsumoRecomendadoDTO> findAll() {
+        return insumoRecomendadoMapper.toDto(insumoRecomendadoRepository.findAll());
     }
 }

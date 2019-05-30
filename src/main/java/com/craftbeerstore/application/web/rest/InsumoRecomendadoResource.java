@@ -94,6 +94,13 @@ public class InsumoRecomendadoResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/insumo-recomendados/all")
+    public ResponseEntity<List<InsumoRecomendadoDTO>> getAllInsumoRecomendadosList() {
+        log.debug("REST request to get all InsumoRecomendados");
+        List<InsumoRecomendadoDTO> page = insumoRecomendadoService.findAll();
+        return ResponseEntity.ok().body(page);
+    }
+
     /**
      * GET  /insumo-recomendados/:id : get the "id" insumoRecomendado.
      *
