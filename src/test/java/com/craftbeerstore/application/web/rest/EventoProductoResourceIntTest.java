@@ -49,6 +49,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = CraftBeerStoreApp.class)
 public class EventoProductoResourceIntTest {
 
+    private static final Long DEFAULT_CANTIDAD_DE_BARRILES = 1L;
+    private static final Long UPDATED_CANTIDAD_DE_BARRILES = 2L;
+
     @Autowired
     private EventoProductoRepository eventoProductoRepository;
 
@@ -104,7 +107,8 @@ public class EventoProductoResourceIntTest {
      * if they test an entity which requires the current entity.
      */
     public static EventoProducto createEntity(EntityManager em) {
-        EventoProducto eventoProducto = new EventoProducto();
+        EventoProducto eventoProducto = new EventoProducto()
+            .cantidadDeBarriles(DEFAULT_CANTIDAD_DE_BARRILES);
         return eventoProducto;
     }
 
@@ -129,6 +133,7 @@ public class EventoProductoResourceIntTest {
         List<EventoProducto> eventoProductoList = eventoProductoRepository.findAll();
         assertThat(eventoProductoList).hasSize(databaseSizeBeforeCreate + 1);
         EventoProducto testEventoProducto = eventoProductoList.get(eventoProductoList.size() - 1);
+        assertThat(testEventoProducto.getCantidadDeBarriles()).isEqualTo(DEFAULT_CANTIDAD_DE_BARRILES);
 
         // Validate the EventoProducto in Elasticsearch
         verify(mockEventoProductoSearchRepository, times(1)).save(testEventoProducto);
@@ -167,7 +172,8 @@ public class EventoProductoResourceIntTest {
         restEventoProductoMockMvc.perform(get("/api/evento-productos?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(eventoProducto.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(eventoProducto.getId().intValue())))
+            .andExpect(jsonPath("$.[*].cantidadDeBarriles").value(hasItem(DEFAULT_CANTIDAD_DE_BARRILES.intValue())));
     }
     
     @Test
@@ -180,7 +186,8 @@ public class EventoProductoResourceIntTest {
         restEventoProductoMockMvc.perform(get("/api/evento-productos/{id}", eventoProducto.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(eventoProducto.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(eventoProducto.getId().intValue()))
+            .andExpect(jsonPath("$.cantidadDeBarriles").value(DEFAULT_CANTIDAD_DE_BARRILES.intValue()));
     }
 
     @Test
@@ -203,6 +210,8 @@ public class EventoProductoResourceIntTest {
         EventoProducto updatedEventoProducto = eventoProductoRepository.findById(eventoProducto.getId()).get();
         // Disconnect from session so that the updates on updatedEventoProducto are not directly saved in db
         em.detach(updatedEventoProducto);
+        updatedEventoProducto
+            .cantidadDeBarriles(UPDATED_CANTIDAD_DE_BARRILES);
         EventoProductoDTO eventoProductoDTO = eventoProductoMapper.toDto(updatedEventoProducto);
 
         restEventoProductoMockMvc.perform(put("/api/evento-productos")
@@ -214,6 +223,7 @@ public class EventoProductoResourceIntTest {
         List<EventoProducto> eventoProductoList = eventoProductoRepository.findAll();
         assertThat(eventoProductoList).hasSize(databaseSizeBeforeUpdate);
         EventoProducto testEventoProducto = eventoProductoList.get(eventoProductoList.size() - 1);
+        assertThat(testEventoProducto.getCantidadDeBarriles()).isEqualTo(UPDATED_CANTIDAD_DE_BARRILES);
 
         // Validate the EventoProducto in Elasticsearch
         verify(mockEventoProductoSearchRepository, times(1)).save(testEventoProducto);
@@ -273,7 +283,8 @@ public class EventoProductoResourceIntTest {
         restEventoProductoMockMvc.perform(get("/api/_search/evento-productos?query=id:" + eventoProducto.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(eventoProducto.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(eventoProducto.getId().intValue())))
+            .andExpect(jsonPath("$.[*].cantidadDeBarriles").value(hasItem(DEFAULT_CANTIDAD_DE_BARRILES.intValue())));
     }
 
     @Test

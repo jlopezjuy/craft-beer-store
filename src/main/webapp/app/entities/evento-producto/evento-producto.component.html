@@ -30,6 +30,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cantidadDeBarriles"><span jhiTranslate="craftBeerStoreApp.eventoProducto.cantidadDeBarriles">Cantidad De Barriles</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="productoDescripcion"><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="eventoId"><span jhiTranslate="craftBeerStoreApp.eventoProducto.evento">Evento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -38,6 +39,7 @@
             <tbody>
             <tr *ngFor="let eventoProducto of eventoProductos ;trackBy: trackId">
                 <td><a [routerLink]="['/evento-producto', eventoProducto.id, 'view' ]">{{eventoProducto.id}}</a></td>
+                <td>{{eventoProducto.cantidadDeBarriles}}</td>
                 <td>
                     <div *ngIf="eventoProducto.productoId">
                         <a [routerLink]="['../producto', eventoProducto.productoId , 'view' ]" >{{eventoProducto.productoDescripcion}}</a>

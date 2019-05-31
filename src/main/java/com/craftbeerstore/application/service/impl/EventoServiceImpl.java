@@ -1,13 +1,16 @@
 package com.craftbeerstore.application.service.impl;
 
 import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.domain.EventoProducto;
 import com.craftbeerstore.application.repository.EmpresaRepository;
+import com.craftbeerstore.application.repository.EventoProductoRepository;
 import com.craftbeerstore.application.service.EventoService;
 import com.craftbeerstore.application.domain.Evento;
 import com.craftbeerstore.application.repository.EventoRepository;
 import com.craftbeerstore.application.repository.search.EventoSearchRepository;
 import com.craftbeerstore.application.service.dto.EventoDTO;
 import com.craftbeerstore.application.service.mapper.EventoMapper;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,13 +40,17 @@ public class EventoServiceImpl implements EventoService {
 
     private final EmpresaRepository empresaRepository;
 
+    private final EventoProductoRepository eventoProductoRepository;
+
     public EventoServiceImpl(EventoRepository eventoRepository, EventoMapper eventoMapper,
         EventoSearchRepository eventoSearchRepository,
-        EmpresaRepository empresaRepository) {
+        EmpresaRepository empresaRepository,
+        EventoProductoRepository eventoProductoRepository) {
         this.eventoRepository = eventoRepository;
         this.eventoMapper = eventoMapper;
         this.eventoSearchRepository = eventoSearchRepository;
         this.empresaRepository = empresaRepository;
+        this.eventoProductoRepository = eventoProductoRepository;
     }
 
     /**
@@ -99,6 +106,10 @@ public class EventoServiceImpl implements EventoService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Evento : {}", id);
+        Evento evento = eventoRepository.getOne(id);
+        List<EventoProducto> listDelete = this.eventoProductoRepository
+            .findByEvento(evento);
+        this.eventoProductoRepository.deleteAll(listDelete);
         eventoRepository.deleteById(id);
         eventoSearchRepository.deleteById(id);
     }

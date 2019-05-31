@@ -5,6 +5,10 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.cantidadDeBarriles">Cantidad De Barriles</span></dt>
+                <dd>
+                    <span>{{eventoProducto.cantidadDeBarriles}}</span>
+                </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span></dt>
                 <dd>
                     <div *ngIf="eventoProducto.productoId">

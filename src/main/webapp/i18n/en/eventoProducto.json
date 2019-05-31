@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Evento Producto"
             },
+            "cantidadDeBarriles": "Cantidad De Barriles",
             "producto": "Producto",
             "evento": "Evento"
         }

@@ -1,61 +1,89 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="cliente">
-            <h2><span jhiTranslate="craftBeerStoreApp.cliente.detail.title">Cliente</span> {{cliente.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.nombreApellido">Nombre Apellido</span></dt>
-                <dd>
-                    <span>{{cliente.nombreApellido}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.domicilio">Domicilio</span></dt>
-                <dd>
-                    <span>{{cliente.domicilio}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.localidad">Localidad</span></dt>
-                <dd>
-                    <span>{{cliente.localidad}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.codigoPostal">Codigo Postal</span></dt>
-                <dd>
-                    <span>{{cliente.codigoPostal}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.provincia">Provincia</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.Provincia.' + cliente.provincia}}">{{cliente.provincia}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.TipoCliente.' + cliente.tipoCliente}}">{{cliente.tipoCliente}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.telefono">Telefono</span></dt>
-                <dd>
-                    <span>{{cliente.telefono}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.correo">Correo</span></dt>
-                <dd>
-                    <span>{{cliente.correo}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.cliente.empresa">Empresa</span></dt>
-                <dd>
-                    <div *ngIf="cliente.empresaId">
-                        <a [routerLink]="['/empresa', cliente.empresaId, 'view']">{{cliente.empresaId}}</a>
-                    </div>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/cliente', cliente.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+            <div class="mat-elevation-z8">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <mat-card-title>
+                            <h2><span jhiTranslate="craftBeerStoreApp.cliente.detail.title">Cliente</span>: {{cliente.nombreApellido}}</h2>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <dl class="row-md jh-entity-details">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.cliente.nombreApellido">Nombre Apellido</span></dt>
+                                    <dd>
+                                        <span>{{cliente.nombreApellido}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.cliente.domicilio">Domicilio</span></dt>
+                                    <dd>
+                                        <span>{{cliente.domicilio}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.cliente.localidad">Localidad</span></dt>
+                                    <dd>
+                                        <span>{{cliente.localidad}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.cliente.codigoPostal">Codigo Postal</span></dt>
+                                    <dd>
+                                        <span>{{cliente.codigoPostal}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.cliente.provincia">Provincia</span></dt>
+                                    <dd>
+                                        <span jhiTranslate="{{'craftBeerStoreApp.Provincia.' + cliente.provincia}}">{{cliente.provincia}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente</span></dt>
+                                    <dd>
+                                        <span jhiTranslate="{{'craftBeerStoreApp.TipoCliente.' + cliente.tipoCliente}}">{{cliente.tipoCliente}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.cliente.telefono">Telefono</span></dt>
+                                    <dd>
+                                        <span>{{cliente.telefono}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-md-6">
+                                    <dt><span jhiTranslate="craftBeerStoreApp.cliente.correo">Correo</span></dt>
+                                    <dd>
+                                        <span>{{cliente.correo}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                        </dl>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button type="submit"
+                                (click)="previousState()"
+                                mat-raised-button class="mat-back">
+                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                        </button>
+                        <button type="button"
+                                [routerLink]="['/cliente', cliente.id, 'edit']"
+                                mat-raised-button class="mat-success">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>

@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IEventoProducto } from 'app/shared/model/evento-producto.model';
 import { EventoProductoService } from './evento-producto.service';
-import { IProducto, Producto } from 'app/shared/model/producto.model';
+import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
 import { IEvento } from 'app/shared/model/evento.model';
 import { EventoService } from 'app/entities/evento';
@@ -20,7 +20,7 @@ export class EventoProductoUpdateComponent implements OnInit {
     isSaving: boolean;
 
     productos: IProducto[];
-    productoSave: Producto;
+
     eventos: IEvento[];
 
     constructor(

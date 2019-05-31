@@ -26,10 +26,15 @@ public class EventoProducto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "cantidad_de_barriles")
+    private Long cantidadDeBarriles;
+
     @ManyToOne
+    @JsonIgnoreProperties("eventoProductos")
     private Producto producto;
 
     @ManyToOne
+    @JsonIgnoreProperties("eventoProductos")
     private Evento evento;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -39,6 +44,19 @@ public class EventoProducto implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCantidadDeBarriles() {
+        return cantidadDeBarriles;
+    }
+
+    public EventoProducto cantidadDeBarriles(Long cantidadDeBarriles) {
+        this.cantidadDeBarriles = cantidadDeBarriles;
+        return this;
+    }
+
+    public void setCantidadDeBarriles(Long cantidadDeBarriles) {
+        this.cantidadDeBarriles = cantidadDeBarriles;
     }
 
     public Producto getProducto() {
@@ -92,6 +110,7 @@ public class EventoProducto implements Serializable {
     public String toString() {
         return "EventoProducto{" +
             "id=" + getId() +
+            ", cantidadDeBarriles=" + getCantidadDeBarriles() +
             "}";
     }
 }

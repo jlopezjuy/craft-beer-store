@@ -36,7 +36,7 @@ export class EventoUpdateComponent implements OnInit {
     productoSave: Producto;
     msgs: Message[] = [];
     dataSource: any;
-    displayedColumns: string[] = ['descripcion', 'tipo', 'nombreComercial'];
+    displayedColumns: string[] = ['descripcion', 'tipo', 'nombreComercial', 'cantidadBarriles'];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -54,6 +54,7 @@ export class EventoUpdateComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.productosList = [];
+        // this.evento.cantidadBarriles = 0;
         this.activatedRoute.data.subscribe(({ evento }) => {
             this.evento = evento;
             if (this.evento.id) {
@@ -121,7 +122,11 @@ export class EventoUpdateComponent implements OnInit {
         if (this.productoSave.id) {
             this.productoService.find(this.productoSave.id).subscribe(resp => {
                 if (this.validateProductoList(resp.body)) {
-                    this.productosList.push(resp.body);
+                    let producto: IProducto;
+                    producto = resp.body;
+                    producto.cantidadBarriles = this.productoSave.cantidadBarriles;
+                    this.evento.cantidadBarriles = this.evento.cantidadBarriles + producto.cantidadBarriles;
+                    this.productosList.push(producto);
                     this.dataSource = new MatTableDataSource<IProducto>(this.productosList);
                 } else {
                     this.jhiAlertService.warning('craftBeerStoreApp.evento.validate.producto');
@@ -129,7 +134,7 @@ export class EventoUpdateComponent implements OnInit {
                         this.openSnackBar(mess, '');
                     });
                 }
-                this.productoSave.id = null;
+                this.productoSave = new Producto();
             });
         }
     }
@@ -145,11 +150,13 @@ export class EventoUpdateComponent implements OnInit {
     }
 
     saveEventoProducto(eventoId: number) {
+        console.log(this.productosList);
         this.productosList.forEach(prod => {
             const eventoProducto: IEventoProducto = new EventoProducto();
             eventoProducto.eventoId = eventoId;
             eventoProducto.productoId = prod.id;
             eventoProducto.id = prod.eventoId;
+            eventoProducto.cantidadDeBarriles = prod.cantidadBarriles;
             if (eventoProducto.id) {
                 this.eventoProductoService.update(eventoProducto).subscribe(resp => {});
             } else {
@@ -164,6 +171,7 @@ export class EventoUpdateComponent implements OnInit {
                 this.productoService.find(evento.productoId).subscribe(prod => {
                     const producto = prod.body;
                     producto.eventoId = eventoId;
+                    producto.cantidadBarriles = evento.cantidadDeBarriles;
                     this.productosList.push(producto);
                     this.dataSource = new MatTableDataSource<IProducto>(this.productosList);
                 });

@@ -9,12 +9,17 @@
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="eventoProducto.id" readonly />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.eventoProducto.cantidadDeBarriles" for="field_cantidadDeBarriles">Cantidad De Barriles</label>
+                    <input type="number" class="form-control" name="cantidadDeBarriles" id="field_cantidadDeBarriles"
+                        [(ngModel)]="eventoProducto.cantidadDeBarriles" />
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.eventoProducto.producto" for="field_producto">Producto</label>
                     <select class="form-control" id="field_producto" name="producto" [(ngModel)]="eventoProducto.productoId" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreProducto}}</option>
+                        <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.descripcion}}</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -24,7 +29,6 @@
                         <option [ngValue]="eventoOption.id" *ngFor="let eventoOption of eventos; trackBy: trackEventoById">{{eventoOption.id}}</option>
                     </select>
                 </div>
-
             </div>
             <div>
                 <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">

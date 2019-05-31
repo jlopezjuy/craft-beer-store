@@ -72,6 +72,7 @@ class EventoProductoGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
+                , "cantidadDeBarriles":null
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_eventoProducto_url"))).exitHereIfFailed

@@ -9,6 +9,8 @@ public class EventoProductoDTO implements Serializable {
 
     private Long id;
 
+    private Long cantidadDeBarriles;
+
 
     private Long productoId;
 
@@ -22,6 +24,14 @@ public class EventoProductoDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCantidadDeBarriles() {
+        return cantidadDeBarriles;
+    }
+
+    public void setCantidadDeBarriles(Long cantidadDeBarriles) {
+        this.cantidadDeBarriles = cantidadDeBarriles;
     }
 
     public Long getProductoId() {
@@ -73,6 +83,7 @@ public class EventoProductoDTO implements Serializable {
     public String toString() {
         return "EventoProductoDTO{" +
             "id=" + getId() +
+            ", cantidadDeBarriles=" + getCantidadDeBarriles() +
             ", producto=" + getProductoId() +
             ", producto='" + getProductoDescripcion() + "'" +
             ", evento=" + getEventoId() +
