@@ -102,10 +102,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/flex-layout@latest":
-  version "8.0.0-beta.25"
-  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-8.0.0-beta.25.tgz#1798cd597d0991b6a2f1ab8f7f8e6875565b5681"
-  integrity sha512-0Y3BeCOCw6IbOyb+x3thPIs8LbOz8MQDX5iEPGvr3+gGVDVMIUOZw8VX/NCaRifMFRfjLf09BGDV0y3naWSYLg==
+"@angular/flex-layout@^7.0.0-beta.24":
+  version "7.0.0-beta.24"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-7.0.0-beta.24.tgz#ad2fd2b0ff5e49119a6e0bc2052256967ad749af"
+  integrity sha512-ll6sK0nLGxqI/f5+z4jbd+pve1QITzgehv2AuGvfSDgIjPMeqUDB5YZqQmIGM/dQRk/vIio5KCW5LQPJWzMMYQ==
   dependencies:
     tslib "^1.7.1"
 
@@ -7151,13 +7151,6 @@ ngx-infinite-scroll@7.0.1:
   integrity sha512-be9DAAuabV7VGI06/JUnS6pXC6mcBOzA4+SBCwOcP9WwJ2r5GjdZyOa34ls9hi1MnCOj3zrXLvPKQ/UDp6csIw==
   dependencies:
     opencollective "^1.0.3"
-
-ngx-mask@^7.9.9:
-  version "7.9.9"
-  resolved "https://registry.yarnpkg.com/ngx-mask/-/ngx-mask-7.9.9.tgz#3e9568e39c991fd398c3f61da21993899606595b"
-  integrity sha512-6+qWt/1O/G717eVHkQ3tfTB/znWmrySSrfruH/T54b1b3GEbaco9e+Jn/gcnXSnabEHZ8CxffQByTQC0R4c1tw==
-  dependencies:
-    tslib "^1.9.0"
 
 ngx-ui-loader@^7.2.2:
   version "7.2.2"

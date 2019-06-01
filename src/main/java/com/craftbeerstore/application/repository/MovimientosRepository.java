@@ -26,7 +26,7 @@ public interface MovimientosRepository extends JpaRepository<Movimientos, Long> 
      */
     Page<Movimientos> findAllByEmpresa(Pageable pageable, Empresa empresa);
 
-    @Query(value = "SELECT ANY_VALUE(id),ANY_VALUE(tipo_movimiento), ANY_VALUE(fecha_movimiento), sum(precio_total) as total FROM craftbeerstore.movimientos "
+    @Query(value = "SELECT ANY_VALUE(id),ANY_VALUE(tipo_movimiento), ANY_VALUE(fecha_movimiento), sum(precio_total) as total FROM craftBeerStore.movimientos "
         + "WHERE fecha_movimiento >= :dateFrom "
         + "AND fecha_movimiento <= :dateTo "
         + "AND tipo_movimiento = 'VENTA' "
@@ -37,8 +37,8 @@ public interface MovimientosRepository extends JpaRepository<Movimientos, Long> 
     @Query(value = "SELECT ANY_VALUE(m.id), ANY_VALUE(m.tipo_movimiento), ANY_VALUE(m.fecha_movimiento), sum(m.precio_total) as total , sum(detmov.cantidad) as cantidad, "
         + "        ANY_VALUE(prod.nombre_comercial) "
         + "    FROM "
-        + "        craftbeerstore.movimientos m, craftbeerstore.detalle_movimiento detmov, "
-        + "        craftbeerstore.presentacion p, craftbeerstore.producto prod "
+        + "        craftBeerStore.movimientos m, craftBeerStore.detalle_movimiento detmov, "
+        + "        craftBeerStore.presentacion p, craftBeerStore.producto prod "
         + "    WHERE "
         + "        m.fecha_movimiento >= :dateFrom "
         + "        AND m.fecha_movimiento <= :dateTo "
