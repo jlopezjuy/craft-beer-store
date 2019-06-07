@@ -31,23 +31,31 @@ import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER }
 import { LoaderInterceptor } from 'app/blocks/interceptor/loader.interceptor';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-    bgsColor: '#OOACC1',
+    bgsColor: '#00ACC1',
     bgsOpacity: 0.5,
-    blur: 8,
-    bgsPosition: POSITION.bottomCenter,
+    bgsPosition: 'bottom-right',
     bgsSize: 60,
-    bgsType: SPINNER.rectangleBounce,
+    bgsType: 'ball-spin-clockwise',
+    blur: 9,
     fgsColor: '#00ACC1',
-    fgsPosition: POSITION.centerCenter,
+    fgsPosition: 'center-center',
     fgsSize: 60,
-    fgsType: SPINNER.chasingDots,
+    fgsType: 'ball-spin-clockwise',
+    gap: 24,
+    logoPosition: 'center-center',
+    logoSize: 120,
     logoUrl: '../content/images/icon.svg',
+    masterLoaderId: 'master',
+    overlayBorderRadius: '0',
+    overlayColor: 'rgba(40, 40, 40, 0.8)',
     pbColor: '#77DD77',
-    pbDirection: PB_DIRECTION.leftToRight,
-    pbThickness: 5,
-    // text: '',
+    pbDirection: 'ltr',
+    pbThickness: 3,
+    hasProgressBar: true,
+    text: '',
     textColor: '#FFFFFF',
-    textPosition: POSITION.centerCenter
+    textPosition: 'center-center',
+    threshold: 500
 };
 @NgModule({
     imports: [
