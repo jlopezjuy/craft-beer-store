@@ -2,10 +2,10 @@
     "craftBeerStoreApp": {
         "TipoPago": {
             "null": "",
-            "EFECTIVO": "EFECTIVO",
-            "TARJETA_CREDITO": "TARJETA_CREDITO",
-            "TARJETA_DEBITO": "TARJETA_DEBITO",
-            "CHEQUE": "CHEQUE"
+            "EFECTIVO": "Efectivo",
+            "TARJETA_CREDITO": "Tarjeta de Crédito",
+            "TARJETA_DEBITO": "Tarjeta de Débito",
+            "CHEQUE": "Cheque"
         }
     }
 }

@@ -12,7 +12,6 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { PuntoDeVentaService } from 'app/entities/punto-de-venta';
 import { IPuntoDeVenta, PuntoDeVenta } from 'app/shared/model/punto-de-venta.model';
 import { MatTableDataSource } from '@angular/material';
-import { IProducto } from 'app/shared/model/producto.model';
 
 @Component({
     selector: 'jhi-cliente-update',

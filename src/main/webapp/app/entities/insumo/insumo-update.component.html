@@ -54,7 +54,13 @@
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label jhiTranslate="craftBeerStoreApp.insumo.stock">Marca</mat-label>
                             <input matInput type="number" id="stock" name="stock"
-                                   [(ngModel)]="insumo.stock" />
+                                   [(ngModel)]="insumo.stock"  required/>
+                            <mat-error [hidden]="!(editForm.controls.stock?.dirty && editForm.controls.stock?.invalid)">
+                                <small class="form-text text-danger"
+                                       [hidden]="!editForm.controls.stock?.errors?.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>

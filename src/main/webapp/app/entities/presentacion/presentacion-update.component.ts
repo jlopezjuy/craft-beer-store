@@ -19,7 +19,6 @@ import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared';
 export class PresentacionUpdateComponent implements OnInit {
     presentacion: IPresentacion;
     isSaving: boolean;
-
     producto: IProducto;
     fechaDp: any;
     fecha: any;

@@ -28,6 +28,7 @@ import { CraftBeerStoreResumeModule } from 'app/resume/module';
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { CraftBeerStoreDashboardModule } from 'app/dashboard/dashboard.module';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
+import { LoaderInterceptor } from 'app/blocks/interceptor/loader.interceptor';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     bgsColor: '#OOACC1',
@@ -95,6 +96,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: NotificationInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoaderInterceptor,
             multi: true
         }
     ],

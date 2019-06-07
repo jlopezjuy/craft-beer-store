@@ -2,9 +2,9 @@
     "craftBeerStoreApp": {
         "EstadoMovimiento": {
             "null": "",
-            "ACTIVO": "ACTIVO",
-            "INACTIVO": "INACTIVO",
-            "ENTREGADO": "ENTREGADO"
+            "ACTIVO": "Activo",
+            "INACTIVO": "Inactivo",
+            "ENTREGADO": "Entregado"
         }
     }
 }

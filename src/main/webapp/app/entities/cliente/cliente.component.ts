@@ -12,7 +12,6 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { ClienteService } from './cliente.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
@@ -46,8 +45,7 @@ export class ClienteComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService,
-        private ngxLoader: NgxUiLoaderService
+        private $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -63,7 +61,6 @@ export class ClienteComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.ngxLoader.start();
         const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
             this.clienteService
@@ -176,7 +173,6 @@ export class ClienteComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.clientes = data;
         this.dataSource = new MatTableDataSource<ICliente>(this.clientes);
-        this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {

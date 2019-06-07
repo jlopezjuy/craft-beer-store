@@ -29,17 +29,17 @@
     "@angular-devkit/core" "7.3.1"
     rxjs "6.3.3"
 
-"@angular/animations@latest":
+"@angular/animations@7.2.15":
   version "7.2.15"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.15.tgz#980c1f523a79d4b7cb44508f57fba06f2e0872fa"
   integrity sha512-8oBt3HLgd2+kyJHUgsd7OzKCCss67t2sch15XNoIWlOLfxclqU+EfFE6t/vCzpT8/+lpZS6LU9ZrTnb+UBj5jg==
   dependencies:
     tslib "^1.9.0"
 
-"@angular/cdk@latest":
-  version "7.3.7"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-7.3.7.tgz#ce1ad53ba04beb9c8e950acc5691ea0143753764"
-  integrity sha512-xbXxhHHKGkVuW6K7pzPmvpJXIwpl0ykBnvA2g+/7Sgy5Pd35wCC+UtHD9RYczDM/mkygNxMQtagyCErwFnDtQA==
+"@angular/cdk@7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-7.3.0.tgz#957668181bd7f113c78e53ec82d50a15e6ba6ee3"
+  integrity sha512-8fH3wQ4WpOxgU06kxKf2MKelYBAq9ha6QrkXjtyb0ns6mJgsooSLX773G0dP9sAQn7rrqdsQh6SNj9zgvyRBDw==
   dependencies:
     tslib "^1.7.1"
   optionalDependencies:
@@ -116,10 +116,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/material@latest":
-  version "7.3.7"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-7.3.7.tgz#dcd95e6618ba6254c5880efee1aad349cf5b9140"
-  integrity sha512-Eq+7frkeNGkLOfEtmkmJgR+AgoWajOipXZWWfCSamNfpCcPof82DwvGOpAmgGni9FuN2XFQdqP5MoaffQzIvUA==
+"@angular/material@7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-7.3.0.tgz#66df738234a57f03618c55ed9c83c080531d7aad"
+  integrity sha512-wWf7dSX8pu9dY9GWiXJfYLA3LTSBREtHLr1NxhN26tQWxGKQ7NJBXth1GTgvojmwt5GzL2j4uyfq/PPvnp95iw==
   dependencies:
     tslib "^1.7.1"
 

@@ -2,9 +2,9 @@
     "craftBeerStoreApp": {
         "ModoLupulo": {
             "null": "",
-            "PELLET": "PELLET",
-            "PLUG": "PLUG",
-            "WHOLE_LEAF": "WHOLE_LEAF"
+            "PELLET": "Pellet",
+            "PLUG": "Plug",
+            "WHOLE_LEAF": "Whole Leaf"
         }
     }
 }

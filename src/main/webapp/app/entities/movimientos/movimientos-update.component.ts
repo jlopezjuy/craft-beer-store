@@ -18,7 +18,6 @@ import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { PresentacionService } from 'app/entities/presentacion';
 import { DetalleMovimientoService } from 'app/entities/detalle-movimiento';
 import { DetalleMovimiento } from 'app/shared/model/detalle-movimiento.model';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DATE_FORMAT } from 'app/shared';
 import { PuntoDeVentaService } from 'app/entities/punto-de-venta';
 import { IPuntoDeVenta } from 'app/shared/model/punto-de-venta.model';
@@ -55,8 +54,7 @@ export class MovimientosUpdateComponent implements OnInit {
         protected presentacionService: PresentacionService,
         protected detalleMovimientoService: DetalleMovimientoService,
         protected puntoDeVentaService: PuntoDeVentaService,
-        private $localStorage: LocalStorageService,
-        private ngxService: NgxUiLoaderService
+        private $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {

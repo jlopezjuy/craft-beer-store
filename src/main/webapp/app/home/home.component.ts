@@ -6,7 +6,6 @@ import { LoginModalService, AccountService, Account, UserService } from 'app/cor
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 
 @Component({
@@ -25,8 +24,7 @@ export class HomeComponent implements OnInit {
         private eventManager: JhiEventManager,
         private empresaService: EmpresaService,
         private $localStorage: LocalStorageService,
-        private router: Router,
-        private ngxLoader: NgxUiLoaderService
+        private router: Router
     ) {}
 
     ngOnInit() {

@@ -19,7 +19,6 @@ import { DATE_FORMAT } from 'app/shared';
 export class EquipamientoUpdateComponent implements OnInit {
     equipamiento: IEquipamiento;
     isSaving: boolean;
-
     empresa: IEmpresa;
     fechaCompraDp: any;
 

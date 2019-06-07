@@ -12,7 +12,6 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { MovimientosService } from './movimientos.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
@@ -55,9 +54,7 @@ export class MovimientosComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        protected $localStorage: LocalStorageService,
-        private ngxService: NgxUiLoaderService,
-        private ngxLoader: NgxUiLoaderService
+        protected $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -153,7 +150,6 @@ export class MovimientosComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.ngxLoader.start();
         this.loadAll();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
@@ -186,7 +182,6 @@ export class MovimientosComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.movimientos = data;
         this.dataSource = new MatTableDataSource<IMovimientos>(this.movimientos);
-        this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {

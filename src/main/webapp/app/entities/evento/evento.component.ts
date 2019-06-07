@@ -11,7 +11,6 @@ import { AccountService } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { EventoService } from './evento.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
@@ -45,8 +44,7 @@ export class EventoComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService,
-        private ngxLoader: NgxUiLoaderService
+        private $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -62,7 +60,6 @@ export class EventoComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.ngxLoader.start();
         const empresa = this.$localStorage.retrieve('empresa');
         if (this.currentSearch) {
             this.eventoService
@@ -175,7 +172,6 @@ export class EventoComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.eventos = data;
         this.dataSource = new MatTableDataSource<IEvento>(this.eventos);
-        this.ngxLoader.stop();
     }
 
     protected onError(errorMessage: string) {

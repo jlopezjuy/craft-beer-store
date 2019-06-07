@@ -17,7 +17,6 @@ export class EmpresaUpdateComponent implements OnInit {
     empresa: IEmpresa;
     isSaving: boolean;
     account: Account;
-
     users: IUser[];
 
     constructor(
@@ -45,7 +44,6 @@ export class EmpresaUpdateComponent implements OnInit {
         this.accountService.identity().then((account: Account) => {
             this.account = account;
         });
-        // this.account = this.$localStorage.retrieve('account');
     }
 
     previousState() {

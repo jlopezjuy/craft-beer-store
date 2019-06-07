@@ -11,7 +11,6 @@ import { AccountService } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { RecetaService } from './receta.service';
 import { LocalStorageService } from 'ngx-webstorage';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { IProducto } from 'app/shared/model/producto.model';
 
@@ -47,8 +46,7 @@ export class RecetaComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService,
-        private ngxLoader: NgxUiLoaderService
+        private $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -64,7 +62,6 @@ export class RecetaComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.ngxLoader.start();
         this.producto = this.$localStorage.retrieve('producto');
         if (this.currentSearch) {
             this.recetaService
@@ -176,7 +173,6 @@ export class RecetaComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.recetas = data;
-        this.ngxLoader.stop();
         this.dataSource = new MatTableDataSource<IReceta>(this.recetas);
     }
 

@@ -23,11 +23,8 @@ import { DATE_FORMAT } from 'app/shared';
 export class CajaUpdateComponent implements OnInit {
     caja: ICaja;
     isSaving: boolean;
-
     proveedors: IProveedor[];
-
     clientes: ICliente[];
-
     empresa: IEmpresa;
     fechaDp: any;
     fecha: any;

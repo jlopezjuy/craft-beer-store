@@ -9,7 +9,6 @@ import { RecetaService } from './receta.service';
 import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
 import { LocalStorageService } from 'ngx-webstorage';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DATE_FORMAT } from 'app/shared';
 import { InsumoService } from 'app/entities/insumo';
 import { IEmpresa } from 'app/shared/model/empresa.model';
@@ -66,8 +65,7 @@ export class RecetaUpdateComponent implements OnInit {
         protected activatedRoute: ActivatedRoute,
         protected insumoService: InsumoService,
         protected recetaInsumoService: RecetaInsumoService,
-        private $localStorage: LocalStorageService,
-        private ngxLoader: NgxUiLoaderService
+        private $localStorage: LocalStorageService
     ) {}
 
     ngOnInit() {
@@ -105,7 +103,6 @@ export class RecetaUpdateComponent implements OnInit {
     }
 
     save() {
-        this.ngxLoader.start();
         // this.calculoIbu();
         this.calculoAlcohol();
         this.isSaving = true;
@@ -126,7 +123,6 @@ export class RecetaUpdateComponent implements OnInit {
         this.isSaving = false;
         this.removeInsumos();
         this.saveRecetaInsumos(receta);
-        this.ngxLoader.stop();
         this.previousState();
     }
 
@@ -145,7 +141,6 @@ export class RecetaUpdateComponent implements OnInit {
         });
         this.lupulosList.forEach(lupulo => {
             lupulo.recetaId = receta.id;
-            console.log(lupulo);
             if (lupulo.id) {
                 this.recetaInsumoService.update(lupulo).subscribe(res => {
                     console.log('ok');
@@ -189,7 +184,6 @@ export class RecetaUpdateComponent implements OnInit {
     protected calculoIbu() {
         let totalIbu = 0;
         this.lupulosList.forEach(lupulo => {
-            console.log(lupulo);
             const fc = 1 + (this.receta.og / 1000 - 1.05) / 0.2;
             if (this.receta.og > 1050) {
                 const ibu = (lupulo.gramos * lupulo.alpha * this.getPlu(lupulo)) / (this.receta.batch * fc * 10);

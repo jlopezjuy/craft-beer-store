@@ -12,7 +12,6 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { PresentacionService } from './presentacion.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IProducto } from 'app/shared/model/producto.model';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
@@ -58,8 +57,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService,
-        private ngxLoader: NgxUiLoaderService
+        private $localStorage: LocalStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -75,7 +73,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.ngxLoader.start();
         this.producto = this.$localStorage.retrieve('producto');
         if (this.currentSearch) {
             this.presentacionService
@@ -187,7 +184,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.presentacions = data;
-        this.ngxLoader.stop();
         this.dataSource = new MatTableDataSource<IPresentacion>(this.presentacions);
     }
 
