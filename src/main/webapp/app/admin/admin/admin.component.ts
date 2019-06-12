@@ -17,15 +17,15 @@ import 'rxjs/add/operator/mergeMap';
 })
 export class AdminComponent implements AfterViewInit, OnInit, OnDestroy {
     public title = 'lucid';
-    public isStopLoading: boolean = false;
-    public showNotifMenu: boolean = false;
-    public showToggleMenu: boolean = false;
-    public navTab: string = 'menu';
+    public isStopLoading = false;
+    public showNotifMenu = false;
+    public showToggleMenu = false;
+    public navTab = 'menu';
     public currentActiveMenu = 'light';
     public currentActiveSubMenu;
-    public themeClass: string = 'theme-cyan';
+    public themeClass = 'theme-cyan';
     public smallScreenMenu = '';
-    public darkClass: string = '';
+    public darkClass = '';
     private ngUnsubscribe = new Subject();
 
     constructor(
@@ -54,13 +54,15 @@ export class AdminComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        let that = this;
+        const that = this;
         this.router.events
             .filter(event => event instanceof NavigationEnd)
             .map(() => this.activatedRoute)
             .map(route => {
                 that.themeService.hideMenu();
-                while (route.firstChild) route = route.firstChild;
+                while (route.firstChild) {
+                    route = route.firstChild;
+                }
                 return route;
             })
             .filter(route => route.outlet === 'primary')
@@ -83,20 +85,20 @@ export class AdminComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     ngAfterViewInit() {
-        let that = this;
+        const that = this;
         setTimeout(function() {
             that.isStopLoading = true;
         }, 1000);
     }
 
     getActiveRoutes() {
-        let segments: Array<string> = this.router.url.split('/');
+        const segments: Array<string> = this.router.url.split('/');
         this.currentActiveMenu = segments[2];
         this.currentActiveSubMenu = segments[3];
     }
 
     activeInactiveMenu($event) {
-        if ($event.item && $event.item == this.currentActiveMenu) {
+        if ($event.item && $event.item === this.currentActiveMenu) {
             this.currentActiveMenu = '';
         } else {
             this.currentActiveMenu = $event.item;
