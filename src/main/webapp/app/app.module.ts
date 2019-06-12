@@ -1,34 +1,37 @@
 import './vendor.ts';
 
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Ng2Webstorage } from 'ngx-webstorage';
-import { NgJhipsterModule } from 'ng-jhipster';
+import { NgModule } from '@angular/core';
+import { NgbDatepickerConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppComponent } from './app.component';
+import { routing } from './app.routing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { FullCalendarModule } from 'ng-fullcalendar';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { NgxGalleryModule } from 'ngx-gallery';
 
+import * as moment from 'moment';
+
+import * as $ from 'jquery';
+import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
+import { ErrorComponent } from './layouts';
 import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import { CraftBeerStoreCoreModule } from 'app/core';
-import { CraftBeerStoreAppRoutingModule } from './app-routing.module';
-import { CraftBeerStoreHomeModule } from './home/home.module';
-import { CraftBeerStoreAccountModule } from './account/account.module';
-import { CraftBeerStoreEntityModule } from './entities/entity.module';
-import * as moment from 'moment';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoaderInterceptor } from './blocks/interceptor/loader.interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import 'hammerjs';
-import { CraftBeerStoreCraftBeerStoreModule } from 'app/craft-beer-store/module';
-import { CraftBeerStoreManualUsuarioModule } from 'app/manual-usuario/module';
-import { CraftBeerStoreResumeModule } from 'app/resume/module';
-// jhipster-needle-angular-add-module-import JHipster will add new module here
-import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
-import { CraftBeerStoreDashboardModule } from 'app/dashboard/dashboard.module';
-import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
-import { LoaderInterceptor } from 'app/blocks/interceptor/loader.interceptor';
+import { Ng2Webstorage } from 'ngx-webstorage';
+import { CraftBeerStoreSharedModule } from './shared';
+import { CraftBeerStoreAccountModule } from './account/account.module';
+import { CraftBeerStoreCraftBeerStoreModule } from './craft-beer-store';
+import { CraftBeerStoreEntityModule } from './entities/entity.module';
+import { CraftBeerStoreCoreModule } from './core';
+import { CraftBeerStoreDashboardModule } from './dashboard/dashboard.module';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     bgsColor: '#00ACC1',
@@ -57,34 +60,30 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     textPosition: 'center-center',
     threshold: 500
 };
+
 @NgModule({
     imports: [
         BrowserModule,
+        routing,
+        NgbModule,
         BrowserAnimationsModule,
         FlexLayoutModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
-        NgJhipsterModule.forRoot({
-            // set below to true to make alerts look like toast
-            alertAsToast: false,
-            alertTimeout: 5000,
-            i18nEnabled: true,
-            defaultI18nLang: 'es'
-        }),
+        ToastrModule.forRoot(),
+        RichTextEditorAllModule,
+        FullCalendarModule,
+        NgMultiSelectDropDownModule.forRoot(),
+        LeafletModule.forRoot(),
+        NgxGalleryModule,
         CraftBeerStoreSharedModule.forRoot(),
         CraftBeerStoreCoreModule,
-        CraftBeerStoreHomeModule,
         CraftBeerStoreAccountModule,
         CraftBeerStoreDashboardModule,
-        CraftBeerStoreCraftBeerStoreModule,
-        CraftBeerStoreManualUsuarioModule,
-        CraftBeerStoreResumeModule,
-        // jhipster-needle-angular-add-module JHipster will add new module here
+        // CraftBeerStoreCraftBeerStoreModule,
         CraftBeerStoreEntityModule,
-        CraftBeerStoreAppRoutingModule,
         NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
-    // entryComponents: [CraftBeerStoreDashboardModule],
+    declarations: [AppComponent, ErrorComponent],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
@@ -112,9 +111,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
             multi: true
         }
     ],
-    bootstrap: [JhiMainComponent]
+    bootstrap: [AppComponent]
 })
-export class CraftBeerStoreAppModule {
+export class AppModule {
     constructor(private dpConfig: NgbDatepickerConfig) {
         this.dpConfig.minDate = { year: moment().year() - 100, month: 1, day: 1 };
     }
