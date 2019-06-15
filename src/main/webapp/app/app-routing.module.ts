@@ -10,7 +10,7 @@ const LAYOUT_ROUTES = [];
             [
                 {
                     path: 'admin',
-                    loadChildren: './admin/admin.module#CraftBeerStoreAdminModule'
+                    loadChildren: './admin/admin.module#AdminModule'
                 },
                 ...LAYOUT_ROUTES
             ],
