@@ -41,7 +41,13 @@ export class PageLoginComponent implements OnInit {
             .then(() => {
                 this.authenticationError = false;
                 // this.activeModal.dismiss('login success');
-                if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
+                console.log(this.router.url);
+                if (
+                    this.router.url === '/authentication/page-login' ||
+                    this.router.url === '/register' ||
+                    /^\/activate\//.test(this.router.url) ||
+                    /^\/reset\//.test(this.router.url)
+                ) {
                     this.router.navigate(['/admin/dashboard/index']);
                 }
 

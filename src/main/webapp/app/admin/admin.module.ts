@@ -25,6 +25,10 @@ import { ChartsModule } from '../charts/charts.module';
 import { FileManagerModule } from '../file-manager/file-manager.module';
 import { PagesModule } from '../pages/pages.module';
 import { RouterModule } from '@angular/router';
+import { JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageHelper } from 'app/core';
+import { CraftBeerStoreSharedModule } from 'app/shared';
+/* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 import { CommonElementsModule } from '../common-elements/common-elements.module';
 import { TablesModule } from '../tables/tables.module';
 import { UiElementsModule } from '../ui-elements/ui-elements.module';
@@ -35,8 +39,26 @@ import { WidgetsModule } from '../widgets/widgets.module';
 import { IotDashboardComponent } from './iot-dashboard/iot-dashboard.component';
 import { MapsModule } from '../maps/maps.module';
 
+import {
+    adminState,
+    AuditsComponent,
+    UserMgmtComponent,
+    UserMgmtDetailComponent,
+    UserMgmtUpdateComponent,
+    UserMgmtDeleteDialogComponent,
+    LogsComponent,
+    JhiMetricsMonitoringComponent,
+    JhiHealthModalComponent,
+    JhiHealthCheckComponent,
+    JhiConfigurationComponent,
+    JhiDocsComponent,
+    JhiTrackerComponent
+} from './';
 @NgModule({
     imports: [
+        CraftBeerStoreSharedModule,
+        RouterModule.forChild(adminState),
+        /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
         CommonModule,
         routing,
         NgxEchartsModule,
@@ -58,6 +80,18 @@ import { MapsModule } from '../maps/maps.module';
         MapsModule
     ],
     declarations: [
+        AuditsComponent,
+        UserMgmtComponent,
+        UserMgmtDetailComponent,
+        UserMgmtUpdateComponent,
+        UserMgmtDeleteDialogComponent,
+        LogsComponent,
+        JhiConfigurationComponent,
+        JhiHealthCheckComponent,
+        JhiHealthModalComponent,
+        JhiDocsComponent,
+        JhiTrackerComponent,
+        JhiMetricsMonitoringComponent,
         AdminComponent,
         IndexComponent,
         DetailTilesComponent,
@@ -73,6 +107,7 @@ import { MapsModule } from '../maps/maps.module';
         ReferralsComponent,
         TotalRevenueComponent,
         IotDashboardComponent
-    ]
+    ],
+    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }]
 })
 export class AdminModule {}

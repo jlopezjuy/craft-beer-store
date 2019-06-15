@@ -18,7 +18,7 @@ export class AppCalendarComponent implements OnDestroy {
     @ViewChild('ucCalendar') ucCalendar: CalendarComponent;
     public visitorsOptions: EChartOption = {};
     public visitsOptions: EChartOption = {};
-    public sidebarVisible: boolean = true;
+    public sidebarVisible = true;
     public displayEvent: any;
     private ngUnsubscribe = new Subject();
 
@@ -60,7 +60,7 @@ export class AppCalendarComponent implements OnDestroy {
 
     loadLineChartOptions(data, color) {
         let chartOption: EChartOption;
-        let xAxisData: Array<any> = new Array<any>();
+        const xAxisData: Array<any> = new Array<any>();
 
         data.forEach(element => {
             xAxisData.push('');

@@ -12,12 +12,11 @@ import { FullCalendarModule } from 'ng-fullcalendar';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { NgxGalleryModule } from 'ngx-gallery';
-
+import 'hammerjs';
 import * as moment from 'moment';
 
 import * as $ from 'jquery';
 import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
-import { ErrorComponent } from './layouts';
 import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
@@ -83,7 +82,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         CraftBeerStoreEntityModule,
         NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
     ],
-    declarations: [AppComponent, ErrorComponent],
+    declarations: [AppComponent],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

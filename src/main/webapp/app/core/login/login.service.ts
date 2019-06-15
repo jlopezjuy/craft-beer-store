@@ -13,6 +13,7 @@ export class LoginService {
     ) {}
 
     login(credentials, callback?) {
+        console.log(credentials);
         const cb = callback || function() {};
 
         return new Promise((resolve, reject) => {
