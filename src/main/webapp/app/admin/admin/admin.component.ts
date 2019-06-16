@@ -9,6 +9,9 @@ import { Subject } from 'rxjs';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import { JhiLanguageHelper } from '../../core';
+import { JhiLanguageService } from 'ng-jhipster';
+import { SessionStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-admin',
@@ -27,13 +30,17 @@ export class AdminComponent implements AfterViewInit, OnInit, OnDestroy {
     public smallScreenMenu = '';
     public darkClass = '';
     private ngUnsubscribe = new Subject();
+    languages: any[];
 
     constructor(
         private sidebarService: SidebarService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private themeService: ThemeService,
-        private titleService: Title
+        private titleService: Title,
+        private languageHelper: JhiLanguageHelper,
+        private languageService: JhiLanguageService,
+        private sessionStorage: SessionStorageService
     ) {
         this.activatedRoute.url.pipe(takeUntil(this.ngUnsubscribe)).subscribe(url => {
             this.isStopLoading = false;
@@ -69,6 +76,18 @@ export class AdminComponent implements AfterViewInit, OnInit, OnDestroy {
             .mergeMap(route => route.data)
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(event => this.titleService.setTitle(event['title']));
+        this.languageHelper
+            .getAll()
+            .then(languages => {
+                console.log(languages);
+                this.languages = languages;
+                this.sessionStorage.store('locale', languages[1]);
+                this.languageService.changeLanguage(languages[1]);
+            })
+            .catch(e => {
+                console.log('errorrr');
+                console.log(e);
+            });
     }
 
     ngOnDestroy() {

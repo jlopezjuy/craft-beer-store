@@ -13,6 +13,7 @@ import { EmpresaService } from './empresa.service';
 import { MatTableDataSource, PageEvent } from '@angular/material';
 import { EChartOption } from 'echarts';
 import { SidebarService } from '../../services/sidebar.service';
+import { SessionStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-empresa',
@@ -52,7 +53,8 @@ export class EmpresaComponent implements OnInit, OnDestroy {
         protected router: Router,
         protected eventManager: JhiEventManager,
         private sidebarService: SidebarService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private sessionStorage: SessionStorageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
