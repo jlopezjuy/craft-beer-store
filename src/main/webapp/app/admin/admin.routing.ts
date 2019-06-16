@@ -173,6 +173,42 @@ const routes: Routes = [
                             pageTitle: 'craftBeerStoreApp.empresa.home.title'
                         },
                         canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'empresa/new',
+                        component: EmpresaUpdateComponent,
+                        resolve: {
+                            empresa: EmpresaResolve
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            pageTitle: 'craftBeerStoreApp.empresa.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'empresa/:id/edit',
+                        component: EmpresaUpdateComponent,
+                        resolve: {
+                            empresa: EmpresaResolve
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            pageTitle: 'craftBeerStoreApp.empresa.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'empresa/:id/view',
+                        component: EmpresaDetailComponent,
+                        resolve: {
+                            empresa: EmpresaResolve
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            pageTitle: 'craftBeerStoreApp.empresa.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
                     }
                 ]
             },

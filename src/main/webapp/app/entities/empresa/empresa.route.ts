@@ -56,7 +56,7 @@ export const empresaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'empresa/new',
         component: EmpresaUpdateComponent,
         resolve: {
             empresa: EmpresaResolve

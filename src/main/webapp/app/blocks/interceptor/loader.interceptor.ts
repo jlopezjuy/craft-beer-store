@@ -12,6 +12,7 @@ export class LoaderInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // start our loader here
+        console.log('entro a loader interceptor');
         this.ngxLoader.start();
 
         return next.handle(req).pipe(
