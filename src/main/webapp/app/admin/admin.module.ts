@@ -112,4 +112,12 @@ import { CraftBeerStoreEntityModule } from '../entities/entity.module';
     ],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }]
 })
-export class AdminModule {}
+export class AdminModule {
+    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+        this.languageHelper.language.subscribe((languageKey: string) => {
+            if (languageKey !== undefined) {
+                this.languageService.changeLanguage(languageKey);
+            }
+        });
+    }
+}
