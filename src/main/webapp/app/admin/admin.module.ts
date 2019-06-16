@@ -54,6 +54,7 @@ import {
     JhiDocsComponent,
     JhiTrackerComponent
 } from './';
+import { CraftBeerStoreEntityModule } from '../entities/entity.module';
 @NgModule({
     imports: [
         CraftBeerStoreSharedModule,
@@ -77,7 +78,8 @@ import {
         FormModule,
         BlogsModule,
         WidgetsModule,
-        MapsModule
+        MapsModule,
+        CraftBeerStoreEntityModule
     ],
     declarations: [
         AuditsComponent,

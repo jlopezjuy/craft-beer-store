@@ -79,7 +79,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         // CraftBeerStoreAccountModule,
         CraftBeerStoreDashboardModule,
         // CraftBeerStoreCraftBeerStoreModule,
-        CraftBeerStoreEntityModule,
+        // CraftBeerStoreEntityModule,
         NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
     ],
     declarations: [AppComponent],

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,8 @@ import { AccountService } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { EmpresaService } from './empresa.service';
 import { MatTableDataSource, PageEvent } from '@angular/material';
+import { EChartOption } from 'echarts';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
     selector: 'jhi-empresa',
@@ -34,6 +36,12 @@ export class EmpresaComponent implements OnInit, OnDestroy {
     dataSource: any;
     displayedColumns: string[] = ['id', 'nombreEmpresa', 'direccion', 'telefono', 'correo', 'userLogin', 'actions'];
     pageEvent: PageEvent;
+    public sidebarVisible = true;
+    public visitorsOptions: EChartOption = {};
+    public visitsOptions: EChartOption = {};
+    public dropdownList: Array<any>;
+    public selectedItems: Array<any>;
+    public dropdownSettings: any;
 
     constructor(
         protected empresaService: EmpresaService,
@@ -42,7 +50,9 @@ export class EmpresaComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        private sidebarService: SidebarService,
+        private cdr: ChangeDetectorRef
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -55,6 +65,26 @@ export class EmpresaComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+
+        this.visitorsOptions = this.loadLineChartOptions([3, 5, 1, 6, 5, 4, 8, 3], '#49c5b6');
+        this.visitsOptions = this.loadLineChartOptions([4, 6, 3, 2, 5, 6, 5, 4], '#f4516c');
+        this.dropdownList = [
+            { item_id: 1, item_text: 'Cheese' },
+            { item_id: 2, item_text: 'Tomatoes' },
+            { item_id: 3, item_text: 'Mozzarella' },
+            { item_id: 4, item_text: 'Mushrooms' },
+            { item_id: 5, item_text: 'Pepperoni' },
+            { item_id: 6, item_text: 'Onions' }
+        ];
+        this.selectedItems = [{ item_id: 3, item_text: 'Mozzarella' }, { item_id: 4, item_text: 'Mushrooms' }];
+        this.dropdownSettings = {
+            singleSelection: false,
+            idField: 'item_id',
+            textField: 'item_text',
+            selectAllText: 'Select All',
+            unSelectAllText: 'UnSelect All',
+            allowSearchFilter: true
+        };
     }
 
     loadAll() {
@@ -82,6 +112,12 @@ export class EmpresaComponent implements OnInit, OnDestroy {
                 (res: HttpResponse<IEmpresa[]>) => this.paginateEmpresas(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+    }
+
+    toggleFullWidth() {
+        this.sidebarService.toggle();
+        this.sidebarVisible = this.sidebarService.getStatus();
+        this.cdr.detectChanges();
     }
 
     loadPage(page: number) {
@@ -175,5 +211,57 @@ export class EmpresaComponent implements OnInit, OnDestroy {
     onPaginateChange(event: PageEvent) {
         this.page = event.pageIndex + 1;
         this.loadPage(event.pageIndex + 1);
+    }
+
+    loadLineChartOptions(data, color) {
+        let chartOption: EChartOption;
+        let xAxisData: Array<any> = new Array<any>();
+
+        data.forEach(element => {
+            xAxisData.push('');
+        });
+
+        return (chartOption = {
+            xAxis: {
+                type: 'category',
+                show: false,
+                data: xAxisData,
+                boundaryGap: false
+            },
+            yAxis: {
+                type: 'value',
+                show: false
+            },
+            tooltip: {
+                trigger: 'axis',
+                formatter: function(params, ticket, callback) {
+                    return (
+                        '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:' +
+                        color +
+                        ';"></span>' +
+                        params[0].value
+                    );
+                }
+            },
+            grid: {
+                left: '0%',
+                right: '0%',
+                bottom: '0%',
+                top: '0%',
+                containLabel: false
+            },
+            series: [
+                {
+                    data: data,
+                    type: 'line',
+                    showSymbol: false,
+                    symbolSize: 1,
+                    lineStyle: {
+                        color: color,
+                        width: 1
+                    }
+                }
+            ]
+        });
     }
 }

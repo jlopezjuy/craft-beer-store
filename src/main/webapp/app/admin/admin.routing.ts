@@ -47,6 +47,9 @@ import { WidgetsDataComponent } from '../widgets/widgets-data/widgets-data.compo
 import { IotDashboardComponent } from './iot-dashboard/iot-dashboard.component';
 import { BlogPostComponent } from '../blogs/blog-post/blog-post.component';
 import { PageLeafletComponent } from '../maps/page-leaflet/page-leaflet.component';
+import { EmpresaComponent, EmpresaDetailComponent, EmpresaResolve, EmpresaUpdateComponent } from '../entities/empresa';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from '../core';
 
 const routes: Routes = [
     {
@@ -152,6 +155,24 @@ const routes: Routes = [
                         path: 'table-normal',
                         component: TableNormalComponent,
                         data: { title: ':: Lucid Angular :: Tables :: Normal Tables ::' }
+                    }
+                ]
+            },
+            {
+                path: 'entity',
+                children: [
+                    {
+                        path: 'empresa',
+                        component: EmpresaComponent,
+                        resolve: {
+                            pagingParams: JhiResolvePagingParams
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            defaultSort: 'id,asc',
+                            pageTitle: 'craftBeerStoreApp.empresa.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
                     }
                 ]
             },
