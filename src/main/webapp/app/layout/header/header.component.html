@@ -6,10 +6,10 @@
         </div>
 
         <div class="navbar-brand">
-            <a *ngIf="!darkClass" [routerLink]="['/admin']"><img src="/assets/images/logo.svg" alt="Lucid Logo"
-                    class="img-responsive logo"></a>
-            <a *ngIf="darkClass" [routerLink]="['/admin']"><img src="/assets/images/logo-white.svg" alt="Lucid Logo"
-                    class="img-responsive logo"></a>
+            <a *ngIf="!darkClass" [routerLink]="['/admin/dashboard/index']"><img src="/content/images/icon.svg" alt="Lucid Logo"
+                    class="img-responsive logo" style="width: 22px;"></a>
+            <a *ngIf="darkClass" [routerLink]="['/admin/dashboard/index']"><img src="/content/images/icon.svg" alt="Lucid Logo"
+                    class="img-responsive logo" style="width: 22px;"></a>
         </div>
 
         <div class="navbar-right">
@@ -19,7 +19,21 @@
             </form>
 
             <div id="navbar-menu">
+
                 <ul class="nav navbar-nav">
+                    <li ngbDropdown class="nav-item dropdown pointer" *ngIf="languages && languages.length > 1">
+                        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
+                    <span>
+<!--                        <fa-icon icon="flag"></fa-icon>-->
+                        <span jhiTranslate="global.menu.language">Language</span>
+                    </span>
+                        </a>
+                        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="languagesnavBarDropdown">
+                            <li *ngFor="let language of languages">
+                                <a class="dropdown-item" [jhiActiveMenu]="language" href="javascript:void(0);" (click)="changeLanguage(language);collapseNavbar();">{{language | findLanguageFromKey}}</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li>
                         <a [routerLink]="['/admin/file-manager/file-documents']"
                             class="icon-menu d-none d-sm-block d-md-none d-lg-block"><i

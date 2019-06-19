@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeService } from '../../services/theme.service';
+import { JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageHelper } from '../../core';
+import { SessionStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-header',
@@ -17,11 +20,23 @@ export class HeaderComponent implements OnInit {
     @Output() toggleSettingDropMenuEvent = new EventEmitter();
     @Output() toggleNotificationDropMenuEvent = new EventEmitter();
 
-    constructor(private config: NgbDropdownConfig, private themeService: ThemeService) {
+    languages: any[];
+
+    constructor(
+        private config: NgbDropdownConfig,
+        private themeService: ThemeService,
+        private languageService: JhiLanguageService,
+        private languageHelper: JhiLanguageHelper,
+        private sessionStorage: SessionStorageService
+    ) {
         config.placement = 'bottom-right';
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.languageHelper.getAll().then(languages => {
+            this.languages = languages;
+        });
+    }
 
     toggleSettingDropMenu() {
         this.toggleSettingDropMenuEvent.emit();
@@ -33,5 +48,14 @@ export class HeaderComponent implements OnInit {
 
     toggleSideMenu() {
         this.themeService.showHideMenu();
+    }
+
+    changeLanguage(languageKey: string) {
+        this.sessionStorage.store('locale', languageKey);
+        this.languageService.changeLanguage(languageKey);
+    }
+
+    collapseNavbar() {
+        // this.isNavbarCollapsed = true;
     }
 }

@@ -1,87 +1,119 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="insumo">
-
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <div class="mat-elevation-z8">
-                <mat-card class="example-card">
-                    <mat-card-header>
-                        <mat-card-title>
-                            <h2><span jhiTranslate="craftBeerStoreApp.insumo.detail.title">Insumo</span>: {{insumo.nombreInsumo}}</h2>
-                        </mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <dl class="row-md jh-entity-details">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</span></dt>
-                                    <dd>
-                                        <span>{{insumo.nombreInsumo}}</span>
-                                    </dd>
-                                </div>
-                                <div class="col-sm-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.insumo.marca">Marca</span></dt>
-                                    <dd>
-                                        <span>{{insumo.marca}}</span>
-                                    </dd>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.insumo.stock">Stock</span></dt>
-                                    <dd>
-                                        <span>{{insumo.stock}}</span>
-                                    </dd>
-                                </div>
-                                <div class="col-sm-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span></dt>
-                                    <dd>
-                                        <span jhiTranslate="{{'craftBeerStoreApp.Unidad.' + insumo.unidad}}">{{insumo.unidad}}</span>
-                                    </dd>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.insumo.tipo">Tipo</span></dt>
-                                    <dd>
-                                        <span jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumo.tipo}}">{{insumo.tipo}}</span>
-                                    </dd>
-                                </div>
-                                <div class="col-sm-6">
-
-                                </div>
-                            </div>
-                            <dt><span jhiTranslate="craftBeerStoreApp.insumo.imagen">Imagen</span></dt>
-                            <dd>
-                                <div *ngIf="insumo.imagen">
-                                    <a (click)="openFile(insumo.imagenContentType, insumo.imagen)">
-                                        <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen" style="max-width: 100%;" alt="insumo image"/>
-                                    </a>
-                                    {{insumo.imagenContentType}}, {{byteSize(insumo.imagen)}}
-                                </div>
-                            </dd>
-                        </dl>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button type="submit"
-                                (click)="previousState()"
-                                mat-raised-button class="mat-back">
-                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-                        </button>
-
-                        <button type="button"
-                                [routerLink]="['/insumo', insumo.id, 'edit']"
-                                mat-raised-button class="mat-success">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-                        </button>
-                    </mat-card-actions>
-                </mat-card>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <h2><span jhiTranslate="craftBeerStoreApp.insumo.detail.title">Insumo</span>: {{insumo.nombreInsumo}}</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Form</li>
+                    <li class="breadcrumb-item active">Validation</li>
+                </ul>
             </div>
-
-
-
-
+            <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">
+                    <!--                    <div echarts [options]="visitorsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">-->
+                    <!--                    </div>-->
+                    <span>Visitors</span>
+                </div>
+                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">
+                    <!--                    <div echarts [options]="visitsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">-->
+                    <!--                    </div>-->
+                    <span>Visits</span>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div class="card">
+        <div class="header">
+<!--            <h2><span jhiTranslate="craftBeerStoreApp.insumo.detail.title">Insumo</span>: {{insumo.nombreInsumo}}</h2>-->
+        </div>
+        <div class="body">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <div *ngIf="insumo">
+
+                        <jhi-alert-error></jhi-alert-error>
+                        <div class="mat-elevation-z8">
+                            <mat-card class="example-card">
+                                <mat-card-header>
+                                    <mat-card-title>
+
+                                    </mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <dl class="row-md jh-entity-details">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</span></dt>
+                                                <dd>
+                                                    <span>{{insumo.nombreInsumo}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.insumo.marca">Marca</span></dt>
+                                                <dd>
+                                                    <span>{{insumo.marca}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.insumo.stock">Stock</span></dt>
+                                                <dd>
+                                                    <span>{{insumo.stock}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span></dt>
+                                                <dd>
+                                                    <span jhiTranslate="{{'craftBeerStoreApp.Unidad.' + insumo.unidad}}">{{insumo.unidad}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.insumo.tipo">Tipo</span></dt>
+                                                <dd>
+                                                    <span jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumo.tipo}}">{{insumo.tipo}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-sm-6">
+
+                                            </div>
+                                        </div>
+                                        <dt><span jhiTranslate="craftBeerStoreApp.insumo.imagen">Imagen</span></dt>
+                                        <dd>
+                                            <div *ngIf="insumo.imagen">
+                                                <a (click)="openFile(insumo.imagenContentType, insumo.imagen)">
+                                                    <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen" style="max-width: 100%;" alt="insumo image"/>
+                                                </a>
+                                                {{insumo.imagenContentType}}, {{byteSize(insumo.imagen)}}
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <button type="submit"
+                                            (click)="previousState()"
+                                            mat-raised-button class="mat-back">
+                                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                                    </button>
+
+                                    <button type="button"
+                                            [routerLink]="['/insumo', insumo.id, 'edit']"
+                                            mat-raised-button class="mat-success">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                                    </button>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+

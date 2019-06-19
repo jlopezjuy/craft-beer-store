@@ -1,106 +1,128 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-caja-heading" jhiTranslate="craftBeerStoreApp.caja.home.createOrEditLabel">Create or edit a Caja</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <mat-form-field class="example-full-width" [hidden]="!caja.id" appearance="fill">
-                    <mat-label jhiTranslate="global.field.id">ID </mat-label>
-                    <input matInput placeholder="id" id="id" name="id"
-                           [(ngModel)]="caja.id" readonly>
-                </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label jhiTranslate="craftBeerStoreApp.caja.tipoMovimiento">Tipo Movimiento</mat-label>
-                    <mat-select  name="tipoMovimiento" [(ngModel)]="caja.tipoMovimiento" id="field_tipoMovimiento" required>
-                        <mat-option value="INGRESO">{{'craftBeerStoreApp.TipoMovimientoCaja.INGRESO' | translate}}</mat-option>
-                        <mat-option value="EGRESO">{{'craftBeerStoreApp.TipoMovimientoCaja.EGRESO' | translate}}</mat-option>
-                    </mat-select>
-                    <mat-error [hidden]="!(editForm.controls.tipoMovimiento?.dirty && editForm.controls.tipoMovimiento?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.tipoMovimiento?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label jhiTranslate="craftBeerStoreApp.caja.tipoPago">Tipo Pago</mat-label>
-                    <mat-select  name="tipoPago" [(ngModel)]="caja.tipoPago" id="field_tipoPago" required>
-                        <mat-option value="EFECTIVO">{{'craftBeerStoreApp.TipoPago.EFECTIVO' | translate}}</mat-option>
-                        <mat-option value="TARJETA_CREDITO">{{'craftBeerStoreApp.TipoPago.TARJETA_CREDITO' | translate}}</mat-option>
-                        <mat-option value="TARJETA_DEBITO">{{'craftBeerStoreApp.TipoPago.TARJETA_DEBITO' | translate}}</mat-option>
-                        <mat-option value="CHEQUE">{{'craftBeerStoreApp.TipoPago.CHEQUE' | translate}}</mat-option>
-                    </mat-select>
-                    <mat-error [hidden]="!(editForm.controls.tipoPago?.dirty && editForm.controls.tipoPago?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.tipoPago?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label jhiTranslate="craftBeerStoreApp.caja.descripcion">Nombre Comercial</mat-label>
-                    <textarea matInput type="text" id="descripcion" name="descripcion"
-                              [(ngModel)]="caja.descripcion" ></textarea>
-                </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label jhiTranslate="craftBeerStoreApp.caja.saldoCtaCte" for="field_saldoCtaCte">Saldo Cta Cte</mat-label>
-                    <input type="number" matInput name="saldoCtaCte" id="field_saldoCtaCte"
-                           [(ngModel)]="caja.saldoCtaCte" />
-                </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label jhiTranslate="craftBeerStoreApp.caja.importe" for="field_importe">Importe</mat-label>
-                    <input type="number" matInput name="importe" id="field_importe"
-                           [(ngModel)]="caja.importe" required/>
-                    <mat-error [hidden]="!(editForm.controls.importe?.dirty && editForm.controls.importe?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.importe?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.importe?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label jhiTranslate="craftBeerStoreApp.caja.fecha">Fecha</mat-label>
-                    <input matInput name="fecha" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fecha" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error [hidden]="!(editForm.controls.fecha?.dirty && editForm.controls.fecha?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.fecha?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.caja.proveedor">Proveedor</mat-label>
-                    <mat-select  name="proveedor" [(ngModel)]="caja.proveedorId" id="field_proveedor">
-                        <mat-option value=""></mat-option>
-                        <mat-option *ngFor="let proveedorOption of proveedors; trackBy: trackProveedorById" [value]="proveedorOption.id">
-                            {{proveedorOption.nombreProveedor}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.caja.cliente">Cliente</mat-label>
-                    <mat-select  name="cliente" [(ngModel)]="caja.clienteId" id="field_cliente">
-                        <mat-option value=""></mat-option>
-                        <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
-                            {{clienteOption.nombreApellido}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <h2 id="jhi-caja-heading" jhiTranslate="craftBeerStoreApp.caja.home.createOrEditLabel">Create or edit a Caja</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Entidad</li>
+                    <li class="breadcrumb-item active">Caja</li>
+                </ul>
             </div>
-            <div>
-                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
+    <div class="card">
+        <div class="header">
+
+        </div>
+        <div class="body">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                        <div>
+                            <jhi-alert-error></jhi-alert-error>
+                            <mat-form-field class="example-full-width" [hidden]="!caja.id" appearance="fill">
+                                <mat-label jhiTranslate="global.field.id">ID </mat-label>
+                                <input matInput placeholder="id" id="id" name="id"
+                                       [(ngModel)]="caja.id" readonly>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label jhiTranslate="craftBeerStoreApp.caja.tipoMovimiento">Tipo Movimiento</mat-label>
+                                <mat-select  name="tipoMovimiento" [(ngModel)]="caja.tipoMovimiento" id="field_tipoMovimiento" required>
+                                    <mat-option value="INGRESO">{{'craftBeerStoreApp.TipoMovimientoCaja.INGRESO' | translate}}</mat-option>
+                                    <mat-option value="EGRESO">{{'craftBeerStoreApp.TipoMovimientoCaja.EGRESO' | translate}}</mat-option>
+                                </mat-select>
+                                <mat-error [hidden]="!(editForm.controls.tipoMovimiento?.dirty && editForm.controls.tipoMovimiento?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.tipoMovimiento?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label jhiTranslate="craftBeerStoreApp.caja.tipoPago">Tipo Pago</mat-label>
+                                <mat-select  name="tipoPago" [(ngModel)]="caja.tipoPago" id="field_tipoPago" required>
+                                    <mat-option value="EFECTIVO">{{'craftBeerStoreApp.TipoPago.EFECTIVO' | translate}}</mat-option>
+                                    <mat-option value="TARJETA_CREDITO">{{'craftBeerStoreApp.TipoPago.TARJETA_CREDITO' | translate}}</mat-option>
+                                    <mat-option value="TARJETA_DEBITO">{{'craftBeerStoreApp.TipoPago.TARJETA_DEBITO' | translate}}</mat-option>
+                                    <mat-option value="CHEQUE">{{'craftBeerStoreApp.TipoPago.CHEQUE' | translate}}</mat-option>
+                                </mat-select>
+                                <mat-error [hidden]="!(editForm.controls.tipoPago?.dirty && editForm.controls.tipoPago?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.tipoPago?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label jhiTranslate="craftBeerStoreApp.caja.descripcion">Descripción</mat-label>
+                                <textarea matInput type="text" id="descripcion" name="descripcion"
+                                          [(ngModel)]="caja.descripcion" ></textarea>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label jhiTranslate="craftBeerStoreApp.caja.saldoCtaCte" for="field_saldoCtaCte">Saldo Cta Cte</mat-label>
+                                <input type="number" matInput name="saldoCtaCte" id="field_saldoCtaCte"
+                                       [(ngModel)]="caja.saldoCtaCte" />
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width" appearance="fill">
+                                <mat-label jhiTranslate="craftBeerStoreApp.caja.importe" for="field_importe">Importe</mat-label>
+                                <input type="number" matInput name="importe" id="field_importe"
+                                       [(ngModel)]="caja.importe" required/>
+                                <mat-error [hidden]="!(editForm.controls.importe?.dirty && editForm.controls.importe?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.importe?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.importe?.errors?.number" jhiTranslate="entity.validation.number">
+                                        This field should be a number.
+                                    </small>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label jhiTranslate="craftBeerStoreApp.caja.fecha">Fecha</mat-label>
+                                <input matInput name="fecha" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fecha" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error [hidden]="!(editForm.controls.fecha?.dirty && editForm.controls.fecha?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.fecha?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.caja.proveedor">Proveedor</mat-label>
+                                <mat-select  name="proveedor" [(ngModel)]="caja.proveedorId" id="field_proveedor">
+                                    <mat-option value=""></mat-option>
+                                    <mat-option *ngFor="let proveedorOption of proveedors; trackBy: trackProveedorById" [value]="proveedorOption.id">
+                                        {{proveedorOption.nombreProveedor}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.caja.cliente">Cliente</mat-label>
+                                <mat-select  name="cliente" [(ngModel)]="caja.clienteId" id="field_cliente">
+                                    <mat-option value=""></mat-option>
+                                    <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
+                                        {{clienteOption.nombreApellido}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>

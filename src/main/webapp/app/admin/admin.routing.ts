@@ -50,6 +50,8 @@ import { PageLeafletComponent } from '../maps/page-leaflet/page-leaflet.componen
 import { EmpresaComponent, EmpresaDetailComponent, EmpresaResolve, EmpresaUpdateComponent } from '../entities/empresa';
 import { JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from '../core';
+import { InsumoComponent, InsumoDetailComponent, InsumoResolve, InsumoUpdateComponent } from '../entities/insumo';
+import { CajaComponent, CajaDetailComponent, CajaResolve, CajaUpdateComponent } from '../entities/caja';
 
 const routes: Routes = [
     {
@@ -162,6 +164,55 @@ const routes: Routes = [
                 path: 'entity',
                 children: [
                     {
+                        path: 'caja',
+                        component: CajaComponent,
+                        resolve: {
+                            pagingParams: JhiResolvePagingParams
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            defaultSort: 'id,asc',
+                            pageTitle: 'craftBeerStoreApp.caja.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'caja/:id/view',
+                        component: CajaDetailComponent,
+                        resolve: {
+                            caja: CajaResolve
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            pageTitle: 'craftBeerStoreApp.caja.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'caja/new',
+                        component: CajaUpdateComponent,
+                        resolve: {
+                            caja: CajaResolve
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            pageTitle: 'craftBeerStoreApp.caja.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'caja/:id/edit',
+                        component: CajaUpdateComponent,
+                        resolve: {
+                            caja: CajaResolve
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            pageTitle: 'craftBeerStoreApp.caja.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
                         path: 'empresa',
                         component: EmpresaComponent,
                         resolve: {
@@ -207,6 +258,55 @@ const routes: Routes = [
                         data: {
                             authorities: ['ROLE_USER'],
                             pageTitle: 'craftBeerStoreApp.empresa.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'insumo',
+                        component: InsumoComponent,
+                        resolve: {
+                            pagingParams: JhiResolvePagingParams
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            defaultSort: 'id,asc',
+                            pageTitle: 'craftBeerStoreApp.insumo.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'insumo/:id/view',
+                        component: InsumoDetailComponent,
+                        resolve: {
+                            insumo: InsumoResolve
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            pageTitle: 'craftBeerStoreApp.insumo.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'insumo/new',
+                        component: InsumoUpdateComponent,
+                        resolve: {
+                            insumo: InsumoResolve
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            pageTitle: 'craftBeerStoreApp.insumo.home.title'
+                        },
+                        canActivate: [UserRouteAccessService]
+                    },
+                    {
+                        path: 'insumo/:id/edit',
+                        component: InsumoUpdateComponent,
+                        resolve: {
+                            insumo: InsumoResolve
+                        },
+                        data: {
+                            authorities: ['ROLE_USER'],
+                            pageTitle: 'craftBeerStoreApp.insumo.home.title'
                         },
                         canActivate: [UserRouteAccessService]
                     }

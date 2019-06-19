@@ -26,6 +26,7 @@ const ENTITY_STATES = [...insumoRoute, ...insumoPopupRoute];
 export class CraftBeerStoreInsumoModule {
     constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
         this.languageHelper.language.subscribe((languageKey: string) => {
+            console.log(languageKey);
             if (languageKey !== undefined) {
                 this.languageService.changeLanguage(languageKey);
             }
