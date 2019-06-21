@@ -1,107 +1,108 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <h2>{{producto.nombreComercial}}</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Entidad</li>
+                    <li class="breadcrumb-item active">Producto</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
             <h2 id="jhi-producto-heading" jhiTranslate="craftBeerStoreApp.producto.home.createOrEditLabel">Create or edit a Producto</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <mat-form-field class="example-full-width" [hidden]="!producto.id">
-                    <mat-label jhiTranslate="global.field.id">ID </mat-label>
-                    <input matInput placeholder="id" id="id" name="id"
-                           [(ngModel)]="producto.id" readonly>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.producto.estilos">Estilos</mat-label>
-                    <input type="text" id="field_estilos" name="estilos" placeholder="Busca estilo" aria-label="Number"
-                           matInput [(ngModel)]="producto.estilosId" [formControl]="myControl" [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombreEstilo">
-                            {{option.nombreEstilo}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</mat-label>
-                    <!--<input matInput placeholder="Favorite food" value="Sushi">-->
-                    <input matInput type="text" name="descripcion" id="field_descripcion"
-                           [(ngModel)]="producto.descripcion" required/>
-                    <!--<mat-error *ngIf="(!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">{{getErrorMessage()}}</mat-error>-->
-                    <mat-error [hidden]="!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.descripcion?.errors?.required" jhiTranslate="entity.validation.required">
-                            This field is required.
-                        </small>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</mat-label>
-                    <mat-select  name="tipo" [(ngModel)]="producto.tipo" id="field_tipo">
-                        <mat-option value="ALE">{{'craftBeerStoreApp.EstiloCerveza.ALE' | translate}}</mat-option>
-                        <mat-option value="LAGER">{{'craftBeerStoreApp.EstiloCerveza.LAGER' | translate}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</mat-label>
-                    <input matInput type="text" class="form-control" id="nombreComercial" name="nombreComercial"
-                           [(ngModel)]="producto.nombreComercial" required />
-                </mat-form-field>
-<!--                <mat-form-field class="example-full-width">-->
-<!--                    <mat-label jhiTranslate="craftBeerStoreApp.producto.precioLitro" for="field_precioLitro">Precio Litro</mat-label>-->
-<!--                    <input type="number" matInput name="precioLitro" id="field_precioLitro" min="1" jhiMin="1"-->
-<!--                           [(ngModel)]="producto.precioLitro" required/>-->
-<!--                    <mat-error [hidden]="!(editForm.controls.precioLitro?.dirty && editForm.controls.precioLitro?.invalid)">-->
-<!--                        <small class="form-text text-danger"-->
-<!--                               [hidden]="!editForm.controls.precioLitro?.errors?.required" jhiTranslate="entity.validation.required">-->
-<!--                            This field is required.-->
-<!--                        </small>-->
-<!--                        <small class="form-text text-danger"-->
-<!--                               [hidden]="!editForm.controls.precioLitro?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">-->
-<!--                            This field should be at least 1.-->
-<!--                        </small>-->
-<!--                        <small class="form-text text-danger"-->
-<!--                               [hidden]="!editForm.controls.precioLitro?.errors?.number" jhiTranslate="entity.validation.number">-->
-<!--                            This field should be a number.-->
-<!--                        </small>-->
-<!--                    </mat-error>-->
-<!--                </mat-form-field>-->
-                <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.producto.tipoProducto" for="field_tipoProducto">Tipo Producto</mat-label>
-                    <mat-select name="tipoProducto" [(ngModel)]="producto.tipoProducto" id="field_tipoProducto">
-                        <mat-option value="FIJO">{{'craftBeerStoreApp.TipoProducto.FIJO' | translate}}</mat-option>
-                        <mat-option value="ROTATIVO">{{'craftBeerStoreApp.TipoProducto.ROTATIVO' | translate}}</mat-option>
-                        <mat-option value="ESPECIAL">{{'craftBeerStoreApp.TipoProducto.ESPECIAL' | translate}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.imagen" for="field_imagen">Imagen</label>
-                    <div>
-                        <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-height: 100px;" *ngIf="producto.imagen" alt="producto image"/>
-                        <div *ngIf="producto.imagen" class="form-text text-danger clearfix">
-                            <span class="pull-left">{{producto.imagenContentType}}, {{byteSize(producto.imagen)}}</span>
-                            <button mat-mini-fab color="warn" type="button" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')" >
-                                <fa-icon [icon]="'times'"></fa-icon>
+        </div>
+        <div class="body">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+                        <div>
+                            <jhi-alert-error></jhi-alert-error>
+                            <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.producto.estilos">Estilos</mat-label>
+                                <input type="text" id="field_estilos" name="estilos" placeholder="Busca estilo" aria-label="Number"
+                                       matInput [(ngModel)]="producto.estilosId" [formControl]="myControl" [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombreEstilo">
+                                        {{option.nombreEstilo}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</mat-label>
+                                <!--<input matInput placeholder="Favorite food" value="Sushi">-->
+                                <input matInput type="text" name="descripcion" id="field_descripcion"
+                                       [(ngModel)]="producto.descripcion" required/>
+                                <!--<mat-error *ngIf="(!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">{{getErrorMessage()}}</mat-error>-->
+                                <mat-error [hidden]="!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.descripcion?.errors?.required" jhiTranslate="entity.validation.required">
+                                        This field is required.
+                                    </small>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</mat-label>
+                                <mat-select  name="tipo" [(ngModel)]="producto.tipo" id="field_tipo">
+                                    <mat-option value="ALE">{{'craftBeerStoreApp.EstiloCerveza.ALE' | translate}}</mat-option>
+                                    <mat-option value="LAGER">{{'craftBeerStoreApp.EstiloCerveza.LAGER' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</mat-label>
+                                <input matInput type="text" class="form-control" id="nombreComercial" name="nombreComercial"
+                                       [(ngModel)]="producto.nombreComercial" required />
+                            </mat-form-field>
+
+                            <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.producto.tipoProducto" for="field_tipoProducto">Tipo Producto</mat-label>
+                                <mat-select name="tipoProducto" [(ngModel)]="producto.tipoProducto" id="field_tipoProducto">
+                                    <mat-option value="FIJO">{{'craftBeerStoreApp.TipoProducto.FIJO' | translate}}</mat-option>
+                                    <mat-option value="ROTATIVO">{{'craftBeerStoreApp.TipoProducto.ROTATIVO' | translate}}</mat-option>
+                                    <mat-option value="ESPECIAL">{{'craftBeerStoreApp.TipoProducto.ESPECIAL' | translate}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.imagen" for="field_imagen">Imagen</label>
+                                <div>
+                                    <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-height: 100px;" *ngIf="producto.imagen" alt="producto image"/>
+                                    <div *ngIf="producto.imagen" class="form-text text-danger clearfix">
+                                        <span class="pull-left">{{producto.imagenContentType}}, {{byteSize(producto.imagen)}}</span>
+                                        <button mat-mini-fab color="warn" type="button" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')" >
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                        </button>
+                                    </div>
+                                    <input type="file" id="file_imagen" (change)="setFileData($event, producto, 'imagen', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                                </div>
+                                <input type="hidden" class="form-control" name="imagen" id="field_imagen"
+                                       [(ngModel)]="producto.imagen" />
+                                <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
+                                       [(ngModel)]="producto.imagenContentType" />
+                            </div>
+                            <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.producto.observacion">Observacion</mat-label>
+                                <textarea matInput type="text" class="form-control" id="observacion" name="observacion"
+                                          [(ngModel)]="producto.observacion"></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                             </button>
                         </div>
-                        <input type="file" id="file_imagen" (change)="setFileData($event, producto, 'imagen', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
-                    </div>
-                    <input type="hidden" class="form-control" name="imagen" id="field_imagen"
-                        [(ngModel)]="producto.imagen" />
-                    <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
-                        [(ngModel)]="producto.imagenContentType" />
+                    </form>
                 </div>
-                <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.producto.observacion">Observacion</mat-label>
-                    <textarea matInput type="text" class="form-control" id="observacion" name="observacion"
-                              [(ngModel)]="producto.observacion"></textarea>
-                </mat-form-field>
             </div>
-            <div>
-                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                </button>
-            </div>
-        </form>
+
+        </div>
     </div>
 </div>
+

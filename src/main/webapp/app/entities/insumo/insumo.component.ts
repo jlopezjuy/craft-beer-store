@@ -35,7 +35,7 @@ export class InsumoComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     dataSource: any;
-    displayedColumns: string[] = ['id', 'nombreInsumo', 'marca', 'stock', 'unidad', 'tipo', 'imagen', 'actions'];
+    displayedColumns: string[] = ['nombreInsumo', 'marca', 'stock', 'unidad', 'tipo', 'imagen', 'actions'];
     pageEvent: PageEvent;
     public sidebarVisible = true;
     public visitorsOptions: EChartOption = {};

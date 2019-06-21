@@ -31,7 +31,7 @@ export class CajaResolve implements Resolve<ICaja> {
 
 export const cajaRoute: Routes = [
     {
-        path: '',
+        path: 'caja',
         component: CajaComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -39,12 +39,12 @@ export const cajaRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.caja.home.title'
+            pageTitle: 'Movimientos de Caja Chica'
         },
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'caja/:id/view',
         component: CajaDetailComponent,
         resolve: {
             caja: CajaResolve
@@ -56,7 +56,7 @@ export const cajaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'caja/new',
         component: CajaUpdateComponent,
         resolve: {
             caja: CajaResolve
@@ -68,7 +68,7 @@ export const cajaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'caja/:id/edit',
         component: CajaUpdateComponent,
         resolve: {
             caja: CajaResolve
@@ -83,7 +83,7 @@ export const cajaRoute: Routes = [
 
 export const cajaPopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'caja/:id/delete',
         component: CajaDeletePopupComponent,
         resolve: {
             caja: CajaResolve

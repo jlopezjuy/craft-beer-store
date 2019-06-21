@@ -31,7 +31,7 @@ export class EmpresaResolve implements Resolve<IEmpresa> {
 
 export const empresaRoute: Routes = [
     {
-        path: '',
+        path: 'empresa',
         component: EmpresaComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const empresaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'empresa/:id/view',
         component: EmpresaDetailComponent,
         resolve: {
             empresa: EmpresaResolve
@@ -68,7 +68,7 @@ export const empresaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'empresa/:id/edit',
         component: EmpresaUpdateComponent,
         resolve: {
             empresa: EmpresaResolve
@@ -83,7 +83,7 @@ export const empresaRoute: Routes = [
 
 export const empresaPopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'empresa/:id/delete',
         component: EmpresaDeletePopupComponent,
         resolve: {
             empresa: EmpresaResolve

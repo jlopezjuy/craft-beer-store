@@ -396,7 +396,7 @@ export class RecetaUpdateComponent implements OnInit {
         return {
             'background-color': this.returnColor(),
             border: '0px solid ' + this.returnColor(),
-            width: '38px'
+            width: '33px'
         };
     }
 

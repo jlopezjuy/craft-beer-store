@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,8 @@ import { ProductoService } from './producto.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
+import { SidebarService } from '../../services/sidebar.service';
+import { EChartOption } from 'echarts';
 
 @Component({
     selector: 'jhi-producto',
@@ -39,6 +41,12 @@ export class ProductoComponent implements OnInit, OnDestroy {
     dataSource: any;
     displayedColumns: string[] = ['id', 'descripcion', 'tipo', 'nombreComercial', 'imagen', 'actions'];
     pageEvent: PageEvent;
+    public sidebarVisible = true;
+    public visitorsOptions: EChartOption = {};
+    public visitsOptions: EChartOption = {};
+    public dropdownList: Array<any>;
+    public selectedItems: Array<any>;
+    public dropdownSettings: any;
 
     constructor(
         protected productoService: ProductoService,
@@ -49,7 +57,9 @@ export class ProductoComponent implements OnInit, OnDestroy {
         protected dataUtils: JhiDataUtils,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService
+        private $localStorage: LocalStorageService,
+        private sidebarService: SidebarService,
+        private cdr: ChangeDetectorRef
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -195,16 +205,22 @@ export class ProductoComponent implements OnInit, OnDestroy {
 
     goPresentacion(producto: IProducto) {
         this.$localStorage.store('producto', producto);
-        this.router.navigate(['/presentacion']);
+        this.router.navigate(['/admin/entity/presentacion']);
     }
 
     goReceta(producto: IProducto) {
         this.$localStorage.store('producto', producto);
-        this.router.navigate(['/receta']);
+        this.router.navigate(['/admin/entity/receta']);
     }
 
     onPaginateChange(event: PageEvent) {
         this.page = event.pageIndex + 1;
         this.loadPage(event.pageIndex + 1);
+    }
+
+    toggleFullWidth() {
+        this.sidebarService.toggle();
+        this.sidebarVisible = this.sidebarService.getStatus();
+        this.cdr.detectChanges();
     }
 }

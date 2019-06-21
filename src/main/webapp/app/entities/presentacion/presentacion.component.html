@@ -1,109 +1,130 @@
-<div>
-    <h2 id="page-heading">
-        <span jhiTranslate="craftBeerStoreApp.presentacion.home.title">Presentacions </span> - {{producto.nombreComercial}}
-        <button (click)="previousState()" type="button" mat-raised-button class="mat-back">
-            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-        </button>
-        <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-presentacion" [routerLink]="['/presentacion/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.presentacion.home.createLabel">
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
+                       (click)="toggleFullWidth()">
+                    <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
+                    <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
+                </a> Presentaciones</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Entidad</li>
+                    <li class="breadcrumb-item active">Presentaciones</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+            <h2 id="page-heading">
+                <span jhiTranslate="craftBeerStoreApp.presentacion.home.title">Presentacions </span> - {{producto.nombreComercial}}
+                <button (click)="previousState()" type="button" mat-raised-button class="mat-back">
+                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                </button>
+                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-presentacion" [routerLink]="['/admin/entity/presentacion/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.presentacion.home.createLabel">
             Create new Presentacion
             </span>
-        </button>
-    </h2>
-    <jhi-alert></jhi-alert>
-    <div class="row">
-        <div class="col-sm-12">
-            <form name="searchForm" class="form-inline">
-                <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.presentacion.home.search' | translate }}">
-                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
-                        <fa-icon [icon]="'search'"></fa-icon>
-                    </button>
-                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <fa-icon [icon]="'trash-alt'"></fa-icon>
-                    </button>
-                </div>
-            </form>
+                </button>
+            </h2>
         </div>
-    </div>
-    <br/>
-    <div *ngIf="presentacions">
-        <div class="mat-elevation-z8 table-responsive">
-            <table  mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="id"> <span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                    <td mat-cell *matCellDef="let presentacion"> {{presentacion.id}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="tipoPresentacion">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="tipoPresentacion"> <span jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                    <td mat-cell *matCellDef="let presentacion" jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}"> {{presentacion.tipoPresentacion}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="cantidad">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="cantidad"> <span jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                    <td mat-cell *matCellDef="let presentacion"> {{presentacion.cantidad}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="fecha">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="fecha"> <span jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                    <td mat-cell *matCellDef="let presentacion"> {{presentacion.fecha | date:'mediumDate'}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="costoUnitario">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="costoUnitario"> <span jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario">Costo Unitario</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                    <td mat-cell *matCellDef="let presentacion"> ${{presentacion.costoUnitario}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="precioVentaUnitario">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="precioVentaUnitario"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario">Precio Venta Unitario</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                    <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioVentaUnitario}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="precioVentaTotal">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="precioVentaTotal" > <span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio Venta Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                    <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioVentaTotal}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="precioCostoTotal">
-                    <th mat-header-cell *matHeaderCellDef jhiSortBy="precioCostoTotal"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                    <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioCostoTotal}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="actions" >
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let presentacion" style="width: 20%">
-                        <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    [routerLink]="['/presentacion', presentacion.id, 'view' ]"
-                                    mat-raised-button color="primary">
-                                <fa-icon [icon]="'eye'"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+        <div class="body">
+            <jhi-alert></jhi-alert>
+            <div class="row">
+                <div class="col-sm-12">
+                    <form name="searchForm" class="form-inline">
+                        <div class="input-group w-100 mt-3">
+                            <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.presentacion.home.search' | translate }}">
+                            <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                                <fa-icon [icon]="'search'"></fa-icon>
                             </button>
-                            <button type="submit"
-                                    [routerLink]="['/presentacion', presentacion.id, 'edit']"
-                                    mat-raised-button class="mat-edit">
-                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-                            <button type="submit"
-                                    [routerLink]="['/', 'presentacion', { outlets: { popup: presentacion.id + '/delete'} }]"
-                                    replaceUrl="true"
-                                    queryParamsHandling="merge"
-                                    mat-raised-button color="warn">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                                <fa-icon [icon]="'trash-alt'"></fa-icon>
                             </button>
                         </div>
-                    </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-            <mat-paginator [length]="totalItems"
-                           [pageSize]="itemsPerPage"
-                           (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
+                    </form>
+                </div>
+            </div>
+            <br/>
+            <div *ngIf="presentacions">
+                <div class="mat-elevation-z8 table-responsive">
+                    <table  mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+
+                        <ng-container matColumnDef="tipoPresentacion">
+                            <th mat-header-cell *matHeaderCellDef jhiSortBy="tipoPresentacion"> <span jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                            <td mat-cell *matCellDef="let presentacion" jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}"> {{presentacion.tipoPresentacion}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="cantidad">
+                            <th mat-header-cell *matHeaderCellDef jhiSortBy="cantidad"> <span jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                            <td mat-cell *matCellDef="let presentacion"> {{presentacion.cantidad}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fecha">
+                            <th mat-header-cell *matHeaderCellDef jhiSortBy="fecha"> <span jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                            <td mat-cell *matCellDef="let presentacion"> {{presentacion.fecha | date:'mediumDate'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="costoUnitario">
+                            <th mat-header-cell *matHeaderCellDef jhiSortBy="costoUnitario"> <span jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario">Costo Unitario</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                            <td mat-cell *matCellDef="let presentacion"> ${{presentacion.costoUnitario}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="precioVentaUnitario">
+                            <th mat-header-cell *matHeaderCellDef jhiSortBy="precioVentaUnitario"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario">Precio Venta Unitario</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                            <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioVentaUnitario}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="precioVentaTotal">
+                            <th mat-header-cell *matHeaderCellDef jhiSortBy="precioVentaTotal" > <span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio Venta Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                            <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioVentaTotal}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="precioCostoTotal">
+                            <th mat-header-cell *matHeaderCellDef jhiSortBy="precioCostoTotal"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                            <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioCostoTotal}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions" >
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let presentacion" style="width: 20%">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            [routerLink]="['/admin/entity/presentacion', presentacion.id, 'view' ]"
+                                            mat-raised-button color="primary">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/admin/entity/presentacion', presentacion.id, 'edit']"
+                                            mat-raised-button class="mat-edit">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/admin/entity/', 'presentacion', { outlets: { popup: presentacion.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            mat-raised-button color="warn">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [length]="totalItems"
+                                   [pageSize]="itemsPerPage"
+                                   (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
+                </div>
+            </div>
         </div>
     </div>
+
+
 </div>

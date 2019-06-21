@@ -31,7 +31,7 @@ export class PuntoDeVentaResolve implements Resolve<IPuntoDeVenta> {
 
 export const puntoDeVentaRoute: Routes = [
     {
-        path: '',
+        path: 'punto-de-venta',
         component: PuntoDeVentaComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const puntoDeVentaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'punto-de-venta/:id/view',
         component: PuntoDeVentaDetailComponent,
         resolve: {
             puntoDeVenta: PuntoDeVentaResolve
@@ -56,7 +56,7 @@ export const puntoDeVentaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'punto-de-venta/new',
         component: PuntoDeVentaUpdateComponent,
         resolve: {
             puntoDeVenta: PuntoDeVentaResolve
@@ -68,7 +68,7 @@ export const puntoDeVentaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'punto-de-venta/:id/edit',
         component: PuntoDeVentaUpdateComponent,
         resolve: {
             puntoDeVenta: PuntoDeVentaResolve
@@ -83,7 +83,7 @@ export const puntoDeVentaRoute: Routes = [
 
 export const puntoDeVentaPopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'punto-de-venta/:id/delete',
         component: PuntoDeVentaDeletePopupComponent,
         resolve: {
             puntoDeVenta: PuntoDeVentaResolve

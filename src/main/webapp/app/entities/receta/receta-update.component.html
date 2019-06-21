@@ -1,774 +1,803 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-receta-heading"
-                jhiTranslate="craftBeerStoreApp.receta.home.createOrEditLabel">Create or edit a
-                Receta</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!receta.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                           [(ngModel)]="receta.id" readonly/>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.producto"
-                                       for="field_producto">Nombre
-                            </mat-label>
-                            <input type="text" matInput name="producto" id="field_producto"
-                                   [(ngModel)]="receta.productoNombreComercial" disabled/>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-3">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.nombre"
-                                       for="field_nombre">Nombre
-                            </mat-label>
-                            <input type="text" matInput name="nombre" id="field_nombre"
-                                   [(ngModel)]="receta.nombre"/>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-3">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.brewMaster"
-                                       for="field_brewMaster">Brew Master
-                            </mat-label>
-                            <input type="text" matInput name="brewMaster" id="field_brewMaster"
-                                   [(ngModel)]="receta.brewMaster"/>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-3">
-                        <mat-form-field>
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.fecha">Fecha
-                            </mat-label>
-                            <input matInput name="fecha" [matDatepicker]="picker"
-                                   placeholder="Choose a date"
-                                   [(ngModel)]="fechaDp" [max]="maxDate">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.batch"
-                                       for="field_batch">Brew Master
-                            </mat-label>
-                            <input type="number" matInput name="batch" id="field_batch"
-                                   [(ngModel)]="receta.batch" required/>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-6">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.temperaturaDeMacerado"
-                                       for="field_temperaturaDeMacerado">Brew Master
-                            </mat-label>
-                            <input type="number" matInput name="temperaturaDeMacerado"
-                                   id="field_temperaturaDeMacerado"
-                                   [(ngModel)]="receta.temperaturaDeMacerado"/>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.og" for="field_og">
-                                OG
-                            </mat-label>
-                            <input type="number" matInput name="og" id="field_og"
-                                   [(ngModel)]="receta.og" required/>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-2">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.fg" for="field_fg">
-                                OG
-                            </mat-label>
-                            <input type="number" matInput name="fg" id="field_fg"
-                                   [(ngModel)]="receta.fg" required/>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-2">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.abv" for="field_abv">
-                                abv
-                            </mat-label>
-                            <input type="number" matInput name="abv" id="field_abv" value="{{receta.abv}}" disabled>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-2">
-                        <mat-form-field class="example-full-width">
-                            <mat-label jhiTranslate="craftBeerStoreApp.receta.ibu" for="field_ibu">
-                                ibu
-                            </mat-label>
-                            <input type="number" matInput name="abv" id="field_ibu"
-                                   [(ngModel)]="receta.ibu" disabled/>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="col-6">
-                                <mat-form-field class="example-full-width">
-                                    <mat-label jhiTranslate="craftBeerStoreApp.receta.srm" for="field_srm">
-                                        SRM
-                                    </mat-label>
-                                    <input type="number" matInput name="srm" id="field_srm"
-                                           [(ngModel)]="receta.srm" disabled/>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-6">
-                                <div [ngStyle]="setMyStyles()" class="logo-glass"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-
-                    </div>
-                    <div class="col-sm-6">
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="container">
-                        <div class="mat-elevation-z8">
-                            <mat-card class="example-card">
-                                <mat-card-header>
-                                    <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.maltas">Maltas</span></mat-card-title>
-                                </mat-card-header>
-                                <mat-card-content>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.receta.maltas">
-                                                    Maltas
-                                                </mat-label>
-                                                <mat-select name="maltas" [(ngModel)]="recetaInsumo.insumoId" id="field_maltas">
-                                                    <mat-option value=""></mat-option>
-                                                    <mat-option *ngFor="let insumoOption of maltas"
-                                                                [value]="insumoOption.id">
-                                                        {{insumoOption.nombreInsumo}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label
-                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad"
-                                                    for="field_cantidad">cantidad
-                                                </mat-label>
-                                                <input type="number" matInput name="cantidad"
-                                                       id="field_cantidad"
-                                                       [(ngModel)]="recetaInsumo.cantidad"/>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label
-                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.color"
-                                                    for="field_color">color
-                                                </mat-label>
-                                                <input type="number" matInput name="color"
-                                                       id="field_color"
-                                                       [(ngModel)]="recetaInsumo.color" min="2"
-                                                       jhiMin="2" max="40" jhiMax="40"/>
-                                                <mat-error
-                                                    [hidden]="!(editForm.controls.color?.dirty && editForm.controls.color?.invalid)">
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.color?.errors?.min"
-                                                           jhiTranslate="entity.validation.min"
-                                                           [translateValues]="{ min: 2 }">
-                                                        This field should be at least 2.
-                                                    </small>
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.color?.errors?.max"
-                                                           jhiTranslate="entity.validation.max"
-                                                           [translateValues]="{ max: 40 }">
-                                                        This field cannot be more than 40.
-                                                    </small>
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.color?.errors?.number"
-                                                           jhiTranslate="entity.validation.number">
-                                                        This field should be a number.
-                                                    </small>
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
-
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta" for="field_usoMalta">Tipo Producto</mat-label>
-                                                <mat-select name="usoMalta" [(ngModel)]="recetaInsumo.usoMalta" id="field_usoMalta">
-                                                    <mat-option value="MASH">{{'craftBeerStoreApp.UsoMalta.MASH' | translate}}</mat-option>
-                                                    <mat-option value="RECIRCULATING">{{'craftBeerStoreApp.UsoMalta.RECIRCULATING' | translate}}</mat-option>
-                                                    <mat-option value="BOIL">{{'craftBeerStoreApp.UsoMalta.BOIL' | translate}}</mat-option>
-                                                    <mat-option value="FERMENTATION">{{'craftBeerStoreApp.UsoMalta.FERMENTATION' | translate}}</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="col-sm-6">
-                                                <button type="button" mat-raised-button
-                                                        class="mat-success" (click)="addMalta()">
-                                                    Agregar
-                                                </button>
-                                            </div>
-                                            <div class="col-sm-6">
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-
-                                        </div>
-                                        <div class="col-sm-6"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="table-responsive" *ngIf="maltasList">
-                                            <table mat-table [dataSource]="dataSourceMalta"
-                                                   style="width: 100%;">
-                                                <ng-container matColumnDef="nombreMalta">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreMalta">Nombre Malta</span>
-                                                    </th>
-                                                    <td mat-cell
-                                                        *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="cantidad">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta">
-                                                        <mat-form-field>
-                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Alpha</mat-label>
-                                                            <input type="number" matInput name="{{randomName(malta, malta.cantidad)}}"
-                                                                   [(ngModel)]="malta.cantidad" max="100" jhiMax="100" (change)="changeSrmRow()" value="{{malta.cantidad}}"/>
-                                                        </mat-form-field>
-                                                    </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="color">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.color">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta">
-                                                        <mat-form-field>
-                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.color">Alpha</mat-label>
-                                                            <input type="number" matInput name="{{randomName(malta, malta.color)}}"
-                                                                   [(ngModel)]="malta.color"  min="2" jhiMin="2" max="40" jhiMax="40" (change)="changeSrmRow()"/>
-                                                        </mat-form-field>
-                                                    </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="porcentaje">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.porcentaje">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.porcentaje}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="usoMalta">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta" jhiTranslate="{{'craftBeerStoreApp.UsoMalta.' + malta.usoMalta}}"> {{malta.usoMalta}} </td>
-                                                </ng-container>
-
-                                                <ng-container matColumnDef="action">
-                                                    <th mat-header-cell *matHeaderCellDef>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta">
-                                                        <div class="btn-group flex-btn-group-container">
-                                                            <button type="button" (click)="removeMalta(malta)"
-                                                                    mat-mini-fab color="warn">
-                                                                <fa-icon [icon]="'times'"></fa-icon>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </ng-container>
-
-                                                <tr mat-header-row
-                                                    *matHeaderRowDef="displayedColumnsMalta"></tr>
-                                                <tr mat-row
-                                                    *matRowDef="let row; columns: displayedColumnsMalta;"></tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </mat-card-content>
-                            </mat-card>
-                        </div>
-                    </div>
-                </div>
-
-                <br/>
-
-                <div class="row">
-                    <div class="container">
-                        <div class="mat-elevation-z8">
-                            <mat-card class="example-card">
-                                <mat-card-header>
-                                    <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.lupulo">Lupulo</span></mat-card-title>
-                                </mat-card-header>
-                                <mat-card-content>
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.receta.lupulo">
-                                                    Lupulo
-                                                </mat-label>
-                                                <mat-select name="maltas" [(ngModel)]="recetaInsumoLupulo.insumoId"
-                                                            id="field_maltas2">
-                                                    <mat-option value=""></mat-option>
-                                                    <mat-option *ngFor="let insumoOption of lupulos" [value]="insumoOption.id">
-                                                        {{insumoOption.nombreInsumo}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha"
-                                                           for="field_alpha">alpha
-                                                </mat-label>
-                                                <input type="number" matInput name="alpha" id="field_alpha"
-                                                       [(ngModel)]="recetaInsumoLupulo.alpha" max="100" jhiMax="100"/>
-                                                <mat-error [hidden]="!(editForm.controls.alpha?.dirty && editForm.controls.alpha?.invalid)">
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.alpha?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
-                                                        This field cannot be more than 100.
-                                                    </small>
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.alpha?.errors?.number" jhiTranslate="entity.validation.number">
-                                                        This field should be a number.
-                                                    </small>
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo" for="field_modoLupulo">Modo Lupulo</mat-label>
-                                                <mat-select name="modoLupulo" [(ngModel)]="recetaInsumoLupulo.modoLupulo" id="field_modoLupulo" >
-                                                    <mat-option value="PELLET">{{'craftBeerStoreApp.ModoLupulo.PELLET' | translate}}</mat-option>
-                                                    <mat-option value="PLUG">{{'craftBeerStoreApp.ModoLupulo.PLUG' | translate}}</mat-option>
-                                                    <mat-option value="WHOLE_LEAF">{{'craftBeerStoreApp.ModoLupulo.WHOLE_LEAF' | translate}}</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos"
-                                                           for="field_gramos">alpha
-                                                </mat-label>
-                                                <input type="number" matInput name="gramos" id="field_gramos"
-                                                       [(ngModel)]="recetaInsumoLupulo.gramos" max="100" jhiMax="100"/>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo" for="field_usoLupulo">Modo Lupulo</mat-label>
-                                                <mat-select name="usoLupulo" [(ngModel)]="recetaInsumoLupulo.usoLupulo" id="field_usoLupulo" >
-                                                    <mat-option value="BOIL">{{'craftBeerStoreApp.UsoLupulo.BOIL' | translate}}</mat-option>
-                                                    <mat-option value="FIRST_WORT">{{'craftBeerStoreApp.UsoLupulo.FIRST_WORT' | translate}}</mat-option>
-                                                    <mat-option value="DRY_HOP">{{'craftBeerStoreApp.UsoLupulo.DRY_HOP' | translate}}</mat-option>
-                                                    <mat-option value="AROMA">{{'craftBeerStoreApp.UsoLupulo.AROMA' | translate}}</mat-option>
-                                                    <mat-option value="MASH">{{'craftBeerStoreApp.UsoLupulo.MASH' | translate}}</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo"
-                                                           for="field_tiempo">alpha
-                                                </mat-label>
-                                                <input type="number" matInput name="tiempo" id="field_tiempo"
-                                                       [(ngModel)]="recetaInsumoLupulo.tiempo" min="0" jhiMin="0" max="120" jhiMax="120"/>
-                                                <mat-error [hidden]="!(editForm.controls.tiempo?.dirty && editForm.controls.tiempo?.invalid)">
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.tiempo?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
-                                                        This field should be at least 0.
-                                                    </small>
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.tiempo?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 120 }">
-                                                        This field cannot be more than 120.
-                                                    </small>
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.tiempo?.errors?.number" jhiTranslate="entity.validation.number">
-                                                        This field should be a number.
-                                                    </small>
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-1">
-                                            <div class="col-sm-6">
-                                                <button type="button" mat-raised-button
-                                                        class="mat-success" (click)="addLupulo()">
-                                                    Agregar
-                                                </button>
-                                            </div>
-                                            <div class="col-sm-6"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="table-responsive" *ngIf="lupulosList">
-                                            <table mat-table [dataSource]="dataSourceLupulo"
-                                                   style="width: 100%;">
-                                                <ng-container matColumnDef="nombreMalta">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreLupulo">Nombre Malta</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let lupulo"> {{lupulo.insumoNombreInsumo}} </td>
-                                                </ng-container>
-
-                                                <ng-container matColumnDef="alpha">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let lupulo">
-                                                        <mat-form-field>
-                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha">Alpha</mat-label>
-                                                            <input type="number" matInput name="{{randomName(lupulo, lupulo.id)}}"
-                                                                   [(ngModel)]="lupulo.alpha" max="100" jhiMax="100" (change)="changeIbuRow(lupulo)"/>
-                                                        </mat-form-field>
-
-                                                    </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="modoLupulo">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta" jhiTranslate="{{'craftBeerStoreApp.ModoLupulo.' + malta.modoLupulo}}"> {{malta.modoLupulo}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="gramos">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let lupulo">
-                                                        <mat-form-field>
-                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Alpha</mat-label>
-                                                            <input type="number" matInput name="{{randomName(lupulo, lupulo.gramos)}}"
-                                                                   [(ngModel)]="lupulo.gramos" (change)="changeIbuRow(lupulo)"/>
-                                                        </mat-form-field>
-                                                    </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="usoLupulo">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta" jhiTranslate="{{'craftBeerStoreApp.UsoLupulo.' + malta.usoLupulo}}"> {{malta.usoLupulo}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="tiempo">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let lupulo">
-<!--                                                        {{lupulo.tiempo}}-->
-                                                        <mat-form-field>
-                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo">Alpha</mat-label>
-                                                            <input type="number" matInput name="{{randomName(lupulo, lupulo.tiempo)}}"
-                                                                   [(ngModel)]="lupulo.tiempo" (change)="changeIbuRow(lupulo)"/>
-                                                        </mat-form-field>
-                                                    </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="ibu">
-                                                    <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.ibu}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="action">
-                                                    <th mat-header-cell *matHeaderCellDef>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta">
-                                                        <div class="btn-group flex-btn-group-container">
-                                                            <button type="button" (click)="removeLupulo(malta)"
-                                                                    mat-mini-fab color="warn">
-                                                                <fa-icon [icon]="'times'"></fa-icon>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </ng-container>
-
-                                                <tr mat-header-row *matHeaderRowDef="displayedColumnsLupulo"></tr>
-                                                <tr mat-row *matRowDef="let row; columns: displayedColumnsLupulo;"></tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </mat-card-content>
-                            </mat-card>
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="container">
-                        <div class="mat-elevation-z8">
-                            <mat-card class="example-card">
-                                <mat-card-header>
-                                    <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.levadura">Levadura</span></mat-card-title>
-                                </mat-card-header>
-                                <mat-card-content>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.receta.levadura">
-                                                    Levadura
-                                                </mat-label>
-                                                <mat-select name="maltas" [(ngModel)]="recetaInsumoLeva.insumoId"
-                                                            id="field_maltas3">
-                                                    <mat-option value=""></mat-option>
-                                                    <mat-option *ngFor="let insumoOption of levaduras" [value]="insumoOption.id">
-                                                        {{insumoOption.nombreInsumo}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos" for="field_gramos3">gramos</mat-label>
-                                                <input type="number" matInput name="gramos"
-                                                       id="field_gramos3"
-                                                       [(ngModel)]="recetaInsumoLeva.gramos"/>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva" for="field_densidadLeva">densidadLeva</mat-label>
-                                                <input type="number" matInput name="densidadLeva"
-                                                       id="field_densidadLeva"
-                                                       [(ngModel)]="recetaInsumoLeva.densidadLeva"/>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre" for="field_tamSobre">tamSobre</mat-label>
-                                                <input type="number" matInput name="tamSobre"
-                                                       id="field_tamSobre"
-                                                       [(ngModel)]="recetaInsumoLeva.tamSobre"/>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion" for="field_atenuacion">atenuacion</mat-label>
-                                                <input type="number" matInput name="atenuacion"
-                                                       id="field_atenuacion"
-                                                       [(ngModel)]="recetaInsumoLeva.atenuacion"/>
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <button type="button" mat-raised-button
-                                                    class="mat-success" (click)="addLevadura()">
-                                                Agregar
-                                            </button>
-                                        </div>
-                                        <div class="col-sm-6"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="table-responsive" *ngIf="levadurasList">
-                                            <table mat-table [dataSource]="dataSourceLeva"
-                                                   style="width: 100%;">
-                                                <ng-container matColumnDef="nombreMalta">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreLevadura">Nombre Malta</span>
-                                                    </th>
-                                                    <td mat-cell
-                                                        *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="gramos">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.gramos}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="densidadLeva">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva">densidadLeva</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.densidadLeva}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="tamSobre">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre">tamSobre</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.tamSobre}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="atenuacion">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion">atenuacion</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.atenuacion}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="action">
-                                                    <th mat-header-cell *matHeaderCellDef>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta">
-                                                        <div class="btn-group flex-btn-group-container">
-                                                            <button type="button" (click)="removeLevadura(malta)"
-                                                                    mat-mini-fab color="warn">
-                                                                <fa-icon [icon]="'times'"></fa-icon>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </ng-container>
-
-                                                <tr mat-header-row
-                                                    *matHeaderRowDef="displayedColumnsLevadura"></tr>
-                                                <tr mat-row
-                                                    *matRowDef="let row; columns: displayedColumnsLevadura;"></tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </mat-card-content>
-                            </mat-card>
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <div class="row">
-                    <div class="container">
-                        <div class="mat-elevation-z8">
-                            <mat-card class="example-card">
-                                <mat-card-header>
-                                    <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.otros">Otros</span></mat-card-title>
-                                </mat-card-header>
-                                <mat-card-content>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.receta.otros">
-                                                    Otros
-                                                </mat-label>
-                                                <mat-select name="maltas" [(ngModel)]="recetaInsumoOtro.insumoId" id="field_maltas4">
-                                                    <mat-option value=""></mat-option>
-                                                    <mat-option *ngFor="let insumoOption of otros" [value]="insumoOption.id">
-                                                        {{insumoOption.nombreInsumo}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos" for="field_gramos4">empaste
-                                                </mat-label>
-                                                <input type="number" matInput name="gramos" id="field_gramos4" [(ngModel)]="recetaInsumoOtro.gramos"/>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro" for="field_tipoOtro">Tipo Otro</mat-label>
-                                                <mat-select name="tipoOtro" [(ngModel)]="recetaInsumoOtro.tipoOtro" id="field_tipoOtro" >
-                                                    <mat-option value="FINING">{{'craftBeerStoreApp.TipoOtro.FINING' | translate}}</mat-option>
-                                                    <mat-option value="WATER_AGENT">{{'craftBeerStoreApp.TipoOtro.WATER_AGENT' | translate}}</mat-option>
-                                                    <mat-option value="SPICE">{{'craftBeerStoreApp.TipoOtro.SPICE' | translate}}</mat-option>
-                                                    <mat-option value="HERB">{{'craftBeerStoreApp.TipoOtro.HERB' | translate}}</mat-option>
-                                                    <mat-option value="FLAVOR">{{'craftBeerStoreApp.TipoOtro.FLAVOR' | translate}}</mat-option>
-                                                    <mat-option value="OTHER">{{'craftBeerStoreApp.TipoOtro.OTHER' | translate}}</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro" for="field_usoOtro">Uso Otro</mat-label>
-                                                <mat-select name="usoOtro" [(ngModel)]="recetaInsumoOtro.usoOtro" id="field_usoOtro" >
-                                                    <mat-option value="BOIL">{{'craftBeerStoreApp.UsoOtro.BOIL' | translate}}</mat-option>
-                                                    <mat-option value="MASH">{{'craftBeerStoreApp.UsoOtro.MASH' | translate}}</mat-option>
-                                                    <mat-option value="LICOR">{{'craftBeerStoreApp.UsoOtro.LICOR' | translate}}</mat-option>
-                                                    <mat-option value="PRIMARY">{{'craftBeerStoreApp.UsoOtro.PRIMARY' | translate}}</mat-option>
-                                                    <mat-option value="SECONDARY">{{'craftBeerStoreApp.UsoOtro.SECONDARY' | translate}}</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro" for="field_tiempoOtro">Tiempo Otro</mat-label>
-                                                <input matInput type="number" name="tiempoOtro" id="field_tiempoOtro" [(ngModel)]="recetaInsumoOtro.tiempoOtro" />
-                                            </mat-form-field>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <button type="button" mat-raised-button
-                                                    class="mat-success" (click)="addOtros()">
-                                                Agregar
-                                            </button>
-                                        </div>
-                                        <div class="col-sm-6"></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="table-responsive" *ngIf="otrosList">
-                                            <table mat-table [dataSource]="dataSourceOtro"
-                                                   style="width: 100%;">
-                                                <ng-container matColumnDef="nombreMalta">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreOtro">Nombre Malta</span>
-                                                    </th>
-                                                    <td mat-cell
-                                                        *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="gramos">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Cantidad</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.gramos}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="tipoOtro">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro">tipoOtro</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta" jhiTranslate="{{'craftBeerStoreApp.TipoOtro.' + malta.tipoOtro}}"> {{malta.tipoOtro}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="usoOtro">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro">usoOtro</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta" jhiTranslate="{{'craftBeerStoreApp.UsoOtro.' + malta.usoOtro}}"> {{malta.usoOtro}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="tiempoOtro">
-                                                    <th mat-header-cell *matHeaderCellDef><span
-                                                        jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro">tiempoOtro</span>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta"> {{malta.tiempoOtro}} </td>
-                                                </ng-container>
-                                                <ng-container matColumnDef="action">
-                                                    <th mat-header-cell *matHeaderCellDef>
-                                                    </th>
-                                                    <td mat-cell *matCellDef="let malta">
-                                                        <div class="btn-group flex-btn-group-container">
-                                                            <button type="button" (click)="removeOtro(malta)"
-                                                                    mat-mini-fab color="warn">
-                                                                <fa-icon [icon]="'times'"></fa-icon>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </ng-container>
-
-                                                <tr mat-header-row
-                                                    *matHeaderRowDef="displayedColumnsOtro"></tr>
-                                                <tr mat-row
-                                                    *matRowDef="let row; columns: displayedColumnsOtro;"></tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </mat-card-content>
-                            </mat-card>
-                        </div>
-                    </div>
-                </div>
-
-
-                <br/>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <h2 id="jhi-receta-heading"
+                    jhiTranslate="craftBeerStoreApp.receta.home.createOrEditLabel">Create or edit a
+                    Receta</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Entidad</li>
+                    <li class="breadcrumb-item active">Receta</li>
+                </ul>
             </div>
-            <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"
-                        (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
-                    jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" id="save-entity"
-                        [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
-                    jhiTranslate="entity.action.save">Save</span>
-                </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+
+        </div>
+        <div class="body">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+                        <div>
+                            <jhi-alert-error></jhi-alert-error>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.producto"
+                                                   for="field_producto">Producto
+                                        </mat-label>
+                                        <input type="text" matInput name="producto" id="field_producto"
+                                               [(ngModel)]="receta.productoNombreComercial" disabled/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.nombre"
+                                                   for="field_nombre">Nombre
+                                        </mat-label>
+                                        <input type="text" matInput name="nombre" id="field_nombre"
+                                               [(ngModel)]="receta.nombre"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.brewMaster"
+                                                   for="field_brewMaster">Brew Master
+                                        </mat-label>
+                                        <input type="text" matInput name="brewMaster" id="field_brewMaster"
+                                               [(ngModel)]="receta.brewMaster"/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field>
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.fecha">Fecha
+                                        </mat-label>
+                                        <input matInput name="fecha" [matDatepicker]="picker"
+                                               placeholder="Choose a date"
+                                               [(ngModel)]="fechaDp" [max]="maxDate">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.batch"
+                                                   for="field_batch">Batch
+                                        </mat-label>
+                                        <input type="number" matInput name="batch" id="field_batch"
+                                               [(ngModel)]="receta.batch" required/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-6">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.temperaturaDeMacerado"
+                                                   for="field_temperaturaDeMacerado">Temperatura de Macerado
+                                        </mat-label>
+                                        <input type="number" matInput name="temperaturaDeMacerado"
+                                               id="field_temperaturaDeMacerado"
+                                               [(ngModel)]="receta.temperaturaDeMacerado"/>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.og" for="field_og">
+                                            OG
+                                        </mat-label>
+                                        <input type="number" matInput name="og" id="field_og"
+                                               [(ngModel)]="receta.og" required/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-2">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.fg" for="field_fg">
+                                            FG
+                                        </mat-label>
+                                        <input type="number" matInput name="fg" id="field_fg"
+                                               [(ngModel)]="receta.fg" required/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-2">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.abv" for="field_abv">
+                                            ABV
+                                        </mat-label>
+                                        <input type="number" matInput name="abv" id="field_abv" value="{{receta.abv}}" disabled>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-2">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.receta.ibu" for="field_ibu">
+                                            IBU
+                                        </mat-label>
+                                        <input type="number" matInput name="abv" id="field_ibu"
+                                               [(ngModel)]="receta.ibu" disabled/>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label jhiTranslate="craftBeerStoreApp.receta.srm" for="field_srm">
+                                                    SRM
+                                                </mat-label>
+                                                <input type="number" matInput name="srm" id="field_srm"
+                                                       [(ngModel)]="receta.srm" disabled/>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-6">
+                                            <div [ngStyle]="setMyStyles()" class="logo-glass"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                </div>
+                                <div class="col-sm-6">
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="container">
+                                    <div class="mat-elevation-z8">
+                                        <mat-card class="example-card">
+                                            <mat-card-header>
+                                                <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.maltas">Maltas</span></mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.receta.maltas">
+                                                                Maltas
+                                                            </mat-label>
+                                                            <mat-select name="maltas" [(ngModel)]="recetaInsumo.insumoId" id="field_maltas">
+                                                                <mat-option value=""></mat-option>
+                                                                <mat-option *ngFor="let insumoOption of maltas"
+                                                                            [value]="insumoOption.id">
+                                                                    {{insumoOption.nombreInsumo}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label
+                                                                jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad"
+                                                                for="field_cantidad">Cantidad
+                                                            </mat-label>
+                                                            <input type="number" matInput name="cantidad"
+                                                                   id="field_cantidad"
+                                                                   [(ngModel)]="recetaInsumo.cantidad"/>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label
+                                                                jhiTranslate="craftBeerStoreApp.recetaInsumo.color"
+                                                                for="field_color">Color
+                                                            </mat-label>
+                                                            <input type="number" matInput name="color"
+                                                                   id="field_color"
+                                                                   [(ngModel)]="recetaInsumo.color" min="2"
+                                                                   jhiMin="2" max="40" jhiMax="40"/>
+                                                            <mat-error
+                                                                [hidden]="!(editForm.controls.color?.dirty && editForm.controls.color?.invalid)">
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.color?.errors?.min"
+                                                                       jhiTranslate="entity.validation.min"
+                                                                       [translateValues]="{ min: 2 }">
+                                                                    This field should be at least 2.
+                                                                </small>
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.color?.errors?.max"
+                                                                       jhiTranslate="entity.validation.max"
+                                                                       [translateValues]="{ max: 40 }">
+                                                                    This field cannot be more than 40.
+                                                                </small>
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.color?.errors?.number"
+                                                                       jhiTranslate="entity.validation.number">
+                                                                    This field should be a number.
+                                                                </small>
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta" for="field_usoMalta">Uso</mat-label>
+                                                            <mat-select name="usoMalta" [(ngModel)]="recetaInsumo.usoMalta" id="field_usoMalta">
+                                                                <mat-option value="MASH">{{'craftBeerStoreApp.UsoMalta.MASH' | translate}}</mat-option>
+                                                                <mat-option value="RECIRCULATING">{{'craftBeerStoreApp.UsoMalta.RECIRCULATING' | translate}}</mat-option>
+                                                                <mat-option value="BOIL">{{'craftBeerStoreApp.UsoMalta.BOIL' | translate}}</mat-option>
+                                                                <mat-option value="FERMENTATION">{{'craftBeerStoreApp.UsoMalta.FERMENTATION' | translate}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="col-sm-6">
+                                                            <button type="button" mat-raised-button
+                                                                    class="mat-success" (click)="addMalta()">
+                                                                Agregar
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-sm-6">
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+
+                                                    </div>
+                                                    <div class="col-sm-6"></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="table-responsive" *ngIf="maltasList">
+                                                        <table mat-table [dataSource]="dataSourceMalta"
+                                                               style="width: 100%;">
+                                                            <ng-container matColumnDef="nombreMalta">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreMalta">Nombre Malta</span>
+                                                                </th>
+                                                                <td mat-cell
+                                                                    *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="cantidad">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta">
+                                                                    <mat-form-field>
+                                                                        <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Alpha</mat-label>
+                                                                        <input type="number" matInput name="{{randomName(malta, malta.cantidad)}}"
+                                                                               [(ngModel)]="malta.cantidad" max="100" jhiMax="100" (change)="changeSrmRow()" value="{{malta.cantidad}}"/>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="color">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.color">Color</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta">
+                                                                    <mat-form-field>
+                                                                        <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.color">Alpha</mat-label>
+                                                                        <input type="number" matInput name="{{randomName(malta, malta.color)}}"
+                                                                               [(ngModel)]="malta.color"  min="2" jhiMin="2" max="40" jhiMax="40" (change)="changeSrmRow()"/>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="porcentaje">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.porcentaje">%</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta"> {{malta.porcentaje}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="usoMalta">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta">Uso</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta" jhiTranslate="{{'craftBeerStoreApp.UsoMalta.' + malta.usoMalta}}"> {{malta.usoMalta}} </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="action">
+                                                                <th mat-header-cell *matHeaderCellDef>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta">
+                                                                    <div class="btn-group flex-btn-group-container">
+                                                                        <button type="button" (click)="removeMalta(malta)"
+                                                                                mat-mini-fab color="warn">
+                                                                            <fa-icon [icon]="'times'"></fa-icon>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <tr mat-header-row
+                                                                *matHeaderRowDef="displayedColumnsMalta"></tr>
+                                                            <tr mat-row
+                                                                *matRowDef="let row; columns: displayedColumnsMalta;"></tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br/>
+
+                            <div class="row">
+                                <div class="container">
+                                    <div class="mat-elevation-z8">
+                                        <mat-card class="example-card">
+                                            <mat-card-header>
+                                                <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.lupulo">Lupulo</span></mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.receta.lupulo">
+                                                                Lupulo
+                                                            </mat-label>
+                                                            <mat-select name="maltas" [(ngModel)]="recetaInsumoLupulo.insumoId"
+                                                                        id="field_maltas2">
+                                                                <mat-option value=""></mat-option>
+                                                                <mat-option *ngFor="let insumoOption of lupulos" [value]="insumoOption.id">
+                                                                    {{insumoOption.nombreInsumo}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha"
+                                                                       for="field_alpha">Alpha
+                                                            </mat-label>
+                                                            <input type="number" matInput name="alpha" id="field_alpha"
+                                                                   [(ngModel)]="recetaInsumoLupulo.alpha" max="100" jhiMax="100"/>
+                                                            <mat-error [hidden]="!(editForm.controls.alpha?.dirty && editForm.controls.alpha?.invalid)">
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.alpha?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
+                                                                    This field cannot be more than 100.
+                                                                </small>
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.alpha?.errors?.number" jhiTranslate="entity.validation.number">
+                                                                    This field should be a number.
+                                                                </small>
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo" for="field_modoLupulo">Tipo de Lúpulo</mat-label>
+                                                            <mat-select name="modoLupulo" [(ngModel)]="recetaInsumoLupulo.modoLupulo" id="field_modoLupulo" >
+                                                                <mat-option value="PELLET">{{'craftBeerStoreApp.ModoLupulo.PELLET' | translate}}</mat-option>
+                                                                <mat-option value="PLUG">{{'craftBeerStoreApp.ModoLupulo.PLUG' | translate}}</mat-option>
+                                                                <mat-option value="WHOLE_LEAF">{{'craftBeerStoreApp.ModoLupulo.WHOLE_LEAF' | translate}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos"
+                                                                       for="field_gramos">Gramos
+                                                            </mat-label>
+                                                            <input type="number" matInput name="gramos" id="field_gramos"
+                                                                   [(ngModel)]="recetaInsumoLupulo.gramos" max="100" jhiMax="100"/>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo" for="field_usoLupulo">Uso</mat-label>
+                                                            <mat-select name="usoLupulo" [(ngModel)]="recetaInsumoLupulo.usoLupulo" id="field_usoLupulo" >
+                                                                <mat-option value="BOIL">{{'craftBeerStoreApp.UsoLupulo.BOIL' | translate}}</mat-option>
+                                                                <mat-option value="FIRST_WORT">{{'craftBeerStoreApp.UsoLupulo.FIRST_WORT' | translate}}</mat-option>
+                                                                <mat-option value="DRY_HOP">{{'craftBeerStoreApp.UsoLupulo.DRY_HOP' | translate}}</mat-option>
+                                                                <mat-option value="AROMA">{{'craftBeerStoreApp.UsoLupulo.AROMA' | translate}}</mat-option>
+                                                                <mat-option value="MASH">{{'craftBeerStoreApp.UsoLupulo.MASH' | translate}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo"
+                                                                       for="field_tiempo">Tiempo
+                                                            </mat-label>
+                                                            <input type="number" matInput name="tiempo" id="field_tiempo"
+                                                                   [(ngModel)]="recetaInsumoLupulo.tiempo" min="0" jhiMin="0" max="120" jhiMax="120"/>
+                                                            <mat-error [hidden]="!(editForm.controls.tiempo?.dirty && editForm.controls.tiempo?.invalid)">
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.tiempo?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                                                                    This field should be at least 0.
+                                                                </small>
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.tiempo?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 120 }">
+                                                                    This field cannot be more than 120.
+                                                                </small>
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.tiempo?.errors?.number" jhiTranslate="entity.validation.number">
+                                                                    This field should be a number.
+                                                                </small>
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <div class="col-sm-6">
+                                                            <button type="button" mat-raised-button
+                                                                    class="mat-success" (click)="addLupulo()">
+                                                                Agregar
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-sm-6"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="table-responsive" *ngIf="lupulosList">
+                                                        <table mat-table [dataSource]="dataSourceLupulo"
+                                                               style="width: 100%;">
+                                                            <ng-container matColumnDef="nombreMalta">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreLupulo">Lúpulo</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let lupulo"> {{lupulo.insumoNombreInsumo}} </td>
+                                                            </ng-container>
+
+                                                            <ng-container matColumnDef="alpha">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha">Alpha</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let lupulo">
+                                                                    <mat-form-field>
+                                                                        <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha">Alpha</mat-label>
+                                                                        <input type="number" matInput name="{{randomName(lupulo, lupulo.id)}}"
+                                                                               [(ngModel)]="lupulo.alpha" max="100" jhiMax="100" (change)="changeIbuRow(lupulo)"/>
+                                                                    </mat-form-field>
+
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="modoLupulo">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo">Tipo</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta" jhiTranslate="{{'craftBeerStoreApp.ModoLupulo.' + malta.modoLupulo}}"> {{malta.modoLupulo}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="gramos">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Cantidad</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let lupulo">
+                                                                    <mat-form-field>
+                                                                        <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Alpha</mat-label>
+                                                                        <input type="number" matInput name="{{randomName(lupulo, lupulo.gramos)}}"
+                                                                               [(ngModel)]="lupulo.gramos" (change)="changeIbuRow(lupulo)"/>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="usoLupulo">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo">Uso</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let lupulo" jhiTranslate="{{'craftBeerStoreApp.UsoLupulo.' + lupulo.usoLupulo}}"> {{lupulo.usoLupulo}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="tiempo">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo">Tiempo</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let lupulo">
+                                                                    <!--                                                        {{lupulo.tiempo}}-->
+                                                                    <mat-form-field>
+                                                                        <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo">Tiempo</mat-label>
+                                                                        <input type="number" matInput name="{{randomName(lupulo, lupulo.tiempo)}}"
+                                                                               [(ngModel)]="lupulo.tiempo" (change)="changeIbuRow(lupulo)"/>
+                                                                    </mat-form-field>
+                                                                </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="ibu">
+                                                                <th mat-header-cell *matHeaderCellDef><span jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu">IBU</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta"> {{malta.ibu}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="action">
+                                                                <th mat-header-cell *matHeaderCellDef>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta">
+                                                                    <div class="btn-group flex-btn-group-container">
+                                                                        <button type="button" (click)="removeLupulo(malta)"
+                                                                                mat-mini-fab color="warn">
+                                                                            <fa-icon [icon]="'times'"></fa-icon>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <tr mat-header-row *matHeaderRowDef="displayedColumnsLupulo"></tr>
+                                                            <tr mat-row *matRowDef="let row; columns: displayedColumnsLupulo;"></tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="container">
+                                    <div class="mat-elevation-z8">
+                                        <mat-card class="example-card">
+                                            <mat-card-header>
+                                                <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.levadura">Levadura</span></mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.receta.levadura">
+                                                                Levadura
+                                                            </mat-label>
+                                                            <mat-select name="maltas" [(ngModel)]="recetaInsumoLeva.insumoId"
+                                                                        id="field_maltas3">
+                                                                <mat-option value=""></mat-option>
+                                                                <mat-option *ngFor="let insumoOption of levaduras" [value]="insumoOption.id">
+                                                                    {{insumoOption.nombreInsumo}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos" for="field_gramos3">Gramos</mat-label>
+                                                            <input type="number" matInput name="gramos"
+                                                                   id="field_gramos3"
+                                                                   [(ngModel)]="recetaInsumoLeva.gramos"/>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva" for="field_densidadLeva">Densidad Levadura</mat-label>
+                                                            <input type="number" matInput name="densidadLeva"
+                                                                   id="field_densidadLeva"
+                                                                   [(ngModel)]="recetaInsumoLeva.densidadLeva"/>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre" for="field_tamSobre">Tamaño de Sobre</mat-label>
+                                                            <input type="number" matInput name="tamSobre"
+                                                                   id="field_tamSobre"
+                                                                   [(ngModel)]="recetaInsumoLeva.tamSobre"/>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion" for="field_atenuacion">Atenuación</mat-label>
+                                                            <input type="number" matInput name="atenuacion"
+                                                                   id="field_atenuacion"
+                                                                   [(ngModel)]="recetaInsumoLeva.atenuacion"/>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <div class="col-sm-6">
+                                                            <button type="button" mat-raised-button
+                                                                    class="mat-success" (click)="addLevadura()">
+                                                                Agregar
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-sm-6"></div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="table-responsive" *ngIf="levadurasList">
+                                                        <table mat-table [dataSource]="dataSourceLeva"
+                                                               style="width: 100%;">
+                                                            <ng-container matColumnDef="nombreMalta">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreLevadura">Nombre Levadura</span>
+                                                                </th>
+                                                                <td mat-cell
+                                                                    *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="gramos">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Gramos</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta"> {{malta.gramos}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="densidadLeva">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva">Densidad de Levadura</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta"> {{malta.densidadLeva}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="tamSobre">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre">Tamaño de Sobre</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta"> {{malta.tamSobre}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="atenuacion">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion">Atenuación</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta"> {{malta.atenuacion}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="action">
+                                                                <th mat-header-cell *matHeaderCellDef>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta">
+                                                                    <div class="btn-group flex-btn-group-container">
+                                                                        <button type="button" (click)="removeLevadura(malta)"
+                                                                                mat-mini-fab color="warn">
+                                                                            <fa-icon [icon]="'times'"></fa-icon>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <tr mat-header-row
+                                                                *matHeaderRowDef="displayedColumnsLevadura"></tr>
+                                                            <tr mat-row
+                                                                *matRowDef="let row; columns: displayedColumnsLevadura;"></tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="container">
+                                    <div class="mat-elevation-z8">
+                                        <mat-card class="example-card">
+                                            <mat-card-header>
+                                                <mat-card-title><span jhiTranslate="craftBeerStoreApp.receta.otros">Otros</span></mat-card-title>
+                                            </mat-card-header>
+                                            <mat-card-content>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.receta.otros">
+                                                                Otros
+                                                            </mat-label>
+                                                            <mat-select name="maltas" [(ngModel)]="recetaInsumoOtro.insumoId" id="field_maltas4">
+                                                                <mat-option value=""></mat-option>
+                                                                <mat-option *ngFor="let insumoOption of otros" [value]="insumoOption.id">
+                                                                    {{insumoOption.nombreInsumo}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos" for="field_gramos4">Gramos
+                                                            </mat-label>
+                                                            <input type="number" matInput name="gramos" id="field_gramos4" [(ngModel)]="recetaInsumoOtro.gramos"/>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro" for="field_tipoOtro">Tipo</mat-label>
+                                                            <mat-select name="tipoOtro" [(ngModel)]="recetaInsumoOtro.tipoOtro" id="field_tipoOtro" >
+                                                                <mat-option value="FINING">{{'craftBeerStoreApp.TipoOtro.FINING' | translate}}</mat-option>
+                                                                <mat-option value="WATER_AGENT">{{'craftBeerStoreApp.TipoOtro.WATER_AGENT' | translate}}</mat-option>
+                                                                <mat-option value="SPICE">{{'craftBeerStoreApp.TipoOtro.SPICE' | translate}}</mat-option>
+                                                                <mat-option value="HERB">{{'craftBeerStoreApp.TipoOtro.HERB' | translate}}</mat-option>
+                                                                <mat-option value="FLAVOR">{{'craftBeerStoreApp.TipoOtro.FLAVOR' | translate}}</mat-option>
+                                                                <mat-option value="OTHER">{{'craftBeerStoreApp.TipoOtro.OTHER' | translate}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro" for="field_usoOtro">Uso</mat-label>
+                                                            <mat-select name="usoOtro" [(ngModel)]="recetaInsumoOtro.usoOtro" id="field_usoOtro" >
+                                                                <mat-option value="BOIL">{{'craftBeerStoreApp.UsoOtro.BOIL' | translate}}</mat-option>
+                                                                <mat-option value="MASH">{{'craftBeerStoreApp.UsoOtro.MASH' | translate}}</mat-option>
+                                                                <mat-option value="LICOR">{{'craftBeerStoreApp.UsoOtro.LICOR' | translate}}</mat-option>
+                                                                <mat-option value="PRIMARY">{{'craftBeerStoreApp.UsoOtro.PRIMARY' | translate}}</mat-option>
+                                                                <mat-option value="SECONDARY">{{'craftBeerStoreApp.UsoOtro.SECONDARY' | translate}}</mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro" for="field_tiempoOtro">Tiempo</mat-label>
+                                                            <input matInput type="number" name="tiempoOtro" id="field_tiempoOtro" [(ngModel)]="recetaInsumoOtro.tiempoOtro" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <div class="col-sm-6">
+                                                            <button type="button" mat-raised-button
+                                                                    class="mat-success" (click)="addOtros()">
+                                                                Agregar
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-sm-6"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                    </div>
+                                                    <div class="col-sm-6"></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="table-responsive" *ngIf="otrosList">
+                                                        <table mat-table [dataSource]="dataSourceOtro"
+                                                               style="width: 100%;">
+                                                            <ng-container matColumnDef="nombreMalta">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreOtro">Nombre</span>
+                                                                </th>
+                                                                <td mat-cell
+                                                                    *matCellDef="let malta"> {{malta.insumoNombreInsumo}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="gramos">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Gramos</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta"> {{malta.gramos}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="tipoOtro">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro">Tipo</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta" jhiTranslate="{{'craftBeerStoreApp.TipoOtro.' + malta.tipoOtro}}"> {{malta.tipoOtro}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="usoOtro">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro">Uso</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta" jhiTranslate="{{'craftBeerStoreApp.UsoOtro.' + malta.usoOtro}}"> {{malta.usoOtro}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="tiempoOtro">
+                                                                <th mat-header-cell *matHeaderCellDef><span
+                                                                    jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro">Tiempo</span>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta"> {{malta.tiempoOtro}} </td>
+                                                            </ng-container>
+                                                            <ng-container matColumnDef="action">
+                                                                <th mat-header-cell *matHeaderCellDef>
+                                                                </th>
+                                                                <td mat-cell *matCellDef="let malta">
+                                                                    <div class="btn-group flex-btn-group-container">
+                                                                        <button type="button" (click)="removeOtro(malta)"
+                                                                                mat-mini-fab color="warn">
+                                                                            <fa-icon [icon]="'times'"></fa-icon>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </ng-container>
+
+                                                            <tr mat-header-row
+                                                                *matHeaderRowDef="displayedColumnsOtro"></tr>
+                                                            <tr mat-row
+                                                                *matRowDef="let row; columns: displayedColumnsOtro;"></tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br/>
+                        </div>
+                        <div>
+                            <button type="button" id="cancel-save" class="btn btn-secondary"
+                                    (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
+                                jhiTranslate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity"
+                                    [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
+                                jhiTranslate="entity.action.save">Save</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
+
+        </div>
     </div>
 </div>
+

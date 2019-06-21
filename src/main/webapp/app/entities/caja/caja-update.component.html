@@ -21,11 +21,11 @@
                     <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
                         <div>
                             <jhi-alert-error></jhi-alert-error>
-                            <mat-form-field class="example-full-width" [hidden]="!caja.id" appearance="fill">
-                                <mat-label jhiTranslate="global.field.id">ID </mat-label>
-                                <input matInput placeholder="id" id="id" name="id"
-                                       [(ngModel)]="caja.id" readonly>
-                            </mat-form-field>
+<!--                            <mat-form-field class="example-full-width" [hidden]="!caja.id" appearance="fill">-->
+<!--                                <mat-label jhiTranslate="global.field.id">ID </mat-label>-->
+<!--                                <input matInput placeholder="id" id="id" name="id"-->
+<!--                                       [(ngModel)]="caja.id" readonly>-->
+<!--                            </mat-form-field>-->
                             <mat-form-field class="example-full-width" appearance="fill">
                                 <mat-label jhiTranslate="craftBeerStoreApp.caja.tipoMovimiento">Tipo Movimiento</mat-label>
                                 <mat-select  name="tipoMovimiento" [(ngModel)]="caja.tipoMovimiento" id="field_tipoMovimiento" required>

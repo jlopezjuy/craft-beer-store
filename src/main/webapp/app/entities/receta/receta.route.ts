@@ -31,7 +31,7 @@ export class RecetaResolve implements Resolve<IReceta> {
 
 export const recetaRoute: Routes = [
     {
-        path: '',
+        path: 'receta',
         component: RecetaComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const recetaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'receta/:id/view',
         component: RecetaDetailComponent,
         resolve: {
             receta: RecetaResolve
@@ -56,7 +56,7 @@ export const recetaRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'receta/new',
         component: RecetaUpdateComponent,
         resolve: {
             receta: RecetaResolve

@@ -31,7 +31,7 @@ export class EquipamientoResolve implements Resolve<IEquipamiento> {
 
 export const equipamientoRoute: Routes = [
     {
-        path: '',
+        path: 'equipamiento',
         component: EquipamientoComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const equipamientoRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'equipamiento/:id/view',
         component: EquipamientoDetailComponent,
         resolve: {
             equipamiento: EquipamientoResolve
@@ -56,7 +56,7 @@ export const equipamientoRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'equipamiento/new',
         component: EquipamientoUpdateComponent,
         resolve: {
             equipamiento: EquipamientoResolve
@@ -68,7 +68,7 @@ export const equipamientoRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'equipamiento/:id/edit',
         component: EquipamientoUpdateComponent,
         resolve: {
             equipamiento: EquipamientoResolve
@@ -83,7 +83,7 @@ export const equipamientoRoute: Routes = [
 
 export const equipamientoPopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'equipamiento/:id/delete',
         component: EquipamientoDeletePopupComponent,
         resolve: {
             equipamiento: EquipamientoResolve

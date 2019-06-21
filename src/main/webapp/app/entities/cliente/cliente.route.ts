@@ -31,7 +31,7 @@ export class ClienteResolve implements Resolve<ICliente> {
 
 export const clienteRoute: Routes = [
     {
-        path: '',
+        path: 'cliente',
         component: ClienteComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const clienteRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'cliente/:id/view',
         component: ClienteDetailComponent,
         resolve: {
             cliente: ClienteResolve
@@ -56,7 +56,7 @@ export const clienteRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'cliente/new',
         component: ClienteUpdateComponent,
         resolve: {
             cliente: ClienteResolve
@@ -68,7 +68,7 @@ export const clienteRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'cliente/:id/edit',
         component: ClienteUpdateComponent,
         resolve: {
             cliente: ClienteResolve
@@ -83,7 +83,7 @@ export const clienteRoute: Routes = [
 
 export const clientePopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'cliente/:id/delete',
         component: ClienteDeletePopupComponent,
         resolve: {
             cliente: ClienteResolve

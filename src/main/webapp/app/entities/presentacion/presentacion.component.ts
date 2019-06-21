@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,8 @@ import { PresentacionService } from './presentacion.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IProducto } from 'app/shared/model/producto.model';
 import { MatTableDataSource, PageEvent } from '@angular/material';
+import { SidebarService } from '../../services/sidebar.service';
+import { EChartOption } from 'echarts';
 
 @Component({
     selector: 'jhi-presentacion',
@@ -37,7 +39,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     producto: IProducto;
     dataSource: any;
     displayedColumns: string[] = [
-        'id',
         'tipoPresentacion',
         'cantidad',
         'fecha',
@@ -48,6 +49,12 @@ export class PresentacionComponent implements OnInit, OnDestroy {
         'actions'
     ];
     pageEvent: PageEvent;
+    public sidebarVisible = true;
+    public visitorsOptions: EChartOption = {};
+    public visitsOptions: EChartOption = {};
+    public dropdownList: Array<any>;
+    public selectedItems: Array<any>;
+    public dropdownSettings: any;
 
     constructor(
         protected presentacionService: PresentacionService,
@@ -57,7 +64,9 @@ export class PresentacionComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService
+        private $localStorage: LocalStorageService,
+        private sidebarService: SidebarService,
+        private cdr: ChangeDetectorRef
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -194,11 +203,17 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     previousState() {
         this.$localStorage.clear('producto');
         // window.history.back();
-        this.router.navigate(['/producto']);
+        this.router.navigate(['/admin/entity/producto']);
     }
 
     onPaginateChange(event: PageEvent) {
         this.page = event.pageIndex + 1;
         this.loadPage(event.pageIndex + 1);
+    }
+
+    toggleFullWidth() {
+        this.sidebarService.toggle();
+        this.sidebarVisible = this.sidebarService.getStatus();
+        this.cdr.detectChanges();
     }
 }
