@@ -54,12 +54,13 @@ export class EventoUpdateComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.productosList = [];
-        // this.evento.cantidadBarriles = 0;
         this.activatedRoute.data.subscribe(({ evento }) => {
             this.evento = evento;
             if (this.evento.id) {
                 this.loadProductos(this.evento.id);
                 this.fechaEventoDp = moment(this.evento.fechaEvento, 'dd/MM/yyy').format();
+            } else {
+                this.evento.cantidadBarriles = 0;
             }
         });
         this.empresa = this.$localStorage.retrieve('empresa');

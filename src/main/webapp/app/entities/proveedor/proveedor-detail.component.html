@@ -1,125 +1,147 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="proveedor">
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <div class="mat-elevation-z8">
-                <mat-card class="example-card">
-                    <mat-card-header>
-                        <mat-card-title>
-                            <h2><span jhiTranslate="craftBeerStoreApp.proveedor.detail.title">Proveedor</span>: {{proveedor.nombreProveedor}}</h2>
-                        </mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <dl class="row-md jh-entity-details">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.nombreProveedor">Nombre Proveedor</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.nombreProveedor}}</span>
-                                    </dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.razonSocial">Razon Social</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.razonSocial}}</span>
-                                    </dd>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.cuit">Cuit</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.cuit}}</span>
-                                    </dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.telefono">Telefono</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.telefono}}</span>
-                                    </dd>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.fechaAlta">Fecha Alta</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.fechaAlta}}</span>
-                                    </dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.domicilio">Domicilio</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.domicilio}}</span>
-                                    </dd>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.correo">Correo</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.correo}}</span>
-                                    </dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.notas">Notas</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.notas}}</span>
-                                    </dd>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.condicionFiscal">Condicion Fiscal</span></dt>
-                                    <dd>
-                                        <span jhiTranslate="{{'craftBeerStoreApp.CondicionFiscal.' + proveedor.condicionFiscal}}">{{proveedor.condicionFiscal}}</span>
-                                    </dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.localidad">Localidad</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.localidad}}</span>
-                                    </dd>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.codigoPostal">Codigo Postal</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.codigoPostal}}</span>
-                                    </dd>
-                                </div>
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.provincia">Provincia</span></dt>
-                                    <dd>
-                                        <span jhiTranslate="{{'craftBeerStoreApp.Provincia.' + proveedor.provincia}}">{{proveedor.provincia}}</span>
-                                    </dd>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <dt><span jhiTranslate="craftBeerStoreApp.proveedor.contacto">Contacto</span></dt>
-                                    <dd>
-                                        <span>{{proveedor.contacto}}</span>
-                                    </dd>
-                                </div>
-                            </div>
-                        </dl>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button type="submit"
-                                (click)="previousState()"
-                                mat-raised-button class="mat-back">
-                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-                        </button>
-                        <button type="button"
-                                [routerLink]="['/proveedor', proveedor.id, 'edit']"
-                                mat-raised-button class="mat-success">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-                        </button>
-                    </mat-card-actions>
-                </mat-card>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <h2><span jhiTranslate="craftBeerStoreApp.proveedor.detail.title">Proveedor</span>: {{proveedor.nombreProveedor}}</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Entidad</li>
+                    <li class="breadcrumb-item active">Proveedor</li>
+                </ul>
             </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+
+        </div>
+        <div class="body">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <div *ngIf="proveedor">
+                        <jhi-alert-error></jhi-alert-error>
+                        <div class="mat-elevation-z8">
+                            <mat-card class="example-card">
+                                <mat-card-header>
+                                    <mat-card-title>
+
+                                    </mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <dl class="row-md jh-entity-details">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.nombreProveedor">Nombre de Proveedor</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.nombreProveedor}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.razonSocial">Razon Social</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.razonSocial}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.cuit">CUIT</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.cuit}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.telefono">Teléfono</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.telefono}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.fechaAlta">Fecha de Alta</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.fechaAlta | date:'mediumDate'}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.domicilio">Domicilio</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.domicilio}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.correo">Correo</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.correo}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.contacto">Contacto</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.contacto}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.condicionFiscal">Condicion Fiscal</span></dt>
+                                                <dd>
+                                                    <span jhiTranslate="{{'craftBeerStoreApp.CondicionFiscal.' + proveedor.condicionFiscal}}">{{proveedor.condicionFiscal}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.localidad">Localidad</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.localidad}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.codigoPostal">Codigo Postal</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.codigoPostal}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.provincia">Provincia</span></dt>
+                                                <dd>
+                                                    <span jhiTranslate="{{'craftBeerStoreApp.Provincia.' + proveedor.provincia}}">{{proveedor.provincia}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.proveedor.notas">Notas</span></dt>
+                                                <dd>
+                                                    <span>{{proveedor.notas}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </dl>
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <button type="submit"
+                                            (click)="previousState()"
+                                            mat-raised-button class="mat-back">
+                                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                                    </button>
+                                    <button type="button"
+                                            [routerLink]="['/proveedor', proveedor.id, 'edit']"
+                                            mat-raised-button class="mat-success">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                                    </button>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
