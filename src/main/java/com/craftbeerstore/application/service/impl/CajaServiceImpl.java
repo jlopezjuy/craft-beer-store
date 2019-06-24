@@ -19,6 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -31,6 +35,8 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class CajaServiceImpl implements CajaService {
 
     private final Logger log = LoggerFactory.getLogger(CajaServiceImpl.class);
+
+    private static final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private final CajaRepository cajaRepository;
 
@@ -136,5 +142,16 @@ public class CajaServiceImpl implements CajaService {
         BigDecimal egreso = this.cajaRepository.sumIngreso(empresa, TipoMovimientoCaja.EGRESO);
 
         return Optional.of(new CajaChartDTO(ingreso, egreso));
+    }
+
+    @Override
+    public List<CajaDTO> getIngresoWeek(Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        List<Object[]> list = this.cajaRepository.getSemanaIngresos(empresa.getId());
+        List<CajaDTO> semanaList = new ArrayList<>();
+        list.forEach(semana ->
+            semanaList.add(new CajaDTO(BigDecimal.valueOf(Double.valueOf(semana[1].toString())), LocalDate.parse(semana[0].toString(), DATEFORMATTER)))
+        );
+        return semanaList;
     }
 }

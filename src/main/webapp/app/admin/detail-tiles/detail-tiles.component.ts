@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { EChartOption } from 'echarts';
+import { CajaService } from '../../entities/caja';
 
 @Component({
     selector: 'jhi-detail-tiles',
@@ -14,7 +15,7 @@ export class DetailTilesComponent implements OnInit {
 
     public autoResize: boolean = true;
 
-    constructor() {}
+    constructor(protected cajaService: CajaService) {}
 
     ngOnInit() {}
 }

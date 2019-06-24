@@ -163,4 +163,10 @@ public class CajaResource {
         return ResponseUtil.wrapOrNotFound(response);
     }
 
+    @GetMapping("/cajas/semana/{empresaId}")
+    public ResponseEntity<List<CajaDTO>> searchWeek(@PathVariable Long empresaId) {
+        List<CajaDTO> response = this.cajaService.getIngresoWeek(empresaId);
+        return ResponseEntity.ok().body(response);
+    }
+
 }

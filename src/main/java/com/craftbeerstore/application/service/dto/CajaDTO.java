@@ -43,6 +43,14 @@ public class CajaDTO implements Serializable {
 
     private Long empresaId;
 
+    public CajaDTO() {
+    }
+
+    public CajaDTO(@NotNull BigDecimal importe, @NotNull LocalDate fecha) {
+        this.importe = importe;
+        this.fecha = fecha;
+    }
+
     public Long getId() {
         return id;
     }

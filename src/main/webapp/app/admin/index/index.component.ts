@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { EChartOption } from 'echarts';
 import { SidebarService } from '../../services/sidebar.service';
 import { ToastrService } from 'ngx-toastr';
+import { CajaService } from '../../entities/caja';
+import { IEmpresa } from '../../shared/model/empresa.model';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
     selector: 'jhi-index',
@@ -22,7 +25,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     public dataManagedBarChart: EChartOption = {};
 
     public earningOptionsSeries: Array<number> = [1, 4, 1, 3, 7, 1];
-    public earnings: string = '$' + (this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
+    public earnings: string; //= '$' + (this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
     public salesOptionsSeries: Array<number> = [1, 4, 2, 3, 6, 2];
     public sales: string = '$' + (this.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000).toLocaleString();
     public visitsAreaOptionsSeries: Array<number> = [1, 4, 2, 3, 1, 5];
@@ -36,11 +39,13 @@ export class IndexComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
         private sidebarService: SidebarService,
         private cdr: ChangeDetectorRef,
-        private toastr: ToastrService
+        private toastr: ToastrService,
+        protected cajaService: CajaService,
+        private $localStorage: LocalStorageService
     ) {
         this.visitorsOptions = this.loadLineChartOptions([3, 5, 1, 6, 5, 4, 8, 3], '#49c5b6');
         this.visitsOptions = this.loadLineChartOptions([4, 6, 3, 2, 5, 6, 5, 4], '#f4516c');
-        this.earningOptions = this.loadLineAreaChartOptions([1, 4, 1, 3, 7, 1], '#f79647', '#fac091');
+        // this.earningOptions = this.loadLineAreaChartOptions([1, 4, 1, 3, 7, 1], '#f79647', '#fac091');
         this.salesOptions = this.loadLineAreaChartOptions([1, 4, 2, 3, 6, 2], '#604a7b', '#a092b0');
         this.visitsAreaOptions = this.loadLineAreaChartOptions([1, 4, 2, 3, 1, 5], '#4aacc5', '#92cddc');
         this.LikesOptions = this.loadLineAreaChartOptions([1, 3, 5, 1, 4, 2], '#4f81bc', '#95b3d7');
@@ -53,6 +58,22 @@ export class IndexComponent implements OnInit, OnDestroy {
             that.showToastr();
         }, 1000);
         this.chartIntervals();
+        this.loadIngreso();
+    }
+
+    loadIngreso() {
+        const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
+
+        this.cajaService.findIngresoWeek(empresa.id).subscribe(resp => {
+            const data = [];
+            let ingresos = 0;
+            resp.body.forEach(caja => {
+                data.push(caja.importe);
+                ingresos = ingresos + caja.importe;
+            });
+            this.earnings = '$' + ingresos;
+            this.earningOptions = this.loadLineAreaChartOptions(data, '#51dff7', '#12fa39');
+        });
     }
 
     ngOnDestroy() {
@@ -77,8 +98,8 @@ export class IndexComponent implements OnInit, OnDestroy {
                 rand = 1;
             }
             that.earningOptionsSeries.push(rand);
-            that.earningOptions = that.loadLineAreaChartOptions(that.earningOptionsSeries, '#f79647', '#fac091');
-            that.earnings = '$' + (that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
+            // that.earningOptions = that.loadLineAreaChartOptions(that.earningOptionsSeries, '#f79647', '#fac091');
+            // that.earnings = '$' + (that.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
 
             that.salesOptionsSeries.shift();
             rand = Math.floor(Math.random() * 11);
