@@ -5,7 +5,6 @@ import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.ProveedorService;
 import com.craftbeerstore.application.domain.Proveedor;
 import com.craftbeerstore.application.repository.ProveedorRepository;
-import com.craftbeerstore.application.repository.search.ProveedorSearchRepository;
 import com.craftbeerstore.application.service.dto.ProveedorDTO;
 import com.craftbeerstore.application.service.mapper.ProveedorMapper;
 import org.slf4j.Logger;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Proveedor.
@@ -33,16 +30,14 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     private final ProveedorMapper proveedorMapper;
 
-    private final ProveedorSearchRepository proveedorSearchRepository;
 
     private final EmpresaRepository empresaRepository;
 
     public ProveedorServiceImpl(ProveedorRepository proveedorRepository,
-        ProveedorMapper proveedorMapper, ProveedorSearchRepository proveedorSearchRepository,
+        ProveedorMapper proveedorMapper,
         EmpresaRepository empresaRepository) {
         this.proveedorRepository = proveedorRepository;
         this.proveedorMapper = proveedorMapper;
-        this.proveedorSearchRepository = proveedorSearchRepository;
         this.empresaRepository = empresaRepository;
     }
 
@@ -58,7 +53,6 @@ public class ProveedorServiceImpl implements ProveedorService {
         Proveedor proveedor = proveedorMapper.toEntity(proveedorDTO);
         proveedor = proveedorRepository.save(proveedor);
         ProveedorDTO result = proveedorMapper.toDto(proveedor);
-        proveedorSearchRepository.save(proveedor);
         return result;
     }
 
@@ -112,21 +106,5 @@ public class ProveedorServiceImpl implements ProveedorService {
     public void delete(Long id) {
         log.debug("Request to delete Proveedor : {}", id);
         proveedorRepository.deleteById(id);
-        proveedorSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the proveedor corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<ProveedorDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Proveedors for query {}", query);
-        return proveedorSearchRepository.search(queryStringQuery(query), pageable)
-            .map(proveedorMapper::toDto);
     }
 }

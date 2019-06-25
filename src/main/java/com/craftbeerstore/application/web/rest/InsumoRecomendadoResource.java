@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing InsumoRecomendado.
  */
@@ -125,22 +123,6 @@ public class InsumoRecomendadoResource {
         log.debug("REST request to delete InsumoRecomendado : {}", id);
         insumoRecomendadoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/insumo-recomendados?query=:query : search for the insumoRecomendado corresponding
-     * to the query.
-     *
-     * @param query the query of the insumoRecomendado search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/insumo-recomendados")
-    public ResponseEntity<List<InsumoRecomendadoDTO>> searchInsumoRecomendados(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of InsumoRecomendados for query {}", query);
-        Page<InsumoRecomendadoDTO> page = insumoRecomendadoService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/insumo-recomendados");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

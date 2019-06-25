@@ -54,16 +54,6 @@ public interface PuntoDeVentaService {
     void delete(Long id);
 
     /**
-     * Search for the puntoDeVenta corresponding to the query.
-     *
-     * @param query the query of the search
-     * 
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<PuntoDeVentaDTO> search(String query, Pageable pageable);
-
-    /**
      *
      * @param clienteId
      * @return

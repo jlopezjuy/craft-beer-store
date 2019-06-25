@@ -72,7 +72,7 @@
     ],
     "changelogDate": "20190417170831",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "movimientos",
     "databaseType": "sql",

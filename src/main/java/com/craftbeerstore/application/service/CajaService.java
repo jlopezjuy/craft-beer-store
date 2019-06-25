@@ -54,16 +54,6 @@ public interface CajaService {
      */
     void delete(Long id);
 
-    /**
-     * Search for the caja corresponding to the query.
-     *
-     * @param query the query of the search
-     * 
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<CajaDTO> search(String query, Pageable pageable);
-
     Optional<CajaChartDTO> searchIngresoEgreso(Long empresaId);
 
     List<CajaDTO> getIngresoWeek(Long empresaId);

@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Evento;
 import com.craftbeerstore.application.repository.EventoRepository;
-import com.craftbeerstore.application.repository.search.EventoSearchRepository;
 import com.craftbeerstore.application.service.EventoService;
 import com.craftbeerstore.application.service.dto.EventoDTO;
 import com.craftbeerstore.application.service.mapper.EventoMapper;
@@ -37,7 +36,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -72,14 +70,6 @@ public class EventoResourceIntTest {
 
     @Autowired
     private EventoService eventoService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.EventoSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private EventoSearchRepository mockEventoSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -152,9 +142,6 @@ public class EventoResourceIntTest {
         assertThat(testEvento.getFechaEvento()).isEqualTo(DEFAULT_FECHA_EVENTO);
         assertThat(testEvento.getCantidadBarriles()).isEqualTo(DEFAULT_CANTIDAD_BARRILES);
         assertThat(testEvento.getPrecioPinta()).isEqualTo(DEFAULT_PRECIO_PINTA);
-
-        // Validate the Evento in Elasticsearch
-        verify(mockEventoSearchRepository, times(1)).save(testEvento);
     }
 
     @Test
@@ -175,9 +162,6 @@ public class EventoResourceIntTest {
         // Validate the Evento in the database
         List<Evento> eventoList = eventoRepository.findAll();
         assertThat(eventoList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Evento in Elasticsearch
-        verify(mockEventoSearchRepository, times(0)).save(evento);
     }
 
     @Test
@@ -330,9 +314,6 @@ public class EventoResourceIntTest {
         assertThat(testEvento.getFechaEvento()).isEqualTo(UPDATED_FECHA_EVENTO);
         assertThat(testEvento.getCantidadBarriles()).isEqualTo(UPDATED_CANTIDAD_BARRILES);
         assertThat(testEvento.getPrecioPinta()).isEqualTo(UPDATED_PRECIO_PINTA);
-
-        // Validate the Evento in Elasticsearch
-        verify(mockEventoSearchRepository, times(1)).save(testEvento);
     }
 
     @Test
@@ -352,9 +333,6 @@ public class EventoResourceIntTest {
         // Validate the Evento in the database
         List<Evento> eventoList = eventoRepository.findAll();
         assertThat(eventoList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Evento in Elasticsearch
-        verify(mockEventoSearchRepository, times(0)).save(evento);
     }
 
     @Test
@@ -373,27 +351,6 @@ public class EventoResourceIntTest {
         // Validate the database is empty
         List<Evento> eventoList = eventoRepository.findAll();
         assertThat(eventoList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Evento in Elasticsearch
-        verify(mockEventoSearchRepository, times(1)).deleteById(evento.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchEvento() throws Exception {
-        // Initialize the database
-        eventoRepository.saveAndFlush(evento);
-        when(mockEventoSearchRepository.search(queryStringQuery("id:" + evento.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(evento), PageRequest.of(0, 1), 1));
-        // Search the evento
-        restEventoMockMvc.perform(get("/api/_search/eventos?query=id:" + evento.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(evento.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombreEvento").value(hasItem(DEFAULT_NOMBRE_EVENTO)))
-            .andExpect(jsonPath("$.[*].fechaEvento").value(hasItem(DEFAULT_FECHA_EVENTO.toString())))
-            .andExpect(jsonPath("$.[*].cantidadBarriles").value(hasItem(DEFAULT_CANTIDAD_BARRILES.intValue())))
-            .andExpect(jsonPath("$.[*].precioPinta").value(hasItem(DEFAULT_PRECIO_PINTA.intValue())));
     }
 
     @Test

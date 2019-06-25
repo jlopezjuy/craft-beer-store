@@ -194,6 +194,12 @@
 <!--&lt;!&ndash;                            <span jhiTranslate="global.menu.entities.insumoRecomendado">Insumo Recomendado</span>&ndash;&gt;-->
 <!--&lt;!&ndash;                        </a>&ndash;&gt;-->
 <!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<li>
+                        <a class="dropdown-item" routerLink="compra-insumo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.compraInsumo">Compra Insumo</span>
+                        </a>
+                    </li>
 <!--                    &lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;-->
 <!--                </ul>-->
 <!--            </li>-->

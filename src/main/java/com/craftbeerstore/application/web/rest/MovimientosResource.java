@@ -135,23 +135,6 @@ public class MovimientosResource {
     }
 
     /**
-     * SEARCH  /_search/movimientos?query=:query : search for the movimientos corresponding
-     * to the query.
-     *
-     * @param query the query of the movimientos search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/movimientos")
-    public ResponseEntity<List<MovimientosDTO>> searchMovimientos(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Movimientos for query {}", query);
-        Page<MovimientosDTO> page = movimientosService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/movimientos");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-
-    /**
      *
      * @param empresaId
      * @return

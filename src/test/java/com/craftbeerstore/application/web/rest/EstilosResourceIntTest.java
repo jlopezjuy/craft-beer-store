@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Estilos;
 import com.craftbeerstore.application.repository.EstilosRepository;
-import com.craftbeerstore.application.repository.search.EstilosSearchRepository;
 import com.craftbeerstore.application.service.EstilosService;
 import com.craftbeerstore.application.service.dto.EstilosDTO;
 import com.craftbeerstore.application.service.mapper.EstilosMapper;
@@ -35,7 +34,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -103,14 +101,6 @@ public class EstilosResourceIntTest {
 
     @Autowired
     private EstilosService estilosService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.EstilosSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private EstilosSearchRepository mockEstilosSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -205,9 +195,6 @@ public class EstilosResourceIntTest {
         assertThat(testEstilos.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
         assertThat(testEstilos.getEjemploNombreComercial()).isEqualTo(DEFAULT_EJEMPLO_NOMBRE_COMERCIAL);
         assertThat(testEstilos.getEjemploImagenComercial()).isEqualTo(DEFAULT_EJEMPLO_IMAGEN_COMERCIAL);
-
-        // Validate the Estilos in Elasticsearch
-        verify(mockEstilosSearchRepository, times(1)).save(testEstilos);
     }
 
     @Test
@@ -228,9 +215,6 @@ public class EstilosResourceIntTest {
         // Validate the Estilos in the database
         List<Estilos> estilosList = estilosRepository.findAll();
         assertThat(estilosList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Estilos in Elasticsearch
-        verify(mockEstilosSearchRepository, times(0)).save(estilos);
     }
 
     @Test
@@ -351,9 +335,6 @@ public class EstilosResourceIntTest {
         assertThat(testEstilos.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
         assertThat(testEstilos.getEjemploNombreComercial()).isEqualTo(UPDATED_EJEMPLO_NOMBRE_COMERCIAL);
         assertThat(testEstilos.getEjemploImagenComercial()).isEqualTo(UPDATED_EJEMPLO_IMAGEN_COMERCIAL);
-
-        // Validate the Estilos in Elasticsearch
-        verify(mockEstilosSearchRepository, times(1)).save(testEstilos);
     }
 
     @Test
@@ -373,9 +354,6 @@ public class EstilosResourceIntTest {
         // Validate the Estilos in the database
         List<Estilos> estilosList = estilosRepository.findAll();
         assertThat(estilosList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Estilos in Elasticsearch
-        verify(mockEstilosSearchRepository, times(0)).save(estilos);
     }
 
     @Test
@@ -394,38 +372,6 @@ public class EstilosResourceIntTest {
         // Validate the database is empty
         List<Estilos> estilosList = estilosRepository.findAll();
         assertThat(estilosList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Estilos in Elasticsearch
-        verify(mockEstilosSearchRepository, times(1)).deleteById(estilos.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchEstilos() throws Exception {
-        // Initialize the database
-        estilosRepository.saveAndFlush(estilos);
-        when(mockEstilosSearchRepository.search(queryStringQuery("id:" + estilos.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(estilos), PageRequest.of(0, 1), 1));
-        // Search the estilos
-        restEstilosMockMvc.perform(get("/api/_search/estilos?query=id:" + estilos.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(estilos.getId().intValue())))
-            .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER)))
-            .andExpect(jsonPath("$.[*].nombreEstilo").value(hasItem(DEFAULT_NOMBRE_ESTILO)))
-            .andExpect(jsonPath("$.[*].categoriaEstilo").value(hasItem(DEFAULT_CATEGORIA_ESTILO)))
-            .andExpect(jsonPath("$.[*].abvMin").value(hasItem(DEFAULT_ABV_MIN.intValue())))
-            .andExpect(jsonPath("$.[*].abvMax").value(hasItem(DEFAULT_ABV_MAX.intValue())))
-            .andExpect(jsonPath("$.[*].abvMed").value(hasItem(DEFAULT_ABV_MED.intValue())))
-            .andExpect(jsonPath("$.[*].ibuMin").value(hasItem(DEFAULT_IBU_MIN.intValue())))
-            .andExpect(jsonPath("$.[*].ibuMax").value(hasItem(DEFAULT_IBU_MAX.intValue())))
-            .andExpect(jsonPath("$.[*].ibuMed").value(hasItem(DEFAULT_IBU_MED.intValue())))
-            .andExpect(jsonPath("$.[*].srmMin").value(hasItem(DEFAULT_SRM_MIN.intValue())))
-            .andExpect(jsonPath("$.[*].srmMax").value(hasItem(DEFAULT_SRM_MAX.intValue())))
-            .andExpect(jsonPath("$.[*].srmMed").value(hasItem(DEFAULT_SRM_MED.intValue())))
-            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
-            .andExpect(jsonPath("$.[*].ejemploNombreComercial").value(hasItem(DEFAULT_EJEMPLO_NOMBRE_COMERCIAL)))
-            .andExpect(jsonPath("$.[*].ejemploImagenComercial").value(hasItem(DEFAULT_EJEMPLO_IMAGEN_COMERCIAL)));
     }
 
     @Test

@@ -5,7 +5,6 @@ import com.craftbeerstore.application.repository.ClienteRepository;
 import com.craftbeerstore.application.service.PuntoDeVentaService;
 import com.craftbeerstore.application.domain.PuntoDeVenta;
 import com.craftbeerstore.application.repository.PuntoDeVentaRepository;
-import com.craftbeerstore.application.repository.search.PuntoDeVentaSearchRepository;
 import com.craftbeerstore.application.service.dto.PuntoDeVentaDTO;
 import com.craftbeerstore.application.service.mapper.PuntoDeVentaMapper;
 import java.util.List;
@@ -18,8 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing PuntoDeVenta.
@@ -34,17 +31,14 @@ public class PuntoDeVentaServiceImpl implements PuntoDeVentaService {
 
     private final PuntoDeVentaMapper puntoDeVentaMapper;
 
-    private final PuntoDeVentaSearchRepository puntoDeVentaSearchRepository;
 
     private final ClienteRepository clienteRepository;
 
     public PuntoDeVentaServiceImpl(PuntoDeVentaRepository puntoDeVentaRepository,
         PuntoDeVentaMapper puntoDeVentaMapper,
-        PuntoDeVentaSearchRepository puntoDeVentaSearchRepository,
         ClienteRepository clienteRepository) {
         this.puntoDeVentaRepository = puntoDeVentaRepository;
         this.puntoDeVentaMapper = puntoDeVentaMapper;
-        this.puntoDeVentaSearchRepository = puntoDeVentaSearchRepository;
         this.clienteRepository = clienteRepository;
     }
 
@@ -60,7 +54,6 @@ public class PuntoDeVentaServiceImpl implements PuntoDeVentaService {
         PuntoDeVenta puntoDeVenta = puntoDeVentaMapper.toEntity(puntoDeVentaDTO);
         puntoDeVenta = puntoDeVentaRepository.save(puntoDeVenta);
         PuntoDeVentaDTO result = puntoDeVentaMapper.toDto(puntoDeVenta);
-        puntoDeVentaSearchRepository.save(puntoDeVenta);
         return result;
     }
 
@@ -108,22 +101,6 @@ public class PuntoDeVentaServiceImpl implements PuntoDeVentaService {
     public void delete(Long id) {
         log.debug("Request to delete PuntoDeVenta : {}", id);
         puntoDeVentaRepository.deleteById(id);
-        puntoDeVentaSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the puntoDeVenta corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<PuntoDeVentaDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of PuntoDeVentas for query {}", query);
-        return puntoDeVentaSearchRepository.search(queryStringQuery(query), pageable)
-            .map(puntoDeVentaMapper::toDto);
     }
 
     @Override

@@ -80,7 +80,7 @@
     ],
     "changelogDate": "20190408003410",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "proveedor",
     "databaseType": "sql",

@@ -39,7 +39,7 @@
     ],
     "changelogDate": "20190521170700",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "punto_de_venta",
     "databaseType": "sql",

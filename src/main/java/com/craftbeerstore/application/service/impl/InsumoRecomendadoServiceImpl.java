@@ -3,7 +3,6 @@ package com.craftbeerstore.application.service.impl;
 import com.craftbeerstore.application.service.InsumoRecomendadoService;
 import com.craftbeerstore.application.domain.InsumoRecomendado;
 import com.craftbeerstore.application.repository.InsumoRecomendadoRepository;
-import com.craftbeerstore.application.repository.search.InsumoRecomendadoSearchRepository;
 import com.craftbeerstore.application.service.dto.InsumoRecomendadoDTO;
 import com.craftbeerstore.application.service.mapper.InsumoRecomendadoMapper;
 import java.util.List;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing InsumoRecomendado.
@@ -32,12 +29,10 @@ public class InsumoRecomendadoServiceImpl implements InsumoRecomendadoService {
 
     private final InsumoRecomendadoMapper insumoRecomendadoMapper;
 
-    private final InsumoRecomendadoSearchRepository insumoRecomendadoSearchRepository;
 
-    public InsumoRecomendadoServiceImpl(InsumoRecomendadoRepository insumoRecomendadoRepository, InsumoRecomendadoMapper insumoRecomendadoMapper, InsumoRecomendadoSearchRepository insumoRecomendadoSearchRepository) {
+    public InsumoRecomendadoServiceImpl(InsumoRecomendadoRepository insumoRecomendadoRepository, InsumoRecomendadoMapper insumoRecomendadoMapper) {
         this.insumoRecomendadoRepository = insumoRecomendadoRepository;
         this.insumoRecomendadoMapper = insumoRecomendadoMapper;
-        this.insumoRecomendadoSearchRepository = insumoRecomendadoSearchRepository;
     }
 
     /**
@@ -52,7 +47,6 @@ public class InsumoRecomendadoServiceImpl implements InsumoRecomendadoService {
         InsumoRecomendado insumoRecomendado = insumoRecomendadoMapper.toEntity(insumoRecomendadoDTO);
         insumoRecomendado = insumoRecomendadoRepository.save(insumoRecomendado);
         InsumoRecomendadoDTO result = insumoRecomendadoMapper.toDto(insumoRecomendado);
-        insumoRecomendadoSearchRepository.save(insumoRecomendado);
         return result;
     }
 
@@ -94,22 +88,6 @@ public class InsumoRecomendadoServiceImpl implements InsumoRecomendadoService {
     public void delete(Long id) {
         log.debug("Request to delete InsumoRecomendado : {}", id);
         insumoRecomendadoRepository.deleteById(id);
-        insumoRecomendadoSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the insumoRecomendado corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<InsumoRecomendadoDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of InsumoRecomendados for query {}", query);
-        return insumoRecomendadoSearchRepository.search(queryStringQuery(query), pageable)
-            .map(insumoRecomendadoMapper::toDto);
     }
 
     /**

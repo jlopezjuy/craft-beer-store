@@ -19,7 +19,7 @@
     ],
     "changelogDate": "20190529172743",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "insumo_recomendado",
     "databaseType": "sql",

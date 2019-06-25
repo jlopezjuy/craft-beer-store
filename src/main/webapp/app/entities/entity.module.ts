@@ -13,26 +13,28 @@ import { CraftBeerStoreEquipamientoModule } from './equipamiento/equipamiento.mo
 import { CraftBeerStorePuntoDeVentaModule } from './punto-de-venta/punto-de-venta.module';
 import { CraftBeerStorePresentacionModule } from './presentacion/presentacion.module';
 import { CraftBeerStoreRecetaModule } from './receta/receta.module';
+import { CraftBeerStoreCompraInsumoModule } from './compra-insumo/compra-insumo.module';
 
 @NgModule({
-    imports: [
-        CraftBeerStoreCajaModule,
-        CraftBeerStoreEmpresaModule,
-        CraftBeerStoreClienteModule,
-        CraftBeerStoreInsumoModule,
-        CraftBeerStoreProductoModule,
-        CraftBeerStoreProveedorModule,
-        CraftBeerStoreMovimientosModule,
-        CraftBeerStoreEventoModule,
-        CraftBeerStoreEstilosModule,
-        CraftBeerStoreEquipamientoModule,
-        CraftBeerStorePuntoDeVentaModule,
-        CraftBeerStorePresentacionModule,
-        CraftBeerStoreRecetaModule
-    ],
-    declarations: [],
-    entryComponents: [],
-    providers: [],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [
+    CraftBeerStoreCajaModule,
+    CraftBeerStoreEmpresaModule,
+    CraftBeerStoreClienteModule,
+    CraftBeerStoreInsumoModule,
+    CraftBeerStoreProductoModule,
+    CraftBeerStoreProveedorModule,
+    CraftBeerStoreMovimientosModule,
+    CraftBeerStoreEventoModule,
+    CraftBeerStoreEstilosModule,
+    CraftBeerStoreEquipamientoModule,
+    CraftBeerStorePuntoDeVentaModule,
+    CraftBeerStorePresentacionModule,
+    CraftBeerStoreRecetaModule,
+    CraftBeerStoreCompraInsumoModule
+  ],
+  declarations: [],
+  entryComponents: [],
+  providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CraftBeerStoreEntityModule {}

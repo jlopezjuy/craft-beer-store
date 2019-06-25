@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Producto;
 import com.craftbeerstore.application.repository.ProductoRepository;
-import com.craftbeerstore.application.repository.search.ProductoSearchRepository;
 import com.craftbeerstore.application.service.ProductoService;
 import com.craftbeerstore.application.service.dto.ProductoDTO;
 import com.craftbeerstore.application.service.mapper.ProductoMapper;
@@ -35,7 +34,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -80,14 +78,6 @@ public class ProductoResourceIntTest {
 
     @Autowired
     private ProductoService productoService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.ProductoSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ProductoSearchRepository mockProductoSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -166,9 +156,6 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getImagen()).isEqualTo(DEFAULT_IMAGEN);
         assertThat(testProducto.getImagenContentType()).isEqualTo(DEFAULT_IMAGEN_CONTENT_TYPE);
         assertThat(testProducto.getObservacion()).isEqualTo(DEFAULT_OBSERVACION);
-
-        // Validate the Producto in Elasticsearch
-        verify(mockProductoSearchRepository, times(1)).save(testProducto);
     }
 
     @Test
@@ -189,9 +176,6 @@ public class ProductoResourceIntTest {
         // Validate the Producto in the database
         List<Producto> productoList = productoRepository.findAll();
         assertThat(productoList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Producto in Elasticsearch
-        verify(mockProductoSearchRepository, times(0)).save(producto);
     }
 
     @Test
@@ -299,9 +283,6 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getImagen()).isEqualTo(UPDATED_IMAGEN);
         assertThat(testProducto.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
         assertThat(testProducto.getObservacion()).isEqualTo(UPDATED_OBSERVACION);
-
-        // Validate the Producto in Elasticsearch
-        verify(mockProductoSearchRepository, times(1)).save(testProducto);
     }
 
     @Test
@@ -321,9 +302,6 @@ public class ProductoResourceIntTest {
         // Validate the Producto in the database
         List<Producto> productoList = productoRepository.findAll();
         assertThat(productoList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Producto in Elasticsearch
-        verify(mockProductoSearchRepository, times(0)).save(producto);
     }
 
     @Test
@@ -342,30 +320,6 @@ public class ProductoResourceIntTest {
         // Validate the database is empty
         List<Producto> productoList = productoRepository.findAll();
         assertThat(productoList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Producto in Elasticsearch
-        verify(mockProductoSearchRepository, times(1)).deleteById(producto.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchProducto() throws Exception {
-        // Initialize the database
-        productoRepository.saveAndFlush(producto);
-        when(mockProductoSearchRepository.search(queryStringQuery("id:" + producto.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(producto), PageRequest.of(0, 1), 1));
-        // Search the producto
-        restProductoMockMvc.perform(get("/api/_search/productos?query=id:" + producto.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(producto.getId().intValue())))
-            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
-            .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())))
-            .andExpect(jsonPath("$.[*].nombreComercial").value(hasItem(DEFAULT_NOMBRE_COMERCIAL)))
-            .andExpect(jsonPath("$.[*].tipoProducto").value(hasItem(DEFAULT_TIPO_PRODUCTO.toString())))
-            .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
-            .andExpect(jsonPath("$.[*].observacion").value(hasItem(DEFAULT_OBSERVACION.toString())));
     }
 
     @Test

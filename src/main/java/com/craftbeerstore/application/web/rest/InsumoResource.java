@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing Insumo.
  */
@@ -162,22 +160,6 @@ public class InsumoResource {
         log.debug("REST request to delete Insumo : {}", id);
         insumoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/insumos?query=:query : search for the insumo corresponding
-     * to the query.
-     *
-     * @param query the query of the insumo search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/insumos")
-    public ResponseEntity<List<InsumoDTO>> searchInsumos(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Insumos for query {}", query);
-        Page<InsumoDTO> page = insumoService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/insumos");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

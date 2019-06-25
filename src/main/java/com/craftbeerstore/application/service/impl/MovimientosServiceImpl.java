@@ -6,7 +6,6 @@ import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.MovimientosService;
 import com.craftbeerstore.application.domain.Movimientos;
 import com.craftbeerstore.application.repository.MovimientosRepository;
-import com.craftbeerstore.application.repository.search.MovimientosSearchRepository;
 import com.craftbeerstore.application.service.dto.MovimientosDTO;
 import com.craftbeerstore.application.service.dto.MovimientosProductoSemanaDTO;
 import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
@@ -25,8 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * Service Implementation for managing Movimientos.
  */
@@ -40,17 +37,14 @@ public class MovimientosServiceImpl implements MovimientosService {
 
     private final MovimientosMapper movimientosMapper;
 
-    private final MovimientosSearchRepository movimientosSearchRepository;
 
     private final EmpresaRepository empresaRepository;
 
     public MovimientosServiceImpl(MovimientosRepository movimientosRepository,
         MovimientosMapper movimientosMapper,
-        MovimientosSearchRepository movimientosSearchRepository,
         EmpresaRepository empresaRepository) {
         this.movimientosRepository = movimientosRepository;
         this.movimientosMapper = movimientosMapper;
-        this.movimientosSearchRepository = movimientosSearchRepository;
         this.empresaRepository = empresaRepository;
     }
 
@@ -66,7 +60,6 @@ public class MovimientosServiceImpl implements MovimientosService {
         Movimientos movimientos = movimientosMapper.toEntity(movimientosDTO);
         movimientos = movimientosRepository.save(movimientos);
         MovimientosDTO result = movimientosMapper.toDto(movimientos);
-        movimientosSearchRepository.save(movimientos);
         return result;
     }
 
@@ -115,22 +108,6 @@ public class MovimientosServiceImpl implements MovimientosService {
     public void delete(Long id) {
         log.debug("Request to delete Movimientos : {}", id);
         movimientosRepository.deleteById(id);
-        movimientosSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the movimientos corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<MovimientosDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Movimientos for query {}", query);
-        return movimientosSearchRepository.search(queryStringQuery(query), pageable)
-            .map(movimientosMapper::toDto);
     }
 
     @Override

@@ -23,6 +23,7 @@
     <include file="config/liquibase/changelog/20190523184243_added_entity_Receta.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190524205721_added_entity_RecetaInsumo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190529172743_added_entity_InsumoRecomendado.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190625151012_added_entity_CompraInsumo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190407234855_added_entity_constraints_Empresa.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408000453_added_entity_constraints_Insumo.xml" relativeToChangelogFile="false"/>
@@ -53,5 +54,6 @@
     <include file="config/liquibase/changelog/20190529151443_added_constrain_Insumo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190530015188_added_column_EventoProducto.xml" relativeToChangelogFile="false"/>
 
+    <include file="config/liquibase/changelog/20190625151012_added_entity_constraints_CompraInsumo.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

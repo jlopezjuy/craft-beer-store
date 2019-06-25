@@ -1,46 +1,9 @@
 package com.craftbeerstore.application.web.rest;
 
-import com.craftbeerstore.application.CraftBeerStoreApp;
 
-import com.craftbeerstore.application.domain.Empresa;
-import com.craftbeerstore.application.repository.EmpresaRepository;
-import com.craftbeerstore.application.repository.search.EmpresaSearchRepository;
-import com.craftbeerstore.application.service.EmpresaService;
-import com.craftbeerstore.application.service.dto.EmpresaDTO;
-import com.craftbeerstore.application.service.mapper.EmpresaMapper;
-import com.craftbeerstore.application.web.rest.errors.ExceptionTranslator;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Validator;
-
-import javax.persistence.EntityManager;
-import java.util.Collections;
-import java.util.List;
-
-
-import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.craftbeerstore.application.domain.enumeration.Provincia;
 /**
  * Test class for the EmpresaResource REST controller.
  *

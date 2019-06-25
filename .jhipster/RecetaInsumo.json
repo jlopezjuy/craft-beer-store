@@ -118,7 +118,7 @@
     ],
     "changelogDate": "20190524205721",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "receta_insumo",
     "databaseType": "sql",

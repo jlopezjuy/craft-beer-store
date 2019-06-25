@@ -1,0 +1,27 @@
+{
+  "craftBeerStoreApp": {
+    "compraInsumo": {
+      "home": {
+        "title": "Compra Insumos",
+        "createLabel": "Create a new Compra Insumo",
+        "createOrEditLabel": "Create or edit a Compra Insumo"
+      },
+      "created": "A new Compra Insumo is created with identifier {{ param }}",
+      "updated": "A Compra Insumo is updated with identifier {{ param }}",
+      "deleted": "A Compra Insumo is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Compra Insumo {{ id }}?"
+      },
+      "detail": {
+        "title": "Compra Insumo"
+      },
+      "nroFactura": "Nro Factura",
+      "fecha": "Fecha",
+      "subtotal": "Subtotal",
+      "gastoDeEnvio": "Gasto De Envio",
+      "impuesto": "Impuesto",
+      "total": "Total",
+      "proveedor": "Proveedor"
+    }
+  }
+}

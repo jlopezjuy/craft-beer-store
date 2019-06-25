@@ -22,8 +22,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing PuntoDeVenta.
  */
@@ -145,22 +143,6 @@ public class PuntoDeVentaResource {
         log.debug("REST request to delete PuntoDeVenta : {}", id);
         puntoDeVentaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/punto-de-ventas?query=:query : search for the puntoDeVenta corresponding
-     * to the query.
-     *
-     * @param query the query of the puntoDeVenta search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/punto-de-ventas")
-    public ResponseEntity<List<PuntoDeVentaDTO>> searchPuntoDeVentas(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of PuntoDeVentas for query {}", query);
-        Page<PuntoDeVentaDTO> page = puntoDeVentaService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/punto-de-ventas");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

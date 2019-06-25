@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.EventoProducto;
 import com.craftbeerstore.application.repository.EventoProductoRepository;
-import com.craftbeerstore.application.repository.search.EventoProductoSearchRepository;
 import com.craftbeerstore.application.service.EventoProductoService;
 import com.craftbeerstore.application.service.dto.EventoProductoDTO;
 import com.craftbeerstore.application.service.mapper.EventoProductoMapper;
@@ -34,7 +33,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -60,14 +58,6 @@ public class EventoProductoResourceIntTest {
 
     @Autowired
     private EventoProductoService eventoProductoService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.EventoProductoSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private EventoProductoSearchRepository mockEventoProductoSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -134,9 +124,6 @@ public class EventoProductoResourceIntTest {
         assertThat(eventoProductoList).hasSize(databaseSizeBeforeCreate + 1);
         EventoProducto testEventoProducto = eventoProductoList.get(eventoProductoList.size() - 1);
         assertThat(testEventoProducto.getCantidadDeBarriles()).isEqualTo(DEFAULT_CANTIDAD_DE_BARRILES);
-
-        // Validate the EventoProducto in Elasticsearch
-        verify(mockEventoProductoSearchRepository, times(1)).save(testEventoProducto);
     }
 
     @Test
@@ -157,9 +144,6 @@ public class EventoProductoResourceIntTest {
         // Validate the EventoProducto in the database
         List<EventoProducto> eventoProductoList = eventoProductoRepository.findAll();
         assertThat(eventoProductoList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the EventoProducto in Elasticsearch
-        verify(mockEventoProductoSearchRepository, times(0)).save(eventoProducto);
     }
 
     @Test
@@ -224,9 +208,6 @@ public class EventoProductoResourceIntTest {
         assertThat(eventoProductoList).hasSize(databaseSizeBeforeUpdate);
         EventoProducto testEventoProducto = eventoProductoList.get(eventoProductoList.size() - 1);
         assertThat(testEventoProducto.getCantidadDeBarriles()).isEqualTo(UPDATED_CANTIDAD_DE_BARRILES);
-
-        // Validate the EventoProducto in Elasticsearch
-        verify(mockEventoProductoSearchRepository, times(1)).save(testEventoProducto);
     }
 
     @Test
@@ -246,9 +227,6 @@ public class EventoProductoResourceIntTest {
         // Validate the EventoProducto in the database
         List<EventoProducto> eventoProductoList = eventoProductoRepository.findAll();
         assertThat(eventoProductoList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the EventoProducto in Elasticsearch
-        verify(mockEventoProductoSearchRepository, times(0)).save(eventoProducto);
     }
 
     @Test
@@ -267,24 +245,6 @@ public class EventoProductoResourceIntTest {
         // Validate the database is empty
         List<EventoProducto> eventoProductoList = eventoProductoRepository.findAll();
         assertThat(eventoProductoList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the EventoProducto in Elasticsearch
-        verify(mockEventoProductoSearchRepository, times(1)).deleteById(eventoProducto.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchEventoProducto() throws Exception {
-        // Initialize the database
-        eventoProductoRepository.saveAndFlush(eventoProducto);
-        when(mockEventoProductoSearchRepository.search(queryStringQuery("id:" + eventoProducto.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(eventoProducto), PageRequest.of(0, 1), 1));
-        // Search the eventoProducto
-        restEventoProductoMockMvc.perform(get("/api/_search/evento-productos?query=id:" + eventoProducto.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(eventoProducto.getId().intValue())))
-            .andExpect(jsonPath("$.[*].cantidadDeBarriles").value(hasItem(DEFAULT_CANTIDAD_DE_BARRILES.intValue())));
     }
 
     @Test

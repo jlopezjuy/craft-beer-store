@@ -1,0 +1,78 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="craftBeerStoreApp.compraInsumo.home.title">Compra Insumos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-compra-insumo" [routerLink]="['/compra-insumo/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="craftBeerStoreApp.compraInsumo.home.createLabel">
+            Create new Compra Insumo
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="compraInsumos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nroFactura"><span jhiTranslate="craftBeerStoreApp.compraInsumo.nroFactura">Nro Factura</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fecha"><span jhiTranslate="craftBeerStoreApp.compraInsumo.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="subtotal"><span jhiTranslate="craftBeerStoreApp.compraInsumo.subtotal">Subtotal</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="gastoDeEnvio"><span jhiTranslate="craftBeerStoreApp.compraInsumo.gastoDeEnvio">Gasto De Envio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="impuesto"><span jhiTranslate="craftBeerStoreApp.compraInsumo.impuesto">Impuesto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="total"><span jhiTranslate="craftBeerStoreApp.compraInsumo.total">Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="proveedorNombreProveedor"><span jhiTranslate="craftBeerStoreApp.compraInsumo.proveedor">Proveedor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let compraInsumo of compraInsumos ;trackBy: trackId">
+                <td><a [routerLink]="['/compra-insumo', compraInsumo.id, 'view' ]">{{compraInsumo.id}}</a></td>
+                <td>{{compraInsumo.nroFactura}}</td>
+                <td>{{compraInsumo.fecha | date:'mediumDate'}}</td>
+                <td>{{compraInsumo.subtotal}}</td>
+                <td>{{compraInsumo.gastoDeEnvio}}</td>
+                <td>{{compraInsumo.impuesto}}</td>
+                <td>{{compraInsumo.total}}</td>
+                <td>
+                    <div *ngIf="compraInsumo.proveedorId">
+                        <a [routerLink]="['../proveedor', compraInsumo.proveedorId , 'view' ]" >{{compraInsumo.proveedorNombreProveedor}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/compra-insumo', compraInsumo.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/compra-insumo', compraInsumo.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'compra-insumo', { outlets: { popup: compraInsumo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="compraInsumos && compraInsumos.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

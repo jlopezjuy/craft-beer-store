@@ -70,6 +70,13 @@
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/equipamiento']">Equipamiento</a></li>
                             </ul>
                         </li>
+                        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'compras'}">
+                            <a class="has-arrow" (click)="activeInactiveMenu('compras')"><i class="icon-home"></i>
+                                <span>Compras</span></a>
+                            <ul *ngIf="currentActiveMenu == 'compras'">
+                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/compra-insumo']">Compra de Insumos</a></li>
+                            </ul>
+                        </li>
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'app'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('app')"><i class="icon-grid"></i> <span>App</span></a>
                             <ul *ngIf="currentActiveMenu == 'app'">

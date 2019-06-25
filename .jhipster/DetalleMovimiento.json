@@ -33,7 +33,7 @@
     ],
     "changelogDate": "20190417182456",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "detalle_movimiento",
     "databaseType": "sql",

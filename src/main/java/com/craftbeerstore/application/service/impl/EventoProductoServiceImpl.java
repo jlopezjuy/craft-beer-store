@@ -5,7 +5,6 @@ import com.craftbeerstore.application.repository.EventoRepository;
 import com.craftbeerstore.application.service.EventoProductoService;
 import com.craftbeerstore.application.domain.EventoProducto;
 import com.craftbeerstore.application.repository.EventoProductoRepository;
-import com.craftbeerstore.application.repository.search.EventoProductoSearchRepository;
 import com.craftbeerstore.application.service.dto.EventoProductoDTO;
 import com.craftbeerstore.application.service.mapper.EventoProductoMapper;
 import java.util.List;
@@ -18,8 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing EventoProducto.
@@ -34,17 +31,14 @@ public class EventoProductoServiceImpl implements EventoProductoService {
 
     private final EventoProductoMapper eventoProductoMapper;
 
-    private final EventoProductoSearchRepository eventoProductoSearchRepository;
 
     private final EventoRepository eventoRepository;
 
     public EventoProductoServiceImpl(EventoProductoRepository eventoProductoRepository,
         EventoProductoMapper eventoProductoMapper,
-        EventoProductoSearchRepository eventoProductoSearchRepository,
         EventoRepository eventoRepository) {
         this.eventoProductoRepository = eventoProductoRepository;
         this.eventoProductoMapper = eventoProductoMapper;
-        this.eventoProductoSearchRepository = eventoProductoSearchRepository;
         this.eventoRepository = eventoRepository;
     }
 
@@ -60,7 +54,6 @@ public class EventoProductoServiceImpl implements EventoProductoService {
         EventoProducto eventoProducto = eventoProductoMapper.toEntity(eventoProductoDTO);
         eventoProducto = eventoProductoRepository.save(eventoProducto);
         EventoProductoDTO result = eventoProductoMapper.toDto(eventoProducto);
-        eventoProductoSearchRepository.save(eventoProducto);
         return result;
     }
 
@@ -107,21 +100,5 @@ public class EventoProductoServiceImpl implements EventoProductoService {
     public void delete(Long id) {
         log.debug("Request to delete EventoProducto : {}", id);
         eventoProductoRepository.deleteById(id);
-        eventoProductoSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the eventoProducto corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<EventoProductoDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of EventoProductos for query {}", query);
-        return eventoProductoSearchRepository.search(queryStringQuery(query), pageable)
-            .map(eventoProductoMapper::toDto);
     }
 }

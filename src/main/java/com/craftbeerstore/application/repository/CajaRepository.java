@@ -38,7 +38,7 @@ public interface CajaRepository extends JpaRepository<Caja, Long> {
         ") diffs " +
         "LEFT JOIN craftBeerStore.caja c ON DATE(c.fecha) = CURDATE() - INTERVAL diffs.diff DAY " +
         "AND tipo_movimiento = 'INGRESO' " +
-        "AND empresa_id = :empresaId" +
+        "AND empresa_id = :empresaId " +
         "GROUP BY periodo", nativeQuery = true)
     List<Object[]> getSemanaIngresos(@Param("empresaId")Long empresaId);
 }

@@ -5,7 +5,6 @@ import com.craftbeerstore.application.repository.ProductoRepository;
 import com.craftbeerstore.application.service.PresentacionService;
 import com.craftbeerstore.application.domain.Presentacion;
 import com.craftbeerstore.application.repository.PresentacionRepository;
-import com.craftbeerstore.application.repository.search.PresentacionSearchRepository;
 import com.craftbeerstore.application.service.dto.PresentacionDTO;
 import com.craftbeerstore.application.service.mapper.PresentacionMapper;
 import org.slf4j.Logger;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Presentacion.
@@ -33,17 +30,14 @@ public class PresentacionServiceImpl implements PresentacionService {
 
     private final PresentacionMapper presentacionMapper;
 
-    private final PresentacionSearchRepository presentacionSearchRepository;
 
     private final ProductoRepository productoRepository;
 
     public PresentacionServiceImpl(PresentacionRepository presentacionRepository,
         PresentacionMapper presentacionMapper,
-        PresentacionSearchRepository presentacionSearchRepository,
         ProductoRepository productoRepository) {
         this.presentacionRepository = presentacionRepository;
         this.presentacionMapper = presentacionMapper;
-        this.presentacionSearchRepository = presentacionSearchRepository;
         this.productoRepository = productoRepository;
     }
 
@@ -59,7 +53,6 @@ public class PresentacionServiceImpl implements PresentacionService {
         Presentacion presentacion = presentacionMapper.toEntity(presentacionDTO);
         presentacion = presentacionRepository.save(presentacion);
         PresentacionDTO result = presentacionMapper.toDto(presentacion);
-        presentacionSearchRepository.save(presentacion);
         return result;
     }
 
@@ -108,21 +101,5 @@ public class PresentacionServiceImpl implements PresentacionService {
     public void delete(Long id) {
         log.debug("Request to delete Presentacion : {}", id);
         presentacionRepository.deleteById(id);
-        presentacionSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the presentacion corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<PresentacionDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Presentacions for query {}", query);
-        return presentacionSearchRepository.search(queryStringQuery(query), pageable)
-            .map(presentacionMapper::toDto);
     }
 }

@@ -5,7 +5,6 @@ import com.craftbeerstore.application.repository.ProductoRepository;
 import com.craftbeerstore.application.service.RecetaService;
 import com.craftbeerstore.application.domain.Receta;
 import com.craftbeerstore.application.repository.RecetaRepository;
-import com.craftbeerstore.application.repository.search.RecetaSearchRepository;
 import com.craftbeerstore.application.service.dto.RecetaDTO;
 import com.craftbeerstore.application.service.mapper.RecetaMapper;
 import java.util.List;
@@ -18,8 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Receta.
@@ -34,16 +31,13 @@ public class RecetaServiceImpl implements RecetaService {
 
     private final RecetaMapper recetaMapper;
 
-    private final RecetaSearchRepository recetaSearchRepository;
 
     private final ProductoRepository productoRepository;
 
     public RecetaServiceImpl(RecetaRepository recetaRepository, RecetaMapper recetaMapper,
-        RecetaSearchRepository recetaSearchRepository,
         ProductoRepository productoRepository) {
         this.recetaRepository = recetaRepository;
         this.recetaMapper = recetaMapper;
-        this.recetaSearchRepository = recetaSearchRepository;
         this.productoRepository = productoRepository;
     }
 
@@ -59,7 +53,6 @@ public class RecetaServiceImpl implements RecetaService {
         Receta receta = recetaMapper.toEntity(recetaDTO);
         receta = recetaRepository.save(receta);
         RecetaDTO result = recetaMapper.toDto(receta);
-        recetaSearchRepository.save(receta);
         return result;
     }
 
@@ -114,21 +107,5 @@ public class RecetaServiceImpl implements RecetaService {
     public void delete(Long id) {
         log.debug("Request to delete Receta : {}", id);
         recetaRepository.deleteById(id);
-        recetaSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the receta corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<RecetaDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Recetas for query {}", query);
-        return recetaSearchRepository.search(queryStringQuery(query), pageable)
-            .map(recetaMapper::toDto);
     }
 }

@@ -57,7 +57,7 @@
     ],
     "changelogDate": "20190407234855",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "empresa",
     "databaseType": "sql",

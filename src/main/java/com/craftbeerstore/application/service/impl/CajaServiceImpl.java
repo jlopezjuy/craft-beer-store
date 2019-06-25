@@ -6,7 +6,6 @@ import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.CajaService;
 import com.craftbeerstore.application.domain.Caja;
 import com.craftbeerstore.application.repository.CajaRepository;
-import com.craftbeerstore.application.repository.search.CajaSearchRepository;
 import com.craftbeerstore.application.service.dto.CajaChartDTO;
 import com.craftbeerstore.application.service.dto.CajaDTO;
 import com.craftbeerstore.application.service.mapper.CajaMapper;
@@ -25,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * Service Implementation for managing Caja.
  */
@@ -42,16 +39,12 @@ public class CajaServiceImpl implements CajaService {
 
     private final CajaMapper cajaMapper;
 
-    private final CajaSearchRepository cajaSearchRepository;
-
     private final EmpresaRepository empresaRepository;
 
     public CajaServiceImpl(CajaRepository cajaRepository, CajaMapper cajaMapper,
-        CajaSearchRepository cajaSearchRepository,
         EmpresaRepository empresaRepository) {
         this.cajaRepository = cajaRepository;
         this.cajaMapper = cajaMapper;
-        this.cajaSearchRepository = cajaSearchRepository;
         this.empresaRepository = empresaRepository;
     }
 
@@ -67,7 +60,6 @@ public class CajaServiceImpl implements CajaService {
         Caja caja = cajaMapper.toEntity(cajaDTO);
         caja = cajaRepository.save(caja);
         CajaDTO result = cajaMapper.toDto(caja);
-        cajaSearchRepository.save(caja);
         return result;
     }
 
@@ -116,22 +108,6 @@ public class CajaServiceImpl implements CajaService {
     public void delete(Long id) {
         log.debug("Request to delete Caja : {}", id);
         cajaRepository.deleteById(id);
-        cajaSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the caja corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<CajaDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Cajas for query {}", query);
-        return cajaSearchRepository.search(queryStringQuery(query), pageable)
-            .map(cajaMapper::toDto);
     }
 
     @Override

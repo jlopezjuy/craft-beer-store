@@ -57,16 +57,6 @@ public interface MovimientosService {
     void delete(Long id);
 
     /**
-     * Search for the movimientos corresponding to the query.
-     *
-     * @param query the query of the search
-     * 
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<MovimientosDTO> search(String query, Pageable pageable);
-
-    /**
      *
      * @param empresaId
      * @param dias
@@ -81,5 +71,5 @@ public interface MovimientosService {
      * @return
      */
     List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId,
-        String dias);
+                                                                    String dias);
 }

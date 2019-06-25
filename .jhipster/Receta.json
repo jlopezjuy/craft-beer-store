@@ -91,7 +91,7 @@
     ],
     "changelogDate": "20190523184243",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "receta",
     "databaseType": "sql",

@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Presentacion;
 import com.craftbeerstore.application.repository.PresentacionRepository;
-import com.craftbeerstore.application.repository.search.PresentacionSearchRepository;
 import com.craftbeerstore.application.service.PresentacionService;
 import com.craftbeerstore.application.service.dto.PresentacionDTO;
 import com.craftbeerstore.application.service.mapper.PresentacionMapper;
@@ -37,7 +36,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -82,14 +80,6 @@ public class PresentacionResourceIntTest {
 
     @Autowired
     private PresentacionService presentacionService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.PresentacionSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private PresentacionSearchRepository mockPresentacionSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -168,9 +158,6 @@ public class PresentacionResourceIntTest {
         assertThat(testPresentacion.getPrecioVentaUnitario()).isEqualTo(DEFAULT_PRECIO_VENTA_UNITARIO);
         assertThat(testPresentacion.getPrecioVentaTotal()).isEqualTo(DEFAULT_PRECIO_VENTA_TOTAL);
         assertThat(testPresentacion.getPrecioCostoTotal()).isEqualTo(DEFAULT_PRECIO_COSTO_TOTAL);
-
-        // Validate the Presentacion in Elasticsearch
-        verify(mockPresentacionSearchRepository, times(1)).save(testPresentacion);
     }
 
     @Test
@@ -191,9 +178,6 @@ public class PresentacionResourceIntTest {
         // Validate the Presentacion in the database
         List<Presentacion> presentacionList = presentacionRepository.findAll();
         assertThat(presentacionList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Presentacion in Elasticsearch
-        verify(mockPresentacionSearchRepository, times(0)).save(presentacion);
     }
 
     @Test
@@ -415,9 +399,6 @@ public class PresentacionResourceIntTest {
         assertThat(testPresentacion.getPrecioVentaUnitario()).isEqualTo(UPDATED_PRECIO_VENTA_UNITARIO);
         assertThat(testPresentacion.getPrecioVentaTotal()).isEqualTo(UPDATED_PRECIO_VENTA_TOTAL);
         assertThat(testPresentacion.getPrecioCostoTotal()).isEqualTo(UPDATED_PRECIO_COSTO_TOTAL);
-
-        // Validate the Presentacion in Elasticsearch
-        verify(mockPresentacionSearchRepository, times(1)).save(testPresentacion);
     }
 
     @Test
@@ -437,9 +418,6 @@ public class PresentacionResourceIntTest {
         // Validate the Presentacion in the database
         List<Presentacion> presentacionList = presentacionRepository.findAll();
         assertThat(presentacionList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Presentacion in Elasticsearch
-        verify(mockPresentacionSearchRepository, times(0)).save(presentacion);
     }
 
     @Test
@@ -458,30 +436,6 @@ public class PresentacionResourceIntTest {
         // Validate the database is empty
         List<Presentacion> presentacionList = presentacionRepository.findAll();
         assertThat(presentacionList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Presentacion in Elasticsearch
-        verify(mockPresentacionSearchRepository, times(1)).deleteById(presentacion.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchPresentacion() throws Exception {
-        // Initialize the database
-        presentacionRepository.saveAndFlush(presentacion);
-        when(mockPresentacionSearchRepository.search(queryStringQuery("id:" + presentacion.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(presentacion), PageRequest.of(0, 1), 1));
-        // Search the presentacion
-        restPresentacionMockMvc.perform(get("/api/_search/presentacions?query=id:" + presentacion.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(presentacion.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tipoPresentacion").value(hasItem(DEFAULT_TIPO_PRESENTACION.toString())))
-            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD.intValue())))
-            .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())))
-            .andExpect(jsonPath("$.[*].costoUnitario").value(hasItem(DEFAULT_COSTO_UNITARIO.intValue())))
-            .andExpect(jsonPath("$.[*].precioVentaUnitario").value(hasItem(DEFAULT_PRECIO_VENTA_UNITARIO.intValue())))
-            .andExpect(jsonPath("$.[*].precioVentaTotal").value(hasItem(DEFAULT_PRECIO_VENTA_TOTAL.intValue())))
-            .andExpect(jsonPath("$.[*].precioCostoTotal").value(hasItem(DEFAULT_PRECIO_COSTO_TOTAL.intValue())));
     }
 
     @Test

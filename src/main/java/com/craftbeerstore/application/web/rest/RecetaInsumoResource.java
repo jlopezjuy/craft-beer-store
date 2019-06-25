@@ -147,20 +147,4 @@ public class RecetaInsumoResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "")).build();
     }
 
-    /**
-     * SEARCH  /_search/receta-insumos?query=:query : search for the recetaInsumo corresponding
-     * to the query.
-     *
-     * @param query the query of the recetaInsumo search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/receta-insumos")
-    public ResponseEntity<List<RecetaInsumoDTO>> searchRecetaInsumos(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of RecetaInsumos for query {}", query);
-        Page<RecetaInsumoDTO> page = recetaInsumoService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/receta-insumos");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
 }

@@ -62,15 +62,5 @@ public interface RecetaInsumoService {
      */
     void delete(Long id);
 
-    /**
-     * Search for the recetaInsumo corresponding to the query.
-     *
-     * @param query the query of the search
-     * 
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<RecetaInsumoDTO> search(String query, Pageable pageable);
-
     void delete(List<String> list);
 }

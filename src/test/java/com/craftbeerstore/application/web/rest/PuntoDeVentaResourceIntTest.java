@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.PuntoDeVenta;
 import com.craftbeerstore.application.repository.PuntoDeVentaRepository;
-import com.craftbeerstore.application.repository.search.PuntoDeVentaSearchRepository;
 import com.craftbeerstore.application.service.PuntoDeVentaService;
 import com.craftbeerstore.application.service.dto.PuntoDeVentaDTO;
 import com.craftbeerstore.application.service.mapper.PuntoDeVentaMapper;
@@ -35,7 +34,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -70,14 +68,6 @@ public class PuntoDeVentaResourceIntTest {
 
     @Autowired
     private PuntoDeVentaService puntoDeVentaService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.PuntoDeVentaSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private PuntoDeVentaSearchRepository mockPuntoDeVentaSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -150,9 +140,6 @@ public class PuntoDeVentaResourceIntTest {
         assertThat(testPuntoDeVenta.getDireccionDeEntrega()).isEqualTo(DEFAULT_DIRECCION_DE_ENTREGA);
         assertThat(testPuntoDeVenta.getLocalidad()).isEqualTo(DEFAULT_LOCALIDAD);
         assertThat(testPuntoDeVenta.getNotas()).isEqualTo(DEFAULT_NOTAS);
-
-        // Validate the PuntoDeVenta in Elasticsearch
-        verify(mockPuntoDeVentaSearchRepository, times(1)).save(testPuntoDeVenta);
     }
 
     @Test
@@ -173,9 +160,6 @@ public class PuntoDeVentaResourceIntTest {
         // Validate the PuntoDeVenta in the database
         List<PuntoDeVenta> puntoDeVentaList = puntoDeVentaRepository.findAll();
         assertThat(puntoDeVentaList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the PuntoDeVenta in Elasticsearch
-        verify(mockPuntoDeVentaSearchRepository, times(0)).save(puntoDeVenta);
     }
 
     @Test
@@ -251,7 +235,7 @@ public class PuntoDeVentaResourceIntTest {
             .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD.toString())))
             .andExpect(jsonPath("$.[*].notas").value(hasItem(DEFAULT_NOTAS.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getPuntoDeVenta() throws Exception {
@@ -309,9 +293,6 @@ public class PuntoDeVentaResourceIntTest {
         assertThat(testPuntoDeVenta.getDireccionDeEntrega()).isEqualTo(UPDATED_DIRECCION_DE_ENTREGA);
         assertThat(testPuntoDeVenta.getLocalidad()).isEqualTo(UPDATED_LOCALIDAD);
         assertThat(testPuntoDeVenta.getNotas()).isEqualTo(UPDATED_NOTAS);
-
-        // Validate the PuntoDeVenta in Elasticsearch
-        verify(mockPuntoDeVentaSearchRepository, times(1)).save(testPuntoDeVenta);
     }
 
     @Test
@@ -331,9 +312,6 @@ public class PuntoDeVentaResourceIntTest {
         // Validate the PuntoDeVenta in the database
         List<PuntoDeVenta> puntoDeVentaList = puntoDeVentaRepository.findAll();
         assertThat(puntoDeVentaList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the PuntoDeVenta in Elasticsearch
-        verify(mockPuntoDeVentaSearchRepository, times(0)).save(puntoDeVenta);
     }
 
     @Test
@@ -352,27 +330,6 @@ public class PuntoDeVentaResourceIntTest {
         // Validate the database is empty
         List<PuntoDeVenta> puntoDeVentaList = puntoDeVentaRepository.findAll();
         assertThat(puntoDeVentaList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the PuntoDeVenta in Elasticsearch
-        verify(mockPuntoDeVentaSearchRepository, times(1)).deleteById(puntoDeVenta.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchPuntoDeVenta() throws Exception {
-        // Initialize the database
-        puntoDeVentaRepository.saveAndFlush(puntoDeVenta);
-        when(mockPuntoDeVentaSearchRepository.search(queryStringQuery("id:" + puntoDeVenta.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(puntoDeVenta), PageRequest.of(0, 1), 1));
-        // Search the puntoDeVenta
-        restPuntoDeVentaMockMvc.perform(get("/api/_search/punto-de-ventas?query=id:" + puntoDeVenta.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(puntoDeVenta.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
-            .andExpect(jsonPath("$.[*].direccionDeEntrega").value(hasItem(DEFAULT_DIRECCION_DE_ENTREGA)))
-            .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD)))
-            .andExpect(jsonPath("$.[*].notas").value(hasItem(DEFAULT_NOTAS.toString())));
     }
 
     @Test

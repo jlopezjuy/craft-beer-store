@@ -22,8 +22,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing Equipamiento.
  */
@@ -133,22 +131,6 @@ public class EquipamientoResource {
         log.debug("REST request to delete Equipamiento : {}", id);
         equipamientoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/equipamientos?query=:query : search for the equipamiento corresponding
-     * to the query.
-     *
-     * @param query the query of the equipamiento search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/equipamientos")
-    public ResponseEntity<List<EquipamientoDTO>> searchEquipamientos(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Equipamientos for query {}", query);
-        Page<EquipamientoDTO> page = equipamientoService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/equipamientos");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }
