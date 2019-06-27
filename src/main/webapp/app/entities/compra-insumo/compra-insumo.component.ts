@@ -15,7 +15,6 @@ import { EChartOption } from 'echarts';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from '../../shared/model/empresa.model';
 import { MatTableDataSource, PageEvent } from '@angular/material';
-import { ICliente } from '../../shared/model/cliente.model';
 
 @Component({
   selector: 'jhi-compra-insumo',
@@ -36,7 +35,17 @@ export class CompraInsumoComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
   dataSource: any;
-  displayedColumns: string[] = ['nroFactura', 'fecha', 'subtotal', 'gastoDeEnvio', 'impuesto', 'total', 'proveedor', 'actions'];
+  displayedColumns: string[] = [
+    'nroFactura',
+    'fecha',
+    'subtotal',
+    'gastoDeEnvio',
+    'impuesto',
+    'total',
+    'proveedor',
+    'estadoCompra',
+    'actions'
+  ];
   pageEvent: PageEvent;
   public sidebarVisible = true;
   public visitorsOptions: EChartOption = {};

@@ -1,5 +1,10 @@
 import { Moment } from 'moment';
 
+export const enum EstadoCompra {
+  PEDIDO_REALIZADO = 'PEDIDO_REALIZADO',
+  PEDIDO_RECIBIDO = 'PEDIDO_RECIBIDO'
+}
+
 export interface ICompraInsumo {
   id?: number;
   nroFactura?: string;
@@ -8,6 +13,7 @@ export interface ICompraInsumo {
   gastoDeEnvio?: number;
   impuesto?: number;
   total?: number;
+  estadoCompra?: EstadoCompra;
   proveedorNombreProveedor?: string;
   proveedorId?: number;
   empresaNombreEmpresa?: string;
@@ -23,6 +29,7 @@ export class CompraInsumo implements ICompraInsumo {
     public gastoDeEnvio?: number,
     public impuesto?: number,
     public total?: number,
+    public estadoCompra?: EstadoCompra,
     public proveedorNombreProveedor?: string,
     public proveedorId?: number,
     public empresaNombreEmpresa?: string,

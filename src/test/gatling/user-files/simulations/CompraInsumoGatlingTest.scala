@@ -78,6 +78,7 @@ class CompraInsumoGatlingTest extends Simulation {
                 , "gastoDeEnvio":"0"
                 , "impuesto":"0"
                 , "total":"0"
+                , "estadoCompra":"PEDIDO_REALIZADO"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_compraInsumo_url"))).exitHereIfFailed

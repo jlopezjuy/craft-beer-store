@@ -1,13 +1,11 @@
 /* tslint:disable max-line-length */
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { CompraInsumoService } from 'app/entities/compra-insumo/compra-insumo.service';
-import { ICompraInsumo, CompraInsumo } from 'app/shared/model/compra-insumo.model';
+import { ICompraInsumo, CompraInsumo, EstadoCompra } from 'app/shared/model/compra-insumo.model';
 
 describe('Service Tests', () => {
   describe('CompraInsumo Service', () => {
@@ -25,7 +23,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new CompraInsumo(0, 'AAAAAAA', currentDate, 0, 0, 0, 0);
+      elemDefault = new CompraInsumo(0, 'AAAAAAA', currentDate, 0, 0, 0, 0, EstadoCompra.PEDIDO_REALIZADO);
     });
 
     describe('Service methods', async () => {
@@ -75,7 +73,8 @@ describe('Service Tests', () => {
             subtotal: 1,
             gastoDeEnvio: 1,
             impuesto: 1,
-            total: 1
+            total: 1,
+            estadoCompra: 'BBBBBB'
           },
           elemDefault
         );
@@ -102,7 +101,8 @@ describe('Service Tests', () => {
             subtotal: 1,
             gastoDeEnvio: 1,
             impuesto: 1,
-            total: 1
+            total: 1,
+            estadoCompra: 'BBBBBB'
           },
           elemDefault
         );

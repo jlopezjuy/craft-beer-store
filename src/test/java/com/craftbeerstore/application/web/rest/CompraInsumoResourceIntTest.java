@@ -37,6 +37,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.craftbeerstore.application.domain.enumeration.EstadoCompra;
 /**
  * Test class for the CompraInsumoResource REST controller.
  *
@@ -63,6 +64,9 @@ public class CompraInsumoResourceIntTest {
 
     private static final BigDecimal DEFAULT_TOTAL = new BigDecimal(1);
     private static final BigDecimal UPDATED_TOTAL = new BigDecimal(2);
+
+    private static final EstadoCompra DEFAULT_ESTADO_COMPRA = EstadoCompra.PEDIDO_REALIZADO;
+    private static final EstadoCompra UPDATED_ESTADO_COMPRA = EstadoCompra.PEDIDO_RECIBIDO;
 
     @Autowired
     private CompraInsumoRepository compraInsumoRepository;
@@ -117,7 +121,8 @@ public class CompraInsumoResourceIntTest {
             .subtotal(DEFAULT_SUBTOTAL)
             .gastoDeEnvio(DEFAULT_GASTO_DE_ENVIO)
             .impuesto(DEFAULT_IMPUESTO)
-            .total(DEFAULT_TOTAL);
+            .total(DEFAULT_TOTAL)
+            .estadoCompra(DEFAULT_ESTADO_COMPRA);
         return compraInsumo;
     }
 
@@ -148,6 +153,7 @@ public class CompraInsumoResourceIntTest {
         assertThat(testCompraInsumo.getGastoDeEnvio()).isEqualTo(DEFAULT_GASTO_DE_ENVIO);
         assertThat(testCompraInsumo.getImpuesto()).isEqualTo(DEFAULT_IMPUESTO);
         assertThat(testCompraInsumo.getTotal()).isEqualTo(DEFAULT_TOTAL);
+        assertThat(testCompraInsumo.getEstadoCompra()).isEqualTo(DEFAULT_ESTADO_COMPRA);
     }
 
     @Test
@@ -186,7 +192,8 @@ public class CompraInsumoResourceIntTest {
             .andExpect(jsonPath("$.[*].subtotal").value(hasItem(DEFAULT_SUBTOTAL.intValue())))
             .andExpect(jsonPath("$.[*].gastoDeEnvio").value(hasItem(DEFAULT_GASTO_DE_ENVIO.intValue())))
             .andExpect(jsonPath("$.[*].impuesto").value(hasItem(DEFAULT_IMPUESTO.intValue())))
-            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.intValue())));
+            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.intValue())))
+            .andExpect(jsonPath("$.[*].estadoCompra").value(hasItem(DEFAULT_ESTADO_COMPRA.toString())));
     }
     
     @Test
@@ -205,7 +212,8 @@ public class CompraInsumoResourceIntTest {
             .andExpect(jsonPath("$.subtotal").value(DEFAULT_SUBTOTAL.intValue()))
             .andExpect(jsonPath("$.gastoDeEnvio").value(DEFAULT_GASTO_DE_ENVIO.intValue()))
             .andExpect(jsonPath("$.impuesto").value(DEFAULT_IMPUESTO.intValue()))
-            .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL.intValue()));
+            .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL.intValue()))
+            .andExpect(jsonPath("$.estadoCompra").value(DEFAULT_ESTADO_COMPRA.toString()));
     }
 
     @Test
@@ -234,7 +242,8 @@ public class CompraInsumoResourceIntTest {
             .subtotal(UPDATED_SUBTOTAL)
             .gastoDeEnvio(UPDATED_GASTO_DE_ENVIO)
             .impuesto(UPDATED_IMPUESTO)
-            .total(UPDATED_TOTAL);
+            .total(UPDATED_TOTAL)
+            .estadoCompra(UPDATED_ESTADO_COMPRA);
         CompraInsumoDTO compraInsumoDTO = compraInsumoMapper.toDto(updatedCompraInsumo);
 
         restCompraInsumoMockMvc.perform(put("/api/compra-insumos")
@@ -252,6 +261,7 @@ public class CompraInsumoResourceIntTest {
         assertThat(testCompraInsumo.getGastoDeEnvio()).isEqualTo(UPDATED_GASTO_DE_ENVIO);
         assertThat(testCompraInsumo.getImpuesto()).isEqualTo(UPDATED_IMPUESTO);
         assertThat(testCompraInsumo.getTotal()).isEqualTo(UPDATED_TOTAL);
+        assertThat(testCompraInsumo.getEstadoCompra()).isEqualTo(UPDATED_ESTADO_COMPRA);
     }
 
     @Test

@@ -21,6 +21,7 @@
       "gastoDeEnvio": "Gasto De Envio",
       "impuesto": "Impuesto",
       "total": "Total",
+      "estadoCompra": "Estado Compra",
       "proveedor": "Proveedor",
       "empresa": "Empresa"
     }

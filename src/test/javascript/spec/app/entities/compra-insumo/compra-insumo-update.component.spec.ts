@@ -1,7 +1,7 @@
 /* tslint:disable max-line-length */
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
 import { CraftBeerStoreTestModule } from '../../../test.module';
 import { CompraInsumoUpdateComponent } from 'app/entities/compra-insumo/compra-insumo-update.component';

@@ -29,6 +29,10 @@
                 <dd>
                     <span>{{compraInsumo.total}}</span>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.compraInsumo.estadoCompra">Estado Compra</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoCompra.' + compraInsumo.estadoCompra}}">{{compraInsumo.estadoCompra}}</span>
+                </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.compraInsumo.proveedor">Proveedor</span></dt>
                 <dd>
                     <div *ngIf="compraInsumo.proveedorId">

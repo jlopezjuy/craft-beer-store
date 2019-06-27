@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.craftbeerstore.application.domain.enumeration.EstadoCompra;
+
 /**
  * A CompraInsumo.
  */
@@ -43,6 +45,10 @@ public class CompraInsumo implements Serializable {
 
     @Column(name = "total", precision = 10, scale = 2)
     private BigDecimal total;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_compra")
+    private EstadoCompra estadoCompra;
 
     @ManyToOne
     @JsonIgnoreProperties("compraInsumos")
@@ -139,6 +145,19 @@ public class CompraInsumo implements Serializable {
         this.total = total;
     }
 
+    public EstadoCompra getEstadoCompra() {
+        return estadoCompra;
+    }
+
+    public CompraInsumo estadoCompra(EstadoCompra estadoCompra) {
+        this.estadoCompra = estadoCompra;
+        return this;
+    }
+
+    public void setEstadoCompra(EstadoCompra estadoCompra) {
+        this.estadoCompra = estadoCompra;
+    }
+
     public Proveedor getProveedor() {
         return proveedor;
     }
@@ -196,6 +215,7 @@ public class CompraInsumo implements Serializable {
             ", gastoDeEnvio=" + getGastoDeEnvio() +
             ", impuesto=" + getImpuesto() +
             ", total=" + getTotal() +
+            ", estadoCompra='" + getEstadoCompra() + "'" +
             "}";
     }
 }

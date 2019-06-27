@@ -7,7 +7,7 @@
             "otherEntityName": "proveedor",
             "relationshipType": "many-to-one",
             "otherEntityField": "nombreProveedor",
-            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "compraInsumo"
         },
         {
@@ -16,7 +16,7 @@
             "relationshipType": "many-to-one",
             "otherEntityField": "nombreEmpresa",
             "otherEntityRelationshipName": "compraInsumo",
-            "otherEntityRelationshipNameUndefined": true
+            "otherEntityRelationshipNameUndefined": false
         }
     ],
     "fields": [
@@ -43,6 +43,11 @@
         {
             "fieldName": "total",
             "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "estadoCompra",
+            "fieldType": "EstadoCompra",
+            "fieldValues": "PEDIDO_REALIZADO,PEDIDO_RECIBIDO"
         }
     ],
     "changelogDate": "20190625151012",

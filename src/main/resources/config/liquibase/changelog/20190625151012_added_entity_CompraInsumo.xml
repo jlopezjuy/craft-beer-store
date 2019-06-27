@@ -52,11 +52,18 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
     <changeSet id="20190625151012-2" author="jlopez">
         <addColumn tableName="compra_insumo">
             <column name="empresa_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="20190625151012-3" author="jlopez">
+        <addColumn tableName="compra_insumo">
+            <column name="estado_compra" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
         </addColumn>

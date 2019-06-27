@@ -61,7 +61,10 @@
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="proveedorNombreProveedor"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.proveedor">Proveedor</span><fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let compraInsumo" > {{compraInsumo.proveedorNombreProveedor}} </td>
                     </ng-container>
-
+                    <ng-container matColumnDef="estadoCompra">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="estadoCompra"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.estadoCompra">Estado de Compra</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let compraInsumo" jhiTranslate="{{'craftBeerStoreApp.EstadoCompra.' + compraInsumo.estadoCompra}}"> {{compraInsumo.estadoCompra}} </td>
+                    </ng-container>
 
                     <ng-container matColumnDef="actions" >
                         <th mat-header-cell *matHeaderCellDef></th>

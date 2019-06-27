@@ -148,7 +148,13 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm-6">
-
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.estadoCompra" for="field_estadoCompra">Estado Compra</mat-label>
+                                        <mat-select name="estadoCompra" [(ngModel)]="compraInsumo.estadoCompra" id="field_estadoCompra" >
+                                            <mat-option value="PEDIDO_REALIZADO">{{'craftBeerStoreApp.EstadoCompra.PEDIDO_REALIZADO' | translate}}</mat-option>
+                                            <mat-option value="PEDIDO_RECIBIDO">{{'craftBeerStoreApp.EstadoCompra.PEDIDO_RECIBIDO' | translate}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
                                 </div>
                             </div>
 

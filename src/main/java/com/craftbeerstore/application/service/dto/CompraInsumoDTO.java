@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import com.craftbeerstore.application.domain.enumeration.EstadoCompra;
 
 /**
  * A DTO for the CompraInsumo entity.
@@ -22,6 +23,8 @@ public class CompraInsumoDTO implements Serializable {
     private BigDecimal impuesto;
 
     private BigDecimal total;
+
+    private EstadoCompra estadoCompra;
 
 
     private Long proveedorId;
@@ -88,6 +91,14 @@ public class CompraInsumoDTO implements Serializable {
         this.total = total;
     }
 
+    public EstadoCompra getEstadoCompra() {
+        return estadoCompra;
+    }
+
+    public void setEstadoCompra(EstadoCompra estadoCompra) {
+        this.estadoCompra = estadoCompra;
+    }
+
     public Long getProveedorId() {
         return proveedorId;
     }
@@ -151,6 +162,7 @@ public class CompraInsumoDTO implements Serializable {
             ", gastoDeEnvio=" + getGastoDeEnvio() +
             ", impuesto=" + getImpuesto() +
             ", total=" + getTotal() +
+            ", estadoCompra='" + getEstadoCompra() + "'" +
             ", proveedor=" + getProveedorId() +
             ", proveedor='" + getProveedorNombreProveedor() + "'" +
             ", empresa=" + getEmpresaId() +
