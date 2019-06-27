@@ -31,7 +31,7 @@ export class CompraInsumoResolve implements Resolve<ICompraInsumo> {
 
 export const compraInsumoRoute: Routes = [
   {
-    path: 'compra-insumo',
+    path: '',
     component: CompraInsumoComponent,
     resolve: {
       pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const compraInsumoRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'compra-insumo/:id/view',
+    path: ':id/view',
     component: CompraInsumoDetailComponent,
     resolve: {
       compraInsumo: CompraInsumoResolve
@@ -56,7 +56,7 @@ export const compraInsumoRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'compra-insumo/new',
+    path: 'new',
     component: CompraInsumoUpdateComponent,
     resolve: {
       compraInsumo: CompraInsumoResolve
@@ -68,7 +68,7 @@ export const compraInsumoRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'compra-insumo/:id/edit',
+    path: ':id/edit',
     component: CompraInsumoUpdateComponent,
     resolve: {
       compraInsumo: CompraInsumoResolve
@@ -83,7 +83,7 @@ export const compraInsumoRoute: Routes = [
 
 export const compraInsumoPopupRoute: Routes = [
   {
-    path: 'compra-insumo/:id/delete',
+    path: ':id/delete',
     component: CompraInsumoDeletePopupComponent,
     resolve: {
       compraInsumo: CompraInsumoResolve

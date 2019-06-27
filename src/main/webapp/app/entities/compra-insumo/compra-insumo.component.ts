@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,12 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { CompraInsumoService } from './compra-insumo.service';
+import { SidebarService } from '../../services/sidebar.service';
+import { EChartOption } from 'echarts';
+import { LocalStorageService } from 'ngx-webstorage';
+import { IEmpresa } from '../../shared/model/empresa.model';
+import { MatTableDataSource, PageEvent } from '@angular/material';
+import { ICliente } from '../../shared/model/cliente.model';
 
 @Component({
   selector: 'jhi-compra-insumo',
@@ -29,6 +35,12 @@ export class CompraInsumoComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  dataSource: any;
+  displayedColumns: string[] = ['nroFactura', 'fecha', 'subtotal', 'gastoDeEnvio', 'impuesto', 'total', 'proveedor', 'actions'];
+  pageEvent: PageEvent;
+  public sidebarVisible = true;
+  public visitorsOptions: EChartOption = {};
+  public visitsOptions: EChartOption = {};
 
   constructor(
     protected compraInsumoService: CompraInsumoService,
@@ -37,7 +49,10 @@ export class CompraInsumoComponent implements OnInit, OnDestroy {
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    private $localStorage: LocalStorageService,
+    private sidebarService: SidebarService,
+    private cdr: ChangeDetectorRef
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -49,12 +64,16 @@ export class CompraInsumoComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
+    const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
     this.compraInsumoService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
+      .findAllByEmpresa(
+        {
+          page: this.page - 1,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        },
+        empresa.id
+      )
       .subscribe(
         (res: HttpResponse<ICompraInsumo[]>) => this.paginateCompraInsumos(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -123,9 +142,21 @@ export class CompraInsumoComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.compraInsumos = data;
+    this.dataSource = new MatTableDataSource<ICompraInsumo>(this.compraInsumos);
   }
 
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  onPaginateChange(event: PageEvent) {
+    this.page = event.pageIndex + 1;
+    this.loadPage(event.pageIndex + 1);
+  }
+
+  toggleFullWidth() {
+    this.sidebarService.toggle();
+    this.sidebarVisible = this.sidebarService.getStatus();
+    this.cdr.detectChanges();
   }
 }

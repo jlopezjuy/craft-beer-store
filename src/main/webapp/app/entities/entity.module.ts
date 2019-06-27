@@ -29,8 +29,7 @@ import { CraftBeerStoreCompraInsumoModule } from './compra-insumo/compra-insumo.
     CraftBeerStoreEquipamientoModule,
     CraftBeerStorePuntoDeVentaModule,
     CraftBeerStorePresentacionModule,
-    CraftBeerStoreRecetaModule,
-    CraftBeerStoreCompraInsumoModule
+    CraftBeerStoreRecetaModule
   ],
   declarations: [],
   entryComponents: [],

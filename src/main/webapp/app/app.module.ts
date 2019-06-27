@@ -26,94 +26,91 @@ import { LoaderInterceptor } from './blocks/interceptor/loader.interceptor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Ng2Webstorage } from 'ngx-webstorage';
 import { CraftBeerStoreSharedModule } from './shared';
-import { CraftBeerStoreAccountModule } from './account/account.module';
-import { CraftBeerStoreCraftBeerStoreModule } from './craft-beer-store';
-import { CraftBeerStoreEntityModule } from './entities/entity.module';
 import { CraftBeerStoreCoreModule } from './core';
 import { CraftBeerStoreDashboardModule } from './dashboard/dashboard.module';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-    bgsColor: '#00ACC1',
-    bgsOpacity: 0.5,
-    bgsPosition: 'bottom-right',
-    bgsSize: 60,
-    bgsType: 'ball-spin-clockwise',
-    blur: 9,
-    fgsColor: '#00ACC1',
-    fgsPosition: 'center-center',
-    fgsSize: 60,
-    fgsType: 'ball-spin-clockwise',
-    gap: 24,
-    logoPosition: 'center-center',
-    logoSize: 120,
-    logoUrl: '../content/images/icon.svg',
-    masterLoaderId: 'master',
-    overlayBorderRadius: '0',
-    overlayColor: 'rgba(40, 40, 40, 0.8)',
-    pbColor: '#77DD77',
-    pbDirection: 'ltr',
-    pbThickness: 3,
-    hasProgressBar: true,
-    text: '',
-    textColor: '#FFFFFF',
-    textPosition: 'center-center',
-    threshold: 500
+  bgsColor: '#00ACC1',
+  bgsOpacity: 0.5,
+  bgsPosition: 'bottom-right',
+  bgsSize: 60,
+  bgsType: 'ball-spin-clockwise',
+  blur: 9,
+  fgsColor: '#00ACC1',
+  fgsPosition: 'center-center',
+  fgsSize: 60,
+  fgsType: 'ball-spin-clockwise',
+  gap: 24,
+  logoPosition: 'center-center',
+  logoSize: 120,
+  logoUrl: '../content/images/icon.svg',
+  masterLoaderId: 'master',
+  overlayBorderRadius: '0',
+  overlayColor: 'rgba(40, 40, 40, 0.8)',
+  pbColor: '#77DD77',
+  pbDirection: 'ltr',
+  pbThickness: 3,
+  hasProgressBar: true,
+  text: '',
+  textColor: '#FFFFFF',
+  textPosition: 'center-center',
+  threshold: 500
 };
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        routing,
-        NgbModule,
-        BrowserAnimationsModule,
-        FlexLayoutModule,
-        Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
-        ToastrModule.forRoot(),
-        RichTextEditorAllModule,
-        FullCalendarModule,
-        NgMultiSelectDropDownModule.forRoot(),
-        LeafletModule.forRoot(),
-        NgxGalleryModule,
-        CraftBeerStoreSharedModule.forRoot(),
-        CraftBeerStoreCoreModule,
-        // CraftBeerStoreAccountModule,
-        CraftBeerStoreDashboardModule,
-        // CraftBeerStoreCraftBeerStoreModule,
-        // CraftBeerStoreEntityModule,
-        NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
-    ],
-    declarations: [AppComponent],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthExpiredInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ErrorHandlerInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: NotificationInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: LoaderInterceptor,
-            multi: true
-        }
-    ],
-    bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    routing,
+    NgbModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
+    ToastrModule.forRoot(),
+    RichTextEditorAllModule,
+    FullCalendarModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    LeafletModule.forRoot(),
+    NgxGalleryModule,
+    CraftBeerStoreSharedModule.forRoot(),
+    CraftBeerStoreCoreModule,
+    // CraftBeerStoreAccountModule,
+    CraftBeerStoreDashboardModule,
+    // CraftBeerStoreCraftBeerStoreModule,
+    // CraftBeerStoreEntityModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
+  ],
+  declarations: [AppComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthExpiredInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NotificationInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor(private dpConfig: NgbDatepickerConfig) {
-        this.dpConfig.minDate = { year: moment().year() - 100, month: 1, day: 1 };
-    }
+  constructor(private dpConfig: NgbDatepickerConfig) {
+    this.dpConfig.minDate = { year: moment().year() - 100, month: 1, day: 1 };
+  }
 }

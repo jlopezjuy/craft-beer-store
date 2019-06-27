@@ -1,10 +1,13 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.CompraInsumoService;
 import com.craftbeerstore.application.domain.CompraInsumo;
 import com.craftbeerstore.application.repository.CompraInsumoRepository;
 import com.craftbeerstore.application.service.dto.CompraInsumoDTO;
 import com.craftbeerstore.application.service.mapper.CompraInsumoMapper;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +31,13 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
 
     private final CompraInsumoMapper compraInsumoMapper;
 
-    public CompraInsumoServiceImpl(CompraInsumoRepository compraInsumoRepository, CompraInsumoMapper compraInsumoMapper) {
+    private final EmpresaRepository empresaRepository;
+
+    public CompraInsumoServiceImpl(CompraInsumoRepository compraInsumoRepository, CompraInsumoMapper compraInsumoMapper,
+        EmpresaRepository empresaRepository) {
         this.compraInsumoRepository = compraInsumoRepository;
         this.compraInsumoMapper = compraInsumoMapper;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -85,5 +92,12 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
     public void delete(Long id) {
         log.debug("Request to delete CompraInsumo : {}", id);
         compraInsumoRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<CompraInsumoDTO> findAll(Pageable pageable, Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return compraInsumoRepository.findAllByEmpresa(pageable, empresa)
+            .map(compraInsumoMapper::toDto);
     }
 }

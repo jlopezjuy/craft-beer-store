@@ -71,10 +71,10 @@
                             </ul>
                         </li>
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'compras'}">
-                            <a class="has-arrow" (click)="activeInactiveMenu('compras')"><i class="icon-home"></i>
+                            <a class="has-arrow" (click)="activeInactiveMenu('compras')"><i class="fa fa-shopping-cart"></i>
                                 <span>Compras</span></a>
                             <ul *ngIf="currentActiveMenu == 'compras'">
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/compra-insumo']">Compra de Insumos</a></li>
+                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/compra-insumo']">Compra de Insumos</a></li>
                             </ul>
                         </li>
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'app'}">

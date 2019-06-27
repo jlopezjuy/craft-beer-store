@@ -15,4 +15,11 @@
                                  referencedTableName="proveedor"/>
 
     </changeSet>
+    <changeSet id="20190625151012-3" author="jlopez">
+        <addForeignKeyConstraint baseColumnNames="empresa_id"
+                                 baseTableName="compra_insumo"
+                                 constraintName="fk_compra_insumo_empresa_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="empresa"/>
+    </changeSet>
 </databaseChangeLog>

@@ -10,6 +10,8 @@ export interface ICompraInsumo {
   total?: number;
   proveedorNombreProveedor?: string;
   proveedorId?: number;
+  empresaNombreEmpresa?: string;
+  empresaId?: number;
 }
 
 export class CompraInsumo implements ICompraInsumo {
@@ -22,6 +24,8 @@ export class CompraInsumo implements ICompraInsumo {
     public impuesto?: number,
     public total?: number,
     public proveedorNombreProveedor?: string,
-    public proveedorId?: number
+    public proveedorId?: number,
+    public empresaNombreEmpresa?: string,
+    public empresaId?: number
   ) {}
 }

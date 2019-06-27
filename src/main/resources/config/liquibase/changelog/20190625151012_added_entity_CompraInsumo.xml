@@ -54,5 +54,12 @@
         </createTable>
         
     </changeSet>
+    <changeSet id="20190625151012-2" author="jlopez">
+        <addColumn tableName="compra_insumo">
+            <column name="empresa_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

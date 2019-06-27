@@ -6,7 +6,17 @@
             "relationshipName": "proveedor",
             "otherEntityName": "proveedor",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nombreProveedor"
+            "otherEntityField": "nombreProveedor",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "compraInsumo"
+        },
+        {
+            "relationshipName": "empresa",
+            "otherEntityName": "empresa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreEmpresa",
+            "otherEntityRelationshipName": "compraInsumo",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

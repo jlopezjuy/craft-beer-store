@@ -45,7 +45,12 @@ public class CompraInsumo implements Serializable {
     private BigDecimal total;
 
     @ManyToOne
+    @JsonIgnoreProperties("compraInsumos")
     private Proveedor proveedor;
+
+    @ManyToOne
+    @JsonIgnoreProperties("compraInsumos")
+    private Empresa empresa;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -145,6 +150,19 @@ public class CompraInsumo implements Serializable {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public CompraInsumo empresa(Empresa empresa) {
+        this.empresa = empresa;
+        return this;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

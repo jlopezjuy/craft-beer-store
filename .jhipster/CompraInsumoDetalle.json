@@ -1,0 +1,41 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "compraInsumo",
+            "otherEntityName": "compraInsumo",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nroFactura"
+        },
+        {
+            "relationshipName": "insumoRecomendado",
+            "otherEntityName": "insumoRecomendado",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "unidad",
+            "fieldType": "Unidad",
+            "fieldValues": "KILOGRAMO,GRAMO,VEINTICINCO_KILOS,DIES_KILOS,LITRO,CM3,ML,UNIDAD"
+        },
+        {
+            "fieldName": "codigoReferencia",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "stock",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "changelogDate": "20190626184818",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "compra_insumo_detalle",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}
