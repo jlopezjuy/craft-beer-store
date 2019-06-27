@@ -100,4 +100,15 @@ public class CompraInsumoDetalleServiceImpl implements CompraInsumoDetalleServic
         CompraInsumo compraInsumo = this.compraInsumoRepository.getOne(compraInsumoId);
         return this.compraInsumoDetalleMapper.toDto(this.compraInsumoDetalleRepository.findAllByCompraInsumo(compraInsumo));
     }
+
+    /**
+     *
+     * @param comprasInsumoDetalleDTO
+     * @return
+     */
+    @Override
+    public List<CompraInsumoDetalleDTO> save(List<CompraInsumoDetalleDTO> comprasInsumoDetalleDTO) {
+        List<CompraInsumoDetalle> list = this.compraInsumoDetalleRepository.saveAll(this.compraInsumoDetalleMapper.toEntity(comprasInsumoDetalleDTO));
+        return this.compraInsumoDetalleMapper.toDto(list);
+    }
 }

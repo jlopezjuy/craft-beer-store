@@ -19,6 +19,10 @@ export class CompraInsumoDetalleService {
     return this.http.post<ICompraInsumoDetalle>(this.resourceUrl, compraInsumoDetalle, { observe: 'response' });
   }
 
+  createList(compraInsumoDetalle: ICompraInsumoDetalle[]): Observable<EntityArrayResponseType> {
+    return this.http.post<ICompraInsumoDetalle[]>(`${this.resourceUrl}/list`, compraInsumoDetalle, { observe: 'response' });
+  }
+
   update(compraInsumoDetalle: ICompraInsumoDetalle): Observable<EntityResponseType> {
     return this.http.put<ICompraInsumoDetalle>(this.resourceUrl, compraInsumoDetalle, { observe: 'response' });
   }

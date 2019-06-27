@@ -51,4 +51,11 @@ public interface CompraInsumoDetalleService {
      * @return
      */
     List<CompraInsumoDetalleDTO> findAll(Long compraInsumoId);
+
+    /**
+     *
+     * @param comprasInsumoDetalleDTO
+     * @return
+     */
+    List<CompraInsumoDetalleDTO> save(List<CompraInsumoDetalleDTO> comprasInsumoDetalleDTO);
 }

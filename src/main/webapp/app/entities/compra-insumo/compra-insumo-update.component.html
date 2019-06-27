@@ -171,7 +171,8 @@
                                                                 [(ngModel)]="compraInsumoDetalle.insumoRecomendadoId">
                                                             <option [ngValue]="null"></option>
                                                             <option [ngValue]="insumoRecomendadoOption.id"
-                                                                    *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">{{insumoRecomendadoOption.nombre}}</option>
+                                                                    *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">
+                                                                {{insumoRecomendadoOption.nombre}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -231,11 +232,6 @@
                                             <th><span
                                                 jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock">Stock</span>
                                             </th>
-                                            <th><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.compraInsumo">Compra Insumo</span>
-                                            </th>
-                                            <th><span
-                                                jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.insumoRecomendado">Insumo Recomendado</span>
-                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -243,16 +239,6 @@
                                             <td jhiTranslate="{{'craftBeerStoreApp.Unidad.' + compraInsumoDetalle.unidad}}">{{compraInsumoDetalle.unidad}}</td>
                                             <td>{{compraInsumoDetalle.codigoReferencia}}</td>
                                             <td>{{compraInsumoDetalle.stock}}</td>
-                                            <td>
-                                                <div *ngIf="compraInsumoDetalle.compraInsumoId">
-                                                    <a [routerLink]="['../compra-insumo', compraInsumoDetalle.compraInsumoId , 'view' ]">{{compraInsumoDetalle.compraInsumoNroFactura}}</a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div *ngIf="compraInsumoDetalle.insumoRecomendadoId">
-                                                    <a [routerLink]="['../insumo-recomendado', compraInsumoDetalle.insumoRecomendadoId , 'view' ]">{{compraInsumoDetalle.insumoRecomendadoNombre}}</a>
-                                                </div>
-                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>

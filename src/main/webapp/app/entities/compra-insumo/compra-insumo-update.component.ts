@@ -53,6 +53,8 @@ export class CompraInsumoUpdateComponent implements OnInit {
       if (this.compraInsumo.id) {
         this.fechaDp = moment(this.compraInsumo.fecha, 'dd/MM/yyy').format();
         this.loadAllOnEdit();
+      } else {
+        this.compraInsumoDetalles = [];
       }
     });
     this.proveedorService
@@ -86,11 +88,22 @@ export class CompraInsumoUpdateComponent implements OnInit {
     }
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<ICompraInsumo>>) {
-    result.subscribe((res: HttpResponse<ICompraInsumo>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+  saveCompraInsumos(compraInsumoId: number) {
+    this.compraInsumoDetalles.forEach(compra => {
+      compra.compraInsumoId = compraInsumoId;
+    });
+    this.compraInsumoDetalleService.createList(this.compraInsumoDetalles).subscribe(resp => {
+      console.log('ok');
+      console.log(resp);
+    });
   }
 
-  protected onSaveSuccess() {
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<ICompraInsumo>>) {
+    result.subscribe((res: HttpResponse<ICompraInsumo>) => this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+  }
+
+  protected onSaveSuccess(resp: ICompraInsumo) {
+    this.saveCompraInsumos(resp.id);
     this.isSaving = false;
     this.previousState();
   }
@@ -125,5 +138,9 @@ export class CompraInsumoUpdateComponent implements OnInit {
     return item.id;
   }
 
-  addInsumo() {}
+  addInsumo() {
+    console.log(this.compraInsumoDetalle);
+    this.compraInsumoDetalles.push(this.compraInsumoDetalle);
+    this.compraInsumoDetalle = new CompraInsumoDetalle();
+  }
 }
