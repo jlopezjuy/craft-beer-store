@@ -36,6 +36,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.craftbeerstore.application.domain.enumeration.Unidad;
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 /**
  * Test class for the CompraInsumoDetalleResource REST controller.
  *
@@ -53,6 +54,12 @@ public class CompraInsumoDetalleResourceIntTest {
 
     private static final BigDecimal DEFAULT_STOCK = new BigDecimal(1);
     private static final BigDecimal UPDATED_STOCK = new BigDecimal(2);
+
+    private static final BigDecimal DEFAULT_PRECIO = new BigDecimal(1);
+    private static final BigDecimal UPDATED_PRECIO = new BigDecimal(2);
+
+    private static final TipoInsumo DEFAULT_TIPO = TipoInsumo.MALTA;
+    private static final TipoInsumo UPDATED_TIPO = TipoInsumo.LUPULO;
 
     @Autowired
     private CompraInsumoDetalleRepository compraInsumoDetalleRepository;
@@ -104,7 +111,9 @@ public class CompraInsumoDetalleResourceIntTest {
         CompraInsumoDetalle compraInsumoDetalle = new CompraInsumoDetalle()
             .unidad(DEFAULT_UNIDAD)
             .codigoReferencia(DEFAULT_CODIGO_REFERENCIA)
-            .stock(DEFAULT_STOCK);
+            .stock(DEFAULT_STOCK)
+            .precio(DEFAULT_PRECIO)
+            .tipo(DEFAULT_TIPO);
         return compraInsumoDetalle;
     }
 
@@ -132,6 +141,8 @@ public class CompraInsumoDetalleResourceIntTest {
         assertThat(testCompraInsumoDetalle.getUnidad()).isEqualTo(DEFAULT_UNIDAD);
         assertThat(testCompraInsumoDetalle.getCodigoReferencia()).isEqualTo(DEFAULT_CODIGO_REFERENCIA);
         assertThat(testCompraInsumoDetalle.getStock()).isEqualTo(DEFAULT_STOCK);
+        assertThat(testCompraInsumoDetalle.getPrecio()).isEqualTo(DEFAULT_PRECIO);
+        assertThat(testCompraInsumoDetalle.getTipo()).isEqualTo(DEFAULT_TIPO);
     }
 
     @Test
@@ -167,7 +178,9 @@ public class CompraInsumoDetalleResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(compraInsumoDetalle.getId().intValue())))
             .andExpect(jsonPath("$.[*].unidad").value(hasItem(DEFAULT_UNIDAD.toString())))
             .andExpect(jsonPath("$.[*].codigoReferencia").value(hasItem(DEFAULT_CODIGO_REFERENCIA.toString())))
-            .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK.intValue())));
+            .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK.intValue())))
+            .andExpect(jsonPath("$.[*].precio").value(hasItem(DEFAULT_PRECIO.intValue())))
+            .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())));
     }
     
     @Test
@@ -183,7 +196,9 @@ public class CompraInsumoDetalleResourceIntTest {
             .andExpect(jsonPath("$.id").value(compraInsumoDetalle.getId().intValue()))
             .andExpect(jsonPath("$.unidad").value(DEFAULT_UNIDAD.toString()))
             .andExpect(jsonPath("$.codigoReferencia").value(DEFAULT_CODIGO_REFERENCIA.toString()))
-            .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK.intValue()));
+            .andExpect(jsonPath("$.stock").value(DEFAULT_STOCK.intValue()))
+            .andExpect(jsonPath("$.precio").value(DEFAULT_PRECIO.intValue()))
+            .andExpect(jsonPath("$.tipo").value(DEFAULT_TIPO.toString()));
     }
 
     @Test
@@ -209,7 +224,9 @@ public class CompraInsumoDetalleResourceIntTest {
         updatedCompraInsumoDetalle
             .unidad(UPDATED_UNIDAD)
             .codigoReferencia(UPDATED_CODIGO_REFERENCIA)
-            .stock(UPDATED_STOCK);
+            .stock(UPDATED_STOCK)
+            .precio(UPDATED_PRECIO)
+            .tipo(UPDATED_TIPO);
         CompraInsumoDetalleDTO compraInsumoDetalleDTO = compraInsumoDetalleMapper.toDto(updatedCompraInsumoDetalle);
 
         restCompraInsumoDetalleMockMvc.perform(put("/api/compra-insumo-detalles")
@@ -224,6 +241,8 @@ public class CompraInsumoDetalleResourceIntTest {
         assertThat(testCompraInsumoDetalle.getUnidad()).isEqualTo(UPDATED_UNIDAD);
         assertThat(testCompraInsumoDetalle.getCodigoReferencia()).isEqualTo(UPDATED_CODIGO_REFERENCIA);
         assertThat(testCompraInsumoDetalle.getStock()).isEqualTo(UPDATED_STOCK);
+        assertThat(testCompraInsumoDetalle.getPrecio()).isEqualTo(UPDATED_PRECIO);
+        assertThat(testCompraInsumoDetalle.getTipo()).isEqualTo(UPDATED_TIPO);
     }
 
     @Test

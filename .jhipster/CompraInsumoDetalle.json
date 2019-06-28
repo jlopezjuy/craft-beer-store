@@ -6,13 +6,17 @@
             "relationshipName": "compraInsumo",
             "otherEntityName": "compraInsumo",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nroFactura"
+            "otherEntityField": "nroFactura",
+            "otherEntityRelationshipNameUndefined": false,
+            "otherEntityRelationshipName": "compraInsumoDetalle"
         },
         {
             "relationshipName": "insumoRecomendado",
             "otherEntityName": "insumoRecomendado",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nombre"
+            "otherEntityField": "nombre",
+            "otherEntityRelationshipNameUndefined": false,
+            "otherEntityRelationshipName": "compraInsumoDetalle"
         }
     ],
     "fields": [
@@ -28,6 +32,15 @@
         {
             "fieldName": "stock",
             "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "precio",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "tipo",
+            "fieldType": "TipoInsumo",
+            "fieldValues": "MALTA,LUPULO,LEVADURA,ACIDO,CLARIFICANTE,SAL,OTROS"
         }
     ],
     "changelogDate": "20190626184818",

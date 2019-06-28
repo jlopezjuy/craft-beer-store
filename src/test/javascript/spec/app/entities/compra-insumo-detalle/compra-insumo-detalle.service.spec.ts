@@ -5,7 +5,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { CompraInsumoDetalleService } from 'app/entities/compra-insumo-detalle/compra-insumo-detalle.service';
-import { ICompraInsumoDetalle, CompraInsumoDetalle, Unidad } from 'app/shared/model/compra-insumo-detalle.model';
+import { ICompraInsumoDetalle, CompraInsumoDetalle, Unidad, TipoInsumo } from 'app/shared/model/compra-insumo-detalle.model';
 
 describe('Service Tests', () => {
   describe('CompraInsumoDetalle Service', () => {
@@ -21,7 +21,7 @@ describe('Service Tests', () => {
       service = injector.get(CompraInsumoDetalleService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new CompraInsumoDetalle(0, Unidad.KILOGRAMO, 'AAAAAAA', 0);
+      elemDefault = new CompraInsumoDetalle(0, Unidad.KILOGRAMO, 'AAAAAAA', 0, 0, TipoInsumo.MALTA);
     });
 
     describe('Service methods', async () => {
@@ -57,7 +57,9 @@ describe('Service Tests', () => {
           {
             unidad: 'BBBBBB',
             codigoReferencia: 'BBBBBB',
-            stock: 1
+            stock: 1,
+            precio: 1,
+            tipo: 'BBBBBB'
           },
           elemDefault
         );
@@ -76,7 +78,9 @@ describe('Service Tests', () => {
           {
             unidad: 'BBBBBB',
             codigoReferencia: 'BBBBBB',
-            stock: 1
+            stock: 1,
+            precio: 1,
+            tipo: 'BBBBBB'
           },
           elemDefault
         );

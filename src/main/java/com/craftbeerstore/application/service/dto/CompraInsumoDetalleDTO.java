@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 import com.craftbeerstore.application.domain.enumeration.Unidad;
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 
 /**
  * A DTO for the CompraInsumoDetalle entity.
@@ -16,6 +17,10 @@ public class CompraInsumoDetalleDTO implements Serializable {
     private String codigoReferencia;
 
     private BigDecimal stock;
+
+    private BigDecimal precio;
+
+    private TipoInsumo tipo;
 
 
     private Long compraInsumoId;
@@ -56,6 +61,22 @@ public class CompraInsumoDetalleDTO implements Serializable {
 
     public void setStock(BigDecimal stock) {
         this.stock = stock;
+    }
+
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+    public TipoInsumo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoInsumo tipo) {
+        this.tipo = tipo;
     }
 
     public Long getCompraInsumoId() {
@@ -118,6 +139,8 @@ public class CompraInsumoDetalleDTO implements Serializable {
             ", unidad='" + getUnidad() + "'" +
             ", codigoReferencia='" + getCodigoReferencia() + "'" +
             ", stock=" + getStock() +
+            ", precio=" + getPrecio() +
+            ", tipo='" + getTipo() + "'" +
             ", compraInsumo=" + getCompraInsumoId() +
             ", compraInsumo='" + getCompraInsumoNroFactura() + "'" +
             ", insumoRecomendado=" + getInsumoRecomendadoId() +

@@ -63,7 +63,7 @@
                                 <div class="col-sm-6">
                                     <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.subtotal"
-                                                   for="field_subtotal">Nro de Factura
+                                                   for="field_subtotal">Sub Total
                                         </mat-label>
                                         <input type="number" matInput name="subtotal" id="field_subtotal"
                                                [(ngModel)]="compraInsumo.subtotal" required/>
@@ -80,7 +80,7 @@
                                 <div class="col-sm-6">
                                     <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.gastoDeEnvio"
-                                                   for="field_gastoDeEnvio">Nro de Factura
+                                                   for="field_gastoDeEnvio">Gasto de Envio
                                         </mat-label>
                                         <input type="number" matInput name="gastoDeEnvio" id="field_gastoDeEnvio"
                                                [(ngModel)]="compraInsumo.gastoDeEnvio" required/>
@@ -99,7 +99,7 @@
                                 <div class="col-sm-6">
                                     <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.impuesto"
-                                                   for="field_impuesto">Nro de Factura
+                                                   for="field_impuesto">Impuestos %
                                         </mat-label>
                                         <input type="number" matInput name="impuesto" id="field_impuesto"
                                                [(ngModel)]="compraInsumo.impuesto" required/>
@@ -116,7 +116,7 @@
                                 <div class="col-sm-6">
                                     <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.total"
-                                                   for="field_total">Nro de Factura
+                                                   for="field_total">Total
                                         </mat-label>
                                         <input type="number" matInput name="total" id="field_total"
                                                [(ngModel)]="compraInsumo.total" required/>
@@ -135,7 +135,7 @@
                                 <div class="col-sm-6">
                                     <mat-form-field class="example-full-width" appearance="fill">
                                         <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.proveedor"
-                                                   for="field_proveedor">Producto
+                                                   for="field_proveedor">Proveedor
                                         </mat-label>
                                         <mat-select name="proveedor" [(ngModel)]="compraInsumo.proveedorId"
                                                     id="field_producto">
@@ -164,10 +164,9 @@
                                         <mat-card-header>
                                             <mat-card-title>Insumos</mat-card-title>
                                         </mat-card-header>
-
                                         <mat-card-content>
                                             <div class="row">
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label class="form-control-label"
                                                                jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.insumoRecomendado"
@@ -178,11 +177,34 @@
                                                             <option [ngValue]="null"></option>
                                                             <option [ngValue]="insumoRecomendadoOption.id"
                                                                     *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">
-                                                                {{insumoRecomendadoOption.nombre}}</option>
+                                                                {{insumoRecomendadoOption.nombre}}- {{insumoRecomendadoOption.marca}}-{{insumoRecomendadoOption.tipo}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.codigoReferencia" for="field_codigoReferencia">Codigo Referencia</label>
+                                                        <input type="text" class="form-control" name="codigoReferencia" id="field_codigoReferencia"
+                                                               [(ngModel)]="compraInsumoDetalle.codigoReferencia" />
+                                                    </div>
+                                                </div>
+                                              <div class="col-sm-4">
+                                                <div class="form-group">
+                                                  <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.tipo" for="field_tipo">Tipo</label>
+                                                  <select class="form-control" name="tipo" [(ngModel)]="compraInsumoDetalle.tipo" id="field_tipo" >
+                                                    <option value="MALTA">{{'craftBeerStoreApp.TipoInsumo.MALTA' | translate}}</option>
+                                                    <option value="LUPULO">{{'craftBeerStoreApp.TipoInsumo.LUPULO' | translate}}</option>
+                                                    <option value="LEVADURA">{{'craftBeerStoreApp.TipoInsumo.LEVADURA' | translate}}</option>
+                                                    <option value="ACIDO">{{'craftBeerStoreApp.TipoInsumo.ACIDO' | translate}}</option>
+                                                    <option value="CLARIFICANTE">{{'craftBeerStoreApp.TipoInsumo.CLARIFICANTE' | translate}}</option>
+                                                    <option value="SAL">{{'craftBeerStoreApp.TipoInsumo.SAL' | translate}}</option>
+                                                    <option value="OTROS">{{'craftBeerStoreApp.TipoInsumo.OTROS' | translate}}</option>
+                                                  </select>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.unidad" for="field_unidad">Unidad</label>
                                                         <select class="form-control" name="unidad" [(ngModel)]="compraInsumoDetalle.unidad" id="field_unidad" >
@@ -197,21 +219,18 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.codigoReferencia" for="field_codigoReferencia">Codigo Referencia</label>
-                                                        <input type="text" class="form-control" name="codigoReferencia" id="field_codigoReferencia"
-                                                               [(ngModel)]="compraInsumoDetalle.codigoReferencia" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock" for="field_stock">Stock</label>
                                                         <input type="number" class="form-control" name="stock" id="field_stock"
                                                                [(ngModel)]="compraInsumoDetalle.stock" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precio" for="field_precio">Precio</label>
+                                                        <input type="number" class="form-control" name="precio" id="field_precio"
+                                                               [(ngModel)]="compraInsumoDetalle.precio" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,11 +243,15 @@
                                     </mat-card>
                                 </div>
                             </div>
+                            <br/>
                             <div class="row">
                                 <div class="mat-elevation-z8 table-responsive" *ngIf="compraInsumoDetalles">
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
+                                            <th><span
+                                                jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.insumoRecomendado">Insumo</span>
+                                            </th>
                                             <th><span
                                                 jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.unidad">Unidad</span>
                                             </th>
@@ -238,19 +261,27 @@
                                             <th><span
                                                 jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock">Stock</span>
                                             </th>
+                                            <th><span
+                                                jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precio">Precio</span>
+                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr *ngFor="let compraInsumoDetalle of compraInsumoDetalles ;trackBy: trackId">
+                                            <td>
+                                                {{compraInsumoDetalle.insumoRecomendadoNombre}}
+                                            </td>
                                             <td jhiTranslate="{{'craftBeerStoreApp.Unidad.' + compraInsumoDetalle.unidad}}">{{compraInsumoDetalle.unidad}}</td>
                                             <td>{{compraInsumoDetalle.codigoReferencia}}</td>
                                             <td>{{compraInsumoDetalle.stock}}</td>
+                                            <td>{{compraInsumoDetalle.precio}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <br/>
                         <div>
                             <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"
                                     (click)="previousState()">

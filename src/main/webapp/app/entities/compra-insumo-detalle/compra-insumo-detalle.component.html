@@ -18,6 +18,8 @@
             <th jhiSortBy="unidad"><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.unidad">Unidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="codigoReferencia"><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.codigoReferencia">Codigo Referencia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="stock"><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock">Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="precio"><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precio">Precio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="compraInsumoNroFactura"><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.compraInsumo">Compra Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="insumoRecomendadoNombre"><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.insumoRecomendado">Insumo Recomendado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -29,6 +31,8 @@
                 <td jhiTranslate="{{'craftBeerStoreApp.Unidad.' + compraInsumoDetalle.unidad}}">{{compraInsumoDetalle.unidad}}</td>
                 <td>{{compraInsumoDetalle.codigoReferencia}}</td>
                 <td>{{compraInsumoDetalle.stock}}</td>
+                <td>{{compraInsumoDetalle.precio}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + compraInsumoDetalle.tipo}}">{{compraInsumoDetalle.tipo}}</td>
                 <td>
                     <div *ngIf="compraInsumoDetalle.compraInsumoId">
                         <a [routerLink]="['../compra-insumo', compraInsumoDetalle.compraInsumoId , 'view' ]" >{{compraInsumoDetalle.compraInsumoNroFactura}}</a>

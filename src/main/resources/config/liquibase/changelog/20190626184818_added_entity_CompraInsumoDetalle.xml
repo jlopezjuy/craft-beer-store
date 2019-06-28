@@ -47,4 +47,18 @@
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+    <changeSet id="20190626184818-2" author="jhipster">
+        <addColumn tableName="compra_insumo_detalle">
+            <column name="precio" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="20190626184818-3" author="jlopez">
+        <addColumn tableName="compra_insumo_detalle">
+            <column name="tipo" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

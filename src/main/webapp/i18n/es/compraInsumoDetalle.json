@@ -18,6 +18,8 @@
       "unidad": "Unidad",
       "codigoReferencia": "Codigo Referencia",
       "stock": "Stock",
+      "precio": "Precio",
+      "tipo": "Tipo",
       "compraInsumo": "Compra Insumo",
       "insumoRecomendado": "Insumo Recomendado"
     }

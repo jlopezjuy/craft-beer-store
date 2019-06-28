@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -48,12 +48,16 @@ export class CompraInsumoUpdateComponent implements OnInit {
     this.compraInsumoDetalle = new CompraInsumoDetalle();
     this.isSaving = false;
     this.empresa = this.$localStorage.retrieve('empresa');
+
     this.activatedRoute.data.subscribe(({ compraInsumo }) => {
       this.compraInsumo = compraInsumo;
       if (this.compraInsumo.id) {
         this.fechaDp = moment(this.compraInsumo.fecha, 'dd/MM/yyy').format();
         this.loadAllOnEdit();
       } else {
+        this.compraInsumo.impuesto = 0;
+        this.compraInsumo.total = 0;
+        this.compraInsumo.subtotal = 0;
         this.compraInsumoDetalles = [];
       }
     });
@@ -80,6 +84,7 @@ export class CompraInsumoUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     this.compraInsumo.empresaId = this.empresa.id;
+    this.calculoImportes();
     this.compraInsumo.fecha = this.fechaDp != null ? moment(this.fechaDp, DATE_FORMAT) : null;
     if (this.compraInsumo.id !== undefined) {
       this.subscribeToSaveResponse(this.compraInsumoService.update(this.compraInsumo));
@@ -96,6 +101,16 @@ export class CompraInsumoUpdateComponent implements OnInit {
       console.log('ok');
       console.log(resp);
     });
+  }
+
+  calculoImportes() {
+    this.compraInsumoDetalles.forEach(compra => {
+      this.compraInsumo.subtotal = this.compraInsumo.subtotal + compra.precio;
+    });
+    console.log(this.compraInsumo);
+    this.compraInsumo.total =
+      this.compraInsumo.subtotal + (this.compraInsumo.subtotal * this.compraInsumo.impuesto) / 100 + this.compraInsumo.gastoDeEnvio;
+    console.log(this.compraInsumo);
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ICompraInsumo>>) {
@@ -141,6 +156,9 @@ export class CompraInsumoUpdateComponent implements OnInit {
   addInsumo() {
     console.log(this.compraInsumoDetalle);
     this.compraInsumoDetalles.push(this.compraInsumoDetalle);
+    this.compraInsumo.subtotal = this.compraInsumo.subtotal + this.compraInsumoDetalle.precio;
+    this.compraInsumo.total =
+      this.compraInsumo.subtotal + (this.compraInsumo.subtotal * this.compraInsumo.impuesto) / 100 + this.compraInsumo.gastoDeEnvio;
     this.compraInsumoDetalle = new CompraInsumoDetalle();
   }
 }

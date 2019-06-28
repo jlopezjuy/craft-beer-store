@@ -9,11 +9,23 @@ export const enum Unidad {
   UNIDAD = 'UNIDAD'
 }
 
+export const enum TipoInsumo {
+  MALTA = 'MALTA',
+  LUPULO = 'LUPULO',
+  LEVADURA = 'LEVADURA',
+  ACIDO = 'ACIDO',
+  CLARIFICANTE = 'CLARIFICANTE',
+  SAL = 'SAL',
+  OTROS = 'OTROS'
+}
+
 export interface ICompraInsumoDetalle {
   id?: number;
   unidad?: Unidad;
   codigoReferencia?: string;
   stock?: number;
+  precio?: number;
+  tipo?: TipoInsumo;
   compraInsumoNroFactura?: string;
   compraInsumoId?: number;
   insumoRecomendadoNombre?: string;
@@ -26,6 +38,8 @@ export class CompraInsumoDetalle implements ICompraInsumoDetalle {
     public unidad?: Unidad,
     public codigoReferencia?: string,
     public stock?: number,
+    public precio?: number,
+    public tipo?: TipoInsumo,
     public compraInsumoNroFactura?: string,
     public compraInsumoId?: number,
     public insumoRecomendadoNombre?: string,

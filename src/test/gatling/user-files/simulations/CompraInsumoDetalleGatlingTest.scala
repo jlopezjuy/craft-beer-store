@@ -75,6 +75,8 @@ class CompraInsumoDetalleGatlingTest extends Simulation {
                 , "unidad":"KILOGRAMO"
                 , "codigoReferencia":"SAMPLE_TEXT"
                 , "stock":"0"
+                , "precio":"0"
+                , "tipo":"MALTA"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_compraInsumoDetalle_url"))).exitHereIfFailed

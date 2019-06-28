@@ -13,6 +13,8 @@ import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.Unidad;
 
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
+
 /**
  * A CompraInsumoDetalle.
  */
@@ -36,6 +38,13 @@ public class CompraInsumoDetalle implements Serializable {
 
     @Column(name = "stock", precision = 10, scale = 2)
     private BigDecimal stock;
+
+    @Column(name = "precio", precision = 10, scale = 2)
+    private BigDecimal precio;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo")
+    private TipoInsumo tipo;
 
     @ManyToOne
     @JsonIgnoreProperties("compraInsumoDetalles")
@@ -93,6 +102,32 @@ public class CompraInsumoDetalle implements Serializable {
         this.stock = stock;
     }
 
+    public BigDecimal getPrecio() {
+        return precio;
+    }
+
+    public CompraInsumoDetalle precio(BigDecimal precio) {
+        this.precio = precio;
+        return this;
+    }
+
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
+    }
+
+    public TipoInsumo getTipo() {
+        return tipo;
+    }
+
+    public CompraInsumoDetalle tipo(TipoInsumo tipo) {
+        this.tipo = tipo;
+        return this;
+    }
+
+    public void setTipo(TipoInsumo tipo) {
+        this.tipo = tipo;
+    }
+
     public CompraInsumo getCompraInsumo() {
         return compraInsumo;
     }
@@ -147,6 +182,8 @@ public class CompraInsumoDetalle implements Serializable {
             ", unidad='" + getUnidad() + "'" +
             ", codigoReferencia='" + getCodigoReferencia() + "'" +
             ", stock=" + getStock() +
+            ", precio=" + getPrecio() +
+            ", tipo='" + getTipo() + "'" +
             "}";
     }
 }
