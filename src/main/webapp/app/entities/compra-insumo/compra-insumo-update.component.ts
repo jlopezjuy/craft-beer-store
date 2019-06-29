@@ -104,6 +104,7 @@ export class CompraInsumoUpdateComponent implements OnInit {
   }
 
   calculoImportes() {
+    this.compraInsumo.subtotal = 0;
     this.compraInsumoDetalles.forEach(compra => {
       this.compraInsumo.subtotal = this.compraInsumo.subtotal + compra.precio;
     });
