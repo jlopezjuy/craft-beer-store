@@ -8,25 +8,25 @@
             <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
             <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
           </a>
-          User Profile v2
+          Configuración general de Cuenta
         </h2>
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a [routerLink]="['/admin']"><i class="icon-home"></i></a></li>
           <li class="breadcrumb-item">Pages</li>
-          <li class="breadcrumb-item active">Ajustes de cuenta</li>
+          <li class="breadcrumb-item active">Ajustes de Cuenta</li>
         </ul>
       </div>
       <div class="col-lg-7 col-md-4 col-sm-12 text-right">
-        <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">
-          <div echarts [options]="visitorsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">
-          </div>
-          <span>Visitors</span>
-        </div>
-        <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">
-          <div echarts [options]="visitsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">
-          </div>
-          <span>Visits</span>
-        </div>
+<!--        <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">-->
+<!--          <div echarts [options]="visitorsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">-->
+<!--          </div>-->
+<!--          <span>Visitors</span>-->
+<!--        </div>-->
+<!--        <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">-->
+<!--          <div echarts [options]="visitsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">-->
+<!--          </div>-->
+<!--          <span>Visits</span>-->
+<!--        </div>-->
       </div>
     </div>
   </div>
@@ -165,7 +165,7 @@
       <div class="card">
         <div class="body">
           <ul class="nav nav-tabs-new">
-            <li class="nav-item  mr-1"><a class="nav-link" (click)="toggleTabs('Overview')" [ngClass]="{'active':activeTab == 'Overview'}">Overview</a></li>
+<!--            <li class="nav-item  mr-1"><a class="nav-link" (click)="toggleTabs('Overview')" [ngClass]="{'active':activeTab == 'Overview'}">Overview</a></li>-->
             <li class="nav-item"><a class="nav-link" (click)="toggleTabs('Settings')" [ngClass]="{'active':activeTab == 'Settings'}">Settings</a></li>
           </ul>
         </div>
@@ -173,62 +173,62 @@
 
       <div class="tab-content padding-0">
 
-        <div class="tab-pane" [ngClass]="{'active':activeTab == 'Overview'}">
-          <div class="card">
-            <div class="body">
-              <div class="new_post">
-                <div class="form-group">
-                  <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>
-                </div>
-                <div class="post-toolbar-b">
-                  <button class="btn btn-warning mr-1"><i class="icon-link"></i></button>
-                  <button class="btn btn-warning mr-1"><i class="icon-camera"></i></button>
-                  <button class="btn btn-primary">Post</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card single_post">
-            <div class="body">
-              <div class="img-post">
-                <img class="d-block img-fluid" src="/assets/images/blog/blog-page-1.jpg" alt="First slide">
-              </div>
-              <h3><a href="blog-details.html">All photographs are accurate</a></h3>
-              <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking
-                at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal</p>
-            </div>
-            <div class="footer">
-              <div class="actions">
-                <a href="javascript:void(0);" class="btn btn-outline-secondary">Continue Reading</a>
-              </div>
-              <ul class="stats">
-                <li><a href="javascript:void(0);">General</a></li>
-                <li><a href="javascript:void(0);" class="icon-heart">28</a></li>
-                <li><a href="javascript:void(0);" class="icon-bubbles">128</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="card single_post">
-            <div class="body">
-              <div class="img-post">
-                <img class="d-block img-fluid" src="/assets/images/blog/blog-page-2.jpg" alt="">
-              </div>
-              <h3><a href="blog-details.html">All photographs are accurate</a></h3>
-              <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking
-                at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal</p>
-            </div>
-            <div class="footer">
-              <div class="actions">
-                <a href="javascript:void(0);" class="btn btn-outline-secondary">Continue Reading</a>
-              </div>
-              <ul class="stats">
-                <li><a href="javascript:void(0);">General</a></li>
-                <li><a href="javascript:void(0);" class="icon-heart">28</a></li>
-                <li><a href="javascript:void(0);" class="icon-bubbles">128</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+<!--        <div class="tab-pane" [ngClass]="{'active':activeTab == 'Overview'}">-->
+<!--          <div class="card">-->
+<!--            <div class="body">-->
+<!--              <div class="new_post">-->
+<!--                <div class="form-group">-->
+<!--                  <textarea rows="4" class="form-control no-resize" placeholder="Please type what you want..."></textarea>-->
+<!--                </div>-->
+<!--                <div class="post-toolbar-b">-->
+<!--                  <button class="btn btn-warning mr-1"><i class="icon-link"></i></button>-->
+<!--                  <button class="btn btn-warning mr-1"><i class="icon-camera"></i></button>-->
+<!--                  <button class="btn btn-primary">Post</button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="card single_post">-->
+<!--            <div class="body">-->
+<!--              <div class="img-post">-->
+<!--                <img class="d-block img-fluid" src="/assets/images/blog/blog-page-1.jpg" alt="First slide">-->
+<!--              </div>-->
+<!--              <h3><a href="blog-details.html">All photographs are accurate</a></h3>-->
+<!--              <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking-->
+<!--                at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal</p>-->
+<!--            </div>-->
+<!--            <div class="footer">-->
+<!--              <div class="actions">-->
+<!--                <a href="javascript:void(0);" class="btn btn-outline-secondary">Continue Reading</a>-->
+<!--              </div>-->
+<!--              <ul class="stats">-->
+<!--                <li><a href="javascript:void(0);">General</a></li>-->
+<!--                <li><a href="javascript:void(0);" class="icon-heart">28</a></li>-->
+<!--                <li><a href="javascript:void(0);" class="icon-bubbles">128</a></li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="card single_post">-->
+<!--            <div class="body">-->
+<!--              <div class="img-post">-->
+<!--                <img class="d-block img-fluid" src="/assets/images/blog/blog-page-2.jpg" alt="">-->
+<!--              </div>-->
+<!--              <h3><a href="blog-details.html">All photographs are accurate</a></h3>-->
+<!--              <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking-->
+<!--                at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal</p>-->
+<!--            </div>-->
+<!--            <div class="footer">-->
+<!--              <div class="actions">-->
+<!--                <a href="javascript:void(0);" class="btn btn-outline-secondary">Continue Reading</a>-->
+<!--              </div>-->
+<!--              <ul class="stats">-->
+<!--                <li><a href="javascript:void(0);">General</a></li>-->
+<!--                <li><a href="javascript:void(0);" class="icon-heart">28</a></li>-->
+<!--                <li><a href="javascript:void(0);" class="icon-bubbles">128</a></li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
 
         <div class="tab-pane" [ngClass]="{'active':activeTab == 'Settings'}">
 
@@ -252,7 +252,7 @@
                         <h2 jhiTranslate="settings.title" [translateValues]="{username: settingsAccount.login}" *ngIf="settingsAccount">Maestro Cervecero [<b>{{settingsAccount.firstName}}</b>]</h2>
 
                         <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
-                          <strong>Settings saved!</strong>
+                          <strong>Datos actualizados!</strong>
                         </div>
 
                         <jhi-alert-error></jhi-alert-error>

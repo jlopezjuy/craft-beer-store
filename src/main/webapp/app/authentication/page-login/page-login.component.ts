@@ -53,7 +53,7 @@ export class PageLoginComponent implements OnInit {
         this.empresaService.findEmpresa().subscribe(
           resp => {
             this.empresa = resp.body;
-
+            console.log(this.empresa);
             this.$localStorage.store('empresa', resp.body);
             this.$localStorage.store('empresaActiva', true);
             this.noEmpresa = this.$localStorage.retrieve('empresaActiva');

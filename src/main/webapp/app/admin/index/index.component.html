@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="row clearfix">
+    <div class="row clearfix" *ngIf="visibleEmpresa">
         <div class="col-lg-3 col-md-6 col-sm-6">
             <jhi-detail-tiles
                 [title]="'Caja'"
@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <div class="row clearfix">
+    <div class="row clearfix" *ngIf="visibleEmpresa">
         <div class="col-lg-6 col-md-12">
             <jhi-top-products></jhi-top-products>
         </div>
@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <div class="row clearfix">
+    <div class="row clearfix" *ngIf="visibleEmpresa">
         <div class="col-lg-4 col-md-12">
             <jhi-chat></jhi-chat>
         </div>
@@ -84,7 +84,7 @@
         </div>                
     </div>
 
-    <div class="row clearfix">
+    <div class="row clearfix" *ngIf="visibleEmpresa">
         <div class="col-lg-4 col-md-12">
             <jhi-general-feed></jhi-general-feed>
         </div>
@@ -96,9 +96,23 @@
         </div>
     </div>
 
-    <div class="row clearfix">
+    <div class="row clearfix" *ngIf="visibleEmpresa">
         <div class="col-lg-12">
             <jhi-activities></jhi-activities>
         </div>
     </div>
+
+  <div class="row clearfix" *ngIf="!visibleEmpresa">
+    <div class="col-lg-12">
+      <div>
+        <h1 class="display-4" jhiTranslate="home.configurarEmpresa">No configuro aun
+          su cuenta empresa!</h1>
+      </div>
+
+      <div>
+        <h5 class="display-4" jhiTranslate="home.configurarEmpresa">Haga click aqui para configurar su cuenta</h5>
+        <a [routerLink]="['/admin/account/settings']"><i class="icon-settings"></i>Configurar cuenta</a>
+      </div>
+    </div>
+  </div>
 </div>

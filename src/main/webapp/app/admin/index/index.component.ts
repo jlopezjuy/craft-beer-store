@@ -32,7 +32,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   public visits: number = this.visitsAreaOptionsSeries.reduce((a, b) => a + b, 0);
   public LikesOptionsSeries: Array<number> = [1, 3, 5, 1, 4, 2];
   public likes: number = this.LikesOptionsSeries.reduce((a, b) => a + b, 0);
-
+  visibleEmpresa: boolean;
   public interval: any = {};
 
   constructor(
@@ -59,6 +59,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     }, 1000);
     this.chartIntervals();
     this.loadIngreso();
+    this.visibleEmpresa = this.$localStorage.retrieve('empresaActiva');
   }
 
   loadIngreso() {

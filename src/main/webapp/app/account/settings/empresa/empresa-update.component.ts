@@ -4,7 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
-import { IEmpresa } from 'app/shared/model/empresa.model';
+import { Empresa, IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from './empresa.service';
 import { Account, AccountService, IUser, UserService } from 'app/core';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -18,6 +18,7 @@ export class EmpresaUpdateComponent implements OnInit {
   isSaving: boolean;
   account: Account;
   users: IUser[];
+  success: string;
 
   constructor(
     protected jhiAlertService: JhiAlertService,
@@ -42,6 +43,7 @@ export class EmpresaUpdateComponent implements OnInit {
       },
       error => {
         console.log('error');
+        this.empresa = new Empresa();
         this.$localStorage.store('empresaActiva', false);
       }
     );
@@ -76,6 +78,7 @@ export class EmpresaUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(res: HttpResponse<IEmpresa>) {
+    this.success = 'OK';
     this.$localStorage.store('empresa', res.body);
     this.$localStorage.store('empresaActiva', true);
     this.isSaving = false;
@@ -84,6 +87,7 @@ export class EmpresaUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
+    this.success = null;
   }
 
   protected onError(errorMessage: string) {

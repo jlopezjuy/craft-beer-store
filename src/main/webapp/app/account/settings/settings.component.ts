@@ -17,7 +17,7 @@ export class SettingsComponent implements OnInit {
   public visitorsOptions: EChartOption = {};
   public visitsOptions: EChartOption = {};
   public sidebarVisible: boolean = true;
-  public activeTab: string = 'Overview';
+  public activeTab: string = 'Settings';
 
   constructor(
     private accountService: AccountService,
