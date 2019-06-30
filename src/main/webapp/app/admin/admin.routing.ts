@@ -83,7 +83,11 @@ const routes: Routes = [
             component: ContactGridComponent,
             data: { title: ':: Lucid Angular :: App :: Contacts ::' }
           },
-          { path: 'app-calendar', component: AppCalendarComponent, data: { title: ':: Lucid Angular :: App :: Calendar ::' } }
+          {
+            path: 'app-calendar',
+            component: AppCalendarComponent,
+            data: { title: ':: Lucid Angular :: App :: Calendar ::' }
+          }
         ]
       },
       {
@@ -96,14 +100,22 @@ const routes: Routes = [
             data: { title: ':: Lucid Angular :: UI Elements :: Typography ::' }
           },
           { path: 'ui-tabs', component: UiTabsComponent, data: { title: ':: Lucid Angular :: UI Elements :: Tabs ::' } },
-          { path: 'ui-buttons', component: UiButtonsComponent, data: { title: ':: Lucid Angular :: UI Elements :: Buttons ::' } },
+          {
+            path: 'ui-buttons',
+            component: UiButtonsComponent,
+            data: { title: ':: Lucid Angular :: UI Elements :: Buttons ::' }
+          },
           {
             path: 'ui-bootstrap',
             component: UiBootstrapComponent,
             data: { title: ':: Lucid Angular :: UI Elements :: Bootstrap ::' }
           },
           { path: 'ui-icons', component: UiIconsComponent, data: { title: ':: Lucid Angular :: UI Elements :: Icons ::' } },
-          { path: 'ui-colors', component: UiColorsComponent, data: { title: ':: Lucid Angular :: UI Elements :: Colors ::' } },
+          {
+            path: 'ui-colors',
+            component: UiColorsComponent,
+            data: { title: ':: Lucid Angular :: UI Elements :: Colors ::' }
+          },
           {
             path: 'ui-list-group',
             component: UiListGroupComponent,
@@ -114,7 +126,11 @@ const routes: Routes = [
             component: UiMediaObjectComponent,
             data: { title: ':: Lucid Angular :: UI Elements :: Media ::' }
           },
-          { path: 'ui-modal', component: UiModalsComponent, data: { title: ':: Lucid Angular :: UI Elements :: Modal ::' } },
+          {
+            path: 'ui-modal',
+            component: UiModalsComponent,
+            data: { title: ':: Lucid Angular :: UI Elements :: Modal ::' }
+          },
           {
             path: 'ui-progressbars',
             component: UiProgressbarsComponent,
@@ -136,7 +152,11 @@ const routes: Routes = [
             component: FileDocumentsComponent,
             data: { title: ':: Lucid Angular :: File Manager :: Documents ::' }
           },
-          { path: 'file-media', component: FileMediaComponent, data: { title: ':: Lucid Angular :: File Manager :: Media ::' } },
+          {
+            path: 'file-media',
+            component: FileMediaComponent,
+            data: { title: ':: Lucid Angular :: File Manager :: Media ::' }
+          },
           {
             path: 'file-images',
             component: FileImagesComponent,
@@ -155,11 +175,18 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'account',
+        loadChildren: '../account/account.module#CraftBeerStoreAccountModule'
+      },
       { path: 'entity', loadChildren: '../entities/entity.module#CraftBeerStoreEntityModule' },
       {
         path: 'compras',
         children: [
-          { path: 'compra-insumo', loadChildren: '../entities/compra-insumo/compra-insumo.module#CraftBeerStoreCompraInsumoModule' }
+          {
+            path: 'compra-insumo',
+            loadChildren: '../entities/compra-insumo/compra-insumo.module#CraftBeerStoreCompraInsumoModule'
+          }
         ]
       },
       {
@@ -167,19 +194,31 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'page-blank', pathMatch: 'full' },
           { path: 'page-blank', component: PageBlankComponent, data: { title: ':: Lucid Angular :: Pages :: Blank ::' } },
-          { path: 'page-profile', component: PageProfileComponent, data: { title: ':: Lucid Angular :: Pages :: Profile ::' } },
+          {
+            path: 'page-profile',
+            component: PageProfileComponent,
+            data: { title: ':: Lucid Angular :: Pages :: Profile ::' }
+          },
           {
             path: 'page-profile2',
             component: PageProfileV2Component,
             data: { title: ':: Lucid Angular :: Pages :: Profile - V2 ::' }
           },
-          { path: 'page-gallery', component: PageGalleryComponent, data: { title: ':: Lucid Angular :: Pages :: Gallery ::' } },
+          {
+            path: 'page-gallery',
+            component: PageGalleryComponent,
+            data: { title: ':: Lucid Angular :: Pages :: Gallery ::' }
+          },
           {
             path: 'page-timeline',
             component: PageTimelineComponent,
             data: { title: ':: Lucid Angular :: Pages :: Timeline ::' }
           },
-          { path: 'page-pricing', component: PagePricingComponent, data: { title: ':: Lucid Angular :: Pages :: Pricing ::' } },
+          {
+            path: 'page-pricing',
+            component: PagePricingComponent,
+            data: { title: ':: Lucid Angular :: Pages :: Pricing ::' }
+          },
           {
             path: 'page-invoices',
             component: PageInvoicesComponent,
@@ -227,7 +266,11 @@ const routes: Routes = [
         path: 'charts',
         children: [
           { path: '', redirectTo: 'chart-echarts', pathMatch: 'full' },
-          { path: 'chart-echarts', component: ChartEchartComponent, data: { title: ':: Lucid Angular :: Charts :: E-Charts ::' } }
+          {
+            path: 'chart-echarts',
+            component: ChartEchartComponent,
+            data: { title: ':: Lucid Angular :: Charts :: E-Charts ::' }
+          }
         ]
       },
       {
@@ -239,7 +282,11 @@ const routes: Routes = [
             component: FormsValidationComponent,
             data: { title: ':: Lucid Angular :: Form Validations :: Forms ::' }
           },
-          { path: 'forms-basic', component: FormsBasicComponent, data: { title: ':: Lucid Angular :: Form Basic :: Forms ::' } }
+          {
+            path: 'forms-basic',
+            component: FormsBasicComponent,
+            data: { title: ':: Lucid Angular :: Form Basic :: Forms ::' }
+          }
         ]
       },
       {

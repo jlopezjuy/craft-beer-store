@@ -10,7 +10,7 @@ import { CompraInsumoService } from './compra-insumo.service';
 import { IProveedor } from 'app/shared/model/proveedor.model';
 import { ProveedorService } from 'app/entities/proveedor';
 import { IEmpresa } from 'app/shared/model/empresa.model';
-import { EmpresaService } from 'app/entities/empresa';
+import { EmpresaService } from 'app/account/settings/empresa';
 import { DATE_FORMAT } from '../../shared';
 import { LocalStorageService } from 'ngx-webstorage';
 import { CompraInsumoDetalleService } from '../compra-insumo-detalle';
