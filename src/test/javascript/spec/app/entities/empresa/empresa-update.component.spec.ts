@@ -4,8 +4,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { CraftBeerStoreTestModule } from '../../../test.module';
-import { EmpresaUpdateComponent } from 'app/account/settings/empresa/empresa-update.component';
-import { EmpresaService } from 'app/account/settings/empresa/empresa.service';
+import { EmpresaUpdateComponent } from 'app/entities/empresa/empresa-update.component';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { Empresa } from 'app/shared/model/empresa.model';
 
 describe('Component Tests', () => {

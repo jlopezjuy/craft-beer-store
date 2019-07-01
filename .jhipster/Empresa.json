@@ -9,7 +9,8 @@
             "otherEntityField": "login",
             "ownerSide": true,
             "useJPADerivedIdentifier": false,
-            "otherEntityRelationshipName": "empresa"
+            "otherEntityRelationshipName": "empresa",
+            "otherEntityRelationshipNameUndefined": false
         }
     ],
     "fields": [
@@ -53,6 +54,15 @@
                 "pattern"
             ],
             "fieldValidateRulesPattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+        },
+        {
+            "fieldName": "logoPrincipal",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "fechaInicioActividad",
+            "fieldType": "LocalDate"
         }
     ],
     "changelogDate": "20190407234855",

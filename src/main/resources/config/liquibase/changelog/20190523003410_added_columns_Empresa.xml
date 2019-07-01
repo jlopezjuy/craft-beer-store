@@ -34,6 +34,23 @@
             </column>
         </addColumn>
     </changeSet>
+  <changeSet id="20190630003410-2" author="jlopez">
+    <addColumn tableName="empresa">
+      <column name="logo_principal" type="longblob">
+        <constraints nullable="true" />
+      </column>
+    </addColumn>
+    <addColumn tableName="empresa">
+      <column name="logo_principal_content_type" type="varchar(255)">
+        <constraints nullable="true" />
+      </column>
+    </addColumn>
+    <addColumn tableName="empresa">
+      <column name="fecha_inicio_actividad" type="date">
+        <constraints nullable="true" />
+      </column>
+    </addColumn>
+  </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

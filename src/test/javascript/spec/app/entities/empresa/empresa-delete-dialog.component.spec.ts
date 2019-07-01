@@ -5,8 +5,8 @@ import { Observable, of } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { CraftBeerStoreTestModule } from '../../../test.module';
-import { EmpresaDeleteDialogComponent } from 'app/account/settings/empresa/empresa-delete-dialog.component';
-import { EmpresaService } from 'app/account/settings/empresa/empresa.service';
+import { EmpresaDeleteDialogComponent } from 'app/entities/empresa/empresa-delete-dialog.component';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
 
 describe('Component Tests', () => {
   describe('Empresa Management Delete Component', () => {

@@ -59,6 +59,7 @@ export class PageLoginComponent implements OnInit {
             this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
           },
           error => {
+            console.log(error);
             console.log('error');
             this.$localStorage.store('empresaActiva', false);
             this.noEmpresa = this.$localStorage.retrieve('empresaActiva');

@@ -5,8 +5,8 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Data } from '@angular/router';
 
 import { CraftBeerStoreTestModule } from '../../../test.module';
-import { EmpresaComponent } from 'app/account/settings/empresa/empresa.component';
-import { EmpresaService } from 'app/account/settings/empresa/empresa.service';
+import { EmpresaComponent } from 'app/entities/empresa/empresa.component';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { Empresa } from 'app/shared/model/empresa.model';
 
 describe('Component Tests', () => {

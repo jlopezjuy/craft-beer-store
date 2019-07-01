@@ -58,8 +58,8 @@ const routes: Routes = [
         path: 'dashboard',
         children: [
           { path: '', redirectTo: 'index', pathMatch: 'full' },
-          { path: 'index', component: IndexComponent, data: { title: ':: Lucid Angular :: Dashboard :: Analytical ::' } },
-          { path: 'iot', component: IotDashboardComponent, data: { title: ':: Lucid Angular :: Dashboard :: IoT ::' } }
+          { path: 'index', component: IndexComponent, data: { title: ':: Craft Beer Store :: Dashboard :: Analytical ::' } },
+          { path: 'iot', component: IotDashboardComponent, data: { title: ':: Craft Beer Store :: Dashboard :: IoT ::' } }
         ]
       },
       {
@@ -72,21 +72,21 @@ const routes: Routes = [
                 path: '',
                 pathMatch: 'full',
                 component: InboxComponent,
-                data: { title: ':: Lucid Angular :: App :: Inbox ::' }
+                data: { title: ':: Craft Beer Store :: App :: Inbox ::' }
               },
-              { path: 'compose', component: ComposeComponent, data: { title: ':: Lucid Angular :: App :: Compose ::' } }
+              { path: 'compose', component: ComposeComponent, data: { title: ':: Craft Beer Store :: App :: Compose ::' } }
             ]
           },
-          { path: 'app-chat', component: AppChatComponent, data: { title: ':: Lucid Angular :: App :: Chat ::' } },
+          { path: 'app-chat', component: AppChatComponent, data: { title: ':: Craft Beer Store :: App :: Chat ::' } },
           {
             path: 'app-contact-grid',
             component: ContactGridComponent,
-            data: { title: ':: Lucid Angular :: App :: Contacts ::' }
+            data: { title: ':: Craft Beer Store :: App :: Contacts ::' }
           },
           {
             path: 'app-calendar',
             component: AppCalendarComponent,
-            data: { title: ':: Lucid Angular :: App :: Calendar ::' }
+            data: { title: ':: Craft Beer Store :: App :: Calendar ::' }
           }
         ]
       },
@@ -97,49 +97,49 @@ const routes: Routes = [
           {
             path: 'typography',
             component: TypographyComponent,
-            data: { title: ':: Lucid Angular :: UI Elements :: Typography ::' }
+            data: { title: ':: Craft Beer Store :: UI Elements :: Typography ::' }
           },
-          { path: 'ui-tabs', component: UiTabsComponent, data: { title: ':: Lucid Angular :: UI Elements :: Tabs ::' } },
+          { path: 'ui-tabs', component: UiTabsComponent, data: { title: ':: Craft Beer Store :: UI Elements :: Tabs ::' } },
           {
             path: 'ui-buttons',
             component: UiButtonsComponent,
-            data: { title: ':: Lucid Angular :: UI Elements :: Buttons ::' }
+            data: { title: ':: Craft Beer Store :: UI Elements :: Buttons ::' }
           },
           {
             path: 'ui-bootstrap',
             component: UiBootstrapComponent,
-            data: { title: ':: Lucid Angular :: UI Elements :: Bootstrap ::' }
+            data: { title: ':: Craft Beer Store :: UI Elements :: Bootstrap ::' }
           },
-          { path: 'ui-icons', component: UiIconsComponent, data: { title: ':: Lucid Angular :: UI Elements :: Icons ::' } },
+          { path: 'ui-icons', component: UiIconsComponent, data: { title: ':: Craft Beer Store :: UI Elements :: Icons ::' } },
           {
             path: 'ui-colors',
             component: UiColorsComponent,
-            data: { title: ':: Lucid Angular :: UI Elements :: Colors ::' }
+            data: { title: ':: Craft Beer Store :: UI Elements :: Colors ::' }
           },
           {
             path: 'ui-list-group',
             component: UiListGroupComponent,
-            data: { title: ':: Lucid Angular :: UI Elements :: Lists ::' }
+            data: { title: ':: Craft Beer Store :: UI Elements :: Lists ::' }
           },
           {
             path: 'ui-media-object',
             component: UiMediaObjectComponent,
-            data: { title: ':: Lucid Angular :: UI Elements :: Media ::' }
+            data: { title: ':: Craft Beer Store :: UI Elements :: Media ::' }
           },
           {
             path: 'ui-modal',
             component: UiModalsComponent,
-            data: { title: ':: Lucid Angular :: UI Elements :: Modal ::' }
+            data: { title: ':: Craft Beer Store :: UI Elements :: Modal ::' }
           },
           {
             path: 'ui-progressbars',
             component: UiProgressbarsComponent,
-            data: { title: ':: Lucid Angular :: UI Elements :: Prograssbars ::' }
+            data: { title: ':: Craft Beer Store :: UI Elements :: Prograssbars ::' }
           },
           {
             path: 'ui-notifications',
             component: UiNotificationsComponent,
-            data: { title: ':: Lucid Angular :: UI Elements :: Notifications ::' }
+            data: { title: ':: Craft Beer Store :: UI Elements :: Notifications ::' }
           }
         ]
       },
@@ -150,17 +150,17 @@ const routes: Routes = [
           {
             path: 'file-documents',
             component: FileDocumentsComponent,
-            data: { title: ':: Lucid Angular :: File Manager :: Documents ::' }
+            data: { title: ':: Craft Beer Store :: File Manager :: Documents ::' }
           },
           {
             path: 'file-media',
             component: FileMediaComponent,
-            data: { title: ':: Lucid Angular :: File Manager :: Media ::' }
+            data: { title: ':: Craft Beer Store :: File Manager :: Media ::' }
           },
           {
             path: 'file-images',
             component: FileImagesComponent,
-            data: { title: ':: Lucid Angular :: File Manager :: Images ::' }
+            data: { title: ':: Craft Beer Store :: File Manager :: Images ::' }
           }
         ]
       },
@@ -171,7 +171,7 @@ const routes: Routes = [
           {
             path: 'table-normal',
             component: TableNormalComponent,
-            data: { title: ':: Lucid Angular :: Tables :: Normal Tables ::' }
+            data: { title: ':: Craft Beer Store :: Tables :: Normal Tables ::' }
           }
         ]
       },
@@ -193,73 +193,73 @@ const routes: Routes = [
         path: 'pages',
         children: [
           { path: '', redirectTo: 'page-blank', pathMatch: 'full' },
-          { path: 'page-blank', component: PageBlankComponent, data: { title: ':: Lucid Angular :: Pages :: Blank ::' } },
+          { path: 'page-blank', component: PageBlankComponent, data: { title: ':: Craft Beer Store :: Pages :: Blank ::' } },
           {
             path: 'page-profile',
             component: PageProfileComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Profile ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Profile ::' }
           },
           {
             path: 'page-profile2',
             component: PageProfileV2Component,
-            data: { title: ':: Lucid Angular :: Pages :: Profile - V2 ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Profile - V2 ::' }
           },
           {
             path: 'page-gallery',
             component: PageGalleryComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Gallery ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Gallery ::' }
           },
           {
             path: 'page-timeline',
             component: PageTimelineComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Timeline ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Timeline ::' }
           },
           {
             path: 'page-pricing',
             component: PagePricingComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Pricing ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Pricing ::' }
           },
           {
             path: 'page-invoices',
             component: PageInvoicesComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Invoices ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Invoices ::' }
           },
           {
             path: 'page-invoices2',
             component: PageInvoicesV2Component,
-            data: { title: ':: Lucid Angular :: Pages :: Invoices - V2 ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Invoices - V2 ::' }
           },
           {
             path: 'page-search-results',
             component: PageSearchResultsComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Search Results ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Search Results ::' }
           },
           {
             path: 'page-helper-class',
             component: PageHelperClassComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Classes ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Classes ::' }
           },
           {
             path: 'page-teams-board',
             component: PageTeamsBoardComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Team ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Team ::' }
           },
           {
             path: 'page-projects-list',
             component: PageProjectsListComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Projects ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Projects ::' }
           },
           {
             path: 'page-maintenance',
             component: PageProjectsListComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Maintenance ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Maintenance ::' }
           },
           {
             path: 'page-testimonials',
             component: PageTestimonialsComponent,
-            data: { title: ':: Lucid Angular :: Pages :: Testimonials ::' }
+            data: { title: ':: Craft Beer Store :: Pages :: Testimonials ::' }
           },
-          { path: 'page-faq', component: PageFaqComponent, data: { title: ':: Lucid Angular :: Pages :: Faq ::' } }
+          { path: 'page-faq', component: PageFaqComponent, data: { title: ':: Craft Beer Store :: Pages :: Faq ::' } }
         ]
       },
       {
@@ -269,7 +269,7 @@ const routes: Routes = [
           {
             path: 'chart-echarts',
             component: ChartEchartComponent,
-            data: { title: ':: Lucid Angular :: Charts :: E-Charts ::' }
+            data: { title: ':: Craft Beer Store :: Charts :: E-Charts ::' }
           }
         ]
       },
@@ -280,12 +280,12 @@ const routes: Routes = [
           {
             path: 'forms-validation',
             component: FormsValidationComponent,
-            data: { title: ':: Lucid Angular :: Form Validations :: Forms ::' }
+            data: { title: ':: Craft Beer Store :: Form Validations :: Forms ::' }
           },
           {
             path: 'forms-basic',
             component: FormsBasicComponent,
-            data: { title: ':: Lucid Angular :: Form Basic :: Forms ::' }
+            data: { title: ':: Craft Beer Store :: Form Basic :: Forms ::' }
           }
         ]
       },
@@ -293,12 +293,12 @@ const routes: Routes = [
         path: 'blogs',
         children: [
           { path: '', redirectTo: 'blog-post', pathMatch: 'full' },
-          { path: 'blog-post', component: BlogPostComponent, data: { title: ':: Lucid Angular :: Blog Post :: Blog ::' } },
-          { path: 'blog-list', component: BlogListComponent, data: { title: ':: Lucid Angular :: Blog List :: Blog ::' } },
+          { path: 'blog-post', component: BlogPostComponent, data: { title: ':: Craft Beer Store :: Blog Post :: Blog ::' } },
+          { path: 'blog-list', component: BlogListComponent, data: { title: ':: Craft Beer Store :: Blog List :: Blog ::' } },
           {
             path: 'blog-details',
             component: BlogDetailsComponent,
-            data: { title: ':: Lucid Angular :: Blog Details :: Blog ::' }
+            data: { title: ':: Craft Beer Store :: Blog Details :: Blog ::' }
           }
         ]
       },
@@ -309,22 +309,22 @@ const routes: Routes = [
           {
             path: 'widgets-data',
             component: WidgetsDataComponent,
-            data: { title: ':: Lucid Angular :: Widgets Data :: Widgets ::' }
+            data: { title: ':: Craft Beer Store :: Widgets Data :: Widgets ::' }
           },
           {
             path: 'widgets-weather',
             component: WidgetsWeatherComponent,
-            data: { title: ':: Lucid Angular :: Widgets Weather :: Widgets ::' }
+            data: { title: ':: Craft Beer Store :: Widgets Weather :: Widgets ::' }
           },
           {
             path: 'widgets-blog',
             component: WidgetsBlogComponent,
-            data: { title: ':: Lucid Angular :: Widgets Blog :: Widgets ::' }
+            data: { title: ':: Craft Beer Store :: Widgets Blog :: Widgets ::' }
           },
           {
             path: 'widgets-ecommerce',
             component: WidgetsEcommerceComponent,
-            data: { title: ':: Lucid Angular :: Widgets eCommerce :: Widgets ::' }
+            data: { title: ':: Craft Beer Store :: Widgets eCommerce :: Widgets ::' }
           }
         ]
       },
@@ -332,7 +332,7 @@ const routes: Routes = [
         path: 'maps',
         children: [
           { path: '', redirectTo: 'leaflet', pathMatch: 'full' },
-          { path: 'leaflet', component: PageLeafletComponent, data: { title: ':: Lucid Angular :: Maps :: Leaflet ::' } }
+          { path: 'leaflet', component: PageLeafletComponent, data: { title: ':: Craft Beer Store :: Maps :: Leaflet ::' } }
         ]
       }
     ]

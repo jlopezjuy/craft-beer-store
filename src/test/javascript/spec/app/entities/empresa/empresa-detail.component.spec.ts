@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { CraftBeerStoreTestModule } from '../../../test.module';
-import { EmpresaDetailComponent } from 'app/account/settings/empresa/empresa-detail.component';
+import { EmpresaDetailComponent } from 'app/entities/empresa/empresa-detail.component';
 import { Empresa } from 'app/shared/model/empresa.model';
 
 describe('Component Tests', () => {

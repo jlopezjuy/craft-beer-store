@@ -4,9 +4,10 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
-import { EmpresaService } from 'app/account/settings/empresa/empresa.service';
-import { IEmpresa, Empresa } from 'app/shared/model/empresa.model';
-import { Provincia } from 'app/shared/model/proveedor.model';
+import * as moment from 'moment';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
+import { IEmpresa, Empresa, Provincia } from 'app/shared/model/empresa.model';
 
 describe('Service Tests', () => {
   describe('Empresa Service', () => {
@@ -14,6 +15,7 @@ describe('Service Tests', () => {
     let service: EmpresaService;
     let httpMock: HttpTestingController;
     let elemDefault: IEmpresa;
+    let currentDate: moment.Moment;
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
@@ -21,13 +23,31 @@ describe('Service Tests', () => {
       injector = getTestBed();
       service = injector.get(EmpresaService);
       httpMock = injector.get(HttpTestingController);
+      currentDate = moment();
 
-      elemDefault = new Empresa(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0, Provincia.MISIONES, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Empresa(
+        0,
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        0,
+        Provincia.MISIONES,
+        'AAAAAAA',
+        'AAAAAAA',
+        'image/png',
+        'AAAAAAA',
+        currentDate
+      );
     });
 
     describe('Service methods', async () => {
       it('should find an element', async () => {
-        const returnedFromService = Object.assign({}, elemDefault);
+        const returnedFromService = Object.assign(
+          {
+            fechaInicioActividad: currentDate.format(DATE_FORMAT)
+          },
+          elemDefault
+        );
         service
           .find(123)
           .pipe(take(1))
@@ -40,11 +60,17 @@ describe('Service Tests', () => {
       it('should create a Empresa', async () => {
         const returnedFromService = Object.assign(
           {
-            id: 0
+            id: 0,
+            fechaInicioActividad: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            fechaInicioActividad: currentDate
+          },
+          returnedFromService
+        );
         service
           .create(new Empresa(null))
           .pipe(take(1))
@@ -62,12 +88,19 @@ describe('Service Tests', () => {
             codigoPostal: 1,
             provincia: 'BBBBBB',
             telefono: 'BBBBBB',
-            correo: 'BBBBBB'
+            correo: 'BBBBBB',
+            logoPrincipal: 'BBBBBB',
+            fechaInicioActividad: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            fechaInicioActividad: currentDate
+          },
+          returnedFromService
+        );
         service
           .update(expected)
           .pipe(take(1))
@@ -85,11 +118,18 @@ describe('Service Tests', () => {
             codigoPostal: 1,
             provincia: 'BBBBBB',
             telefono: 'BBBBBB',
-            correo: 'BBBBBB'
+            correo: 'BBBBBB',
+            logoPrincipal: 'BBBBBB',
+            fechaInicioActividad: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            fechaInicioActividad: currentDate
+          },
+          returnedFromService
+        );
         service
           .query(expected)
           .pipe(

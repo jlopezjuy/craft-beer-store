@@ -56,6 +56,7 @@ export class EmpresaUpdateComponent implements OnInit {
       .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.accountService.identity().then((account: Account) => {
       this.account = account;
+      console.log(this.account);
     });
   }
 

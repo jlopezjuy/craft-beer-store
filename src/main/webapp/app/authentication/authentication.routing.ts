@@ -11,22 +11,22 @@ import { PageTryLaterComponent } from './page-try-later/page-try-later.component
 import { PageMaintananceComponent } from '../pages/page-maintanance/page-maintanance.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: AuthenticationComponent,
-        children: [
-            { path: '', redirectTo: 'page-login', pathMatch: 'full' },
-            { path: 'page-login', component: PageLoginComponent, data: { title: 'Login :: Lucid Angular' } },
-            { path: 'page-register', component: PageRegisterComponent, data: { title: 'Register :: Lucid Angular' } },
-            { path: 'page-lockscreen', component: PageLockscreenComponent, data: { title: 'Lock Screen :: Lucid Angular' } },
-            { path: 'page-forgot-password', component: PageForgotPasswordComponent, data: { title: 'Forgot Password :: Lucid Angular' } },
-            { path: 'page-404', component: PageNotFoundComponent, data: { title: 'Page-404 :: Lucid Angular' } },
-            { path: 'page-403', component: PageForbiddonErrorComponent, data: { title: 'Page-403 :: Lucid Angular' } },
-            { path: 'page-500', component: PageIsErrorComponent, data: { title: 'Page-500 :: Lucid Angular' } },
-            { path: 'page-503', component: PageTryLaterComponent, data: { title: 'Page-503 :: Lucid Angular' } },
-            { path: 'page-maintanance', component: PageMaintananceComponent, data: { title: 'maintanance :: Lucid Angular' } }
-        ]
-    }
+  {
+    path: '',
+    component: AuthenticationComponent,
+    children: [
+      { path: '', redirectTo: 'page-login', pathMatch: 'full' },
+      { path: 'page-login', component: PageLoginComponent, data: { title: 'Login :: Craft Beer Store' } },
+      { path: 'page-register', component: PageRegisterComponent, data: { title: 'Registro :: Craft Beer Store' } },
+      { path: 'page-lockscreen', component: PageLockscreenComponent, data: { title: 'Lock Screen :: Craft Beer Store' } },
+      { path: 'page-forgot-password', component: PageForgotPasswordComponent, data: { title: 'Forgot Password :: Craft Beer Store' } },
+      { path: 'page-404', component: PageNotFoundComponent, data: { title: 'Page-404 :: Craft Beer Store' } },
+      { path: 'page-403', component: PageForbiddonErrorComponent, data: { title: 'Page-403 :: Craft Beer Store' } },
+      { path: 'page-500', component: PageIsErrorComponent, data: { title: 'Page-500 :: Craft Beer Store' } },
+      { path: 'page-503', component: PageTryLaterComponent, data: { title: 'Page-503 :: Craft Beer Store' } },
+      { path: 'page-maintanance', component: PageMaintananceComponent, data: { title: 'maintanance :: Craft Beer Store' } }
+    ]
+  }
 ];
 
 export const routing = RouterModule.forChild(routes);

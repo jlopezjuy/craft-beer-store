@@ -38,6 +38,7 @@
         "insumoRecomendado": "Insumo Recomendado",
         "compraInsumo": "Compra de Insumos",
         "compraInsumoDetalle": "Compra Insumo Detalle",
+        "empresa": "Empresa",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

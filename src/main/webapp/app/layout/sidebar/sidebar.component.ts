@@ -2,8 +2,11 @@ import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core
 import { ThemeService } from '../../services/theme.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { LoginService } from '../../core';
+import { Account, AccountService, LoginService } from '../../core';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'ngx-webstorage';
+import { EmpresaService } from '../../entities/empresa';
+import { IEmpresa } from '../../shared/model/empresa.model';
 
 @Component({
   selector: 'jhi-sidebar',
@@ -20,14 +23,27 @@ export class SidebarComponent implements OnDestroy {
   public themeClass: string = 'theme-cyan';
   public darkClass: string = '';
   private ngUnsubscribe = new Subject();
+  empresa: IEmpresa;
+  account: any;
 
-  constructor(private themeService: ThemeService, private loginService: LoginService, private router: Router) {
+  constructor(
+    private themeService: ThemeService,
+    private loginService: LoginService,
+    private router: Router,
+    protected $localStorage: LocalStorageService,
+    protected empresaService: EmpresaService,
+    private accountService: AccountService
+  ) {
+    this.accountService.identity().then((account: Account) => {
+      this.account = account;
+    });
     this.themeService.themeClassChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(themeClass => {
       this.themeClass = themeClass;
     });
     this.themeService.darkClassChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(darkClass => {
       this.darkClass = darkClass;
     });
+    this.empresa = this.$localStorage.retrieve('empresa');
   }
 
   ngOnDestroy() {

@@ -28,7 +28,6 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     private final EmpresaMapper empresaMapper;
 
-
     public EmpresaServiceImpl(EmpresaRepository empresaRepository, EmpresaMapper empresaMapper) {
         this.empresaRepository = empresaRepository;
         this.empresaMapper = empresaMapper;
