@@ -65,6 +65,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   loadIngreso() {
     const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
     console.log(empresa);
+    this.sidebarService.loadEmpresa(empresa);
     this.cajaService.findIngresoWeek(empresa.id).subscribe(resp => {
       const data = [];
       let ingresos = 0;
