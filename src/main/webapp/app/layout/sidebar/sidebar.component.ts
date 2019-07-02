@@ -23,7 +23,7 @@ export class SidebarComponent implements OnDestroy {
   public themeClass: string = 'theme-cyan';
   public darkClass: string = '';
   private ngUnsubscribe = new Subject();
-  @Input() empresa: IEmpresa = new Empresa();
+  @Input() empresa: IEmpresa;
   account: any;
   empresaActiva: boolean;
 
