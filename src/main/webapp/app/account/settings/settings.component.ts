@@ -39,7 +39,9 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.empresa = this.$localStorage.retrieve('empresa');
-
+    if (!this.empresa) {
+      this.empresa = new Empresa();
+    }
     this.accountService.identity().then(account => {
       this.settingsAccount = this.copyAccount(account);
     });
@@ -48,6 +50,13 @@ export class SettingsComponent implements OnInit {
     });
     this.visitorsOptions = this.loadLineChartOptions([3, 5, 1, 6, 5, 4, 8, 3], '#49c5b6');
     this.visitsOptions = this.loadLineChartOptions([4, 6, 3, 2, 5, 6, 5, 4], '#f4516c');
+  }
+
+  loadEmpresa(isUpdated: boolean) {
+    if (isUpdated) {
+      this.empresa = this.$localStorage.retrieve('empresa');
+      this.sidebarService.loadEmpresa(this.empresa);
+    }
   }
 
   save() {
@@ -80,6 +89,7 @@ export class SettingsComponent implements OnInit {
   }
 
   protected onSaveSuccess() {
+    this.sidebarService.loadEmpresa(this.empresa);
     // this.isSaving = false;
     // this.previousState();
   }

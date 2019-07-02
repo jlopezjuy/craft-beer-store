@@ -16,15 +16,15 @@ const routes: Routes = [
     component: AuthenticationComponent,
     children: [
       { path: '', redirectTo: 'page-login', pathMatch: 'full' },
-      { path: 'page-login', component: PageLoginComponent, data: { title: 'Login :: Craft Beer Store' } },
-      { path: 'page-register', component: PageRegisterComponent, data: { title: 'Registro :: Craft Beer Store' } },
-      { path: 'page-lockscreen', component: PageLockscreenComponent, data: { title: 'Lock Screen :: Craft Beer Store' } },
-      { path: 'page-forgot-password', component: PageForgotPasswordComponent, data: { title: 'Forgot Password :: Craft Beer Store' } },
-      { path: 'page-404', component: PageNotFoundComponent, data: { title: 'Page-404 :: Craft Beer Store' } },
-      { path: 'page-403', component: PageForbiddonErrorComponent, data: { title: 'Page-403 :: Craft Beer Store' } },
-      { path: 'page-500', component: PageIsErrorComponent, data: { title: 'Page-500 :: Craft Beer Store' } },
-      { path: 'page-503', component: PageTryLaterComponent, data: { title: 'Page-503 :: Craft Beer Store' } },
-      { path: 'page-maintanance', component: PageMaintananceComponent, data: { title: 'maintanance :: Craft Beer Store' } }
+      { path: 'page-login', component: PageLoginComponent, data: { title: 'Login :: Craft Beer Management' } },
+      { path: 'page-register', component: PageRegisterComponent, data: { title: 'Registro :: Craft Beer Management' } },
+      { path: 'page-lockscreen', component: PageLockscreenComponent, data: { title: 'Lock Screen :: Craft Beer Management' } },
+      { path: 'page-forgot-password', component: PageForgotPasswordComponent, data: { title: 'Forgot Password :: Craft Beer Management' } },
+      { path: 'page-404', component: PageNotFoundComponent, data: { title: 'Page-404 :: Craft Beer Management' } },
+      { path: 'page-403', component: PageForbiddonErrorComponent, data: { title: 'Page-403 :: Craft Beer Management' } },
+      { path: 'page-500', component: PageIsErrorComponent, data: { title: 'Page-500 :: Craft Beer Management' } },
+      { path: 'page-503', component: PageTryLaterComponent, data: { title: 'Page-503 :: Craft Beer Management' } },
+      { path: 'page-maintanance', component: PageMaintananceComponent, data: { title: 'maintanance :: Craft Beer Management' } }
     ]
   }
 ];

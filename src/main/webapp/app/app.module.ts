@@ -28,6 +28,7 @@ import { Ng2Webstorage } from 'ngx-webstorage';
 import { CraftBeerStoreSharedModule } from './shared';
 import { CraftBeerStoreCoreModule } from './core';
 import { CraftBeerStoreDashboardModule } from './dashboard/dashboard.module';
+import { CraftBeerStoreAccountModule } from './account/account.module';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: '#00ACC1',

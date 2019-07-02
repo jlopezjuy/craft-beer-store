@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -19,6 +19,7 @@ export class EmpresaUpdateComponent implements OnInit {
   account: Account;
   users: IUser[];
   success: string;
+  @Output() empresaActualizada = new EventEmitter<boolean>();
 
   constructor(
     protected jhiAlertService: JhiAlertService,
@@ -83,12 +84,14 @@ export class EmpresaUpdateComponent implements OnInit {
     this.$localStorage.store('empresa', res.body);
     this.$localStorage.store('empresaActiva', true);
     this.isSaving = false;
+    this.empresaAct(true);
     // this.previousState();
   }
 
   protected onSaveError() {
     this.isSaving = false;
     this.success = null;
+    this.empresaAct(false);
   }
 
   protected onError(errorMessage: string) {
@@ -109,5 +112,9 @@ export class EmpresaUpdateComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  empresaAct(isUpdated: boolean) {
+    this.empresaActualizada.emit(isUpdated);
   }
 }

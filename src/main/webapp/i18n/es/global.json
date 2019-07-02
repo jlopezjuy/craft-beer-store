@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "Craft Beer Store",
+    "title": "Craft Beer Management",
     "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
     "menu": {
       "home": "Inicio",
@@ -13,7 +13,7 @@
         "polarareachart": "PolarAreaChart",
         "radarchart": "RadarChart"
       },
-      "craft-beer-store": "Craft Beer Store",
+      "craft-beer-store": "Craft Beer Management",
       "manual-usuario": "Manual Usuario",
       "resume": "Resume",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
@@ -164,5 +164,5 @@
     "idexists": "A new {{entityName}} cannot already have an ID",
     "idnull": "Invalid ID"
   },
-  "footer": "Craft Beer Store Derechos reservados"
+  "footer": "Craft Beer Management Derechos reservados"
 }

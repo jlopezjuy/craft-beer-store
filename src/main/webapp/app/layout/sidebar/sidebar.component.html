@@ -6,14 +6,6 @@
             <div *ngIf="empresa" class="col-4">
               <img [src]="'data:' + empresa.logoPrincipalContentType + ';base64,' + empresa.logoPrincipal"
                    style="max-height: 200px;" *ngIf="empresa.logoPrincipal" alt="Imagen Cerveceria" class="rounded-circle user-photo"/>
-              <!--            <div *ngIf="empresa.logoPrincipal" class="form-text text-danger clearfix">-->
-              <!--              <span class="pull-left">{{empresa.logoPrincipalContentType}}, {{byteSize(empresa.logoPrincipal)}}</span>-->
-              <!--              <button type="button" (click)="clearInputImage('logoPrincipal', 'logoPrincipalContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">-->
-              <!--                <fa-icon [icon]="'times'"></fa-icon>-->
-              <!--              </button>-->
-              <!--            </div>-->
-              <!--            <input type="file" id="file_logoPrincipal" (change)="setFileData($event, empresa, 'logoPrincipal', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>-->
-
             </div>
             <div class="col-8">
               <div class="dropdown" ngbDropdown>
@@ -61,7 +53,7 @@
 
         <!-- Tab panes -->
         <div class="tab-content p-l-0 p-r-0">
-            <div class="tab-pane" id="menu" [ngClass]="{'active':navTab == 'menu' || !navTab}">
+            <div class="tab-pane" id="menu" [ngClass]="{'active':navTab == 'menu' || !navTab}" [ngSwitch]="isAuthenticated()">
                 <nav id="left-sidebar-nav" class="sidebar-nav">
                     <ul id="main-menu" class="metismenu">
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'dashboard'}">
@@ -76,7 +68,7 @@
                             <a class="has-arrow" (click)="activeInactiveMenu('entity')"><i class="icon-home"></i>
                                 <span>Entity</span></a>
                             <ul *ngIf="currentActiveMenu == 'entity'">
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/empresa']">Empresa</a></li>
+<!--                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/empresa']">Empresa</a></li>-->
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/caja']">Caja</a></li>
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/cliente']">Cliente</a></li>
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/insumo']">Insumo</a></li>
@@ -95,7 +87,7 @@
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/compra-insumo']">Compra de Insumos</a></li>
                             </ul>
                         </li>
-                        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'app'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'app'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('app')"><i class="icon-grid"></i> <span>App</span></a>
                             <ul *ngIf="currentActiveMenu == 'app'">
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/app/app-inbox']">Inbox</a></li>
@@ -105,7 +97,7 @@
                                         Card <span class="badge badge-warning float-right">New</span></a></li>
                             </ul>
                         </li>
-                        <li [ngClass]="{'active':currentActiveMenu == 'file-manager'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'file-manager'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('file-manager')"><i class="icon-folder"></i>
                                 <span>File Manager</span></a>
                             <ul *ngIf="currentActiveMenu == 'file-manager'">
@@ -114,7 +106,7 @@
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/file-manager/file-images']">Images</a></li>
                             </ul>
                         </li>
-                        <li [ngClass]="{'active':currentActiveMenu == 'blogs'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'blogs'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('blogs')"><i class="icon-globe"></i>
                                 <span>Blog</span></a>
                             <ul *ngIf="currentActiveMenu == 'blogs'">
@@ -123,7 +115,7 @@
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/blogs/blog-details']">Blog Details</a></li>
                             </ul>
                         </li>
-                        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'ui-elements'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'ui-elements'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('ui-elements')"><i class="icon-diamond"></i>
                                 <span>UI Elements</span></a>
                             <ul *ngIf="currentActiveMenu == 'ui-elements'">
@@ -145,7 +137,7 @@
                             </ul>
                         </li>
 
-                        <li [ngClass]="{'active':currentActiveMenu == 'widgets'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'widgets'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('widgets')"><i class="icon-puzzle"></i>
                                 <span>Widgets</span></a>
                             <ul *ngIf="currentActiveMenu == 'widgets'">
@@ -160,7 +152,7 @@
                             </ul>
                         </li>
                         
-                        <li [ngClass]="{'active':currentActiveMenu == 'authentication'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'authentication'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('authentication')"><i class="icon-lock"></i>
                                 <span>Authentication</span></a>
                             <ul *ngIf="currentActiveMenu == 'authentication'">
@@ -174,7 +166,7 @@
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/authentication/page-503']">Page 503</a></li>
                             </ul>
                         </li>
-                        <li [ngClass]="{'active':currentActiveMenu == 'pages'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'pages'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('pages')"><i class="icon-docs"></i> <span>Pages</span></a>
                             <ul *ngIf="currentActiveMenu == 'pages'">
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/pages/page-blank']">Blank
@@ -204,7 +196,7 @@
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/pages/page-faq']">FAQ</a></li>
                             </ul>
                         </li>
-                        <li [ngClass]="{'active':currentActiveMenu == 'forms'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'forms'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('forms')"><i class="icon-pencil"></i>
                                 <span>Forms</span></a>
                             <ul *ngIf="currentActiveMenu == 'forms'">
@@ -213,21 +205,21 @@
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/forms/forms-basic']">Basic Elements</a></li>
                             </ul>
                         </li>
-                        <li [ngClass]="{'active':currentActiveMenu == 'tables'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'tables'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('tables')"><i class="icon-tag"></i> <span>Tables</span></a>
                             <ul *ngIf="currentActiveMenu == 'tables'">
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/tables/table-normal']">Normal
                                         Tables</a></li>
                             </ul>
                         </li>
-                        <li [ngClass]="{'active':currentActiveMenu == 'charts'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'charts'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('charts')"><i class="icon-bar-chart"></i>
                                 <span>Charts</span></a>
                             <ul *ngIf="currentActiveMenu == 'charts'">
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/charts/chart-echarts']">E-Charts</a></li>
                             </ul>
                         </li>
-                        <li [ngClass]="{'active':currentActiveMenu == 'maps'}">
+                        <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'maps'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('maps')"><i class="icon-bar-chart"></i>
                                 <span>Maps</span></a>
                             <ul *ngIf="currentActiveMenu == 'maps'">

@@ -1,1 +1,1 @@
-describe('Craft Beer Store Tests', () => {});
+describe('Craft Beer Management Tests', () => {});

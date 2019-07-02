@@ -6,7 +6,7 @@ import { Account, AccountService, LoginService } from '../../core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
 import { EmpresaService } from '../../entities/empresa';
-import { IEmpresa } from '../../shared/model/empresa.model';
+import { Empresa, IEmpresa } from '../../shared/model/empresa.model';
 
 @Component({
   selector: 'jhi-sidebar',
@@ -23,8 +23,9 @@ export class SidebarComponent implements OnDestroy {
   public themeClass: string = 'theme-cyan';
   public darkClass: string = '';
   private ngUnsubscribe = new Subject();
-  empresa: IEmpresa;
+  @Input() empresa: IEmpresa = new Empresa();
   account: any;
+  empresaActiva: boolean;
 
   constructor(
     private themeService: ThemeService,
@@ -43,7 +44,7 @@ export class SidebarComponent implements OnDestroy {
     this.themeService.darkClassChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(darkClass => {
       this.darkClass = darkClass;
     });
-    this.empresa = this.$localStorage.retrieve('empresa');
+    // this.empresa = this.$localStorage.retrieve('empresa');
   }
 
   ngOnDestroy() {
@@ -70,5 +71,10 @@ export class SidebarComponent implements OnDestroy {
   logout() {
     this.loginService.logout();
     this.router.navigate(['/authentication/page-login']);
+  }
+
+  isAuthenticated() {
+    this.empresaActiva = this.$localStorage.retrieve('empresaActiva');
+    return this.accountService.isAuthenticated();
   }
 }
