@@ -44,7 +44,7 @@ export class SidebarComponent implements OnDestroy {
     this.themeService.darkClassChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(darkClass => {
       this.darkClass = darkClass;
     });
-    // this.empresa = this.$localStorage.retrieve('empresa');
+    this.empresa = this.$localStorage.retrieve('empresa');
   }
 
   ngOnDestroy() {

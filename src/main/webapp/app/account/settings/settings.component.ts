@@ -41,6 +41,8 @@ export class SettingsComponent implements OnInit {
     this.empresa = this.$localStorage.retrieve('empresa');
     if (!this.empresa) {
       this.empresa = new Empresa();
+    } else {
+      this.sidebarService.loadEmpresa(this.empresa);
     }
     this.accountService.identity().then(account => {
       this.settingsAccount = this.copyAccount(account);
