@@ -14,16 +14,16 @@ import { Empresa, IEmpresa } from '../../shared/model/empresa.model';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnDestroy {
-  @Input() sidebarVisible: boolean = true;
-  @Input() navTab: string = 'menu';
+  @Input() sidebarVisible = true;
+  @Input() navTab = 'menu';
   @Input() currentActiveMenu;
   @Input() currentActiveSubMenu;
   @Output() changeNavTabEvent = new EventEmitter();
   @Output() activeInactiveMenuEvent = new EventEmitter();
-  public themeClass: string = 'theme-cyan';
-  public darkClass: string = '';
+  public themeClass = 'theme-cyan';
+  public darkClass = '';
   private ngUnsubscribe = new Subject();
-  @Input() empresa: IEmpresa;
+  @Input() empresa: Empresa;
   account: any;
   empresaActiva: boolean;
 

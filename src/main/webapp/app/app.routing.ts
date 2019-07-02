@@ -8,4 +8,4 @@ export const routes: Routes = [
   { path: 'authentication', loadChildren: './authentication/authentication.module#AuthenticationModule' }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: false });
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });
