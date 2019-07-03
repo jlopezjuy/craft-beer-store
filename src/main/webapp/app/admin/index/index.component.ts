@@ -34,6 +34,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   public likes: number = this.LikesOptionsSeries.reduce((a, b) => a + b, 0);
   visibleEmpresa: boolean;
   public interval: any = {};
+  empresa: IEmpresa;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -63,10 +64,10 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   loadIngreso() {
-    const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
-    console.log(empresa);
-    this.sidebarService.loadEmpresa(empresa);
-    this.cajaService.findIngresoWeek(empresa.id).subscribe(resp => {
+    this.empresa = this.$localStorage.retrieve('empresa');
+    console.log(this.empresa);
+    this.sidebarService.loadEmpresa(this.empresa);
+    this.cajaService.findIngresoWeek(this.empresa.id).subscribe(resp => {
       const data = [];
       let ingresos = 0;
       resp.body.forEach(caja => {

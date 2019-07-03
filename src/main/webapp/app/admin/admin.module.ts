@@ -1,4 +1,4 @@
-import { NgModule, ApplicationModule } from '@angular/core';
+import { NgModule, ApplicationModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IndexComponent } from './index/index.component';
 import { routingAdmin } from './admin.routing';
@@ -55,6 +55,10 @@ import {
   JhiTrackerComponent
 } from './';
 import { CraftBeerStoreEntityModule } from '../entities/entity.module';
+import { MovimientoProductosSemanaComponent } from './movimiento-productos-semana/movimiento-productos-semana.component';
+import { MovimientoSemanaGraphComponent } from './movimiento-semana-graph/movimiento-semana-graph.component';
+import { IngresoEgresoGraphComponent } from './ingreso-egreso-graph/ingreso-egreso-graph.component';
+import { ChartModule } from 'primeng/chart';
 @NgModule({
   imports: [
     CraftBeerStoreSharedModule,
@@ -79,7 +83,8 @@ import { CraftBeerStoreEntityModule } from '../entities/entity.module';
     BlogsModule,
     WidgetsModule,
     MapsModule,
-    CraftBeerStoreEntityModule
+    CraftBeerStoreEntityModule,
+    ChartModule
   ],
   declarations: [
     AuditsComponent,
@@ -108,9 +113,13 @@ import { CraftBeerStoreEntityModule } from '../entities/entity.module';
     TopProductsComponent,
     ReferralsComponent,
     TotalRevenueComponent,
-    IotDashboardComponent
+    IotDashboardComponent,
+    IngresoEgresoGraphComponent,
+    MovimientoSemanaGraphComponent,
+    MovimientoProductosSemanaComponent
   ],
-  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }]
+  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AdminModule {
   constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {

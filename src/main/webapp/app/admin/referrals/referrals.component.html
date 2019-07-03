@@ -1,33 +1,19 @@
 <div class="card">
   <div class="header">
-      <h2>Referrals</h2>
-      <jhi-card-actions></jhi-card-actions>
+    <mat-card-title>
+      <h5><span jhiTranslate="dashboard.doughnutchart.home.title">Productos</span></h5>
+    </mat-card-title>
   </div>
   <div class="body">
-      <ul class="list-unstyled list-referrals">
+      <ul class="list-unstyled list-referrals" *ngFor="let producto of productos">
           <li>
-              <p><span class="value">2301</span><span class="text-muted float-right">Facebook visitors</span></p>
-              <div class="progress progress-xs progress-transparent custom-color-blue">
-                  <div class="progress-bar" data-transitiongoal="87" [ngStyle]="{'width.%': facebookTransitiongoal}"></div>
-              </div>
-          </li>
-          <li>
-              <p><span class="value">2107</span><span class="text-muted float-right">Twitter visitors</span></p>
-              <div class="progress progress-xs progress-transparent custom-color-purple">
-                  <div class="progress-bar" [ngStyle]="{'width.%': tweeterTransitiongoal}"></div>
-              </div>
-          </li>                                
-          <li>
-              <p><span class="value">2308</span><span class="text-muted float-right">Google visitors</span></p>
-              <div class="progress progress-xs progress-transparent custom-color-yellow">
-                  <div class="progress-bar" [ngStyle]="{'width.%': searchTransitiongoal}"></div>
-              </div>
-          </li>
-          <li>
-              <p><span class="value">1024</span><span class="text-muted float-right">Affiliates visitors</span></p>
-              <div class="progress progress-xs progress-transparent custom-color-green">
-                  <div class="progress-bar" [ngStyle]="{'width.%': visitsTransitiongoal}"></div>
-              </div>
+              <p><span class="value">{{producto.nombreComercial}}</span>
+                <span class="text-muted float-right">
+                  <a *ngIf="producto.imagen" (click)="openFile(producto.imagenContentType, producto.imagen)">
+                                    <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-height: 30px;" alt="producto image"/>
+                                </a>
+                </span>
+              </p>
           </li>
       </ul>
   </div>
