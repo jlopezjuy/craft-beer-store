@@ -47,8 +47,13 @@ import { WidgetsDataComponent } from '../widgets/widgets-data/widgets-data.compo
 import { IotDashboardComponent } from './iot-dashboard/iot-dashboard.component';
 import { BlogPostComponent } from '../blogs/blog-post/blog-post.component';
 import { PageLeafletComponent } from '../maps/page-leaflet/page-leaflet.component';
+import { UserMgmtComponent } from './user-management/user-management.component';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserMgmtDetailComponent } from './user-management/user-management-detail.component';
+import { UserMgmtUpdateComponent } from './user-management/user-management-update.component';
+import { UserMgmtResolve } from './user-management/user-management.route';
 
-const routes: Routes = [
+const routesAdminRouting: Routes = [
   {
     path: '',
     component: AdminComponent,
@@ -186,6 +191,46 @@ const routes: Routes = [
           {
             path: 'compra-insumo',
             loadChildren: '../entities/compra-insumo/compra-insumo.module#CraftBeerStoreCompraInsumoModule'
+          }
+        ]
+      },
+      {
+        path: 'user-management',
+        children: [
+          {
+            path: '',
+            component: UserMgmtComponent,
+            resolve: {
+              pagingParams: JhiResolvePagingParams
+            },
+            data: {
+              pageTitle: 'userManagement.home.title',
+              defaultSort: 'id,asc'
+            }
+          },
+          {
+            path: ':login/view',
+            component: UserMgmtDetailComponent,
+            resolve: {
+              user: UserMgmtResolve
+            },
+            data: {
+              pageTitle: 'userManagement.home.title'
+            }
+          },
+          {
+            path: 'new',
+            component: UserMgmtUpdateComponent,
+            resolve: {
+              user: UserMgmtResolve
+            }
+          },
+          {
+            path: ':login/edit',
+            component: UserMgmtUpdateComponent,
+            resolve: {
+              user: UserMgmtResolve
+            }
           }
         ]
       },
@@ -339,4 +384,4 @@ const routes: Routes = [
   }
 ];
 
-export const routing = RouterModule.forChild(routes);
+export const routingAdmin = RouterModule.forChild(routesAdminRouting);

@@ -312,7 +312,7 @@
                 jhiTranslate="entity.action.cancel">Cancel</span>
               </button>
               <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
-                      mat-raised-button class="mat-success">
+                      mat-raised-button class="mat-success" *ngIf="compraInsumoAux.estadoCompra === estadoCompra">
                 <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
                 jhiTranslate="entity.action.save">Save</span>
               </button>

@@ -87,6 +87,13 @@
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/compra-insumo']">Compra de Insumos</a></li>
                             </ul>
                         </li>
+                      <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'user-management'}">
+                        <a class="has-arrow" (click)="activeInactiveMenu('user-management')"><i class="icon-lock"></i>
+                          <span>Administracion</span></a>
+                        <ul *ngIf="currentActiveMenu == 'user-management'">
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/user-management']">Administracion de Usuarios</a></li>
+                        </ul>
+                      </li>
                         <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'app'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('app')"><i class="icon-grid"></i> <span>App</span></a>
                             <ul *ngIf="currentActiveMenu == 'app'">

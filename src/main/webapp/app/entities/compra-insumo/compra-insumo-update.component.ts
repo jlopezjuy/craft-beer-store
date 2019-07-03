@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
-import { ICompraInsumo } from 'app/shared/model/compra-insumo.model';
+import { EstadoCompra, ICompraInsumo } from 'app/shared/model/compra-insumo.model';
 import { CompraInsumoService } from './compra-insumo.service';
 import { IProveedor } from 'app/shared/model/proveedor.model';
 import { ProveedorService } from 'app/entities/proveedor';
@@ -24,6 +24,8 @@ import { InsumoRecomendadoService } from '../insumo-recomendado';
 })
 export class CompraInsumoUpdateComponent implements OnInit {
   compraInsumo: ICompraInsumo;
+  compraInsumoAux: ICompraInsumo;
+  estadoCompra = EstadoCompra.PEDIDO_REALIZADO;
   isSaving: boolean;
   compraInsumoDetalles: ICompraInsumoDetalle[];
   compraInsumoDetalle: ICompraInsumoDetalle;
@@ -141,6 +143,14 @@ export class CompraInsumoUpdateComponent implements OnInit {
   }
 
   loadAllOnEdit() {
+    if (this.compraInsumo.id) {
+      this.compraInsumoService.find(this.compraInsumo.id).subscribe(resp => {
+        this.compraInsumoAux = resp.body;
+        console.log(this.compraInsumoAux);
+        console.log(this.estadoCompra);
+      });
+    }
+
     this.compraInsumoDetalleService.findAllByCompraInsumo(this.compraInsumo.id).subscribe(response => {
       this.compraInsumoDetalles = response.body;
     });

@@ -1,7 +1,7 @@
 import { NgModule, ApplicationModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IndexComponent } from './index/index.component';
-import { routing } from './admin.routing';
+import { routingAdmin } from './admin.routing';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -40,84 +40,84 @@ import { IotDashboardComponent } from './iot-dashboard/iot-dashboard.component';
 import { MapsModule } from '../maps/maps.module';
 
 import {
-    adminState,
+  adminState,
+  AuditsComponent,
+  UserMgmtComponent,
+  UserMgmtDetailComponent,
+  UserMgmtUpdateComponent,
+  UserMgmtDeleteDialogComponent,
+  LogsComponent,
+  JhiMetricsMonitoringComponent,
+  JhiHealthModalComponent,
+  JhiHealthCheckComponent,
+  JhiConfigurationComponent,
+  JhiDocsComponent,
+  JhiTrackerComponent
+} from './';
+import { CraftBeerStoreEntityModule } from '../entities/entity.module';
+@NgModule({
+  imports: [
+    CraftBeerStoreSharedModule,
+    RouterModule.forChild(adminState),
+    /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
+    CommonModule,
+    routingAdmin,
+    NgxEchartsModule,
+    LayoutModule,
+    RichTextEditorAllModule,
+    NgbModule,
+    FullCalendarModule,
+    ApplicationsModule,
+    ChartsModule,
+    FileManagerModule,
+    PagesModule,
+    RouterModule,
+    CommonElementsModule,
+    TablesModule,
+    UiElementsModule,
+    FormModule,
+    BlogsModule,
+    WidgetsModule,
+    MapsModule,
+    CraftBeerStoreEntityModule
+  ],
+  declarations: [
     AuditsComponent,
     UserMgmtComponent,
     UserMgmtDetailComponent,
     UserMgmtUpdateComponent,
     UserMgmtDeleteDialogComponent,
     LogsComponent,
-    JhiMetricsMonitoringComponent,
-    JhiHealthModalComponent,
-    JhiHealthCheckComponent,
     JhiConfigurationComponent,
+    JhiHealthCheckComponent,
+    JhiHealthModalComponent,
     JhiDocsComponent,
-    JhiTrackerComponent
-} from './';
-import { CraftBeerStoreEntityModule } from '../entities/entity.module';
-@NgModule({
-    imports: [
-        CraftBeerStoreSharedModule,
-        RouterModule.forChild(adminState),
-        /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
-        CommonModule,
-        routing,
-        NgxEchartsModule,
-        LayoutModule,
-        RichTextEditorAllModule,
-        NgbModule,
-        FullCalendarModule,
-        ApplicationsModule,
-        ChartsModule,
-        FileManagerModule,
-        PagesModule,
-        RouterModule,
-        CommonElementsModule,
-        TablesModule,
-        UiElementsModule,
-        FormModule,
-        BlogsModule,
-        WidgetsModule,
-        MapsModule,
-        CraftBeerStoreEntityModule
-    ],
-    declarations: [
-        AuditsComponent,
-        UserMgmtComponent,
-        UserMgmtDetailComponent,
-        UserMgmtUpdateComponent,
-        UserMgmtDeleteDialogComponent,
-        LogsComponent,
-        JhiConfigurationComponent,
-        JhiHealthCheckComponent,
-        JhiHealthModalComponent,
-        JhiDocsComponent,
-        JhiTrackerComponent,
-        JhiMetricsMonitoringComponent,
-        AdminComponent,
-        IndexComponent,
-        DetailTilesComponent,
-        CardActionsComponent,
-        TimelinePostComponent,
-        ActivitiesComponent,
-        ChatComponent,
-        GeneralFeedComponent,
-        TwitterFeedComponent,
-        MemberInfoComponent,
-        ManagedDataComponent,
-        TopProductsComponent,
-        ReferralsComponent,
-        TotalRevenueComponent,
-        IotDashboardComponent
-    ],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }]
+    JhiTrackerComponent,
+    JhiMetricsMonitoringComponent,
+    AdminComponent,
+    IndexComponent,
+    DetailTilesComponent,
+    CardActionsComponent,
+    TimelinePostComponent,
+    ActivitiesComponent,
+    ChatComponent,
+    GeneralFeedComponent,
+    TwitterFeedComponent,
+    MemberInfoComponent,
+    ManagedDataComponent,
+    TopProductsComponent,
+    ReferralsComponent,
+    TotalRevenueComponent,
+    IotDashboardComponent
+  ],
+  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }]
 })
 export class AdminModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
+  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+    this.languageHelper.language.subscribe((languageKey: string) => {
+      if (languageKey !== undefined) {
+        this.languageService.changeLanguage(languageKey);
+      }
+    });
+  }
 }
