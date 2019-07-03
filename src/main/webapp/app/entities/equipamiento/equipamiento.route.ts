@@ -15,84 +15,84 @@ import { IEquipamiento } from 'app/shared/model/equipamiento.model';
 
 @Injectable({ providedIn: 'root' })
 export class EquipamientoResolve implements Resolve<IEquipamiento> {
-    constructor(private service: EquipamientoService) {}
+  constructor(private service: EquipamientoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IEquipamiento> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Equipamiento>) => response.ok),
-                map((equipamiento: HttpResponse<Equipamiento>) => equipamiento.body)
-            );
-        }
-        return of(new Equipamiento());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IEquipamiento> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Equipamiento>) => response.ok),
+        map((equipamiento: HttpResponse<Equipamiento>) => equipamiento.body)
+      );
     }
+    return of(new Equipamiento());
+  }
 }
 
 export const equipamientoRoute: Routes = [
-    {
-        path: 'equipamiento',
-        component: EquipamientoComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: EquipamientoComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'equipamiento/:id/view',
-        component: EquipamientoDetailComponent,
-        resolve: {
-            equipamiento: EquipamientoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
     },
-    {
-        path: 'equipamiento/new',
-        component: EquipamientoUpdateComponent,
-        resolve: {
-            equipamiento: EquipamientoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/view',
+    component: EquipamientoDetailComponent,
+    resolve: {
+      equipamiento: EquipamientoResolve
     },
-    {
-        path: 'equipamiento/:id/edit',
-        component: EquipamientoUpdateComponent,
-        resolve: {
-            equipamiento: EquipamientoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'new',
+    component: EquipamientoUpdateComponent,
+    resolve: {
+      equipamiento: EquipamientoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/edit',
+    component: EquipamientoUpdateComponent,
+    resolve: {
+      equipamiento: EquipamientoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const equipamientoPopupRoute: Routes = [
-    {
-        path: 'equipamiento/:id/delete',
-        component: EquipamientoDeletePopupComponent,
-        resolve: {
-            equipamiento: EquipamientoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: ':id/delete',
+    component: EquipamientoDeletePopupComponent,
+    resolve: {
+      equipamiento: EquipamientoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
-import { auditsRoute, configurationRoute, docsRoute, healthRoute, logsRoute, metricsRoute, trackerRoute } from './';
+import { auditsRoute, configurationRoute, healthRoute, logsRoute, metricsRoute, trackerRoute } from './';
 
 import { UserRouteAccessService } from 'app/core';
 
-const ADMIN_ROUTES = [auditsRoute, configurationRoute, docsRoute, healthRoute, logsRoute, trackerRoute, metricsRoute];
+const ADMIN_ROUTES = [auditsRoute, configurationRoute, healthRoute, logsRoute, trackerRoute, metricsRoute];
 
 export const adminState: Routes = [
   {

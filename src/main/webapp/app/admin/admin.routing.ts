@@ -52,6 +52,7 @@ import { JhiResolvePagingParams } from 'ng-jhipster';
 import { UserMgmtDetailComponent } from './user-management/user-management-detail.component';
 import { UserMgmtUpdateComponent } from './user-management/user-management-update.component';
 import { UserMgmtResolve } from './user-management/user-management.route';
+import { JhiDocsComponent } from './docs/docs.component';
 
 const routesAdminRouting: Routes = [
   {
@@ -63,8 +64,16 @@ const routesAdminRouting: Routes = [
         path: 'dashboard',
         children: [
           { path: '', redirectTo: 'index', pathMatch: 'full' },
-          { path: 'index', component: IndexComponent, data: { title: ':: Craft Beer Management :: Dashboard :: Analytical ::' } },
-          { path: 'iot', component: IotDashboardComponent, data: { title: ':: Craft Beer Management :: Dashboard :: IoT ::' } }
+          {
+            path: 'index',
+            component: IndexComponent,
+            data: { title: ':: Craft Beer Management :: Dashboard :: Analytical ::' }
+          },
+          {
+            path: 'iot',
+            component: IotDashboardComponent,
+            data: { title: ':: Craft Beer Management :: Dashboard :: IoT ::' }
+          }
         ]
       },
       {
@@ -79,7 +88,11 @@ const routesAdminRouting: Routes = [
                 component: InboxComponent,
                 data: { title: ':: Craft Beer Management :: App :: Inbox ::' }
               },
-              { path: 'compose', component: ComposeComponent, data: { title: ':: Craft Beer Management :: App :: Compose ::' } }
+              {
+                path: 'compose',
+                component: ComposeComponent,
+                data: { title: ':: Craft Beer Management :: App :: Compose ::' }
+              }
             ]
           },
           { path: 'app-chat', component: AppChatComponent, data: { title: ':: Craft Beer Management :: App :: Chat ::' } },
@@ -104,7 +117,11 @@ const routesAdminRouting: Routes = [
             component: TypographyComponent,
             data: { title: ':: Craft Beer Management :: UI Elements :: Typography ::' }
           },
-          { path: 'ui-tabs', component: UiTabsComponent, data: { title: ':: Craft Beer Management :: UI Elements :: Tabs ::' } },
+          {
+            path: 'ui-tabs',
+            component: UiTabsComponent,
+            data: { title: ':: Craft Beer Management :: UI Elements :: Tabs ::' }
+          },
           {
             path: 'ui-buttons',
             component: UiButtonsComponent,
@@ -115,7 +132,11 @@ const routesAdminRouting: Routes = [
             component: UiBootstrapComponent,
             data: { title: ':: Craft Beer Management :: UI Elements :: Bootstrap ::' }
           },
-          { path: 'ui-icons', component: UiIconsComponent, data: { title: ':: Craft Beer Management :: UI Elements :: Icons ::' } },
+          {
+            path: 'ui-icons',
+            component: UiIconsComponent,
+            data: { title: ':: Craft Beer Management :: UI Elements :: Icons ::' }
+          },
           {
             path: 'ui-colors',
             component: UiColorsComponent,
@@ -191,8 +212,19 @@ const routesAdminRouting: Routes = [
           {
             path: 'compra-insumo',
             loadChildren: '../entities/compra-insumo/compra-insumo.module#CraftBeerStoreCompraInsumoModule'
+          },
+          {
+            path: 'equipamiento',
+            loadChildren: '../entities/equipamiento/equipamiento.module#CraftBeerStoreEquipamientoModule'
           }
         ]
+      },
+      {
+        path: 'docs',
+        component: JhiDocsComponent,
+        data: {
+          pageTitle: 'global.menu.admin.apidocs'
+        }
       },
       {
         path: 'user-management',
@@ -238,7 +270,11 @@ const routesAdminRouting: Routes = [
         path: 'pages',
         children: [
           { path: '', redirectTo: 'page-blank', pathMatch: 'full' },
-          { path: 'page-blank', component: PageBlankComponent, data: { title: ':: Craft Beer Management :: Pages :: Blank ::' } },
+          {
+            path: 'page-blank',
+            component: PageBlankComponent,
+            data: { title: ':: Craft Beer Management :: Pages :: Blank ::' }
+          },
           {
             path: 'page-profile',
             component: PageProfileComponent,
@@ -338,8 +374,16 @@ const routesAdminRouting: Routes = [
         path: 'blogs',
         children: [
           { path: '', redirectTo: 'blog-post', pathMatch: 'full' },
-          { path: 'blog-post', component: BlogPostComponent, data: { title: ':: Craft Beer Management :: Blog Post :: Blog ::' } },
-          { path: 'blog-list', component: BlogListComponent, data: { title: ':: Craft Beer Management :: Blog List :: Blog ::' } },
+          {
+            path: 'blog-post',
+            component: BlogPostComponent,
+            data: { title: ':: Craft Beer Management :: Blog Post :: Blog ::' }
+          },
+          {
+            path: 'blog-list',
+            component: BlogListComponent,
+            data: { title: ':: Craft Beer Management :: Blog List :: Blog ::' }
+          },
           {
             path: 'blog-details',
             component: BlogDetailsComponent,
@@ -377,7 +421,11 @@ const routesAdminRouting: Routes = [
         path: 'maps',
         children: [
           { path: '', redirectTo: 'leaflet', pathMatch: 'full' },
-          { path: 'leaflet', component: PageLeafletComponent, data: { title: ':: Craft Beer Management :: Maps :: Leaflet ::' } }
+          {
+            path: 'leaflet',
+            component: PageLeafletComponent,
+            data: { title: ':: Craft Beer Management :: Maps :: Leaflet ::' }
+          }
         ]
       }
     ]

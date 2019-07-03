@@ -68,7 +68,6 @@
                             <a class="has-arrow" (click)="activeInactiveMenu('entity')"><i class="icon-home"></i>
                                 <span>Entity</span></a>
                             <ul *ngIf="currentActiveMenu == 'entity'">
-<!--                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/empresa']">Empresa</a></li>-->
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/caja']">Caja</a></li>
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/cliente']">Cliente</a></li>
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/insumo']">Insumo</a></li>
@@ -76,15 +75,14 @@
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/proveedor']">Proveedor</a></li>
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/movimientos']">Movimientos</a></li>
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/evento']">Evento</a></li>
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/estilos']">Estilos</a></li>
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/equipamiento']">Equipamiento</a></li>
                             </ul>
                         </li>
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'compras'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('compras')"><i class="fa fa-shopping-cart"></i>
                                 <span>Compras</span></a>
                             <ul *ngIf="currentActiveMenu == 'compras'">
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/compra-insumo']">Compra de Insumos</a></li>
+                              <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/compra-insumo']">Compra de Insumos</a></li>
+                              <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/equipamiento']">Equipamiento</a></li>
                             </ul>
                         </li>
                       <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'user-management'}">
@@ -92,6 +90,13 @@
                           <span>Administracion</span></a>
                         <ul *ngIf="currentActiveMenu == 'user-management'">
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/user-management']">Administracion de Usuarios</a></li>
+                        </ul>
+                      </li>
+                      <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'docs'}">
+                        <a class="has-arrow" (click)="activeInactiveMenu('docs')"><i class="fa fa-book"></i>
+                          <span>Api Doc swagger</span></a>
+                        <ul *ngIf="currentActiveMenu == 'docs'">
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/docs']">Apis</a></li>
                         </ul>
                       </li>
                         <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'app'}">
