@@ -143,10 +143,8 @@ export class MovimientosUpdateComponent implements OnInit {
   }
 
   clienteChange(clienteId: number) {
-    console.log(clienteId);
     if (clienteId) {
       this.puntoDeVentaService.findByCliente(clienteId).subscribe(resp => {
-        console.log(resp);
         this.puntosDeVentas = resp.body;
       });
     } else {
@@ -185,8 +183,6 @@ export class MovimientosUpdateComponent implements OnInit {
         this.presentacions.push(pres);
         this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioVentaTotal;
         this.movimientos.litrosTotales = this.movimientos.litrosTotales + this.loadCantidadLitros(this.productoSave);
-        console.log(this.movimientos.litrosTotales);
-
         this.clearFormProduct();
       });
     });
@@ -194,8 +190,6 @@ export class MovimientosUpdateComponent implements OnInit {
 
   loadCantidadLitros(producto: IProducto) {
     let litrosFinales;
-    console.log(producto);
-    console.log(producto.cantidadPresentacion);
     switch (producto.tipoPresentacion) {
       case TipoPresentacion.BOTELLA_330: {
         litrosFinales = Number(producto.cantidadPresentacion / 3).toFixed(2);
@@ -218,7 +212,6 @@ export class MovimientosUpdateComponent implements OnInit {
         break;
       }
     }
-    console.log(+litrosFinales);
     return +litrosFinales;
   }
 

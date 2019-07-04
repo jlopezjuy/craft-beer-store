@@ -68,7 +68,6 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   loadIngreso() {
     this.empresa = this.$localStorage.retrieve('empresa');
-    console.log(this.empresa);
     this.sidebarService.loadEmpresa(this.empresa);
     this.cajaService.findIngresoWeek(this.empresa.id).subscribe(resp => {
       const data = [];
@@ -89,7 +88,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   showToastr() {
-    this.toastr.info('Hello, welcome to Lucid, a unique admin Template.', undefined, {
+    this.toastr.info('Hola, bienvenido a su panel de administració.', undefined, {
       closeButton: true,
       positionClass: 'toast-top-right'
     });

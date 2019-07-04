@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EmpresaService } from '../../account/settings/empresa';
 import { IEmpresa } from '../../shared/model/empresa.model';
 import { LocalStorageService } from 'ngx-webstorage';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'jhi-page-login',
@@ -30,7 +31,8 @@ export class PageLoginComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private empresaService: EmpresaService,
-    private $localStorage: LocalStorageService
+    private $localStorage: LocalStorageService,
+    public sidebarService: SidebarService
   ) {}
 
   ngOnInit() {}
@@ -49,18 +51,15 @@ export class PageLoginComponent implements OnInit {
       .then(() => {
         this.authenticationError = false;
         // this.activeModal.dismiss('login success');
-        console.log(this.router.url);
         this.empresaService.findEmpresa().subscribe(
           resp => {
             this.empresa = resp.body;
-            console.log(this.empresa);
+            this.sidebarService.loadEmpresa(this.empresa);
             this.$localStorage.store('empresa', resp.body);
             this.$localStorage.store('empresaActiva', true);
             this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
           },
           error => {
-            console.log(error);
-            console.log('error');
             this.$localStorage.store('empresaActiva', false);
             this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
           }

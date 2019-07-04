@@ -151,7 +151,6 @@ export class EventoUpdateComponent implements OnInit {
   }
 
   saveEventoProducto(eventoId: number) {
-    console.log(this.productosList);
     this.productosList.forEach(prod => {
       const eventoProducto: IEventoProducto = new EventoProducto();
       eventoProducto.eventoId = eventoId;

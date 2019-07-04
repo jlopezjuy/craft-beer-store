@@ -49,7 +49,6 @@ export class ProveedorUpdateComponent implements OnInit {
 
   clearFormBeforeSave() {
     if (this.proveedor.correo !== undefined && this.proveedor.correo.length < 1) {
-      console.log(this.proveedor.correo);
       this.proveedor.correo = null;
     }
   }

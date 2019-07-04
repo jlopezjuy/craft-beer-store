@@ -101,7 +101,6 @@ export class CompraInsumoUpdateComponent implements OnInit {
     });
     this.compraInsumoDetalleService.createList(this.compraInsumoDetalles).subscribe(resp => {
       console.log('ok');
-      console.log(resp);
     });
   }
 
@@ -110,10 +109,8 @@ export class CompraInsumoUpdateComponent implements OnInit {
     this.compraInsumoDetalles.forEach(compra => {
       this.compraInsumo.subtotal = this.compraInsumo.subtotal + compra.precio;
     });
-    console.log(this.compraInsumo);
     this.compraInsumo.total =
       this.compraInsumo.subtotal + (this.compraInsumo.subtotal * this.compraInsumo.impuesto) / 100 + this.compraInsumo.gastoDeEnvio;
-    console.log(this.compraInsumo);
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ICompraInsumo>>) {
@@ -146,8 +143,6 @@ export class CompraInsumoUpdateComponent implements OnInit {
     if (this.compraInsumo.id) {
       this.compraInsumoService.find(this.compraInsumo.id).subscribe(resp => {
         this.compraInsumoAux = resp.body;
-        console.log(this.compraInsumoAux);
-        console.log(this.estadoCompra);
       });
     }
 
@@ -165,7 +160,6 @@ export class CompraInsumoUpdateComponent implements OnInit {
   }
 
   addInsumo() {
-    console.log(this.compraInsumoDetalle);
     this.compraInsumoDetalles.push(this.compraInsumoDetalle);
     this.compraInsumo.subtotal = this.compraInsumo.subtotal + this.compraInsumoDetalle.precio;
     this.compraInsumo.total =

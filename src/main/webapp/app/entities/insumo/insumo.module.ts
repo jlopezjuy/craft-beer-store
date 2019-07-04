@@ -5,31 +5,30 @@ import { JhiLanguageHelper } from 'app/core';
 
 import { CraftBeerStoreSharedModule } from 'app/shared';
 import {
-    InsumoComponent,
-    InsumoDetailComponent,
-    InsumoUpdateComponent,
-    InsumoDeletePopupComponent,
-    InsumoDeleteDialogComponent,
-    insumoRoute,
-    insumoPopupRoute
+  InsumoComponent,
+  InsumoDetailComponent,
+  InsumoUpdateComponent,
+  InsumoDeletePopupComponent,
+  InsumoDeleteDialogComponent,
+  insumoRoute,
+  insumoPopupRoute
 } from './';
 
 const ENTITY_STATES = [...insumoRoute, ...insumoPopupRoute];
 
 @NgModule({
-    imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [InsumoComponent, InsumoDetailComponent, InsumoUpdateComponent, InsumoDeleteDialogComponent, InsumoDeletePopupComponent],
-    entryComponents: [InsumoComponent, InsumoUpdateComponent, InsumoDeleteDialogComponent, InsumoDeletePopupComponent],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
+  declarations: [InsumoComponent, InsumoDetailComponent, InsumoUpdateComponent, InsumoDeleteDialogComponent, InsumoDeletePopupComponent],
+  entryComponents: [InsumoComponent, InsumoUpdateComponent, InsumoDeleteDialogComponent, InsumoDeletePopupComponent],
+  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CraftBeerStoreInsumoModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            console.log(languageKey);
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
+  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+    this.languageHelper.language.subscribe((languageKey: string) => {
+      if (languageKey !== undefined) {
+        this.languageService.changeLanguage(languageKey);
+      }
+    });
+  }
 }

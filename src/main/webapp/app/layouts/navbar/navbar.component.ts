@@ -6,7 +6,7 @@
 //
 // import { VERSION } from 'app/app.constants';
 // import { JhiLanguageHelper, AccountService, LoginModalService, LoginService } from 'app/core';
-// // import { ProfileService } from 'app/layouts/profiles/profile.service';
+// import { ProfileService } from 'app/layouts/profiles/profile.service';
 //
 // @Component({
 //     selector: 'jhi-navbar',
@@ -42,10 +42,10 @@
 //             this.languages = languages;
 //         });
 //
-//         // this.profileService.getProfileInfo().then(profileInfo => {
-//         //     this.inProduction = profileInfo.inProduction;
-//         //     this.swaggerEnabled = profileInfo.swaggerEnabled;
-//         // });
+//         this.profileService.getProfileInfo().then(profileInfo => {
+//             this.inProduction = profileInfo.inProduction;
+//             this.swaggerEnabled = profileInfo.swaggerEnabled;
+//         });
 //         this.empresaActiva = this.$localStorage.retrieve('empresaActiva');
 //     }
 //

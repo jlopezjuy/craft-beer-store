@@ -22,13 +22,11 @@ export class MovimientoSemanaGraphComponent implements OnInit {
   }
 
   loadGraph() {
-    console.log(this.dias);
     const label: string[] = [];
     const ventas = [];
     const presupuesto = [];
     this.movimientoService.queryBySemanaEmpresa(this.empresa.id, this.dias).subscribe(resp => {
       resp.body.forEach(sem => {
-        console.log(sem);
         label.push(sem.fechaMovimiento.format('DD/MM').toString());
         if (sem.tipoMovimiento === TipoMovimiento.VENTA) {
           ventas.push(sem.total);
@@ -58,7 +56,6 @@ export class MovimientoSemanaGraphComponent implements OnInit {
   }
 
   diasChange(dias: string) {
-    console.log(dias);
     this.dias = dias;
     this.loadGraph();
   }

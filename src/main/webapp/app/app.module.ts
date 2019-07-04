@@ -1,7 +1,7 @@
 import './vendor.ts';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { NgbDatepickerConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -18,7 +18,7 @@ import * as moment from 'moment';
 import * as $ from 'jquery';
 import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';
 import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
@@ -29,6 +29,7 @@ import { CraftBeerStoreSharedModule } from './shared';
 import { CraftBeerStoreCoreModule } from './core';
 import { CraftBeerStoreDashboardModule } from './dashboard/dashboard.module';
 import { CraftBeerStoreAccountModule } from './account/account.module';
+import { NgJhipsterModule } from 'ng-jhipster';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: '#00ACC1',
@@ -66,6 +67,13 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     BrowserAnimationsModule,
     FlexLayoutModule,
     Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
+    NgJhipsterModule.forRoot({
+      // set below to true to make alerts look like toast
+      alertAsToast: false,
+      alertTimeout: 5000,
+      i18nEnabled: true,
+      defaultI18nLang: 'es'
+    }),
     ToastrModule.forRoot(),
     RichTextEditorAllModule,
     FullCalendarModule,

@@ -23,7 +23,6 @@ export class MovimientoProductosSemanaComponent implements OnInit {
     const cantidades = [];
     this.data = null;
     this.movimientosService.queryProductoBySemanaEmpresa(this.empresa.id, this.dias).subscribe(resp => {
-      console.log(resp);
       resp.body.forEach(mov => {
         label.push(mov.nombreProducto);
         cantidades.push(mov.cantidad);
@@ -42,7 +41,6 @@ export class MovimientoProductosSemanaComponent implements OnInit {
   }
 
   diasChange(dias: string) {
-    console.log(dias);
     this.dias = dias;
     this.loadGraph();
   }

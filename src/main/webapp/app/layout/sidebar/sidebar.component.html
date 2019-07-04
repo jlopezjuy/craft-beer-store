@@ -8,7 +8,7 @@
                    style="max-height: 200px;" *ngIf="empresa.logoPrincipal" alt="Imagen Cerveceria" class="rounded-circle user-photo"/>
             </div>
             <div class="col-8">
-              <div class="dropdown" ngbDropdown>
+              <div class="dropdown" ngbDropdown *ngIf="account">
                 <span>Bienvenido,</span>
                 <a href="javascript:void(0);" class="dropdown-toggle user-name" ngbDropdownToggle><strong>{{account.firstName}}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account" ngbDropdownMenu>
@@ -57,7 +57,7 @@
                 <nav id="left-sidebar-nav" class="sidebar-nav">
                     <ul id="main-menu" class="metismenu">
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'dashboard'}">
-                            <a class="has-arrow" (click)="activeInactiveMenu('dashboard')"><i class="icon-home"></i>
+                            <a class="has-arrow" (click)="activeInactiveMenu('dashboard')"><i class="icon-equalizer"></i>
                                 <span>Tablero</span></a>
                             <ul *ngIf="currentActiveMenu == 'dashboard'">
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/index']">Estadisticas</a></li>
