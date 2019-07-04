@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CajaService } from '../../entities/caja';
 import { IEmpresa } from '../../shared/model/empresa.model';
 import { LocalStorageService } from 'ngx-webstorage';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'jhi-index',
@@ -42,7 +43,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
     protected cajaService: CajaService,
-    private $localStorage: LocalStorageService
+    private $localStorage: LocalStorageService,
+    private titleService: Title
   ) {
     this.visitorsOptions = this.loadLineChartOptions([3, 5, 1, 6, 5, 4, 8, 3], '#49c5b6');
     this.visitsOptions = this.loadLineChartOptions([4, 6, 3, 2, 5, 6, 5, 4], '#f4516c');
@@ -54,6 +56,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Craft Beer Management');
     let that = this;
     setTimeout(function() {
       that.showToastr();

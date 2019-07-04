@@ -67,7 +67,7 @@ const routesAdminRouting: Routes = [
           {
             path: 'index',
             component: IndexComponent,
-            data: { title: ':: Craft Beer Management :: Dashboard :: Analytical ::' }
+            data: { title: ':: Craft Beer Management :: Dashboard :: ' }
           },
           {
             path: 'iot',
