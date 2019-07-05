@@ -78,4 +78,8 @@ export class PageRegisterComponent implements OnInit {
       this.error = 'ERROR';
     }
   }
+
+  previousState() {
+    window.history.back();
+  }
 }

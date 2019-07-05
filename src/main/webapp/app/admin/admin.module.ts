@@ -1,4 +1,4 @@
-import { NgModule, ApplicationModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IndexComponent } from './index/index.component';
 import { routingAdmin } from './admin.routing';
@@ -6,7 +6,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FullCalendarModule } from 'ng-fullcalendar';
-
 import { AdminComponent } from './admin/admin.component';
 import { DetailTilesComponent } from './detail-tiles/detail-tiles.component';
 import { CardActionsComponent } from './card-actions/card-actions.component';
@@ -59,6 +58,7 @@ import { MovimientoProductosSemanaComponent } from './movimiento-productos-seman
 import { MovimientoSemanaGraphComponent } from './movimiento-semana-graph/movimiento-semana-graph.component';
 import { IngresoEgresoGraphComponent } from './ingreso-egreso-graph/ingreso-egreso-graph.component';
 import { ChartModule } from 'primeng/chart';
+
 @NgModule({
   imports: [
     CraftBeerStoreSharedModule,

@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { JhiLanguageService } from 'ng-jhipster';
 import { CraftBeerStoreSharedModule } from '../shared';
 import { PasswordStrengthBarComponent } from './passwordRegister/password-strength-bar.component';
+import { JhiLanguageHelper } from '../core';
 
 // import {PasswordResetFinishComponent, PasswordResetInitComponent, PasswordStrengthBarComponent} from "../account";
 
@@ -33,7 +34,17 @@ import { PasswordStrengthBarComponent } from './passwordRegister/password-streng
     PasswordStrengthBarComponent
   ],
   imports: [CommonModule, routing, PagesModule, RouterModule, FormsModule, CraftBeerStoreSharedModule],
+  entryComponents: [PageLoginComponent],
+  exports: [PageLoginComponent],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AuthenticationModule {}
+export class AuthenticationModule {
+  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+    this.languageHelper.language.subscribe((languageKey: string) => {
+      if (languageKey !== undefined) {
+        this.languageService.changeLanguage(languageKey);
+      }
+    });
+  }
+}

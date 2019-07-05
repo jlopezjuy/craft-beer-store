@@ -100,4 +100,14 @@ export class PageLoginComponent implements OnInit {
     };
     this.authenticationError = false;
   }
+
+  register() {
+    // this.activeModal.dismiss('to state register');
+    this.router.navigate(['/authentication/page-register']);
+  }
+
+  requestResetPassword() {
+    // this.activeModal.dismiss('to state requestReset');
+    this.router.navigate(['/authentication/page-forgot-password']);
+  }
 }
