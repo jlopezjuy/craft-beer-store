@@ -9,52 +9,52 @@ import { ProductoService } from 'app/entities/producto/producto.service';
 import { Producto } from 'app/shared/model/producto.model';
 
 describe('Component Tests', () => {
-    describe('Producto Management Update Component', () => {
-        let comp: ProductoUpdateComponent;
-        let fixture: ComponentFixture<ProductoUpdateComponent>;
-        let service: ProductoService;
+  describe('Producto Management Update Component', () => {
+    let comp: ProductoUpdateComponent;
+    let fixture: ComponentFixture<ProductoUpdateComponent>;
+    let service: ProductoService;
 
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [CraftBeerStoreTestModule],
-                declarations: [ProductoUpdateComponent]
-            })
-                .overrideTemplate(ProductoUpdateComponent, '')
-                .compileComponents();
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [CraftBeerStoreTestModule],
+        declarations: [ProductoUpdateComponent]
+      })
+        .overrideTemplate(ProductoUpdateComponent, '')
+        .compileComponents();
 
-            fixture = TestBed.createComponent(ProductoUpdateComponent);
-            comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(ProductoService);
-        });
-
-        describe('save', () => {
-            it('Should call update service on save for existing entity', fakeAsync(() => {
-                // GIVEN
-                const entity = new Producto(123);
-                spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
-                comp.producto = entity;
-                // WHEN
-                comp.save();
-                tick(); // simulate async
-
-                // THEN
-                expect(service.update).toHaveBeenCalledWith(entity);
-                expect(comp.isSaving).toEqual(false);
-            }));
-
-            it('Should call create service on save for new entity', fakeAsync(() => {
-                // GIVEN
-                const entity = new Producto();
-                spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
-                comp.producto = entity;
-                // WHEN
-                comp.save();
-                tick(); // simulate async
-
-                // THEN
-                expect(service.create).toHaveBeenCalledWith(entity);
-                expect(comp.isSaving).toEqual(false);
-            }));
-        });
+      fixture = TestBed.createComponent(ProductoUpdateComponent);
+      comp = fixture.componentInstance;
+      service = fixture.debugElement.injector.get(ProductoService);
     });
+
+    describe('save', () => {
+      it('Should call update service on save for existing entity', fakeAsync(() => {
+        // GIVEN
+        const entity = new Producto(123);
+        spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
+        comp.producto = entity;
+        // WHEN
+        comp.save();
+        tick(); // simulate async
+
+        // THEN
+        expect(service.update).toHaveBeenCalledWith(entity);
+        expect(comp.isSaving).toEqual(false);
+      }));
+
+      it('Should call create service on save for new entity', fakeAsync(() => {
+        // GIVEN
+        const entity = new Producto();
+        spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
+        comp.producto = entity;
+        // WHEN
+        comp.save();
+        tick(); // simulate async
+
+        // THEN
+        expect(service.create).toHaveBeenCalledWith(entity);
+        expect(comp.isSaving).toEqual(false);
+      }));
+    });
+  });
 });

@@ -29,6 +29,8 @@ public class ProductoDTO implements Serializable {
     @Lob
     private String observacion;
 
+    private String srmColor;
+
 
     private Long empresaId;
 
@@ -100,6 +102,14 @@ public class ProductoDTO implements Serializable {
         this.observacion = observacion;
     }
 
+    public String getSrmColor() {
+        return srmColor;
+    }
+
+    public void setSrmColor(String srmColor) {
+        this.srmColor = srmColor;
+    }
+
     public Long getEmpresaId() {
         return empresaId;
     }
@@ -155,6 +165,7 @@ public class ProductoDTO implements Serializable {
             ", tipoProducto='" + getTipoProducto() + "'" +
             ", imagen='" + getImagen() + "'" +
             ", observacion='" + getObservacion() + "'" +
+            ", srmColor='" + getSrmColor() + "'" +
             ", empresa=" + getEmpresaId() +
             ", estilos=" + getEstilosId() +
             ", estilos='" + getEstilosNombreEstilo() + "'" +

@@ -21,17 +21,20 @@ export class MovimientoProductosSemanaComponent implements OnInit {
   private loadGraph() {
     const label = [];
     const cantidades = [];
+    const colores = [];
     this.data = null;
     this.movimientosService.queryProductoBySemanaEmpresa(this.empresa.id, this.dias).subscribe(resp => {
       resp.body.forEach(mov => {
         label.push(mov.nombreProducto);
         cantidades.push(mov.cantidad);
+        colores.push(mov.color);
+        console.log(mov);
       });
       this.data = {
         datasets: [
           {
             data: cantidades,
-            backgroundColor: ['#ff6961', '#282828', '#FFCE56'],
+            backgroundColor: colores,
             label: 'Productos Vendidos en los ultimos 7 días'
           }
         ],

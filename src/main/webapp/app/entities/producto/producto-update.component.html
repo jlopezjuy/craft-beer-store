@@ -67,6 +67,30 @@
                                     <mat-option value="ESPECIAL">{{'craftBeerStoreApp.TipoProducto.ESPECIAL' | translate}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
+                            <mat-form-field>
+                              <mat-label jhiTranslate="craftBeerStoreApp.producto.srmColor">
+                                Lupulo
+                              </mat-label>
+                              <mat-select name="srmColor"
+                                          [(ngModel)]="producto.srmColor"
+                                          id="field_srmColor" required>
+                                <mat-option value=""></mat-option>
+                                <mat-option *ngFor="let color of colores"
+                                            [value]="color.name">
+                                  <div class="row">
+                                    <div class="col-sm-6"> <div [ngStyle]="setMyStyles(color.name)" class="logo-glass"> </div></div>
+                                    <div class="col-sm-6">{{color.id}}</div>
+                                  </div>
+
+                                </mat-option>
+                              </mat-select>
+
+<!--                                <mat-label jhiTranslate="craftBeerStoreApp.producto.srmColor" for="field_srmColor">Srm Color</mat-label>-->
+<!--                                <input matInput type="text" name="srmColor" id="field_srmColor2"-->
+<!--                                       [(ngModel)]="producto.srmColor" />-->
+
+                              <div [ngStyle]="setMyStyles(producto.srmColor)" class="logo-glass"></div>
+                            </mat-form-field>
                             <div class="form-group">
                                 <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.imagen" for="field_imagen">Imagen</label>
                                 <div>

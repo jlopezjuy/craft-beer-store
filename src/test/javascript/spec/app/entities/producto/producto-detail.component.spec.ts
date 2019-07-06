@@ -8,33 +8,33 @@ import { ProductoDetailComponent } from 'app/entities/producto/producto-detail.c
 import { Producto } from 'app/shared/model/producto.model';
 
 describe('Component Tests', () => {
-    describe('Producto Management Detail Component', () => {
-        let comp: ProductoDetailComponent;
-        let fixture: ComponentFixture<ProductoDetailComponent>;
-        const route = ({ data: of({ producto: new Producto(123) }) } as any) as ActivatedRoute;
+  describe('Producto Management Detail Component', () => {
+    let comp: ProductoDetailComponent;
+    let fixture: ComponentFixture<ProductoDetailComponent>;
+    const route = ({ data: of({ producto: new Producto(123) }) } as any) as ActivatedRoute;
 
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [CraftBeerStoreTestModule],
-                declarations: [ProductoDetailComponent],
-                providers: [{ provide: ActivatedRoute, useValue: route }]
-            })
-                .overrideTemplate(ProductoDetailComponent, '')
-                .compileComponents();
-            fixture = TestBed.createComponent(ProductoDetailComponent);
-            comp = fixture.componentInstance;
-        });
-
-        describe('OnInit', () => {
-            it('Should call load all on init', () => {
-                // GIVEN
-
-                // WHEN
-                comp.ngOnInit();
-
-                // THEN
-                expect(comp.producto).toEqual(jasmine.objectContaining({ id: 123 }));
-            });
-        });
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [CraftBeerStoreTestModule],
+        declarations: [ProductoDetailComponent],
+        providers: [{ provide: ActivatedRoute, useValue: route }]
+      })
+        .overrideTemplate(ProductoDetailComponent, '')
+        .compileComponents();
+      fixture = TestBed.createComponent(ProductoDetailComponent);
+      comp = fixture.componentInstance;
     });
+
+    describe('OnInit', () => {
+      it('Should call load all on init', () => {
+        // GIVEN
+
+        // WHEN
+        comp.ngOnInit();
+
+        // THEN
+        expect(comp.producto).toEqual(jasmine.objectContaining({ id: 123 }));
+      });
+    });
+  });
 });

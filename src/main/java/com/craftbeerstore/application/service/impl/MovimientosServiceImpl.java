@@ -135,15 +135,8 @@ public class MovimientosServiceImpl implements MovimientosService {
         List<MovimientosProductoSemanaDTO> list = new ArrayList<>();
         List<Object[]> movimientos = this.movimientosRepository.queryVentaProductoSemana(empresaId, LocalDate.now().minusDays(Long.valueOf(dias)), LocalDate.now());
         movimientos.forEach(mov -> {
-          List<Receta> recetas = this.recetaRepository.findAllByProducto(this.productoRepository.getOne(Long.valueOf(mov[6].toString())));
-          if(recetas.isEmpty()){
-            list.add(new MovimientosProductoSemanaDTO(Long.valueOf(mov[0].toString()), TipoMovimiento.valueOf(mov[1].toString()), LocalDate.parse(mov[2].toString()),
-              BigDecimal.valueOf(Double.valueOf(mov[3].toString())), Long.valueOf(mov[4].toString()), mov[5].toString(), ""));
-          } else {
-            list.add(new MovimientosProductoSemanaDTO(Long.valueOf(mov[0].toString()), TipoMovimiento.valueOf(mov[1].toString()), LocalDate.parse(mov[2].toString()),
-              BigDecimal.valueOf(Double.valueOf(mov[3].toString())), Long.valueOf(mov[4].toString()), mov[5].toString(), recetas.get(0).getSrm().toString()));
-          }
-
+          list.add(new MovimientosProductoSemanaDTO(Long.valueOf(mov[0].toString()), TipoMovimiento.valueOf(mov[1].toString()), LocalDate.parse(mov[2].toString()),
+                BigDecimal.valueOf(Double.valueOf(mov[3].toString())), Long.valueOf(mov[4].toString()), mov[5].toString(), mov[6].toString()));
         });
         return list;
     }

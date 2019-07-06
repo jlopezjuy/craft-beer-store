@@ -54,6 +54,9 @@ public class Producto implements Serializable {
     @Column(name = "observacion")
     private String observacion;
 
+    @Column(name = "srm_color")
+    private String srmColor;
+
     @ManyToOne
     @JsonIgnoreProperties("productos")
     private Empresa empresa;
@@ -162,6 +165,19 @@ public class Producto implements Serializable {
         this.observacion = observacion;
     }
 
+    public String getSrmColor() {
+        return srmColor;
+    }
+
+    public Producto srmColor(String srmColor) {
+        this.srmColor = srmColor;
+        return this;
+    }
+
+    public void setSrmColor(String srmColor) {
+        this.srmColor = srmColor;
+    }
+
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -220,6 +236,7 @@ public class Producto implements Serializable {
             ", imagen='" + getImagen() + "'" +
             ", imagenContentType='" + getImagenContentType() + "'" +
             ", observacion='" + getObservacion() + "'" +
+            ", srmColor='" + getSrmColor() + "'" +
             "}";
     }
 }

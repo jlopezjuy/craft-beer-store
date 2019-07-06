@@ -31,6 +31,7 @@ public class MovimientosProductoSemanaDTO implements Serializable {
     @JsonProperty(value = "nombreProducto")
     private String nombreProducto;
 
+    @JsonProperty(value = "color")
     private String color;
 
 

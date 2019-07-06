@@ -15,7 +15,8 @@ import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'jhi-producto-update',
-  templateUrl: './producto-update.component.html'
+  templateUrl: './producto-update.component.html',
+  styleUrls: ['producto-update.component.scss']
 })
 export class ProductoUpdateComponent implements OnInit {
   producto: IProducto;
@@ -30,6 +31,8 @@ export class ProductoUpdateComponent implements OnInit {
   filteredOptions: Observable<IEstilos[]>;
 
   initialValues = '';
+
+  colores: any;
 
   constructor(
     protected dataUtils: JhiDataUtils,
@@ -67,6 +70,7 @@ export class ProductoUpdateComponent implements OnInit {
         this.initialValues = '';
       }
     });
+    this.loadColores();
   }
 
   byteSize(field) {
@@ -151,5 +155,61 @@ export class ProductoUpdateComponent implements OnInit {
         return this.filter(value);
       })
     );
+  }
+
+  setMyStyles(color: string) {
+    return {
+      'background-color': color,
+      border: '0px solid ' + color,
+      width: '20px',
+      height: '36px'
+    };
+  }
+
+  loadColores() {
+    const colorMap = [
+      { id: 1, name: '#FFE699' },
+      { id: 2, name: '#FFD878' },
+      { id: 3, name: '#FFCA5A' },
+      { id: 4, name: '#FFBF42' },
+      { id: 5, name: '#FBB123' },
+      { id: 6, name: '#F8A600' },
+      { id: 7, name: '#F39C00' },
+      { id: 8, name: '#EA8F00' },
+      { id: 9, name: '#E58500' },
+      { id: 10, name: '#DE7C00' },
+      { id: 11, name: '#D77200' },
+      { id: 12, name: '#CF6900' },
+      { id: 13, name: '#CB6200' },
+      { id: 14, name: '#C35900' },
+      { id: 15, name: '#BB5100' },
+      { id: 16, name: '#B54C00' },
+      { id: 17, name: '#B04500' },
+      { id: 18, name: '#A63E00' },
+      { id: 19, name: '#A13700' },
+      { id: 20, name: '#9B3200' },
+      { id: 21, name: '#952D00' },
+      { id: 22, name: '#8E2900' },
+      { id: 23, name: '#882300' },
+      { id: 24, name: '#821E00' },
+      { id: 25, name: '#7B1A00' },
+      { id: 26, name: '#771900' },
+      { id: 27, name: '#701400' },
+      { id: 28, name: '#6A0E00' },
+      { id: 29, name: '#660D00' },
+      { id: 30, name: '#5E0B00' },
+      { id: 31, name: '#5A0A02' },
+      { id: 32, name: '#600903' },
+      { id: 33, name: '#520907' },
+      { id: 34, name: '#4C0505' },
+      { id: 35, name: '#470606' },
+      { id: 36, name: '#440607' },
+      { id: 37, name: '#361F1B' },
+      { id: 38, name: '#120D0C' },
+      { id: 39, name: '#100B0A' },
+      { id: 40, name: '#050B0A' }
+    ];
+
+    this.colores = colorMap;
   }
 }

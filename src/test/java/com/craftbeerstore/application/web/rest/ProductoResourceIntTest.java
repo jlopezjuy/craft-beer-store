@@ -15,8 +15,6 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -28,14 +26,12 @@ import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
-import java.util.Collections;
 import java.util.List;
 
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -69,6 +65,9 @@ public class ProductoResourceIntTest {
 
     private static final String DEFAULT_OBSERVACION = "AAAAAAAAAA";
     private static final String UPDATED_OBSERVACION = "BBBBBBBBBB";
+
+    private static final String DEFAULT_SRM_COLOR = "AAAAAAAAAA";
+    private static final String UPDATED_SRM_COLOR = "BBBBBBBBBB";
 
     @Autowired
     private ProductoRepository productoRepository;
@@ -124,7 +123,8 @@ public class ProductoResourceIntTest {
             .tipoProducto(DEFAULT_TIPO_PRODUCTO)
             .imagen(DEFAULT_IMAGEN)
             .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE)
-            .observacion(DEFAULT_OBSERVACION);
+            .observacion(DEFAULT_OBSERVACION)
+            .srmColor(DEFAULT_SRM_COLOR);
         return producto;
     }
 
@@ -156,6 +156,7 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getImagen()).isEqualTo(DEFAULT_IMAGEN);
         assertThat(testProducto.getImagenContentType()).isEqualTo(DEFAULT_IMAGEN_CONTENT_TYPE);
         assertThat(testProducto.getObservacion()).isEqualTo(DEFAULT_OBSERVACION);
+        assertThat(testProducto.getSrmColor()).isEqualTo(DEFAULT_SRM_COLOR);
     }
 
     @Test
@@ -214,7 +215,8 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.[*].tipoProducto").value(hasItem(DEFAULT_TIPO_PRODUCTO.toString())))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
-            .andExpect(jsonPath("$.[*].observacion").value(hasItem(DEFAULT_OBSERVACION.toString())));
+            .andExpect(jsonPath("$.[*].observacion").value(hasItem(DEFAULT_OBSERVACION.toString())))
+            .andExpect(jsonPath("$.[*].srmColor").value(hasItem(DEFAULT_SRM_COLOR.toString())));
     }
     
     @Test
@@ -234,7 +236,8 @@ public class ProductoResourceIntTest {
             .andExpect(jsonPath("$.tipoProducto").value(DEFAULT_TIPO_PRODUCTO.toString()))
             .andExpect(jsonPath("$.imagenContentType").value(DEFAULT_IMAGEN_CONTENT_TYPE))
             .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)))
-            .andExpect(jsonPath("$.observacion").value(DEFAULT_OBSERVACION.toString()));
+            .andExpect(jsonPath("$.observacion").value(DEFAULT_OBSERVACION.toString()))
+            .andExpect(jsonPath("$.srmColor").value(DEFAULT_SRM_COLOR.toString()));
     }
 
     @Test
@@ -264,7 +267,8 @@ public class ProductoResourceIntTest {
             .tipoProducto(UPDATED_TIPO_PRODUCTO)
             .imagen(UPDATED_IMAGEN)
             .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
-            .observacion(UPDATED_OBSERVACION);
+            .observacion(UPDATED_OBSERVACION)
+            .srmColor(UPDATED_SRM_COLOR);
         ProductoDTO productoDTO = productoMapper.toDto(updatedProducto);
 
         restProductoMockMvc.perform(put("/api/productos")
@@ -283,6 +287,7 @@ public class ProductoResourceIntTest {
         assertThat(testProducto.getImagen()).isEqualTo(UPDATED_IMAGEN);
         assertThat(testProducto.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
         assertThat(testProducto.getObservacion()).isEqualTo(UPDATED_OBSERVACION);
+        assertThat(testProducto.getSrmColor()).isEqualTo(UPDATED_SRM_COLOR);
     }
 
     @Test
