@@ -200,12 +200,12 @@
                       <div class="col-md-12">
                         <h2 jhiTranslate="settings.title" [translateValues]="{username: settingsAccount.login}" *ngIf="settingsAccount">Maestro Cervecero [<b>{{settingsAccount.firstName}}</b>]</h2>
 
-                        <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
-                          <strong>Datos actualizados!</strong>
-                        </div>
+<!--                        <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">-->
+<!--                          <strong>Datos actualizados!</strong>-->
+<!--                        </div>-->
 
                         <jhi-alert-error></jhi-alert-error>
-
+                        <jhi-alert></jhi-alert>
                         <form name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="settingsAccount" novalidate>
 
                           <div class="form-group">

@@ -17,6 +17,8 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { CraftBeerStoreSharedModule } from '../shared';
 import { PasswordStrengthBarComponent } from './passwordRegister/password-strength-bar.component';
 import { JhiLanguageHelper } from '../core';
+import { PasswordForgotPasswordFinishComponent } from './page-forgot-password-finish/password-forgot-password-finish.component';
+import { ActivateAccountComponent } from './activate-account/activate-account.component';
 
 // import {PasswordResetFinishComponent, PasswordResetInitComponent, PasswordStrengthBarComponent} from "../account";
 
@@ -27,6 +29,8 @@ import { JhiLanguageHelper } from '../core';
     PageRegisterComponent,
     PageLockscreenComponent,
     PageForgotPasswordComponent,
+    PasswordForgotPasswordFinishComponent,
+    ActivateAccountComponent,
     PageNotFoundComponent,
     PageForbiddonErrorComponent,
     PageIsErrorComponent,

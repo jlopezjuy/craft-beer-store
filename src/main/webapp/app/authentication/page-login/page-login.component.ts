@@ -58,20 +58,21 @@ export class PageLoginComponent implements OnInit {
             this.$localStorage.store('empresa', resp.body);
             this.$localStorage.store('empresaActiva', true);
             this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
+            if (
+              this.router.url === '/authentication/page-login' ||
+              this.router.url === '/register' ||
+              /^\/activate\//.test(this.router.url) ||
+              /^\/reset\//.test(this.router.url)
+            ) {
+              this.router.navigate(['/admin/dashboard/index']);
+            }
           },
           error => {
             this.$localStorage.store('empresaActiva', false);
             this.noEmpresa = this.$localStorage.retrieve('empresaActiva');
+            this.router.navigate(['/admin/account/settings']);
           }
         );
-        if (
-          this.router.url === '/authentication/page-login' ||
-          this.router.url === '/register' ||
-          /^\/activate\//.test(this.router.url) ||
-          /^\/reset\//.test(this.router.url)
-        ) {
-          this.router.navigate(['/admin/dashboard/index']);
-        }
 
         this.eventManager.broadcast({
           name: 'authenticationSuccess',

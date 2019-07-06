@@ -9,6 +9,8 @@ import { PageForbiddonErrorComponent } from './page-forbiddon-error/page-forbidd
 import { PageIsErrorComponent } from './page-is-error/page-is-error.component';
 import { PageTryLaterComponent } from './page-try-later/page-try-later.component';
 import { PageMaintananceComponent } from '../pages/page-maintanance/page-maintanance.component';
+import { PasswordForgotPasswordFinishComponent } from './page-forgot-password-finish/password-forgot-password-finish.component';
+import { ActivateAccountComponent } from './activate-account/activate-account.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,12 @@ const routes: Routes = [
       { path: 'page-register', component: PageRegisterComponent, data: { title: 'Registro :: Craft Beer Management' } },
       { path: 'page-lockscreen', component: PageLockscreenComponent, data: { title: 'Lock Screen :: Craft Beer Management' } },
       { path: 'page-forgot-password', component: PageForgotPasswordComponent, data: { title: 'Forgot Password :: Craft Beer Management' } },
+      {
+        path: 'page-forgot-password-finish',
+        component: PasswordForgotPasswordFinishComponent,
+        data: { title: 'global.menu.account.password' }
+      },
+      { path: 'activate', component: ActivateAccountComponent, data: { title: 'activate.title' } },
       { path: 'page-404', component: PageNotFoundComponent, data: { title: 'Page-404 :: Craft Beer Management' } },
       { path: 'page-403', component: PageForbiddonErrorComponent, data: { title: 'Page-403 :: Craft Beer Management' } },
       { path: 'page-500', component: PageIsErrorComponent, data: { title: 'Page-500 :: Craft Beer Management' } },
