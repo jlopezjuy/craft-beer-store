@@ -35,7 +35,7 @@ public interface MovimientosRepository extends JpaRepository<Movimientos, Long> 
     List<Object[]> queryMovimientoSemana(@Param("empresa")Long empresaId, @Param("dateFrom")LocalDate from, @Param("dateTo")LocalDate to);
 
     @Query(value = "SELECT ANY_VALUE(m.id), ANY_VALUE(m.tipo_movimiento), ANY_VALUE(m.fecha_movimiento), sum(m.precio_total) as total , sum(detmov.cantidad) as cantidad, "
-        + "        ANY_VALUE(prod.nombre_comercial) "
+        + "        ANY_VALUE(prod.nombre_comercial), ANY_VALUE(prod.id) as productoId "
         + "    FROM "
         + "        craftBeerStore.movimientos m, craftBeerStore.detalle_movimiento detmov, "
         + "        craftBeerStore.presentacion p, craftBeerStore.producto prod "

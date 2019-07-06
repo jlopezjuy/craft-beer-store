@@ -16,7 +16,7 @@
         {
             "fieldName": "tipoPresentacion",
             "fieldType": "TipoPresentacion",
-            "fieldValues": "BOTELLA_330,BOTELLA_355,BOTELLA_500,BOTELLA_1000,BARRIL_20,BARRIL_30,BARRIL_50",
+            "fieldValues": "BOTELLA_330,BOTELLA_355,BOTELLA_500,BOTELLA_750,BOTELLA_1000,BARRIL_20,BARRIL_30,BARRIL_50",
             "fieldValidateRules": [
                 "required"
             ]

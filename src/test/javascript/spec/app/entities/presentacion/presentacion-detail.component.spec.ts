@@ -8,33 +8,33 @@ import { PresentacionDetailComponent } from 'app/entities/presentacion/presentac
 import { Presentacion } from 'app/shared/model/presentacion.model';
 
 describe('Component Tests', () => {
-    describe('Presentacion Management Detail Component', () => {
-        let comp: PresentacionDetailComponent;
-        let fixture: ComponentFixture<PresentacionDetailComponent>;
-        const route = ({ data: of({ presentacion: new Presentacion(123) }) } as any) as ActivatedRoute;
+  describe('Presentacion Management Detail Component', () => {
+    let comp: PresentacionDetailComponent;
+    let fixture: ComponentFixture<PresentacionDetailComponent>;
+    const route = ({ data: of({ presentacion: new Presentacion(123) }) } as any) as ActivatedRoute;
 
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [CraftBeerStoreTestModule],
-                declarations: [PresentacionDetailComponent],
-                providers: [{ provide: ActivatedRoute, useValue: route }]
-            })
-                .overrideTemplate(PresentacionDetailComponent, '')
-                .compileComponents();
-            fixture = TestBed.createComponent(PresentacionDetailComponent);
-            comp = fixture.componentInstance;
-        });
-
-        describe('OnInit', () => {
-            it('Should call load all on init', () => {
-                // GIVEN
-
-                // WHEN
-                comp.ngOnInit();
-
-                // THEN
-                expect(comp.presentacion).toEqual(jasmine.objectContaining({ id: 123 }));
-            });
-        });
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [CraftBeerStoreTestModule],
+        declarations: [PresentacionDetailComponent],
+        providers: [{ provide: ActivatedRoute, useValue: route }]
+      })
+        .overrideTemplate(PresentacionDetailComponent, '')
+        .compileComponents();
+      fixture = TestBed.createComponent(PresentacionDetailComponent);
+      comp = fixture.componentInstance;
     });
+
+    describe('OnInit', () => {
+      it('Should call load all on init', () => {
+        // GIVEN
+
+        // WHEN
+        comp.ngOnInit();
+
+        // THEN
+        expect(comp.presentacion).toEqual(jasmine.objectContaining({ id: 123 }));
+      });
+    });
+  });
 });

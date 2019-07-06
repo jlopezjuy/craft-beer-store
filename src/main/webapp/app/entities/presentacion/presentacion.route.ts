@@ -15,84 +15,84 @@ import { IPresentacion } from 'app/shared/model/presentacion.model';
 
 @Injectable({ providedIn: 'root' })
 export class PresentacionResolve implements Resolve<IPresentacion> {
-    constructor(private service: PresentacionService) {}
+  constructor(private service: PresentacionService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPresentacion> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Presentacion>) => response.ok),
-                map((presentacion: HttpResponse<Presentacion>) => presentacion.body)
-            );
-        }
-        return of(new Presentacion());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPresentacion> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Presentacion>) => response.ok),
+        map((presentacion: HttpResponse<Presentacion>) => presentacion.body)
+      );
     }
+    return of(new Presentacion());
+  }
 }
 
 export const presentacionRoute: Routes = [
-    {
-        path: 'presentacion',
-        component: PresentacionComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.presentacion.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: 'presentacion',
+    component: PresentacionComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'presentacion/:id/view',
-        component: PresentacionDetailComponent,
-        resolve: {
-            presentacion: PresentacionResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.presentacion.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.presentacion.home.title'
     },
-    {
-        path: 'presentacion/new',
-        component: PresentacionUpdateComponent,
-        resolve: {
-            presentacion: PresentacionResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.presentacion.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'presentacion/:id/view',
+    component: PresentacionDetailComponent,
+    resolve: {
+      presentacion: PresentacionResolve
     },
-    {
-        path: 'presentacion/:id/edit',
-        component: PresentacionUpdateComponent,
-        resolve: {
-            presentacion: PresentacionResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.presentacion.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.presentacion.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'presentacion/new',
+    component: PresentacionUpdateComponent,
+    resolve: {
+      presentacion: PresentacionResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.presentacion.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'presentacion/:id/edit',
+    component: PresentacionUpdateComponent,
+    resolve: {
+      presentacion: PresentacionResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.presentacion.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const presentacionPopupRoute: Routes = [
-    {
-        path: 'presentacion/:id/delete',
-        component: PresentacionDeletePopupComponent,
-        resolve: {
-            presentacion: PresentacionResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.presentacion.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: 'presentacion/:id/delete',
+    component: PresentacionDeletePopupComponent,
+    resolve: {
+      presentacion: PresentacionResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.presentacion.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

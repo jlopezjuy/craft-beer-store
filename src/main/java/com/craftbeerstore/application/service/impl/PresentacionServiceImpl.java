@@ -52,8 +52,7 @@ public class PresentacionServiceImpl implements PresentacionService {
         log.debug("Request to save Presentacion : {}", presentacionDTO);
         Presentacion presentacion = presentacionMapper.toEntity(presentacionDTO);
         presentacion = presentacionRepository.save(presentacion);
-        PresentacionDTO result = presentacionMapper.toDto(presentacion);
-        return result;
+        return presentacionMapper.toDto(presentacion);
     }
 
     /**

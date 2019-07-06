@@ -1,8 +1,11 @@
 package com.craftbeerstore.application.service.impl;
 
 import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.domain.Receta;
 import com.craftbeerstore.application.domain.enumeration.TipoMovimiento;
 import com.craftbeerstore.application.repository.EmpresaRepository;
+import com.craftbeerstore.application.repository.ProductoRepository;
+import com.craftbeerstore.application.repository.RecetaRepository;
 import com.craftbeerstore.application.service.MovimientosService;
 import com.craftbeerstore.application.domain.Movimientos;
 import com.craftbeerstore.application.repository.MovimientosRepository;
@@ -37,15 +40,20 @@ public class MovimientosServiceImpl implements MovimientosService {
 
     private final MovimientosMapper movimientosMapper;
 
+    private final RecetaRepository recetaRepository;
+
+    private final ProductoRepository productoRepository;
 
     private final EmpresaRepository empresaRepository;
 
     public MovimientosServiceImpl(MovimientosRepository movimientosRepository,
-        MovimientosMapper movimientosMapper,
-        EmpresaRepository empresaRepository) {
+                                  MovimientosMapper movimientosMapper,
+                                  RecetaRepository recetaRepository, ProductoRepository productoRepository, EmpresaRepository empresaRepository) {
         this.movimientosRepository = movimientosRepository;
         this.movimientosMapper = movimientosMapper;
-        this.empresaRepository = empresaRepository;
+      this.recetaRepository = recetaRepository;
+      this.productoRepository = productoRepository;
+      this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -127,8 +135,15 @@ public class MovimientosServiceImpl implements MovimientosService {
         List<MovimientosProductoSemanaDTO> list = new ArrayList<>();
         List<Object[]> movimientos = this.movimientosRepository.queryVentaProductoSemana(empresaId, LocalDate.now().minusDays(Long.valueOf(dias)), LocalDate.now());
         movimientos.forEach(mov -> {
+          List<Receta> recetas = this.recetaRepository.findAllByProducto(this.productoRepository.getOne(Long.valueOf(mov[6].toString())));
+          if(recetas.isEmpty()){
             list.add(new MovimientosProductoSemanaDTO(Long.valueOf(mov[0].toString()), TipoMovimiento.valueOf(mov[1].toString()), LocalDate.parse(mov[2].toString()),
-                BigDecimal.valueOf(Double.valueOf(mov[3].toString())), Long.valueOf(mov[4].toString()), mov[5].toString()));
+              BigDecimal.valueOf(Double.valueOf(mov[3].toString())), Long.valueOf(mov[4].toString()), mov[5].toString(), ""));
+          } else {
+            list.add(new MovimientosProductoSemanaDTO(Long.valueOf(mov[0].toString()), TipoMovimiento.valueOf(mov[1].toString()), LocalDate.parse(mov[2].toString()),
+              BigDecimal.valueOf(Double.valueOf(mov[3].toString())), Long.valueOf(mov[4].toString()), mov[5].toString(), recetas.get(0).getSrm().toString()));
+          }
+
         });
         return list;
     }
