@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity RecetaInsumo.
+    -->
+
+  <changeSet id="20190606205721-3" author="jlopez">
+<!--    <dropForeignKeyConstraint baseTableName="receta_insumo" constraintName="fk_receta_insumo_insumo_id"/>-->
+    <dropIndex indexName="fk_receta_insumo_insumo_id"
+               tableName="receta_insumo"/>
+  </changeSet>
+  <changeSet author="jlopez" id="20190606205721-9">
+    <dropColumn
+      columnName="insumo_id"
+      tableName="receta_insumo"/>
+  </changeSet>
+  <changeSet author="jlopez" id="20190606205721-10">
+    <addColumn tableName="receta_insumo">
+      <column name="insumo_recomendado_id" type="bigint">
+        <constraints nullable="true" />
+      </column>
+    </addColumn>
+  </changeSet>
+  <changeSet id="20190606205721-4" author="jlopez">
+    <addForeignKeyConstraint baseColumnNames="insumo_recomendado_id"
+                             baseTableName="receta_insumo"
+                             constraintName="fk_receta_insumo_insumo_recomendado_id"
+                             referencedColumnNames="id"
+                             referencedTableName="insumo_recomendado"/>
+  </changeSet>
+</databaseChangeLog>

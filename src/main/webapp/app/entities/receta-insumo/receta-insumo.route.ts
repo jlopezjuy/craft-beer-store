@@ -15,84 +15,84 @@ import { IRecetaInsumo } from 'app/shared/model/receta-insumo.model';
 
 @Injectable({ providedIn: 'root' })
 export class RecetaInsumoResolve implements Resolve<IRecetaInsumo> {
-    constructor(private service: RecetaInsumoService) {}
+  constructor(private service: RecetaInsumoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IRecetaInsumo> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<RecetaInsumo>) => response.ok),
-                map((recetaInsumo: HttpResponse<RecetaInsumo>) => recetaInsumo.body)
-            );
-        }
-        return of(new RecetaInsumo());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IRecetaInsumo> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<RecetaInsumo>) => response.ok),
+        map((recetaInsumo: HttpResponse<RecetaInsumo>) => recetaInsumo.body)
+      );
     }
+    return of(new RecetaInsumo());
+  }
 }
 
 export const recetaInsumoRoute: Routes = [
-    {
-        path: '',
-        component: RecetaInsumoComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: RecetaInsumoComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: ':id/view',
-        component: RecetaInsumoDetailComponent,
-        resolve: {
-            recetaInsumo: RecetaInsumoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
     },
-    {
-        path: 'new',
-        component: RecetaInsumoUpdateComponent,
-        resolve: {
-            recetaInsumo: RecetaInsumoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/view',
+    component: RecetaInsumoDetailComponent,
+    resolve: {
+      recetaInsumo: RecetaInsumoResolve
     },
-    {
-        path: ':id/edit',
-        component: RecetaInsumoUpdateComponent,
-        resolve: {
-            recetaInsumo: RecetaInsumoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'new',
+    component: RecetaInsumoUpdateComponent,
+    resolve: {
+      recetaInsumo: RecetaInsumoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/edit',
+    component: RecetaInsumoUpdateComponent,
+    resolve: {
+      recetaInsumo: RecetaInsumoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const recetaInsumoPopupRoute: Routes = [
-    {
-        path: ':id/delete',
-        component: RecetaInsumoDeletePopupComponent,
-        resolve: {
-            recetaInsumo: RecetaInsumoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: ':id/delete',
+    component: RecetaInsumoDeletePopupComponent,
+    resolve: {
+      recetaInsumo: RecetaInsumoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.recetaInsumo.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

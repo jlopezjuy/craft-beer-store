@@ -3,10 +3,10 @@
     "clientRootFolder": "",
     "relationships": [
         {
-            "relationshipName": "insumo",
-            "otherEntityName": "insumo",
+            "relationshipName": "insumoRecomendado",
+            "otherEntityName": "insumoRecomendado",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nombreInsumo",
+            "otherEntityField": "nombre",
             "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "recetaInsumo"
         },

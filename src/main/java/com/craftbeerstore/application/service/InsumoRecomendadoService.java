@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service;
 
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
+import com.craftbeerstore.application.service.dto.InsumoDTO;
 import com.craftbeerstore.application.service.dto.InsumoRecomendadoDTO;
 
 import java.util.List;
@@ -50,4 +52,18 @@ public interface InsumoRecomendadoService {
      * @return
      */
     List<InsumoRecomendadoDTO> findAll();
+
+  /**
+   *
+   * @param tipoInsumo
+   * @return
+   */
+  List<InsumoRecomendadoDTO> findAllByEmpresaAndTipo(TipoInsumo tipoInsumo);
+
+  /**
+   *
+   * @param tipoInsumo
+   * @return
+   */
+  List<InsumoRecomendadoDTO> findAllByEmpresaAndTipo(List<TipoInsumo> tipoInsumo);
 }

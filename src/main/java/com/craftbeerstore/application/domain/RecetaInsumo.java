@@ -7,6 +7,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -102,7 +103,7 @@ public class RecetaInsumo implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("recetaInsumos")
-    private Insumo insumo;
+    private InsumoRecomendado insumoRecomendado;
 
     @ManyToOne
     @JsonIgnoreProperties("recetaInsumos")
@@ -338,17 +339,17 @@ public class RecetaInsumo implements Serializable {
         this.tiempoOtro = tiempoOtro;
     }
 
-    public Insumo getInsumo() {
-        return insumo;
+    public InsumoRecomendado getInsumoRecomendado() {
+        return insumoRecomendado;
     }
 
-    public RecetaInsumo insumo(Insumo insumo) {
-        this.insumo = insumo;
+    public RecetaInsumo insumoRecomendado(InsumoRecomendado insumoRecomendado) {
+        this.insumoRecomendado = insumoRecomendado;
         return this;
     }
 
-    public void setInsumo(Insumo insumo) {
-        this.insumo = insumo;
+    public void setInsumoRecomendado(InsumoRecomendado insumoRecomendado) {
+        this.insumoRecomendado = insumoRecomendado;
     }
 
     public Receta getReceta() {

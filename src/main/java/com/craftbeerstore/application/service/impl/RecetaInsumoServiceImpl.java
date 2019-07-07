@@ -61,8 +61,7 @@ public class RecetaInsumoServiceImpl implements RecetaInsumoService {
         log.debug("Request to save RecetaInsumo : {}", recetaInsumoDTO);
         RecetaInsumo recetaInsumo = recetaInsumoMapper.toEntity(recetaInsumoDTO);
         recetaInsumo = recetaInsumoRepository.save(recetaInsumo);
-        RecetaInsumoDTO result = recetaInsumoMapper.toDto(recetaInsumo);
-        return result;
+        return recetaInsumoMapper.toDto(recetaInsumo);
     }
 
     /**

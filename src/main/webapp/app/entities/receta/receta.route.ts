@@ -15,84 +15,84 @@ import { IReceta } from 'app/shared/model/receta.model';
 
 @Injectable({ providedIn: 'root' })
 export class RecetaResolve implements Resolve<IReceta> {
-    constructor(private service: RecetaService) {}
+  constructor(private service: RecetaService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IReceta> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Receta>) => response.ok),
-                map((receta: HttpResponse<Receta>) => receta.body)
-            );
-        }
-        return of(new Receta());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IReceta> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Receta>) => response.ok),
+        map((receta: HttpResponse<Receta>) => receta.body)
+      );
     }
+    return of(new Receta());
+  }
 }
 
 export const recetaRoute: Routes = [
-    {
-        path: 'receta',
-        component: RecetaComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.receta.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: 'receta',
+    component: RecetaComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'receta/:id/view',
-        component: RecetaDetailComponent,
-        resolve: {
-            receta: RecetaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.receta.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.receta.home.title'
     },
-    {
-        path: 'receta/new',
-        component: RecetaUpdateComponent,
-        resolve: {
-            receta: RecetaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.receta.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'receta/:id/view',
+    component: RecetaDetailComponent,
+    resolve: {
+      receta: RecetaResolve
     },
-    {
-        path: ':id/edit',
-        component: RecetaUpdateComponent,
-        resolve: {
-            receta: RecetaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.receta.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.receta.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'receta/new',
+    component: RecetaUpdateComponent,
+    resolve: {
+      receta: RecetaResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.receta.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'receta/:id/edit',
+    component: RecetaUpdateComponent,
+    resolve: {
+      receta: RecetaResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.receta.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const recetaPopupRoute: Routes = [
-    {
-        path: ':id/delete',
-        component: RecetaDeletePopupComponent,
-        resolve: {
-            receta: RecetaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.receta.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: 'receta/:id/delete',
+    component: RecetaDeletePopupComponent,
+    resolve: {
+      receta: RecetaResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.receta.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

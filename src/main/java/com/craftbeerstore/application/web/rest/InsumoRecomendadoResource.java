@@ -1,4 +1,5 @@
 package com.craftbeerstore.application.web.rest;
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import com.craftbeerstore.application.service.InsumoRecomendadoService;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.web.rest.util.HeaderUtil;
@@ -124,5 +125,29 @@ public class InsumoRecomendadoResource {
         insumoRecomendadoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+  /**
+   *
+   * @param tipoInsumo
+   * @return
+   */
+  @GetMapping("/insumo-recomendados/tipo/{tipoInsumo}")
+  public ResponseEntity<List<InsumoRecomendadoDTO>> getAllInsumostIPO(@PathVariable TipoInsumo tipoInsumo) {
+    log.debug("REST request to get a page of Insumos {}", tipoInsumo);
+    List<InsumoRecomendadoDTO> page = this.insumoRecomendadoService.findAllByEmpresaAndTipo(tipoInsumo);
+    return ResponseEntity.ok().body(page);
+  }
+
+  /**
+   *
+   * @param tipoInsumos
+   * @return
+   */
+  @GetMapping("/insumo-recomendados/tipo")
+  public ResponseEntity<List<InsumoRecomendadoDTO>> getAllInsumostIPO(@RequestParam List<TipoInsumo> tipoInsumos) {
+    log.debug("REST request to get a page of Insumos {}", tipoInsumos);
+    List<InsumoRecomendadoDTO> page = insumoRecomendadoService.findAllByEmpresaAndTipo(tipoInsumos);
+    return ResponseEntity.ok().body(page);
+  }
 
 }
