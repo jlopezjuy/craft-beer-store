@@ -28,7 +28,6 @@ export class MovimientoProductosSemanaComponent implements OnInit {
         label.push(mov.nombreProducto);
         cantidades.push(mov.cantidad);
         colores.push(mov.color);
-        console.log(mov);
       });
       this.data = {
         datasets: [

@@ -1,4 +1,5 @@
 package com.craftbeerstore.application.web.rest;
+
 import com.craftbeerstore.application.service.CajaService;
 import com.craftbeerstore.application.service.dto.CajaChartDTO;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
@@ -30,125 +31,140 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/api")
 public class CajaResource {
 
-    private final Logger log = LoggerFactory.getLogger(CajaResource.class);
+  private final Logger log = LoggerFactory.getLogger(CajaResource.class);
 
-    private static final String ENTITY_NAME = "caja";
+  private static final String ENTITY_NAME = "caja";
 
-    private final CajaService cajaService;
+  private final CajaService cajaService;
 
-    public CajaResource(CajaService cajaService) {
-        this.cajaService = cajaService;
+  public CajaResource(CajaService cajaService) {
+    this.cajaService = cajaService;
+  }
+
+  /**
+   * POST  /cajas : Create a new caja.
+   *
+   * @param cajaDTO the cajaDTO to create
+   * @return the ResponseEntity with status 201 (Created) and with body the new cajaDTO, or with status 400 (Bad Request) if the caja has already an ID
+   * @throws URISyntaxException if the Location URI syntax is incorrect
+   */
+  @PostMapping("/cajas")
+  public ResponseEntity<CajaDTO> createCaja(@Valid @RequestBody CajaDTO cajaDTO) throws URISyntaxException {
+    log.debug("REST request to save Caja : {}", cajaDTO);
+    if (cajaDTO.getId() != null) {
+      throw new BadRequestAlertException("A new caja cannot already have an ID", ENTITY_NAME, "idexists");
     }
+    CajaDTO result = cajaService.save(cajaDTO);
+    return ResponseEntity.created(new URI("/api/cajas/" + result.getId()))
+      .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+      .body(result);
+  }
 
-    /**
-     * POST  /cajas : Create a new caja.
-     *
-     * @param cajaDTO the cajaDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new cajaDTO, or with status 400 (Bad Request) if the caja has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @PostMapping("/cajas")
-    public ResponseEntity<CajaDTO> createCaja(@Valid @RequestBody CajaDTO cajaDTO) throws URISyntaxException {
-        log.debug("REST request to save Caja : {}", cajaDTO);
-        if (cajaDTO.getId() != null) {
-            throw new BadRequestAlertException("A new caja cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        CajaDTO result = cajaService.save(cajaDTO);
-        return ResponseEntity.created(new URI("/api/cajas/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+  /**
+   * PUT  /cajas : Updates an existing caja.
+   *
+   * @param cajaDTO the cajaDTO to update
+   * @return the ResponseEntity with status 200 (OK) and with body the updated cajaDTO,
+   * or with status 400 (Bad Request) if the cajaDTO is not valid,
+   * or with status 500 (Internal Server Error) if the cajaDTO couldn't be updated
+   * @throws URISyntaxException if the Location URI syntax is incorrect
+   */
+  @PutMapping("/cajas")
+  public ResponseEntity<CajaDTO> updateCaja(@Valid @RequestBody CajaDTO cajaDTO) throws URISyntaxException {
+    log.debug("REST request to update Caja : {}", cajaDTO);
+    if (cajaDTO.getId() == null) {
+      throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
     }
+    CajaDTO result = cajaService.save(cajaDTO);
+    return ResponseEntity.ok()
+      .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, cajaDTO.getId().toString()))
+      .body(result);
+  }
 
-    /**
-     * PUT  /cajas : Updates an existing caja.
-     *
-     * @param cajaDTO the cajaDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated cajaDTO,
-     * or with status 400 (Bad Request) if the cajaDTO is not valid,
-     * or with status 500 (Internal Server Error) if the cajaDTO couldn't be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @PutMapping("/cajas")
-    public ResponseEntity<CajaDTO> updateCaja(@Valid @RequestBody CajaDTO cajaDTO) throws URISyntaxException {
-        log.debug("REST request to update Caja : {}", cajaDTO);
-        if (cajaDTO.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        CajaDTO result = cajaService.save(cajaDTO);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, cajaDTO.getId().toString()))
-            .body(result);
-    }
+  /**
+   * GET  /cajas : get all the cajas.
+   *
+   * @param pageable the pagination information
+   * @return the ResponseEntity with status 200 (OK) and the list of cajas in body
+   */
+  @GetMapping("/cajas")
+  public ResponseEntity<List<CajaDTO>> getAllCajas(Pageable pageable) {
+    log.debug("REST request to get a page of Cajas");
+    Page<CajaDTO> page = cajaService.findAll(pageable);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cajas");
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
 
-    /**
-     * GET  /cajas : get all the cajas.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of cajas in body
-     */
-    @GetMapping("/cajas")
-    public ResponseEntity<List<CajaDTO>> getAllCajas(Pageable pageable) {
-        log.debug("REST request to get a page of Cajas");
-        Page<CajaDTO> page = cajaService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cajas");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
+  /**
+   * GET  /cajas : get all the cajas.
+   *
+   * @param pageable the pagination information
+   * @return the ResponseEntity with status 200 (OK) and the list of cajas in body
+   */
+  @GetMapping("/cajas/empresa/{empresaId}")
+  public ResponseEntity<List<CajaDTO>> getAllCajasByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+    log.debug("REST request to get a page of Cajas by empresa : {}", empresaId);
+    Page<CajaDTO> page = cajaService.findAll(pageable, empresaId);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cajas/empresa/{empresaId}");
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
 
-    /**
-     * GET  /cajas : get all the cajas.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of cajas in body
-     */
-    @GetMapping("/cajas/empresa/{empresaId}")
-    public ResponseEntity<List<CajaDTO>> getAllCajasByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
-        log.debug("REST request to get a page of Cajas by empresa : {}", empresaId);
-        Page<CajaDTO> page = cajaService.findAll(pageable, empresaId);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cajas/empresa/{empresaId}");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
+  /**
+   * GET  /cajas/:id : get the "id" caja.
+   *
+   * @param id the id of the cajaDTO to retrieve
+   * @return the ResponseEntity with status 200 (OK) and with body the cajaDTO, or with status 404 (Not Found)
+   */
+  @GetMapping("/cajas/{id}")
+  public ResponseEntity<CajaDTO> getCaja(@PathVariable Long id) {
+    log.debug("REST request to get Caja : {}", id);
+    Optional<CajaDTO> cajaDTO = cajaService.findOne(id);
+    return ResponseUtil.wrapOrNotFound(cajaDTO);
+  }
 
-    /**
-     * GET  /cajas/:id : get the "id" caja.
-     *
-     * @param id the id of the cajaDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the cajaDTO, or with status 404 (Not Found)
-     */
-    @GetMapping("/cajas/{id}")
-    public ResponseEntity<CajaDTO> getCaja(@PathVariable Long id) {
-        log.debug("REST request to get Caja : {}", id);
-        Optional<CajaDTO> cajaDTO = cajaService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(cajaDTO);
-    }
+  /**
+   * DELETE  /cajas/:id : delete the "id" caja.
+   *
+   * @param id the id of the cajaDTO to delete
+   * @return the ResponseEntity with status 200 (OK)
+   */
+  @DeleteMapping("/cajas/{id}")
+  public ResponseEntity<Void> deleteCaja(@PathVariable Long id) {
+    log.debug("REST request to delete Caja : {}", id);
+    cajaService.delete(id);
+    return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+  }
 
-    /**
-     * DELETE  /cajas/:id : delete the "id" caja.
-     *
-     * @param id the id of the cajaDTO to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @DeleteMapping("/cajas/{id}")
-    public ResponseEntity<Void> deleteCaja(@PathVariable Long id) {
-        log.debug("REST request to delete Caja : {}", id);
-        cajaService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
+  /**
+   * @param empresaId
+   * @return
+   */
+  @GetMapping("/cajas/graph-ingreso-egreso/{empresaId}")
+  public ResponseEntity<CajaChartDTO> searchIngresoEgreso(@PathVariable Long empresaId) {
+    Optional<CajaChartDTO> response = this.cajaService.searchIngresoEgreso(empresaId);
+    return ResponseUtil.wrapOrNotFound(response);
+  }
 
-    /**
-     *
-     * @param empresaId
-     * @return
-     */
-    @GetMapping("/cajas/graph-ingreso-egreso/{empresaId}")
-    public ResponseEntity<CajaChartDTO> searchIngresoEgreso(@PathVariable Long empresaId) {
-        Optional<CajaChartDTO> response = this.cajaService.searchIngresoEgreso(empresaId);
-        return ResponseUtil.wrapOrNotFound(response);
-    }
+  /**
+   *
+   * @param empresaId
+   * @return
+   */
+  @GetMapping("/cajas/semana/{empresaId}")
+  public ResponseEntity<List<CajaDTO>> searchWeek(@PathVariable Long empresaId) {
+    List<CajaDTO> response = this.cajaService.getIngresoWeek(empresaId);
+    return ResponseEntity.ok().body(response);
+  }
 
-    @GetMapping("/cajas/semana/{empresaId}")
-    public ResponseEntity<List<CajaDTO>> searchWeek(@PathVariable Long empresaId) {
-        List<CajaDTO> response = this.cajaService.getIngresoWeek(empresaId);
-        return ResponseEntity.ok().body(response);
-    }
+  /**
+   *
+   * @param empresaId
+   * @return
+   */
+  @GetMapping("/cajas/mes/{empresaId}")
+  public ResponseEntity<List<CajaDTO>> searchMonth(@PathVariable Long empresaId) {
+    List<CajaDTO> response = this.cajaService.getIngresoMonth(empresaId);
+    return ResponseEntity.ok().body(response);
+  }
 
 }

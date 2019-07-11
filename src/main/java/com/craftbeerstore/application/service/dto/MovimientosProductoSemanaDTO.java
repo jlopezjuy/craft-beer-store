@@ -34,6 +34,9 @@ public class MovimientosProductoSemanaDTO implements Serializable {
     @JsonProperty(value = "color")
     private String color;
 
+    @JsonProperty(value = "litros")
+    private String litros;
+
 
     public MovimientosProductoSemanaDTO() {
     }
@@ -118,7 +121,15 @@ public class MovimientosProductoSemanaDTO implements Serializable {
         this.nombreProducto = nombreProducto;
     }
 
-    @Override
+  public String getLitros() {
+    return litros;
+  }
+
+  public void setLitros(String litros) {
+    this.litros = litros;
+  }
+
+  @Override
     public String
     toString() {
         return "MovimientosProductoSemanaDTO{" +

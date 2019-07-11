@@ -158,4 +158,16 @@ public class MovimientosResource {
         return ResponseEntity.ok().body(list);
     }
 
+  /**
+   *
+   * @param empresaId
+   * @param dias
+   * @return
+   */
+  @GetMapping("/movimientos/semana/litros/{empresaId}/{dias}")
+  public ResponseEntity<MovimientosProductoSemanaDTO> getAllMovimientosLitroSemanal(@PathVariable Long empresaId, @PathVariable String dias){
+    MovimientosProductoSemanaDTO movimiento = movimientosService.findLitrosSemana(empresaId, dias);
+    return ResponseEntity.ok().body(movimiento);
+  }
+
 }

@@ -130,4 +130,15 @@ public class CajaServiceImpl implements CajaService {
         );
         return semanaList;
     }
+
+  @Override
+  public List<CajaDTO> getIngresoMonth(Long empresaId) {
+    Empresa empresa = this.empresaRepository.getOne(empresaId);
+    List<Object[]> list = this.cajaRepository.getMesIngresos(empresa.getId());
+    List<CajaDTO> mesList = new ArrayList<>();
+    list.forEach(semana ->
+      mesList.add(new CajaDTO(BigDecimal.valueOf(Double.valueOf(semana[1].toString())), LocalDate.parse(semana[0].toString(), DATEFORMATTER)))
+    );
+    return mesList;
+  }
 }

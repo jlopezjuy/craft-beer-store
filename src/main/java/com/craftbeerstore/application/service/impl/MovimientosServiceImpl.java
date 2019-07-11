@@ -12,9 +12,11 @@ import com.craftbeerstore.application.repository.MovimientosRepository;
 import com.craftbeerstore.application.service.dto.MovimientosDTO;
 import com.craftbeerstore.application.service.dto.MovimientosProductoSemanaDTO;
 import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
+import com.craftbeerstore.application.service.dto.MovimientosVentasDTO;
 import com.craftbeerstore.application.service.mapper.MovimientosMapper;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -35,6 +37,8 @@ import java.util.Optional;
 public class MovimientosServiceImpl implements MovimientosService {
 
     private final Logger log = LoggerFactory.getLogger(MovimientosServiceImpl.class);
+
+  private static final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private final MovimientosRepository movimientosRepository;
 
@@ -140,4 +144,36 @@ public class MovimientosServiceImpl implements MovimientosService {
         });
         return list;
     }
+
+  @Override
+  public MovimientosProductoSemanaDTO findLitrosSemana(Long empresaId, String dias) {
+    MovimientosProductoSemanaDTO list = new MovimientosProductoSemanaDTO();
+    BigDecimal movimientos = this.movimientosRepository.queryLitrosSemana(empresaId, LocalDate.now().minusDays(Long.valueOf(dias)), LocalDate.now());
+    list.setLitros(movimientos.toString());
+    return list;
+  }
+
+  @Override
+  public List<MovimientosVentasDTO> findPeriodoLitrosSemana(Long empresaId){
+    List<MovimientosVentasDTO> list = new ArrayList<>();
+    List<Object[]> movimientos = this.movimientosRepository.queryLitrosSemana(empresaId);
+    movimientos.forEach(mov -> {
+      MovimientosVentasDTO movimientosVentasDTO = new MovimientosVentasDTO(LocalDate.parse(mov[0].toString(), DATEFORMATTER), BigDecimal.valueOf(Double.valueOf(mov[1].toString())));
+      list.add(movimientosVentasDTO);
+    });
+
+    return list;
+  }
+
+  @Override
+  public List<MovimientosVentasDTO> findPeriodoLitrosMes(Long empresaId) {
+    List<MovimientosVentasDTO> list = new ArrayList<>();
+    List<Object[]> movimientos = this.movimientosRepository.queryLitrosMes(empresaId);
+    movimientos.forEach(mov -> {
+      MovimientosVentasDTO movimientosVentasDTO = new MovimientosVentasDTO(LocalDate.parse(mov[0].toString(), DATEFORMATTER), BigDecimal.valueOf(Double.valueOf(mov[1].toString())));
+      list.add(movimientosVentasDTO);
+    });
+
+    return list;
+  }
 }

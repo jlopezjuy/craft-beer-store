@@ -61,7 +61,7 @@
                                 <span>Tablero</span></a>
                             <ul *ngIf="currentActiveMenu == 'dashboard'">
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/index']">Estadisticas</a></li>
-<!--                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/iot']">IoT</a></li>-->
+                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/iot']">IoT</a></li>
                             </ul>
                         </li>
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'entity'}">

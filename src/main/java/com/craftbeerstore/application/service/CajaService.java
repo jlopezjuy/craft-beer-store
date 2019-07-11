@@ -14,47 +14,57 @@ import java.util.Optional;
  */
 public interface CajaService {
 
-    /**
-     * Save a caja.
-     *
-     * @param cajaDTO the entity to save
-     * @return the persisted entity
-     */
-    CajaDTO save(CajaDTO cajaDTO);
+  /**
+   * Save a caja.
+   *
+   * @param cajaDTO the entity to save
+   * @return the persisted entity
+   */
+  CajaDTO save(CajaDTO cajaDTO);
 
-    /**
-     * Get all the cajas.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<CajaDTO> findAll(Pageable pageable);
+  /**
+   * Get all the cajas.
+   *
+   * @param pageable the pagination information
+   * @return the list of entities
+   */
+  Page<CajaDTO> findAll(Pageable pageable);
 
-    /**
-     *
-     * @param pageable
-     * @param empresaId
-     * @return
-     */
-    Page<CajaDTO> findAll(Pageable pageable, Long empresaId);
+  /**
+   * @param pageable
+   * @param empresaId
+   * @return
+   */
+  Page<CajaDTO> findAll(Pageable pageable, Long empresaId);
 
 
-    /**
-     * Get the "id" caja.
-     *
-     * @param id the id of the entity
-     * @return the entity
-     */
-    Optional<CajaDTO> findOne(Long id);
+  /**
+   * Get the "id" caja.
+   *
+   * @param id the id of the entity
+   * @return the entity
+   */
+  Optional<CajaDTO> findOne(Long id);
 
-    /**
-     * Delete the "id" caja.
-     *
-     * @param id the id of the entity
-     */
-    void delete(Long id);
+  /**
+   * Delete the "id" caja.
+   *
+   * @param id the id of the entity
+   */
+  void delete(Long id);
 
-    Optional<CajaChartDTO> searchIngresoEgreso(Long empresaId);
+  Optional<CajaChartDTO> searchIngresoEgreso(Long empresaId);
 
-    List<CajaDTO> getIngresoWeek(Long empresaId);
+  /**
+   *
+   * @param empresaId
+   * @return
+   */
+  List<CajaDTO> getIngresoWeek(Long empresaId);
+
+  /**
+   * @param empresaId
+   * @return
+   */
+  List<CajaDTO> getIngresoMonth(Long empresaId);
 }

@@ -19,6 +19,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   public visitorsOptions: EChartOption = {};
   public visitsOptions: EChartOption = {};
   public earningOptions: EChartOption = {};
+  public earningOptionsMonth: EChartOption = {};
   public salesOptions: EChartOption = {};
   public visitsAreaOptions: EChartOption = {};
   public LikesOptions: EChartOption = {};
@@ -27,6 +28,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   public earningOptionsSeries: Array<number> = [1, 4, 1, 3, 7, 1];
   public earnings: string; //= '$' + (this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
+  public earningsMonth: string; //= '$' + (this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
   public salesOptionsSeries: Array<number> = [1, 4, 2, 3, 6, 2];
   public sales: string = '$' + (this.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000).toLocaleString();
   public visitsAreaOptionsSeries: Array<number> = [1, 4, 2, 3, 1, 5];
@@ -78,6 +80,16 @@ export class IndexComponent implements OnInit, OnDestroy {
       });
       this.earnings = '$' + ingresos;
       this.earningOptions = this.loadLineAreaChartOptions(data, '#51dff7', '#12fa39');
+    });
+    this.cajaService.findIngresoMonth(this.empresa.id).subscribe(resp => {
+      const data = [];
+      let ingresos = 0;
+      resp.body.forEach(caja => {
+        data.push(caja.importe);
+        ingresos = ingresos + caja.importe;
+      });
+      this.earningsMonth = '$' + ingresos;
+      this.earningOptionsMonth = this.loadLineAreaChartOptions(data, '#51dff7', '#12fa39');
     });
   }
 

@@ -15,6 +15,7 @@ type EntityResponseType = HttpResponse<IMovimientos>;
 type EntityArrayResponseType = HttpResponse<IMovimientos[]>;
 type EntitySemanaArrayResponseType = HttpResponse<IMovimientosSemana[]>;
 type EntityProductoSemanaArrayResponseType = HttpResponse<IMovimientosProductoSemana[]>;
+type EntityMovimientosProductoSemanaResponseType = HttpResponse<IMovimientosProductoSemana>;
 
 @Injectable({ providedIn: 'root' })
 export class MovimientosService {
@@ -69,6 +70,12 @@ export class MovimientosService {
       .pipe(map((res: EntityProductoSemanaArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
+  queryLitrosBySemanaEmpresa(empresaId: number, dias: string): Observable<EntityMovimientosProductoSemanaResponseType> {
+    return this.http
+      .get<IMovimientosProductoSemana>(`${this.resourceUrl}/semana/litros/${empresaId}/${dias}`, { observe: 'response' })
+      .pipe(map((res: EntityMovimientosProductoSemanaResponseType) => this.convertLitroDateFromServer(res)));
+  }
+
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
@@ -78,6 +85,13 @@ export class MovimientosService {
     return this.http
       .get<IMovimientos[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  protected convertLitroDateFromServer(res: EntityMovimientosProductoSemanaResponseType): EntityMovimientosProductoSemanaResponseType {
+    if (res.body) {
+      res.body.fechaMovimiento = res.body.fechaMovimiento != null ? moment(res.body.fechaMovimiento) : null;
+    }
+    return res;
   }
 
   protected convertDateFromClient(movimientos: IMovimientos): IMovimientos {
