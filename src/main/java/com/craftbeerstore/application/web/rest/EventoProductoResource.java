@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing EventoProducto.
  */
@@ -125,22 +123,6 @@ public class EventoProductoResource {
         log.debug("REST request to delete EventoProducto : {}", id);
         eventoProductoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/evento-productos?query=:query : search for the eventoProducto corresponding
-     * to the query.
-     *
-     * @param query the query of the eventoProducto search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/evento-productos")
-    public ResponseEntity<List<EventoProductoDTO>> searchEventoProductos(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of EventoProductos for query {}", query);
-        Page<EventoProductoDTO> page = eventoProductoService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/evento-productos");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

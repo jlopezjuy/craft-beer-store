@@ -31,7 +31,7 @@ export class EstilosResolve implements Resolve<IEstilos> {
 
 export const estilosRoute: Routes = [
     {
-        path: '',
+        path: 'estilos',
         component: EstilosComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const estilosRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'estilos/:id/view',
         component: EstilosDetailComponent,
         resolve: {
             estilos: EstilosResolve
@@ -56,7 +56,7 @@ export const estilosRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'estilos/new',
         component: EstilosUpdateComponent,
         resolve: {
             estilos: EstilosResolve
@@ -68,7 +68,7 @@ export const estilosRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'estilos/:id/edit',
         component: EstilosUpdateComponent,
         resolve: {
             estilos: EstilosResolve
@@ -83,7 +83,7 @@ export const estilosRoute: Routes = [
 
 export const estilosPopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'estilos/:id/delete',
         component: EstilosDeletePopupComponent,
         resolve: {
             estilos: EstilosResolve

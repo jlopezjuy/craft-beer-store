@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="compraInsumoDetalle">
+            <h2><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.detail.title">Compra Insumo Detalle</span> {{compraInsumoDetalle.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.unidad">Unidad</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.Unidad.' + compraInsumoDetalle.unidad}}">{{compraInsumoDetalle.unidad}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.codigoReferencia">Codigo Referencia</span></dt>
+                <dd>
+                    <span>{{compraInsumoDetalle.codigoReferencia}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock">Stock</span></dt>
+                <dd>
+                    <span>{{compraInsumoDetalle.stock}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precio">Precio</span></dt>
+                <dd>
+                    <span>{{compraInsumoDetalle.precio}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.tipo">Tipo</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + compraInsumoDetalle.tipo}}">{{compraInsumoDetalle.tipo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.compraInsumo">Compra Insumo</span></dt>
+                <dd>
+                    <div *ngIf="compraInsumoDetalle.compraInsumoId">
+                        <a [routerLink]="['/compra-insumo', compraInsumoDetalle.compraInsumoId, 'view']">{{compraInsumoDetalle.compraInsumoNroFactura}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.insumoRecomendado">Insumo Recomendado</span></dt>
+                <dd>
+                    <div *ngIf="compraInsumoDetalle.insumoRecomendadoId">
+                        <a [routerLink]="['/insumo-recomendado', compraInsumoDetalle.insumoRecomendadoId, 'view']">{{compraInsumoDetalle.insumoRecomendadoNombre}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/compra-insumo-detalle', compraInsumoDetalle.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

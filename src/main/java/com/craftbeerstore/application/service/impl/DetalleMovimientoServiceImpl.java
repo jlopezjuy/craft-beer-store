@@ -5,7 +5,6 @@ import com.craftbeerstore.application.repository.MovimientosRepository;
 import com.craftbeerstore.application.service.DetalleMovimientoService;
 import com.craftbeerstore.application.domain.DetalleMovimiento;
 import com.craftbeerstore.application.repository.DetalleMovimientoRepository;
-import com.craftbeerstore.application.repository.search.DetalleMovimientoSearchRepository;
 import com.craftbeerstore.application.service.dto.DetalleMovimientoDTO;
 import com.craftbeerstore.application.service.mapper.DetalleMovimientoMapper;
 import org.slf4j.Logger;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing DetalleMovimiento.
@@ -33,17 +30,14 @@ public class DetalleMovimientoServiceImpl implements DetalleMovimientoService {
 
     private final DetalleMovimientoMapper detalleMovimientoMapper;
 
-    private final DetalleMovimientoSearchRepository detalleMovimientoSearchRepository;
 
     private final MovimientosRepository movimientosRepository;
 
     public DetalleMovimientoServiceImpl(DetalleMovimientoRepository detalleMovimientoRepository,
         DetalleMovimientoMapper detalleMovimientoMapper,
-        DetalleMovimientoSearchRepository detalleMovimientoSearchRepository,
         MovimientosRepository movimientosRepository) {
         this.detalleMovimientoRepository = detalleMovimientoRepository;
         this.detalleMovimientoMapper = detalleMovimientoMapper;
-        this.detalleMovimientoSearchRepository = detalleMovimientoSearchRepository;
         this.movimientosRepository = movimientosRepository;
     }
 
@@ -59,7 +53,6 @@ public class DetalleMovimientoServiceImpl implements DetalleMovimientoService {
         DetalleMovimiento detalleMovimiento = detalleMovimientoMapper.toEntity(detalleMovimientoDTO);
         detalleMovimiento = detalleMovimientoRepository.save(detalleMovimiento);
         DetalleMovimientoDTO result = detalleMovimientoMapper.toDto(detalleMovimiento);
-        detalleMovimientoSearchRepository.save(detalleMovimiento);
         return result;
     }
 
@@ -101,22 +94,6 @@ public class DetalleMovimientoServiceImpl implements DetalleMovimientoService {
     public void delete(Long id) {
         log.debug("Request to delete DetalleMovimiento : {}", id);
         detalleMovimientoRepository.deleteById(id);
-        detalleMovimientoSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the detalleMovimiento corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<DetalleMovimientoDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of DetalleMovimientos for query {}", query);
-        return detalleMovimientoSearchRepository.search(queryStringQuery(query), pageable)
-            .map(detalleMovimientoMapper::toDto);
     }
 
     /**

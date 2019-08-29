@@ -31,7 +31,7 @@ export class InsumoResolve implements Resolve<IInsumo> {
 
 export const insumoRoute: Routes = [
     {
-        path: '',
+        path: 'insumo',
         component: InsumoComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const insumoRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'insumo/:id/view',
         component: InsumoDetailComponent,
         resolve: {
             insumo: InsumoResolve
@@ -56,7 +56,7 @@ export const insumoRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'insumo/new',
         component: InsumoUpdateComponent,
         resolve: {
             insumo: InsumoResolve
@@ -68,7 +68,7 @@ export const insumoRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'insumo/:id/edit',
         component: InsumoUpdateComponent,
         resolve: {
             insumo: InsumoResolve
@@ -83,7 +83,7 @@ export const insumoRoute: Routes = [
 
 export const insumoPopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'insumo/:id/delete',
         component: InsumoDeletePopupComponent,
         resolve: {
             insumo: InsumoResolve

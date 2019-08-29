@@ -1,0 +1,23 @@
+<!-- Page Loader -->
+<div class="body {{themeClass}} {{smallScreenMenu}} {{darkClass}}">
+
+
+	<jhi-page-loader *ngIf="!isStopLoading"></jhi-page-loader>
+
+	<div id="wrapper" *ngIf="isStopLoading">
+
+		<!-- Overlay For Sidebars -->
+
+		<jhi-header [showNotifMenu]="showNotifMenu" [showToggleMenu]="showToggleMenu" [darkClass]="darkClass"
+			(toggleSettingDropMenuEvent)="toggleSettingDropMenu()"
+			(toggleNotificationDropMenuEvent)="toggleNotificationDropMenu()"></jhi-header>
+
+		<jhi-sidebar [sidebarVisible]="sidebarService.sidebarVisible" [navTab]="navTab"
+                 [empresa]="sidebarService.empresaVisible"
+			[currentActiveMenu]="currentActiveMenu" [currentActiveSubMenu]="currentActiveSubMenu"
+			(activeInactiveMenuEvent)="activeInactiveMenu($event)"></jhi-sidebar>
+		<div id="main-content" [ngClass]="{'layout-fullwidth':!sidebarService.sidebarVisible}">
+			<router-outlet (activate)="getActiveRoutes()"></router-outlet>
+		</div>
+	</div>
+</div>

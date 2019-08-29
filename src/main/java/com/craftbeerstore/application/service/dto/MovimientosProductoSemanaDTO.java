@@ -31,13 +31,30 @@ public class MovimientosProductoSemanaDTO implements Serializable {
     @JsonProperty(value = "nombreProducto")
     private String nombreProducto;
 
+    @JsonProperty(value = "color")
+    private String color;
+
+    @JsonProperty(value = "litros")
+    private String litros;
+
 
     public MovimientosProductoSemanaDTO() {
     }
 
-    public MovimientosProductoSemanaDTO(Long id,
-        TipoMovimiento tipoMovimiento, LocalDate fechaMovimiento, BigDecimal total,
-        Long cantidad, String nombreProducto) {
+  public MovimientosProductoSemanaDTO(Long id, TipoMovimiento tipoMovimiento, LocalDate fechaMovimiento,
+                                      BigDecimal total, Long cantidad, String nombreProducto, String color) {
+    this.id = id;
+    this.tipoMovimiento = tipoMovimiento;
+    this.fechaMovimiento = fechaMovimiento;
+    this.total = total;
+    this.cantidad = cantidad;
+    this.nombreProducto = nombreProducto;
+    this.color = color;
+  }
+
+  public MovimientosProductoSemanaDTO(Long id,
+                                      TipoMovimiento tipoMovimiento, LocalDate fechaMovimiento, BigDecimal total,
+                                      Long cantidad, String nombreProducto) {
         this.id = id;
         this.tipoMovimiento = tipoMovimiento;
         this.fechaMovimiento = fechaMovimiento;
@@ -92,11 +109,27 @@ public class MovimientosProductoSemanaDTO implements Serializable {
         return nombreProducto;
     }
 
-    public void setNombreProducto(String nombreProducto) {
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  public void setNombreProducto(String nombreProducto) {
         this.nombreProducto = nombreProducto;
     }
 
-    @Override
+  public String getLitros() {
+    return litros;
+  }
+
+  public void setLitros(String litros) {
+    this.litros = litros;
+  }
+
+  @Override
     public String
     toString() {
         return "MovimientosProductoSemanaDTO{" +

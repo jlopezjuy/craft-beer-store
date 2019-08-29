@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing Receta.
  */
@@ -134,21 +132,4 @@ public class RecetaResource {
         recetaService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
-    /**
-     * SEARCH  /_search/recetas?query=:query : search for the receta corresponding
-     * to the query.
-     *
-     * @param query the query of the receta search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/recetas")
-    public ResponseEntity<List<RecetaDTO>> searchRecetas(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Recetas for query {}", query);
-        Page<RecetaDTO> page = recetaService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/recetas");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
 }

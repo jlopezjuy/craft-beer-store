@@ -1,126 +1,162 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-insumo-heading" jhiTranslate="craftBeerStoreApp.insumo.home.createOrEditLabel">Create or edit a Insumo</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <mat-form-field class="example-full-width" [hidden]="!insumo.id" appearance="fill">
-                    <mat-label jhiTranslate="global.field.id">ID </mat-label>
-                    <input matInput placeholder="id" id="id" name="id"
-                           [(ngModel)]="insumo.id" readonly>
-                </mat-form-field>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label jhiTranslate="craftBeerStoreApp.insumo.insumoRecomendado" for="field_insumoRecomendado">Insumo Recomendado</mat-label>
-                            <mat-select id="field_insumoRecomendado" name="insumoRecomendado" [(ngModel)]="insumo.insumoRecomendadoId"
-                                        (selectionChange)="insumoRecomendadoChange($event.value)">
-                                <mat-option [value]="null"></mat-option>
-                                <mat-option [value]="insumoRecomendadoOption.id" *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">
-                                    {{insumoRecomendadoOption.nombre }} - {{insumoRecomendadoOption.marca}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-6">
-                        <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</mat-label>
-                            <input matInput type="text" id="nombreInsumo" name="nombreInsumo"
-                                   [(ngModel)]="insumo.nombreInsumo"  required />
-                            <mat-error [hidden]="!(editForm.controls.nombreInsumo?.dirty && editForm.controls.nombreInsumo?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.nombreInsumo?.errors?.required" jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label jhiTranslate="craftBeerStoreApp.insumo.marca">Marca</mat-label>
-                            <input matInput type="text" id="marca" name="marca"
-                                   [(ngModel)]="insumo.marca" required/>
-                            <mat-error [hidden]="!(editForm.controls.marca?.dirty && editForm.controls.marca?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.marca?.errors?.required" jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-6">
-                        <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label jhiTranslate="craftBeerStoreApp.insumo.stock">Marca</mat-label>
-                            <input matInput type="number" id="stock" name="stock"
-                                   [(ngModel)]="insumo.stock"  required/>
-                            <mat-error [hidden]="!(editForm.controls.stock?.dirty && editForm.controls.stock?.invalid)">
-                                <small class="form-text text-danger"
-                                       [hidden]="!editForm.controls.stock?.errors?.required" jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</mat-label>
-                            <mat-select  name="unidad" [(ngModel)]="insumo.unidad" id="field_unidad">
-                                <mat-option value="KILOGRAMO">{{'craftBeerStoreApp.Unidad.KILOGRAMO' | translate}}</mat-option>
-                                <mat-option value="GRAMO">{{'craftBeerStoreApp.Unidad.GRAMO' | translate}}</mat-option>
-                                <mat-option value="VEINTICINCO_KILOS">{{'craftBeerStoreApp.Unidad.VEINTICINCO_KILOS' | translate}}</mat-option>
-                                <mat-option value="DIES_KILOS">{{'craftBeerStoreApp.Unidad.DIES_KILOS' | translate}}</mat-option>
-                                <mat-option value="LITRO">{{'craftBeerStoreApp.Unidad.LITRO' | translate}}</mat-option>
-                                <mat-option value="CM3">{{'craftBeerStoreApp.Unidad.CM3' | translate}}</mat-option>
-                                <mat-option value="ML">{{'craftBeerStoreApp.Unidad.ML' | translate}}</mat-option>
-                                <mat-option value="UNIDAD">{{'craftBeerStoreApp.Unidad.UNIDAD' | translate}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-sm-6">
-                        <mat-form-field class="example-full-width" appearance="fill">
-                            <mat-label jhiTranslate="craftBeerStoreApp.insumo.tipo">Unidad</mat-label>
-                            <mat-select  name="tipo" [(ngModel)]="insumo.tipo" id="field_tipo">
-                                <mat-option value="MALTA">{{'craftBeerStoreApp.TipoInsumo.MALTA' | translate}}</mat-option>
-                                <mat-option value="LUPULO">{{'craftBeerStoreApp.TipoInsumo.LUPULO' | translate}}</mat-option>
-                                <mat-option value="LEVADURA">{{'craftBeerStoreApp.TipoInsumo.LEVADURA' | translate}}</mat-option>
-                                <mat-option value="ACIDO">{{'craftBeerStoreApp.TipoInsumo.ACIDO' | translate}}</mat-option>
-                                <mat-option value="SAL">{{'craftBeerStoreApp.TipoInsumo.SAL' | translate}}</mat-option>
-                                <mat-option value="CLARIFICANTE">{{'craftBeerStoreApp.TipoInsumo.CLARIFICANTE' | translate}}</mat-option>
-                                <mat-option value="OTROS">{{'craftBeerStoreApp.TipoInsumo.OTROS' | translate}}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.insumo.imagen" for="field_imagen">Imagen</label>
-                    <div>
-                        <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen" style="max-height: 100px;" *ngIf="insumo.imagen" alt="insumo image"/>
-                        <div *ngIf="insumo.imagen" class="form-text text-danger clearfix">
-                            <span class="pull-left">{{insumo.imagenContentType}}, {{byteSize(insumo.imagen)}}</span>
-                            <button type="button" mat-mini-fab color="warn" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')">
-                                <fa-icon [icon]="'times'"></fa-icon>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <h2 id="jhi-insumo-heading" jhiTranslate="craftBeerStoreApp.insumo.home.createOrEditLabel">Create or edit a Insumo</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Entidad</li>
+                    <li class="breadcrumb-item active">Insumo</li>
+                </ul>
+            </div>
+<!--            <div class="col-lg-7 col-md-4 col-sm-12 text-right">-->
+<!--                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">-->
+<!--                    &lt;!&ndash;                    <div echarts [options]="visitorsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <span>Visitors</span>-->
+<!--                </div>-->
+<!--                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">-->
+<!--                    &lt;!&ndash;                    <div echarts [options]="visitsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <span>Visits</span>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+
+        </div>
+        <div class="body">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+                        <div>
+                            <jhi-alert-error></jhi-alert-error>
+<!--                            <mat-form-field class="example-full-width" [hidden]="!insumo.id" appearance="fill">-->
+<!--                                <mat-label jhiTranslate="global.field.id">ID </mat-label>-->
+<!--                                <input matInput placeholder="id" id="id" name="id"-->
+<!--                                       [(ngModel)]="insumo.id" readonly>-->
+<!--                            </mat-form-field>-->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.insumo.insumoRecomendado" for="field_insumoRecomendado">Insumo Recomendado</mat-label>
+                                        <mat-select id="field_insumoRecomendado" name="insumoRecomendado" [(ngModel)]="insumo.insumoRecomendadoId"
+                                                    (selectionChange)="insumoRecomendadoChange($event.value)">
+                                            <mat-option [value]="null"></mat-option>
+                                            <mat-option [value]="insumoRecomendadoOption.id" *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">
+                                                {{insumoRecomendadoOption.nombre }} - {{insumoRecomendadoOption.marca}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-6">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</mat-label>
+                                        <input matInput type="text" id="nombreInsumo" name="nombreInsumo"
+                                               [(ngModel)]="insumo.nombreInsumo"  required />
+                                        <mat-error [hidden]="!(editForm.controls.nombreInsumo?.dirty && editForm.controls.nombreInsumo?.invalid)">
+                                            <small class="form-text text-danger"
+                                                   [hidden]="!editForm.controls.nombreInsumo?.errors?.required" jhiTranslate="entity.validation.required">
+                                                This field is required.
+                                            </small>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.insumo.marca">Marca</mat-label>
+                                        <input matInput type="text" id="marca" name="marca"
+                                               [(ngModel)]="insumo.marca" required/>
+                                        <mat-error [hidden]="!(editForm.controls.marca?.dirty && editForm.controls.marca?.invalid)">
+                                            <small class="form-text text-danger"
+                                                   [hidden]="!editForm.controls.marca?.errors?.required" jhiTranslate="entity.validation.required">
+                                                This field is required.
+                                            </small>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-6">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.insumo.stock">Stock</mat-label>
+                                        <input matInput type="number" id="stock" name="stock"
+                                               [(ngModel)]="insumo.stock"  required/>
+                                        <mat-error [hidden]="!(editForm.controls.stock?.dirty && editForm.controls.stock?.invalid)">
+                                            <small class="form-text text-danger"
+                                                   [hidden]="!editForm.controls.stock?.errors?.required" jhiTranslate="entity.validation.required">
+                                                This field is required.
+                                            </small>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</mat-label>
+                                        <mat-select  name="unidad" [(ngModel)]="insumo.unidad" id="field_unidad">
+                                            <mat-option value="KILOGRAMO">{{'craftBeerStoreApp.Unidad.KILOGRAMO' | translate}}</mat-option>
+                                            <mat-option value="GRAMO">{{'craftBeerStoreApp.Unidad.GRAMO' | translate}}</mat-option>
+                                            <mat-option value="VEINTICINCO_KILOS">{{'craftBeerStoreApp.Unidad.VEINTICINCO_KILOS' | translate}}</mat-option>
+                                            <mat-option value="DIES_KILOS">{{'craftBeerStoreApp.Unidad.DIES_KILOS' | translate}}</mat-option>
+                                            <mat-option value="LITRO">{{'craftBeerStoreApp.Unidad.LITRO' | translate}}</mat-option>
+                                            <mat-option value="CM3">{{'craftBeerStoreApp.Unidad.CM3' | translate}}</mat-option>
+                                            <mat-option value="ML">{{'craftBeerStoreApp.Unidad.ML' | translate}}</mat-option>
+                                            <mat-option value="UNIDAD">{{'craftBeerStoreApp.Unidad.UNIDAD' | translate}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-6">
+                                    <mat-form-field class="example-full-width" appearance="fill">
+                                        <mat-label jhiTranslate="craftBeerStoreApp.insumo.tipo">Unidad</mat-label>
+                                        <mat-select  name="tipo" [(ngModel)]="insumo.tipo" id="field_tipo">
+                                            <mat-option value="MALTA">{{'craftBeerStoreApp.TipoInsumo.MALTA' | translate}}</mat-option>
+                                            <mat-option value="LUPULO">{{'craftBeerStoreApp.TipoInsumo.LUPULO' | translate}}</mat-option>
+                                            <mat-option value="LEVADURA">{{'craftBeerStoreApp.TipoInsumo.LEVADURA' | translate}}</mat-option>
+                                            <mat-option value="ACIDO">{{'craftBeerStoreApp.TipoInsumo.ACIDO' | translate}}</mat-option>
+                                            <mat-option value="SAL">{{'craftBeerStoreApp.TipoInsumo.SAL' | translate}}</mat-option>
+                                            <mat-option value="CLARIFICANTE">{{'craftBeerStoreApp.TipoInsumo.CLARIFICANTE' | translate}}</mat-option>
+                                            <mat-option value="OTROS">{{'craftBeerStoreApp.TipoInsumo.OTROS' | translate}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label" jhiTranslate="craftBeerStoreApp.insumo.imagen" for="field_imagen">Imagen</label>
+                                <div>
+                                    <img [src]="'data:' + insumo.imagenContentType + ';base64,' + insumo.imagen" style="max-height: 100px;" *ngIf="insumo.imagen" alt="insumo image"/>
+                                    <div *ngIf="insumo.imagen" class="form-text text-danger clearfix">
+                                        <span class="pull-left">{{insumo.imagenContentType}}, {{byteSize(insumo.imagen)}}</span>
+                                        <button type="button" mat-mini-fab color="warn" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                        </button>
+                                    </div>
+                                    <input type="file" id="file_imagen" (change)="setFileData($event, insumo, 'imagen', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                                </div>
+                                <input type="hidden" class="form-control" name="imagen" id="field_imagen"
+                                       [(ngModel)]="insumo.imagen" />
+                                <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
+                                       [(ngModel)]="insumo.imagenContentType" />
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                             </button>
                         </div>
-                        <input type="file" id="file_imagen" (change)="setFileData($event, insumo, 'imagen', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
-                    </div>
-                    <input type="hidden" class="form-control" name="imagen" id="field_imagen"
-                        [(ngModel)]="insumo.imagen" />
-                    <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
-                        [(ngModel)]="insumo.imagenContentType" />
+                    </form>
                 </div>
             </div>
-            <div>
-                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                </button>
-            </div>
-        </form>
+
+        </div>
     </div>
+
 </div>

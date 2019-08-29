@@ -1,0 +1,47 @@
+<div id="wrapper">
+  <div class="vertical-align-wrap">
+    <div class="vertical-align-middle auth-main">
+      <div class="auth-box">
+        <div class="top">
+          <img src="/assets/images/logo.png" alt="Craft Beer Management">
+        </div>
+        <div class="card">
+          <div class="header">
+            <p class="lead" jhiTranslate="login.title">Ingrese a cuenta</p>
+          </div>
+          <div class="body">
+            <form class="form-auth-small" #loginForm="ngForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label class="username-label" for="username" jhiTranslate="global.form.username">Login</label>
+                <input type="text" class="form-control" name="username" id="username" placeholder=""
+                       [(ngModel)]="username">
+              </div>
+              <div class="form-group">
+                <label for="password" jhiTranslate="login.form.password">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder=""
+                       [(ngModel)]="password">
+              </div>
+              <div class="form-group clearfix">
+                <label class="fancy-checkbox element-left">
+                  <input type="checkbox">
+                  <span jhiTranslate="login.form.rememberme">Remember me</span>
+                </label>
+              </div>
+              <button type="submit" mat-raised-button class="mat-success" jhiTranslate="login.form.button">LOGIN
+              </button>
+              <div class="alert alert-warning">
+                <a class="alert-link" (click)="requestResetPassword()" jhiTranslate="login.password.forgot">Did you
+                  forget your password?</a>
+              </div>
+              <div class="alert alert-warning">
+                <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
+                <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a
+                  new account</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

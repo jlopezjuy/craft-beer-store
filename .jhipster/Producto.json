@@ -50,11 +50,15 @@
             "fieldName": "observacion",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "srmColor",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20190408001803",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "producto",
     "databaseType": "sql",

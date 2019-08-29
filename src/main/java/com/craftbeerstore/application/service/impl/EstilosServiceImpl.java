@@ -3,7 +3,6 @@ package com.craftbeerstore.application.service.impl;
 import com.craftbeerstore.application.service.EstilosService;
 import com.craftbeerstore.application.domain.Estilos;
 import com.craftbeerstore.application.repository.EstilosRepository;
-import com.craftbeerstore.application.repository.search.EstilosSearchRepository;
 import com.craftbeerstore.application.service.dto.EstilosDTO;
 import com.craftbeerstore.application.service.mapper.EstilosMapper;
 import java.util.List;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Estilos.
@@ -32,12 +29,10 @@ public class EstilosServiceImpl implements EstilosService {
 
     private final EstilosMapper estilosMapper;
 
-    private final EstilosSearchRepository estilosSearchRepository;
 
-    public EstilosServiceImpl(EstilosRepository estilosRepository, EstilosMapper estilosMapper, EstilosSearchRepository estilosSearchRepository) {
+    public EstilosServiceImpl(EstilosRepository estilosRepository, EstilosMapper estilosMapper) {
         this.estilosRepository = estilosRepository;
         this.estilosMapper = estilosMapper;
-        this.estilosSearchRepository = estilosSearchRepository;
     }
 
     /**
@@ -52,7 +47,6 @@ public class EstilosServiceImpl implements EstilosService {
         Estilos estilos = estilosMapper.toEntity(estilosDTO);
         estilos = estilosRepository.save(estilos);
         EstilosDTO result = estilosMapper.toDto(estilos);
-        estilosSearchRepository.save(estilos);
         return result;
     }
 
@@ -94,23 +88,8 @@ public class EstilosServiceImpl implements EstilosService {
     public void delete(Long id) {
         log.debug("Request to delete Estilos : {}", id);
         estilosRepository.deleteById(id);
-        estilosSearchRepository.deleteById(id);
     }
 
-    /**
-     * Search for the estilos corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<EstilosDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Estilos for query {}", query);
-        return estilosSearchRepository.search(queryStringQuery(query), pageable)
-            .map(estilosMapper::toDto);
-    }
 
     @Override
     public List<EstilosDTO> findAllEstilos() {

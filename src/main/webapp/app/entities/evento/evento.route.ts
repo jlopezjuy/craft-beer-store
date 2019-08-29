@@ -31,7 +31,7 @@ export class EventoResolve implements Resolve<IEvento> {
 
 export const eventoRoute: Routes = [
     {
-        path: '',
+        path: 'evento',
         component: EventoComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const eventoRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'evento/:id/view',
         component: EventoDetailComponent,
         resolve: {
             evento: EventoResolve
@@ -56,7 +56,7 @@ export const eventoRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'evento/new',
         component: EventoUpdateComponent,
         resolve: {
             evento: EventoResolve
@@ -68,7 +68,7 @@ export const eventoRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'evento/:id/edit',
         component: EventoUpdateComponent,
         resolve: {
             evento: EventoResolve
@@ -83,7 +83,7 @@ export const eventoRoute: Routes = [
 
 export const eventoPopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'evento/:id/delete',
         component: EventoDeletePopupComponent,
         resolve: {
             evento: EventoResolve

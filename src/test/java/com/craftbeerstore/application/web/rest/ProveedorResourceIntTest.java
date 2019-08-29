@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Proveedor;
 import com.craftbeerstore.application.repository.ProveedorRepository;
-import com.craftbeerstore.application.repository.search.ProveedorSearchRepository;
 import com.craftbeerstore.application.service.ProveedorService;
 import com.craftbeerstore.application.service.dto.ProveedorDTO;
 import com.craftbeerstore.application.service.mapper.ProveedorMapper;
@@ -37,7 +36,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -101,14 +99,6 @@ public class ProveedorResourceIntTest {
 
     @Autowired
     private ProveedorService proveedorService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.ProveedorSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ProveedorSearchRepository mockProveedorSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -199,9 +189,6 @@ public class ProveedorResourceIntTest {
         assertThat(testProveedor.getCodigoPostal()).isEqualTo(DEFAULT_CODIGO_POSTAL);
         assertThat(testProveedor.getProvincia()).isEqualTo(DEFAULT_PROVINCIA);
         assertThat(testProveedor.getContacto()).isEqualTo(DEFAULT_CONTACTO);
-
-        // Validate the Proveedor in Elasticsearch
-        verify(mockProveedorSearchRepository, times(1)).save(testProveedor);
     }
 
     @Test
@@ -222,9 +209,6 @@ public class ProveedorResourceIntTest {
         // Validate the Proveedor in the database
         List<Proveedor> proveedorList = proveedorRepository.findAll();
         assertThat(proveedorList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Proveedor in Elasticsearch
-        verify(mockProveedorSearchRepository, times(0)).save(proveedor);
     }
 
     @Test
@@ -290,7 +274,7 @@ public class ProveedorResourceIntTest {
             .andExpect(jsonPath("$.[*].provincia").value(hasItem(DEFAULT_PROVINCIA.toString())))
             .andExpect(jsonPath("$.[*].contacto").value(hasItem(DEFAULT_CONTACTO.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getProveedor() throws Exception {
@@ -375,9 +359,6 @@ public class ProveedorResourceIntTest {
         assertThat(testProveedor.getCodigoPostal()).isEqualTo(UPDATED_CODIGO_POSTAL);
         assertThat(testProveedor.getProvincia()).isEqualTo(UPDATED_PROVINCIA);
         assertThat(testProveedor.getContacto()).isEqualTo(UPDATED_CONTACTO);
-
-        // Validate the Proveedor in Elasticsearch
-        verify(mockProveedorSearchRepository, times(1)).save(testProveedor);
     }
 
     @Test
@@ -397,9 +378,6 @@ public class ProveedorResourceIntTest {
         // Validate the Proveedor in the database
         List<Proveedor> proveedorList = proveedorRepository.findAll();
         assertThat(proveedorList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Proveedor in Elasticsearch
-        verify(mockProveedorSearchRepository, times(0)).save(proveedor);
     }
 
     @Test
@@ -418,36 +396,6 @@ public class ProveedorResourceIntTest {
         // Validate the database is empty
         List<Proveedor> proveedorList = proveedorRepository.findAll();
         assertThat(proveedorList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Proveedor in Elasticsearch
-        verify(mockProveedorSearchRepository, times(1)).deleteById(proveedor.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchProveedor() throws Exception {
-        // Initialize the database
-        proveedorRepository.saveAndFlush(proveedor);
-        when(mockProveedorSearchRepository.search(queryStringQuery("id:" + proveedor.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(proveedor), PageRequest.of(0, 1), 1));
-        // Search the proveedor
-        restProveedorMockMvc.perform(get("/api/_search/proveedors?query=id:" + proveedor.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(proveedor.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombreProveedor").value(hasItem(DEFAULT_NOMBRE_PROVEEDOR)))
-            .andExpect(jsonPath("$.[*].razonSocial").value(hasItem(DEFAULT_RAZON_SOCIAL)))
-            .andExpect(jsonPath("$.[*].cuit").value(hasItem(DEFAULT_CUIT)))
-            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
-            .andExpect(jsonPath("$.[*].fechaAlta").value(hasItem(DEFAULT_FECHA_ALTA.toString())))
-            .andExpect(jsonPath("$.[*].domicilio").value(hasItem(DEFAULT_DOMICILIO)))
-            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)))
-            .andExpect(jsonPath("$.[*].notas").value(hasItem(DEFAULT_NOTAS.toString())))
-            .andExpect(jsonPath("$.[*].condicionFiscal").value(hasItem(DEFAULT_CONDICION_FISCAL.toString())))
-            .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD)))
-            .andExpect(jsonPath("$.[*].codigoPostal").value(hasItem(DEFAULT_CODIGO_POSTAL.intValue())))
-            .andExpect(jsonPath("$.[*].provincia").value(hasItem(DEFAULT_PROVINCIA.toString())))
-            .andExpect(jsonPath("$.[*].contacto").value(hasItem(DEFAULT_CONTACTO)));
     }
 
     @Test

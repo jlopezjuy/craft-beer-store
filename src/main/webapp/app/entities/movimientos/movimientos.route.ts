@@ -31,7 +31,7 @@ export class MovimientosResolve implements Resolve<IMovimientos> {
 
 export const movimientosRoute: Routes = [
     {
-        path: '',
+        path: 'movimientos',
         component: MovimientosComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const movimientosRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'movimientos/:id/view',
         component: MovimientosDetailComponent,
         resolve: {
             movimientos: MovimientosResolve
@@ -56,7 +56,7 @@ export const movimientosRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'movimientos/new',
         component: MovimientosUpdateComponent,
         resolve: {
             movimientos: MovimientosResolve
@@ -68,7 +68,7 @@ export const movimientosRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'movimientos/:id/edit',
         component: MovimientosUpdateComponent,
         resolve: {
             movimientos: MovimientosResolve
@@ -83,7 +83,7 @@ export const movimientosRoute: Routes = [
 
 export const movimientosPopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'movimientos/:id/delete',
         component: MovimientosDeletePopupComponent,
         resolve: {
             movimientos: MovimientosResolve

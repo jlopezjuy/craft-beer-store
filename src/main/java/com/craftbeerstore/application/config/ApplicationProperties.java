@@ -3,7 +3,7 @@ package com.craftbeerstore.application.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Properties specific to Craft Beer Store.
+ * Properties specific to Craft Beer Management.
  * <p>
  * Properties are configured in the application.yml file.
  * See {@link io.github.jhipster.config.JHipsterProperties} for a good example.

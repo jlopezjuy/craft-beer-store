@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.InsumoRecomendado;
 import com.craftbeerstore.application.repository.InsumoRecomendadoRepository;
-import com.craftbeerstore.application.repository.search.InsumoRecomendadoSearchRepository;
 import com.craftbeerstore.application.service.InsumoRecomendadoService;
 import com.craftbeerstore.application.service.dto.InsumoRecomendadoDTO;
 import com.craftbeerstore.application.service.mapper.InsumoRecomendadoMapper;
@@ -34,7 +33,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -67,14 +65,6 @@ public class InsumoRecomendadoResourceIntTest {
 
     @Autowired
     private InsumoRecomendadoService insumoRecomendadoService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.InsumoRecomendadoSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private InsumoRecomendadoSearchRepository mockInsumoRecomendadoSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -145,9 +135,6 @@ public class InsumoRecomendadoResourceIntTest {
         assertThat(testInsumoRecomendado.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testInsumoRecomendado.getMarca()).isEqualTo(DEFAULT_MARCA);
         assertThat(testInsumoRecomendado.getTipo()).isEqualTo(DEFAULT_TIPO);
-
-        // Validate the InsumoRecomendado in Elasticsearch
-        verify(mockInsumoRecomendadoSearchRepository, times(1)).save(testInsumoRecomendado);
     }
 
     @Test
@@ -168,9 +155,6 @@ public class InsumoRecomendadoResourceIntTest {
         // Validate the InsumoRecomendado in the database
         List<InsumoRecomendado> insumoRecomendadoList = insumoRecomendadoRepository.findAll();
         assertThat(insumoRecomendadoList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the InsumoRecomendado in Elasticsearch
-        verify(mockInsumoRecomendadoSearchRepository, times(0)).save(insumoRecomendado);
     }
 
     @Test
@@ -243,9 +227,6 @@ public class InsumoRecomendadoResourceIntTest {
         assertThat(testInsumoRecomendado.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testInsumoRecomendado.getMarca()).isEqualTo(UPDATED_MARCA);
         assertThat(testInsumoRecomendado.getTipo()).isEqualTo(UPDATED_TIPO);
-
-        // Validate the InsumoRecomendado in Elasticsearch
-        verify(mockInsumoRecomendadoSearchRepository, times(1)).save(testInsumoRecomendado);
     }
 
     @Test
@@ -265,9 +246,6 @@ public class InsumoRecomendadoResourceIntTest {
         // Validate the InsumoRecomendado in the database
         List<InsumoRecomendado> insumoRecomendadoList = insumoRecomendadoRepository.findAll();
         assertThat(insumoRecomendadoList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the InsumoRecomendado in Elasticsearch
-        verify(mockInsumoRecomendadoSearchRepository, times(0)).save(insumoRecomendado);
     }
 
     @Test
@@ -286,26 +264,6 @@ public class InsumoRecomendadoResourceIntTest {
         // Validate the database is empty
         List<InsumoRecomendado> insumoRecomendadoList = insumoRecomendadoRepository.findAll();
         assertThat(insumoRecomendadoList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the InsumoRecomendado in Elasticsearch
-        verify(mockInsumoRecomendadoSearchRepository, times(1)).deleteById(insumoRecomendado.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchInsumoRecomendado() throws Exception {
-        // Initialize the database
-        insumoRecomendadoRepository.saveAndFlush(insumoRecomendado);
-        when(mockInsumoRecomendadoSearchRepository.search(queryStringQuery("id:" + insumoRecomendado.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(insumoRecomendado), PageRequest.of(0, 1), 1));
-        // Search the insumoRecomendado
-        restInsumoRecomendadoMockMvc.perform(get("/api/_search/insumo-recomendados?query=id:" + insumoRecomendado.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(insumoRecomendado.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
-            .andExpect(jsonPath("$.[*].marca").value(hasItem(DEFAULT_MARCA)))
-            .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())));
     }
 
     @Test

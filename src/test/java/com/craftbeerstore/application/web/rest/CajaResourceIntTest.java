@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Caja;
 import com.craftbeerstore.application.repository.CajaRepository;
-import com.craftbeerstore.application.repository.search.CajaSearchRepository;
 import com.craftbeerstore.application.service.CajaService;
 import com.craftbeerstore.application.service.dto.CajaDTO;
 import com.craftbeerstore.application.service.mapper.CajaMapper;
@@ -25,7 +24,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -38,7 +36,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -81,14 +78,6 @@ public class CajaResourceIntTest {
 
     @Autowired
     private CajaService cajaService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.CajaSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private CajaSearchRepository mockCajaSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -165,9 +154,6 @@ public class CajaResourceIntTest {
         assertThat(testCaja.getSaldoCtaCte()).isEqualTo(DEFAULT_SALDO_CTA_CTE);
         assertThat(testCaja.getImporte()).isEqualTo(DEFAULT_IMPORTE);
         assertThat(testCaja.getFecha()).isEqualTo(DEFAULT_FECHA);
-
-        // Validate the Caja in Elasticsearch
-        verify(mockCajaSearchRepository, times(1)).save(testCaja);
     }
 
     @Test
@@ -188,9 +174,6 @@ public class CajaResourceIntTest {
         // Validate the Caja in the database
         List<Caja> cajaList = cajaRepository.findAll();
         assertThat(cajaList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Caja in Elasticsearch
-        verify(mockCajaSearchRepository, times(0)).save(caja);
     }
 
     @Test
@@ -351,9 +334,6 @@ public class CajaResourceIntTest {
         assertThat(testCaja.getSaldoCtaCte()).isEqualTo(UPDATED_SALDO_CTA_CTE);
         assertThat(testCaja.getImporte()).isEqualTo(UPDATED_IMPORTE);
         assertThat(testCaja.getFecha()).isEqualTo(UPDATED_FECHA);
-
-        // Validate the Caja in Elasticsearch
-        verify(mockCajaSearchRepository, times(1)).save(testCaja);
     }
 
     @Test
@@ -373,9 +353,6 @@ public class CajaResourceIntTest {
         // Validate the Caja in the database
         List<Caja> cajaList = cajaRepository.findAll();
         assertThat(cajaList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Caja in Elasticsearch
-        verify(mockCajaSearchRepository, times(0)).save(caja);
     }
 
     @Test
@@ -394,29 +371,6 @@ public class CajaResourceIntTest {
         // Validate the database is empty
         List<Caja> cajaList = cajaRepository.findAll();
         assertThat(cajaList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Caja in Elasticsearch
-        verify(mockCajaSearchRepository, times(1)).deleteById(caja.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchCaja() throws Exception {
-        // Initialize the database
-        cajaRepository.saveAndFlush(caja);
-        when(mockCajaSearchRepository.search(queryStringQuery("id:" + caja.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(caja), PageRequest.of(0, 1), 1));
-        // Search the caja
-        restCajaMockMvc.perform(get("/api/_search/cajas?query=id:" + caja.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(caja.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tipoMovimiento").value(hasItem(DEFAULT_TIPO_MOVIMIENTO.toString())))
-            .andExpect(jsonPath("$.[*].tipoPago").value(hasItem(DEFAULT_TIPO_PAGO.toString())))
-            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION.toString())))
-            .andExpect(jsonPath("$.[*].saldoCtaCte").value(hasItem(DEFAULT_SALDO_CTA_CTE.intValue())))
-            .andExpect(jsonPath("$.[*].importe").value(hasItem(DEFAULT_IMPORTE.intValue())))
-            .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
     }
 
     @Test

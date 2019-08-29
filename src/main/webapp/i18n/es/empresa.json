@@ -1,30 +1,32 @@
 {
-    "craftBeerStoreApp": {
-        "empresa": {
-            "home": {
-                "title": "Cerveceria",
-                "createLabel": "Crear nueva Cerveceria",
-                "createOrEditLabel": "Crear o editar Cerveceria",
-                "search": "Search for Cerveceria"
-            },
-            "created": "Un nueva Cerveceria ha sido creada con el identificador {{ param }}",
-            "updated": "Un Cerveceria ha sido actualizada con el identificador {{ param }}",
-            "deleted": "Un Cerveceria ha sido eliminada con el identificador {{ param }}",
-            "delete": {
-                "question": "¿Seguro que quiere eliminar la Cerveceria {{ id }}?"
-            },
-            "detail": {
-                "title": "Cerveceria"
-            },
-            "nombreEmpresa": "Nombre de la Cerveceria",
-            "direccion": "Dirección",
-            "localidad": "Localidad",
-            "codigoPostal": "Codigo Postal",
-            "provincia": "Provincia",
-            "telefono": "Teléfono",
-            "correo": "Correo",
-            "user": "User",
-            "mailError": "La cuenta de correo ya existe!"
-        }
+  "craftBeerStoreApp": {
+    "empresa": {
+      "home": {
+        "title": "Cerveceria",
+        "createLabel": "Crear nueva Cerveceria",
+        "createOrEditLabel": "Crear o editar Cerveceria",
+        "search": "Search for Cerveceria"
+      },
+      "created": "Un nueva Cerveceria ha sido creada con el identificador {{ param }}",
+      "updated": "Un Cerveceria ha sido actualizada con el identificador {{ param }}",
+      "deleted": "Un Cerveceria ha sido eliminada con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar la Cerveceria {{ id }}?"
+      },
+      "detail": {
+        "title": "Cerveceria"
+      },
+      "nombreEmpresa": "Nombre de la Cerveceria",
+      "direccion": "Dirección",
+      "localidad": "Localidad",
+      "codigoPostal": "Codigo Postal",
+      "provincia": "Provincia",
+      "telefono": "Teléfono",
+      "correo": "Correo",
+      "logoPrincipal": "Logo de Cerveceria",
+      "fechaInicioActividad": "Fecha Inicio Actividad",
+      "user": "User",
+      "mailError": "La cuenta de correo ya existe!"
     }
+  }
 }

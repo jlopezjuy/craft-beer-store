@@ -11,9 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -45,7 +47,7 @@ public class RecetaInsumoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/receta-insumos")
-    public ResponseEntity<RecetaInsumoDTO> createRecetaInsumo(@RequestBody RecetaInsumoDTO recetaInsumoDTO) throws URISyntaxException {
+    public ResponseEntity<RecetaInsumoDTO> createRecetaInsumo(@Valid @RequestBody RecetaInsumoDTO recetaInsumoDTO) throws URISyntaxException {
         log.debug("REST request to save RecetaInsumo : {}", recetaInsumoDTO);
         if (recetaInsumoDTO.getId() != null) {
             throw new BadRequestAlertException("A new recetaInsumo cannot already have an ID", ENTITY_NAME, "idexists");
@@ -66,7 +68,7 @@ public class RecetaInsumoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/receta-insumos")
-    public ResponseEntity<RecetaInsumoDTO> updateRecetaInsumo(@RequestBody RecetaInsumoDTO recetaInsumoDTO) throws URISyntaxException {
+    public ResponseEntity<RecetaInsumoDTO> updateRecetaInsumo(@Valid @RequestBody RecetaInsumoDTO recetaInsumoDTO) throws URISyntaxException {
         log.debug("REST request to update RecetaInsumo : {}", recetaInsumoDTO);
         if (recetaInsumoDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -145,22 +147,6 @@ public class RecetaInsumoResource {
         log.debug("REST request to delete RecetaInsumo : {}", list);
         recetaInsumoService.delete(list);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "")).build();
-    }
-
-    /**
-     * SEARCH  /_search/receta-insumos?query=:query : search for the recetaInsumo corresponding
-     * to the query.
-     *
-     * @param query the query of the recetaInsumo search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/receta-insumos")
-    public ResponseEntity<List<RecetaInsumoDTO>> searchRecetaInsumos(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of RecetaInsumos for query {}", query);
-        Page<RecetaInsumoDTO> page = recetaInsumoService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/receta-insumos");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

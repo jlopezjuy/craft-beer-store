@@ -9,44 +9,44 @@ import { ProductoDeleteDialogComponent } from 'app/entities/producto/producto-de
 import { ProductoService } from 'app/entities/producto/producto.service';
 
 describe('Component Tests', () => {
-    describe('Producto Management Delete Component', () => {
-        let comp: ProductoDeleteDialogComponent;
-        let fixture: ComponentFixture<ProductoDeleteDialogComponent>;
-        let service: ProductoService;
-        let mockEventManager: any;
-        let mockActiveModal: any;
+  describe('Producto Management Delete Component', () => {
+    let comp: ProductoDeleteDialogComponent;
+    let fixture: ComponentFixture<ProductoDeleteDialogComponent>;
+    let service: ProductoService;
+    let mockEventManager: any;
+    let mockActiveModal: any;
 
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [CraftBeerStoreTestModule],
-                declarations: [ProductoDeleteDialogComponent]
-            })
-                .overrideTemplate(ProductoDeleteDialogComponent, '')
-                .compileComponents();
-            fixture = TestBed.createComponent(ProductoDeleteDialogComponent);
-            comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(ProductoService);
-            mockEventManager = fixture.debugElement.injector.get(JhiEventManager);
-            mockActiveModal = fixture.debugElement.injector.get(NgbActiveModal);
-        });
-
-        describe('confirmDelete', () => {
-            it('Should call delete service on confirmDelete', inject(
-                [],
-                fakeAsync(() => {
-                    // GIVEN
-                    spyOn(service, 'delete').and.returnValue(of({}));
-
-                    // WHEN
-                    comp.confirmDelete(123);
-                    tick();
-
-                    // THEN
-                    expect(service.delete).toHaveBeenCalledWith(123);
-                    expect(mockActiveModal.dismissSpy).toHaveBeenCalled();
-                    expect(mockEventManager.broadcastSpy).toHaveBeenCalled();
-                })
-            ));
-        });
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [CraftBeerStoreTestModule],
+        declarations: [ProductoDeleteDialogComponent]
+      })
+        .overrideTemplate(ProductoDeleteDialogComponent, '')
+        .compileComponents();
+      fixture = TestBed.createComponent(ProductoDeleteDialogComponent);
+      comp = fixture.componentInstance;
+      service = fixture.debugElement.injector.get(ProductoService);
+      mockEventManager = fixture.debugElement.injector.get(JhiEventManager);
+      mockActiveModal = fixture.debugElement.injector.get(NgbActiveModal);
     });
+
+    describe('confirmDelete', () => {
+      it('Should call delete service on confirmDelete', inject(
+        [],
+        fakeAsync(() => {
+          // GIVEN
+          spyOn(service, 'delete').and.returnValue(of({}));
+
+          // WHEN
+          comp.confirmDelete(123);
+          tick();
+
+          // THEN
+          expect(service.delete).toHaveBeenCalledWith(123);
+          expect(mockActiveModal.dismissSpy).toHaveBeenCalled();
+          expect(mockEventManager.broadcastSpy).toHaveBeenCalled();
+        })
+      ));
+    });
+  });
 });

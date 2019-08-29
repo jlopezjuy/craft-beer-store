@@ -8,33 +8,33 @@ import { EmpresaDetailComponent } from 'app/entities/empresa/empresa-detail.comp
 import { Empresa } from 'app/shared/model/empresa.model';
 
 describe('Component Tests', () => {
-    describe('Empresa Management Detail Component', () => {
-        let comp: EmpresaDetailComponent;
-        let fixture: ComponentFixture<EmpresaDetailComponent>;
-        const route = ({ data: of({ empresa: new Empresa(123) }) } as any) as ActivatedRoute;
+  describe('Empresa Management Detail Component', () => {
+    let comp: EmpresaDetailComponent;
+    let fixture: ComponentFixture<EmpresaDetailComponent>;
+    const route = ({ data: of({ empresa: new Empresa(123) }) } as any) as ActivatedRoute;
 
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [CraftBeerStoreTestModule],
-                declarations: [EmpresaDetailComponent],
-                providers: [{ provide: ActivatedRoute, useValue: route }]
-            })
-                .overrideTemplate(EmpresaDetailComponent, '')
-                .compileComponents();
-            fixture = TestBed.createComponent(EmpresaDetailComponent);
-            comp = fixture.componentInstance;
-        });
-
-        describe('OnInit', () => {
-            it('Should call load all on init', () => {
-                // GIVEN
-
-                // WHEN
-                comp.ngOnInit();
-
-                // THEN
-                expect(comp.empresa).toEqual(jasmine.objectContaining({ id: 123 }));
-            });
-        });
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [CraftBeerStoreTestModule],
+        declarations: [EmpresaDetailComponent],
+        providers: [{ provide: ActivatedRoute, useValue: route }]
+      })
+        .overrideTemplate(EmpresaDetailComponent, '')
+        .compileComponents();
+      fixture = TestBed.createComponent(EmpresaDetailComponent);
+      comp = fixture.componentInstance;
     });
+
+    describe('OnInit', () => {
+      it('Should call load all on init', () => {
+        // GIVEN
+
+        // WHEN
+        comp.ngOnInit();
+
+        // THEN
+        expect(comp.empresa).toEqual(jasmine.objectContaining({ id: 123 }));
+      });
+    });
+  });
 });

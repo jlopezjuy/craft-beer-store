@@ -7,8 +7,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -22,7 +20,6 @@ import com.craftbeerstore.application.domain.enumeration.TipoProducto;
 @Entity
 @Table(name = "producto")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "producto")
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,6 +53,9 @@ public class Producto implements Serializable {
     @Lob
     @Column(name = "observacion")
     private String observacion;
+
+    @Column(name = "srm_color")
+    private String srmColor;
 
     @ManyToOne
     @JsonIgnoreProperties("productos")
@@ -165,6 +165,19 @@ public class Producto implements Serializable {
         this.observacion = observacion;
     }
 
+    public String getSrmColor() {
+        return srmColor;
+    }
+
+    public Producto srmColor(String srmColor) {
+        this.srmColor = srmColor;
+        return this;
+    }
+
+    public void setSrmColor(String srmColor) {
+        this.srmColor = srmColor;
+    }
+
     public Empresa getEmpresa() {
         return empresa;
     }
@@ -223,6 +236,7 @@ public class Producto implements Serializable {
             ", imagen='" + getImagen() + "'" +
             ", imagenContentType='" + getImagenContentType() + "'" +
             ", observacion='" + getObservacion() + "'" +
+            ", srmColor='" + getSrmColor() + "'" +
             "}";
     }
 }

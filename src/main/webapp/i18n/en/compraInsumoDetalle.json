@@ -1,0 +1,27 @@
+{
+  "craftBeerStoreApp": {
+    "compraInsumoDetalle": {
+      "home": {
+        "title": "Compra Insumo Detalles",
+        "createLabel": "Create a new Compra Insumo Detalle",
+        "createOrEditLabel": "Create or edit a Compra Insumo Detalle"
+      },
+      "created": "A new Compra Insumo Detalle is created with identifier {{ param }}",
+      "updated": "A Compra Insumo Detalle is updated with identifier {{ param }}",
+      "deleted": "A Compra Insumo Detalle is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Compra Insumo Detalle {{ id }}?"
+      },
+      "detail": {
+        "title": "Compra Insumo Detalle"
+      },
+      "unidad": "Unidad",
+      "codigoReferencia": "Codigo Referencia",
+      "stock": "Stock",
+      "precio": "Precio",
+      "tipo": "Tipo",
+      "compraInsumo": "Compra Insumo",
+      "insumoRecomendado": "Insumo Recomendado"
+    }
+  }
+}

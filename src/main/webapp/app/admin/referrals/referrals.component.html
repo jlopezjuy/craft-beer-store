@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="header">
+    <mat-card-title>
+      <h5><span jhiTranslate="dashboard.doughnutchart.home.title">Productos</span></h5>
+    </mat-card-title>
+  </div>
+  <div class="body">
+      <ul class="list-unstyled list-referrals" *ngFor="let producto of productos">
+          <li>
+              <p><span class="value">{{producto.nombreComercial}}</span>
+                <span class="text-muted float-right">
+                  <a *ngIf="producto.imagen" (click)="openFile(producto.imagenContentType, producto.imagen)">
+                                    <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-height: 30px;" alt="producto image"/>
+                                </a>
+                </span>
+              </p>
+          </li>
+      </ul>
+  </div>
+</div>

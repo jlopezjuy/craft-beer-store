@@ -1,92 +1,114 @@
-<div>
-    <h2 id="page-heading">
-        <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.home.title">Punto De Ventas</span> : <span>{{cliente.nombreApellido}}</span>
-        <button (click)="previousState()" type="button" mat-raised-button class="mat-back">
-            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-        </button>
-<!--        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-punto-de-venta" [routerLink]="['/punto-de-venta/new']">-->
-<!--            <fa-icon [icon]="'plus'"></fa-icon>-->
-<!--            <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.puntoDeVenta.home.createLabel">-->
-<!--            Create new Punto De Venta-->
-<!--            </span>-->
-<!--        </button>-->
-    </h2>
-    <jhi-alert></jhi-alert>
-    <div class="row">
-        <div class="col-sm-12">
-            <form name="searchForm" class="form-inline">
-                <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.puntoDeVenta.home.search' | translate }}">
-                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
-                        <fa-icon [icon]="'search'"></fa-icon>
-                    </button>
-                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <div class="row">
+                    <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
+                           (click)="toggleFullWidth()">
+                        <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
+                        <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
+                    </a>Puntos de Venta </h2>
+                    <span>   </span>
+                    <button (click)="previousState()" type="button" mat-raised-button class="mat-back">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
                     </button>
                 </div>
-            </form>
+
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Entidad</li>
+                    <li class="breadcrumb-item active">Puntos de Venta</li>
+                </ul>
+            </div>
         </div>
     </div>
-    <br/>
-    <div class="table-responsive" *ngIf="puntoDeVentas">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nombre"><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="direccionDeEntrega"><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega">Direccion De Entrega</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="localidad"><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad">Localidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="notas"><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas">Notas</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="clienteNombreApellido"><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.cliente">Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let puntoDeVenta of puntoDeVentas ;trackBy: trackId">
-                <td><a [routerLink]="['/punto-de-venta', puntoDeVenta.id, 'view' ]">{{puntoDeVenta.id}}</a></td>
-                <td>{{puntoDeVenta.nombre}}</td>
-                <td>{{puntoDeVenta.direccionDeEntrega}}</td>
-                <td>{{puntoDeVenta.localidad}}</td>
-                <td>{{puntoDeVenta.notas}}</td>
-                <td>
-                    <div *ngIf="puntoDeVenta.clienteId">
-                        <a [routerLink]="['../cliente', puntoDeVenta.clienteId , 'view' ]" >{{puntoDeVenta.clienteNombreApellido}}</a>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/punto-de-venta', puntoDeVenta.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/punto-de-venta', puntoDeVenta.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'punto-de-venta', { outlets: { popup: puntoDeVenta.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf="puntoDeVentas && puntoDeVentas.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+
+    <div class="card">
+        <div class="header">
+            <h2 id="page-heading">
+                <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.home.title">Puntos De Venta</span> : <span>{{cliente.nombreApellido}}</span>
+
+                <!--        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-punto-de-venta" [routerLink]="['/punto-de-venta/new']">-->
+                <!--            <fa-icon [icon]="'plus'"></fa-icon>-->
+                <!--            <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.puntoDeVenta.home.createLabel">-->
+                <!--            Create new Punto De Venta-->
+                <!--            </span>-->
+                <!--        </button>-->
+            </h2>
         </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        <div class="body">
+            <jhi-alert></jhi-alert>
+            <div class="row">
+                <div class="col-sm-12">
+                    <form name="searchForm" class="form-inline">
+<!--                        <div class="input-group w-100 mt-3">-->
+<!--                            <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.puntoDeVenta.home.search' | translate }}">-->
+<!--                            <button class="input-group-append btn btn-info" (click)="search(currentSearch)">-->
+<!--                                <fa-icon [icon]="'search'"></fa-icon>-->
+<!--                            </button>-->
+<!--                            <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">-->
+<!--                                <fa-icon [icon]="'trash-alt'"></fa-icon>-->
+<!--                            </button>-->
+<!--                        </div>-->
+                    </form>
+                </div>
+            </div>
+            <br/>
+            <div class="mat-elevation-z8 table-responsive" *ngIf="puntoDeVentas">
+                <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="nombre"> <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let puntoDeVenta"> {{puntoDeVenta.nombre}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="direccionDeEntrega">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="direccionDeEntrega"> <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega">Direccion de Entrega</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let puntoDeVenta"> {{puntoDeVenta.direccionDeEntrega}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="localidad">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="localidad"> <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad">Localidad</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let puntoDeVenta"> {{puntoDeVenta.localidad}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="notas">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="notas"> <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas">Notas</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let puntoDeVenta"> {{puntoDeVenta.notas}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions" >
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let puntoDeVenta" style="width: 20%">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['/admin/entity/punto-de-venta', puntoDeVenta.id, 'view' ]"
+                                        mat-raised-button color="primary">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/admin/entity/punto-de-venta', puntoDeVenta.id, 'edit']"
+                                        mat-raised-button class="mat-edit">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/admin/entity/', 'punto-de-venta', { outlets: { popup: puntoDeVenta.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        mat-raised-button color="warn">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                </table>
+                <mat-paginator [length]="totalItems"
+                               [pageSize]="itemsPerPage"
+                               (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
+            </div>
         </div>
     </div>
 </div>

@@ -1,253 +1,258 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <!--<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">-->
-        <form name="editForm" role="form" novalidate #editForm="ngForm">
-            <h2 id="jhi-movimientos-heading"
-                jhiTranslate="craftBeerStoreApp.movimientos.home.createOrEditLabel">Create or edit a
-                Movimientos</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <mat-form-field class="example-full-width" [hidden]="!movimientos.id">
-                    <mat-label jhiTranslate="global.field.id">ID </mat-label>
-                    <input matInput placeholder="id" id="id" name="id"
-                           [(ngModel)]="movimientos.id" readonly>
-                </mat-form-field>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento" for="field_numeroMovimiento">Saldo Cta Cte</mat-label>
-                                <input type="text" matInput name="saldoCtaCte" id="field_snumeroMovimiento" [readonly]="!isEditable"
-                                       [(ngModel)]="movimientos.numeroMovimiento"/>
-                                <mat-error [hidden]="!(editForm.controls.numeroMovimiento?.dirty && editForm.controls.numeroMovimiento?.invalid)">
-                                    <small class="form-text text-danger"
-                                           [hidden]="!editForm.controls.numeroMovimiento?.errors?.required"
-                                           jhiTranslate="entity.validation.required">
-                                        This field is required.
-                                    </small>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-sm-6">
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.estado">Tipo Pago</mat-label>
-                                <mat-select  name="estado" [(ngModel)]="movimientos.estado" id="field_estado" required [disabled]="!isEditable">
-                                    <mat-option
-                                        value="ACTIVO">{{'craftBeerStoreApp.EstadoMovimiento.ACTIVO' | translate}}</mat-option>
-                                    <mat-option
-                                        value="INACTIVO">{{'craftBeerStoreApp.EstadoMovimiento.INACTIVO' | translate}}</mat-option>
-                                    <mat-option
-                                        value="ENTREGADO">{{'craftBeerStoreApp.EstadoMovimiento.ENTREGADO' | translate}}</mat-option>
-                                </mat-select>
-                                <mat-error [hidden]="!(editForm.controls.estado?.dirty && editForm.controls.estado?.invalid)">
-                                    <small class="form-text text-danger"
-                                           [hidden]="!editForm.controls.estado?.errors?.required"
-                                           jhiTranslate="entity.validation.required">
-                                        This field is required.
-                                    </small>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.cliente">Cliente</mat-label>
-                                <mat-select  name="cliente" [(ngModel)]="movimientos.clienteId" id="field_cliente" (selectionChange)="clienteChange($event.value)"
-                                             required [disabled]="!isEditable">
-                                    <mat-option value=""></mat-option>
-                                    <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
-                                        {{clienteOption.nombreApellido}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-sm-6">
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.puntoDeVenta">Cliente</mat-label>
-                                <mat-select  name="puntoDeVenta" [(ngModel)]="movimientos.puntoDeVentaId" id="field_puntoDeVenta"
-                                             required [disabled]="!isEditable">
-                                    <mat-option value=""></mat-option>
-                                    <mat-option *ngFor="let puntoDeVentasOption of puntosDeVentas; trackBy: trackClienteById" [value]="puntoDeVentasOption.id">
-                                        {{puntoDeVentasOption.nombre}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.tipoMovimiento">Tipo MOvimiento</mat-label>
-                                <mat-select  name="tipoMovimiento" [(ngModel)]="movimientos.tipoMovimiento" id="field_tipoMovimiento" required [disabled]="!isEditable">
-                                    <mat-option
-                                        value="PRESUPUESTO">{{'craftBeerStoreApp.TipoMovimiento.PRESUPUESTO' | translate}}</mat-option>
-                                    <mat-option
-                                        value="VENTA">{{'craftBeerStoreApp.TipoMovimiento.VENTA' | translate}}</mat-option>
-                                </mat-select>
-                                <mat-error
-                                    [hidden]="!(editForm.controls.tipoMovimiento?.dirty && editForm.controls.tipoMovimiento?.invalid)">
-                                    <small class="form-text text-danger"
-                                           [hidden]="!editForm.controls.tipoMovimiento?.errors?.required"
-                                           jhiTranslate="entity.validation.required">
-                                        This field is required.
-                                    </small>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-sm-6">
-                            <mat-form-field>
-                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.fechaMovimiento">Fecha Venta</mat-label>
-                                <input matInput name="fechaMovimiento" [matDatepicker]="picker" placeholder="Choose a date"
-                                       [(ngModel)]="fechaMovimientoDp" required [disabled]="!isEditable"
-                                       [max]="maxDate">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                                <mat-error [hidden]="!(editForm.controls.fechaMovimiento?.dirty && editForm.controls.fechaMovimiento?.invalid)">
-                                    <small class="form-text text-danger"
-                                           [hidden]="!editForm.controls.fechaMovimiento?.errors?.required" jhiTranslate="entity.validation.required">
-                                        This field is required.
-                                    </small>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row" [hidden]="!isEditable">
-                        <div class="container" *ngIf="!movimientos.id">
-                            <div class="card mat-elevation-z8">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.presentacion.producto">Cliente</mat-label>
-                                                <mat-select  name="producto" [(ngModel)]="productoSave.id" id="field_producto" (selectionChange)="productoChange($event.value)">
-                                                    <mat-option value=""></mat-option>
-                                                    <mat-option *ngFor="let productoOption of productos; trackBy: trackProductoById" [value]="productoOption.id">
-                                                        {{productoOption.nombreComercial}}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <h2 id="jhi-movimientos-heading"
+                    jhiTranslate="craftBeerStoreApp.movimientos.home.createOrEditLabel">Create or edit a
+                    Movimientos</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Entidad</li>
+                    <li class="breadcrumb-item active">Movimiento</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.producto.presentacion">Presentacion</mat-label>
-                                                <mat-select  name="presentacion" [(ngModel)]="productoSave.presentacionId" id="field_presentacion" (selectionChange)="presentacionChange($event.value)">
-                                                    <mat-option value=""></mat-option>
-                                                    <mat-option *ngFor="let presentacionOption of presentacionesAdd; trackBy: trackProductoById" [value]="presentacionOption.id">
+    <div class="card">
+        <div class="header">
+        </div>
+        <div class="body">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <!--<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">-->
+                    <form name="editForm" role="form" novalidate #editForm="ngForm">
+                        <div>
+                            <jhi-alert-error></jhi-alert-error>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento" for="field_numeroMovimiento">N° de Movimiento</mat-label>
+                                            <input type="text" matInput name="saldoCtaCte" id="field_snumeroMovimiento" [readonly]="!isEditable"
+                                                   [(ngModel)]="movimientos.numeroMovimiento"/>
+                                            <mat-error [hidden]="!(editForm.controls.numeroMovimiento?.dirty && editForm.controls.numeroMovimiento?.invalid)">
+                                                <small class="form-text text-danger"
+                                                       [hidden]="!editForm.controls.numeroMovimiento?.errors?.required"
+                                                       jhiTranslate="entity.validation.required">
+                                                    This field is required.
+                                                </small>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label jhiTranslate="craftBeerStoreApp.movimientos.estado">Estado</mat-label>
+                                            <mat-select  name="estado" [(ngModel)]="movimientos.estado" id="field_estado" required [disabled]="!isEditable">
+                                                <mat-option
+                                                    value="ACTIVO">{{'craftBeerStoreApp.EstadoMovimiento.ACTIVO' | translate}}</mat-option>
+                                                <mat-option
+                                                    value="INACTIVO">{{'craftBeerStoreApp.EstadoMovimiento.INACTIVO' | translate}}</mat-option>
+                                                <mat-option
+                                                    value="ENTREGADO">{{'craftBeerStoreApp.EstadoMovimiento.ENTREGADO' | translate}}</mat-option>
+                                            </mat-select>
+                                            <mat-error [hidden]="!(editForm.controls.estado?.dirty && editForm.controls.estado?.invalid)">
+                                                <small class="form-text text-danger"
+                                                       [hidden]="!editForm.controls.estado?.errors?.required"
+                                                       jhiTranslate="entity.validation.required">
+                                                    This field is required.
+                                                </small>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label jhiTranslate="craftBeerStoreApp.movimientos.cliente">Cliente</mat-label>
+                                            <mat-select  name="cliente" [(ngModel)]="movimientos.clienteId" id="field_cliente" (selectionChange)="clienteChange($event.value)"
+                                                         required [disabled]="!isEditable">
+                                                <mat-option value=""></mat-option>
+                                                <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
+                                                    {{clienteOption.nombreApellido}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label jhiTranslate="craftBeerStoreApp.movimientos.puntoDeVenta">Punto de Venta</mat-label>
+                                            <mat-select  name="puntoDeVenta" [(ngModel)]="movimientos.puntoDeVentaId" id="field_puntoDeVenta"
+                                                         required [disabled]="!isEditable">
+                                                <mat-option value=""></mat-option>
+                                                <mat-option *ngFor="let puntoDeVentasOption of puntosDeVentas; trackBy: trackClienteById" [value]="puntoDeVentasOption.id">
+                                                    {{puntoDeVentasOption.nombre}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label jhiTranslate="craftBeerStoreApp.movimientos.tipoMovimiento">Tipo de Movimiento</mat-label>
+                                            <mat-select  name="tipoMovimiento" [(ngModel)]="movimientos.tipoMovimiento" id="field_tipoMovimiento" required [disabled]="!isEditable">
+                                                <mat-option
+                                                    value="PRESUPUESTO">{{'craftBeerStoreApp.TipoMovimiento.PRESUPUESTO' | translate}}</mat-option>
+                                                <mat-option
+                                                    value="VENTA">{{'craftBeerStoreApp.TipoMovimiento.VENTA' | translate}}</mat-option>
+                                            </mat-select>
+                                            <mat-error
+                                                [hidden]="!(editForm.controls.tipoMovimiento?.dirty && editForm.controls.tipoMovimiento?.invalid)">
+                                                <small class="form-text text-danger"
+                                                       [hidden]="!editForm.controls.tipoMovimiento?.errors?.required"
+                                                       jhiTranslate="entity.validation.required">
+                                                    This field is required.
+                                                </small>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <mat-form-field>
+                                            <mat-label jhiTranslate="craftBeerStoreApp.movimientos.fechaMovimiento">Fecha de Movimiento</mat-label>
+                                            <input matInput name="fechaMovimiento" [matDatepicker]="picker" placeholder="Choose a date"
+                                                   [(ngModel)]="fechaMovimientoDp" required [disabled]="!isEditable"
+                                                   [max]="maxDate">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                            <mat-error [hidden]="!(editForm.controls.fechaMovimiento?.dirty && editForm.controls.fechaMovimiento?.invalid)">
+                                                <small class="form-text text-danger"
+                                                       [hidden]="!editForm.controls.fechaMovimiento?.errors?.required" jhiTranslate="entity.validation.required">
+                                                    This field is required.
+                                                </small>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row" [hidden]="!isEditable">
+                                    <div class="container" *ngIf="!movimientos.id">
+                                        <div class="card mat-elevation-z8">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.presentacion.producto">Producto</mat-label>
+                                                            <mat-select  name="producto" [(ngModel)]="productoSave.id" id="field_producto" (selectionChange)="productoChange($event.value)">
+                                                                <mat-option value=""></mat-option>
+                                                                <mat-option *ngFor="let productoOption of productos; trackBy: trackProductoById" [value]="productoOption.id">
+                                                                    {{productoOption.nombreComercial}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.producto.presentacion">Presentación</mat-label>
+                                                            <mat-select  name="presentacion" [(ngModel)]="productoSave.presentacionId" id="field_presentacion" (selectionChange)="presentacionChange($event.value)">
+                                                                <mat-option value=""></mat-option>
+                                                                <mat-option *ngFor="let presentacionOption of presentacionesAdd; trackBy: trackProductoById" [value]="presentacionOption.id">
                                                         <span
                                                             jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacionOption.tipoPresentacion}}">{{presentacionOption.tipoPresentacion}}</span>
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.presentacion.cantidad" for="field_cantidad">Cantidad</mat-label>
+                                                            <input matInput type="number" id="field_cantidad" name="cantidad"
+                                                                   [(ngModel)]="productoSave.cantidadPresentacion" required />
+                                                            <mat-error [hidden]="!(editForm.controls.cantidad?.dirty && editForm.controls.cantidad?.invalid)">
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.cantidad?.errors?.required" jhiTranslate="entity.validation.required">
+                                                                    This field is required.
+                                                                </small>
+                                                                <small class="form-text text-danger"
+                                                                       [hidden]="!editForm.controls.cantidad?.errors?.number" jhiTranslate="entity.validation.number">
+                                                                    This field should be a number.
+                                                                </small>
+                                                            </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <mat-form-field class="example-full-width">
+                                                            <mat-label jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario" for="field_precioVentaUnitario">Precio de Venta Unitario</mat-label>
+                                                            <input matInput type="number" id="field_precioVentaUnitario" name="precioVentaUnitario"
+                                                                   [(ngModel)]="productoSave.precioUnitario" disabled />
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <br/>
+                                                <div>
+                                                    <button type="button" mat-raised-button class="mat-success" (click)="addPresentacion()"> Agregar</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.presentacion.cantidad" for="field_cantidad">Nombre Comercial</mat-label>
-                                                <input matInput type="number" id="field_cantidad" name="cantidad"
-                                                       [(ngModel)]="productoSave.cantidadPresentacion" required />
-                                                <mat-error [hidden]="!(editForm.controls.cantidad?.dirty && editForm.controls.cantidad?.invalid)">
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.cantidad?.errors?.required" jhiTranslate="entity.validation.required">
-                                                        This field is required.
-                                                    </small>
-                                                    <small class="form-text text-danger"
-                                                           [hidden]="!editForm.controls.cantidad?.errors?.number" jhiTranslate="entity.validation.number">
-                                                        This field should be a number.
-                                                    </small>
-                                                </mat-error>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <mat-form-field class="example-full-width">
-                                                <mat-label jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario" for="field_precioVentaUnitario">Nombre Comercial</mat-label>
-                                                <input matInput type="number" id="field_precioVentaUnitario" name="precioVentaUnitario"
-                                                       [(ngModel)]="productoSave.precioUnitario" disabled />
-                                            </mat-form-field>
-                                        </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="table-responsive" *ngIf="presentacions">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th><span
+                                                    jhiTranslate="craftBeerStoreApp.presentacion.producto">Producto</span>
+                                                </th>
+                                                <th><span
+                                                    jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span>
+                                                </th>
+                                                <th><span
+                                                    jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span>
+                                                </th>
+                                                <th><span
+                                                    jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio de Venta Total</span>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let presentacion of presentacions">
+                                                <td>{{presentacion.nombreComercial}}</td>
+                                                <td jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}">{{presentacion.tipoPresentacion}}</td>
+                                                <td>{{presentacion.cantidad}}</td>
+                                                <td>{{presentacion.precioVentaTotal}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <br/>
-                                    <div>
-                                        <button type="button" mat-raised-button class="mat-success" (click)="addPresentacion()"> Agregar</button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <mat-label jhiTranslate="craftBeerStoreApp.movimientos.litrosTotales" for="field_litrosTotales">Litros Totales</mat-label>
+                                            <input type="text" matInput name="litrosTotales" id="field_litrosTotales"
+                                                   [(ngModel)]="movimientos.litrosTotales" disabled/>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <mat-form-field class="example-full-width" appearance="fill">
+                                            <mat-label jhiTranslate="craftBeerStoreApp.movimientos.precioTotal" for="field_precioTotal">Precio Total</mat-label>
+                                            <input type="text" matInput name="precioTotal" id="field_precioTotal"
+                                                   [(ngModel)]="movimientos.precioTotal" disabled/>
+                                        </mat-form-field>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-
-                    </div>
-
-                    <br/>
-                    <div class="row">
-                        <div class="table-responsive" *ngIf="presentacions">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th><span
-                                        jhiTranslate="craftBeerStoreApp.presentacion.producto">Producto</span>
-                                    </th>
-                                    <th><span
-                                        jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span>
-                                    </th>
-                                    <th><span
-                                        jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span>
-                                    </th>
-                                    <th><span
-                                        jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio Total</span>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr *ngFor="let presentacion of presentacions">
-                                    <td>{{presentacion.nombreComercial}}</td>
-                                    <td jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}">{{presentacion.tipoPresentacion}}</td>
-                                    <td>{{presentacion.cantidad}}</td>
-                                    <td>{{presentacion.precioVentaTotal}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div>
+                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"
+                                    (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
+                                jhiTranslate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="button" id="save-entity" (click)="saveMovimiento()" [hidden]="movimientos.id"
+                                    [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
+                                jhiTranslate="entity.action.save">Save</span>
+                            </button>
                         </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.litrosTotales" for="field_litrosTotales">Saldo Cta Cte</mat-label>
-                                <input type="text" matInput name="litrosTotales" id="field_litrosTotales"
-                                       [(ngModel)]="movimientos.litrosTotales" disabled/>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-sm-6">
-                            <mat-form-field class="example-full-width" appearance="fill">
-                                <mat-label jhiTranslate="craftBeerStoreApp.movimientos.precioTotal" for="field_precioTotal">Saldo Cta Cte</mat-label>
-                                <input type="text" matInput name="precioTotal" id="field_precioTotal"
-                                       [(ngModel)]="movimientos.precioTotal" disabled/>
-                            </mat-form-field>
-                        </div>
-                    </div>
-
+                    </form>
                 </div>
-
             </div>
-            <div>
-                <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"
-                        (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
-                    jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="button" id="save-entity" (click)="saveMovimiento()" [hidden]="movimientos.id"
-                        [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
-                    jhiTranslate="entity.action.save">Save</span>
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>

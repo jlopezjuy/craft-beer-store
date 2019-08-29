@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service;
 
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
+import com.craftbeerstore.application.service.dto.InsumoDTO;
 import com.craftbeerstore.application.service.dto.InsumoRecomendadoDTO;
 
 import java.util.List;
@@ -46,18 +48,22 @@ public interface InsumoRecomendadoService {
     void delete(Long id);
 
     /**
-     * Search for the insumoRecomendado corresponding to the query.
-     *
-     * @param query the query of the search
-     * 
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<InsumoRecomendadoDTO> search(String query, Pageable pageable);
-
-    /**
      *
      * @return
      */
     List<InsumoRecomendadoDTO> findAll();
+
+  /**
+   *
+   * @param tipoInsumo
+   * @return
+   */
+  List<InsumoRecomendadoDTO> findAllByEmpresaAndTipo(TipoInsumo tipoInsumo);
+
+  /**
+   *
+   * @param tipoInsumo
+   * @return
+   */
+  List<InsumoRecomendadoDTO> findAllByEmpresaAndTipo(List<TipoInsumo> tipoInsumo);
 }

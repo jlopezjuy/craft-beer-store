@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing Estilos.
  */
@@ -132,21 +130,4 @@ public class EstilosResource {
         estilosService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
-    /**
-     * SEARCH  /_search/estilos?query=:query : search for the estilos corresponding
-     * to the query.
-     *
-     * @param query the query of the estilos search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/estilos")
-    public ResponseEntity<List<EstilosDTO>> searchEstilos(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Estilos for query {}", query);
-        Page<EstilosDTO> page = estilosService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/estilos");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
 }

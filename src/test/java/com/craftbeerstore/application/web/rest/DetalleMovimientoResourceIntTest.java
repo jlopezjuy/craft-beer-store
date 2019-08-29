@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.DetalleMovimiento;
 import com.craftbeerstore.application.repository.DetalleMovimientoRepository;
-import com.craftbeerstore.application.repository.search.DetalleMovimientoSearchRepository;
 import com.craftbeerstore.application.service.DetalleMovimientoService;
 import com.craftbeerstore.application.service.dto.DetalleMovimientoDTO;
 import com.craftbeerstore.application.service.mapper.DetalleMovimientoMapper;
@@ -35,7 +34,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -64,14 +62,6 @@ public class DetalleMovimientoResourceIntTest {
 
     @Autowired
     private DetalleMovimientoService detalleMovimientoService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.DetalleMovimientoSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private DetalleMovimientoSearchRepository mockDetalleMovimientoSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -140,9 +130,6 @@ public class DetalleMovimientoResourceIntTest {
         DetalleMovimiento testDetalleMovimiento = detalleMovimientoList.get(detalleMovimientoList.size() - 1);
         assertThat(testDetalleMovimiento.getCantidad()).isEqualTo(DEFAULT_CANTIDAD);
         assertThat(testDetalleMovimiento.getPrecioTotal()).isEqualTo(DEFAULT_PRECIO_TOTAL);
-
-        // Validate the DetalleMovimiento in Elasticsearch
-        verify(mockDetalleMovimientoSearchRepository, times(1)).save(testDetalleMovimiento);
     }
 
     @Test
@@ -163,9 +150,6 @@ public class DetalleMovimientoResourceIntTest {
         // Validate the DetalleMovimiento in the database
         List<DetalleMovimiento> detalleMovimientoList = detalleMovimientoRepository.findAll();
         assertThat(detalleMovimientoList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the DetalleMovimiento in Elasticsearch
-        verify(mockDetalleMovimientoSearchRepository, times(0)).save(detalleMovimiento);
     }
 
     @Test
@@ -272,9 +256,6 @@ public class DetalleMovimientoResourceIntTest {
         DetalleMovimiento testDetalleMovimiento = detalleMovimientoList.get(detalleMovimientoList.size() - 1);
         assertThat(testDetalleMovimiento.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
         assertThat(testDetalleMovimiento.getPrecioTotal()).isEqualTo(UPDATED_PRECIO_TOTAL);
-
-        // Validate the DetalleMovimiento in Elasticsearch
-        verify(mockDetalleMovimientoSearchRepository, times(1)).save(testDetalleMovimiento);
     }
 
     @Test
@@ -294,9 +275,6 @@ public class DetalleMovimientoResourceIntTest {
         // Validate the DetalleMovimiento in the database
         List<DetalleMovimiento> detalleMovimientoList = detalleMovimientoRepository.findAll();
         assertThat(detalleMovimientoList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the DetalleMovimiento in Elasticsearch
-        verify(mockDetalleMovimientoSearchRepository, times(0)).save(detalleMovimiento);
     }
 
     @Test
@@ -315,25 +293,6 @@ public class DetalleMovimientoResourceIntTest {
         // Validate the database is empty
         List<DetalleMovimiento> detalleMovimientoList = detalleMovimientoRepository.findAll();
         assertThat(detalleMovimientoList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the DetalleMovimiento in Elasticsearch
-        verify(mockDetalleMovimientoSearchRepository, times(1)).deleteById(detalleMovimiento.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchDetalleMovimiento() throws Exception {
-        // Initialize the database
-        detalleMovimientoRepository.saveAndFlush(detalleMovimiento);
-        when(mockDetalleMovimientoSearchRepository.search(queryStringQuery("id:" + detalleMovimiento.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(detalleMovimiento), PageRequest.of(0, 1), 1));
-        // Search the detalleMovimiento
-        restDetalleMovimientoMockMvc.perform(get("/api/_search/detalle-movimientos?query=id:" + detalleMovimiento.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(detalleMovimiento.getId().intValue())))
-            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD.intValue())))
-            .andExpect(jsonPath("$.[*].precioTotal").value(hasItem(DEFAULT_PRECIO_TOTAL.intValue())));
     }
 
     @Test

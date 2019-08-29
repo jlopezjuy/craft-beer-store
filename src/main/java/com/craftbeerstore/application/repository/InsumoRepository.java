@@ -22,4 +22,6 @@ public interface InsumoRepository extends JpaRepository<Insumo, Long> {
     List<Insumo> findAllByEmpresaAndTipo(Empresa empresa, TipoInsumo tipoInsumo);
 
     List<Insumo> findAllByEmpresaAndTipoNotIn(Empresa empresa, List<TipoInsumo> tipoInsumos);
+
+    Insumo findByNombreInsumoAndEmpresa(String nombreInsumo, Empresa empresa);
 }

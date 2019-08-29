@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,6 +12,9 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { PuntoDeVentaService } from './punto-de-venta.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ICliente } from 'app/shared/model/cliente.model';
+import { SidebarService } from '../../services/sidebar.service';
+import { EChartOption } from 'echarts';
+import { MatTableDataSource, PageEvent } from '@angular/material';
 
 @Component({
     selector: 'jhi-punto-de-venta',
@@ -33,6 +36,12 @@ export class PuntoDeVentaComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     cliente: ICliente;
+    public sidebarVisible = true;
+    public visitorsOptions: EChartOption = {};
+    public visitsOptions: EChartOption = {};
+    dataSource: any;
+    displayedColumns: string[] = ['nombre', 'direccionDeEntrega', 'localidad', 'notas', 'actions'];
+    pageEvent: PageEvent;
 
     constructor(
         protected puntoDeVentaService: PuntoDeVentaService,
@@ -43,7 +52,9 @@ export class PuntoDeVentaComponent implements OnInit, OnDestroy {
         protected dataUtils: JhiDataUtils,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        protected $localStorage: LocalStorageService
+        protected $localStorage: LocalStorageService,
+        private sidebarService: SidebarService,
+        private cdr: ChangeDetectorRef
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -178,6 +189,7 @@ export class PuntoDeVentaComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.puntoDeVentas = data;
+        this.dataSource = new MatTableDataSource<IPuntoDeVenta>(this.puntoDeVentas);
     }
 
     protected onError(errorMessage: string) {
@@ -186,7 +198,17 @@ export class PuntoDeVentaComponent implements OnInit, OnDestroy {
 
     previousState() {
         this.$localStorage.clear('cliente');
-        // window.history.back();
-        this.router.navigate(['/cliente']);
+        this.router.navigate(['/admin/entity/cliente']);
+    }
+
+    onPaginateChange(event: PageEvent) {
+        this.page = event.pageIndex + 1;
+        this.loadPage(event.pageIndex + 1);
+    }
+
+    toggleFullWidth() {
+        this.sidebarService.toggle();
+        this.sidebarVisible = this.sidebarService.getStatus();
+        this.cdr.detectChanges();
     }
 }

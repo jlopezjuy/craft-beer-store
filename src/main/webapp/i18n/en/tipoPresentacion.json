@@ -1,14 +1,15 @@
 {
-    "craftBeerStoreApp": {
-        "TipoPresentacion": {
-            "null": "",
-            "BOTELLA_330": "Botella330",
-            "BOTELLA_355": "Botella 355",
-            "BOTELLA_500": "Botella 500",
-            "BOTELLA_1000": "Botella 1000",
-            "BARRIL_20": "Barril 20",
-            "BARRIL_30": "Barril 30",
-            "BARRIL_50": "Barril 50"
-        }
+  "craftBeerStoreApp": {
+    "TipoPresentacion": {
+      "null": "",
+      "BOTELLA_330": "330ml Bottle",
+      "BOTELLA_355": "355ml Bottle",
+      "BOTELLA_500": "500ml Bottle",
+      "BOTELLA_750": "750ml Bottle",
+      "BOTELLA_1000": "1000ml Bottle",
+      "BARRIL_20": "Barril 20",
+      "BARRIL_30": "Barril 30",
+      "BARRIL_50": "Barril 50"
     }
+  }
 }

@@ -3,7 +3,6 @@ package com.craftbeerstore.application.service.impl;
 import com.craftbeerstore.application.service.EmpresaService;
 import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.repository.EmpresaRepository;
-import com.craftbeerstore.application.repository.search.EmpresaSearchRepository;
 import com.craftbeerstore.application.service.dto.EmpresaDTO;
 import com.craftbeerstore.application.service.mapper.EmpresaMapper;
 import org.slf4j.Logger;
@@ -15,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Empresa.
@@ -31,12 +28,9 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     private final EmpresaMapper empresaMapper;
 
-    private final EmpresaSearchRepository empresaSearchRepository;
-
-    public EmpresaServiceImpl(EmpresaRepository empresaRepository, EmpresaMapper empresaMapper, EmpresaSearchRepository empresaSearchRepository) {
+    public EmpresaServiceImpl(EmpresaRepository empresaRepository, EmpresaMapper empresaMapper) {
         this.empresaRepository = empresaRepository;
         this.empresaMapper = empresaMapper;
-        this.empresaSearchRepository = empresaSearchRepository;
     }
 
     /**
@@ -51,7 +45,6 @@ public class EmpresaServiceImpl implements EmpresaService {
         Empresa empresa = empresaMapper.toEntity(empresaDTO);
         empresa = empresaRepository.save(empresa);
         EmpresaDTO result = empresaMapper.toDto(empresa);
-        empresaSearchRepository.save(empresa);
         return result;
     }
 
@@ -93,28 +86,8 @@ public class EmpresaServiceImpl implements EmpresaService {
     public void delete(Long id) {
         log.debug("Request to delete Empresa : {}", id);
         empresaRepository.deleteById(id);
-        empresaSearchRepository.deleteById(id);
     }
 
-    /**
-     * Search for the empresa corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<EmpresaDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Empresas for query {}", query);
-        return empresaSearchRepository.search(queryStringQuery(query), pageable)
-            .map(empresaMapper::toDto);
-    }
-
-    @Override
-    public Page<EmpresaDTO> searchByEmpresa(String query, Pageable pageable, Long usuarioId) {
-        return null;
-    }
 
     @Override
     @Transactional(readOnly = true)

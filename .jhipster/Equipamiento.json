@@ -58,7 +58,7 @@
     ],
     "changelogDate": "20190516013240",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "equipamiento",
     "databaseType": "sql",

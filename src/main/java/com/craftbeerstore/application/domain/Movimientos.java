@@ -7,8 +7,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,7 +22,6 @@ import com.craftbeerstore.application.domain.enumeration.EstadoMovimiento;
 @Entity
 @Table(name = "movimientos")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "movimientos")
 public class Movimientos implements Serializable {
 
     private static final long serialVersionUID = 1L;

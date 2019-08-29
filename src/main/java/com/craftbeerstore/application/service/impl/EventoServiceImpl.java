@@ -7,7 +7,6 @@ import com.craftbeerstore.application.repository.EventoProductoRepository;
 import com.craftbeerstore.application.service.EventoService;
 import com.craftbeerstore.application.domain.Evento;
 import com.craftbeerstore.application.repository.EventoRepository;
-import com.craftbeerstore.application.repository.search.EventoSearchRepository;
 import com.craftbeerstore.application.service.dto.EventoDTO;
 import com.craftbeerstore.application.service.mapper.EventoMapper;
 import java.util.List;
@@ -20,8 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Evento.
@@ -36,19 +33,16 @@ public class EventoServiceImpl implements EventoService {
 
     private final EventoMapper eventoMapper;
 
-    private final EventoSearchRepository eventoSearchRepository;
 
     private final EmpresaRepository empresaRepository;
 
     private final EventoProductoRepository eventoProductoRepository;
 
     public EventoServiceImpl(EventoRepository eventoRepository, EventoMapper eventoMapper,
-        EventoSearchRepository eventoSearchRepository,
         EmpresaRepository empresaRepository,
         EventoProductoRepository eventoProductoRepository) {
         this.eventoRepository = eventoRepository;
         this.eventoMapper = eventoMapper;
-        this.eventoSearchRepository = eventoSearchRepository;
         this.empresaRepository = empresaRepository;
         this.eventoProductoRepository = eventoProductoRepository;
     }
@@ -65,7 +59,6 @@ public class EventoServiceImpl implements EventoService {
         Evento evento = eventoMapper.toEntity(eventoDTO);
         evento = eventoRepository.save(evento);
         EventoDTO result = eventoMapper.toDto(evento);
-        eventoSearchRepository.save(evento);
         return result;
     }
 
@@ -111,22 +104,6 @@ public class EventoServiceImpl implements EventoService {
             .findByEvento(evento);
         this.eventoProductoRepository.deleteAll(listDelete);
         eventoRepository.deleteById(id);
-        eventoSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the evento corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<EventoDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Eventos for query {}", query);
-        return eventoSearchRepository.search(queryStringQuery(query), pageable)
-            .map(eventoMapper::toDto);
     }
 
     @Override

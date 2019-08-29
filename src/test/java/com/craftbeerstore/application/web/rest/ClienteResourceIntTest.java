@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Cliente;
 import com.craftbeerstore.application.repository.ClienteRepository;
-import com.craftbeerstore.application.repository.search.ClienteSearchRepository;
 import com.craftbeerstore.application.service.ClienteService;
 import com.craftbeerstore.application.service.dto.ClienteDTO;
 import com.craftbeerstore.application.service.mapper.ClienteMapper;
@@ -34,13 +33,11 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.craftbeerstore.application.domain.enumeration.CondicionFiscal;
 import com.craftbeerstore.application.domain.enumeration.Provincia;
 import com.craftbeerstore.application.domain.enumeration.TipoCliente;
 /**
@@ -84,14 +81,6 @@ public class ClienteResourceIntTest {
 
     @Autowired
     private ClienteService clienteService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.ClienteSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ClienteSearchRepository mockClienteSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -172,9 +161,6 @@ public class ClienteResourceIntTest {
         assertThat(testCliente.getTipoCliente()).isEqualTo(DEFAULT_TIPO_CLIENTE);
         assertThat(testCliente.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
         assertThat(testCliente.getCorreo()).isEqualTo(DEFAULT_CORREO);
-
-        // Validate the Cliente in Elasticsearch
-        verify(mockClienteSearchRepository, times(1)).save(testCliente);
     }
 
     @Test
@@ -195,9 +181,6 @@ public class ClienteResourceIntTest {
         // Validate the Cliente in the database
         List<Cliente> clienteList = clienteRepository.findAll();
         assertThat(clienteList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Cliente in Elasticsearch
-        verify(mockClienteSearchRepository, times(0)).save(cliente);
     }
 
     @Test
@@ -347,9 +330,6 @@ public class ClienteResourceIntTest {
         assertThat(testCliente.getTipoCliente()).isEqualTo(UPDATED_TIPO_CLIENTE);
         assertThat(testCliente.getTelefono()).isEqualTo(UPDATED_TELEFONO);
         assertThat(testCliente.getCorreo()).isEqualTo(UPDATED_CORREO);
-
-        // Validate the Cliente in Elasticsearch
-        verify(mockClienteSearchRepository, times(1)).save(testCliente);
     }
 
     @Test
@@ -369,9 +349,6 @@ public class ClienteResourceIntTest {
         // Validate the Cliente in the database
         List<Cliente> clienteList = clienteRepository.findAll();
         assertThat(clienteList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Cliente in Elasticsearch
-        verify(mockClienteSearchRepository, times(0)).save(cliente);
     }
 
     @Test
@@ -390,31 +367,6 @@ public class ClienteResourceIntTest {
         // Validate the database is empty
         List<Cliente> clienteList = clienteRepository.findAll();
         assertThat(clienteList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Cliente in Elasticsearch
-        verify(mockClienteSearchRepository, times(1)).deleteById(cliente.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchCliente() throws Exception {
-        // Initialize the database
-        clienteRepository.saveAndFlush(cliente);
-        when(mockClienteSearchRepository.search(queryStringQuery("id:" + cliente.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(cliente), PageRequest.of(0, 1), 1));
-        // Search the cliente
-        restClienteMockMvc.perform(get("/api/_search/clientes?query=id:" + cliente.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(cliente.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombreApellido").value(hasItem(DEFAULT_NOMBRE_APELLIDO)))
-            .andExpect(jsonPath("$.[*].domicilio").value(hasItem(DEFAULT_DOMICILIO)))
-            .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD)))
-            .andExpect(jsonPath("$.[*].codigoPostal").value(hasItem(DEFAULT_CODIGO_POSTAL.intValue())))
-            .andExpect(jsonPath("$.[*].provincia").value(hasItem(DEFAULT_PROVINCIA.toString())))
-            .andExpect(jsonPath("$.[*].tipoCliente").value(hasItem(DEFAULT_TIPO_CLIENTE.toString())))
-            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
-            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)));
     }
 
     @Test

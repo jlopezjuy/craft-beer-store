@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Receta;
 import com.craftbeerstore.application.repository.RecetaRepository;
-import com.craftbeerstore.application.repository.search.RecetaSearchRepository;
 import com.craftbeerstore.application.service.RecetaService;
 import com.craftbeerstore.application.service.dto.RecetaDTO;
 import com.craftbeerstore.application.service.mapper.RecetaMapper;
@@ -37,7 +36,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -93,14 +91,6 @@ public class RecetaResourceIntTest {
 
     @Autowired
     private RecetaService recetaService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.RecetaSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private RecetaSearchRepository mockRecetaSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -187,9 +177,6 @@ public class RecetaResourceIntTest {
         assertThat(testReceta.getSrm()).isEqualTo(DEFAULT_SRM);
         assertThat(testReceta.getEmpaste()).isEqualTo(DEFAULT_EMPASTE);
         assertThat(testReceta.getFecha()).isEqualTo(DEFAULT_FECHA);
-
-        // Validate the Receta in Elasticsearch
-        verify(mockRecetaSearchRepository, times(1)).save(testReceta);
     }
 
     @Test
@@ -210,9 +197,6 @@ public class RecetaResourceIntTest {
         // Validate the Receta in the database
         List<Receta> recetaList = recetaRepository.findAll();
         assertThat(recetaList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Receta in Elasticsearch
-        verify(mockRecetaSearchRepository, times(0)).save(receta);
     }
 
     @Test
@@ -238,7 +222,7 @@ public class RecetaResourceIntTest {
             .andExpect(jsonPath("$.[*].empaste").value(hasItem(DEFAULT_EMPASTE.intValue())))
             .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getReceta() throws Exception {
@@ -317,9 +301,6 @@ public class RecetaResourceIntTest {
         assertThat(testReceta.getSrm()).isEqualTo(UPDATED_SRM);
         assertThat(testReceta.getEmpaste()).isEqualTo(UPDATED_EMPASTE);
         assertThat(testReceta.getFecha()).isEqualTo(UPDATED_FECHA);
-
-        // Validate the Receta in Elasticsearch
-        verify(mockRecetaSearchRepository, times(1)).save(testReceta);
     }
 
     @Test
@@ -339,9 +320,6 @@ public class RecetaResourceIntTest {
         // Validate the Receta in the database
         List<Receta> recetaList = recetaRepository.findAll();
         assertThat(recetaList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Receta in Elasticsearch
-        verify(mockRecetaSearchRepository, times(0)).save(receta);
     }
 
     @Test
@@ -360,34 +338,6 @@ public class RecetaResourceIntTest {
         // Validate the database is empty
         List<Receta> recetaList = recetaRepository.findAll();
         assertThat(recetaList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Receta in Elasticsearch
-        verify(mockRecetaSearchRepository, times(1)).deleteById(receta.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchReceta() throws Exception {
-        // Initialize the database
-        recetaRepository.saveAndFlush(receta);
-        when(mockRecetaSearchRepository.search(queryStringQuery("id:" + receta.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(receta), PageRequest.of(0, 1), 1));
-        // Search the receta
-        restRecetaMockMvc.perform(get("/api/_search/recetas?query=id:" + receta.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(receta.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
-            .andExpect(jsonPath("$.[*].brewMaster").value(hasItem(DEFAULT_BREW_MASTER)))
-            .andExpect(jsonPath("$.[*].batch").value(hasItem(DEFAULT_BATCH.intValue())))
-            .andExpect(jsonPath("$.[*].temperaturaDeMacerado").value(hasItem(DEFAULT_TEMPERATURA_DE_MACERADO.intValue())))
-            .andExpect(jsonPath("$.[*].og").value(hasItem(DEFAULT_OG.intValue())))
-            .andExpect(jsonPath("$.[*].fg").value(hasItem(DEFAULT_FG.intValue())))
-            .andExpect(jsonPath("$.[*].abv").value(hasItem(DEFAULT_ABV.intValue())))
-            .andExpect(jsonPath("$.[*].ibu").value(hasItem(DEFAULT_IBU.intValue())))
-            .andExpect(jsonPath("$.[*].srm").value(hasItem(DEFAULT_SRM.intValue())))
-            .andExpect(jsonPath("$.[*].empaste").value(hasItem(DEFAULT_EMPASTE.intValue())))
-            .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
     }
 
     @Test

@@ -7,8 +7,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.Provincia;
@@ -19,7 +19,6 @@ import com.craftbeerstore.application.domain.enumeration.Provincia;
 @Entity
 @Table(name = "empresa")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "empresa")
 public class Empresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,6 +51,16 @@ public class Empresa implements Serializable {
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     @Column(name = "correo", unique = true)
     private String correo;
+
+    @Lob
+    @Column(name = "logo_principal")
+    private byte[] logoPrincipal;
+
+    @Column(name = "logo_principal_content_type")
+    private String logoPrincipalContentType;
+
+    @Column(name = "fecha_inicio_actividad")
+    private LocalDate fechaInicioActividad;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -157,6 +166,45 @@ public class Empresa implements Serializable {
         this.correo = correo;
     }
 
+    public byte[] getLogoPrincipal() {
+        return logoPrincipal;
+    }
+
+    public Empresa logoPrincipal(byte[] logoPrincipal) {
+        this.logoPrincipal = logoPrincipal;
+        return this;
+    }
+
+    public void setLogoPrincipal(byte[] logoPrincipal) {
+        this.logoPrincipal = logoPrincipal;
+    }
+
+    public String getLogoPrincipalContentType() {
+        return logoPrincipalContentType;
+    }
+
+    public Empresa logoPrincipalContentType(String logoPrincipalContentType) {
+        this.logoPrincipalContentType = logoPrincipalContentType;
+        return this;
+    }
+
+    public void setLogoPrincipalContentType(String logoPrincipalContentType) {
+        this.logoPrincipalContentType = logoPrincipalContentType;
+    }
+
+    public LocalDate getFechaInicioActividad() {
+        return fechaInicioActividad;
+    }
+
+    public Empresa fechaInicioActividad(LocalDate fechaInicioActividad) {
+        this.fechaInicioActividad = fechaInicioActividad;
+        return this;
+    }
+
+    public void setFechaInicioActividad(LocalDate fechaInicioActividad) {
+        this.fechaInicioActividad = fechaInicioActividad;
+    }
+
     public User getUser() {
         return user;
     }
@@ -202,6 +250,9 @@ public class Empresa implements Serializable {
             ", provincia='" + getProvincia() + "'" +
             ", telefono='" + getTelefono() + "'" +
             ", correo='" + getCorreo() + "'" +
+            ", logoPrincipal='" + getLogoPrincipal() + "'" +
+            ", logoPrincipalContentType='" + getLogoPrincipalContentType() + "'" +
+            ", fechaInicioActividad='" + getFechaInicioActividad() + "'" +
             "}";
     }
 }

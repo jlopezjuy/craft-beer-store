@@ -29,5 +29,13 @@
             referencedColumnNames="id"
             referencedTableName="estilos"/>
     </changeSet>
+
+  <changeSet id="20190507001803-3" author="jlopez">
+    <addColumn tableName="producto">
+      <column name="srm_color" type="varchar(255)">
+        <constraints nullable="true" />
+      </column>
+    </addColumn>
+  </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

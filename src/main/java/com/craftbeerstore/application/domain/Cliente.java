@@ -7,8 +7,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -24,7 +22,6 @@ import com.craftbeerstore.application.domain.enumeration.TipoCliente;
 @Entity
 @Table(name = "cliente")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "cliente")
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;

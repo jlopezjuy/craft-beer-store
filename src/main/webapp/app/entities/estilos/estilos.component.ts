@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,8 @@ import { AccountService } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { EstilosService } from './estilos.service';
 import { MatTableDataSource, PageEvent } from '@angular/material';
+import { SidebarService } from '../../services/sidebar.service';
+import { EChartOption } from 'echarts';
 
 @Component({
     selector: 'jhi-estilos',
@@ -32,7 +34,6 @@ export class EstilosComponent implements OnInit, OnDestroy {
     pageEvent: PageEvent;
     dataSource: any;
     displayedColumns: string[] = [
-        'id',
         'number',
         'nombreEstilo',
         'categoriaEstilo',
@@ -40,6 +41,9 @@ export class EstilosComponent implements OnInit, OnDestroy {
         'ejemploImagenComercial',
         'actions'
     ];
+    public sidebarVisible = true;
+    public visitorsOptions: EChartOption = {};
+    public visitsOptions: EChartOption = {};
 
     constructor(
         protected estilosService: EstilosService,
@@ -48,7 +52,9 @@ export class EstilosComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        private sidebarService: SidebarService,
+        private cdr: ChangeDetectorRef
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -181,5 +187,11 @@ export class EstilosComponent implements OnInit, OnDestroy {
     onPaginateChange(event: PageEvent) {
         this.page = event.pageIndex + 1;
         this.loadPage(event.pageIndex + 1);
+    }
+
+    toggleFullWidth() {
+        this.sidebarService.toggle();
+        this.sidebarVisible = this.sidebarService.getStatus();
+        this.cdr.detectChanges();
     }
 }

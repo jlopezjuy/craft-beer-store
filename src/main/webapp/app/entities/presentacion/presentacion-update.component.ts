@@ -13,89 +13,89 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared';
 
 @Component({
-    selector: 'jhi-presentacion-update',
-    templateUrl: './presentacion-update.component.html'
+  selector: 'jhi-presentacion-update',
+  templateUrl: './presentacion-update.component.html'
 })
 export class PresentacionUpdateComponent implements OnInit {
-    presentacion: IPresentacion;
-    isSaving: boolean;
-    producto: IProducto;
-    fechaDp: any;
-    fecha: any;
+  presentacion: IPresentacion;
+  isSaving: boolean;
+  producto: IProducto;
+  fechaDp: any;
+  fecha: any;
 
-    constructor(
-        protected jhiAlertService: JhiAlertService,
-        protected presentacionService: PresentacionService,
-        protected productoService: ProductoService,
-        protected activatedRoute: ActivatedRoute,
-        private $localStorage: LocalStorageService
-    ) {}
+  constructor(
+    protected jhiAlertService: JhiAlertService,
+    protected presentacionService: PresentacionService,
+    protected productoService: ProductoService,
+    protected activatedRoute: ActivatedRoute,
+    private $localStorage: LocalStorageService
+  ) {}
 
-    ngOnInit() {
-        this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ presentacion }) => {
-            this.presentacion = presentacion;
-            if (this.presentacion.id) {
-                this.fecha = moment(this.presentacion.fecha, 'dd/MM/yyy').format();
-            }
-        });
-        this.producto = this.$localStorage.retrieve('producto');
+  ngOnInit() {
+    this.isSaving = false;
+    this.activatedRoute.data.subscribe(({ presentacion }) => {
+      this.presentacion = presentacion;
+      if (this.presentacion.id) {
+        this.fecha = moment(this.presentacion.fecha, 'dd/MM/yyy').format();
+      }
+    });
+    this.producto = this.$localStorage.retrieve('producto');
+  }
+
+  previousState() {
+    window.history.back();
+  }
+
+  save() {
+    this.presentacion.productoId = this.producto.id;
+    this.isSaving = true;
+    this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
+    if (this.presentacion.id !== undefined) {
+      this.subscribeToSaveResponse(this.presentacionService.update(this.presentacion));
+    } else {
+      this.subscribeToSaveResponse(this.presentacionService.create(this.presentacion));
     }
+  }
 
-    previousState() {
-        window.history.back();
-    }
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IPresentacion>>) {
+    result.subscribe((res: HttpResponse<IPresentacion>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+  }
 
-    save() {
-        this.presentacion.productoId = this.producto.id;
-        this.isSaving = true;
-        this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
-        if (this.presentacion.id !== undefined) {
-            this.subscribeToSaveResponse(this.presentacionService.update(this.presentacion));
-        } else {
-            this.subscribeToSaveResponse(this.presentacionService.create(this.presentacion));
-        }
-    }
+  protected onSaveSuccess() {
+    this.isSaving = false;
+    this.previousState();
+  }
 
-    protected subscribeToSaveResponse(result: Observable<HttpResponse<IPresentacion>>) {
-        result.subscribe((res: HttpResponse<IPresentacion>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
-    }
+  protected onSaveError() {
+    this.isSaving = false;
+  }
 
-    protected onSaveSuccess() {
-        this.isSaving = false;
-        this.previousState();
-    }
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
+  }
 
-    protected onSaveError() {
-        this.isSaving = false;
-    }
+  trackProductoById(index: number, item: IProducto) {
+    return item.id;
+  }
 
-    protected onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
+  changeCantidad() {
+    if (this.presentacion.cantidad) {
+      this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
     }
+    if (this.presentacion.cantidad) {
+      this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
+    }
+  }
 
-    trackProductoById(index: number, item: IProducto) {
-        return item.id;
+  changePrecioUnitario() {
+    if (this.presentacion.cantidad) {
+      this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
     }
+  }
 
-    changeCantidad() {
-        if (this.presentacion.cantidad) {
-            this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
-        }
-        if (this.presentacion.cantidad) {
-            this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
-        }
+  changePrecioVenta() {
+    if (this.presentacion.cantidad) {
+      this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
     }
-
-    changePrecioUnitario() {
-        if (this.presentacion.cantidad) {
-            this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
-        }
-    }
-
-    changePrecioVenta() {
-        if (this.presentacion.cantidad) {
-            this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
-        }
-    }
+  }
 }

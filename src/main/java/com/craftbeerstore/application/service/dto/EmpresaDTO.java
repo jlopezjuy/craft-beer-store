@@ -1,7 +1,9 @@
 package com.craftbeerstore.application.service.dto;
+import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Lob;
 import com.craftbeerstore.application.domain.enumeration.Provincia;
 
 /**
@@ -27,6 +29,12 @@ public class EmpresaDTO implements Serializable {
 
     @Pattern(regexp = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     private String correo;
+
+    @Lob
+    private byte[] logoPrincipal;
+
+    private String logoPrincipalContentType;
+    private LocalDate fechaInicioActividad;
 
 
     private Long userId;
@@ -97,6 +105,30 @@ public class EmpresaDTO implements Serializable {
         this.correo = correo;
     }
 
+    public byte[] getLogoPrincipal() {
+        return logoPrincipal;
+    }
+
+    public void setLogoPrincipal(byte[] logoPrincipal) {
+        this.logoPrincipal = logoPrincipal;
+    }
+
+    public String getLogoPrincipalContentType() {
+        return logoPrincipalContentType;
+    }
+
+    public void setLogoPrincipalContentType(String logoPrincipalContentType) {
+        this.logoPrincipalContentType = logoPrincipalContentType;
+    }
+
+    public LocalDate getFechaInicioActividad() {
+        return fechaInicioActividad;
+    }
+
+    public void setFechaInicioActividad(LocalDate fechaInicioActividad) {
+        this.fechaInicioActividad = fechaInicioActividad;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -145,6 +177,8 @@ public class EmpresaDTO implements Serializable {
             ", provincia='" + getProvincia() + "'" +
             ", telefono='" + getTelefono() + "'" +
             ", correo='" + getCorreo() + "'" +
+            ", logoPrincipal='" + getLogoPrincipal() + "'" +
+            ", fechaInicioActividad='" + getFechaInicioActividad() + "'" +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +
             "}";

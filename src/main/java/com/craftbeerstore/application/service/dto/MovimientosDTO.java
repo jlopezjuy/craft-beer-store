@@ -42,7 +42,34 @@ public class MovimientosDTO implements Serializable {
 
     private Long puntoDeVentaId;
 
-    public Long getId() {
+  public MovimientosDTO() {
+  }
+
+  public MovimientosDTO(@NotNull LocalDate fechaMovimiento, @NotNull BigDecimal precioTotal) {
+    this.fechaMovimiento = fechaMovimiento;
+    this.precioTotal = precioTotal;
+  }
+
+  public MovimientosDTO(Long id, @NotNull TipoMovimiento tipoMovimiento, @NotNull LocalDate fechaMovimiento,
+                        @NotNull BigDecimal precioTotal, @NotNull String numeroMovimiento,
+                        @NotNull EstadoMovimiento estado, BigDecimal litrosTotales,
+                        Long clienteId, String clienteNombreApellido, Long empresaId,
+                        String empresaNombreEmpresa, Long puntoDeVentaId) {
+    this.id = id;
+    this.tipoMovimiento = tipoMovimiento;
+    this.fechaMovimiento = fechaMovimiento;
+    this.precioTotal = precioTotal;
+    this.numeroMovimiento = numeroMovimiento;
+    this.estado = estado;
+    this.litrosTotales = litrosTotales;
+    this.clienteId = clienteId;
+    this.clienteNombreApellido = clienteNombreApellido;
+    this.empresaId = empresaId;
+    this.empresaNombreEmpresa = empresaNombreEmpresa;
+    this.puntoDeVentaId = puntoDeVentaId;
+  }
+
+  public Long getId() {
         return id;
     }
 

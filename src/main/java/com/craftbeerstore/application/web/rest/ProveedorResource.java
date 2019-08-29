@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing Proveedor.
  */
@@ -134,22 +132,6 @@ public class ProveedorResource {
         log.debug("REST request to delete Proveedor : {}", id);
         proveedorService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
-     * SEARCH  /_search/proveedors?query=:query : search for the proveedor corresponding
-     * to the query.
-     *
-     * @param query the query of the proveedor search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/proveedors")
-    public ResponseEntity<List<ProveedorDTO>> searchProveedors(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Proveedors for query {}", query);
-        Page<ProveedorDTO> page = proveedorService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/proveedors");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
 }

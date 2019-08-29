@@ -6,7 +6,6 @@ import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.InsumoService;
 import com.craftbeerstore.application.domain.Insumo;
 import com.craftbeerstore.application.repository.InsumoRepository;
-import com.craftbeerstore.application.repository.search.InsumoSearchRepository;
 import com.craftbeerstore.application.service.dto.InsumoDTO;
 import com.craftbeerstore.application.service.mapper.InsumoMapper;
 import com.craftbeerstore.application.web.rest.EmpresaResource;
@@ -21,8 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * Service Implementation for managing Insumo.
  */
@@ -36,16 +33,13 @@ public class InsumoServiceImpl implements InsumoService {
 
     private final InsumoMapper insumoMapper;
 
-    private final InsumoSearchRepository insumoSearchRepository;
 
     private final EmpresaRepository empresaRepository;
 
     public InsumoServiceImpl(InsumoRepository insumoRepository, InsumoMapper insumoMapper,
-        InsumoSearchRepository insumoSearchRepository,
         EmpresaRepository empresaRepository) {
         this.insumoRepository = insumoRepository;
         this.insumoMapper = insumoMapper;
-        this.insumoSearchRepository = insumoSearchRepository;
         this.empresaRepository = empresaRepository;
     }
 
@@ -61,7 +55,6 @@ public class InsumoServiceImpl implements InsumoService {
         Insumo insumo = insumoMapper.toEntity(insumoDTO);
         insumo = insumoRepository.save(insumo);
         InsumoDTO result = insumoMapper.toDto(insumo);
-        insumoSearchRepository.save(insumo);
         return result;
     }
 
@@ -126,21 +119,5 @@ public class InsumoServiceImpl implements InsumoService {
     public void delete(Long id) {
         log.debug("Request to delete Insumo : {}", id);
         insumoRepository.deleteById(id);
-        insumoSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the insumo corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<InsumoDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Insumos for query {}", query);
-        return insumoSearchRepository.search(queryStringQuery(query), pageable)
-            .map(insumoMapper::toDto);
     }
 }

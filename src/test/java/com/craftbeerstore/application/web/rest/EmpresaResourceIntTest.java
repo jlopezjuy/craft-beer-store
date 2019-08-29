@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.repository.EmpresaRepository;
-import com.craftbeerstore.application.repository.search.EmpresaSearchRepository;
 import com.craftbeerstore.application.service.EmpresaService;
 import com.craftbeerstore.application.service.dto.EmpresaDTO;
 import com.craftbeerstore.application.service.mapper.EmpresaMapper;
@@ -16,8 +15,6 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -25,18 +22,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
-import java.util.Collections;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -46,8 +43,8 @@ import com.craftbeerstore.application.domain.enumeration.Provincia;
  *
  * @see EmpresaResource
  */
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(classes = CraftBeerStoreApp.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = CraftBeerStoreApp.class)
 public class EmpresaResourceIntTest {
 
 //    private static final String DEFAULT_NOMBRE_EMPRESA = "AAAAAAAAAA";
@@ -68,8 +65,16 @@ public class EmpresaResourceIntTest {
 //    private static final String DEFAULT_TELEFONO = "AAAAAAAAAA";
 //    private static final String UPDATED_TELEFONO = "BBBBBBBBBB";
 //
-//    private static final String DEFAULT_CORREO = "QV@4D\\DLSND";
-//    private static final String UPDATED_CORREO = "4@E\\[LFZCZ";
+//    private static final String DEFAULT_CORREO = "a@0-.ywr";
+//    private static final String UPDATED_CORREO = "_i@w8.xvb";
+//
+//    private static final byte[] DEFAULT_LOGO_PRINCIPAL = TestUtil.createByteArray(1, "0");
+//    private static final byte[] UPDATED_LOGO_PRINCIPAL = TestUtil.createByteArray(1, "1");
+//    private static final String DEFAULT_LOGO_PRINCIPAL_CONTENT_TYPE = "image/jpg";
+//    private static final String UPDATED_LOGO_PRINCIPAL_CONTENT_TYPE = "image/png";
+//
+//    private static final LocalDate DEFAULT_FECHA_INICIO_ACTIVIDAD = LocalDate.ofEpochDay(0L);
+//    private static final LocalDate UPDATED_FECHA_INICIO_ACTIVIDAD = LocalDate.now(ZoneId.systemDefault());
 //
 //    @Autowired
 //    private EmpresaRepository empresaRepository;
@@ -79,14 +84,6 @@ public class EmpresaResourceIntTest {
 //
 //    @Autowired
 //    private EmpresaService empresaService;
-//
-//    /**
-//     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-//     *
-//     * @see com.craftbeerstore.application.repository.search.EmpresaSearchRepositoryMockConfiguration
-//     */
-//    @Autowired
-//    private EmpresaSearchRepository mockEmpresaSearchRepository;
 //
 //    @Autowired
 //    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -133,7 +130,10 @@ public class EmpresaResourceIntTest {
 //            .codigoPostal(DEFAULT_CODIGO_POSTAL)
 //            .provincia(DEFAULT_PROVINCIA)
 //            .telefono(DEFAULT_TELEFONO)
-//            .correo(DEFAULT_CORREO);
+//            .correo(DEFAULT_CORREO)
+//            .logoPrincipal(DEFAULT_LOGO_PRINCIPAL)
+//            .logoPrincipalContentType(DEFAULT_LOGO_PRINCIPAL_CONTENT_TYPE)
+//            .fechaInicioActividad(DEFAULT_FECHA_INICIO_ACTIVIDAD);
 //        return empresa;
 //    }
 //
@@ -165,9 +165,9 @@ public class EmpresaResourceIntTest {
 //        assertThat(testEmpresa.getProvincia()).isEqualTo(DEFAULT_PROVINCIA);
 //        assertThat(testEmpresa.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
 //        assertThat(testEmpresa.getCorreo()).isEqualTo(DEFAULT_CORREO);
-//
-//        // Validate the Empresa in Elasticsearch
-//        verify(mockEmpresaSearchRepository, times(1)).save(testEmpresa);
+//        assertThat(testEmpresa.getLogoPrincipal()).isEqualTo(DEFAULT_LOGO_PRINCIPAL);
+//        assertThat(testEmpresa.getLogoPrincipalContentType()).isEqualTo(DEFAULT_LOGO_PRINCIPAL_CONTENT_TYPE);
+//        assertThat(testEmpresa.getFechaInicioActividad()).isEqualTo(DEFAULT_FECHA_INICIO_ACTIVIDAD);
 //    }
 //
 //    @Test
@@ -188,9 +188,6 @@ public class EmpresaResourceIntTest {
 //        // Validate the Empresa in the database
 //        List<Empresa> empresaList = empresaRepository.findAll();
 //        assertThat(empresaList).hasSize(databaseSizeBeforeCreate);
-//
-//        // Validate the Empresa in Elasticsearch
-//        verify(mockEmpresaSearchRepository, times(0)).save(empresa);
 //    }
 //
 //    @Test
@@ -248,7 +245,10 @@ public class EmpresaResourceIntTest {
 //            .andExpect(jsonPath("$.[*].codigoPostal").value(hasItem(DEFAULT_CODIGO_POSTAL.intValue())))
 //            .andExpect(jsonPath("$.[*].provincia").value(hasItem(DEFAULT_PROVINCIA.toString())))
 //            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO.toString())))
-//            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO.toString())));
+//            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO.toString())))
+//            .andExpect(jsonPath("$.[*].logoPrincipalContentType").value(hasItem(DEFAULT_LOGO_PRINCIPAL_CONTENT_TYPE)))
+//            .andExpect(jsonPath("$.[*].logoPrincipal").value(hasItem(Base64Utils.encodeToString(DEFAULT_LOGO_PRINCIPAL))))
+//            .andExpect(jsonPath("$.[*].fechaInicioActividad").value(hasItem(DEFAULT_FECHA_INICIO_ACTIVIDAD.toString())));
 //    }
 //
 //    @Test
@@ -268,7 +268,10 @@ public class EmpresaResourceIntTest {
 //            .andExpect(jsonPath("$.codigoPostal").value(DEFAULT_CODIGO_POSTAL.intValue()))
 //            .andExpect(jsonPath("$.provincia").value(DEFAULT_PROVINCIA.toString()))
 //            .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO.toString()))
-//            .andExpect(jsonPath("$.correo").value(DEFAULT_CORREO.toString()));
+//            .andExpect(jsonPath("$.correo").value(DEFAULT_CORREO.toString()))
+//            .andExpect(jsonPath("$.logoPrincipalContentType").value(DEFAULT_LOGO_PRINCIPAL_CONTENT_TYPE))
+//            .andExpect(jsonPath("$.logoPrincipal").value(Base64Utils.encodeToString(DEFAULT_LOGO_PRINCIPAL)))
+//            .andExpect(jsonPath("$.fechaInicioActividad").value(DEFAULT_FECHA_INICIO_ACTIVIDAD.toString()));
 //    }
 //
 //    @Test
@@ -298,7 +301,10 @@ public class EmpresaResourceIntTest {
 //            .codigoPostal(UPDATED_CODIGO_POSTAL)
 //            .provincia(UPDATED_PROVINCIA)
 //            .telefono(UPDATED_TELEFONO)
-//            .correo(UPDATED_CORREO);
+//            .correo(UPDATED_CORREO)
+//            .logoPrincipal(UPDATED_LOGO_PRINCIPAL)
+//            .logoPrincipalContentType(UPDATED_LOGO_PRINCIPAL_CONTENT_TYPE)
+//            .fechaInicioActividad(UPDATED_FECHA_INICIO_ACTIVIDAD);
 //        EmpresaDTO empresaDTO = empresaMapper.toDto(updatedEmpresa);
 //
 //        restEmpresaMockMvc.perform(put("/api/empresas")
@@ -317,9 +323,9 @@ public class EmpresaResourceIntTest {
 //        assertThat(testEmpresa.getProvincia()).isEqualTo(UPDATED_PROVINCIA);
 //        assertThat(testEmpresa.getTelefono()).isEqualTo(UPDATED_TELEFONO);
 //        assertThat(testEmpresa.getCorreo()).isEqualTo(UPDATED_CORREO);
-//
-//        // Validate the Empresa in Elasticsearch
-//        verify(mockEmpresaSearchRepository, times(1)).save(testEmpresa);
+//        assertThat(testEmpresa.getLogoPrincipal()).isEqualTo(UPDATED_LOGO_PRINCIPAL);
+//        assertThat(testEmpresa.getLogoPrincipalContentType()).isEqualTo(UPDATED_LOGO_PRINCIPAL_CONTENT_TYPE);
+//        assertThat(testEmpresa.getFechaInicioActividad()).isEqualTo(UPDATED_FECHA_INICIO_ACTIVIDAD);
 //    }
 //
 //    @Test
@@ -339,9 +345,6 @@ public class EmpresaResourceIntTest {
 //        // Validate the Empresa in the database
 //        List<Empresa> empresaList = empresaRepository.findAll();
 //        assertThat(empresaList).hasSize(databaseSizeBeforeUpdate);
-//
-//        // Validate the Empresa in Elasticsearch
-//        verify(mockEmpresaSearchRepository, times(0)).save(empresa);
 //    }
 //
 //    @Test
@@ -360,30 +363,6 @@ public class EmpresaResourceIntTest {
 //        // Validate the database is empty
 //        List<Empresa> empresaList = empresaRepository.findAll();
 //        assertThat(empresaList).hasSize(databaseSizeBeforeDelete - 1);
-//
-//        // Validate the Empresa in Elasticsearch
-//        verify(mockEmpresaSearchRepository, times(1)).deleteById(empresa.getId());
-//    }
-//
-//    @Test
-//    @Transactional
-//    public void searchEmpresa() throws Exception {
-//        // Initialize the database
-//        empresaRepository.saveAndFlush(empresa);
-//        when(mockEmpresaSearchRepository.search(queryStringQuery("id:" + empresa.getId()), PageRequest.of(0, 20)))
-//            .thenReturn(new PageImpl<>(Collections.singletonList(empresa), PageRequest.of(0, 1), 1));
-//        // Search the empresa
-//        restEmpresaMockMvc.perform(get("/api/_search/empresas?query=id:" + empresa.getId()))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-//            .andExpect(jsonPath("$.[*].id").value(hasItem(empresa.getId().intValue())))
-//            .andExpect(jsonPath("$.[*].nombreEmpresa").value(hasItem(DEFAULT_NOMBRE_EMPRESA)))
-//            .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION)))
-//            .andExpect(jsonPath("$.[*].localidad").value(hasItem(DEFAULT_LOCALIDAD)))
-//            .andExpect(jsonPath("$.[*].codigoPostal").value(hasItem(DEFAULT_CODIGO_POSTAL.intValue())))
-//            .andExpect(jsonPath("$.[*].provincia").value(hasItem(DEFAULT_PROVINCIA.toString())))
-//            .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
-//            .andExpect(jsonPath("$.[*].correo").value(hasItem(DEFAULT_CORREO)));
 //    }
 //
 //    @Test

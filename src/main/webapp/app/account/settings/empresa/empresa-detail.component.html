@@ -1,0 +1,117 @@
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <!--                <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"-->
+                <!--                       (click)="toggleFullWidth()">-->
+                <!--                    <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>-->
+                <!--                    <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>-->
+                <!--                </a> Validation</h2>-->
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Cerveceria</li>
+                    <li class="breadcrumb-item active">Detalle</li>
+                </ul>
+            </div>
+            <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+<!--                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">-->
+<!--                    &lt;!&ndash;                    <div echarts [options]="visitorsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <span>Visitors</span>-->
+<!--                </div>-->
+<!--                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">-->
+<!--                    &lt;!&ndash;                    <div echarts [options]="visitsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <span>Visits</span>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <h2><span jhiTranslate="craftBeerStoreApp.empresa.detail.title">Nombre Cerveceria</span>: {{empresa.nombreEmpresa}}</h2>
+        </div>
+        <div class="body">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <div *ngIf="empresa">
+
+                        <hr>
+                        <jhi-alert-error></jhi-alert-error>
+                        <div class="mat-elevation-z8">
+                            <mat-card class="example-card">
+                                <mat-card-content>
+                                    <dl class="row-md jh-entity-details">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.empresa.nombreEmpresa">Nombre Cerveceria</span></dt>
+                                                <dd>
+                                                    <span>{{empresa.nombreEmpresa}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.empresa.direccion">Dirección</span></dt>
+                                                <dd>
+                                                    <span>{{empresa.direccion}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.empresa.localidad">Localidad</span></dt>
+                                                <dd>
+                                                    <span>{{empresa.localidad}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.empresa.codigoPostal">Código Postal</span></dt>
+                                                <dd>
+                                                    <span>{{empresa.codigoPostal}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.empresa.provincia">Provincia</span></dt>
+                                                <dd>
+                                                    <span jhiTranslate="{{'craftBeerStoreApp.Provincia.' + empresa.provincia}}">{{empresa.provincia}}</span>
+                                                </dd>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.empresa.telefono">Teléfono</span></dt>
+                                                <dd>
+                                                    <span>{{empresa.telefono}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <dt><span jhiTranslate="craftBeerStoreApp.empresa.correo">Correo</span></dt>
+                                                <dd>
+                                                    <span>{{empresa.correo}}</span>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </dl>
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <button type="submit"
+                                            (click)="previousState()"
+                                            mat-raised-button class="mat-back">
+                                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                                    </button>
+                                    <button type="button"
+                                            [routerLink]="['/empresa', empresa.id, 'edit']"
+                                            mat-raised-button class="mat-edit">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                                    </button>
+                                </mat-card-actions>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

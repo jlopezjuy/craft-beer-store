@@ -1,15 +1,15 @@
 {
-    "craftBeerStoreApp": {
-        "Unidad": {
-            "null": "",
-            "KILOGRAMO": "Kilogram",
-            "GRAMO": "Gram",
-            "VEINTICINCO_KILOS": "25 Kgm",
-            "DIES_KILOS": "10 Kgm",
-            "LITRO": "Litre",
-            "CM3": "CC",
-            "ML": "Ml",
-            "UNIDAD": "Unit"
-        }
+  "craftBeerStoreApp": {
+    "Unidad": {
+      "null": "",
+      "KILOGRAMO": "KILOGRAMO",
+      "GRAMO": "GRAMO",
+      "VEINTICINCO_KILOS": "VEINTICINCO_KILOS",
+      "DIES_KILOS": "DIES_KILOS",
+      "LITRO": "LITRO",
+      "CM3": "CM3",
+      "ML": "ML",
+      "UNIDAD": "UNIDAD"
     }
+  }
 }

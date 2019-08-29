@@ -1,13 +1,13 @@
 {
-    "craftBeerStoreApp": {
-        "TipoOtro": {
-            "null": "",
-            "FINING": "Fining",
-            "WATER_AGENT": "Water Agent",
-            "SPICE": "Spice",
-            "HERB": "Herb",
-            "FLAVOR": "Flavor",
-            "OTHER": "Other"
-        }
+  "craftBeerStoreApp": {
+    "TipoOtro": {
+      "null": "",
+      "FINING": "FINING",
+      "WATER_AGENT": "WATER_AGENT",
+      "SPICE": "SPICE",
+      "HERB": "HERB",
+      "FLAVOR": "FLAVOR",
+      "OTHER": "OTHER"
     }
+  }
 }

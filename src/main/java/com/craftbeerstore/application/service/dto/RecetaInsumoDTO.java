@@ -58,9 +58,9 @@ public class RecetaInsumoDTO implements Serializable {
     private Long tiempoOtro;
 
 
-    private Long insumoId;
+    private Long insumoRecomendadoId;
 
-    private String insumoNombreInsumo;
+    private String insumoRecomendadoNombre;
 
     private Long recetaId;
 
@@ -208,20 +208,20 @@ public class RecetaInsumoDTO implements Serializable {
         this.tiempoOtro = tiempoOtro;
     }
 
-    public Long getInsumoId() {
-        return insumoId;
+    public Long getInsumoRecomendadoId() {
+        return insumoRecomendadoId;
     }
 
-    public void setInsumoId(Long insumoId) {
-        this.insumoId = insumoId;
+    public void setInsumoRecomendadoId(Long insumoRecomendadoId) {
+        this.insumoRecomendadoId = insumoRecomendadoId;
     }
 
-    public String getInsumoNombreInsumo() {
-        return insumoNombreInsumo;
+    public String getInsumoRecomendadoNombre() {
+        return insumoRecomendadoNombre;
     }
 
-    public void setInsumoNombreInsumo(String insumoNombreInsumo) {
-        this.insumoNombreInsumo = insumoNombreInsumo;
+    public void setInsumoRecomendadoNombre(String insumoRecomendadoNombre) {
+        this.insumoRecomendadoNombre = insumoRecomendadoNombre;
     }
 
     public Long getRecetaId() {
@@ -274,8 +274,8 @@ public class RecetaInsumoDTO implements Serializable {
             ", tipoOtro='" + getTipoOtro() + "'" +
             ", usoOtro='" + getUsoOtro() + "'" +
             ", tiempoOtro=" + getTiempoOtro() +
-            ", insumo=" + getInsumoId() +
-            ", insumo='" + getInsumoNombreInsumo() + "'" +
+            ", insumoRecomendado=" + getInsumoRecomendadoId() +
+            ", insumoRecomendado='" + getInsumoRecomendadoNombre() + "'" +
             ", receta=" + getRecetaId() +
             "}";
     }

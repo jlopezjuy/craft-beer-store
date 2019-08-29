@@ -5,11 +5,8 @@ import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.ProductoService;
 import com.craftbeerstore.application.domain.Producto;
 import com.craftbeerstore.application.repository.ProductoRepository;
-import com.craftbeerstore.application.repository.search.ProductoSearchRepository;
 import com.craftbeerstore.application.service.dto.ProductoDTO;
 import com.craftbeerstore.application.service.mapper.ProductoMapper;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Producto.
@@ -35,16 +30,13 @@ public class ProductoServiceImpl implements ProductoService {
 
     private final ProductoMapper productoMapper;
 
-    private final ProductoSearchRepository productoSearchRepository;
 
     private final EmpresaRepository empresaRepository;
 
     public ProductoServiceImpl(ProductoRepository productoRepository, ProductoMapper productoMapper,
-        ProductoSearchRepository productoSearchRepository,
         EmpresaRepository empresaRepository) {
         this.productoRepository = productoRepository;
         this.productoMapper = productoMapper;
-        this.productoSearchRepository = productoSearchRepository;
         this.empresaRepository = empresaRepository;
     }
 
@@ -60,7 +52,6 @@ public class ProductoServiceImpl implements ProductoService {
         Producto producto = productoMapper.toEntity(productoDTO);
         producto = productoRepository.save(producto);
         ProductoDTO result = productoMapper.toDto(producto);
-        productoSearchRepository.save(producto);
         return result;
     }
 
@@ -108,27 +99,6 @@ public class ProductoServiceImpl implements ProductoService {
     public void delete(Long id) {
         log.debug("Request to delete Producto : {}", id);
         productoRepository.deleteById(id);
-        productoSearchRepository.deleteById(id);
     }
 
-    /**
-     * Search for the producto corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<ProductoDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Productos for query {}", query);
-
-//        QueryBuilder queryBuilder = QueryBuilders.boolQuery().filter(queryStringQuery(query));
-//
-//        return productoSearchRepository.search(queryBuilder, pageable)
-//            .map(productoMapper::toDto);
-
-        return productoSearchRepository.search(queryStringQuery(query), pageable)
-            .map(productoMapper::toDto);
-    }
 }

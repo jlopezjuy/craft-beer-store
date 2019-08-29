@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity CompraInsumoDetalle.
+    -->
+    <changeSet id="20190626184818-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="compra_insumo_id"
+                                 baseTableName="compra_insumo_detalle"
+                                 constraintName="fk_compra_insumo_detalle_compra_insumo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="compra_insumo"/>
+
+        <addForeignKeyConstraint baseColumnNames="insumo_recomendado_id"
+                                 baseTableName="compra_insumo_detalle"
+                                 constraintName="fk_compra_insumo_detalle_insumo_recomendado_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="insumo_recomendado"/>
+
+    </changeSet>
+</databaseChangeLog>

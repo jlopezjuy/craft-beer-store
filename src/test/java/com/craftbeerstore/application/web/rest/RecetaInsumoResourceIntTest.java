@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.RecetaInsumo;
 import com.craftbeerstore.application.repository.RecetaInsumoRepository;
-import com.craftbeerstore.application.repository.search.RecetaInsumoSearchRepository;
 import com.craftbeerstore.application.service.RecetaInsumoService;
 import com.craftbeerstore.application.service.dto.RecetaInsumoDTO;
 import com.craftbeerstore.application.service.mapper.RecetaInsumoMapper;
@@ -16,8 +15,6 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -29,15 +26,12 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -115,14 +109,6 @@ public class RecetaInsumoResourceIntTest {
 
     @Autowired
     private RecetaInsumoService recetaInsumoService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.RecetaInsumoSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private RecetaInsumoSearchRepository mockRecetaInsumoSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -221,9 +207,6 @@ public class RecetaInsumoResourceIntTest {
         assertThat(testRecetaInsumo.getTipoOtro()).isEqualTo(DEFAULT_TIPO_OTRO);
         assertThat(testRecetaInsumo.getUsoOtro()).isEqualTo(DEFAULT_USO_OTRO);
         assertThat(testRecetaInsumo.getTiempoOtro()).isEqualTo(DEFAULT_TIEMPO_OTRO);
-
-        // Validate the RecetaInsumo in Elasticsearch
-        verify(mockRecetaInsumoSearchRepository, times(1)).save(testRecetaInsumo);
     }
 
     @Test
@@ -244,9 +227,6 @@ public class RecetaInsumoResourceIntTest {
         // Validate the RecetaInsumo in the database
         List<RecetaInsumo> recetaInsumoList = recetaInsumoRepository.findAll();
         assertThat(recetaInsumoList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the RecetaInsumo in Elasticsearch
-        verify(mockRecetaInsumoSearchRepository, times(0)).save(recetaInsumo);
     }
 
     @Test
@@ -375,9 +355,6 @@ public class RecetaInsumoResourceIntTest {
         assertThat(testRecetaInsumo.getTipoOtro()).isEqualTo(UPDATED_TIPO_OTRO);
         assertThat(testRecetaInsumo.getUsoOtro()).isEqualTo(UPDATED_USO_OTRO);
         assertThat(testRecetaInsumo.getTiempoOtro()).isEqualTo(UPDATED_TIEMPO_OTRO);
-
-        // Validate the RecetaInsumo in Elasticsearch
-        verify(mockRecetaInsumoSearchRepository, times(1)).save(testRecetaInsumo);
     }
 
     @Test
@@ -397,9 +374,6 @@ public class RecetaInsumoResourceIntTest {
         // Validate the RecetaInsumo in the database
         List<RecetaInsumo> recetaInsumoList = recetaInsumoRepository.findAll();
         assertThat(recetaInsumoList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the RecetaInsumo in Elasticsearch
-        verify(mockRecetaInsumoSearchRepository, times(0)).save(recetaInsumo);
     }
 
     @Test
@@ -418,40 +392,6 @@ public class RecetaInsumoResourceIntTest {
         // Validate the database is empty
         List<RecetaInsumo> recetaInsumoList = recetaInsumoRepository.findAll();
         assertThat(recetaInsumoList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the RecetaInsumo in Elasticsearch
-        verify(mockRecetaInsumoSearchRepository, times(1)).deleteById(recetaInsumo.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchRecetaInsumo() throws Exception {
-        // Initialize the database
-        recetaInsumoRepository.saveAndFlush(recetaInsumo);
-        when(mockRecetaInsumoSearchRepository.search(queryStringQuery("id:" + recetaInsumo.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(recetaInsumo), PageRequest.of(0, 1), 1));
-        // Search the recetaInsumo
-        restRecetaInsumoMockMvc.perform(get("/api/_search/receta-insumos?query=id:" + recetaInsumo.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(recetaInsumo.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tipoInsumo").value(hasItem(DEFAULT_TIPO_INSUMO.toString())))
-            .andExpect(jsonPath("$.[*].cantidad").value(hasItem(DEFAULT_CANTIDAD.intValue())))
-            .andExpect(jsonPath("$.[*].color").value(hasItem(DEFAULT_COLOR.intValue())))
-            .andExpect(jsonPath("$.[*].porcentaje").value(hasItem(DEFAULT_PORCENTAJE.intValue())))
-            .andExpect(jsonPath("$.[*].usoMalta").value(hasItem(DEFAULT_USO_MALTA.toString())))
-            .andExpect(jsonPath("$.[*].alpha").value(hasItem(DEFAULT_ALPHA.intValue())))
-            .andExpect(jsonPath("$.[*].modoLupulo").value(hasItem(DEFAULT_MODO_LUPULO.toString())))
-            .andExpect(jsonPath("$.[*].gramos").value(hasItem(DEFAULT_GRAMOS.intValue())))
-            .andExpect(jsonPath("$.[*].usoLupulo").value(hasItem(DEFAULT_USO_LUPULO.toString())))
-            .andExpect(jsonPath("$.[*].tiempo").value(hasItem(DEFAULT_TIEMPO.intValue())))
-            .andExpect(jsonPath("$.[*].ibu").value(hasItem(DEFAULT_IBU.intValue())))
-            .andExpect(jsonPath("$.[*].densidadLeva").value(hasItem(DEFAULT_DENSIDAD_LEVA.intValue())))
-            .andExpect(jsonPath("$.[*].tamSobre").value(hasItem(DEFAULT_TAM_SOBRE.intValue())))
-            .andExpect(jsonPath("$.[*].atenuacion").value(hasItem(DEFAULT_ATENUACION.intValue())))
-            .andExpect(jsonPath("$.[*].tipoOtro").value(hasItem(DEFAULT_TIPO_OTRO.toString())))
-            .andExpect(jsonPath("$.[*].usoOtro").value(hasItem(DEFAULT_USO_OTRO.toString())))
-            .andExpect(jsonPath("$.[*].tiempoOtro").value(hasItem(DEFAULT_TIEMPO_OTRO.intValue())));
     }
 
     @Test

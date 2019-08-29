@@ -3,10 +3,10 @@
     "clientRootFolder": "",
     "relationships": [
         {
-            "relationshipName": "insumo",
-            "otherEntityName": "insumo",
+            "relationshipName": "insumoRecomendado",
+            "otherEntityName": "insumoRecomendado",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nombreInsumo",
+            "otherEntityField": "nombre",
             "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "recetaInsumo"
         },
@@ -118,7 +118,7 @@
     ],
     "changelogDate": "20190524205721",
     "dto": "mapstruct",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "service": "serviceImpl",
     "entityTableName": "receta_insumo",
     "databaseType": "sql",

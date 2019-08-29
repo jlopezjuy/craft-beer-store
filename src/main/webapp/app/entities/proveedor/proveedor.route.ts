@@ -31,7 +31,7 @@ export class ProveedorResolve implements Resolve<IProveedor> {
 
 export const proveedorRoute: Routes = [
     {
-        path: '',
+        path: 'proveedor',
         component: ProveedorComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const proveedorRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/view',
+        path: 'proveedor/:id/view',
         component: ProveedorDetailComponent,
         resolve: {
             proveedor: ProveedorResolve
@@ -56,7 +56,7 @@ export const proveedorRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'new',
+        path: 'proveedor/new',
         component: ProveedorUpdateComponent,
         resolve: {
             proveedor: ProveedorResolve
@@ -68,7 +68,7 @@ export const proveedorRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: ':id/edit',
+        path: 'proveedor/:id/edit',
         component: ProveedorUpdateComponent,
         resolve: {
             proveedor: ProveedorResolve
@@ -83,7 +83,7 @@ export const proveedorRoute: Routes = [
 
 export const proveedorPopupRoute: Routes = [
     {
-        path: ':id/delete',
+        path: 'proveedor/:id/delete',
         component: ProveedorDeletePopupComponent,
         resolve: {
             proveedor: ProveedorResolve

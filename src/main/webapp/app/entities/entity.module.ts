@@ -1,91 +1,33 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CraftBeerStoreCajaModule } from './caja/caja.module';
+import { CraftBeerStoreClienteModule } from './cliente/cliente.module';
+import { CraftBeerStoreInsumoModule } from './insumo/insumo.module';
+import { CraftBeerStoreProductoModule } from './producto/producto.module';
+import { CraftBeerStoreProveedorModule } from './proveedor/proveedor.module';
+import { CraftBeerStoreMovimientosModule } from './movimientos/movimientos.module';
+import { CraftBeerStoreEventoModule } from './evento/evento.module';
+import { CraftBeerStoreEstilosModule } from './estilos/estilos.module';
+import { CraftBeerStorePuntoDeVentaModule } from './punto-de-venta/punto-de-venta.module';
+import { CraftBeerStorePresentacionModule } from './presentacion/presentacion.module';
+import { CraftBeerStoreRecetaModule } from './receta/receta.module';
 
 @NgModule({
-    imports: [
-        RouterModule.forChild([
-            {
-                path: 'empresa',
-                loadChildren: './empresa/empresa.module#CraftBeerStoreEmpresaModule'
-            },
-            {
-                path: 'insumo',
-                loadChildren: './insumo/insumo.module#CraftBeerStoreInsumoModule'
-            },
-            {
-                path: 'producto',
-                loadChildren: './producto/producto.module#CraftBeerStoreProductoModule'
-            },
-            {
-                path: 'producto',
-                loadChildren: './producto/producto.module#CraftBeerStoreProductoModule'
-            },
-            {
-                path: 'producto',
-                loadChildren: './producto/producto.module#CraftBeerStoreProductoModule'
-            },
-            {
-                path: 'proveedor',
-                loadChildren: './proveedor/proveedor.module#CraftBeerStoreProveedorModule'
-            },
-            {
-                path: 'presentacion',
-                loadChildren: './presentacion/presentacion.module#CraftBeerStorePresentacionModule'
-            },
-            {
-                path: 'cliente',
-                loadChildren: './cliente/cliente.module#CraftBeerStoreClienteModule'
-            },
-            {
-                path: 'movimientos',
-                loadChildren: './movimientos/movimientos.module#CraftBeerStoreMovimientosModule'
-            },
-            {
-                path: 'detalle-movimiento',
-                loadChildren: './detalle-movimiento/detalle-movimiento.module#CraftBeerStoreDetalleMovimientoModule'
-            },
-            {
-                path: 'caja',
-                loadChildren: './caja/caja.module#CraftBeerStoreCajaModule'
-            },
-            {
-                path: 'evento',
-                loadChildren: './evento/evento.module#CraftBeerStoreEventoModule'
-            },
-            {
-                path: 'evento-producto',
-                loadChildren: './evento-producto/evento-producto.module#CraftBeerStoreEventoProductoModule'
-            },
-            {
-                path: 'estilos',
-                loadChildren: './estilos/estilos.module#CraftBeerStoreEstilosModule'
-            },
-            {
-                path: 'equipamiento',
-                loadChildren: './equipamiento/equipamiento.module#CraftBeerStoreEquipamientoModule'
-            },
-            {
-                path: 'punto-de-venta',
-                loadChildren: './punto-de-venta/punto-de-venta.module#CraftBeerStorePuntoDeVentaModule'
-            },
-            {
-                path: 'receta',
-                loadChildren: './receta/receta.module#CraftBeerStoreRecetaModule'
-            },
-            {
-                path: 'receta-insumo',
-                loadChildren: './receta-insumo/receta-insumo.module#CraftBeerStoreRecetaInsumoModule'
-            },
-            {
-                path: 'insumo-recomendado',
-                loadChildren: './insumo-recomendado/insumo-recomendado.module#CraftBeerStoreInsumoRecomendadoModule'
-            }
-            /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
-        ])
-    ],
-    declarations: [],
-    entryComponents: [],
-    providers: [],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [
+    CraftBeerStoreCajaModule,
+    CraftBeerStoreClienteModule,
+    CraftBeerStoreInsumoModule,
+    CraftBeerStoreProductoModule,
+    CraftBeerStoreProveedorModule,
+    CraftBeerStoreMovimientosModule,
+    CraftBeerStoreEventoModule,
+    CraftBeerStoreEstilosModule,
+    CraftBeerStorePuntoDeVentaModule,
+    CraftBeerStorePresentacionModule,
+    CraftBeerStoreRecetaModule
+  ],
+  declarations: [],
+  entryComponents: [],
+  providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CraftBeerStoreEntityModule {}

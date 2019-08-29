@@ -1,0 +1,105 @@
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-12">
+                <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
+                       (click)="toggleFullWidth()">
+                    <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
+                    <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
+                </a>Compra de Insumos</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item">Compras</li>
+                    <li class="breadcrumb-item active">Insumos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="header">
+            <h2 id="page-heading">
+                <span jhiTranslate="craftBeerStoreApp.compraInsumo.home.title">Compra de Insumos</span>
+                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-compra-insumo" [routerLink]="['/admin/compras/compra-insumo/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span  jhiTranslate="craftBeerStoreApp.compraInsumo.home.createLabel">
+            Create new Compra Insumo
+            </span>
+                </button>
+            </h2>
+        </div>
+        <div class="body">
+            <jhi-alert></jhi-alert>
+            <br/>
+            <div class="mat-elevation-z8 table-responsive" *ngIf="compraInsumos">
+                <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <ng-container matColumnDef="nroFactura">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="nroFactura"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.nroFactura">Nro de Factura</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let compraInsumo" > {{compraInsumo.nroFactura}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="fecha">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="fecha"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.fecha">Fecha</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let compraInsumo" > {{compraInsumo.fecha | date:'mediumDate'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="subtotal">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="subtotal"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.subtotal">Sub Total</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let compraInsumo" > {{compraInsumo.subtotal}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="gastoDeEnvio">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="gastoDeEnvio"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.gastoDeEnvio">Gasto de Envío</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let compraInsumo" > {{compraInsumo.gastoDeEnvio}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="impuesto">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="impuesto"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.impuesto">Impuesto</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let compraInsumo" > {{compraInsumo.impuesto}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="total">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="total"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.total">Total</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let compraInsumo" > {{compraInsumo.total}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="proveedor">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="proveedorNombreProveedor"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.proveedor">Proveedor</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let compraInsumo" > {{compraInsumo.proveedorNombreProveedor}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="estadoCompra">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="estadoCompra"> <span jhiTranslate="craftBeerStoreApp.compraInsumo.estadoCompra">Estado de Compra</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let compraInsumo" jhiTranslate="{{'craftBeerStoreApp.EstadoCompra.' + compraInsumo.estadoCompra}}"> {{compraInsumo.estadoCompra}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions" >
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let compraInsumo" style="width: 20%">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['/admin/compras/compra-insumo', compraInsumo.id, 'view' ]"
+                                        mat-raised-button color="primary">
+                                    <fa-icon [icon]="'eye'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/admin/compras/compra-insumo', compraInsumo.id, 'edit']"
+                                        mat-raised-button class="mat-edit">
+                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/admin/compras/', 'compra-insumo', { outlets: { popup: compraInsumo.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        mat-raised-button color="warn">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [length]="totalItems"
+                               [pageSize]="itemsPerPage"
+                               (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

@@ -135,23 +135,6 @@ public class MovimientosResource {
     }
 
     /**
-     * SEARCH  /_search/movimientos?query=:query : search for the movimientos corresponding
-     * to the query.
-     *
-     * @param query the query of the movimientos search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/movimientos")
-    public ResponseEntity<List<MovimientosDTO>> searchMovimientos(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Movimientos for query {}", query);
-        Page<MovimientosDTO> page = movimientosService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/movimientos");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-
-    /**
      *
      * @param empresaId
      * @return
@@ -174,5 +157,17 @@ public class MovimientosResource {
         List<MovimientosProductoSemanaDTO> list = movimientosService.findMovimientoProductoSemana(empresaId, dias);
         return ResponseEntity.ok().body(list);
     }
+
+  /**
+   *
+   * @param empresaId
+   * @param dias
+   * @return
+   */
+  @GetMapping("/movimientos/semana/litros/{empresaId}/{dias}")
+  public ResponseEntity<MovimientosProductoSemanaDTO> getAllMovimientosLitroSemanal(@PathVariable Long empresaId, @PathVariable String dias){
+    MovimientosProductoSemanaDTO movimiento = movimientosService.findLitrosSemana(empresaId, dias);
+    return ResponseEntity.ok().body(movimiento);
+  }
 
 }

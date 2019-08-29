@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,6 +12,8 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { EventoService } from './evento.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatTableDataSource, PageEvent } from '@angular/material';
+import { SidebarService } from '../../services/sidebar.service';
+import { EChartOption } from 'echarts';
 
 @Component({
     selector: 'jhi-evento',
@@ -33,8 +35,11 @@ export class EventoComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     dataSource: any;
-    displayedColumns: string[] = ['id', 'nombreEvento', 'fechaEvento', 'cantidadBarriles', 'precioPinta', 'actions'];
+    displayedColumns: string[] = ['nombreEvento', 'fechaEvento', 'cantidadBarriles', 'precioPinta', 'actions'];
     pageEvent: PageEvent;
+    public sidebarVisible = true;
+    public visitorsOptions: EChartOption = {};
+    public visitsOptions: EChartOption = {};
 
     constructor(
         protected eventoService: EventoService,
@@ -44,7 +49,9 @@ export class EventoComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService
+        private $localStorage: LocalStorageService,
+        private sidebarService: SidebarService,
+        private cdr: ChangeDetectorRef
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -181,5 +188,11 @@ export class EventoComponent implements OnInit, OnDestroy {
     onPaginateChange(event: PageEvent) {
         this.page = event.pageIndex + 1;
         this.loadPage(event.pageIndex + 1);
+    }
+
+    toggleFullWidth() {
+        this.sidebarService.toggle();
+        this.sidebarVisible = this.sidebarService.getStatus();
+        this.cdr.detectChanges();
     }
 }

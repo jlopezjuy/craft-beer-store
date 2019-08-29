@@ -10,132 +10,132 @@ import { PresentacionService } from 'app/entities/presentacion/presentacion.serv
 import { IPresentacion, Presentacion, TipoPresentacion } from 'app/shared/model/presentacion.model';
 
 describe('Service Tests', () => {
-    describe('Presentacion Service', () => {
-        let injector: TestBed;
-        let service: PresentacionService;
-        let httpMock: HttpTestingController;
-        let elemDefault: IPresentacion;
-        let currentDate: moment.Moment;
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [HttpClientTestingModule]
-            });
-            injector = getTestBed();
-            service = injector.get(PresentacionService);
-            httpMock = injector.get(HttpTestingController);
-            currentDate = moment();
+  describe('Presentacion Service', () => {
+    let injector: TestBed;
+    let service: PresentacionService;
+    let httpMock: HttpTestingController;
+    let elemDefault: IPresentacion;
+    let currentDate: moment.Moment;
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule]
+      });
+      injector = getTestBed();
+      service = injector.get(PresentacionService);
+      httpMock = injector.get(HttpTestingController);
+      currentDate = moment();
 
-            elemDefault = new Presentacion(0, TipoPresentacion.BOTELLA_330, 0, currentDate, 0, 0, 0, 0);
-        });
-
-        describe('Service methods', async () => {
-            it('should find an element', async () => {
-                const returnedFromService = Object.assign(
-                    {
-                        fecha: currentDate.format(DATE_FORMAT)
-                    },
-                    elemDefault
-                );
-                service
-                    .find(123)
-                    .pipe(take(1))
-                    .subscribe(resp => expect(resp).toMatchObject({ body: elemDefault }));
-
-                const req = httpMock.expectOne({ method: 'GET' });
-                req.flush(JSON.stringify(returnedFromService));
-            });
-
-            it('should create a Presentacion', async () => {
-                const returnedFromService = Object.assign(
-                    {
-                        id: 0,
-                        fecha: currentDate.format(DATE_FORMAT)
-                    },
-                    elemDefault
-                );
-                const expected = Object.assign(
-                    {
-                        fecha: currentDate
-                    },
-                    returnedFromService
-                );
-                service
-                    .create(new Presentacion(null))
-                    .pipe(take(1))
-                    .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
-                const req = httpMock.expectOne({ method: 'POST' });
-                req.flush(JSON.stringify(returnedFromService));
-            });
-
-            it('should update a Presentacion', async () => {
-                const returnedFromService = Object.assign(
-                    {
-                        tipoPresentacion: 'BBBBBB',
-                        cantidad: 1,
-                        fecha: currentDate.format(DATE_FORMAT),
-                        costoUnitario: 1,
-                        precioVentaUnitario: 1,
-                        precioVentaTotal: 1,
-                        precioCostoTotal: 1
-                    },
-                    elemDefault
-                );
-
-                const expected = Object.assign(
-                    {
-                        fecha: currentDate
-                    },
-                    returnedFromService
-                );
-                service
-                    .update(expected)
-                    .pipe(take(1))
-                    .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
-                const req = httpMock.expectOne({ method: 'PUT' });
-                req.flush(JSON.stringify(returnedFromService));
-            });
-
-            it('should return a list of Presentacion', async () => {
-                const returnedFromService = Object.assign(
-                    {
-                        tipoPresentacion: 'BBBBBB',
-                        cantidad: 1,
-                        fecha: currentDate.format(DATE_FORMAT),
-                        costoUnitario: 1,
-                        precioVentaUnitario: 1,
-                        precioVentaTotal: 1,
-                        precioCostoTotal: 1
-                    },
-                    elemDefault
-                );
-                const expected = Object.assign(
-                    {
-                        fecha: currentDate
-                    },
-                    returnedFromService
-                );
-                service
-                    .query(expected)
-                    .pipe(
-                        take(1),
-                        map(resp => resp.body)
-                    )
-                    .subscribe(body => expect(body).toContainEqual(expected));
-                const req = httpMock.expectOne({ method: 'GET' });
-                req.flush(JSON.stringify([returnedFromService]));
-                httpMock.verify();
-            });
-
-            it('should delete a Presentacion', async () => {
-                const rxPromise = service.delete(123).subscribe(resp => expect(resp.ok));
-
-                const req = httpMock.expectOne({ method: 'DELETE' });
-                req.flush({ status: 200 });
-            });
-        });
-
-        afterEach(() => {
-            httpMock.verify();
-        });
+      elemDefault = new Presentacion(0, TipoPresentacion.BOTELLA_330, 0, currentDate, 0, 0, 0, 0);
     });
+
+    describe('Service methods', async () => {
+      it('should find an element', async () => {
+        const returnedFromService = Object.assign(
+          {
+            fecha: currentDate.format(DATE_FORMAT)
+          },
+          elemDefault
+        );
+        service
+          .find(123)
+          .pipe(take(1))
+          .subscribe(resp => expect(resp).toMatchObject({ body: elemDefault }));
+
+        const req = httpMock.expectOne({ method: 'GET' });
+        req.flush(JSON.stringify(returnedFromService));
+      });
+
+      it('should create a Presentacion', async () => {
+        const returnedFromService = Object.assign(
+          {
+            id: 0,
+            fecha: currentDate.format(DATE_FORMAT)
+          },
+          elemDefault
+        );
+        const expected = Object.assign(
+          {
+            fecha: currentDate
+          },
+          returnedFromService
+        );
+        service
+          .create(new Presentacion(null))
+          .pipe(take(1))
+          .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
+        const req = httpMock.expectOne({ method: 'POST' });
+        req.flush(JSON.stringify(returnedFromService));
+      });
+
+      it('should update a Presentacion', async () => {
+        const returnedFromService = Object.assign(
+          {
+            tipoPresentacion: 'BBBBBB',
+            cantidad: 1,
+            fecha: currentDate.format(DATE_FORMAT),
+            costoUnitario: 1,
+            precioVentaUnitario: 1,
+            precioVentaTotal: 1,
+            precioCostoTotal: 1
+          },
+          elemDefault
+        );
+
+        const expected = Object.assign(
+          {
+            fecha: currentDate
+          },
+          returnedFromService
+        );
+        service
+          .update(expected)
+          .pipe(take(1))
+          .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
+        const req = httpMock.expectOne({ method: 'PUT' });
+        req.flush(JSON.stringify(returnedFromService));
+      });
+
+      it('should return a list of Presentacion', async () => {
+        const returnedFromService = Object.assign(
+          {
+            tipoPresentacion: 'BBBBBB',
+            cantidad: 1,
+            fecha: currentDate.format(DATE_FORMAT),
+            costoUnitario: 1,
+            precioVentaUnitario: 1,
+            precioVentaTotal: 1,
+            precioCostoTotal: 1
+          },
+          elemDefault
+        );
+        const expected = Object.assign(
+          {
+            fecha: currentDate
+          },
+          returnedFromService
+        );
+        service
+          .query(expected)
+          .pipe(
+            take(1),
+            map(resp => resp.body)
+          )
+          .subscribe(body => expect(body).toContainEqual(expected));
+        const req = httpMock.expectOne({ method: 'GET' });
+        req.flush(JSON.stringify([returnedFromService]));
+        httpMock.verify();
+      });
+
+      it('should delete a Presentacion', async () => {
+        const rxPromise = service.delete(123).subscribe(resp => expect(resp.ok));
+
+        const req = httpMock.expectOne({ method: 'DELETE' });
+        req.flush({ status: 200 });
+      });
+    });
+
+    afterEach(() => {
+      httpMock.verify();
+    });
+  });
 });

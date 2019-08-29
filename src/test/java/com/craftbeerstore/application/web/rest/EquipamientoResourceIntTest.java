@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Equipamiento;
 import com.craftbeerstore.application.repository.EquipamientoRepository;
-import com.craftbeerstore.application.repository.search.EquipamientoSearchRepository;
 import com.craftbeerstore.application.service.EquipamientoService;
 import com.craftbeerstore.application.service.dto.EquipamientoDTO;
 import com.craftbeerstore.application.service.mapper.EquipamientoMapper;
@@ -38,7 +37,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -82,14 +80,6 @@ public class EquipamientoResourceIntTest {
 
     @Autowired
     private EquipamientoService equipamientoService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.EquipamientoSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private EquipamientoSearchRepository mockEquipamientoSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -168,9 +158,6 @@ public class EquipamientoResourceIntTest {
         assertThat(testEquipamiento.getFechaCompra()).isEqualTo(DEFAULT_FECHA_COMPRA);
         assertThat(testEquipamiento.getImagen()).isEqualTo(DEFAULT_IMAGEN);
         assertThat(testEquipamiento.getImagenContentType()).isEqualTo(DEFAULT_IMAGEN_CONTENT_TYPE);
-
-        // Validate the Equipamiento in Elasticsearch
-        verify(mockEquipamientoSearchRepository, times(1)).save(testEquipamiento);
     }
 
     @Test
@@ -191,9 +178,6 @@ public class EquipamientoResourceIntTest {
         // Validate the Equipamiento in the database
         List<Equipamiento> equipamientoList = equipamientoRepository.findAll();
         assertThat(equipamientoList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Equipamiento in Elasticsearch
-        verify(mockEquipamientoSearchRepository, times(0)).save(equipamiento);
     }
 
     @Test
@@ -377,9 +361,6 @@ public class EquipamientoResourceIntTest {
         assertThat(testEquipamiento.getFechaCompra()).isEqualTo(UPDATED_FECHA_COMPRA);
         assertThat(testEquipamiento.getImagen()).isEqualTo(UPDATED_IMAGEN);
         assertThat(testEquipamiento.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
-
-        // Validate the Equipamiento in Elasticsearch
-        verify(mockEquipamientoSearchRepository, times(1)).save(testEquipamiento);
     }
 
     @Test
@@ -399,9 +380,6 @@ public class EquipamientoResourceIntTest {
         // Validate the Equipamiento in the database
         List<Equipamiento> equipamientoList = equipamientoRepository.findAll();
         assertThat(equipamientoList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Equipamiento in Elasticsearch
-        verify(mockEquipamientoSearchRepository, times(0)).save(equipamiento);
     }
 
     @Test
@@ -420,30 +398,6 @@ public class EquipamientoResourceIntTest {
         // Validate the database is empty
         List<Equipamiento> equipamientoList = equipamientoRepository.findAll();
         assertThat(equipamientoList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Equipamiento in Elasticsearch
-        verify(mockEquipamientoSearchRepository, times(1)).deleteById(equipamiento.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchEquipamiento() throws Exception {
-        // Initialize the database
-        equipamientoRepository.saveAndFlush(equipamiento);
-        when(mockEquipamientoSearchRepository.search(queryStringQuery("id:" + equipamiento.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(equipamiento), PageRequest.of(0, 1), 1));
-        // Search the equipamiento
-        restEquipamientoMockMvc.perform(get("/api/_search/equipamientos?query=id:" + equipamiento.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(equipamiento.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombreEquipamiento").value(hasItem(DEFAULT_NOMBRE_EQUIPAMIENTO)))
-            .andExpect(jsonPath("$.[*].tipoEquipamiento").value(hasItem(DEFAULT_TIPO_EQUIPAMIENTO.toString())))
-            .andExpect(jsonPath("$.[*].precio").value(hasItem(DEFAULT_PRECIO.intValue())))
-            .andExpect(jsonPath("$.[*].costoEnvio").value(hasItem(DEFAULT_COSTO_ENVIO.intValue())))
-            .andExpect(jsonPath("$.[*].fechaCompra").value(hasItem(DEFAULT_FECHA_COMPRA.toString())))
-            .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))));
     }
 
     @Test

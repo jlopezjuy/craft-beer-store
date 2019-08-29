@@ -8,58 +8,58 @@ import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from './producto.service';
 
 @Component({
-    selector: 'jhi-producto-delete-dialog',
-    templateUrl: './producto-delete-dialog.component.html'
+  selector: 'jhi-producto-delete-dialog',
+  templateUrl: './producto-delete-dialog.component.html'
 })
 export class ProductoDeleteDialogComponent {
-    producto: IProducto;
+  producto: IProducto;
 
-    constructor(protected productoService: ProductoService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
+  constructor(protected productoService: ProductoService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
 
-    clear() {
-        this.activeModal.dismiss('cancel');
-    }
+  clear() {
+    this.activeModal.dismiss('cancel');
+  }
 
-    confirmDelete(id: number) {
-        this.productoService.delete(id).subscribe(response => {
-            this.eventManager.broadcast({
-                name: 'productoListModification',
-                content: 'Deleted an producto'
-            });
-            this.activeModal.dismiss(true);
-        });
-    }
+  confirmDelete(id: number) {
+    this.productoService.delete(id).subscribe(response => {
+      this.eventManager.broadcast({
+        name: 'productoListModification',
+        content: 'Deleted an producto'
+      });
+      this.activeModal.dismiss(true);
+    });
+  }
 }
 
 @Component({
-    selector: 'jhi-producto-delete-popup',
-    template: ''
+  selector: 'jhi-producto-delete-popup',
+  template: ''
 })
 export class ProductoDeletePopupComponent implements OnInit, OnDestroy {
-    protected ngbModalRef: NgbModalRef;
+  protected ngbModalRef: NgbModalRef;
 
-    constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
+  constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
 
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ producto }) => {
-            setTimeout(() => {
-                this.ngbModalRef = this.modalService.open(ProductoDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
-                this.ngbModalRef.componentInstance.producto = producto;
-                this.ngbModalRef.result.then(
-                    result => {
-                        this.router.navigate(['/producto', { outlets: { popup: null } }]);
-                        this.ngbModalRef = null;
-                    },
-                    reason => {
-                        this.router.navigate(['/producto', { outlets: { popup: null } }]);
-                        this.ngbModalRef = null;
-                    }
-                );
-            }, 0);
-        });
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ producto }) => {
+      setTimeout(() => {
+        this.ngbModalRef = this.modalService.open(ProductoDeleteDialogComponent as Component, { size: 'lg', backdrop: 'static' });
+        this.ngbModalRef.componentInstance.producto = producto;
+        this.ngbModalRef.result.then(
+          result => {
+            this.router.navigate(['/producto', { outlets: { popup: null } }]);
+            this.ngbModalRef = null;
+          },
+          reason => {
+            this.router.navigate(['/producto', { outlets: { popup: null } }]);
+            this.ngbModalRef = null;
+          }
+        );
+      }, 0);
+    });
+  }
 
-    ngOnDestroy() {
-        this.ngbModalRef = null;
-    }
+  ngOnDestroy() {
+    this.ngbModalRef = null;
+  }
 }

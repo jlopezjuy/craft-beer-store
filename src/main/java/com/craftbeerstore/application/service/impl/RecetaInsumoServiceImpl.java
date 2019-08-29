@@ -8,7 +8,6 @@ import com.craftbeerstore.application.repository.RecetaRepository;
 import com.craftbeerstore.application.service.RecetaInsumoService;
 import com.craftbeerstore.application.domain.RecetaInsumo;
 import com.craftbeerstore.application.repository.RecetaInsumoRepository;
-import com.craftbeerstore.application.repository.search.RecetaInsumoSearchRepository;
 import com.craftbeerstore.application.service.dto.RecetaInsumoDTO;
 import com.craftbeerstore.application.service.mapper.RecetaInsumoMapper;
 import java.util.List;
@@ -23,8 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * Service Implementation for managing RecetaInsumo.
  */
@@ -38,7 +35,6 @@ public class RecetaInsumoServiceImpl implements RecetaInsumoService {
 
     private final RecetaInsumoMapper recetaInsumoMapper;
 
-    private final RecetaInsumoSearchRepository recetaInsumoSearchRepository;
 
     private final RecetaRepository recetaRepository;
 
@@ -46,12 +42,10 @@ public class RecetaInsumoServiceImpl implements RecetaInsumoService {
 
     public RecetaInsumoServiceImpl(RecetaInsumoRepository recetaInsumoRepository,
         RecetaInsumoMapper recetaInsumoMapper,
-        RecetaInsumoSearchRepository recetaInsumoSearchRepository,
         RecetaRepository recetaRepository,
         InsumoRepository insumoRepository) {
         this.recetaInsumoRepository = recetaInsumoRepository;
         this.recetaInsumoMapper = recetaInsumoMapper;
-        this.recetaInsumoSearchRepository = recetaInsumoSearchRepository;
         this.recetaRepository = recetaRepository;
         this.insumoRepository = insumoRepository;
     }
@@ -67,9 +61,7 @@ public class RecetaInsumoServiceImpl implements RecetaInsumoService {
         log.debug("Request to save RecetaInsumo : {}", recetaInsumoDTO);
         RecetaInsumo recetaInsumo = recetaInsumoMapper.toEntity(recetaInsumoDTO);
         recetaInsumo = recetaInsumoRepository.save(recetaInsumo);
-        RecetaInsumoDTO result = recetaInsumoMapper.toDto(recetaInsumo);
-        recetaInsumoSearchRepository.save(recetaInsumo);
-        return result;
+        return recetaInsumoMapper.toDto(recetaInsumo);
     }
 
     /**
@@ -136,22 +128,6 @@ public class RecetaInsumoServiceImpl implements RecetaInsumoService {
     public void delete(Long id) {
         log.debug("Request to delete RecetaInsumo : {}", id);
         recetaInsumoRepository.deleteById(id);
-        recetaInsumoSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the recetaInsumo corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<RecetaInsumoDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of RecetaInsumos for query {}", query);
-        return recetaInsumoSearchRepository.search(queryStringQuery(query), pageable)
-            .map(recetaInsumoMapper::toDto);
     }
 
     @Override

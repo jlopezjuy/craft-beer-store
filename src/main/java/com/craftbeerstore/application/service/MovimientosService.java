@@ -4,7 +4,10 @@ import com.craftbeerstore.application.service.dto.MovimientosDTO;
 
 import com.craftbeerstore.application.service.dto.MovimientosProductoSemanaDTO;
 import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
+
 import java.util.List;
+
+import com.craftbeerstore.application.service.dto.MovimientosVentasDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,71 +18,80 @@ import java.util.Optional;
  */
 public interface MovimientosService {
 
-    /**
-     * Save a movimientos.
-     *
-     * @param movimientosDTO the entity to save
-     * @return the persisted entity
-     */
-    MovimientosDTO save(MovimientosDTO movimientosDTO);
+  /**
+   * Save a movimientos.
+   *
+   * @param movimientosDTO the entity to save
+   * @return the persisted entity
+   */
+  MovimientosDTO save(MovimientosDTO movimientosDTO);
 
-    /**
-     * Get all the movimientos.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<MovimientosDTO> findAll(Pageable pageable);
+  /**
+   * Get all the movimientos.
+   *
+   * @param pageable the pagination information
+   * @return the list of entities
+   */
+  Page<MovimientosDTO> findAll(Pageable pageable);
 
-    /**
-     * Get all movimientos by empresa
-     *
-     * @param pageable the pagination information
-     * @param empresaId the id of empresa entity
-     * @return the list of entities
-     */
-    Page<MovimientosDTO> findAll(Pageable pageable, Long empresaId);
+  /**
+   * Get all movimientos by empresa
+   *
+   * @param pageable  the pagination information
+   * @param empresaId the id of empresa entity
+   * @return the list of entities
+   */
+  Page<MovimientosDTO> findAll(Pageable pageable, Long empresaId);
 
 
-    /**
-     * Get the "id" movimientos.
-     *
-     * @param id the id of the entity
-     * @return the entity
-     */
-    Optional<MovimientosDTO> findOne(Long id);
+  /**
+   * Get the "id" movimientos.
+   *
+   * @param id the id of the entity
+   * @return the entity
+   */
+  Optional<MovimientosDTO> findOne(Long id);
 
-    /**
-     * Delete the "id" movimientos.
-     *
-     * @param id the id of the entity
-     */
-    void delete(Long id);
+  /**
+   * Delete the "id" movimientos.
+   *
+   * @param id the id of the entity
+   */
+  void delete(Long id);
 
-    /**
-     * Search for the movimientos corresponding to the query.
-     *
-     * @param query the query of the search
-     * 
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<MovimientosDTO> search(String query, Pageable pageable);
+  /**
+   * @param empresaId
+   * @param dias
+   * @return
+   */
+  List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId, String dias);
 
-    /**
-     *
-     * @param empresaId
-     * @param dias
-     * @return
-     */
-    List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId, String dias);
+  /**
+   * @param empresaId
+   * @param dias
+   * @return
+   */
+  List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId,
+                                                                  String dias);
 
-    /**
-     *
-     * @param empresaId
-     * @param dias
-     * @return
-     */
-    List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId,
-        String dias);
+  /**
+   * @param empresaId
+   * @param dias
+   * @return
+   */
+  MovimientosProductoSemanaDTO findLitrosSemana(Long empresaId, String dias);
+
+  /**
+   *
+   * @param empresaId
+   * @return
+   */
+  List<MovimientosVentasDTO> findPeriodoLitrosSemana(Long empresaId);
+
+  /**
+   *
+   * @param empresaId
+   * @return
+   */
+  List<MovimientosVentasDTO> findPeriodoLitrosMes(Long empresaId);
 }

@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Insumo;
 import com.craftbeerstore.application.repository.InsumoRepository;
-import com.craftbeerstore.application.repository.search.InsumoSearchRepository;
 import com.craftbeerstore.application.service.InsumoService;
 import com.craftbeerstore.application.service.dto.InsumoDTO;
 import com.craftbeerstore.application.service.mapper.InsumoMapper;
@@ -36,7 +35,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -81,14 +79,6 @@ public class InsumoResourceIntTest {
 
     @Autowired
     private InsumoService insumoService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.InsumoSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private InsumoSearchRepository mockInsumoSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -167,9 +157,6 @@ public class InsumoResourceIntTest {
         assertThat(testInsumo.getTipo()).isEqualTo(DEFAULT_TIPO);
         assertThat(testInsumo.getImagen()).isEqualTo(DEFAULT_IMAGEN);
         assertThat(testInsumo.getImagenContentType()).isEqualTo(DEFAULT_IMAGEN_CONTENT_TYPE);
-
-        // Validate the Insumo in Elasticsearch
-        verify(mockInsumoSearchRepository, times(1)).save(testInsumo);
     }
 
     @Test
@@ -190,9 +177,6 @@ public class InsumoResourceIntTest {
         // Validate the Insumo in the database
         List<Insumo> insumoList = insumoRepository.findAll();
         assertThat(insumoList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Insumo in Elasticsearch
-        verify(mockInsumoSearchRepository, times(0)).save(insumo);
     }
 
     @Test
@@ -319,9 +303,6 @@ public class InsumoResourceIntTest {
         assertThat(testInsumo.getTipo()).isEqualTo(UPDATED_TIPO);
         assertThat(testInsumo.getImagen()).isEqualTo(UPDATED_IMAGEN);
         assertThat(testInsumo.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
-
-        // Validate the Insumo in Elasticsearch
-        verify(mockInsumoSearchRepository, times(1)).save(testInsumo);
     }
 
     @Test
@@ -341,9 +322,6 @@ public class InsumoResourceIntTest {
         // Validate the Insumo in the database
         List<Insumo> insumoList = insumoRepository.findAll();
         assertThat(insumoList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Insumo in Elasticsearch
-        verify(mockInsumoSearchRepository, times(0)).save(insumo);
     }
 
     @Test
@@ -362,30 +340,6 @@ public class InsumoResourceIntTest {
         // Validate the database is empty
         List<Insumo> insumoList = insumoRepository.findAll();
         assertThat(insumoList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Insumo in Elasticsearch
-        verify(mockInsumoSearchRepository, times(1)).deleteById(insumo.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchInsumo() throws Exception {
-        // Initialize the database
-        insumoRepository.saveAndFlush(insumo);
-        when(mockInsumoSearchRepository.search(queryStringQuery("id:" + insumo.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(insumo), PageRequest.of(0, 1), 1));
-        // Search the insumo
-        restInsumoMockMvc.perform(get("/api/_search/insumos?query=id:" + insumo.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(insumo.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nombreInsumo").value(hasItem(DEFAULT_NOMBRE_INSUMO)))
-            .andExpect(jsonPath("$.[*].marca").value(hasItem(DEFAULT_MARCA)))
-            .andExpect(jsonPath("$.[*].stock").value(hasItem(DEFAULT_STOCK.intValue())))
-            .andExpect(jsonPath("$.[*].unidad").value(hasItem(DEFAULT_UNIDAD.toString())))
-            .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())))
-            .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))));
     }
 
     @Test

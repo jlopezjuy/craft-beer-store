@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -12,6 +12,8 @@ import { CajaService } from './caja.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { MatTableDataSource, PageEvent } from '@angular/material';
+import { SidebarService } from '../../services/sidebar.service';
+import { EChartOption } from 'echarts';
 
 @Component({
     selector: 'jhi-caja',
@@ -47,6 +49,12 @@ export class CajaComponent implements OnInit, OnDestroy {
         'actions'
     ];
     pageEvent: PageEvent;
+    public sidebarVisible = true;
+    public visitorsOptions: EChartOption = {};
+    public visitsOptions: EChartOption = {};
+    public dropdownList: Array<any>;
+    public selectedItems: Array<any>;
+    public dropdownSettings: any;
 
     constructor(
         protected cajaService: CajaService,
@@ -57,7 +65,9 @@ export class CajaComponent implements OnInit, OnDestroy {
         protected dataUtils: JhiDataUtils,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService
+        private $localStorage: LocalStorageService,
+        private sidebarService: SidebarService,
+        private cdr: ChangeDetectorRef
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -210,5 +220,11 @@ export class CajaComponent implements OnInit, OnDestroy {
     onPaginateChange(event: PageEvent) {
         this.page = event.pageIndex + 1;
         this.loadPage(event.pageIndex + 1);
+    }
+
+    toggleFullWidth() {
+        this.sidebarService.toggle();
+        this.sidebarVisible = this.sidebarService.getStatus();
+        this.cdr.detectChanges();
     }
 }

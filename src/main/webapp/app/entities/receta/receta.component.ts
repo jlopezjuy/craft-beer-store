@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,8 @@ import { RecetaService } from './receta.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { IProducto } from 'app/shared/model/producto.model';
+import { SidebarService } from '../../services/sidebar.service';
+import { EChartOption } from 'echarts';
 
 @Component({
     selector: 'jhi-receta',
@@ -37,6 +39,9 @@ export class RecetaComponent implements OnInit, OnDestroy {
     dataSource: any;
     displayedColumns: string[] = ['nombre', 'brewMaster', 'fecha', 'batch', 'temperaturaDeMacerado', 'actions'];
     pageEvent: PageEvent;
+    public sidebarVisible = true;
+    public visitorsOptions: EChartOption = {};
+    public visitsOptions: EChartOption = {};
 
     constructor(
         protected recetaService: RecetaService,
@@ -46,7 +51,9 @@ export class RecetaComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
         protected eventManager: JhiEventManager,
-        private $localStorage: LocalStorageService
+        private $localStorage: LocalStorageService,
+        private sidebarService: SidebarService,
+        private cdr: ChangeDetectorRef
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -187,6 +194,12 @@ export class RecetaComponent implements OnInit, OnDestroy {
 
     previousState() {
         this.$localStorage.clear('producto');
-        this.router.navigate(['/producto']);
+        this.router.navigate(['/admin/entity/producto']);
+    }
+
+    toggleFullWidth() {
+        this.sidebarService.toggle();
+        this.sidebarVisible = this.sidebarService.getStatus();
+        this.cdr.detectChanges();
     }
 }

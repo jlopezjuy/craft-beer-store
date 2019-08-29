@@ -5,7 +5,6 @@ import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.ClienteService;
 import com.craftbeerstore.application.domain.Cliente;
 import com.craftbeerstore.application.repository.ClienteRepository;
-import com.craftbeerstore.application.repository.search.ClienteSearchRepository;
 import com.craftbeerstore.application.service.dto.ClienteDTO;
 import com.craftbeerstore.application.service.mapper.ClienteMapper;
 import org.slf4j.Logger;
@@ -17,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Cliente.
@@ -33,16 +30,13 @@ public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteMapper clienteMapper;
 
-    private final ClienteSearchRepository clienteSearchRepository;
 
     private final EmpresaRepository empresaRepository;
 
     public ClienteServiceImpl(ClienteRepository clienteRepository, ClienteMapper clienteMapper,
-        ClienteSearchRepository clienteSearchRepository,
         EmpresaRepository empresaRepository) {
         this.clienteRepository = clienteRepository;
         this.clienteMapper = clienteMapper;
-        this.clienteSearchRepository = clienteSearchRepository;
         this.empresaRepository = empresaRepository;
     }
 
@@ -58,7 +52,6 @@ public class ClienteServiceImpl implements ClienteService {
         Cliente cliente = clienteMapper.toEntity(clienteDTO);
         cliente = clienteRepository.save(cliente);
         ClienteDTO result = clienteMapper.toDto(cliente);
-        clienteSearchRepository.save(cliente);
         return result;
     }
 
@@ -106,21 +99,5 @@ public class ClienteServiceImpl implements ClienteService {
     public void delete(Long id) {
         log.debug("Request to delete Cliente : {}", id);
         clienteRepository.deleteById(id);
-        clienteSearchRepository.deleteById(id);
-    }
-
-    /**
-     * Search for the cliente corresponding to the query.
-     *
-     * @param query the query of the search
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<ClienteDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Clientes for query {}", query);
-        return clienteSearchRepository.search(queryStringQuery(query), pageable)
-            .map(clienteMapper::toDto);
     }
 }

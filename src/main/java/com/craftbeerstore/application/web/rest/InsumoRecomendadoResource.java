@@ -1,4 +1,5 @@
 package com.craftbeerstore.application.web.rest;
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import com.craftbeerstore.application.service.InsumoRecomendadoService;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.web.rest.util.HeaderUtil;
@@ -20,8 +21,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing InsumoRecomendado.
@@ -127,20 +126,28 @@ public class InsumoRecomendadoResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
-    /**
-     * SEARCH  /_search/insumo-recomendados?query=:query : search for the insumoRecomendado corresponding
-     * to the query.
-     *
-     * @param query the query of the insumoRecomendado search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/_search/insumo-recomendados")
-    public ResponseEntity<List<InsumoRecomendadoDTO>> searchInsumoRecomendados(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of InsumoRecomendados for query {}", query);
-        Page<InsumoRecomendadoDTO> page = insumoRecomendadoService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/insumo-recomendados");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
+  /**
+   *
+   * @param tipoInsumo
+   * @return
+   */
+  @GetMapping("/insumo-recomendados/tipo/{tipoInsumo}")
+  public ResponseEntity<List<InsumoRecomendadoDTO>> getAllInsumostIPO(@PathVariable TipoInsumo tipoInsumo) {
+    log.debug("REST request to get a page of Insumos {}", tipoInsumo);
+    List<InsumoRecomendadoDTO> page = this.insumoRecomendadoService.findAllByEmpresaAndTipo(tipoInsumo);
+    return ResponseEntity.ok().body(page);
+  }
+
+  /**
+   *
+   * @param tipoInsumos
+   * @return
+   */
+  @GetMapping("/insumo-recomendados/tipo")
+  public ResponseEntity<List<InsumoRecomendadoDTO>> getAllInsumostIPO(@RequestParam List<TipoInsumo> tipoInsumos) {
+    log.debug("REST request to get a page of Insumos {}", tipoInsumos);
+    List<InsumoRecomendadoDTO> page = insumoRecomendadoService.findAllByEmpresaAndTipo(tipoInsumos);
+    return ResponseEntity.ok().body(page);
+  }
 
 }

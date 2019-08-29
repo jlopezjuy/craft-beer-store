@@ -4,7 +4,6 @@ import com.craftbeerstore.application.CraftBeerStoreApp;
 
 import com.craftbeerstore.application.domain.Movimientos;
 import com.craftbeerstore.application.repository.MovimientosRepository;
-import com.craftbeerstore.application.repository.search.MovimientosSearchRepository;
 import com.craftbeerstore.application.service.MovimientosService;
 import com.craftbeerstore.application.service.dto.MovimientosDTO;
 import com.craftbeerstore.application.service.mapper.MovimientosMapper;
@@ -37,7 +36,6 @@ import java.util.List;
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -80,14 +78,6 @@ public class MovimientosResourceIntTest {
 
     @Autowired
     private MovimientosService movimientosService;
-
-    /**
-     * This repository is mocked in the com.craftbeerstore.application.repository.search test package.
-     *
-     * @see com.craftbeerstore.application.repository.search.MovimientosSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private MovimientosSearchRepository mockMovimientosSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -164,9 +154,6 @@ public class MovimientosResourceIntTest {
         assertThat(testMovimientos.getNumeroMovimiento()).isEqualTo(DEFAULT_NUMERO_MOVIMIENTO);
         assertThat(testMovimientos.getEstado()).isEqualTo(DEFAULT_ESTADO);
         assertThat(testMovimientos.getLitrosTotales()).isEqualTo(DEFAULT_LITROS_TOTALES);
-
-        // Validate the Movimientos in Elasticsearch
-        verify(mockMovimientosSearchRepository, times(1)).save(testMovimientos);
     }
 
     @Test
@@ -187,9 +174,6 @@ public class MovimientosResourceIntTest {
         // Validate the Movimientos in the database
         List<Movimientos> movimientosList = movimientosRepository.findAll();
         assertThat(movimientosList).hasSize(databaseSizeBeforeCreate);
-
-        // Validate the Movimientos in Elasticsearch
-        verify(mockMovimientosSearchRepository, times(0)).save(movimientos);
     }
 
     @Test
@@ -369,9 +353,6 @@ public class MovimientosResourceIntTest {
         assertThat(testMovimientos.getNumeroMovimiento()).isEqualTo(UPDATED_NUMERO_MOVIMIENTO);
         assertThat(testMovimientos.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testMovimientos.getLitrosTotales()).isEqualTo(UPDATED_LITROS_TOTALES);
-
-        // Validate the Movimientos in Elasticsearch
-        verify(mockMovimientosSearchRepository, times(1)).save(testMovimientos);
     }
 
     @Test
@@ -391,9 +372,6 @@ public class MovimientosResourceIntTest {
         // Validate the Movimientos in the database
         List<Movimientos> movimientosList = movimientosRepository.findAll();
         assertThat(movimientosList).hasSize(databaseSizeBeforeUpdate);
-
-        // Validate the Movimientos in Elasticsearch
-        verify(mockMovimientosSearchRepository, times(0)).save(movimientos);
     }
 
     @Test
@@ -412,29 +390,6 @@ public class MovimientosResourceIntTest {
         // Validate the database is empty
         List<Movimientos> movimientosList = movimientosRepository.findAll();
         assertThat(movimientosList).hasSize(databaseSizeBeforeDelete - 1);
-
-        // Validate the Movimientos in Elasticsearch
-        verify(mockMovimientosSearchRepository, times(1)).deleteById(movimientos.getId());
-    }
-
-    @Test
-    @Transactional
-    public void searchMovimientos() throws Exception {
-        // Initialize the database
-        movimientosRepository.saveAndFlush(movimientos);
-        when(mockMovimientosSearchRepository.search(queryStringQuery("id:" + movimientos.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(movimientos), PageRequest.of(0, 1), 1));
-        // Search the movimientos
-        restMovimientosMockMvc.perform(get("/api/_search/movimientos?query=id:" + movimientos.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(movimientos.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tipoMovimiento").value(hasItem(DEFAULT_TIPO_MOVIMIENTO.toString())))
-            .andExpect(jsonPath("$.[*].fechaMovimiento").value(hasItem(DEFAULT_FECHA_MOVIMIENTO.toString())))
-            .andExpect(jsonPath("$.[*].precioTotal").value(hasItem(DEFAULT_PRECIO_TOTAL.intValue())))
-            .andExpect(jsonPath("$.[*].numeroMovimiento").value(hasItem(DEFAULT_NUMERO_MOVIMIENTO)))
-            .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
-            .andExpect(jsonPath("$.[*].litrosTotales").value(hasItem(DEFAULT_LITROS_TOTALES.intValue())));
     }
 
     @Test
