@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
 import { Empresa, IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from './empresa.service';
 import { Account, AccountService, IUser, UserService } from 'app/core';
@@ -28,7 +28,9 @@ export class EmpresaUpdateComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected $localStorage: LocalStorageService,
     private eventManager: JhiEventManager,
-    private accountService: AccountService
+    private accountService: AccountService,
+    protected dataUtils: JhiDataUtils,
+    protected elementRef: ElementRef
   ) {}
 
   ngOnInit() {
@@ -84,7 +86,6 @@ export class EmpresaUpdateComponent implements OnInit {
     this.$localStorage.store('empresaActiva', true);
     this.isSaving = false;
     this.empresaAct(true);
-    // this.previousState();
   }
 
   protected onSaveError() {
@@ -115,5 +116,21 @@ export class EmpresaUpdateComponent implements OnInit {
 
   empresaAct(isUpdated: boolean) {
     this.empresaActualizada.emit(isUpdated);
+  }
+
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
+
+  setFileData(event, entity, field, isImage) {
+    this.dataUtils.setFileData(event, entity, field, isImage);
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string) {
+    this.dataUtils.clearInputImage(this.empresa, this.elementRef, field, fieldContentType, idInput);
   }
 }

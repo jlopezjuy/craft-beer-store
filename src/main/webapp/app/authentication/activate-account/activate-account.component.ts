@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { LoginModalService } from 'app/core';
 import { ActivateAccountService } from './activate-account.service';
@@ -17,7 +17,8 @@ export class ActivateAccountComponent implements OnInit {
   constructor(
     private activateService: ActivateAccountService,
     private loginModalService: LoginModalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -36,6 +37,6 @@ export class ActivateAccountComponent implements OnInit {
   }
 
   login() {
-    this.modalRef = this.loginModalService.open();
+    this.router.navigate(['/authentication/page-login']);
   }
 }

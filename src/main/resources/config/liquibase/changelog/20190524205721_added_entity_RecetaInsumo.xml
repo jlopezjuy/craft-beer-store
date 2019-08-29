@@ -26,7 +26,71 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="insumo_id" type="bigint">
+            <column name="cantidad" type="decimal(15,5)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="color" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="porcentaje" type="decimal(15,5)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="uso_malta" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="alpha" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="modo_lupulo" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="gramos" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="uso_lupulo" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tiempo" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="ibu" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="densidad_leva" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tam_sobre" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="atenuacion" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tipo_otro" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="uso_otro" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tiempo_otro" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="insumo_recomendado_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

@@ -82,23 +82,15 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-  saveLogo() {
-    this.subscribeToSaveResponse(this.empresaService.update(this.empresa));
-  }
-
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IEmpresa>>) {
     result.subscribe((res: HttpResponse<IEmpresa>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
   }
 
   protected onSaveSuccess() {
     this.sidebarService.loadEmpresa(this.empresa);
-    // this.isSaving = false;
-    // this.previousState();
   }
 
-  protected onSaveError() {
-    // this.isSaving = false;
-  }
+  protected onSaveError() {}
 
   copyAccount(account) {
     return {
@@ -174,21 +166,5 @@ export class SettingsComponent implements OnInit {
         }
       ]
     });
-  }
-
-  byteSize(field) {
-    return this.dataUtils.byteSize(field);
-  }
-
-  openFile(contentType, field) {
-    return this.dataUtils.openFile(contentType, field);
-  }
-
-  setFileData(event, entity, field, isImage) {
-    this.dataUtils.setFileData(event, entity, field, isImage);
-  }
-
-  clearInputImage(field: string, fieldContentType: string, idInput: string) {
-    this.dataUtils.clearInputImage(this.empresa, this.elementRef, field, fieldContentType, idInput);
   }
 }

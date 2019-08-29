@@ -90,6 +90,24 @@
               </small>
             </mat-error>
           </mat-form-field>
+
+
+          <label class="form-control-label" jhiTranslate="craftBeerStoreApp.empresa.logoPrincipal" for="field_logoPrincipal">Logo Principal</label>
+          <div>
+            <img [src]="'data:' + empresa.logoPrincipalContentType + ';base64,' + empresa.logoPrincipal" style="max-height: 200px;" *ngIf="empresa.logoPrincipal" alt="empresa image"/>
+            <div *ngIf="empresa.logoPrincipal" class="form-text text-danger clearfix">
+              <span class="pull-left">{{empresa.logoPrincipalContentType}}, {{byteSize(empresa.logoPrincipal)}}</span>
+              <button type="button" (click)="clearInputImage('logoPrincipal', 'logoPrincipalContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                <fa-icon [icon]="'times'"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_logoPrincipal" (change)="setFileData($event, empresa, 'logoPrincipal', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+          </div>
+          <input type="hidden" class="form-control" name="logoPrincipal" id="field_logoPrincipal"
+                 [(ngModel)]="empresa.logoPrincipal" />
+          <input type="hidden" class="form-control" name="logoPrincipalContentType" id="field_logoPrincipalContentType"
+                 [(ngModel)]="empresa.logoPrincipalContentType" />
+
         </div>
         <div>
           <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
