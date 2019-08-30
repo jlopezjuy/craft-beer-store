@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
-import { EstadoCompra, ICompraInsumo } from 'app/shared/model/compra-insumo.model';
+import { CompraInsumo, EstadoCompra, ICompraInsumo } from 'app/shared/model/compra-insumo.model';
 import { CompraInsumoService } from './compra-insumo.service';
 import { IProveedor } from 'app/shared/model/proveedor.model';
 import { ProveedorService } from 'app/entities/proveedor';
@@ -57,10 +57,13 @@ export class CompraInsumoUpdateComponent implements OnInit {
         this.fechaDp = moment(this.compraInsumo.fecha, 'dd/MM/yyy').format();
         this.loadAllOnEdit();
       } else {
+        this.compraInsumo = new CompraInsumo();
         this.compraInsumo.impuesto = 0;
         this.compraInsumo.total = 0;
         this.compraInsumo.subtotal = 0;
         this.compraInsumoDetalles = [];
+        this.compraInsumoAux = new CompraInsumo();
+        this.compraInsumoAux.estadoCompra = EstadoCompra.PEDIDO_REALIZADO;
       }
     });
     this.proveedorService
