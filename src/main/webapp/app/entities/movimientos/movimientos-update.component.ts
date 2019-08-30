@@ -178,7 +178,7 @@ export class MovimientosUpdateComponent implements OnInit {
         console.log(pres);
         pres.cantidad = this.productoSave.cantidadPresentacion;
         pres.nombreComercial = prod.body.nombreComercial;
-        pres.precioVentaTotal = pres.cantidad * pres.precioVentaUnitario;
+        pres.precioVentaTotal = pres.cantidad * this.productoSave.precioUnitario;
         pres.movimientoId = resp.body.movimientoId;
         this.presentacions.push(pres);
         this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioVentaTotal;
