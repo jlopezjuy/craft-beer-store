@@ -31,7 +31,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="cantidad"><span jhiTranslate="craftBeerStoreApp.detalleMovimiento.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="precioTotal"><span jhiTranslate="craftBeerStoreApp.detalleMovimiento.precioTotal">Precio Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="litroTotal"><span jhiTranslate="craftBeerStoreApp.detalleMovimiento.litroTotal">Precio Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="presentacionId"><span jhiTranslate="craftBeerStoreApp.detalleMovimiento.presentacion">Presentacion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="movimientosId"><span jhiTranslate="craftBeerStoreApp.detalleMovimiento.movimientos">Movimientos</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -41,7 +41,7 @@
             <tr *ngFor="let detalleMovimiento of detalleMovimientos ;trackBy: trackId">
                 <td><a [routerLink]="['/detalle-movimiento', detalleMovimiento.id, 'view' ]">{{detalleMovimiento.id}}</a></td>
                 <td>{{detalleMovimiento.cantidad}}</td>
-                <td>{{detalleMovimiento.precioTotal}}</td>
+                <td>{{detalleMovimiento.litroTotal}}</td>
                 <td>
                     <div *ngIf="detalleMovimiento.presentacionId">
                         <a [routerLink]="['../presentacion', detalleMovimiento.presentacionId , 'view' ]" >{{detalleMovimiento.presentacionId}}</a>

@@ -73,7 +73,7 @@ class DetalleMovimientoGatlingTest extends Simulation {
             .body(StringBody("""{
                 "id":null
                 , "cantidad":null
-                , "precioTotal":"0"
+                , "litroTotal":"0"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_detalleMovimiento_url"))).exitHereIfFailed

@@ -175,7 +175,6 @@ export class MovimientosUpdateComponent implements OnInit {
     this.presentacionService.find(this.productoSave.presentacionId).subscribe(resp => {
       this.productoService.find(resp.body.productoId).subscribe(prod => {
         const pres = resp.body;
-        console.log(pres);
         pres.cantidad = this.productoSave.cantidadPresentacion;
         pres.nombreComercial = prod.body.nombreComercial;
         pres.precioVentaTotal = pres.cantidad * this.productoSave.precioUnitario;

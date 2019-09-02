@@ -76,6 +76,12 @@ export class MovimientosService {
       .pipe(map((res: EntityMovimientosProductoSemanaResponseType) => this.convertLitroDateFromServer(res)));
   }
 
+  queryLitrosByMesEmpresa(empresaId: number, dias: string): Observable<EntityMovimientosProductoSemanaResponseType> {
+    return this.http
+      .get<IMovimientosProductoSemana>(`${this.resourceUrl}/mes/litros/${empresaId}/${dias}`, { observe: 'response' })
+      .pipe(map((res: EntityMovimientosProductoSemanaResponseType) => this.convertLitroDateFromServer(res)));
+  }
+
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

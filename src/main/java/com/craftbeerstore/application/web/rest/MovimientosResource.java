@@ -1,11 +1,9 @@
 package com.craftbeerstore.application.web.rest;
 import com.craftbeerstore.application.service.MovimientosService;
-import com.craftbeerstore.application.service.dto.MovimientosProductoSemanaDTO;
-import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
+import com.craftbeerstore.application.service.dto.*;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.web.rest.util.HeaderUtil;
 import com.craftbeerstore.application.web.rest.util.PaginationUtil;
-import com.craftbeerstore.application.service.dto.MovimientosDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -167,6 +165,18 @@ public class MovimientosResource {
   @GetMapping("/movimientos/semana/litros/{empresaId}/{dias}")
   public ResponseEntity<MovimientosProductoSemanaDTO> getAllMovimientosLitroSemanal(@PathVariable Long empresaId, @PathVariable String dias){
     MovimientosProductoSemanaDTO movimiento = movimientosService.findLitrosSemana(empresaId, dias);
+    return ResponseEntity.ok().body(movimiento);
+  }
+
+  @GetMapping("/movimientos/semana/litros/{empresaId}")
+  public ResponseEntity<List<MovimientoLitroDTO>> getMovimientosLitroSemanal(@PathVariable Long empresaId){
+    List<MovimientoLitroDTO> movimiento = movimientosService.findPeriodoLitrosSemana(empresaId);
+    return ResponseEntity.ok().body(movimiento);
+  }
+
+  @GetMapping("/movimientos/mes/litros/{empresaId}")
+  public ResponseEntity<List<MovimientoLitroDTO>> getMovimientosLitroMes(@PathVariable Long empresaId){
+    List<MovimientoLitroDTO> movimiento = movimientosService.findPeriodoLitrosMes(empresaId);
     return ResponseEntity.ok().body(movimiento);
   }
 

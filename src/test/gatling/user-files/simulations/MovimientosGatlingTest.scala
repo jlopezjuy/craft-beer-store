@@ -74,7 +74,7 @@ class MovimientosGatlingTest extends Simulation {
                 "id":null
                 , "tipoMovimiento":"PRESUPUESTO"
                 , "fechaMovimiento":"2020-01-01T00:00:00.000Z"
-                , "precioTotal":"0"
+                , "litroTotal":"0"
                 , "numeroMovimiento":"SAMPLE_TEXT"
                 , "estado":"ACTIVO"
                 , "litrosTotales":"0"

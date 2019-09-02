@@ -106,7 +106,7 @@ public interface MovimientosRepository extends JpaRepository<Movimientos, Long> 
       "AND tipo_movimiento = 'VENTA' " +
       "AND empresa_id = :empresaId " +
       "GROUP BY periodo", nativeQuery = true)
-    List<Object[]> queryLitrosMes(@Param("empresa")Long empresaId);
+    List<Object[]> queryLitrosMes(@Param("empresaId")Long empresaId);
 
     @Query(value = "SELECT CURDATE() - INTERVAL diffs.diff DAY AS periodo, " +
       "       COALESCE(SUM(litros_totales), 0) AS litros " +
@@ -122,5 +122,5 @@ public interface MovimientosRepository extends JpaRepository<Movimientos, Long> 
       "AND tipo_movimiento = 'VENTA' " +
       "AND empresa_id = :empresaId " +
       "GROUP BY periodo;", nativeQuery = true)
-    List<Object[]> queryLitrosSemana(@Param("empresa")Long empresaId);
+    List<Object[]> queryLitrosSemana(@Param("empresaId")Long empresaId);
 }
