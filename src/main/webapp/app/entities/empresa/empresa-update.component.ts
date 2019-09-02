@@ -30,8 +30,10 @@ export class EmpresaUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log('entro a cargar empresa para ser actualizado');
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ empresa }) => {
+      console.log(empresa);
       this.empresa = empresa;
     });
     this.userService

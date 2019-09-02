@@ -17,7 +17,8 @@
         </ul>
       </div>
       <div class="col-lg-7 col-md-4 col-sm-12 text-right">
-
+        <jhi-alert></jhi-alert>
+        <jhi-alert-error></jhi-alert-error>
       </div>
     </div>
   </div>
@@ -54,8 +55,8 @@
                   <div class="col-md-12">
                     <h2 jhiTranslate="settings.title" [translateValues]="{username: settingsAccount.login}" *ngIf="settingsAccount">Maestro Cervecero [<b>{{settingsAccount.firstName}}</b>]</h2>
 
-                    <jhi-alert-error></jhi-alert-error>
-                    <jhi-alert></jhi-alert>
+
+
                     <form name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="settingsAccount" novalidate>
 
                       <div class="form-group">

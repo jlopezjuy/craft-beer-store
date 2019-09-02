@@ -35,9 +35,6 @@ export class EmpresaUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
-    // this.activatedRoute.data.subscribe(({ empresa }) => {
-    //     this.empresa = empresa;
-    // });
     this.empresaService.findEmpresa().subscribe(
       resp => {
         this.empresa = resp.body;

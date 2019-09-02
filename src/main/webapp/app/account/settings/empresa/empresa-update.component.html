@@ -1,12 +1,12 @@
 <div>
   <div class="row justify-content-center">
-    <div class="col-10">
+    <div class="col-10" *ngIf="empresa">
       <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
         <div>
 <!--          <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">-->
 <!--            <strong>Datos actualizados!</strong>-->
 <!--          </div>-->
-          <jhi-alert></jhi-alert>
+
           <!--<jhi-alert-error></jhi-alert-error>-->
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label jhiTranslate="craftBeerStoreApp.empresa.nombreEmpresa" for="field_nombreEmpresa">Nombre Empresa</mat-label>

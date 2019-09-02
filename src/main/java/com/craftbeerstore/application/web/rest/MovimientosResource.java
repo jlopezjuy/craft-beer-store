@@ -168,12 +168,22 @@ public class MovimientosResource {
     return ResponseEntity.ok().body(movimiento);
   }
 
+  /**
+   *
+   * @param empresaId
+   * @return
+   */
   @GetMapping("/movimientos/semana/litros/{empresaId}")
   public ResponseEntity<List<MovimientoLitroDTO>> getMovimientosLitroSemanal(@PathVariable Long empresaId){
     List<MovimientoLitroDTO> movimiento = movimientosService.findPeriodoLitrosSemana(empresaId);
     return ResponseEntity.ok().body(movimiento);
   }
 
+  /**
+   *
+   * @param empresaId
+   * @return
+   */
   @GetMapping("/movimientos/mes/litros/{empresaId}")
   public ResponseEntity<List<MovimientoLitroDTO>> getMovimientosLitroMes(@PathVariable Long empresaId){
     List<MovimientoLitroDTO> movimiento = movimientosService.findPeriodoLitrosMes(empresaId);

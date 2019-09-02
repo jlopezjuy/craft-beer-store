@@ -55,6 +55,7 @@ export class HeaderComponent implements OnInit {
 
   changeLanguage(languageKey: string) {
     this.sessionStorage.store('locale', languageKey);
+    console.log(languageKey);
     this.languageService.changeLanguage(languageKey);
   }
 

@@ -70,6 +70,9 @@ export class SettingsComponent implements OnInit {
           this.settingsAccount = this.copyAccount(account);
         });
         this.languageService.getCurrent().then(current => {
+          console.log(current);
+          console.log(this.settingsAccount.langKey);
+          console.log(this.settingsAccount.langKey !== current);
           if (this.settingsAccount.langKey !== current) {
             this.languageService.changeLanguage(this.settingsAccount.langKey);
           }

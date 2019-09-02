@@ -9,9 +9,6 @@ import { Subject } from 'rxjs';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import { JhiLanguageHelper } from '../../core';
-import { JhiLanguageService } from 'ng-jhipster';
-import { SessionStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'jhi-admin',
@@ -37,10 +34,7 @@ export class AdminComponent implements AfterViewInit, OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private themeService: ThemeService,
-    private titleService: Title,
-    private languageHelper: JhiLanguageHelper,
-    private languageService: JhiLanguageService,
-    private sessionStorage: SessionStorageService
+    private titleService: Title
   ) {
     this.activatedRoute.url.pipe(takeUntil(this.ngUnsubscribe)).subscribe(url => {
       this.isStopLoading = false;
@@ -76,16 +70,6 @@ export class AdminComponent implements AfterViewInit, OnInit, OnDestroy {
       .mergeMap(route => route.data)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(event => this.titleService.setTitle(event['title']));
-    this.languageHelper
-      .getAll()
-      .then(languages => {
-        this.languages = languages;
-        this.sessionStorage.store('locale', languages);
-        this.languageService.changeLanguage(languages);
-      })
-      .catch(e => {
-        console.log(e);
-      });
   }
 
   ngOnDestroy() {

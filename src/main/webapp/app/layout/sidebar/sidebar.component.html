@@ -25,20 +25,20 @@
           </div>
 
             <hr>
-            <ul class="row list-unstyled">
-                <li class="col-4">
-                    <small>Sales</small>
-                    <h6>456</h6>
-                </li>
-                <li class="col-4">
-                    <small>Order</small>
-                    <h6>1350</h6>
-                </li>
-                <li class="col-4">
-                    <small>Revenue</small>
-                    <h6>$2.13B</h6>
-                </li>
-            </ul>
+<!--            <ul class="row list-unstyled">-->
+<!--                <li class="col-4">-->
+<!--                    <small>Sales</small>-->
+<!--                    <h6>456</h6>-->
+<!--                </li>-->
+<!--                <li class="col-4">-->
+<!--                    <small>Order</small>-->
+<!--                    <h6>1350</h6>-->
+<!--                </li>-->
+<!--                <li class="col-4">-->
+<!--                    <small>Revenue</small>-->
+<!--                    <h6>$2.13B</h6>-->
+<!--                </li>-->
+<!--            </ul>-->
         </div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs">
@@ -61,7 +61,7 @@
                                 <span>Tablero</span></a>
                             <ul *ngIf="currentActiveMenu == 'dashboard'">
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/index']">Estadisticas</a></li>
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/iot']">IoT</a></li>
+<!--                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/iot']">IoT</a></li>-->
                             </ul>
                         </li>
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'entity'}">

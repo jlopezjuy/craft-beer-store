@@ -10,12 +10,14 @@ import { createRequestOption } from 'app/shared';
 import { IMovimientos } from 'app/shared/model/movimientos.model';
 import { IMovimientosSemana } from 'app/shared/model/movimientos-semana.model';
 import { IMovimientosProductoSemana } from 'app/shared/model/movimientos-producto-semana.model';
+import { IMovimientoLitroModel, MovimientoLitroModel } from '../../shared/model/movimiento-litro.model';
 
 type EntityResponseType = HttpResponse<IMovimientos>;
 type EntityArrayResponseType = HttpResponse<IMovimientos[]>;
 type EntitySemanaArrayResponseType = HttpResponse<IMovimientosSemana[]>;
 type EntityProductoSemanaArrayResponseType = HttpResponse<IMovimientosProductoSemana[]>;
 type EntityMovimientosProductoSemanaResponseType = HttpResponse<IMovimientosProductoSemana>;
+type EntityMovimientoLitroArrayResponseType = HttpResponse<IMovimientoLitroModel[]>;
 
 @Injectable({ providedIn: 'root' })
 export class MovimientosService {
@@ -70,16 +72,16 @@ export class MovimientosService {
       .pipe(map((res: EntityProductoSemanaArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  queryLitrosBySemanaEmpresa(empresaId: number, dias: string): Observable<EntityMovimientosProductoSemanaResponseType> {
+  queryLitrosBySemanaEmpresa(empresaId: number): Observable<EntityMovimientoLitroArrayResponseType> {
     return this.http
-      .get<IMovimientosProductoSemana>(`${this.resourceUrl}/semana/litros/${empresaId}/${dias}`, { observe: 'response' })
-      .pipe(map((res: EntityMovimientosProductoSemanaResponseType) => this.convertLitroDateFromServer(res)));
+      .get<IMovimientoLitroModel[]>(`${this.resourceUrl}/semana/litros/${empresaId}`, { observe: 'response' })
+      .pipe(map((res: EntityMovimientoLitroArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  queryLitrosByMesEmpresa(empresaId: number, dias: string): Observable<EntityMovimientosProductoSemanaResponseType> {
+  queryLitrosByMesEmpresa(empresaId: number): Observable<EntityMovimientoLitroArrayResponseType> {
     return this.http
-      .get<IMovimientosProductoSemana>(`${this.resourceUrl}/mes/litros/${empresaId}/${dias}`, { observe: 'response' })
-      .pipe(map((res: EntityMovimientosProductoSemanaResponseType) => this.convertLitroDateFromServer(res)));
+      .get<IMovimientoLitroModel[]>(`${this.resourceUrl}/mes/litros/${empresaId}`, { observe: 'response' })
+      .pipe(map((res: EntityMovimientoLitroArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<any>> {

@@ -7,6 +7,7 @@ import { CajaService } from '../../entities/caja';
 import { IEmpresa } from '../../shared/model/empresa.model';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Title } from '@angular/platform-browser';
+import { MovimientosService } from '../../entities/movimientos';
 
 @Component({
   selector: 'jhi-index',
@@ -14,10 +15,11 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit, OnDestroy {
-  public sidebarVisible: boolean = true;
-  public isResizing: boolean = false;
+  public sidebarVisible = true;
+  public isResizing = false;
   public visitorsOptions: EChartOption = {};
   public visitsOptions: EChartOption = {};
+  public litrosMesOptions: EChartOption = {};
   public earningOptions: EChartOption = {};
   public earningOptionsMonth: EChartOption = {};
   public salesOptions: EChartOption = {};
@@ -27,12 +29,13 @@ export class IndexComponent implements OnInit, OnDestroy {
   public dataManagedBarChart: EChartOption = {};
 
   public earningOptionsSeries: Array<number> = [1, 4, 1, 3, 7, 1];
-  public earnings: string; //= '$' + (this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
-  public earningsMonth: string; //= '$' + (this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
+  public earnings: string; // = '$' + (this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
+  public earningsMonth: string; // = '$' + (this.earningOptionsSeries.reduce((a, b) => a + b, 0) * 1000).toLocaleString();
   public salesOptionsSeries: Array<number> = [1, 4, 2, 3, 6, 2];
   public sales: string = '$' + (this.salesOptionsSeries.reduce((a, b) => a + b, 0) * 10000).toLocaleString();
   public visitsAreaOptionsSeries: Array<number> = [1, 4, 2, 3, 1, 5];
   public visits: number = this.visitsAreaOptionsSeries.reduce((a, b) => a + b, 0);
+  public litrosMes: number = this.visitsAreaOptionsSeries.reduce((a, b) => a + b, 0);
   public LikesOptionsSeries: Array<number> = [1, 3, 5, 1, 4, 2];
   public likes: number = this.LikesOptionsSeries.reduce((a, b) => a + b, 0);
   visibleEmpresa: boolean;
@@ -46,7 +49,8 @@ export class IndexComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     protected cajaService: CajaService,
     private $localStorage: LocalStorageService,
-    private titleService: Title
+    private titleService: Title,
+    private movimientosService: MovimientosService
   ) {
     this.visitorsOptions = this.loadLineChartOptions([3, 5, 1, 6, 5, 4, 8, 3], '#49c5b6');
     this.visitsOptions = this.loadLineChartOptions([4, 6, 3, 2, 5, 6, 5, 4], '#f4516c');
@@ -59,7 +63,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.titleService.setTitle('Craft Beer Management');
-    let that = this;
+    const that = this;
     setTimeout(function() {
       that.showToastr();
     }, 1000);
@@ -91,6 +95,27 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.earningsMonth = '$' + ingresos;
       this.earningOptionsMonth = this.loadLineAreaChartOptions(data, '#51dff7', '#12fa39');
     });
+    this.movimientosService.queryLitrosBySemanaEmpresa(this.empresa.id).subscribe(response => {
+      const data = [];
+      let litros = 0;
+      response.body.forEach(movimiento => {
+        data.push(movimiento.litroTotal);
+        litros = litros + movimiento.litroTotal;
+      });
+      this.visits = litros;
+      this.visitsAreaOptions = this.loadLineAreaChartOptions(data, '#4aacc5', '#92cddc');
+    });
+
+    this.movimientosService.queryLitrosByMesEmpresa(this.empresa.id).subscribe(response => {
+      const data = [];
+      let litros = 0;
+      response.body.forEach(movimiento => {
+        data.push(movimiento.litroTotal);
+        litros = litros + movimiento.litroTotal;
+      });
+      this.litrosMes = litros;
+      this.litrosMesOptions = this.loadLineAreaChartOptions(data, '#4aacc5', '#92cddc');
+    });
   }
 
   ngOnDestroy() {
@@ -107,7 +132,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   chartIntervals() {
-    let that = this;
+    const that = this;
     this.interval = setInterval(function() {
       that.earningOptionsSeries.shift();
       let rand = Math.floor(Math.random() * 11);
@@ -133,8 +158,8 @@ export class IndexComponent implements OnInit, OnDestroy {
         rand = 1;
       }
       that.visitsAreaOptionsSeries.push(rand);
-      that.visits += rand;
-      that.visitsAreaOptions = that.loadLineAreaChartOptions(that.visitsAreaOptionsSeries, '#4aacc5', '#92cddc');
+      // that.visits += rand;
+      // that.visitsAreaOptions = that.loadLineAreaChartOptions(that.visitsAreaOptionsSeries, '#4aacc5', '#92cddc');
 
       that.LikesOptionsSeries.shift();
       rand = Math.floor(Math.random() * 11);
@@ -152,7 +177,7 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.isResizing = true;
     this.sidebarService.toggle();
     this.sidebarVisible = this.sidebarService.getStatus();
-    let that = this;
+    const that = this;
     setTimeout(function() {
       that.isResizing = false;
       that.cdr.detectChanges();
@@ -161,7 +186,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   loadLineChartOptions(data, color) {
     let chartOption: EChartOption;
-    let xAxisData: Array<any> = new Array<any>();
+    const xAxisData: Array<any> = new Array<any>();
 
     data.forEach(element => {
       xAxisData.push('');
@@ -213,7 +238,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   loadLineAreaChartOptions(data, color, areaColor) {
     let chartOption: EChartOption;
-    let xAxisData: Array<any> = new Array<any>();
+    const xAxisData: Array<any> = new Array<any>();
 
     data.forEach(element => {
       xAxisData.push('');
@@ -268,7 +293,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   getDataManagedChartOptions() {
-    let options: EChartOption = {
+    const options: EChartOption = {
       tooltip: {
         trigger: 'item'
       },
