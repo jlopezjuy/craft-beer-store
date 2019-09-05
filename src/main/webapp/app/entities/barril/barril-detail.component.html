@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="barril">
+            <h2><span jhiTranslate="craftBeerStoreApp.barril.detail.title">Barril</span> {{barril.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.barril.codigo">Codigo</span></dt>
+                <dd>
+                    <span>{{barril.codigo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.barril.litros">Litros</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.LitrosBarril.' + barril.litros}}">{{barril.litros}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.barril.conector">Conector</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.ConectorBarril.' + barril.conector}}">{{barril.conector}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.barril.estado">Estado</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoBarril.' + barril.estado}}">{{barril.estado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.barril.imagen">Imagen</span></dt>
+                <dd>
+                    <div *ngIf="barril.imagen">
+                        <a (click)="openFile(barril.imagenContentType, barril.imagen)">
+                            <img [src]="'data:' + barril.imagenContentType + ';base64,' + barril.imagen" style="max-width: 100%;" alt="barril image"/>
+                        </a>
+                        {{barril.imagenContentType}}, {{byteSize(barril.imagen)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.barril.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="barril.empresaId">
+                        <a [routerLink]="['/empresa', barril.empresaId, 'view']">{{barril.empresaNombreEmpresa}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/barril', barril.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

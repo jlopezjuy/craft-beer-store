@@ -1,0 +1,89 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-barril-heading" jhiTranslate="craftBeerStoreApp.barril.home.createOrEditLabel">Create or edit a Barril</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!barril.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="barril.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.barril.codigo" for="field_codigo">Codigo</label>
+                    <input type="text" class="form-control" name="codigo" id="field_codigo"
+                        [(ngModel)]="barril.codigo" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.barril.litros" for="field_litros">Litros</label>
+                    <select class="form-control" name="litros" [(ngModel)]="barril.litros" id="field_litros" >
+                        <option value="CINCO">{{'craftBeerStoreApp.LitrosBarril.CINCO' | translate}}</option>
+                        <option value="DIEZ">{{'craftBeerStoreApp.LitrosBarril.DIEZ' | translate}}</option>
+                        <option value="QUINCE">{{'craftBeerStoreApp.LitrosBarril.QUINCE' | translate}}</option>
+                        <option value="DIECINUEVE">{{'craftBeerStoreApp.LitrosBarril.DIECINUEVE' | translate}}</option>
+                        <option value="VEINTE">{{'craftBeerStoreApp.LitrosBarril.VEINTE' | translate}}</option>
+                        <option value="VEINTICINCO">{{'craftBeerStoreApp.LitrosBarril.VEINTICINCO' | translate}}</option>
+                        <option value="TREINTA">{{'craftBeerStoreApp.LitrosBarril.TREINTA' | translate}}</option>
+                        <option value="CINCUENTA">{{'craftBeerStoreApp.LitrosBarril.CINCUENTA' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.barril.conector" for="field_conector">Conector</label>
+                    <select class="form-control" name="conector" [(ngModel)]="barril.conector" id="field_conector" >
+                        <option value="G">{{'craftBeerStoreApp.ConectorBarril.G' | translate}}</option>
+                        <option value="A">{{'craftBeerStoreApp.ConectorBarril.A' | translate}}</option>
+                        <option value="S">{{'craftBeerStoreApp.ConectorBarril.S' | translate}}</option>
+                        <option value="D">{{'craftBeerStoreApp.ConectorBarril.D' | translate}}</option>
+                        <option value="U">{{'craftBeerStoreApp.ConectorBarril.U' | translate}}</option>
+                        <option value="M">{{'craftBeerStoreApp.ConectorBarril.M' | translate}}</option>
+                        <option value="PIN_LOCK">{{'craftBeerStoreApp.ConectorBarril.PIN_LOCK' | translate}}</option>
+                        <option value="BALL_LOCK">{{'craftBeerStoreApp.ConectorBarril.BALL_LOCK' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.barril.estado" for="field_estado">Estado</label>
+                    <select class="form-control" name="estado" [(ngModel)]="barril.estado" id="field_estado" >
+                        <option value="VACIO">{{'craftBeerStoreApp.EstadoBarril.VACIO' | translate}}</option>
+                        <option value="LLENO">{{'craftBeerStoreApp.EstadoBarril.LLENO' | translate}}</option>
+                        <option value="ENTREGADO">{{'craftBeerStoreApp.EstadoBarril.ENTREGADO' | translate}}</option>
+                        <option value="RETIRADO">{{'craftBeerStoreApp.EstadoBarril.RETIRADO' | translate}}</option>
+                        <option value="LIMPIEZA">{{'craftBeerStoreApp.EstadoBarril.LIMPIEZA' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.barril.imagen" for="field_imagen">Imagen</label>
+                    <div>
+                        <img [src]="'data:' + barril.imagenContentType + ';base64,' + barril.imagen" style="max-height: 100px;" *ngIf="barril.imagen" alt="barril image"/>
+                        <div *ngIf="barril.imagen" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{barril.imagenContentType}}, {{byteSize(barril.imagen)}}</span>
+                            <button type="button" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_imagen" (change)="setFileData($event, barril, 'imagen', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="imagen" id="field_imagen"
+                        [(ngModel)]="barril.imagen" />
+                    <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
+                        [(ngModel)]="barril.imagenContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.barril.empresa" for="field_empresa">Empresa</label>
+                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="barril.empresaId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.nombreEmpresa}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+{
+  "craftBeerStoreApp": {
+    "ConectorBarril": {
+      "null": "",
+      "G": "G",
+      "A": "A",
+      "S": "S",
+      "D": "D",
+      "U": "U",
+      "M": "M",
+      "PIN_LOCK": "Pin Lock",
+      "BALL_LOCK": "Ball Lock"
+    }
+  }
+}

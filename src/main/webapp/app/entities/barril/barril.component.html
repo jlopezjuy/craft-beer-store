@@ -1,0 +1,81 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="craftBeerStoreApp.barril.home.title">Barrils</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-barril" [routerLink]="['/barril/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="craftBeerStoreApp.barril.home.createLabel">
+            Create new Barril
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="barrils">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="codigo"><span jhiTranslate="craftBeerStoreApp.barril.codigo">Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="litros"><span jhiTranslate="craftBeerStoreApp.barril.litros">Litros</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="conector"><span jhiTranslate="craftBeerStoreApp.barril.conector">Conector</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estado"><span jhiTranslate="craftBeerStoreApp.barril.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="imagen"><span jhiTranslate="craftBeerStoreApp.barril.imagen">Imagen</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="empresaNombreEmpresa"><span jhiTranslate="craftBeerStoreApp.barril.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let barril of barrils ;trackBy: trackId">
+                <td><a [routerLink]="['/barril', barril.id, 'view' ]">{{barril.id}}</a></td>
+                <td>{{barril.codigo}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.LitrosBarril.' + barril.litros}}">{{barril.litros}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.ConectorBarril.' + barril.conector}}">{{barril.conector}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.EstadoBarril.' + barril.estado}}">{{barril.estado}}</td>
+                <td>
+                    <a *ngIf="barril.imagen" (click)="openFile(barril.imagenContentType, barril.imagen)">
+                        <img [src]="'data:' + barril.imagenContentType + ';base64,' + barril.imagen" style="max-height: 30px;" alt="barril image"/>
+                    </a>
+                    <span *ngIf="barril.imagen">{{barril.imagenContentType}}, {{byteSize(barril.imagen)}}</span>
+                </td>
+                <td>
+                    <div *ngIf="barril.empresaId">
+                        <a [routerLink]="['../empresa', barril.empresaId , 'view' ]" >{{barril.empresaNombreEmpresa}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/barril', barril.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/barril', barril.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'barril', { outlets: { popup: barril.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="barrils && barrils.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

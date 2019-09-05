@@ -205,6 +205,15 @@ const routesAdminRouting: Routes = [
         path: 'account',
         loadChildren: '../account/account.module#CraftBeerStoreAccountModule'
       },
+      {
+        path: 'admin',
+        children: [
+          {
+            path: 'barril',
+            loadChildren: '../entities/barril/barril.module#CraftBeerStoreBarrilModule'
+          }
+        ]
+      },
       { path: 'entity', loadChildren: '../entities/entity.module#CraftBeerStoreEntityModule' },
       {
         path: 'compras',

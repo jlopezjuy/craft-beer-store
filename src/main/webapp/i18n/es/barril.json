@@ -1,0 +1,26 @@
+{
+  "craftBeerStoreApp": {
+    "barril": {
+      "home": {
+        "title": "Barrils",
+        "createLabel": "Crear nuevo Barril",
+        "createOrEditLabel": "Crear o editar Barril"
+      },
+      "created": "Un nuevo Barril ha sido creado con el identificador {{ param }}",
+      "updated": "Un Barril ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Barril ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Barril {{ id }}?"
+      },
+      "detail": {
+        "title": "Barril"
+      },
+      "codigo": "Codigo",
+      "litros": "Litros",
+      "conector": "Conector",
+      "estado": "Estado",
+      "imagen": "Imagen",
+      "empresa": "Empresa"
+    }
+  }
+}

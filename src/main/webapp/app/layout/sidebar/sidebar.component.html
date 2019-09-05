@@ -64,6 +64,13 @@
 <!--                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/iot']">IoT</a></li>-->
                             </ul>
                         </li>
+                      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'admin'}">
+                        <a class="has-arrow" (click)="activeInactiveMenu('admin')"><i class="fa fa-tools"></i>
+                          <span>Admin</span></a>
+                        <ul *ngIf="currentActiveMenu == 'admin'">
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/barril']">Barril</a></li>
+                        </ul>
+                      </li>
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'entity'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('entity')"><i class="icon-home"></i>
                                 <span>Entity</span></a>

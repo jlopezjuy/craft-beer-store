@@ -1,0 +1,46 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "empresa",
+            "otherEntityName": "empresa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreEmpresa"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "codigo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "litros",
+            "fieldType": "LitrosBarril",
+            "fieldValues": "CINCO,DIEZ,QUINCE,DIECINUEVE,VEINTE,VEINTICINCO,TREINTA,CINCUENTA"
+        },
+        {
+            "fieldName": "conector",
+            "fieldType": "ConectorBarril",
+            "fieldValues": "G,A,S,D,U,M,PIN_LOCK,BALL_LOCK"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "EstadoBarril",
+            "fieldValues": "VACIO,LLENO,ENTREGADO,RETIRADO,LIMPIEZA"
+        },
+        {
+            "fieldName": "imagen",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        }
+    ],
+    "changelogDate": "20190905031759",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "barril",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

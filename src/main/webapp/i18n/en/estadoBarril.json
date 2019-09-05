@@ -1,0 +1,12 @@
+{
+  "craftBeerStoreApp": {
+    "EstadoBarril": {
+      "null": "",
+      "VACIO": "VACIO",
+      "LLENO": "LLENO",
+      "ENTREGADO": "ENTREGADO",
+      "RETIRADO": "RETIRADO",
+      "LIMPIEZA": "LIMPIEZA"
+    }
+  }
+}

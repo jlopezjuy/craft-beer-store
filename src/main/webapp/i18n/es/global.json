@@ -25,7 +25,6 @@
         "proveedor": "Proveedor",
         "presentacion": "Presentación",
         "cliente": "Cliente",
-        "presentacion": "Presentacion",
         "movimientos": "Ventas",
         "detalleMovimiento": "Detalle Movimiento",
         "caja": "Caja",
@@ -39,7 +38,7 @@
         "insumoRecomendado": "Insumo Recomendado",
         "compraInsumo": "Compra de Insumo",
         "compraInsumoDetalle": "Compra Insumo Detalle",
-        "empresa": "Empresa",
+        "barril": "Barril",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
