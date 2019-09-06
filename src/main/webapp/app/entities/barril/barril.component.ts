@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,12 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { BarrilService } from './barril.service';
+import { IEmpresa } from '../../shared/model/empresa.model';
+import { LocalStorageService } from 'ngx-webstorage';
+import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
+import { BarrilDeleteDialogComponent } from './barril-delete-dialog.component';
+import { SidebarService } from '../../services/sidebar.service';
+import { ICliente } from '../../shared/model/cliente.model';
 
 @Component({
   selector: 'jhi-barril',
@@ -29,6 +35,10 @@ export class BarrilComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  dataSource: any;
+  displayedColumns: string[] = ['codigo', 'litros', 'conector', 'estado', 'actions'];
+  pageEvent: PageEvent;
+  public sidebarVisible = true;
 
   constructor(
     protected barrilService: BarrilService,
@@ -38,7 +48,11 @@ export class BarrilComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    private $localStorage: LocalStorageService,
+    public dialog: MatDialog,
+    private sidebarService: SidebarService,
+    private cdr: ChangeDetectorRef
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -50,12 +64,16 @@ export class BarrilComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
+    const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
     this.barrilService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
+      .queryByEmpresa(
+        {
+          page: this.page - 1,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        },
+        empresa.id
+      )
       .subscribe(
         (res: HttpResponse<IBarril[]>) => this.paginateBarrils(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -132,9 +150,37 @@ export class BarrilComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.barrils = data;
+    this.dataSource = new MatTableDataSource<IBarril>(this.barrils);
   }
 
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  deleteControl(barril: IBarril): void {
+    console.log(barril);
+    const dialogRef = this.dialog.open(BarrilDeleteDialogComponent, {
+      width: '50%',
+      data: {
+        id: barril.id
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.loadAll();
+    });
+  }
+
+  toggleFullWidth() {
+    this.sidebarService.toggle();
+    this.sidebarVisible = this.sidebarService.getStatus();
+    this.cdr.detectChanges();
+  }
+
+  onPaginateChange(event: PageEvent) {
+    this.page = event.pageIndex + 1;
+    this.loadPage(event.pageIndex + 1);
   }
 }

@@ -11,39 +11,42 @@ type EntityArrayResponseType = HttpResponse<ICliente[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ClienteService {
-    public resourceUrl = SERVER_API_URL + 'api/clientes';
-    public resourceSearchUrl = SERVER_API_URL + 'api/_search/clientes';
+  public resourceUrl = SERVER_API_URL + 'api/clientes';
+  public resourceSearchUrl = SERVER_API_URL + 'api/_search/clientes';
 
-    constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) {}
 
-    create(cliente: ICliente): Observable<EntityResponseType> {
-        return this.http.post<ICliente>(this.resourceUrl, cliente, { observe: 'response' });
-    }
+  create(cliente: ICliente): Observable<EntityResponseType> {
+    return this.http.post<ICliente>(this.resourceUrl, cliente, { observe: 'response' });
+  }
 
-    update(cliente: ICliente): Observable<EntityResponseType> {
-        return this.http.put<ICliente>(this.resourceUrl, cliente, { observe: 'response' });
-    }
+  update(cliente: ICliente): Observable<EntityResponseType> {
+    return this.http.put<ICliente>(this.resourceUrl, cliente, { observe: 'response' });
+  }
 
-    find(id: number): Observable<EntityResponseType> {
-        return this.http.get<ICliente>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  find(id: number): Observable<EntityResponseType> {
+    return this.http.get<ICliente>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
-        const options = createRequestOption(req);
-        return this.http.get<ICliente[]>(this.resourceUrl, { params: options, observe: 'response' });
-    }
+  query(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ICliente[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
 
-    queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
-        const options = createRequestOption(req);
-        return this.http.get<ICliente[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' });
-    }
+  queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ICliente[]>(`${this.resourceUrl}/empresa/${empresaId}`, {
+      params: options,
+      observe: 'response'
+    });
+  }
 
-    delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  delete(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 
-    search(req?: any): Observable<EntityArrayResponseType> {
-        const options = createRequestOption(req);
-        return this.http.get<ICliente[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
-    }
+  search(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ICliente[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
+  }
 }

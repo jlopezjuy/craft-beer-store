@@ -8,6 +8,7 @@ import { IBarril } from 'app/shared/model/barril.model';
 import { BarrilService } from './barril.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'jhi-barril-update',
@@ -16,7 +17,7 @@ import { EmpresaService } from 'app/entities/empresa';
 export class BarrilUpdateComponent implements OnInit {
   barril: IBarril;
   isSaving: boolean;
-
+  empresa: IEmpresa;
   empresas: IEmpresa[];
 
   constructor(
@@ -25,7 +26,8 @@ export class BarrilUpdateComponent implements OnInit {
     protected barrilService: BarrilService,
     protected empresaService: EmpresaService,
     protected elementRef: ElementRef,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    protected $localStorage: LocalStorageService
   ) {}
 
   ngOnInit() {
@@ -33,13 +35,7 @@ export class BarrilUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ barril }) => {
       this.barril = barril;
     });
-    this.empresaService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IEmpresa[]>) => response.body)
-      )
-      .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.empresa = this.$localStorage.retrieve('empresa');
   }
 
   byteSize(field) {
@@ -64,6 +60,7 @@ export class BarrilUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
+    this.barril.empresaId = this.empresa.id;
     if (this.barril.id !== undefined) {
       this.subscribeToSaveResponse(this.barrilService.update(this.barril));
     } else {

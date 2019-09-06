@@ -2,7 +2,7 @@ import './vendor.ts';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { Injectable, NgModule } from '@angular/core';
-import { NgbDatepickerConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDatepickerConfig, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -90,6 +90,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   ],
   declarations: [AppComponent],
   providers: [
+    NgbActiveModal,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +6,7 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { IBarril } from 'app/shared/model/barril.model';
 import { BarrilService } from './barril.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'jhi-barril-delete-dialog',
@@ -14,20 +15,33 @@ import { BarrilService } from './barril.service';
 export class BarrilDeleteDialogComponent {
   barril: IBarril;
 
-  constructor(protected barrilService: BarrilService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
+  constructor(
+    protected barrilService: BarrilService,
+    public activeModal: NgbActiveModal,
+    protected eventManager: JhiEventManager,
+    public dialogRef: MatDialogRef<BarrilDeleteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: IBarril
+  ) {}
 
   clear() {
-    this.activeModal.dismiss('cancel');
+    this.dialogRef.close();
   }
 
-  confirmDelete(id: number) {
-    this.barrilService.delete(id).subscribe(response => {
+  confirmDelete() {
+    this.barrilService.delete(this.data.id).subscribe(response => {
       this.eventManager.broadcast({
         name: 'barrilListModification',
         content: 'Deleted an barril'
       });
-      this.activeModal.dismiss(true);
+      this.dialogRef.close();
     });
+  }
+
+  onNoClick(): void {
+    this.barrilService.delete(this.data.id).subscribe(response => {
+      console.log('control deleted');
+    });
+    this.dialogRef.close();
   }
 }
 

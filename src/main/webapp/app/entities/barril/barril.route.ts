@@ -78,6 +78,19 @@ export const barrilRoute: Routes = [
       pageTitle: 'craftBeerStoreApp.barril.home.title'
     },
     canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/delete',
+    component: BarrilDeletePopupComponent,
+    resolve: {
+      barril: BarrilResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.barril.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
   }
 ];
 

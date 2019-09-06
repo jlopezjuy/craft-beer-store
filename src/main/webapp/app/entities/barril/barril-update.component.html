@@ -68,13 +68,13 @@
                         [(ngModel)]="barril.imagenContentType" />
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.barril.empresa" for="field_empresa">Empresa</label>
-                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="barril.empresaId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.nombreEmpresa}}</option>
-                    </select>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.barril.empresa" for="field_empresa">Empresa</label>-->
+<!--                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="barril.empresaId" >-->
+<!--                        <option [ngValue]="null"></option>-->
+<!--                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.nombreEmpresa}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
