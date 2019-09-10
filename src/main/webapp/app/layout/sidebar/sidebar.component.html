@@ -57,7 +57,7 @@
                 <nav id="left-sidebar-nav" class="sidebar-nav">
                     <ul id="main-menu" class="metismenu">
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'dashboard'}">
-                            <a class="has-arrow" (click)="activeInactiveMenu('dashboard')"><i class="icon-equalizer"></i>
+                            <a class="has-arrow" (click)="activeInactiveMenu('dashboard')"><i class="icon-graph"></i>
                                 <span>Tablero</span></a>
                             <ul *ngIf="currentActiveMenu == 'dashboard'">
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/index']">Estadisticas</a></li>
@@ -65,7 +65,7 @@
                             </ul>
                         </li>
                       <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'admin'}">
-                        <a class="has-arrow" (click)="activeInactiveMenu('admin')"><i class="fa fa-tools"></i>
+                        <a class="has-arrow" (click)="activeInactiveMenu('admin')"><i class="icon-equalizer"></i>
                           <span>Admin</span></a>
                         <ul *ngIf="currentActiveMenu == 'admin'">
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/barril']">Barril</a></li>
