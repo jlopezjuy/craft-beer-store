@@ -9,6 +9,8 @@ import { ILote } from 'app/shared/model/lote.model';
 import { LoteService } from './lote.service';
 import { IReceta } from 'app/shared/model/receta.model';
 import { RecetaService } from 'app/entities/receta';
+import { IEmpresa } from 'app/shared/model/empresa.model';
+import { EmpresaService } from 'app/entities/empresa';
 
 @Component({
   selector: 'jhi-lote-update',
@@ -19,12 +21,15 @@ export class LoteUpdateComponent implements OnInit {
   isSaving: boolean;
 
   recetas: IReceta[];
+
+  empresas: IEmpresa[];
   fechaCoccionDp: any;
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected loteService: LoteService,
     protected recetaService: RecetaService,
+    protected empresaService: EmpresaService,
     protected activatedRoute: ActivatedRoute
   ) {}
 
@@ -40,6 +45,13 @@ export class LoteUpdateComponent implements OnInit {
         map((response: HttpResponse<IReceta[]>) => response.body)
       )
       .subscribe((res: IReceta[]) => (this.recetas = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.empresaService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IEmpresa[]>) => response.body)
+      )
+      .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   previousState() {
@@ -73,6 +85,10 @@ export class LoteUpdateComponent implements OnInit {
   }
 
   trackRecetaById(index: number, item: IReceta) {
+    return item.id;
+  }
+
+  trackEmpresaById(index: number, item: IEmpresa) {
     return item.id;
   }
 }

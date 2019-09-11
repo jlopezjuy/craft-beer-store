@@ -24,7 +24,8 @@
       "litrosEstimados": "Litros Estimados",
       "litrosEnTanque": "Litros En Tanque",
       "litrosEnvasados": "Litros Envasados",
-      "receta": "Receta"
+      "receta": "Receta",
+      "empresa": "Empresa"
     }
   }
 }

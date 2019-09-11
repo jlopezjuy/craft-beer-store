@@ -47,6 +47,12 @@
                         <a [routerLink]="['/receta', lote.recetaId, 'view']">{{lote.recetaNombre}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="lote.empresaId">
+                        <a [routerLink]="['/empresa', lote.empresaId, 'view']">{{lote.empresaNombreEmpresa}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

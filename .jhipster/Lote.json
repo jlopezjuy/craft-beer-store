@@ -6,7 +6,17 @@
             "relationshipName": "receta",
             "otherEntityName": "receta",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nombre"
+            "otherEntityField": "nombre",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "lote"
+        },
+        {
+            "relationshipName": "empresa",
+            "otherEntityName": "empresa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreEmpresa",
+            "otherEntityRelationshipName": "lote",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

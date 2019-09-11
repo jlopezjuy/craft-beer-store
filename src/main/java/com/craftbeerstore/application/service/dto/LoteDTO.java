@@ -35,6 +35,10 @@ public class LoteDTO implements Serializable {
 
     private String recetaNombre;
 
+    private Long empresaId;
+
+    private String empresaNombreEmpresa;
+
     public Long getId() {
         return id;
     }
@@ -131,6 +135,22 @@ public class LoteDTO implements Serializable {
         this.recetaNombre = recetaNombre;
     }
 
+    public Long getEmpresaId() {
+        return empresaId;
+    }
+
+    public void setEmpresaId(Long empresaId) {
+        this.empresaId = empresaId;
+    }
+
+    public String getEmpresaNombreEmpresa() {
+        return empresaNombreEmpresa;
+    }
+
+    public void setEmpresaNombreEmpresa(String empresaNombreEmpresa) {
+        this.empresaNombreEmpresa = empresaNombreEmpresa;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -167,6 +187,8 @@ public class LoteDTO implements Serializable {
             ", litrosEnvasados=" + getLitrosEnvasados() +
             ", receta=" + getRecetaId() +
             ", receta='" + getRecetaNombre() + "'" +
+            ", empresa=" + getEmpresaId() +
+            ", empresa='" + getEmpresaNombreEmpresa() + "'" +
             "}";
     }
 }

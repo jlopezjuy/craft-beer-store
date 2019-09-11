@@ -60,6 +60,10 @@ public class Lote implements Serializable {
     @JsonIgnoreProperties("lotes")
     private Receta receta;
 
+    @ManyToOne
+    @JsonIgnoreProperties("lotes")
+    private Empresa empresa;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -197,6 +201,19 @@ public class Lote implements Serializable {
 
     public void setReceta(Receta receta) {
         this.receta = receta;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public Lote empresa(Empresa empresa) {
+        this.empresa = empresa;
+        return this;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

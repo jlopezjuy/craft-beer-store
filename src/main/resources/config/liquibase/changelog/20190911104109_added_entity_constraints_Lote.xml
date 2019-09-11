@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="receta"/>
 
+        <addForeignKeyConstraint baseColumnNames="empresa_id"
+                                 baseTableName="lote"
+                                 constraintName="fk_lote_empresa_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="empresa"/>
+
     </changeSet>
 </databaseChangeLog>

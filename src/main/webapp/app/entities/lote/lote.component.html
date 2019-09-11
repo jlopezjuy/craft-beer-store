@@ -25,6 +25,7 @@
             <th jhiSortBy="litrosEnTanque"><span jhiTranslate="craftBeerStoreApp.lote.litrosEnTanque">Litros En Tanque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="litrosEnvasados"><span jhiTranslate="craftBeerStoreApp.lote.litrosEnvasados">Litros Envasados</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="recetaNombre"><span jhiTranslate="craftBeerStoreApp.lote.receta">Receta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="empresaNombreEmpresa"><span jhiTranslate="craftBeerStoreApp.lote.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -43,6 +44,11 @@
                 <td>
                     <div *ngIf="lote.recetaId">
                         <a [routerLink]="['../receta', lote.recetaId , 'view' ]" >{{lote.recetaNombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="lote.empresaId">
+                        <a [routerLink]="['../empresa', lote.empresaId , 'view' ]" >{{lote.empresaNombreEmpresa}}</a>
                     </div>
                 </td>
                 <td class="text-right">
