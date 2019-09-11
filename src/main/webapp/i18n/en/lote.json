@@ -1,0 +1,30 @@
+{
+  "craftBeerStoreApp": {
+    "lote": {
+      "home": {
+        "title": "Lotes",
+        "createLabel": "Create a new Lote",
+        "createOrEditLabel": "Create or edit a Lote"
+      },
+      "created": "A new Lote is created with identifier {{ param }}",
+      "updated": "A Lote is updated with identifier {{ param }}",
+      "deleted": "A Lote is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Lote {{ id }}?"
+      },
+      "detail": {
+        "title": "Lote"
+      },
+      "codigo": "Codigo",
+      "fechaCoccion": "Fecha Coccion",
+      "coccion": "Coccion",
+      "descripcion": "Descripcion",
+      "descuentaStock": "Descuenta Stock",
+      "estado": "Estado",
+      "litrosEstimados": "Litros Estimados",
+      "litrosEnTanque": "Litros En Tanque",
+      "litrosEnvasados": "Litros Envasados",
+      "receta": "Receta"
+    }
+  }
+}

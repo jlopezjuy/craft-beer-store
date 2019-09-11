@@ -1,0 +1,59 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "receta",
+            "otherEntityName": "receta",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "codigo",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fechaCoccion",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "coccion",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "descuentaStock",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "EstadoLote",
+            "fieldValues": "PLANIFICADO,FINALIZADO,ANULADO,FERMENTACION,MADURACION"
+        },
+        {
+            "fieldName": "litrosEstimados",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "litrosEnTanque",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "litrosEnvasados",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "changelogDate": "20190911104109",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "lote",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

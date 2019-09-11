@@ -1,0 +1,12 @@
+{
+  "craftBeerStoreApp": {
+    "EstadoLote": {
+      "null": "",
+      "PLANIFICADO": "PLANIFICADO",
+      "FINALIZADO": "FINALIZADO",
+      "ANULADO": "ANULADO",
+      "FERMENTACION": "FERMENTACION",
+      "MADURACION": "MADURACION"
+    }
+  }
+}

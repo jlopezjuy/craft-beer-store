@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="lote">
+            <h2><span jhiTranslate="craftBeerStoreApp.lote.detail.title">Lote</span> {{lote.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.codigo">Codigo</span></dt>
+                <dd>
+                    <span>{{lote.codigo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.fechaCoccion">Fecha Coccion</span></dt>
+                <dd>
+                    <span>{{lote.fechaCoccion}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.coccion">Coccion</span></dt>
+                <dd>
+                    <span>{{lote.coccion}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.descripcion">Descripcion</span></dt>
+                <dd>
+                    <span>{{lote.descripcion}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.descuentaStock">Descuenta Stock</span></dt>
+                <dd>
+                    <span>{{lote.descuentaStock}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.estado">Estado</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span></dt>
+                <dd>
+                    <span>{{lote.litrosEstimados}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEnTanque">Litros En Tanque</span></dt>
+                <dd>
+                    <span>{{lote.litrosEnTanque}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEnvasados">Litros Envasados</span></dt>
+                <dd>
+                    <span>{{lote.litrosEnvasados}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.receta">Receta</span></dt>
+                <dd>
+                    <div *ngIf="lote.recetaId">
+                        <a [routerLink]="['/receta', lote.recetaId, 'view']">{{lote.recetaNombre}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/lote', lote.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

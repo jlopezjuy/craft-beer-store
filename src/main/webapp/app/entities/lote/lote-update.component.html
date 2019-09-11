@@ -1,0 +1,86 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-lote-heading" jhiTranslate="craftBeerStoreApp.lote.home.createOrEditLabel">Create or edit a Lote</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!lote.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="lote.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.codigo" for="field_codigo">Codigo</label>
+                    <input type="text" class="form-control" name="codigo" id="field_codigo"
+                        [(ngModel)]="lote.codigo" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.fechaCoccion" for="field_fechaCoccion">Fecha Coccion</label>
+                    <div class="input-group">
+                        <input id="field_fechaCoccion" type="text" class="form-control" name="fechaCoccion" ngbDatepicker  #fechaCoccionDp="ngbDatepicker" [(ngModel)]="lote.fechaCoccion"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaCoccionDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.coccion" for="field_coccion">Coccion</label>
+                    <input type="number" class="form-control" name="coccion" id="field_coccion"
+                        [(ngModel)]="lote.coccion" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.descripcion" for="field_descripcion">Descripcion</label>
+                    <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                        [(ngModel)]="lote.descripcion" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.descuentaStock" for="field_descuentaStock">Descuenta Stock</label>
+                    <input type="checkbox" class="form-control" name="descuentaStock" id="field_descuentaStock"
+                        [(ngModel)]="lote.descuentaStock" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.estado" for="field_estado">Estado</label>
+                    <select class="form-control" name="estado" [(ngModel)]="lote.estado" id="field_estado" >
+                        <option value="PLANIFICADO">{{'craftBeerStoreApp.EstadoLote.PLANIFICADO' | translate}}</option>
+                        <option value="FINALIZADO">{{'craftBeerStoreApp.EstadoLote.FINALIZADO' | translate}}</option>
+                        <option value="ANULADO">{{'craftBeerStoreApp.EstadoLote.ANULADO' | translate}}</option>
+                        <option value="FERMENTACION">{{'craftBeerStoreApp.EstadoLote.FERMENTACION' | translate}}</option>
+                        <option value="MADURACION">{{'craftBeerStoreApp.EstadoLote.MADURACION' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.litrosEstimados" for="field_litrosEstimados">Litros Estimados</label>
+                    <input type="number" class="form-control" name="litrosEstimados" id="field_litrosEstimados"
+                        [(ngModel)]="lote.litrosEstimados" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.litrosEnTanque" for="field_litrosEnTanque">Litros En Tanque</label>
+                    <input type="number" class="form-control" name="litrosEnTanque" id="field_litrosEnTanque"
+                        [(ngModel)]="lote.litrosEnTanque" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.litrosEnvasados" for="field_litrosEnvasados">Litros Envasados</label>
+                    <input type="number" class="form-control" name="litrosEnvasados" id="field_litrosEnvasados"
+                        [(ngModel)]="lote.litrosEnvasados" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.lote.receta" for="field_receta">Receta</label>
+                    <select class="form-control" id="field_receta" name="receta" [(ngModel)]="lote.recetaId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="recetaOption.id" *ngFor="let recetaOption of recetas; trackBy: trackRecetaById">{{recetaOption.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
