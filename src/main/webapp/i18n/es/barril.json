@@ -20,7 +20,9 @@
       "conector": "Conector",
       "estado": "Estado",
       "imagen": "Imagen",
-      "empresa": "Empresa"
+      "empresa": "Empresa",
+      "lote": "Lote",
+      "cliente": "Cliente"
     }
   }
 }
