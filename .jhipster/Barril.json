@@ -6,7 +6,25 @@
             "relationshipName": "empresa",
             "otherEntityName": "empresa",
             "relationshipType": "many-to-one",
-            "otherEntityField": "nombreEmpresa"
+            "otherEntityField": "nombreEmpresa",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "barril"
+        },
+        {
+            "relationshipName": "lote",
+            "otherEntityName": "lote",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "codigo",
+            "otherEntityRelationshipName": "barril",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "cliente",
+            "otherEntityName": "cliente",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreApellido",
+            "otherEntityRelationshipName": "barril",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

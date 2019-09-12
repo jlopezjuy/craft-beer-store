@@ -53,7 +53,16 @@ public class Barril implements Serializable {
     private String imagenContentType;
 
     @ManyToOne
+    @JsonIgnoreProperties("barrils")
     private Empresa empresa;
+
+    @ManyToOne
+    @JsonIgnoreProperties("barrils")
+    private Lote lote;
+
+    @ManyToOne
+    @JsonIgnoreProperties("barrils")
+    private Cliente cliente;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -153,6 +162,32 @@ public class Barril implements Serializable {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+
+    public Lote getLote() {
+        return lote;
+    }
+
+    public Barril lote(Lote lote) {
+        this.lote = lote;
+        return this;
+    }
+
+    public void setLote(Lote lote) {
+        this.lote = lote;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Barril cliente(Cliente cliente) {
+        this.cliente = cliente;
+        return this;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

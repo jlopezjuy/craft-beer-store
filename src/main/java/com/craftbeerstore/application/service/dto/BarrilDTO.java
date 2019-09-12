@@ -30,6 +30,14 @@ public class BarrilDTO implements Serializable {
 
     private String empresaNombreEmpresa;
 
+    private Long loteId;
+
+    private String loteCodigo;
+
+    private Long clienteId;
+
+    private String clienteNombreApellido;
+
     public Long getId() {
         return id;
     }
@@ -102,6 +110,38 @@ public class BarrilDTO implements Serializable {
         this.empresaNombreEmpresa = empresaNombreEmpresa;
     }
 
+    public Long getLoteId() {
+        return loteId;
+    }
+
+    public void setLoteId(Long loteId) {
+        this.loteId = loteId;
+    }
+
+    public String getLoteCodigo() {
+        return loteCodigo;
+    }
+
+    public void setLoteCodigo(String loteCodigo) {
+        this.loteCodigo = loteCodigo;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public String getClienteNombreApellido() {
+        return clienteNombreApellido;
+    }
+
+    public void setClienteNombreApellido(String clienteNombreApellido) {
+        this.clienteNombreApellido = clienteNombreApellido;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -134,6 +174,10 @@ public class BarrilDTO implements Serializable {
             ", imagen='" + getImagen() + "'" +
             ", empresa=" + getEmpresaId() +
             ", empresa='" + getEmpresaNombreEmpresa() + "'" +
+            ", lote=" + getLoteId() +
+            ", lote='" + getLoteCodigo() + "'" +
+            ", cliente=" + getClienteId() +
+            ", cliente='" + getClienteNombreApellido() + "'" +
             "}";
     }
 }
