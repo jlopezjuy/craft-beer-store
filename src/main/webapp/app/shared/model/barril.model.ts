@@ -38,6 +38,10 @@ export interface IBarril {
   imagen?: any;
   empresaNombreEmpresa?: string;
   empresaId?: number;
+  loteCodigo?: string;
+  loteId?: number;
+  clienteNombreApellido?: string;
+  clienteId?: number;
 }
 
 export class Barril implements IBarril {
@@ -50,6 +54,10 @@ export class Barril implements IBarril {
     public imagenContentType?: string,
     public imagen?: any,
     public empresaNombreEmpresa?: string,
-    public empresaId?: number
+    public empresaId?: number,
+    public loteCodigo?: string,
+    public loteId?: number,
+    public clienteNombreApellido?: string,
+    public clienteId?: number
   ) {}
 }
