@@ -27,6 +27,7 @@
     <include file="config/liquibase/changelog/20190626184818_added_entity_CompraInsumoDetalle.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190905031759_added_entity_Barril.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190911104109_added_entity_Lote.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190913112625_added_entity_Tanque.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190407234855_added_entity_constraints_Empresa.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408000453_added_entity_constraints_Insumo.xml" relativeToChangelogFile="false"/>
@@ -62,5 +63,6 @@
     <include file="config/liquibase/changelog/20190706205721_added_new_constraints_RecetaInsumo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190905031759_added_entity_constraints_Barril.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190911104109_added_entity_constraints_Lote.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190913112625_added_entity_constraints_Tanque.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

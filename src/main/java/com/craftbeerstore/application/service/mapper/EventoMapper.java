@@ -1,9 +1,9 @@
 package com.craftbeerstore.application.service.mapper;
 
-import com.craftbeerstore.application.domain.*;
+import com.craftbeerstore.application.domain.Evento;
 import com.craftbeerstore.application.service.dto.EventoDTO;
-
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * Mapper for the entity Evento and its DTO EventoDTO.
@@ -11,18 +11,18 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {EmpresaMapper.class})
 public interface EventoMapper extends EntityMapper<EventoDTO, Evento> {
 
-    @Mapping(source = "empresa.id", target = "empresaId")
-    EventoDTO toDto(Evento evento);
+  @Mapping(source = "empresa.id", target = "empresaId")
+  EventoDTO toDto(Evento evento);
 
-    @Mapping(source = "empresaId", target = "empresa")
-    Evento toEntity(EventoDTO eventoDTO);
+  @Mapping(source = "empresaId", target = "empresa")
+  Evento toEntity(EventoDTO eventoDTO);
 
-    default Evento fromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        Evento evento = new Evento();
-        evento.setId(id);
-        return evento;
+  default Evento fromId(Long id) {
+    if (id == null) {
+      return null;
     }
+    Evento evento = new Evento();
+    evento.setId(id);
+    return evento;
+  }
 }

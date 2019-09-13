@@ -1,20 +1,19 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.CompraInsumo;
 import com.craftbeerstore.application.domain.CompraInsumoDetalle;
 import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.domain.Insumo;
 import com.craftbeerstore.application.domain.enumeration.EstadoCompra;
 import com.craftbeerstore.application.repository.CompraInsumoDetalleRepository;
+import com.craftbeerstore.application.repository.CompraInsumoRepository;
 import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.repository.InsumoRepository;
 import com.craftbeerstore.application.service.CompraInsumoService;
-import com.craftbeerstore.application.domain.CompraInsumo;
-import com.craftbeerstore.application.repository.CompraInsumoRepository;
 import com.craftbeerstore.application.service.dto.CompraInsumoDTO;
 import com.craftbeerstore.application.service.mapper.CompraInsumoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -61,13 +60,13 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
   public CompraInsumoDTO save(CompraInsumoDTO compraInsumoDTO) {
     log.debug("Request to save CompraInsumo : {}", compraInsumoDTO);
     final CompraInsumo compraInsumo = compraInsumoMapper.toEntity(compraInsumoDTO);
-    if(compraInsumo.getEstadoCompra().equals(EstadoCompra.PEDIDO_RECIBIDO)){
+    if (compraInsumo.getEstadoCompra().equals(EstadoCompra.PEDIDO_RECIBIDO)) {
       List<CompraInsumoDetalle> detalles = this.compraInsumoDetalleRepository.findAllByCompraInsumo(compraInsumo);
       detalles.forEach(detalle -> {
         Insumo insumo = new Insumo();
         if (null == detalle.getInsumoRecomendado()) {
           insumo = this.insumoRepository.findByNombreInsumoAndEmpresa(detalle.getCodigoReferencia(), compraInsumo.getEmpresa());
-          if(null == insumo){
+          if (null == insumo) {
             insumo = new Insumo();
             insumo.setNombreInsumo(detalle.getCodigoReferencia());
             insumo.setMarca("");
@@ -75,13 +74,13 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
             insumo.setStock(detalle.getStock());
             insumo.setUnidad(detalle.getUnidad());
             insumo.setTipo(detalle.getTipo());
-          }else{
+          } else {
             insumo.setStock(insumo.getStock().add(detalle.getStock()));
           }
 
-        }else{
+        } else {
           insumo = this.insumoRepository.findByNombreInsumoAndEmpresa(detalle.getInsumoRecomendado().getNombre(), compraInsumo.getEmpresa());
-          if(null == insumo){
+          if (null == insumo) {
             insumo = new Insumo();
             insumo.setEmpresa(compraInsumo.getEmpresa());
             insumo.setInsumoRecomendado(detalle.getInsumoRecomendado());
@@ -90,7 +89,7 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
             insumo.setStock(detalle.getStock());
             insumo.setUnidad(detalle.getUnidad());
             insumo.setTipo(detalle.getTipo());
-          }else{
+          } else {
             insumo.setStock(insumo.getStock().add(detalle.getStock()));
           }
         }

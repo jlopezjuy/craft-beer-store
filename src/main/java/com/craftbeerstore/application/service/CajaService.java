@@ -2,7 +2,6 @@ package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.CajaChartDTO;
 import com.craftbeerstore.application.service.dto.CajaDTO;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -56,7 +55,6 @@ public interface CajaService {
   Optional<CajaChartDTO> searchIngresoEgreso(Long empresaId);
 
   /**
-   *
    * @param empresaId
    * @return
    */

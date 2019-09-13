@@ -1,9 +1,8 @@
 package com.craftbeerstore.application.service.mapper;
 
-import com.craftbeerstore.application.domain.*;
+import com.craftbeerstore.application.domain.Estilos;
 import com.craftbeerstore.application.service.dto.EstilosDTO;
-
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
 
 /**
  * Mapper for the entity Estilos and its DTO EstilosDTO.
@@ -12,13 +11,12 @@ import org.mapstruct.*;
 public interface EstilosMapper extends EntityMapper<EstilosDTO, Estilos> {
 
 
-
-    default Estilos fromId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        Estilos estilos = new Estilos();
-        estilos.setId(id);
-        return estilos;
+  default Estilos fromId(Long id) {
+    if (id == null) {
+      return null;
     }
+    Estilos estilos = new Estilos();
+    estilos.setId(id);
+    return estilos;
+  }
 }

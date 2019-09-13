@@ -1,4 +1,5 @@
 package com.craftbeerstore.application.service.dto;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -7,86 +8,86 @@ import java.util.Objects;
  */
 public class EventoProductoDTO implements Serializable {
 
-    private Long id;
+  private Long id;
 
-    private Long cantidadDeBarriles;
+  private Long cantidadDeBarriles;
 
 
-    private Long productoId;
+  private Long productoId;
 
-    private String productoDescripcion;
+  private String productoDescripcion;
 
-    private Long eventoId;
+  private Long eventoId;
 
-    public Long getId() {
-        return id;
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Long getCantidadDeBarriles() {
+    return cantidadDeBarriles;
+  }
+
+  public void setCantidadDeBarriles(Long cantidadDeBarriles) {
+    this.cantidadDeBarriles = cantidadDeBarriles;
+  }
+
+  public Long getProductoId() {
+    return productoId;
+  }
+
+  public void setProductoId(Long productoId) {
+    this.productoId = productoId;
+  }
+
+  public String getProductoDescripcion() {
+    return productoDescripcion;
+  }
+
+  public void setProductoDescripcion(String productoDescripcion) {
+    this.productoDescripcion = productoDescripcion;
+  }
+
+  public Long getEventoId() {
+    return eventoId;
+  }
+
+  public void setEventoId(Long eventoId) {
+    this.eventoId = eventoId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    EventoProductoDTO eventoProductoDTO = (EventoProductoDTO) o;
+    if (eventoProductoDTO.getId() == null || getId() == null) {
+      return false;
     }
+    return Objects.equals(getId(), eventoProductoDTO.getId());
+  }
 
-    public Long getCantidadDeBarriles() {
-        return cantidadDeBarriles;
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(getId());
+  }
 
-    public void setCantidadDeBarriles(Long cantidadDeBarriles) {
-        this.cantidadDeBarriles = cantidadDeBarriles;
-    }
-
-    public Long getProductoId() {
-        return productoId;
-    }
-
-    public void setProductoId(Long productoId) {
-        this.productoId = productoId;
-    }
-
-    public String getProductoDescripcion() {
-        return productoDescripcion;
-    }
-
-    public void setProductoDescripcion(String productoDescripcion) {
-        this.productoDescripcion = productoDescripcion;
-    }
-
-    public Long getEventoId() {
-        return eventoId;
-    }
-
-    public void setEventoId(Long eventoId) {
-        this.eventoId = eventoId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        EventoProductoDTO eventoProductoDTO = (EventoProductoDTO) o;
-        if (eventoProductoDTO.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), eventoProductoDTO.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "EventoProductoDTO{" +
-            "id=" + getId() +
-            ", cantidadDeBarriles=" + getCantidadDeBarriles() +
-            ", producto=" + getProductoId() +
-            ", producto='" + getProductoDescripcion() + "'" +
-            ", evento=" + getEventoId() +
-            "}";
-    }
+  @Override
+  public String toString() {
+    return "EventoProductoDTO{" +
+      "id=" + getId() +
+      ", cantidadDeBarriles=" + getCantidadDeBarriles() +
+      ", producto=" + getProductoId() +
+      ", producto='" + getProductoDescripcion() + "'" +
+      ", evento=" + getEventoId() +
+      "}";
+  }
 }
