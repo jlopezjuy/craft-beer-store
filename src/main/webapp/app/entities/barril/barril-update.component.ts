@@ -8,6 +8,10 @@ import { IBarril } from 'app/shared/model/barril.model';
 import { BarrilService } from './barril.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { ILote } from 'app/shared/model/lote.model';
+import { LoteService } from 'app/entities/lote';
+import { ICliente } from 'app/shared/model/cliente.model';
+import { ClienteService } from 'app/entities/cliente';
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
@@ -20,11 +24,17 @@ export class BarrilUpdateComponent implements OnInit {
   empresa: IEmpresa;
   empresas: IEmpresa[];
 
+  lotes: ILote[];
+
+  clientes: ICliente[];
+
   constructor(
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected barrilService: BarrilService,
     protected empresaService: EmpresaService,
+    protected loteService: LoteService,
+    protected clienteService: ClienteService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     protected $localStorage: LocalStorageService
@@ -36,6 +46,27 @@ export class BarrilUpdateComponent implements OnInit {
       this.barril = barril;
     });
     this.empresa = this.$localStorage.retrieve('empresa');
+    this.empresaService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IEmpresa[]>) => response.body)
+      )
+      .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.loteService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<ILote[]>) => mayBeOk.ok),
+        map((response: HttpResponse<ILote[]>) => response.body)
+      )
+      .subscribe((res: ILote[]) => (this.lotes = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.clienteService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<ICliente[]>) => mayBeOk.ok),
+        map((response: HttpResponse<ICliente[]>) => response.body)
+      )
+      .subscribe((res: ICliente[]) => (this.clientes = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   byteSize(field) {
@@ -86,6 +117,14 @@ export class BarrilUpdateComponent implements OnInit {
   }
 
   trackEmpresaById(index: number, item: IEmpresa) {
+    return item.id;
+  }
+
+  trackLoteById(index: number, item: ILote) {
+    return item.id;
+  }
+
+  trackClienteById(index: number, item: ICliente) {
     return item.id;
   }
 }

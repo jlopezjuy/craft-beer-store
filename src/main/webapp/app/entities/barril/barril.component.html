@@ -48,6 +48,14 @@
             <th mat-header-cell *matHeaderCellDef jhiSortBy="estado"> <span jhiTranslate="craftBeerStoreApp.barril.estado">Estado</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let barril" jhiTranslate="{{'craftBeerStoreApp.EstadoBarril.' + barril.estado}}"> {{barril.estado}} </td>
           </ng-container>
+          <ng-container matColumnDef="lote">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="lote"> <span jhiTranslate="craftBeerStoreApp.barril.lote">Lote</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let barril"> {{barril.loteCodigo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cliente">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="cliente"> <span jhiTranslate="craftBeerStoreApp.barril.cliente">Cliente</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let barril"> {{barril.clienteNombreApellido}} </td>
+          </ng-container>
 
           <ng-container matColumnDef="actions" >
             <th mat-header-cell *matHeaderCellDef></th>

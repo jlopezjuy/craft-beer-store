@@ -36,7 +36,7 @@ export class BarrilComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
   dataSource: any;
-  displayedColumns: string[] = ['codigo', 'litros', 'conector', 'estado', 'actions'];
+  displayedColumns: string[] = ['codigo', 'litros', 'conector', 'estado', 'lote', 'cliente', 'actions'];
   pageEvent: PageEvent;
   public sidebarVisible = true;
 
