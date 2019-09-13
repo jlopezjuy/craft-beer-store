@@ -1,0 +1,11 @@
+{
+  "craftBeerStoreApp": {
+    "TipoTanque": {
+      "null": "",
+      "UNITANK_INOX": "UNITANK_INOX",
+      "FERMENTADOR": "FERMENTADOR",
+      "MADURADOR": "MADURADOR",
+      "BARRICA": "BARRICA"
+    }
+  }
+}

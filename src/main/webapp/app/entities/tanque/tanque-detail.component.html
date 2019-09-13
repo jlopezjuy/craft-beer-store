@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tanque">
+            <h2><span jhiTranslate="craftBeerStoreApp.tanque.detail.title">Tanque</span> {{tanque.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.nombre">Nombre</span></dt>
+                <dd>
+                    <span>{{tanque.nombre}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.litros">Litros</span></dt>
+                <dd>
+                    <span>{{tanque.litros}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.tipo">Tipo</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoTanque.' + tanque.tipo}}">{{tanque.tipo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.estado">Estado</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoTanque.' + tanque.estado}}">{{tanque.estado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible">Listros Disponible</span></dt>
+                <dd>
+                    <span>{{tanque.listrosDisponible}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso">Fecha Ingreso</span></dt>
+                <dd>
+                    <span>{{tanque.fechaIngreso}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.lote">Lote</span></dt>
+                <dd>
+                    <div *ngIf="tanque.loteId">
+                        <a [routerLink]="['/lote', tanque.loteId, 'view']">{{tanque.loteCodigo}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.producto">Producto</span></dt>
+                <dd>
+                    <div *ngIf="tanque.productoId">
+                        <a [routerLink]="['/producto', tanque.productoId, 'view']">{{tanque.productoNombreComercial}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="tanque.empresaId">
+                        <a [routerLink]="['/empresa', tanque.empresaId, 'view']">{{tanque.empresaNombreEmpresa}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tanque', tanque.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

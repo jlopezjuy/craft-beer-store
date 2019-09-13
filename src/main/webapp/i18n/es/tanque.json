@@ -1,0 +1,29 @@
+{
+  "craftBeerStoreApp": {
+    "tanque": {
+      "home": {
+        "title": "Tanques",
+        "createLabel": "Crear nuevo Tanque",
+        "createOrEditLabel": "Crear o editar Tanque"
+      },
+      "created": "Un nuevo Tanque ha sido creado con el identificador {{ param }}",
+      "updated": "Un Tanque ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Tanque ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Tanque {{ id }}?"
+      },
+      "detail": {
+        "title": "Tanque"
+      },
+      "nombre": "Nombre",
+      "litros": "Litros",
+      "tipo": "Tipo",
+      "estado": "Estado",
+      "listrosDisponible": "Listros Disponible",
+      "fechaIngreso": "Fecha Ingreso",
+      "lote": "Lote",
+      "producto": "Producto",
+      "empresa": "Empresa"
+    }
+  }
+}

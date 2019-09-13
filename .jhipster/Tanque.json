@@ -1,0 +1,66 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "lote",
+            "otherEntityName": "lote",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "codigo",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "tanque"
+        },
+        {
+            "relationshipName": "producto",
+            "otherEntityName": "producto",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreComercial",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "tanque"
+        },
+        {
+            "relationshipName": "empresa",
+            "otherEntityName": "empresa",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreEmpresa",
+            "otherEntityRelationshipName": "tanque",
+            "otherEntityRelationshipNameUndefined": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "litros",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "tipo",
+            "fieldType": "TipoTanque",
+            "fieldValues": "UNITANK_INOX,FERMENTADOR,MADURADOR,BARRICA"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "EstadoTanque",
+            "fieldValues": "VACIO,EN_USO"
+        },
+        {
+            "fieldName": "listrosDisponible",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "fechaIngreso",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20190913112625",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "tanque",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

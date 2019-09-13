@@ -1,0 +1,86 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-tanque-heading" jhiTranslate="craftBeerStoreApp.tanque.home.createOrEditLabel">Create or edit a Tanque</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!tanque.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="tanque.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.nombre" for="field_nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="field_nombre"
+                        [(ngModel)]="tanque.nombre" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.litros" for="field_litros">Litros</label>
+                    <input type="number" class="form-control" name="litros" id="field_litros"
+                        [(ngModel)]="tanque.litros" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.tipo" for="field_tipo">Tipo</label>
+                    <select class="form-control" name="tipo" [(ngModel)]="tanque.tipo" id="field_tipo" >
+                        <option value="UNITANK_INOX">{{'craftBeerStoreApp.TipoTanque.UNITANK_INOX' | translate}}</option>
+                        <option value="FERMENTADOR">{{'craftBeerStoreApp.TipoTanque.FERMENTADOR' | translate}}</option>
+                        <option value="MADURADOR">{{'craftBeerStoreApp.TipoTanque.MADURADOR' | translate}}</option>
+                        <option value="BARRICA">{{'craftBeerStoreApp.TipoTanque.BARRICA' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.estado" for="field_estado">Estado</label>
+                    <select class="form-control" name="estado" [(ngModel)]="tanque.estado" id="field_estado" >
+                        <option value="VACIO">{{'craftBeerStoreApp.EstadoTanque.VACIO' | translate}}</option>
+                        <option value="EN_USO">{{'craftBeerStoreApp.EstadoTanque.EN_USO' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible" for="field_listrosDisponible">Listros Disponible</label>
+                    <input type="number" class="form-control" name="listrosDisponible" id="field_listrosDisponible"
+                        [(ngModel)]="tanque.listrosDisponible" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso" for="field_fechaIngreso">Fecha Ingreso</label>
+                    <div class="input-group">
+                        <input id="field_fechaIngreso" type="text" class="form-control" name="fechaIngreso" ngbDatepicker  #fechaIngresoDp="ngbDatepicker" [(ngModel)]="tanque.fechaIngreso"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaIngresoDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.lote" for="field_lote">Lote</label>
+                    <select class="form-control" id="field_lote" name="lote" [(ngModel)]="tanque.loteId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="loteOption.id" *ngFor="let loteOption of lotes; trackBy: trackLoteById">{{loteOption.codigo}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.producto" for="field_producto">Producto</label>
+                    <select class="form-control" id="field_producto" name="producto" [(ngModel)]="tanque.productoId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.empresa" for="field_empresa">Empresa</label>
+                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="tanque.empresaId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.nombreEmpresa}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

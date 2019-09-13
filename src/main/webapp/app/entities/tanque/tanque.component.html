@@ -1,0 +1,90 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="craftBeerStoreApp.tanque.home.title">Tanques</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tanque" [routerLink]="['/tanque/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="craftBeerStoreApp.tanque.home.createLabel">
+            Create new Tanque
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="tanques">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nombre"><span jhiTranslate="craftBeerStoreApp.tanque.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="litros"><span jhiTranslate="craftBeerStoreApp.tanque.litros">Litros</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.tanque.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estado"><span jhiTranslate="craftBeerStoreApp.tanque.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="listrosDisponible"><span jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible">Listros Disponible</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fechaIngreso"><span jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso">Fecha Ingreso</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.tanque.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="productoNombreComercial"><span jhiTranslate="craftBeerStoreApp.tanque.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="empresaNombreEmpresa"><span jhiTranslate="craftBeerStoreApp.tanque.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tanque of tanques ;trackBy: trackId">
+                <td><a [routerLink]="['/tanque', tanque.id, 'view' ]">{{tanque.id}}</a></td>
+                <td>{{tanque.nombre}}</td>
+                <td>{{tanque.litros}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.TipoTanque.' + tanque.tipo}}">{{tanque.tipo}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.EstadoTanque.' + tanque.estado}}">{{tanque.estado}}</td>
+                <td>{{tanque.listrosDisponible}}</td>
+                <td>{{tanque.fechaIngreso | date:'mediumDate'}}</td>
+                <td>
+                    <div *ngIf="tanque.loteId">
+                        <a [routerLink]="['../lote', tanque.loteId , 'view' ]" >{{tanque.loteCodigo}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="tanque.productoId">
+                        <a [routerLink]="['../producto', tanque.productoId , 'view' ]" >{{tanque.productoNombreComercial}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="tanque.empresaId">
+                        <a [routerLink]="['../empresa', tanque.empresaId , 'view' ]" >{{tanque.empresaNombreEmpresa}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/tanque', tanque.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/tanque', tanque.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'tanque', { outlets: { popup: tanque.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="tanques && tanques.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
