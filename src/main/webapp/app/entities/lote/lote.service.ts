@@ -45,6 +45,11 @@ export class LoteService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
+  queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ILote[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

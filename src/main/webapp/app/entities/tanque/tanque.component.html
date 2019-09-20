@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="craftBeerStoreApp.tanque.home.title">Tanques</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tanque" [routerLink]="['/tanque/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tanque" [routerLink]="['/admin/admin/tanque/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="craftBeerStoreApp.tanque.home.createLabel">
             Create new Tanque
@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th jhiSortBy="nombre"><span jhiTranslate="craftBeerStoreApp.tanque.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="litros"><span jhiTranslate="craftBeerStoreApp.tanque.litros">Litros</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.tanque.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -23,13 +23,13 @@
             <th jhiSortBy="fechaIngreso"><span jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso">Fecha Ingreso</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.tanque.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="productoNombreComercial"><span jhiTranslate="craftBeerStoreApp.tanque.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empresaNombreEmpresa"><span jhiTranslate="craftBeerStoreApp.tanque.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--            <th jhiSortBy="empresaNombreEmpresa"><span jhiTranslate="craftBeerStoreApp.tanque.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let tanque of tanques ;trackBy: trackId">
-                <td><a [routerLink]="['/tanque', tanque.id, 'view' ]">{{tanque.id}}</a></td>
+<!--                <td><a [routerLink]="['/tanque', tanque.id, 'view' ]">{{tanque.id}}</a></td>-->
                 <td>{{tanque.nombre}}</td>
                 <td>{{tanque.litros}}</td>
                 <td jhiTranslate="{{'craftBeerStoreApp.TipoTanque.' + tanque.tipo}}">{{tanque.tipo}}</td>
@@ -46,11 +46,11 @@
                         <a [routerLink]="['../producto', tanque.productoId , 'view' ]" >{{tanque.productoNombreComercial}}</a>
                     </div>
                 </td>
-                <td>
-                    <div *ngIf="tanque.empresaId">
-                        <a [routerLink]="['../empresa', tanque.empresaId , 'view' ]" >{{tanque.empresaNombreEmpresa}}</a>
-                    </div>
-                </td>
+<!--                <td>-->
+<!--                    <div *ngIf="tanque.empresaId">-->
+<!--                        <a [routerLink]="['../empresa', tanque.empresaId , 'view' ]" >{{tanque.empresaNombreEmpresa}}</a>-->
+<!--                    </div>-->
+<!--                </td>-->
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

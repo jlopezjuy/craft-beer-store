@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +6,7 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { ILote } from 'app/shared/model/lote.model';
 import { LoteService } from './lote.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'jhi-lote-delete-dialog',
@@ -14,19 +15,26 @@ import { LoteService } from './lote.service';
 export class LoteDeleteDialogComponent {
   lote: ILote;
 
-  constructor(protected loteService: LoteService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
+  constructor(
+    protected loteService: LoteService,
+    public activeModal: NgbActiveModal,
+    protected eventManager: JhiEventManager,
+    public dialogRef: MatDialogRef<LoteDeleteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: ILote
+  ) {}
 
   clear() {
-    this.activeModal.dismiss('cancel');
+    this.dialogRef.close();
   }
 
-  confirmDelete(id: number) {
-    this.loteService.delete(id).subscribe(response => {
+  confirmDelete() {
+    console.log(this.data);
+    this.loteService.delete(this.data.id).subscribe(response => {
       this.eventManager.broadcast({
         name: 'loteListModification',
         content: 'Deleted an lote'
       });
-      this.activeModal.dismiss(true);
+      this.dialogRef.close();
     });
   }
 }

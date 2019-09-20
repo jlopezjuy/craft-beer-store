@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { TanqueService } from './tanque.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { IEmpresa } from '../../shared/model/empresa.model';
 
 @Component({
   selector: 'jhi-tanque',
@@ -29,6 +31,7 @@ export class TanqueComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  empresa: IEmpresa;
 
   constructor(
     protected tanqueService: TanqueService,
@@ -37,7 +40,8 @@ export class TanqueComponent implements OnInit, OnDestroy {
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    private $localStorage: LocalStorageService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -50,11 +54,14 @@ export class TanqueComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.tanqueService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
+      .queryByEmpresa(
+        {
+          page: this.page - 1,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        },
+        this.empresa.id
+      )
       .subscribe(
         (res: HttpResponse<ITanque[]>) => this.paginateTanques(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -92,6 +99,7 @@ export class TanqueComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.empresa = this.$localStorage.retrieve('empresa');
     this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;

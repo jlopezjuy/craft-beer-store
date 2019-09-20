@@ -1,90 +1,106 @@
-<div>
-    <h2 id="page-heading">
-        <span jhiTranslate="craftBeerStoreApp.lote.home.title">Lotes</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-lote" [routerLink]="['/lote/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="craftBeerStoreApp.lote.home.createLabel">
+<div class="container-fluid">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-5 col-md-8 col-sm-12">
+        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
+               (click)="toggleFullWidth()">
+          <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
+          <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
+        </a>Lotes</h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+          <li class="breadcrumb-item">Producción</li>
+          <li class="breadcrumb-item active">Lotes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="header">
+      <h2 id="page-heading">
+        <button id="jh-create-entity"  mat-raised-button color="primary" class="float-right jh-create-entity create-lote" [routerLink]="['/admin/produccion/lote/new']">
+          <fa-icon [icon]="'plus'"></fa-icon>
+          <span  jhiTranslate="craftBeerStoreApp.lote.home.createLabel">
             Create new Lote
             </span>
         </button>
-    </h2>
-    <jhi-alert></jhi-alert>
-    <br/>
-    <div class="table-responsive" *ngIf="lotes">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="codigo"><span jhiTranslate="craftBeerStoreApp.lote.codigo">Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fechaCoccion"><span jhiTranslate="craftBeerStoreApp.lote.fechaCoccion">Fecha Coccion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="coccion"><span jhiTranslate="craftBeerStoreApp.lote.coccion">Coccion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="descripcion"><span jhiTranslate="craftBeerStoreApp.lote.descripcion">Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="descuentaStock"><span jhiTranslate="craftBeerStoreApp.lote.descuentaStock">Descuenta Stock</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="estado"><span jhiTranslate="craftBeerStoreApp.lote.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="litrosEstimados"><span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="litrosEnTanque"><span jhiTranslate="craftBeerStoreApp.lote.litrosEnTanque">Litros En Tanque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="litrosEnvasados"><span jhiTranslate="craftBeerStoreApp.lote.litrosEnvasados">Litros Envasados</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="recetaNombre"><span jhiTranslate="craftBeerStoreApp.lote.receta">Receta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="empresaNombreEmpresa"><span jhiTranslate="craftBeerStoreApp.lote.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let lote of lotes ;trackBy: trackId">
-                <td><a [routerLink]="['/lote', lote.id, 'view' ]">{{lote.id}}</a></td>
-                <td>{{lote.codigo}}</td>
-                <td>{{lote.fechaCoccion | date:'mediumDate'}}</td>
-                <td>{{lote.coccion}}</td>
-                <td>{{lote.descripcion}}</td>
-                <td>{{lote.descuentaStock}}</td>
-                <td jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</td>
-                <td>{{lote.litrosEstimados}}</td>
-                <td>{{lote.litrosEnTanque}}</td>
-                <td>{{lote.litrosEnvasados}}</td>
-                <td>
-                    <div *ngIf="lote.recetaId">
-                        <a [routerLink]="['../receta', lote.recetaId , 'view' ]" >{{lote.recetaNombre}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="lote.empresaId">
-                        <a [routerLink]="['../empresa', lote.empresaId , 'view' ]" >{{lote.empresaNombreEmpresa}}</a>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/lote', lote.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/lote', lote.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'lote', { outlets: { popup: lote.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
+      </h2>
+    </div>
+    <div class="body">
+      <jhi-alert></jhi-alert>
+      <br/>
+      <div class="mat-elevation-z8 table-responsive" *ngIf="lotes">
+        <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="codigo"> <span jhiTranslate="craftBeerStoreApp.lote.codigo">Codigo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.codigo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fechaCoccion">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="fechaCoccion"> <span jhiTranslate="craftBeerStoreApp.lote.fechaCoccion">Fecha de Coccion</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.fechaCoccion | date:'mediumDate'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="coccion">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="coccion"> <span jhiTranslate="craftBeerStoreApp.lote.coccion">Coccion</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.coccion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="descripcion"> <span jhiTranslate="craftBeerStoreApp.lote.descripcion">Descripcion</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.descripcion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="descuentaStock">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="descuentaStock"> <span jhiTranslate="craftBeerStoreApp.lote.descuentaStock">Descuenta Stock</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.descuentaStock}} </td>
+          </ng-container>
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="estado"> <span jhiTranslate="craftBeerStoreApp.lote.estado">Estado</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}"> {{lote.estado}} </td>
+          </ng-container>
+          <ng-container matColumnDef="litrosEstimados">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="litrosEstimados"> <span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.litrosEstimados}} </td>
+          </ng-container>
+          <ng-container matColumnDef="recetaNombre">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="recetaNombre"> <span jhiTranslate="craftBeerStoreApp.lote.receta">Receta</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.recetaNombre}} </td>
+          </ng-container>
+          <ng-container matColumnDef="actions" >
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let lote" style="width: 20%">
+              <div class="btn-group flex-btn-group-container">
+                <button type="submit"
+                        [routerLink]="['/admin/produccion/lote/', lote.id, 'view' ]"
+                        mat-raised-button color="primary">
+                  <fa-icon [icon]="'eye'"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
+                <button type="submit"
+                        [routerLink]="['/admin/produccion/lote/', lote.id, 'edit']"
+                        mat-raised-button class="mat-edit">
+                  <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+                <button type="submit"
+                        (click)="deleteControl(lote)"
+                        replaceUrl="true"
+                        queryParamsHandling="merge"
+                        mat-raised-button color="warn">
+                  <fa-icon [icon]="'times'"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+
+        <mat-paginator [length]="totalItems"
+                       [pageSize]="itemsPerPage"
+                       (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
+      </div>
     </div>
-    <div *ngIf="lotes && lotes.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
-    </div>
+  </div>
 </div>

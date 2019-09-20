@@ -25,16 +25,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.detalleMovimiento.litroTotal" for="field_precioTotal">Precio Total</label>
-                    <input type="number" class="form-control" name="litroTotal" id="field_precioTotal"
-                        [(ngModel)]="detalleMovimiento.litroTotal" required/>
-                    <div [hidden]="!(editForm.controls.litroTotal?.dirty && editForm.controls.litroTotal?.invalid)">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.detalleMovimiento.precioTotal" for="field_precioTotal">Precio Total</label>
+                    <input type="number" class="form-control" name="precioTotal" id="field_precioTotal"
+                        [(ngModel)]="detalleMovimiento.precioTotal" required/>
+                    <div [hidden]="!(editForm.controls.precioTotal?.dirty && editForm.controls.precioTotal?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.litroTotal?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.precioTotal?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.litroTotal?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.controls.precioTotal?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>

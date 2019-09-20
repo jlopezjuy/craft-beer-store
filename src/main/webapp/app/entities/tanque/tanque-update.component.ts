@@ -13,6 +13,7 @@ import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'jhi-tanque-update',
@@ -27,6 +28,7 @@ export class TanqueUpdateComponent implements OnInit {
   productos: IProducto[];
 
   empresas: IEmpresa[];
+  empresa: IEmpresa;
   fechaIngresoDp: any;
 
   constructor(
@@ -35,10 +37,12 @@ export class TanqueUpdateComponent implements OnInit {
     protected loteService: LoteService,
     protected productoService: ProductoService,
     protected empresaService: EmpresaService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    private $localStorage: LocalStorageService
   ) {}
 
   ngOnInit() {
+    this.empresa = this.$localStorage.retrieve('empresa');
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ tanque }) => {
       this.tanque = tanque;
@@ -72,6 +76,7 @@ export class TanqueUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
+    this.tanque.empresaId = this.empresa.id;
     if (this.tanque.id !== undefined) {
       this.subscribeToSaveResponse(this.tanqueService.update(this.tanque));
     } else {

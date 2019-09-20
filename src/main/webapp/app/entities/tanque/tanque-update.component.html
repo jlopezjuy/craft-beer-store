@@ -4,11 +4,11 @@
             <h2 id="jhi-tanque-heading" jhiTranslate="craftBeerStoreApp.tanque.home.createOrEditLabel">Create or edit a Tanque</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!tanque.id">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="tanque.id" readonly />
-                </div>
+<!--                <div class="form-group" [hidden]="!tanque.id">-->
+<!--                    <label for="id" jhiTranslate="global.field.id">ID</label>-->
+<!--                    <input type="text" class="form-control" id="id" name="id"-->
+<!--                        [(ngModel)]="tanque.id" readonly />-->
+<!--                </div>-->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.nombre" for="field_nombre">Nombre</label>
                     <input type="text" class="form-control" name="nombre" id="field_nombre"
@@ -65,13 +65,13 @@
                         <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.empresa" for="field_empresa">Empresa</label>
-                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="tanque.empresaId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.nombreEmpresa}}</option>
-                    </select>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.empresa" for="field_empresa">Empresa</label>-->
+<!--                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="tanque.empresaId" >-->
+<!--                        <option [ngValue]="null"></option>-->
+<!--                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.nombreEmpresa}}</option>-->
+<!--                    </select>-->
+<!--                </div>-->
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

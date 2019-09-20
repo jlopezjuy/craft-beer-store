@@ -78,6 +78,19 @@ export const loteRoute: Routes = [
       pageTitle: 'craftBeerStoreApp.lote.home.title'
     },
     canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/delete',
+    component: LoteDeletePopupComponent,
+    resolve: {
+      barril: LoteResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.barril.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
   }
 ];
 

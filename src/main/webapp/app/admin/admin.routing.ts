@@ -211,6 +211,19 @@ const routesAdminRouting: Routes = [
           {
             path: 'barril',
             loadChildren: '../entities/barril/barril.module#CraftBeerStoreBarrilModule'
+          },
+          {
+            path: 'tanque',
+            loadChildren: '../entities/tanque/tanque.module#CraftBeerStoreTanqueModule'
+          }
+        ]
+      },
+      {
+        path: 'produccion',
+        children: [
+          {
+            path: 'lote',
+            loadChildren: '../entities/lote/lote.module#CraftBeerStoreLoteModule'
           }
         ]
       },

@@ -11,6 +11,8 @@ import { IReceta } from 'app/shared/model/receta.model';
 import { RecetaService } from 'app/entities/receta';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { LocalStorageService } from 'ngx-webstorage';
+import { DATE_FORMAT } from '../../shared';
 
 @Component({
   selector: 'jhi-lote-update',
@@ -23,6 +25,7 @@ export class LoteUpdateComponent implements OnInit {
   recetas: IReceta[];
 
   empresas: IEmpresa[];
+  empresa: IEmpresa;
   fechaCoccionDp: any;
 
   constructor(
@@ -30,13 +33,18 @@ export class LoteUpdateComponent implements OnInit {
     protected loteService: LoteService,
     protected recetaService: RecetaService,
     protected empresaService: EmpresaService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    private $localStorage: LocalStorageService
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
+    this.empresa = this.$localStorage.retrieve('empresa');
     this.activatedRoute.data.subscribe(({ lote }) => {
       this.lote = lote;
+      if (this.lote.id) {
+        this.fechaCoccionDp = moment(this.lote.fechaCoccion, 'dd/MM/yyy').format();
+      }
     });
     this.recetaService
       .query()
@@ -60,6 +68,8 @@ export class LoteUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
+    this.lote.empresaId = this.empresa.id;
+    this.lote.fechaCoccion = this.fechaCoccionDp != null ? moment(this.fechaCoccionDp, DATE_FORMAT) : null;
     if (this.lote.id !== undefined) {
       this.subscribeToSaveResponse(this.loteService.update(this.lote));
     } else {

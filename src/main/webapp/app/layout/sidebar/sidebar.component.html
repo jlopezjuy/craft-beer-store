@@ -69,6 +69,15 @@
                           <span>Admin</span></a>
                         <ul *ngIf="currentActiveMenu == 'admin'">
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/barril']">Barril</a></li>
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/tanque']">Tanque</a></li>
+                        </ul>
+                      </li>
+
+                      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'produccion'}">
+                        <a class="has-arrow" (click)="activeInactiveMenu('produccion')"><i class="icon-equalizer"></i>
+                          <span>Producción</span></a>
+                        <ul *ngIf="currentActiveMenu == 'produccion'">
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/produccion/lote']">Lote</a></li>
                         </ul>
                       </li>
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'entity'}">
