@@ -1,0 +1,61 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "barril",
+            "otherEntityName": "barril",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "codigo",
+            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipName": "movimientoBarril"
+        },
+        {
+            "relationshipName": "producto",
+            "otherEntityName": "producto",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreComercial",
+            "otherEntityRelationshipName": "movimientoBarril",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "lote",
+            "otherEntityName": "lote",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "codigo",
+            "otherEntityRelationshipName": "movimientoBarril",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "cliente",
+            "otherEntityName": "cliente",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreApellido",
+            "otherEntityRelationshipName": "movimientoBarril",
+            "otherEntityRelationshipNameUndefined": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "fechaMovimiento",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "EstadoMovimientoBarril",
+            "fieldValues": "VACIO,LLENO,ENTREGADO,RETIRADO,ROTO"
+        },
+        {
+            "fieldName": "dias",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20190921234435",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "movimiento_barril",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

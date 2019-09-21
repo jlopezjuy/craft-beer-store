@@ -41,6 +41,7 @@
         "barril": "Barril",
         "lote": "Lote",
         "tanque": "Tanque",
+        "movimientoBarril": "Movimiento Barril",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

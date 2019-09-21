@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="movimientoBarril">
+            <h2><span jhiTranslate="craftBeerStoreApp.movimientoBarril.detail.title">Movimiento Barril</span> {{movimientoBarril.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoBarril.fechaMovimiento">Fecha Movimiento</span></dt>
+                <dd>
+                    <span>{{movimientoBarril.fechaMovimiento}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoBarril.estado">Estado</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoMovimientoBarril.' + movimientoBarril.estado}}">{{movimientoBarril.estado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoBarril.dias">Dias</span></dt>
+                <dd>
+                    <span>{{movimientoBarril.dias}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoBarril.barril">Barril</span></dt>
+                <dd>
+                    <div *ngIf="movimientoBarril.barrilId">
+                        <a [routerLink]="['/barril', movimientoBarril.barrilId, 'view']">{{movimientoBarril.barrilCodigo}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoBarril.producto">Producto</span></dt>
+                <dd>
+                    <div *ngIf="movimientoBarril.productoId">
+                        <a [routerLink]="['/producto', movimientoBarril.productoId, 'view']">{{movimientoBarril.productoNombreComercial}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoBarril.lote">Lote</span></dt>
+                <dd>
+                    <div *ngIf="movimientoBarril.loteId">
+                        <a [routerLink]="['/lote', movimientoBarril.loteId, 'view']">{{movimientoBarril.loteCodigo}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoBarril.cliente">Cliente</span></dt>
+                <dd>
+                    <div *ngIf="movimientoBarril.clienteId">
+                        <a [routerLink]="['/cliente', movimientoBarril.clienteId, 'view']">{{movimientoBarril.clienteNombreApellido}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/movimiento-barril', movimientoBarril.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

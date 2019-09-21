@@ -1,0 +1,27 @@
+{
+  "craftBeerStoreApp": {
+    "movimientoBarril": {
+      "home": {
+        "title": "Movimiento Barrils",
+        "createLabel": "Create a new Movimiento Barril",
+        "createOrEditLabel": "Create or edit a Movimiento Barril"
+      },
+      "created": "A new Movimiento Barril is created with identifier {{ param }}",
+      "updated": "A Movimiento Barril is updated with identifier {{ param }}",
+      "deleted": "A Movimiento Barril is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Movimiento Barril {{ id }}?"
+      },
+      "detail": {
+        "title": "Movimiento Barril"
+      },
+      "fechaMovimiento": "Fecha Movimiento",
+      "estado": "Estado",
+      "dias": "Dias",
+      "barril": "Barril",
+      "producto": "Producto",
+      "lote": "Lote",
+      "cliente": "Cliente"
+    }
+  }
+}

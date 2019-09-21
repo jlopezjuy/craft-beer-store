@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity MovimientoBarril.
+    -->
+    <changeSet id="20190921234435-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="barril_id"
+                                 baseTableName="movimiento_barril"
+                                 constraintName="fk_movimiento_barril_barril_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="barril"/>
+
+        <addForeignKeyConstraint baseColumnNames="producto_id"
+                                 baseTableName="movimiento_barril"
+                                 constraintName="fk_movimiento_barril_producto_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="producto"/>
+
+        <addForeignKeyConstraint baseColumnNames="lote_id"
+                                 baseTableName="movimiento_barril"
+                                 constraintName="fk_movimiento_barril_lote_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lote"/>
+
+        <addForeignKeyConstraint baseColumnNames="cliente_id"
+                                 baseTableName="movimiento_barril"
+                                 constraintName="fk_movimiento_barril_cliente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cliente"/>
+
+    </changeSet>
+</databaseChangeLog>
