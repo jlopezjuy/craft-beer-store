@@ -87,7 +87,7 @@ export const loteRoute: Routes = [
     },
     data: {
       authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.barril.home.title'
+      pageTitle: 'craftBeerStoreApp.lote.home.title'
     },
     canActivate: [UserRouteAccessService],
     outlet: 'popup'

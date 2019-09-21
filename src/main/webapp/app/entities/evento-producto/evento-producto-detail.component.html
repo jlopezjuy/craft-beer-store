@@ -12,13 +12,13 @@
                 <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span></dt>
                 <dd>
                     <div *ngIf="eventoProducto.productoId">
-                        <a [routerLink]="['/producto', eventoProducto.productoId, 'view']">{{eventoProducto.productoDescripcion}}</a>
+                        <a [routerLink]="['/admin/entity/producto', eventoProducto.productoId, 'view']">{{eventoProducto.productoDescripcion}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.evento">Evento</span></dt>
                 <dd>
                     <div *ngIf="eventoProducto.eventoId">
-                        <a [routerLink]="['/evento', eventoProducto.eventoId, 'view']">{{eventoProducto.eventoId}}</a>
+                        <a [routerLink]="['/admin/entity/evento', eventoProducto.eventoId, 'view']">{{eventoProducto.eventoId}}</a>
                     </div>
                 </dd>
             </dl>

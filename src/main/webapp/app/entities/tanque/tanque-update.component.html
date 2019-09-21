@@ -1,86 +1,116 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-tanque-heading" jhiTranslate="craftBeerStoreApp.tanque.home.createOrEditLabel">Create or edit a Tanque</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-<!--                <div class="form-group" [hidden]="!tanque.id">-->
-<!--                    <label for="id" jhiTranslate="global.field.id">ID</label>-->
-<!--                    <input type="text" class="form-control" id="id" name="id"-->
-<!--                        [(ngModel)]="tanque.id" readonly />-->
-<!--                </div>-->
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.nombre" for="field_nombre">Nombre</label>
-                    <input type="text" class="form-control" name="nombre" id="field_nombre"
-                        [(ngModel)]="tanque.nombre" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.litros" for="field_litros">Litros</label>
-                    <input type="number" class="form-control" name="litros" id="field_litros"
-                        [(ngModel)]="tanque.litros" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.tipo" for="field_tipo">Tipo</label>
-                    <select class="form-control" name="tipo" [(ngModel)]="tanque.tipo" id="field_tipo" >
-                        <option value="UNITANK_INOX">{{'craftBeerStoreApp.TipoTanque.UNITANK_INOX' | translate}}</option>
-                        <option value="FERMENTADOR">{{'craftBeerStoreApp.TipoTanque.FERMENTADOR' | translate}}</option>
-                        <option value="MADURADOR">{{'craftBeerStoreApp.TipoTanque.MADURADOR' | translate}}</option>
-                        <option value="BARRICA">{{'craftBeerStoreApp.TipoTanque.BARRICA' | translate}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.estado" for="field_estado">Estado</label>
-                    <select class="form-control" name="estado" [(ngModel)]="tanque.estado" id="field_estado" >
-                        <option value="VACIO">{{'craftBeerStoreApp.EstadoTanque.VACIO' | translate}}</option>
-                        <option value="EN_USO">{{'craftBeerStoreApp.EstadoTanque.EN_USO' | translate}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible" for="field_listrosDisponible">Listros Disponible</label>
-                    <input type="number" class="form-control" name="listrosDisponible" id="field_listrosDisponible"
-                        [(ngModel)]="tanque.listrosDisponible" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso" for="field_fechaIngreso">Fecha Ingreso</label>
-                    <div class="input-group">
-                        <input id="field_fechaIngreso" type="text" class="form-control" name="fechaIngreso" ngbDatepicker  #fechaIngresoDp="ngbDatepicker" [(ngModel)]="tanque.fechaIngreso"
-                        />
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="fechaIngresoDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.lote" for="field_lote">Lote</label>
-                    <select class="form-control" id="field_lote" name="lote" [(ngModel)]="tanque.loteId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="loteOption.id" *ngFor="let loteOption of lotes; trackBy: trackLoteById">{{loteOption.codigo}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.producto" for="field_producto">Producto</label>
-                    <select class="form-control" id="field_producto" name="producto" [(ngModel)]="tanque.productoId" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>
-                    </select>
-                </div>
-<!--                <div class="form-group">-->
-<!--                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.tanque.empresa" for="field_empresa">Empresa</label>-->
-<!--                    <select class="form-control" id="field_empresa" name="empresa" [(ngModel)]="tanque.empresaId" >-->
-<!--                        <option [ngValue]="null"></option>-->
-<!--                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.nombreEmpresa}}</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-            </div>
-            <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                </button>
-            </div>
-        </form>
+<div class="container-fluid">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-5 col-md-8 col-sm-12">
+        <h2 id="jhi-tanque-heading" jhiTranslate="craftBeerStoreApp.tanque.home.createOrEditLabel">Create or edit a Tanque</h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+          <li class="breadcrumb-item">Administración</li>
+          <li class="breadcrumb-item active">Tanque</li>
+        </ul>
+      </div>
     </div>
+  </div>
+
+  <div class="card">
+    <div class="header">
+
+    </div>
+    <div class="body">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <div>
+              <jhi-alert-error></jhi-alert-error>
+              <div class="row">
+                <div class="col-sm-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.tanque.nombre" for="field_nombre">Nombre</mat-label>
+                    <input type="text" matInput name="nombre" id="field_nombre"
+                           [(ngModel)]="tanque.nombre" />
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.tanque.litros" for="field_litros">Litros</mat-label>
+                    <input type="number" matInput name="litros" id="field_litros"
+                           [(ngModel)]="tanque.litros" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.tanque.tipo" for="field_tipo">Tipo</mat-label>
+                    <mat-select name="tipo" [(ngModel)]="tanque.tipo" id="field_tipo" >
+                      <mat-option value="UNITANK_INOX">{{'craftBeerStoreApp.TipoTanque.UNITANK_INOX' | translate}}</mat-option>
+                      <mat-option value="FERMENTADOR">{{'craftBeerStoreApp.TipoTanque.FERMENTADOR' | translate}}</mat-option>
+                      <mat-option value="MADURADOR">{{'craftBeerStoreApp.TipoTanque.MADURADOR' | translate}}</mat-option>
+                      <mat-option value="BARRICA">{{'craftBeerStoreApp.TipoTanque.BARRICA' | translate}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.tanque.estado" for="field_estado">Estado</mat-label>
+                    <mat-select name="estado" [(ngModel)]="tanque.estado" id="field_estado" >
+                      <mat-option value="VACIO">{{'craftBeerStoreApp.EstadoTanque.VACIO' | translate}}</mat-option>
+                      <mat-option value="EN_USO">{{'craftBeerStoreApp.EstadoTanque.EN_USO' | translate}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible" for="field_listrosDisponible">Listros Disponible</mat-label>
+                    <input type="number" matInput name="listrosDisponible" id="field_listrosDisponible"
+                           [(ngModel)]="tanque.listrosDisponible" />
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso" for="field_fechaIngreso">Fecha Ingreso
+                    </mat-label>
+                    <input matInput name="fechaIngreso" [matDatepicker]="picker" placeholder="Choose a date"
+                           [(ngModel)]="fechaIngresoDp">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.tanque.lote" for="field_lote">Lote</mat-label>
+                    <mat-select id="field_lote" name="lote" [(ngModel)]="tanque.loteId" >
+                      <mat-option value=""></mat-option>
+                      <mat-option [value]="loteOption.id" *ngFor="let loteOption of lotes; trackBy: trackLoteById">{{loteOption.codigo}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                  <mat-form-field class="example-full-width">
+                    <mat-label jhiTranslate="craftBeerStoreApp.tanque.producto" for="field_producto">Producto</mat-label>
+                    <mat-select id="field_producto" name="producto" [(ngModel)]="tanque.productoId" >
+                      <mat-option value=""></mat-option>
+                      <mat-option [value]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
+                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+              </button>
+              <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

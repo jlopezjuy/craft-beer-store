@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +6,7 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { ITanque } from 'app/shared/model/tanque.model';
 import { TanqueService } from './tanque.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'jhi-tanque-delete-dialog',
@@ -14,19 +15,25 @@ import { TanqueService } from './tanque.service';
 export class TanqueDeleteDialogComponent {
   tanque: ITanque;
 
-  constructor(protected tanqueService: TanqueService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
+  constructor(
+    protected tanqueService: TanqueService,
+    public activeModal: NgbActiveModal,
+    protected eventManager: JhiEventManager,
+    public dialogRef: MatDialogRef<TanqueDeleteDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: ITanque
+  ) {}
 
   clear() {
-    this.activeModal.dismiss('cancel');
+    this.dialogRef.close();
   }
 
-  confirmDelete(id: number) {
-    this.tanqueService.delete(id).subscribe(response => {
+  confirmDelete() {
+    this.tanqueService.delete(this.data.id).subscribe(response => {
       this.eventManager.broadcast({
         name: 'tanqueListModification',
         content: 'Deleted an tanque'
       });
-      this.activeModal.dismiss(true);
+      this.dialogRef.close();
     });
   }
 }

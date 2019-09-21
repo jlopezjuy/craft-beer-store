@@ -78,6 +78,19 @@ export const tanqueRoute: Routes = [
       pageTitle: 'craftBeerStoreApp.tanque.home.title'
     },
     canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/delete',
+    component: TanqueDeletePopupComponent,
+    resolve: {
+      barril: TanqueResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.tanque.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
   }
 ];
 
