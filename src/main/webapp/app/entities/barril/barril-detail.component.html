@@ -1,66 +1,114 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="barril">
-            <h2><span jhiTranslate="craftBeerStoreApp.barril.detail.title">Barril</span> {{barril.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="craftBeerStoreApp.barril.codigo">Codigo</span></dt>
-                <dd>
-                    <span>{{barril.codigo}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.barril.litros">Litros</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.LitrosBarril.' + barril.litros}}">{{barril.litros}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.barril.conector">Conector</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.ConectorBarril.' + barril.conector}}">{{barril.conector}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.barril.estado">Estado</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoBarril.' + barril.estado}}">{{barril.estado}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.barril.imagen">Imagen</span></dt>
-                <dd>
-                    <div *ngIf="barril.imagen">
-                        <a (click)="openFile(barril.imagenContentType, barril.imagen)">
-                            <img [src]="'data:' + barril.imagenContentType + ';base64,' + barril.imagen" style="max-width: 100%;" alt="barril image"/>
-                        </a>
-                        {{barril.imagenContentType}}, {{byteSize(barril.imagen)}}
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.barril.empresa">Empresa</span></dt>
-                <dd>
-                    <div *ngIf="barril.empresaId">
-                        <a [routerLink]="['/empresa', barril.empresaId, 'view']">{{barril.empresaNombreEmpresa}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.barril.lote">Lote</span></dt>
-                <dd>
-                    <div *ngIf="barril.loteId">
-                        <a [routerLink]="['/lote', barril.loteId, 'view']">{{barril.loteCodigo}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.barril.cliente">Cliente</span></dt>
-                <dd>
-                    <div *ngIf="barril.clienteId">
-                        <a [routerLink]="['/cliente', barril.clienteId, 'view']">{{barril.clienteNombreApellido}}</a>
-                    </div>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/barril', barril.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
-        </div>
+<div class="container-fluid">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-5 col-md-8 col-sm-12">
+        <h2><span jhiTranslate="craftBeerStoreApp.barril.detail.title">Caja</span></h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+          <li class="breadcrumb-item">Administración</li>
+          <li class="breadcrumb-item active"><a (click)="previousState()">Barril</a></li>
+        </ul>
+      </div>
     </div>
+  </div>
+  <div class="card">
+    <div class="header">
+      <h2><span jhiTranslate="craftBeerStoreApp.barril.detail.title">Barril</span> {{barril.codigo}}</h2>
+    </div>
+    <div class="body">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <div *ngIf="barril">
+            <jhi-alert-error></jhi-alert-error>
+            <div class="mat-elevation-z8">
+              <mat-card class="example-card">
+                <mat-card-header>
+
+                  <mat-card-title>
+                    <div *ngIf="barril.imagen">
+                      <a (click)="openFile(barril.imagenContentType, barril.imagen)">
+                        <img [src]="'data:' + barril.imagenContentType + ';base64,' + barril.imagen" style="max-width: 100%;" alt="barril image"/>
+                      </a>
+                      {{barril.imagenContentType}}, {{byteSize(barril.imagen)}}
+                    </div>
+                  </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <dl class="row-md jh-entity-details">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <dt><span jhiTranslate="craftBeerStoreApp.barril.codigo">Codigo</span></dt>
+                        <dd>
+                          <span>{{barril.codigo}}</span>
+                        </dd>
+                      </div>
+                      <div class="col-md-6">
+                        <dt><span jhiTranslate="craftBeerStoreApp.barril.litros">Litros</span></dt>
+                        <dd>
+                          <span jhiTranslate="{{'craftBeerStoreApp.LitrosBarril.' + barril.litros}}">{{barril.litros}}</span>
+                        </dd>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <dt><span jhiTranslate="craftBeerStoreApp.barril.conector">Conector</span></dt>
+                        <dd>
+                          <span jhiTranslate="{{'craftBeerStoreApp.ConectorBarril.' + barril.conector}}">{{barril.conector}}</span>
+                        </dd>
+                      </div>
+                      <div class="col-md-6">
+                        <dt><span jhiTranslate="craftBeerStoreApp.barril.estado">Estado</span></dt>
+                        <dd>
+                          <span jhiTranslate="{{'craftBeerStoreApp.EstadoBarril.' + barril.estado}}">{{barril.estado}}</span>
+                        </dd>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <dt><span jhiTranslate="craftBeerStoreApp.barril.lote">Lote</span></dt>
+                        <dd>
+                          <div *ngIf="barril.loteId">
+                            <a [routerLink]="['/lote', barril.loteId, 'view']">{{barril.loteCodigo}}</a>
+                          </div>
+                        </dd>
+                      </div>
+                      <div class="col-md-6">
+                        <dt><span jhiTranslate="craftBeerStoreApp.barril.cliente">Cliente</span></dt>
+                        <dd>
+                          <div *ngIf="barril.clienteId">
+                            <a [routerLink]="['/cliente', barril.clienteId, 'view']">{{barril.clienteNombreApellido}}</a>
+                          </div>
+                        </dd>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+
+                      </div>
+                      <div class="col-md-6">
+
+                      </div>
+                    </div>
+                  </dl>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button type="submit"
+                          (click)="previousState()"
+                          mat-raised-button class="mat-back">
+                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                  </button>
+
+                  <button type="button"
+                          [routerLink]="['/admin/admin/barril', barril.id, 'edit']"
+                          mat-raised-button class="mat-success">
+                    <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
