@@ -28,6 +28,15 @@ public interface MovimientoBarrilService {
      */
     Page<MovimientoBarrilDTO> findAll(Pageable pageable);
 
+  /**
+   * Get all the movimientoBarrils.
+   *
+   * @param pageable the pagination information
+   * @param barrilId the id of barril
+   * @return the list of entities
+   */
+    Page<MovimientoBarrilDTO> findAll(Pageable pageable, Long barrilId);
+
 
     /**
      * Get the "id" movimientoBarril.

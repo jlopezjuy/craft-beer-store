@@ -16,10 +16,10 @@
       <h2><span jhiTranslate="craftBeerStoreApp.barril.detail.title">Barril</span> {{barril.codigo}}</h2>
     </div>
     <div class="body">
+      <jhi-alert-error></jhi-alert-error>
       <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-4">
           <div *ngIf="barril">
-            <jhi-alert-error></jhi-alert-error>
             <div class="mat-elevation-z8">
               <mat-card class="example-card">
                 <mat-card-header>
@@ -104,6 +104,54 @@
                     <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
                   </button>
                 </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+        <div class="col-8">
+          <div *ngIf="movimientoBarrils">
+            <div class="mat-elevation-z8">
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <span jhiTranslate="craftBeerStoreApp.movimientoBarril.home.title">Movimiento Barrils</span>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="table-responsive">
+                    <table mat-table [dataSource]="dataSource" style="width: 100%;">
+                      <ng-container matColumnDef="fechaMovimiento">
+                        <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.movimientoBarril.fechaMovimiento">fechaMovimiento</span></th>
+                        <td mat-cell *matCellDef="let mov" > {{mov.fechaMovimiento | date:'mediumDate'}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.movimientoBarril.estado">estado</span></th>
+                        <td mat-cell *matCellDef="let mov" jhiTranslate="{{'craftBeerStoreApp.EstadoMovimientoBarril.' + mov.estado}}"> {{mov.estado}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="dias">
+                        <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.movimientoBarril.dias">dias</span></th>
+                        <td mat-cell *matCellDef="let mov" > {{mov.dias}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="producto">
+                        <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.movimientoBarril.producto">producto</span></th>
+                        <td mat-cell *matCellDef="let mov" > {{mov.productoNombreComercial}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="lote">
+                        <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.movimientoBarril.lote">lote</span></th>
+                        <td mat-cell *matCellDef="let mov" > {{mov.loteCodigo}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="cliente">
+                        <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.movimientoBarril.cliente">cliente</span></th>
+                        <td mat-cell *matCellDef="let mov" > {{mov.clienteNombreApellido}} </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [length]="totalItems"
+                                   [pageSize]="itemsPerPage"
+                                   (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
+
+                  </div>
+                </mat-card-content>
               </mat-card>
             </div>
           </div>

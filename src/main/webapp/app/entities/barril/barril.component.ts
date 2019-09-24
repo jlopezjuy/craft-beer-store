@@ -139,6 +139,9 @@ export class BarrilComponent implements OnInit, OnDestroy {
   }
 
   sort() {
+    console.log(this.predicate);
+    console.log(this.reverse);
+    console.log(this.previousPage);
     const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
       result.push('id');

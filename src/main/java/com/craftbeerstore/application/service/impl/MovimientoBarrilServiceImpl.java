@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Barril;
+import com.craftbeerstore.application.repository.BarrilRepository;
 import com.craftbeerstore.application.service.MovimientoBarrilService;
 import com.craftbeerstore.application.domain.MovimientoBarril;
 import com.craftbeerstore.application.repository.MovimientoBarrilRepository;
@@ -28,9 +30,12 @@ public class MovimientoBarrilServiceImpl implements MovimientoBarrilService {
 
     private final MovimientoBarrilMapper movimientoBarrilMapper;
 
-    public MovimientoBarrilServiceImpl(MovimientoBarrilRepository movimientoBarrilRepository, MovimientoBarrilMapper movimientoBarrilMapper) {
+    private final BarrilRepository barrilRepository;
+
+    public MovimientoBarrilServiceImpl(MovimientoBarrilRepository movimientoBarrilRepository, MovimientoBarrilMapper movimientoBarrilMapper, BarrilRepository barrilRepository) {
         this.movimientoBarrilRepository = movimientoBarrilRepository;
         this.movimientoBarrilMapper = movimientoBarrilMapper;
+      this.barrilRepository = barrilRepository;
     }
 
     /**
@@ -61,8 +66,22 @@ public class MovimientoBarrilServiceImpl implements MovimientoBarrilService {
             .map(movimientoBarrilMapper::toDto);
     }
 
+  /**
+   * Get all the movimientoBarrils.
+   *
+   * @param pageable the pagination information
+   * @param barrilId the id of barril
+   * @return the list of entities
+   */
+  @Override
+  public Page<MovimientoBarrilDTO> findAll(Pageable pageable, Long barrilId) {
+    Barril barril = this.barrilRepository.getOne(barrilId);
+    return movimientoBarrilRepository.findAllByBarril(pageable, barril)
+      .map(movimientoBarrilMapper::toDto);
+  }
 
-    /**
+
+  /**
      * Get one movimientoBarril by id.
      *
      * @param id the id of the entity

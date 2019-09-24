@@ -2,7 +2,7 @@
   "craftBeerStoreApp": {
     "movimientoBarril": {
       "home": {
-        "title": "Movimiento Barrils",
+        "title": "Movimiento de Barriles",
         "createLabel": "Create a new Movimiento Barril",
         "createOrEditLabel": "Create or edit a Movimiento Barril"
       },

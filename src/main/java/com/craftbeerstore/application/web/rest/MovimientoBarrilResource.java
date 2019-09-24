@@ -91,6 +91,20 @@ public class MovimientoBarrilResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+  /**
+   * GET  /movimiento-barrils : get all the movimientoBarrils.
+   *
+   * @param pageable the pagination information
+   * @return the ResponseEntity with status 200 (OK) and the list of movimientoBarrils in body
+   */
+  @GetMapping("/movimiento-barrils/barril/{barrilId}")
+  public ResponseEntity<List<MovimientoBarrilDTO>> getAllMovimientoBarrils(Pageable pageable, @PathVariable Long barrilId) {
+    log.debug("REST request to get a page of MovimientoBarrils");
+    Page<MovimientoBarrilDTO> page = movimientoBarrilService.findAll(pageable, barrilId);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/movimiento-barrils/barril/{barrilId}");
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
+
     /**
      * GET  /movimiento-barrils/:id : get the "id" movimientoBarril.
      *
