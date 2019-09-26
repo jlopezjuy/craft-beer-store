@@ -74,6 +74,9 @@ public class LoteResourceIntTest {
     private static final BigDecimal DEFAULT_LITROS_ENVASADOS = new BigDecimal(1);
     private static final BigDecimal UPDATED_LITROS_ENVASADOS = new BigDecimal(2);
 
+    private static final BigDecimal DEFAULT_LITROS_DISPONIBLE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_LITROS_DISPONIBLE = new BigDecimal(2);
+
     @Autowired
     private LoteRepository loteRepository;
 
@@ -130,7 +133,8 @@ public class LoteResourceIntTest {
             .estado(DEFAULT_ESTADO)
             .litrosEstimados(DEFAULT_LITROS_ESTIMADOS)
             .litrosEnTanque(DEFAULT_LITROS_EN_TANQUE)
-            .litrosEnvasados(DEFAULT_LITROS_ENVASADOS);
+            .litrosEnvasados(DEFAULT_LITROS_ENVASADOS)
+            .litrosDisponible(DEFAULT_LITROS_DISPONIBLE);
         return lote;
     }
 
@@ -164,6 +168,7 @@ public class LoteResourceIntTest {
         assertThat(testLote.getLitrosEstimados()).isEqualTo(DEFAULT_LITROS_ESTIMADOS);
         assertThat(testLote.getLitrosEnTanque()).isEqualTo(DEFAULT_LITROS_EN_TANQUE);
         assertThat(testLote.getLitrosEnvasados()).isEqualTo(DEFAULT_LITROS_ENVASADOS);
+        assertThat(testLote.getLitrosDisponible()).isEqualTo(DEFAULT_LITROS_DISPONIBLE);
     }
 
     @Test
@@ -205,7 +210,8 @@ public class LoteResourceIntTest {
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO.toString())))
             .andExpect(jsonPath("$.[*].litrosEstimados").value(hasItem(DEFAULT_LITROS_ESTIMADOS.intValue())))
             .andExpect(jsonPath("$.[*].litrosEnTanque").value(hasItem(DEFAULT_LITROS_EN_TANQUE.intValue())))
-            .andExpect(jsonPath("$.[*].litrosEnvasados").value(hasItem(DEFAULT_LITROS_ENVASADOS.intValue())));
+            .andExpect(jsonPath("$.[*].litrosEnvasados").value(hasItem(DEFAULT_LITROS_ENVASADOS.intValue())))
+            .andExpect(jsonPath("$.[*].litrosDisponible").value(hasItem(DEFAULT_LITROS_DISPONIBLE.intValue())));
     }
     
     @Test
@@ -227,7 +233,8 @@ public class LoteResourceIntTest {
             .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO.toString()))
             .andExpect(jsonPath("$.litrosEstimados").value(DEFAULT_LITROS_ESTIMADOS.intValue()))
             .andExpect(jsonPath("$.litrosEnTanque").value(DEFAULT_LITROS_EN_TANQUE.intValue()))
-            .andExpect(jsonPath("$.litrosEnvasados").value(DEFAULT_LITROS_ENVASADOS.intValue()));
+            .andExpect(jsonPath("$.litrosEnvasados").value(DEFAULT_LITROS_ENVASADOS.intValue()))
+            .andExpect(jsonPath("$.litrosDisponible").value(DEFAULT_LITROS_DISPONIBLE.intValue()));
     }
 
     @Test
@@ -259,7 +266,8 @@ public class LoteResourceIntTest {
             .estado(UPDATED_ESTADO)
             .litrosEstimados(UPDATED_LITROS_ESTIMADOS)
             .litrosEnTanque(UPDATED_LITROS_EN_TANQUE)
-            .litrosEnvasados(UPDATED_LITROS_ENVASADOS);
+            .litrosEnvasados(UPDATED_LITROS_ENVASADOS)
+            .litrosDisponible(UPDATED_LITROS_DISPONIBLE);
         LoteDTO loteDTO = loteMapper.toDto(updatedLote);
 
         restLoteMockMvc.perform(put("/api/lotes")
@@ -280,6 +288,7 @@ public class LoteResourceIntTest {
         assertThat(testLote.getLitrosEstimados()).isEqualTo(UPDATED_LITROS_ESTIMADOS);
         assertThat(testLote.getLitrosEnTanque()).isEqualTo(UPDATED_LITROS_EN_TANQUE);
         assertThat(testLote.getLitrosEnvasados()).isEqualTo(UPDATED_LITROS_ENVASADOS);
+        assertThat(testLote.getLitrosDisponible()).isEqualTo(UPDATED_LITROS_DISPONIBLE);
     }
 
     @Test

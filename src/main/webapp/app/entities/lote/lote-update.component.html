@@ -19,23 +19,32 @@
     </div>
     <div class="body">
       <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-10">
           <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
             <div>
               <jhi-alert-error></jhi-alert-error>
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                   <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.lote.receta" for="field_receta">Receta</mat-label>
-                    <mat-select id="field_receta" name="receta" [(ngModel)]="lote.recetaId">
+                    <mat-label jhiTranslate="craftBeerStoreApp.lote.producto" for="field_producto">Producto</mat-label>
+                    <mat-select  id="field_producto" name="producto" [(ngModel)]="lote.productoId" (selectionChange)="changeProducto()">
                       <mat-option value=""></mat-option>
-                      <mat-option [value]="recetaOption.id"
-                                  *ngFor="let recetaOption of recetas; trackBy: trackRecetaById">{{recetaOption.nombre}}</mat-option>
+                      <mat-option [value]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
+                    <mat-form-field class="example-full-width">
+                      <mat-label jhiTranslate="craftBeerStoreApp.lote.receta" for="field_receta">Receta</mat-label>
+                      <mat-select id="field_receta" name="receta" [(ngModel)]="lote.recetaId">
+                        <mat-option value=""></mat-option>
+                        <mat-option [value]="recetaOption.id"
+                                    *ngFor="let recetaOption of recetas; trackBy: trackRecetaById">{{recetaOption.nombre}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
                   <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.lote.fechaCoccion" for="field_fechaCoccion">Fecha
                       Coccion
@@ -47,24 +56,24 @@
                   </mat-form-field>
                 </div>
               </div>
+
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                   <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.lote.coccion" for="field_coccion">Coccion</mat-label>
                     <input matInput type="number" name="coccion" id="field_coccion"
                            [(ngModel)]="lote.coccion"/>
                   </mat-form-field>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                   <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.lote.codigo" for="field_codigo">Codigo</mat-label>
                     <input type="text" matInput name="codigo" id="field_codigo"
                            [(ngModel)]="lote.codigo"/>
                   </mat-form-field>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
+
+                <div class="col-sm-3">
                   <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.lote.descripcion" for="field_descripcion">Descripcion
                     </mat-label>
@@ -72,7 +81,7 @@
                            [(ngModel)]="lote.descripcion"/>
                   </mat-form-field>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                   <!--                  <mat-form-field class="example-full-width">-->
                   <mat-label jhiTranslate="craftBeerStoreApp.lote.descuentaStock" for="field_descuentaStock">Descuenta
                     Stock

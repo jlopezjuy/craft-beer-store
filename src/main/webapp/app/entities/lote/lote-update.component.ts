@@ -11,6 +11,10 @@ import { IReceta } from 'app/shared/model/receta.model';
 import { RecetaService } from 'app/entities/receta';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
+import { IProducto } from 'app/shared/model/producto.model';
+import { ProductoService } from 'app/entities/producto';
+import { ITanque } from 'app/shared/model/tanque.model';
+import { TanqueService } from 'app/entities/tanque';
 import { LocalStorageService } from 'ngx-webstorage';
 import { DATE_FORMAT } from '../../shared';
 
@@ -25,7 +29,12 @@ export class LoteUpdateComponent implements OnInit {
   recetas: IReceta[];
 
   empresas: IEmpresa[];
+
   empresa: IEmpresa;
+
+  productos: IProducto[];
+
+  tanques: ITanque[];
   fechaCoccionDp: any;
 
   constructor(
@@ -33,6 +42,8 @@ export class LoteUpdateComponent implements OnInit {
     protected loteService: LoteService,
     protected recetaService: RecetaService,
     protected empresaService: EmpresaService,
+    protected productoService: ProductoService,
+    protected tanqueService: TanqueService,
     protected activatedRoute: ActivatedRoute,
     private $localStorage: LocalStorageService
   ) {}
@@ -46,20 +57,34 @@ export class LoteUpdateComponent implements OnInit {
         this.fechaCoccionDp = moment(this.lote.fechaCoccion, 'dd/MM/yyy').format();
       }
     });
-    this.recetaService
+    // this.recetaService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IReceta[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IReceta[]>) => response.body)
+    //   )
+    //   .subscribe((res: IReceta[]) => (this.recetas = res), (res: HttpErrorResponse) => this.onError(res.message));
+    // this.empresaService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IEmpresa[]>) => response.body)
+    //   )
+    //   .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.productoService
       .query()
       .pipe(
-        filter((mayBeOk: HttpResponse<IReceta[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IReceta[]>) => response.body)
+        filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IProducto[]>) => response.body)
       )
-      .subscribe((res: IReceta[]) => (this.recetas = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.empresaService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IEmpresa[]>) => response.body)
-      )
-      .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
+    // this.tanqueService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<ITanque[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<ITanque[]>) => response.body)
+    //   )
+    //   .subscribe((res: ITanque[]) => (this.tanques = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   previousState() {
@@ -100,5 +125,20 @@ export class LoteUpdateComponent implements OnInit {
 
   trackEmpresaById(index: number, item: IEmpresa) {
     return item.id;
+  }
+
+  trackProductoById(index: number, item: IProducto) {
+    return item.id;
+  }
+
+  trackTanqueById(index: number, item: ITanque) {
+    return item.id;
+  }
+
+  changeProducto() {
+    console.log(this.lote.productoId);
+    this.recetaService.findAllByProducto(null, this.lote.productoId).subscribe(resp => {
+      this.recetas = resp.body;
+    });
   }
 }

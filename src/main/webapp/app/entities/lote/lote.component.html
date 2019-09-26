@@ -40,6 +40,14 @@
             <th mat-header-cell *matHeaderCellDef jhiSortBy="fechaCoccion"> <span jhiTranslate="craftBeerStoreApp.lote.fechaCoccion">Fecha de Coccion</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let lote" > {{lote.fechaCoccion | date:'mediumDate'}} </td>
           </ng-container>
+          <ng-container matColumnDef="producto">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="producto"> <span jhiTranslate="craftBeerStoreApp.lote.producto">Producto</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.productoNombreComercial}} </td>
+          </ng-container>
+          <ng-container matColumnDef="tanque">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="tanque"> <span jhiTranslate="craftBeerStoreApp.lote.tanque">Tanque</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.tanqueNombre}} </td>
+          </ng-container>
           <ng-container matColumnDef="coccion">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="coccion"> <span jhiTranslate="craftBeerStoreApp.lote.coccion">Coccion</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let lote" > {{lote.coccion}} </td>
@@ -59,6 +67,10 @@
           <ng-container matColumnDef="litrosEstimados">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="litrosEstimados"> <span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let lote" > {{lote.litrosEstimados}} </td>
+          </ng-container>
+          <ng-container matColumnDef="litrosDisponible">
+            <th mat-header-cell *matHeaderCellDef jhiSortBy="litrosDisponible"> <span jhiTranslate="craftBeerStoreApp.lote.litrosDisponible">Litros Disponible</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+            <td mat-cell *matCellDef="let lote" > {{lote.litrosDisponible}} </td>
           </ng-container>
           <ng-container matColumnDef="recetaNombre">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="recetaNombre"> <span jhiTranslate="craftBeerStoreApp.lote.receta">Receta</span><fa-icon [icon]="'sort'"></fa-icon> </th>

@@ -58,11 +58,23 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="litros_disponible" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="receta_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
             <column name="empresa_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="producto_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tanque_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

@@ -19,10 +19,15 @@ export interface ILote {
   litrosEstimados?: number;
   litrosEnTanque?: number;
   litrosEnvasados?: number;
+  litrosDisponible?: number;
   recetaNombre?: string;
   recetaId?: number;
   empresaNombreEmpresa?: string;
   empresaId?: number;
+  productoNombreComercial?: string;
+  productoId?: number;
+  tanqueNombre?: string;
+  tanqueId?: number;
 }
 
 export class Lote implements ILote {
@@ -37,10 +42,15 @@ export class Lote implements ILote {
     public litrosEstimados?: number,
     public litrosEnTanque?: number,
     public litrosEnvasados?: number,
+    public litrosDisponible?: number,
     public recetaNombre?: string,
     public recetaId?: number,
     public empresaNombreEmpresa?: string,
-    public empresaId?: number
+    public empresaId?: number,
+    public productoNombreComercial?: string,
+    public productoId?: number,
+    public tanqueNombre?: string,
+    public tanqueId?: number
   ) {
     this.descuentaStock = this.descuentaStock || false;
   }

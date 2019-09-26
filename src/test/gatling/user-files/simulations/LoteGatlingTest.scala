@@ -81,6 +81,7 @@ class LoteGatlingTest extends Simulation {
                 , "litrosEstimados":"0"
                 , "litrosEnTanque":"0"
                 , "litrosEnvasados":"0"
+                , "litrosDisponible":"0"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_lote_url"))).exitHereIfFailed

@@ -25,7 +25,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Lote(0, 'AAAAAAA', currentDate, 0, 'AAAAAAA', false, EstadoLote.PLANIFICADO, 0, 0, 0);
+      elemDefault = new Lote(0, 'AAAAAAA', currentDate, 0, 'AAAAAAA', false, EstadoLote.PLANIFICADO, 0, 0, 0, 0);
     });
 
     describe('Service methods', async () => {
@@ -78,7 +78,8 @@ describe('Service Tests', () => {
             estado: 'BBBBBB',
             litrosEstimados: 1,
             litrosEnTanque: 1,
-            litrosEnvasados: 1
+            litrosEnvasados: 1,
+            litrosDisponible: 1
           },
           elemDefault
         );
@@ -108,7 +109,8 @@ describe('Service Tests', () => {
             estado: 'BBBBBB',
             litrosEstimados: 1,
             litrosEnTanque: 1,
-            litrosEnvasados: 1
+            litrosEnvasados: 1,
+            litrosDisponible: 1
           },
           elemDefault
         );

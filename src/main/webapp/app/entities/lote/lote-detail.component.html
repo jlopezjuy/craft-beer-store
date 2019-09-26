@@ -41,6 +41,10 @@
                 <dd>
                     <span>{{lote.litrosEnvasados}}</span>
                 </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosDisponible">Litros Disponible</span></dt>
+                <dd>
+                    <span>{{lote.litrosDisponible}}</span>
+                </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.lote.receta">Receta</span></dt>
                 <dd>
                     <div *ngIf="lote.recetaId">
@@ -51,6 +55,18 @@
                 <dd>
                     <div *ngIf="lote.empresaId">
                         <a [routerLink]="['/empresa', lote.empresaId, 'view']">{{lote.empresaNombreEmpresa}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.producto">Producto</span></dt>
+                <dd>
+                    <div *ngIf="lote.productoId">
+                        <a [routerLink]="['/producto', lote.productoId, 'view']">{{lote.productoNombreComercial}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.lote.tanque">Tanque</span></dt>
+                <dd>
+                    <div *ngIf="lote.tanqueId">
+                        <a [routerLink]="['/tanque', lote.tanqueId, 'view']">{{lote.tanqueNombre}}</a>
                     </div>
                 </dd>
             </dl>

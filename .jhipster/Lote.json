@@ -7,7 +7,7 @@
             "otherEntityName": "receta",
             "relationshipType": "many-to-one",
             "otherEntityField": "nombre",
-            "otherEntityRelationshipNameUndefined": true,
+            "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "lote"
         },
         {
@@ -15,6 +15,22 @@
             "otherEntityName": "empresa",
             "relationshipType": "many-to-one",
             "otherEntityField": "nombreEmpresa",
+            "otherEntityRelationshipName": "lote",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "producto",
+            "otherEntityName": "producto",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreComercial",
+            "otherEntityRelationshipName": "lote",
+            "otherEntityRelationshipNameUndefined": true
+        },
+        {
+            "relationshipName": "tanque",
+            "otherEntityName": "tanque",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre",
             "otherEntityRelationshipName": "lote",
             "otherEntityRelationshipNameUndefined": true
         }
@@ -55,6 +71,10 @@
         },
         {
             "fieldName": "litrosEnvasados",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "litrosDisponible",
             "fieldType": "BigDecimal"
         }
     ],

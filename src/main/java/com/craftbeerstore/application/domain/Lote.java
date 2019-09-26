@@ -56,6 +56,9 @@ public class Lote implements Serializable {
     @Column(name = "litros_envasados", precision = 10, scale = 2)
     private BigDecimal litrosEnvasados;
 
+    @Column(name = "litros_disponible", precision = 10, scale = 2)
+    private BigDecimal litrosDisponible;
+
     @ManyToOne
     @JsonIgnoreProperties("lotes")
     private Receta receta;
@@ -63,6 +66,14 @@ public class Lote implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("lotes")
     private Empresa empresa;
+
+    @ManyToOne
+    @JsonIgnoreProperties("lotes")
+    private Producto producto;
+
+    @ManyToOne
+    @JsonIgnoreProperties("lotes")
+    private Tanque tanque;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -190,6 +201,19 @@ public class Lote implements Serializable {
         this.litrosEnvasados = litrosEnvasados;
     }
 
+    public BigDecimal getLitrosDisponible() {
+        return litrosDisponible;
+    }
+
+    public Lote litrosDisponible(BigDecimal litrosDisponible) {
+        this.litrosDisponible = litrosDisponible;
+        return this;
+    }
+
+    public void setLitrosDisponible(BigDecimal litrosDisponible) {
+        this.litrosDisponible = litrosDisponible;
+    }
+
     public Receta getReceta() {
         return receta;
     }
@@ -214,6 +238,32 @@ public class Lote implements Serializable {
 
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public Lote producto(Producto producto) {
+        this.producto = producto;
+        return this;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Tanque getTanque() {
+        return tanque;
+    }
+
+    public Lote tanque(Tanque tanque) {
+        this.tanque = tanque;
+        return this;
+    }
+
+    public void setTanque(Tanque tanque) {
+        this.tanque = tanque;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -250,6 +300,7 @@ public class Lote implements Serializable {
             ", litrosEstimados=" + getLitrosEstimados() +
             ", litrosEnTanque=" + getLitrosEnTanque() +
             ", litrosEnvasados=" + getLitrosEnvasados() +
+            ", litrosDisponible=" + getLitrosDisponible() +
             "}";
     }
 }

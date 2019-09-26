@@ -44,6 +44,9 @@ export class LoteComponent implements OnInit, OnDestroy {
     'estado',
     'litrosEstimados',
     'recetaNombre',
+    'producto',
+    'tanque',
+    'litrosDisponible',
     'actions'
   ];
   pageEvent: PageEvent;

@@ -20,5 +20,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="empresa"/>
 
+        <addForeignKeyConstraint baseColumnNames="producto_id"
+                                 baseTableName="lote"
+                                 constraintName="fk_lote_producto_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="producto"/>
+
+        <addForeignKeyConstraint baseColumnNames="tanque_id"
+                                 baseTableName="lote"
+                                 constraintName="fk_lote_tanque_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tanque"/>
+
     </changeSet>
 </databaseChangeLog>

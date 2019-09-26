@@ -2,30 +2,33 @@
   "craftBeerStoreApp": {
     "lote": {
       "home": {
-        "title": "Lotes",
-        "createLabel": "Create a new Lote",
-        "createOrEditLabel": "Create or edit a Lote"
+        "title": "Batch",
+        "createLabel": "Create a new Batch",
+        "createOrEditLabel": "Create or edit a Batch"
       },
-      "created": "A new Lote is created with identifier {{ param }}",
-      "updated": "A Lote is updated with identifier {{ param }}",
-      "deleted": "A Lote is deleted with identifier {{ param }}",
+      "created": "A new Batch is created with identifier {{ param }}",
+      "updated": "A Batch is updated with identifier {{ param }}",
+      "deleted": "A Batch is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Lote {{ id }}?"
+        "question": "Are you sure you want to delete Batch {{ id }}?"
       },
       "detail": {
-        "title": "Lote"
+        "title": "Batch"
       },
-      "codigo": "Codigo",
-      "fechaCoccion": "Fecha Coccion",
-      "coccion": "Coccion",
-      "descripcion": "Descripcion",
-      "descuentaStock": "Descuenta Stock",
-      "estado": "Estado",
-      "litrosEstimados": "Litros Estimados",
-      "litrosEnTanque": "Litros En Tanque",
-      "litrosEnvasados": "Litros Envasados",
-      "receta": "Receta",
-      "empresa": "Empresa"
+      "codigo": "Code",
+      "fechaCoccion": "Boiling Date",
+      "coccion": "Boiling",
+      "descripcion": "Description",
+      "descuentaStock": "Discounts stock",
+      "estado": "State",
+      "litrosEstimados": "Estimated liters",
+      "litrosEnTanque": "Liters in the tank",
+      "litrosEnvasados": "Liters packed",
+      "litrosDisponible": "Liters available",
+      "receta": "Recipe",
+      "empresa": "Company",
+      "producto": "Product",
+      "tanque": "Tank"
     }
   }
 }

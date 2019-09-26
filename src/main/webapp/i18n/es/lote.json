@@ -16,16 +16,19 @@
         "title": "Lote"
       },
       "codigo": "Codigo",
-      "fechaCoccion": "Fecha Coccion",
-      "coccion": "Coccion",
-      "descripcion": "Descripcion",
+      "fechaCoccion": "Fecha de Cocción",
+      "coccion": "Cocción",
+      "descripcion": "Descripción",
       "descuentaStock": "Descuenta Stock",
       "estado": "Estado",
       "litrosEstimados": "Litros Estimados",
       "litrosEnTanque": "Litros En Tanque",
       "litrosEnvasados": "Litros Envasados",
+      "litrosDisponible": "Litros Disponible",
       "receta": "Receta",
-      "empresa": "Empresa"
+      "empresa": "Empresa",
+      "producto": "Producto",
+      "tanque": "Tanque"
     }
   }
 }
