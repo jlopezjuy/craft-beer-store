@@ -1,0 +1,27 @@
+{
+  "craftBeerStoreApp": {
+    "etapaLote": {
+      "home": {
+        "title": "Etapa Lotes",
+        "createLabel": "Create a new Etapa Lote",
+        "createOrEditLabel": "Create or edit a Etapa Lote"
+      },
+      "created": "A new Etapa Lote is created with identifier {{ param }}",
+      "updated": "A Etapa Lote is updated with identifier {{ param }}",
+      "deleted": "A Etapa Lote is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Etapa Lote {{ id }}?"
+      },
+      "detail": {
+        "title": "Etapa Lote"
+      },
+      "etapa": "Etapa",
+      "litros": "Litros",
+      "inicio": "Inicio",
+      "fin": "Fin",
+      "dias": "Dias",
+      "tanque": "Tanque",
+      "lote": "Lote"
+    }
+  }
+}

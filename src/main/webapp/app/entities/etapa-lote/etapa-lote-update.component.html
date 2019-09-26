@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-etapa-lote-heading" jhiTranslate="craftBeerStoreApp.etapaLote.home.createOrEditLabel">Create or edit a Etapa Lote</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!etapaLote.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="etapaLote.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.etapa" for="field_etapa">Etapa</label>
+                    <select class="form-control" name="etapa" [(ngModel)]="etapaLote.etapa" id="field_etapa" >
+                        <option value="COCCION">{{'craftBeerStoreApp.EtapaLoteEnum.COCCION' | translate}}</option>
+                        <option value="FERMENTACION">{{'craftBeerStoreApp.EtapaLoteEnum.FERMENTACION' | translate}}</option>
+                        <option value="MADURACION">{{'craftBeerStoreApp.EtapaLoteEnum.MADURACION' | translate}}</option>
+                        <option value="ENVASADO">{{'craftBeerStoreApp.EtapaLoteEnum.ENVASADO' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.litros" for="field_litros">Litros</label>
+                    <input type="number" class="form-control" name="litros" id="field_litros"
+                        [(ngModel)]="etapaLote.litros" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.inicio" for="field_inicio">Inicio</label>
+                    <div class="input-group">
+                        <input id="field_inicio" type="text" class="form-control" name="inicio" ngbDatepicker  #inicioDp="ngbDatepicker" [(ngModel)]="etapaLote.inicio"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="inicioDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.fin" for="field_fin">Fin</label>
+                    <div class="input-group">
+                        <input id="field_fin" type="text" class="form-control" name="fin" ngbDatepicker  #finDp="ngbDatepicker" [(ngModel)]="etapaLote.fin"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="finDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.dias" for="field_dias">Dias</label>
+                    <input type="number" class="form-control" name="dias" id="field_dias"
+                        [(ngModel)]="etapaLote.dias" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.tanque" for="field_tanque">Tanque</label>
+                    <select class="form-control" id="field_tanque" name="tanque" [(ngModel)]="etapaLote.tanqueId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tanqueOption.id" *ngFor="let tanqueOption of tanques; trackBy: trackTanqueById">{{tanqueOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.lote" for="field_lote">Lote</label>
+                    <select class="form-control" id="field_lote" name="lote" [(ngModel)]="etapaLote.loteId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="loteOption.id" *ngFor="let loteOption of lotes; trackBy: trackLoteById">{{loteOption.codigo}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

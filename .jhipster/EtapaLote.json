@@ -1,0 +1,49 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "tanque",
+            "otherEntityName": "tanque",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipName": "lote",
+            "otherEntityName": "lote",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "codigo"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "etapa",
+            "fieldType": "EtapaLoteEnum",
+            "fieldValues": "COCCION,FERMENTACION,MADURACION,ENVASADO"
+        },
+        {
+            "fieldName": "litros",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "inicio",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "fin",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "dias",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20190926022042",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "etapa_lote",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

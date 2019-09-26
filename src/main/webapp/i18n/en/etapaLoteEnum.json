@@ -1,0 +1,11 @@
+{
+  "craftBeerStoreApp": {
+    "EtapaLoteEnum": {
+      "null": "",
+      "COCCION": "COCCION",
+      "FERMENTACION": "FERMENTACION",
+      "MADURACION": "MADURACION",
+      "ENVASADO": "ENVASADO"
+    }
+  }
+}

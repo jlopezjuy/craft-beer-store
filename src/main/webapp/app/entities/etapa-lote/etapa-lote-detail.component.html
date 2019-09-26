@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="etapaLote">
+            <h2><span jhiTranslate="craftBeerStoreApp.etapaLote.detail.title">Etapa Lote</span> {{etapaLote.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.etapaLote.etapa">Etapa</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EtapaLoteEnum.' + etapaLote.etapa}}">{{etapaLote.etapa}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.etapaLote.litros">Litros</span></dt>
+                <dd>
+                    <span>{{etapaLote.litros}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.etapaLote.inicio">Inicio</span></dt>
+                <dd>
+                    <span>{{etapaLote.inicio}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.etapaLote.fin">Fin</span></dt>
+                <dd>
+                    <span>{{etapaLote.fin}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.etapaLote.dias">Dias</span></dt>
+                <dd>
+                    <span>{{etapaLote.dias}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.etapaLote.tanque">Tanque</span></dt>
+                <dd>
+                    <div *ngIf="etapaLote.tanqueId">
+                        <a [routerLink]="['/tanque', etapaLote.tanqueId, 'view']">{{etapaLote.tanqueNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.etapaLote.lote">Lote</span></dt>
+                <dd>
+                    <div *ngIf="etapaLote.loteId">
+                        <a [routerLink]="['/lote', etapaLote.loteId, 'view']">{{etapaLote.loteCodigo}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/etapa-lote', etapaLote.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

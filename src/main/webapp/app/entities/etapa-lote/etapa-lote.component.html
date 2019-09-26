@@ -1,0 +1,82 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="craftBeerStoreApp.etapaLote.home.title">Etapa Lotes</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-etapa-lote" [routerLink]="['/etapa-lote/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="craftBeerStoreApp.etapaLote.home.createLabel">
+            Create new Etapa Lote
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="etapaLotes">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="etapa"><span jhiTranslate="craftBeerStoreApp.etapaLote.etapa">Etapa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="litros"><span jhiTranslate="craftBeerStoreApp.etapaLote.litros">Litros</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="inicio"><span jhiTranslate="craftBeerStoreApp.etapaLote.inicio">Inicio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fin"><span jhiTranslate="craftBeerStoreApp.etapaLote.fin">Fin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dias"><span jhiTranslate="craftBeerStoreApp.etapaLote.dias">Dias</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tanqueNombre"><span jhiTranslate="craftBeerStoreApp.etapaLote.tanque">Tanque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.etapaLote.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let etapaLote of etapaLotes ;trackBy: trackId">
+                <td><a [routerLink]="['/etapa-lote', etapaLote.id, 'view' ]">{{etapaLote.id}}</a></td>
+                <td jhiTranslate="{{'craftBeerStoreApp.EtapaLoteEnum.' + etapaLote.etapa}}">{{etapaLote.etapa}}</td>
+                <td>{{etapaLote.litros}}</td>
+                <td>{{etapaLote.inicio | date:'mediumDate'}}</td>
+                <td>{{etapaLote.fin | date:'mediumDate'}}</td>
+                <td>{{etapaLote.dias}}</td>
+                <td>
+                    <div *ngIf="etapaLote.tanqueId">
+                        <a [routerLink]="['../tanque', etapaLote.tanqueId , 'view' ]" >{{etapaLote.tanqueNombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="etapaLote.loteId">
+                        <a [routerLink]="['../lote', etapaLote.loteId , 'view' ]" >{{etapaLote.loteCodigo}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/etapa-lote', etapaLote.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/etapa-lote', etapaLote.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'etapa-lote', { outlets: { popup: etapaLote.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="etapaLotes && etapaLotes.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
