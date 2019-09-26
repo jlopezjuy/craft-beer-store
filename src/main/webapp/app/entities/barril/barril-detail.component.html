@@ -18,7 +18,7 @@
     <div class="body">
       <jhi-alert-error></jhi-alert-error>
       <div class="row justify-content-center">
-        <div class="col-4">
+        <div class="col-lg-4">
           <div *ngIf="barril">
             <div class="mat-elevation-z8">
               <mat-card class="example-card">
@@ -29,7 +29,7 @@
                       <a (click)="openFile(barril.imagenContentType, barril.imagen)">
                         <img [src]="'data:' + barril.imagenContentType + ';base64,' + barril.imagen" style="max-width: 100%;" alt="barril image"/>
                       </a>
-                      {{barril.imagenContentType}}, {{byteSize(barril.imagen)}}
+<!--                      {{barril.imagenContentType}}, {{byteSize(barril.imagen)}}-->
                     </div>
                   </mat-card-title>
                 </mat-card-header>
@@ -108,7 +108,7 @@
             </div>
           </div>
         </div>
-        <div class="col-8">
+        <div class="col-lg-8">
           <div *ngIf="movimientoBarrils">
             <div class="mat-elevation-z8">
               <mat-card class="example-card">

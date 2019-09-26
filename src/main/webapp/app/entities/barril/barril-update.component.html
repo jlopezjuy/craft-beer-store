@@ -70,47 +70,8 @@
                   </mat-form-field>
                 </div>
                 <div class="col-sm-6">
-<!--                  <mat-form-field class="example-full-width">-->
-<!--                    <mat-label jhiTranslate="craftBeerStoreApp.barril.estado" for="field_estado">Estado</mat-label>-->
-<!--                    <mat-select name="estado" [(ngModel)]="barril.estado" id="field_estado">-->
-<!--                      <mat-option value="VACIO">{{'craftBeerStoreApp.EstadoBarril.VACIO' | translate}}</mat-option>-->
-<!--                      <mat-option value="LLENO">{{'craftBeerStoreApp.EstadoBarril.LLENO' | translate}}</mat-option>-->
-<!--                      <mat-option-->
-<!--                        value="ENTREGADO">{{'craftBeerStoreApp.EstadoBarril.ENTREGADO' | translate}}</mat-option>-->
-<!--                      <mat-option-->
-<!--                        value="RETIRADO">{{'craftBeerStoreApp.EstadoBarril.RETIRADO' | translate}}</mat-option>-->
-<!--                      <mat-option-->
-<!--                        value="LIMPIEZA">{{'craftBeerStoreApp.EstadoBarril.LIMPIEZA' | translate}}</mat-option>-->
-<!--                    </mat-select>-->
-<!--                  </mat-form-field>-->
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="example-full-width">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.barril.imagen" for="field_imagen">Imagen</label>
-                    <div>
-                      <img [src]="'data:' + barril.imagenContentType + ';base64,' + barril.imagen"
-                           style="max-height: 100px;" *ngIf="barril.imagen" alt="barril image"/>
-                      <div *ngIf="barril.imagen" class="form-text text-danger clearfix">
-                        <span class="pull-left">{{barril.imagenContentType}}, {{byteSize(barril.imagen)}}</span>
-                        <button type="button" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')"
-                                class="btn btn-secondary btn-xs pull-right">
-                          <fa-icon [icon]="'times'"></fa-icon>
-                        </button>
-                      </div>
-                      <input type="file" id="file_imagen" (change)="setFileData($event, barril, 'imagen', true)"
-                             accept="image/*" jhiTranslate="entity.action.addimage"/>
-                    </div>
-                    <input type="hidden" class="form-control" name="imagen" id="field_imagen"
-                           [(ngModel)]="barril.imagen"/>
-                    <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
-                           [(ngModel)]="barril.imagenContentType"/>
-                  </div>
-                </div>
-
-              </div>
-
             </div>
             <br/>
             <div>
