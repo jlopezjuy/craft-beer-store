@@ -15,84 +15,84 @@ import { ICaja } from 'app/shared/model/caja.model';
 
 @Injectable({ providedIn: 'root' })
 export class CajaResolve implements Resolve<ICaja> {
-    constructor(private service: CajaService) {}
+  constructor(private service: CajaService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICaja> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Caja>) => response.ok),
-                map((caja: HttpResponse<Caja>) => caja.body)
-            );
-        }
-        return of(new Caja());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICaja> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Caja>) => response.ok),
+        map((caja: HttpResponse<Caja>) => caja.body)
+      );
     }
+    return of(new Caja());
+  }
 }
 
 export const cajaRoute: Routes = [
-    {
-        path: 'caja',
-        component: CajaComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'Movimientos de Caja Chica'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: CajaComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'caja/:id/view',
-        component: CajaDetailComponent,
-        resolve: {
-            caja: CajaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.caja.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'Movimientos de Caja Chica'
     },
-    {
-        path: 'caja/new',
-        component: CajaUpdateComponent,
-        resolve: {
-            caja: CajaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.caja.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/view',
+    component: CajaDetailComponent,
+    resolve: {
+      caja: CajaResolve
     },
-    {
-        path: 'caja/:id/edit',
-        component: CajaUpdateComponent,
-        resolve: {
-            caja: CajaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.caja.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.caja.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'new',
+    component: CajaUpdateComponent,
+    resolve: {
+      caja: CajaResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.caja.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/edit',
+    component: CajaUpdateComponent,
+    resolve: {
+      caja: CajaResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.caja.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const cajaPopupRoute: Routes = [
-    {
-        path: 'caja/:id/delete',
-        component: CajaDeletePopupComponent,
-        resolve: {
-            caja: CajaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.caja.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: ':id/delete',
+    component: CajaDeletePopupComponent,
+    resolve: {
+      caja: CajaResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.caja.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

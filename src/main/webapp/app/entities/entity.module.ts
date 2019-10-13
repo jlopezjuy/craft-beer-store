@@ -14,7 +14,7 @@ import { CraftBeerStoreRecetaModule } from './receta/receta.module';
 @NgModule({
   imports: [
     CraftBeerStoreCajaModule,
-    CraftBeerStoreClienteModule,
+    // CraftBeerStoreClienteModule,
     CraftBeerStoreInsumoModule,
     CraftBeerStoreProductoModule,
     CraftBeerStoreProveedorModule,

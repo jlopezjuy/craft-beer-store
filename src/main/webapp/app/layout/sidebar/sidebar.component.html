@@ -65,16 +65,20 @@
                             </ul>
                         </li>
                       <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'admin'}">
-                        <a class="has-arrow" (click)="activeInactiveMenu('admin')"><i class="icon-equalizer"></i>
+                        <a class="has-arrow" (click)="activeInactiveMenu('admin')"><i class="icon-settings"></i>
                           <span>Admin</span></a>
                         <ul *ngIf="currentActiveMenu == 'admin'">
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/cliente']">Cliente</a></li>
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/barril']">Barril</a></li>
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/insumo']">Insumo</a></li>
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/producto']">Producto</a></li>
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/proveedor']">Proveedor</a></li>
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/tanque']">Tanque</a></li>
                         </ul>
                       </li>
 
                       <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'produccion'}">
-                        <a class="has-arrow" (click)="activeInactiveMenu('produccion')"><i class="icon-equalizer"></i>
+                        <a class="has-arrow" (click)="activeInactiveMenu('produccion')"><i class="pot-still"></i>
                           <span>Producción</span></a>
                         <ul *ngIf="currentActiveMenu == 'produccion'">
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/produccion/lote']">Lote</a></li>
@@ -82,14 +86,9 @@
                       </li>
                         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'entity'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('entity')"><i class="icon-home"></i>
-                                <span>Entity</span></a>
+                                <span>Eventos</span></a>
                             <ul *ngIf="currentActiveMenu == 'entity'">
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/caja']">Caja</a></li>
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/cliente']">Cliente</a></li>
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/insumo']">Insumo</a></li>
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/producto']">Producto</a></li>
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/proveedor']">Proveedor</a></li>
-                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/movimientos']">Movimientos</a></li>
+
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/entity/evento']">Evento</a></li>
                             </ul>
                         </li>
@@ -101,6 +100,15 @@
                               <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/equipamiento']">Equipamiento</a></li>
                             </ul>
                         </li>
+                      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'ventas'}">
+                        <a class="has-arrow" (click)="activeInactiveMenu('ventas')"><i class="fa fa-money"></i>
+                          <span>Ventas</span></a>
+                        <ul *ngIf="currentActiveMenu == 'ventas'">
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/ventas/caja']">Caja</a></li>
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/ventas/movimientos']">Ventas</a></li>
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/equipamiento']">Equipamiento</a></li>
+                        </ul>
+                      </li>
                       <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'user-management'}">
                         <a class="has-arrow" (click)="activeInactiveMenu('user-management')"><i class="icon-lock"></i>
                           <span>Administracion</span></a>
@@ -179,7 +187,7 @@
                                         [routerLink]="['/admin/widgets/widgets-ecommerce']">eCommerce</a></li>
                             </ul>
                         </li>
-                        
+
                         <li *jhiHasAnyAuthority="'ROLE_ADMIN'" [ngClass]="{'active':currentActiveMenu == 'authentication'}">
                             <a class="has-arrow" (click)="activeInactiveMenu('authentication')"><i class="icon-lock"></i>
                                 <span>Authentication</span></a>

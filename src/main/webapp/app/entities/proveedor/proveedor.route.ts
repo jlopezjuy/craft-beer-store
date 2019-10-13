@@ -15,84 +15,84 @@ import { IProveedor } from 'app/shared/model/proveedor.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProveedorResolve implements Resolve<IProveedor> {
-    constructor(private service: ProveedorService) {}
+  constructor(private service: ProveedorService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IProveedor> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Proveedor>) => response.ok),
-                map((proveedor: HttpResponse<Proveedor>) => proveedor.body)
-            );
-        }
-        return of(new Proveedor());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IProveedor> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Proveedor>) => response.ok),
+        map((proveedor: HttpResponse<Proveedor>) => proveedor.body)
+      );
     }
+    return of(new Proveedor());
+  }
 }
 
 export const proveedorRoute: Routes = [
-    {
-        path: 'proveedor',
-        component: ProveedorComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.proveedor.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: ProveedorComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'proveedor/:id/view',
-        component: ProveedorDetailComponent,
-        resolve: {
-            proveedor: ProveedorResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.proveedor.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.proveedor.home.title'
     },
-    {
-        path: 'proveedor/new',
-        component: ProveedorUpdateComponent,
-        resolve: {
-            proveedor: ProveedorResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.proveedor.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/view',
+    component: ProveedorDetailComponent,
+    resolve: {
+      proveedor: ProveedorResolve
     },
-    {
-        path: 'proveedor/:id/edit',
-        component: ProveedorUpdateComponent,
-        resolve: {
-            proveedor: ProveedorResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.proveedor.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.proveedor.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'new',
+    component: ProveedorUpdateComponent,
+    resolve: {
+      proveedor: ProveedorResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.proveedor.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/edit',
+    component: ProveedorUpdateComponent,
+    resolve: {
+      proveedor: ProveedorResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.proveedor.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const proveedorPopupRoute: Routes = [
-    {
-        path: 'proveedor/:id/delete',
-        component: ProveedorDeletePopupComponent,
-        resolve: {
-            proveedor: ProveedorResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.proveedor.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: ':id/delete',
+    component: ProveedorDeletePopupComponent,
+    resolve: {
+      proveedor: ProveedorResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.proveedor.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

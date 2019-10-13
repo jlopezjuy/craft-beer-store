@@ -15,84 +15,84 @@ import { IProducto } from 'app/shared/model/producto.model';
 
 @Injectable({ providedIn: 'root' })
 export class ProductoResolve implements Resolve<IProducto> {
-    constructor(private service: ProductoService) {}
+  constructor(private service: ProductoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IProducto> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Producto>) => response.ok),
-                map((producto: HttpResponse<Producto>) => producto.body)
-            );
-        }
-        return of(new Producto());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IProducto> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Producto>) => response.ok),
+        map((producto: HttpResponse<Producto>) => producto.body)
+      );
     }
+    return of(new Producto());
+  }
 }
 
 export const productoRoute: Routes = [
-    {
-        path: 'producto',
-        component: ProductoComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.producto.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: ProductoComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'producto/:id/view',
-        component: ProductoDetailComponent,
-        resolve: {
-            producto: ProductoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.producto.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.producto.home.title'
     },
-    {
-        path: 'producto/new',
-        component: ProductoUpdateComponent,
-        resolve: {
-            producto: ProductoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.producto.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/view',
+    component: ProductoDetailComponent,
+    resolve: {
+      producto: ProductoResolve
     },
-    {
-        path: 'producto/:id/edit',
-        component: ProductoUpdateComponent,
-        resolve: {
-            producto: ProductoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.producto.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.producto.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'new',
+    component: ProductoUpdateComponent,
+    resolve: {
+      producto: ProductoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.producto.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/edit',
+    component: ProductoUpdateComponent,
+    resolve: {
+      producto: ProductoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.producto.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const productoPopupRoute: Routes = [
-    {
-        path: ':id/delete',
-        component: ProductoDeletePopupComponent,
-        resolve: {
-            producto: ProductoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.producto.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: ':id/delete',
+    component: ProductoDeletePopupComponent,
+    resolve: {
+      producto: ProductoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.producto.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

@@ -15,84 +15,84 @@ import { IMovimientos } from 'app/shared/model/movimientos.model';
 
 @Injectable({ providedIn: 'root' })
 export class MovimientosResolve implements Resolve<IMovimientos> {
-    constructor(private service: MovimientosService) {}
+  constructor(private service: MovimientosService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IMovimientos> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Movimientos>) => response.ok),
-                map((movimientos: HttpResponse<Movimientos>) => movimientos.body)
-            );
-        }
-        return of(new Movimientos());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IMovimientos> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Movimientos>) => response.ok),
+        map((movimientos: HttpResponse<Movimientos>) => movimientos.body)
+      );
     }
+    return of(new Movimientos());
+  }
 }
 
 export const movimientosRoute: Routes = [
-    {
-        path: 'movimientos',
-        component: MovimientosComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.movimientos.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: MovimientosComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'movimientos/:id/view',
-        component: MovimientosDetailComponent,
-        resolve: {
-            movimientos: MovimientosResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.movimientos.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.movimientos.home.title'
     },
-    {
-        path: 'movimientos/new',
-        component: MovimientosUpdateComponent,
-        resolve: {
-            movimientos: MovimientosResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.movimientos.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/view',
+    component: MovimientosDetailComponent,
+    resolve: {
+      movimientos: MovimientosResolve
     },
-    {
-        path: 'movimientos/:id/edit',
-        component: MovimientosUpdateComponent,
-        resolve: {
-            movimientos: MovimientosResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.movimientos.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.movimientos.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'new',
+    component: MovimientosUpdateComponent,
+    resolve: {
+      movimientos: MovimientosResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.movimientos.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/edit',
+    component: MovimientosUpdateComponent,
+    resolve: {
+      movimientos: MovimientosResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.movimientos.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const movimientosPopupRoute: Routes = [
-    {
-        path: 'movimientos/:id/delete',
-        component: MovimientosDeletePopupComponent,
-        resolve: {
-            movimientos: MovimientosResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.movimientos.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: ':id/delete',
+    component: MovimientosDeletePopupComponent,
+    resolve: {
+      movimientos: MovimientosResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.movimientos.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

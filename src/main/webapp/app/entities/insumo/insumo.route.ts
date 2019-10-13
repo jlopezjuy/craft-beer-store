@@ -15,84 +15,84 @@ import { IInsumo } from 'app/shared/model/insumo.model';
 
 @Injectable({ providedIn: 'root' })
 export class InsumoResolve implements Resolve<IInsumo> {
-    constructor(private service: InsumoService) {}
+  constructor(private service: InsumoService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IInsumo> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Insumo>) => response.ok),
-                map((insumo: HttpResponse<Insumo>) => insumo.body)
-            );
-        }
-        return of(new Insumo());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IInsumo> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Insumo>) => response.ok),
+        map((insumo: HttpResponse<Insumo>) => insumo.body)
+      );
     }
+    return of(new Insumo());
+  }
 }
 
 export const insumoRoute: Routes = [
-    {
-        path: 'insumo',
-        component: InsumoComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.insumo.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: InsumoComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'insumo/:id/view',
-        component: InsumoDetailComponent,
-        resolve: {
-            insumo: InsumoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.insumo.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.insumo.home.title'
     },
-    {
-        path: 'insumo/new',
-        component: InsumoUpdateComponent,
-        resolve: {
-            insumo: InsumoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.insumo.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/view',
+    component: InsumoDetailComponent,
+    resolve: {
+      insumo: InsumoResolve
     },
-    {
-        path: 'insumo/:id/edit',
-        component: InsumoUpdateComponent,
-        resolve: {
-            insumo: InsumoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.insumo.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.insumo.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'new',
+    component: InsumoUpdateComponent,
+    resolve: {
+      insumo: InsumoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.insumo.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/edit',
+    component: InsumoUpdateComponent,
+    resolve: {
+      insumo: InsumoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.insumo.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const insumoPopupRoute: Routes = [
-    {
-        path: 'insumo/:id/delete',
-        component: InsumoDeletePopupComponent,
-        resolve: {
-            insumo: InsumoResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.insumo.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: ':id/delete',
+    component: InsumoDeletePopupComponent,
+    resolve: {
+      insumo: InsumoResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.insumo.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

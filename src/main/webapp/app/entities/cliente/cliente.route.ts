@@ -15,84 +15,84 @@ import { ICliente } from 'app/shared/model/cliente.model';
 
 @Injectable({ providedIn: 'root' })
 export class ClienteResolve implements Resolve<ICliente> {
-    constructor(private service: ClienteService) {}
+  constructor(private service: ClienteService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICliente> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<Cliente>) => response.ok),
-                map((cliente: HttpResponse<Cliente>) => cliente.body)
-            );
-        }
-        return of(new Cliente());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICliente> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Cliente>) => response.ok),
+        map((cliente: HttpResponse<Cliente>) => cliente.body)
+      );
     }
+    return of(new Cliente());
+  }
 }
 
 export const clienteRoute: Routes = [
-    {
-        path: 'cliente',
-        component: ClienteComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.cliente.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: ClienteComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'cliente/:id/view',
-        component: ClienteDetailComponent,
-        resolve: {
-            cliente: ClienteResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.cliente.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.cliente.home.title'
     },
-    {
-        path: 'cliente/new',
-        component: ClienteUpdateComponent,
-        resolve: {
-            cliente: ClienteResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.cliente.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/view',
+    component: ClienteDetailComponent,
+    resolve: {
+      cliente: ClienteResolve
     },
-    {
-        path: 'cliente/:id/edit',
-        component: ClienteUpdateComponent,
-        resolve: {
-            cliente: ClienteResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.cliente.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.cliente.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'new',
+    component: ClienteUpdateComponent,
+    resolve: {
+      cliente: ClienteResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.cliente.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/edit',
+    component: ClienteUpdateComponent,
+    resolve: {
+      cliente: ClienteResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.cliente.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const clientePopupRoute: Routes = [
-    {
-        path: 'cliente/:id/delete',
-        component: ClienteDeletePopupComponent,
-        resolve: {
-            cliente: ClienteResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.cliente.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: ':id/delete',
+    component: ClienteDeletePopupComponent,
+    resolve: {
+      cliente: ClienteResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.cliente.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

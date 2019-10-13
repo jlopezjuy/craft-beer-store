@@ -209,8 +209,24 @@ const routesAdminRouting: Routes = [
         path: 'admin',
         children: [
           {
+            path: 'cliente',
+            loadChildren: '../entities/cliente/cliente.module#CraftBeerStoreClienteModule'
+          },
+          {
             path: 'barril',
             loadChildren: '../entities/barril/barril.module#CraftBeerStoreBarrilModule'
+          },
+          {
+            path: 'insumo',
+            loadChildren: '../entities/insumo/insumo.module#CraftBeerStoreInsumoModule'
+          },
+          {
+            path: 'producto',
+            loadChildren: '../entities/producto/producto.module#CraftBeerStoreProductoModule'
+          },
+          {
+            path: 'proveedor',
+            loadChildren: '../entities/proveedor/proveedor.module#CraftBeerStoreProveedorModule'
           },
           {
             path: 'tanque',
@@ -224,6 +240,19 @@ const routesAdminRouting: Routes = [
           {
             path: 'lote',
             loadChildren: '../entities/lote/lote.module#CraftBeerStoreLoteModule'
+          }
+        ]
+      },
+      {
+        path: 'ventas',
+        children: [
+          {
+            path: 'caja',
+            loadChildren: '../entities/caja/caja.module#CraftBeerStoreCajaModule'
+          },
+          {
+            path: 'movimientos',
+            loadChildren: '../entities/movimientos/movimientos.module#CraftBeerStoreMovimientosModule'
           }
         ]
       },

@@ -6,11 +6,11 @@
                        (click)="toggleFullWidth()">
                     <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
                     <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
-                </a> Movimientos</h2>
+                </a>Ventas</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
                     <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Movimientos</li>
+                    <li class="breadcrumb-item active">Ventas</li>
                 </ul>
             </div>
         </div>
@@ -19,8 +19,8 @@
     <div class="card">
         <div class="header">
             <h2 id="page-heading">
-                <span jhiTranslate="craftBeerStoreApp.movimientos.home.title">Movimientos</span>
-                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-movimientos" [routerLink]="['/admin/entity/movimientos/new']">
+                <span jhiTranslate="craftBeerStoreApp.movimientos.home.title">Ventas</span>
+                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-movimientos" [routerLink]="['/admin/ventas/movimientos/new']">
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.movimientos.home.createLabel">
             Create new Movimientos
@@ -42,9 +42,9 @@
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="fechaMovimiento"> <span jhiTranslate="craftBeerStoreApp.movimientos.fechaMovimiento">Fecha Movimiento</span><fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let movimiento" > {{movimiento.fechaMovimiento | date:'mediumDate'}} </td>
                     </ng-container>
-                    <ng-container matColumnDef="litroTotal">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="litroTotal"> <span jhiTranslate="craftBeerStoreApp.movimientos.litroTotal">Precio Total</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let movimiento" > {{movimiento.litroTotal}} </td>
+                    <ng-container matColumnDef="precioTotal">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="precioTotal"> <span jhiTranslate="craftBeerStoreApp.movimientos.precioTotal">Precio Total</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let movimiento" > {{movimiento.precioTotal}} </td>
                     </ng-container>
                     <ng-container matColumnDef="numeroMovimiento">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="numeroMovimiento"> <span jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento">Numero Movimiento</span><fa-icon [icon]="'sort'"></fa-icon> </th>
