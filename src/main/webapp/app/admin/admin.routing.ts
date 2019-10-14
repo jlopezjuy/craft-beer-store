@@ -213,6 +213,10 @@ const routesAdminRouting: Routes = [
             loadChildren: '../entities/cliente/cliente.module#CraftBeerStoreClienteModule'
           },
           {
+            path: 'punto-de-venta',
+            loadChildren: '../entities/punto-de-venta/punto-de-venta.module#CraftBeerStorePuntoDeVentaModule'
+          },
+          {
             path: 'barril',
             loadChildren: '../entities/barril/barril.module#CraftBeerStoreBarrilModule'
           },
@@ -223,6 +227,14 @@ const routesAdminRouting: Routes = [
           {
             path: 'producto',
             loadChildren: '../entities/producto/producto.module#CraftBeerStoreProductoModule'
+          },
+          {
+            path: 'presentacion',
+            loadChildren: '../entities/presentacion/presentacion.module#CraftBeerStorePresentacionModule'
+          },
+          {
+            path: 'receta',
+            loadChildren: '../entities/receta/receta.module#CraftBeerStoreRecetaModule'
           },
           {
             path: 'proveedor',

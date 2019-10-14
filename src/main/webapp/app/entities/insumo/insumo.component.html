@@ -75,11 +75,11 @@
                         </ng-container>
                         <ng-container matColumnDef="unidad">
                             <th mat-header-cell *matHeaderCellDef jhiSortBy="unidad"> <span jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let insumo" jhiTranslate="{{'craftBeerStoreApp.Unidad.' + insumo.unidad | translate}}"> {{insumo.unidad}} </td>
+                            <td mat-cell *matCellDef="let insumo" jhiTranslate="{{'craftBeerStoreApp.Unidad.' + insumo.unidad}}"> {{insumo.unidad}} </td>
                         </ng-container>
                         <ng-container matColumnDef="tipo">
                             <th mat-header-cell *matHeaderCellDef jhiSortBy="tipo"> <span jhiTranslate="craftBeerStoreApp.insumo.tipo">Tipo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let insumo" jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumo.tipo | translate}}"> {{insumo.tipo}} </td>
+                            <td mat-cell *matCellDef="let insumo" jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + insumo.tipo}}"> {{insumo.tipo}} </td>
                         </ng-container>
                         <ng-container matColumnDef="imagen">
                             <th mat-header-cell *matHeaderCellDef jhiSortBy="imagen"> <span jhiTranslate="craftBeerStoreApp.insumo.imagen">Imagen</span><fa-icon [icon]="'sort'"></fa-icon> </th>
@@ -96,19 +96,19 @@
                             <td mat-cell *matCellDef="let insumo" style="width: 20%">
                                 <div class="btn-group flex-btn-group-container">
                                     <button type="submit"
-                                            [routerLink]="['/admin/entity/insumo', insumo.id, 'view' ]"
+                                            [routerLink]="['/admin/admin/insumo', insumo.id, 'view' ]"
                                             mat-raised-button color="primary">
                                         <fa-icon [icon]="'eye'"></fa-icon>
                                         <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                                     </button>
                                     <button type="submit"
-                                            [routerLink]="['/admin/entity/insumo', insumo.id, 'edit']"
+                                            [routerLink]="['/admin/admin/insumo', insumo.id, 'edit']"
                                             mat-raised-button class="mat-edit">
                                         <fa-icon [icon]="'pencil-alt'"></fa-icon>
                                         <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                                     </button>
                                     <button type="submit"
-                                            [routerLink]="['/admin/entity/', 'insumo', { outlets: { popup: insumo.id + '/delete'} }]"
+                                            [routerLink]="['/admin/admin/', 'insumo', { outlets: { popup: insumo.id + '/delete'} }]"
                                             replaceUrl="true"
                                             queryParamsHandling="merge"
                                             mat-raised-button color="warn">

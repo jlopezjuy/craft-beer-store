@@ -77,19 +77,19 @@
                         <td mat-cell *matCellDef="let puntoDeVenta" style="width: 20%">
                             <div class="btn-group flex-btn-group-container">
                                 <button type="submit"
-                                        [routerLink]="['/admin/entity/punto-de-venta', puntoDeVenta.id, 'view' ]"
+                                        [routerLink]="['/admin/admin/punto-de-venta', puntoDeVenta.id, 'view' ]"
                                         mat-raised-button color="primary">
                                     <fa-icon [icon]="'eye'"></fa-icon>
                                     <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                                 </button>
                                 <button type="submit"
-                                        [routerLink]="['/admin/entity/punto-de-venta', puntoDeVenta.id, 'edit']"
+                                        [routerLink]="['/admin/admin/punto-de-venta', puntoDeVenta.id, 'edit']"
                                         mat-raised-button class="mat-edit">
                                     <fa-icon [icon]="'pencil-alt'"></fa-icon>
                                     <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                                 </button>
                                 <button type="submit"
-                                        [routerLink]="['/admin/entity/', 'punto-de-venta', { outlets: { popup: puntoDeVenta.id + '/delete'} }]"
+                                        [routerLink]="['/admin/admin/', 'punto-de-venta', { outlets: { popup: puntoDeVenta.id + '/delete'} }]"
                                         replaceUrl="true"
                                         queryParamsHandling="merge"
                                         mat-raised-button color="warn">

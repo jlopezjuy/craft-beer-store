@@ -106,7 +106,7 @@
                         <ul *ngIf="currentActiveMenu == 'ventas'">
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/ventas/caja']">Caja</a></li>
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/ventas/movimientos']">Ventas</a></li>
-                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/equipamiento']">Equipamiento</a></li>
+<!--                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/equipamiento']">Equipamiento</a></li>-->
                         </ul>
                       </li>
                       <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'user-management'}">

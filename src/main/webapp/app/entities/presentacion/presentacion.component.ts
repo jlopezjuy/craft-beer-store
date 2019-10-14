@@ -201,7 +201,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
   previousState() {
     this.$localStorage.clear('producto');
     // window.history.back();
-    this.router.navigate(['/admin/entity/producto']);
+    this.router.navigate(['/admin/admin/producto']);
   }
 
   onPaginateChange(event: PageEvent) {

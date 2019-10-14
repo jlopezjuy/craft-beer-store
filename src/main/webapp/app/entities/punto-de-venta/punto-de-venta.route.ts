@@ -15,84 +15,84 @@ import { IPuntoDeVenta } from 'app/shared/model/punto-de-venta.model';
 
 @Injectable({ providedIn: 'root' })
 export class PuntoDeVentaResolve implements Resolve<IPuntoDeVenta> {
-    constructor(private service: PuntoDeVentaService) {}
+  constructor(private service: PuntoDeVentaService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPuntoDeVenta> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<PuntoDeVenta>) => response.ok),
-                map((puntoDeVenta: HttpResponse<PuntoDeVenta>) => puntoDeVenta.body)
-            );
-        }
-        return of(new PuntoDeVenta());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPuntoDeVenta> {
+    const id = route.params['id'] ? route.params['id'] : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<PuntoDeVenta>) => response.ok),
+        map((puntoDeVenta: HttpResponse<PuntoDeVenta>) => puntoDeVenta.body)
+      );
     }
+    return of(new PuntoDeVenta());
+  }
 }
 
 export const puntoDeVentaRoute: Routes = [
-    {
-        path: 'punto-de-venta',
-        component: PuntoDeVentaComponent,
-        resolve: {
-            pagingParams: JhiResolvePagingParams
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            defaultSort: 'id,asc',
-            pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: PuntoDeVentaComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
     },
-    {
-        path: 'punto-de-venta/:id/view',
-        component: PuntoDeVentaDetailComponent,
-        resolve: {
-            puntoDeVenta: PuntoDeVentaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    data: {
+      authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
+      pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
     },
-    {
-        path: 'punto-de-venta/new',
-        component: PuntoDeVentaUpdateComponent,
-        resolve: {
-            puntoDeVenta: PuntoDeVentaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/view',
+    component: PuntoDeVentaDetailComponent,
+    resolve: {
+      puntoDeVenta: PuntoDeVentaResolve
     },
-    {
-        path: 'punto-de-venta/:id/edit',
-        component: PuntoDeVentaUpdateComponent,
-        resolve: {
-            puntoDeVenta: PuntoDeVentaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
-        },
-        canActivate: [UserRouteAccessService]
-    }
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: 'new',
+    component: PuntoDeVentaUpdateComponent,
+    resolve: {
+      puntoDeVenta: PuntoDeVentaResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/edit',
+    component: PuntoDeVentaUpdateComponent,
+    resolve: {
+      puntoDeVenta: PuntoDeVentaResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
+    },
+    canActivate: [UserRouteAccessService]
+  }
 ];
 
 export const puntoDeVentaPopupRoute: Routes = [
-    {
-        path: 'punto-de-venta/:id/delete',
-        component: PuntoDeVentaDeletePopupComponent,
-        resolve: {
-            puntoDeVenta: PuntoDeVentaResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    }
+  {
+    path: 'punto-de-venta/:id/delete',
+    component: PuntoDeVentaDeletePopupComponent,
+    resolve: {
+      puntoDeVenta: PuntoDeVentaResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.puntoDeVenta.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  }
 ];

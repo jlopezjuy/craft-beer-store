@@ -31,7 +31,7 @@ export class PresentacionResolve implements Resolve<IPresentacion> {
 
 export const presentacionRoute: Routes = [
   {
-    path: 'presentacion',
+    path: '',
     component: PresentacionComponent,
     resolve: {
       pagingParams: JhiResolvePagingParams
@@ -44,7 +44,7 @@ export const presentacionRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'presentacion/:id/view',
+    path: ':id/view',
     component: PresentacionDetailComponent,
     resolve: {
       presentacion: PresentacionResolve
@@ -56,7 +56,7 @@ export const presentacionRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'presentacion/new',
+    path: 'new',
     component: PresentacionUpdateComponent,
     resolve: {
       presentacion: PresentacionResolve
@@ -68,7 +68,7 @@ export const presentacionRoute: Routes = [
     canActivate: [UserRouteAccessService]
   },
   {
-    path: 'presentacion/:id/edit',
+    path: ':id/edit',
     component: PresentacionUpdateComponent,
     resolve: {
       presentacion: PresentacionResolve
@@ -83,7 +83,7 @@ export const presentacionRoute: Routes = [
 
 export const presentacionPopupRoute: Routes = [
   {
-    path: 'presentacion/:id/delete',
+    path: ':id/delete',
     component: PresentacionDeletePopupComponent,
     resolve: {
       presentacion: PresentacionResolve

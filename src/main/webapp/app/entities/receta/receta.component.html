@@ -23,7 +23,7 @@
                 <button (click)="previousState()" type="button" mat-raised-button class="mat-back">
                     <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
                 </button>
-                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-receta" [routerLink]="['/admin/entity/receta/new']">
+                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-receta" [routerLink]="['/admin/admin/receta/new']">
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.receta.home.createLabel">
             Create new Receta
@@ -82,13 +82,13 @@
                                 <!--                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>-->
                                 <!--                        </button>-->
                                 <button type="submit"
-                                        [routerLink]="['/admin/entity/receta/', receta.id, 'edit']"
+                                        [routerLink]="['/admin/admin/receta/', receta.id, 'edit']"
                                         mat-raised-button class="mat-edit">
                                     <fa-icon [icon]="'pencil-alt'"></fa-icon>
                                     <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                                 </button>
                                 <button type="submit"
-                                        [routerLink]="['/admin/entity/', 'receta', { outlets: { popup: receta.id + '/delete'} }]"
+                                        [routerLink]="['/admin/admin/', 'receta', { outlets: { popup: receta.id + '/delete'} }]"
                                         replaceUrl="true"
                                         queryParamsHandling="merge"
                                         mat-raised-button color="warn">
