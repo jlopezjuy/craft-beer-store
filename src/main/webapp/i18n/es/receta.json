@@ -1,37 +1,38 @@
 {
-    "craftBeerStoreApp": {
-        "receta": {
-            "home": {
-                "title": "Recetas",
-                "createLabel": "Crear nuevo Receta",
-                "createOrEditLabel": "Crear o editar Receta",
-                "search": "Search for Receta"
-            },
-            "created": "Un nuevo Receta ha sido creado con el identificador {{ param }}",
-            "updated": "Un Receta ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Receta ha sido eliminado con el identificador {{ param }}",
-            "delete": {
-                "question": "¿Seguro que quiere eliminar Receta {{ id }}?"
-            },
-            "detail": {
-                "title": "Receta"
-            },
-            "nombre": "Nombre",
-            "brewMaster": "Brew Master",
-            "batch": "Batch",
-            "temperaturaDeMacerado": "Temperatura De Macerado",
-            "og": "DI",
-            "fg": "DF",
-            "abv": "Abv",
-            "ibu": "Ibu",
-            "srm": "Srm",
-            "empaste": "Empaste",
-            "fecha": "Fecha",
-            "producto": "Producto",
-            "maltas": "Maltas",
-            "lupulo": "Lúpulos",
-            "levadura": "Levaduras",
-            "otros": "Otros"
-        }
+  "craftBeerStoreApp": {
+    "receta": {
+      "home": {
+        "title": "Recetas",
+        "createLabel": "Crear nuevo Receta",
+        "createOrEditLabel": "Crear o editar Receta",
+        "search": "Search for Receta"
+      },
+      "created": "Un nuevo Receta ha sido creado con el identificador {{ param }}",
+      "updated": "Un Receta ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Receta ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Receta {{ id }}?"
+      },
+      "detail": {
+        "title": "Receta"
+      },
+      "nombre": "Nombre",
+      "brewMaster": "Brew Master",
+      "batch": "Batch",
+      "temperaturaDeMacerado": "Temperatura De Macerado",
+      "macerado": "Macerado",
+      "og": "DI",
+      "fg": "DF",
+      "abv": "Abv",
+      "ibu": "Ibu",
+      "srm": "Srm",
+      "empaste": "Empaste",
+      "fecha": "Fecha",
+      "producto": "Producto",
+      "maltas": "Maltas",
+      "lupulo": "Lúpulos",
+      "levadura": "Levaduras",
+      "otros": "Otros"
     }
+  }
 }

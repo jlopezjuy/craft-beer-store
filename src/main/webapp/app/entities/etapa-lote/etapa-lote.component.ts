@@ -10,6 +10,8 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { EtapaLoteService } from './etapa-lote.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { ILote } from '../../shared/model/lote.model';
 
 @Component({
   selector: 'jhi-etapa-lote',
@@ -29,6 +31,7 @@ export class EtapaLoteComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  lote: ILote;
 
   constructor(
     protected etapaLoteService: EtapaLoteService,
@@ -37,7 +40,8 @@ export class EtapaLoteComponent implements OnInit, OnDestroy {
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    private $localStorage: LocalStorageService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -50,11 +54,14 @@ export class EtapaLoteComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.etapaLoteService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
+      .queryByLote(
+        {
+          page: this.page - 1,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        },
+        this.lote.id
+      )
       .subscribe(
         (res: HttpResponse<IEtapaLote[]>) => this.paginateEtapaLotes(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -92,6 +99,7 @@ export class EtapaLoteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.lote = this.$localStorage.retrieve('lote');
     this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;

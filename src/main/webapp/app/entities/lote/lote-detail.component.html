@@ -20,19 +20,27 @@
         <jhi-alert-error></jhi-alert-error>
         <div class="col-lg-4">
           <div *ngIf="lote">
-            <div class="mat-elevation-z6">
+            <div>
               <mat-card class="example-card">
                 <mat-card-header>
                   <mat-card-title>
-                    <h2><span jhiTranslate="craftBeerStoreApp.lote.detail.title">Tanque</span> {{lote.codigo}}</h2>
+<!--                    <h2><span jhiTranslate="craftBeerStoreApp.lote.detail.title">Tanque</span> {{lote.codigo}}</h2>-->
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-
+                  <dl class="row-md jh-entity-details align-center">
+                    <img src="/assets/images/tanque.jpg" width="200">
+                  </dl>
+                  <dl class="row-md jh-entity-details">
+                    <dt><span jhiTranslate="craftBeerStoreApp.lote.detail.title">Codigo</span></dt>
+                    <dd>
+                      <span>{{lote.codigo}}</span>
+                    </dd>
+                  </dl>
                   <dl class="row-md jh-entity-details">
                     <dt><span jhiTranslate="craftBeerStoreApp.lote.fechaCoccion">Fecha Coccion</span></dt>
                     <dd>
-                      <span>{{lote.fechaCoccion}}</span>
+                      <span>{{lote.fechaCoccion | date:'mediumDate'}}</span>
                     </dd>
                   </dl>
                   <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span></dt>
@@ -52,22 +60,148 @@
           </div>
         </div>
         <div class="col-lg-8">
-          <div class="mat-elevation-z6">
+          <div>
+            <mat-card class="example-card">
+              <mat-card-content>
+                <dl class="row text-center" *ngIf="receta">
+                  <div class="col-md-2">
+                    <dt><span jhiTranslate="craftBeerStoreApp.receta.macerado">Macerado</span></dt>
+                    <dd>
+                      <span>{{receta.temperaturaDeMacerado}} C°</span>
+                    </dd>
+                  </div>
+                  <div class="col-md-2">
+                    <dt><span jhiTranslate="craftBeerStoreApp.receta.og">Og</span></dt>
+                    <dd>
+                      <span>{{receta.og}}</span>
+                    </dd>
+                  </div>
+                  <div class="col-md-2">
+                    <dt><span jhiTranslate="craftBeerStoreApp.receta.fg">Fg</span></dt>
+                    <dd>
+                      <span>{{receta.fg}}</span>
+                    </dd>
+                  </div>
+                  <div class="col-md-2">
+                    <dt><span jhiTranslate="craftBeerStoreApp.receta.abv">Abv</span></dt>
+                    <dd>
+                      <span>{{receta.abv}}%</span>
+                    </dd>
+                  </div>
+                  <div class="col-md-2">
+                    <dt><span jhiTranslate="craftBeerStoreApp.receta.ibu">Ibu</span></dt>
+                    <dd>
+                      <span>{{receta.ibu}}</span>
+                    </dd>
+                  </div>
+                  <div class="col-md-2">
+                    <dt><span jhiTranslate="craftBeerStoreApp.receta.srm">Srm</span></dt>
+                    <dd>
+                      <span>{{receta.srm}}</span>
+                    </dd>
+                  </div>
+                </dl>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="mt-2">
             <mat-card class="example-card">
               <mat-card-header>
-                <mat-card-title>
-                  <h2><span jhiTranslate="craftBeerStoreApp.lote.detail.title">Tanque</span> {{lote.codigo}}</h2>
-                </mat-card-title>
               </mat-card-header>
               <mat-card-content>
-
                 <dl class="row-md jh-entity-details">
+                  <div class="row justify-content-center">
+                    <div class="col-12">
+                      <form name="editForm" role="form" novalidate #editForm="ngForm">
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.etapa" for="field_etapa">Etapa</label>
+                              <select class="form-control" name="etapa" [(ngModel)]="etapaLote.etapa" id="field_etapa" >
+                                <option value="COCCION">{{'craftBeerStoreApp.EtapaLoteEnum.COCCION' | translate}}</option>
+                                <option value="FERMENTACION">{{'craftBeerStoreApp.EtapaLoteEnum.FERMENTACION' | translate}}</option>
+                                <option value="MADURACION">{{'craftBeerStoreApp.EtapaLoteEnum.MADURACION' | translate}}</option>
+                                <option value="ENVASADO">{{'craftBeerStoreApp.EtapaLoteEnum.ENVASADO' | translate}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.tanque"
+                                     for="field_tanque">Tanque</label>
+                              <select class="form-control" id="field_tanque" name="tanque"
+                                      [(ngModel)]="etapaLote.tanqueId">
+                                <option [ngValue]="null"></option>
+                                <option [ngValue]="tanqueOption.id"
+                                        *ngFor="let tanqueOption of tanques; trackBy: trackTanqueById">{{tanqueOption.nombre}}</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.litros" for="field_litros">Litros</label>
+                              <input type="number" class="form-control" name="litros" id="field_litros"
+                                     [(ngModel)]="etapaLote.litros" />
+                            </div>
+                          </div>
+
+                        </div>
+                        <div>
+                          <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                          </button>
+                          <button type="button" id="save-entity" [disabled]="editForm.form.invalid" (click)="saveEtapa()" class="btn btn-primary">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
 
                 </dl>
               </mat-card-content>
               <mat-card-actions>
 
               </mat-card-actions>
+            </mat-card>
+          </div>
+          <div class="mt-2">
+            <mat-card class="example-card">
+              <mat-card-header>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="table-responsive" *ngIf="etapaLotes">
+                  <table mat-table [dataSource]="dataSource" style="width: 100%;" >
+                    <ng-container matColumnDef="etapa">
+                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.etapaLote.etapa">Etapa</span></th>
+                      <td mat-cell *matCellDef="let etapaLote" > {{etapaLote.etapa}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="tanqueNombre">
+                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.etapaLote.tanque">Tanque</span></th>
+                      <td mat-cell *matCellDef="let etapaLote" > {{etapaLote.tanqueNombre}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="litros">
+                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.etapaLote.litros">Litros</span></th>
+                      <td mat-cell *matCellDef="let etapaLote" > {{etapaLote.litros}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="inicio">
+                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.etapaLote.inicio">inicio</span></th>
+                      <td mat-cell *matCellDef="let etapaLote" > {{etapaLote.inicio | date:'mediumDate'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="fin">
+                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.etapaLote.fin">fin</span></th>
+                      <td mat-cell *matCellDef="let etapaLote" > {{etapaLote.fin | date:'mediumDate'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="dias">
+                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.etapaLote.dias">dias</span></th>
+                      <td mat-cell *matCellDef="let etapaLote" > {{etapaLote.dias}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </div>
+              </mat-card-content>
             </mat-card>
           </div>
         </div>

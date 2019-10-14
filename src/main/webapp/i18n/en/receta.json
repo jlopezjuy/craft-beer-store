@@ -1,37 +1,38 @@
 {
-    "craftBeerStoreApp": {
-        "receta": {
-            "home": {
-                "title": "Recipes",
-                "createLabel": "Create a new Recipe",
-                "createOrEditLabel": "Create or edit a Recipe",
-                "search": "Search for Recipe"
-            },
-            "created": "A new Recipe is created with identifier {{ param }}",
-            "updated": "A Recipe is updated with identifier {{ param }}",
-            "deleted": "A Recipe is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete Recipe {{ id }}?"
-            },
-            "detail": {
-                "title": "Recipe"
-            },
-            "nombre": "Recipe Name",
-            "brewMaster": "Brew Master",
-            "batch": "Batch",
-            "temperaturaDeMacerado": "Mash Temperature",
-            "og": "Og",
-            "fg": "Fg",
-            "abv": "Abv",
-            "ibu": "Ibu",
-            "srm": "Srm",
-            "empaste": "Empaste",
-            "fecha": "Date",
-            "producto": "Product",
-            "maltas": "Malts",
-            "lupulo": "Hops",
-            "levadura": "Yeast",
-            "otros": "Others"
-        }
+  "craftBeerStoreApp": {
+    "receta": {
+      "home": {
+        "title": "Recipes",
+        "createLabel": "Create a new Recipe",
+        "createOrEditLabel": "Create or edit a Recipe",
+        "search": "Search for Recipe"
+      },
+      "created": "A new Recipe is created with identifier {{ param }}",
+      "updated": "A Recipe is updated with identifier {{ param }}",
+      "deleted": "A Recipe is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Recipe {{ id }}?"
+      },
+      "detail": {
+        "title": "Recipe"
+      },
+      "nombre": "Recipe Name",
+      "brewMaster": "Brew Master",
+      "batch": "Batch",
+      "temperaturaDeMacerado": "Mash Temperature",
+      "macerado": "Mash",
+      "og": "Og",
+      "fg": "Fg",
+      "abv": "Abv",
+      "ibu": "Ibu",
+      "srm": "Srm",
+      "empaste": "Empaste",
+      "fecha": "Date",
+      "producto": "Product",
+      "maltas": "Malts",
+      "lupulo": "Hops",
+      "levadura": "Yeast",
+      "otros": "Others"
     }
+  }
 }
