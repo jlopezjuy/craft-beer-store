@@ -126,6 +126,7 @@
   },
   "entity": {
     "action": {
+      "add": "Agregar",
       "addblob": "Añadir fichero",
       "addimage": "Añadir imagen",
       "back": "Volver",

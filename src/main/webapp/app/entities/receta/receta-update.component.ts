@@ -347,6 +347,7 @@ export class RecetaUpdateComponent implements OnInit {
         this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
       });
   }
+
   changeSrmRow() {
     let mcbu = 0;
     this.maltasList.forEach(malta => {

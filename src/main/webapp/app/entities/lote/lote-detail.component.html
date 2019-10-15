@@ -18,7 +18,7 @@
     <div class="body">
       <div class="row justify-content-center">
         <jhi-alert-error></jhi-alert-error>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <div *ngIf="lote">
             <div>
               <mat-card class="example-card">
@@ -53,13 +53,23 @@
                   </dd>
                 </mat-card-content>
                 <mat-card-actions>
+                  <button type="submit"
+                          (click)="previousState()"
+                          mat-raised-button class="mat-back">
+                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                  </button>
 
+                  <button type="button"
+                          [routerLink]="['/lote', lote.id, 'edit']"
+                          mat-raised-button class="mat-success">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                  </button>
                 </mat-card-actions>
               </mat-card>
             </div>
           </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-9">
           <div>
             <mat-card class="example-card">
               <mat-card-content>
@@ -146,11 +156,8 @@
                           </div>
 
                         </div>
-                        <div>
-                          <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                          </button>
-                          <button type="button" id="save-entity" [disabled]="editForm.form.invalid" (click)="saveEtapa()" class="btn btn-primary">
+                        <div class="float-right">
+                          <button type="button" id="save-entity" [disabled]="editForm.form.invalid" (click)="saveEtapa()" mat-raised-button color="primary">
                             <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                           </button>
                         </div>
@@ -204,6 +211,249 @@
               </mat-card-content>
             </mat-card>
           </div>
+          <div class="mt-2">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <h3><i class="wheat-icon"></i><span jhiTranslate="craftBeerStoreApp.receta.maltas">Maltas</span></h3>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="table-responsive" *ngIf="maltasList">
+                    <table mat-table [dataSource]="dataSourceMalta"
+                           style="width: 100%;">
+                      <ng-container matColumnDef="nombreMalta">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreMalta">Nombre Malta</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.insumoRecomendadoNombre}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="cantidad">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span>
+                        </th>
+                        <td mat-cell *matCellDef="let malta">
+                          {{malta.cantidad}}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="color">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.color">Color</span>
+                        </th>
+                        <td mat-cell *matCellDef="let malta">
+                          {{malta.color}}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="porcentaje">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.porcentaje">%</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.porcentaje}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="usoMalta">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta">Uso</span>
+                        </th>
+                        <td mat-cell *matCellDef="let malta"
+                            jhiTranslate="{{'craftBeerStoreApp.UsoMalta.' + malta.usoMalta}}"> {{malta.usoMalta}} </td>
+                      </ng-container>
+                      <tr mat-header-row
+                          *matHeaderRowDef="displayedColumnsMalta"></tr>
+                      <tr mat-row
+                          *matRowDef="let row; columns: displayedColumnsMalta;"></tr>
+                    </table>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="mt-2">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <h3><i class="hop-icon"></i><span jhiTranslate="craftBeerStoreApp.receta.lupulo">Lupulo</span></h3>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="table-responsive" *ngIf="lupulosList">
+                    <table mat-table [dataSource]="dataSourceLupulo"
+                           style="width: 100%;">
+                      <ng-container matColumnDef="nombreMalta">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreLupulo">Lúpulo</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let lupulo"> {{lupulo.insumoRecomendadoNombre}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="alpha">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha">Alpha</span>
+                        </th>
+                        <td mat-cell *matCellDef="let lupulo">
+                          {{lupulo.alpha}}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="modoLupulo">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo">Tipo</span>
+                        </th>
+                        <td mat-cell *matCellDef="let malta"
+                            jhiTranslate="{{'craftBeerStoreApp.ModoLupulo.' + malta.modoLupulo}}"> {{malta.modoLupulo}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="gramos">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Cantidad</span>
+                        </th>
+                        <td mat-cell *matCellDef="let lupulo">
+                          {{lupulo.gramos}}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="usoLupulo">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo">Uso</span>
+                        </th>
+                        <td mat-cell *matCellDef="let lupulo"
+                            jhiTranslate="{{'craftBeerStoreApp.UsoLupulo.' + lupulo.usoLupulo}}"> {{lupulo.usoLupulo}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="tiempo">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo">Tiempo</span>
+                        </th>
+                        <td mat-cell *matCellDef="let lupulo">
+                           {{lupulo.tiempo}}
+
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="ibu">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu">IBU</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.ibu}} </td>
+                      </ng-container>
+
+                      <tr mat-header-row
+                          *matHeaderRowDef="displayedColumnsLupulo"></tr>
+                      <tr mat-row
+                          *matRowDef="let row; columns: displayedColumnsLupulo;"></tr>
+                    </table>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="mt-2">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <h3><i class="yeast-icon"></i><span jhiTranslate="craftBeerStoreApp.receta.levadura">Levadura</span></h3>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="table-responsive" *ngIf="levadurasList">
+                    <table mat-table [dataSource]="dataSourceLeva"
+                           style="width: 100%;">
+                      <ng-container matColumnDef="nombreMalta">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreLevadura">Nombre Levadura</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.insumoRecomendadoNombre}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="gramos">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Gramos</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.gramos}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="densidadLeva">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva">Densidad de Levadura</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.densidadLeva}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="tamSobre">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre">Tamaño de Sobre</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.tamSobre}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="atenuacion">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion">Atenuación</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.atenuacion}} </td>
+                      </ng-container>
+
+                      <tr mat-header-row
+                          *matHeaderRowDef="displayedColumnsLevadura"></tr>
+                      <tr mat-row
+                          *matRowDef="let row; columns: displayedColumnsLevadura;"></tr>
+                    </table>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="mt-2">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <h3><i class="fa fa-book"></i><span jhiTranslate="craftBeerStoreApp.receta.otros">Otros</span></h3>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row">
+                  <div class="table-responsive" *ngIf="otrosList">
+                    <table mat-table [dataSource]="dataSourceOtro"
+                           style="width: 100%;">
+                      <ng-container matColumnDef="nombreMalta">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.nombreOtro">Nombre</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.insumoRecomendadoNombre}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="gramos">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Gramos</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.gramos}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="tipoOtro">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro">Tipo</span>
+                        </th>
+                        <td mat-cell *matCellDef="let malta"
+                            jhiTranslate="{{'craftBeerStoreApp.TipoOtro.' + malta.tipoOtro}}"> {{malta.tipoOtro}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="usoOtro">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro">Uso</span>
+                        </th>
+                        <td mat-cell *matCellDef="let malta"
+                            jhiTranslate="{{'craftBeerStoreApp.UsoOtro.' + malta.usoOtro}}"> {{malta.usoOtro}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="tiempoOtro">
+                        <th mat-header-cell *matHeaderCellDef><span
+                          jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro">Tiempo</span>
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let malta"> {{malta.tiempoOtro}} </td>
+                      </ng-container>
+                      <tr mat-header-row
+                          *matHeaderRowDef="displayedColumnsOtro"></tr>
+                      <tr mat-row
+                          *matRowDef="let row; columns: displayedColumnsOtro;"></tr>
+                    </table>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
         </div>
       </div>
     </div>
@@ -212,90 +462,80 @@
 
 
 
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="lote">
-            <h2><span jhiTranslate="craftBeerStoreApp.lote.detail.title">Lote</span> {{lote.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.codigo">Codigo</span></dt>
-                <dd>
-                    <span>{{lote.codigo}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.fechaCoccion">Fecha Coccion</span></dt>
-                <dd>
-                    <span>{{lote.fechaCoccion}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.coccion">Coccion</span></dt>
-                <dd>
-                    <span>{{lote.coccion}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.descripcion">Descripcion</span></dt>
-                <dd>
-                    <span>{{lote.descripcion}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.descuentaStock">Descuenta Stock</span></dt>
-                <dd>
-                    <span>{{lote.descuentaStock}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.estado">Estado</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span></dt>
-                <dd>
-                    <span>{{lote.litrosEstimados}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEnTanque">Litros En Tanque</span></dt>
-                <dd>
-                    <span>{{lote.litrosEnTanque}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEnvasados">Litros Envasados</span></dt>
-                <dd>
-                    <span>{{lote.litrosEnvasados}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosDisponible">Litros Disponible</span></dt>
-                <dd>
-                    <span>{{lote.litrosDisponible}}</span>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.receta">Receta</span></dt>
-                <dd>
-                    <div *ngIf="lote.recetaId">
-                        <a [routerLink]="['/receta', lote.recetaId, 'view']">{{lote.recetaNombre}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.empresa">Empresa</span></dt>
-                <dd>
-                    <div *ngIf="lote.empresaId">
-                        <a [routerLink]="['/empresa', lote.empresaId, 'view']">{{lote.empresaNombreEmpresa}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.producto">Producto</span></dt>
-                <dd>
-                    <div *ngIf="lote.productoId">
-                        <a [routerLink]="['/producto', lote.productoId, 'view']">{{lote.productoNombreComercial}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="craftBeerStoreApp.lote.tanque">Tanque</span></dt>
-                <dd>
-                    <div *ngIf="lote.tanqueId">
-                        <a [routerLink]="['/tanque', lote.tanqueId, 'view']">{{lote.tanqueNombre}}</a>
-                    </div>
-                </dd>
-            </dl>
+<!--<div class="row justify-content-center">-->
+<!--    <div class="col-8">-->
+<!--        <div *ngIf="lote">-->
+<!--            <h2><span jhiTranslate="craftBeerStoreApp.lote.detail.title">Lote</span> {{lote.id}}</h2>-->
+<!--            <hr>-->
+<!--            <jhi-alert-error></jhi-alert-error>-->
+<!--            <dl class="row-md jh-entity-details">-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.codigo">Codigo</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{lote.codigo}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.fechaCoccion">Fecha Coccion</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{lote.fechaCoccion}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.coccion">Coccion</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{lote.coccion}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.descripcion">Descripcion</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{lote.descripcion}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.descuentaStock">Descuenta Stock</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{lote.descuentaStock}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.estado">Estado</span></dt>-->
+<!--                <dd>-->
+<!--                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{lote.litrosEstimados}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEnTanque">Litros En Tanque</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{lote.litrosEnTanque}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEnvasados">Litros Envasados</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{lote.litrosEnvasados}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosDisponible">Litros Disponible</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{lote.litrosDisponible}}</span>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.receta">Receta</span></dt>-->
+<!--                <dd>-->
+<!--                    <div *ngIf="lote.recetaId">-->
+<!--                        <a [routerLink]="['/receta', lote.recetaId, 'view']">{{lote.recetaNombre}}</a>-->
+<!--                    </div>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.empresa">Empresa</span></dt>-->
+<!--                <dd>-->
+<!--                    <div *ngIf="lote.empresaId">-->
+<!--                        <a [routerLink]="['/empresa', lote.empresaId, 'view']">{{lote.empresaNombreEmpresa}}</a>-->
+<!--                    </div>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.producto">Producto</span></dt>-->
+<!--                <dd>-->
+<!--                    <div *ngIf="lote.productoId">-->
+<!--                        <a [routerLink]="['/producto', lote.productoId, 'view']">{{lote.productoNombreComercial}}</a>-->
+<!--                    </div>-->
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="craftBeerStoreApp.lote.tanque">Tanque</span></dt>-->
+<!--                <dd>-->
+<!--                    <div *ngIf="lote.tanqueId">-->
+<!--                        <a [routerLink]="['/tanque', lote.tanqueId, 'view']">{{lote.tanqueNombre}}</a>-->
+<!--                    </div>-->
+<!--                </dd>-->
+<!--            </dl>-->
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
 
-            <button type="button"
-                    [routerLink]="['/lote', lote.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
-        </div>
-    </div>
-</div>
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->

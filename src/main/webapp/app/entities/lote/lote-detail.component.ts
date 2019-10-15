@@ -13,7 +13,9 @@ import { ITanque } from '../../shared/model/tanque.model';
 import moment = require('moment');
 import { DATE_FORMAT } from '../../shared';
 import { MatTableDataSource } from '@angular/material';
-import { IRecetaInsumo } from '../../shared/model/receta-insumo.model';
+import { IRecetaInsumo, RecetaInsumo } from '../../shared/model/receta-insumo.model';
+import { TipoInsumo } from '../../shared/model/insumo.model';
+import { RecetaInsumoService } from '../receta-insumo';
 
 @Component({
   selector: 'jhi-lote-detail',
@@ -28,12 +30,30 @@ export class LoteDetailComponent implements OnInit {
   dataSource: any;
   displayedColumns: string[] = ['etapa', 'tanqueNombre', 'litros', 'inicio', 'fin', 'dias'];
 
+  recetaInsumo: IRecetaInsumo = new RecetaInsumo();
+  recetaInsumoLupulo: IRecetaInsumo = new RecetaInsumo();
+  recetaInsumoLeva: IRecetaInsumo = new RecetaInsumo();
+  recetaInsumoOtro: IRecetaInsumo = new RecetaInsumo();
+  maltasList: IRecetaInsumo[] = [];
+  lupulosList: IRecetaInsumo[] = [];
+  levadurasList: IRecetaInsumo[] = [];
+  otrosList: IRecetaInsumo[] = [];
+  displayedColumnsMalta: string[] = ['nombreMalta', 'cantidad', 'color', 'porcentaje', 'usoMalta'];
+  displayedColumnsLupulo: string[] = ['nombreMalta', 'alpha', 'modoLupulo', 'gramos', 'usoLupulo', 'tiempo', 'ibu'];
+  displayedColumnsLevadura: string[] = ['nombreMalta', 'gramos', 'densidadLeva', 'tamSobre', 'atenuacion'];
+  displayedColumnsOtro: string[] = ['nombreMalta', 'gramos', 'tipoOtro', 'usoOtro', 'tiempoOtro'];
+  dataSourceMalta: any;
+  dataSourceLupulo: any;
+  dataSourceLeva: any;
+  dataSourceOtro: any;
+
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected etapaLoteService: EtapaLoteService,
     protected recetaService: RecetaService,
     protected jhiAlertService: JhiAlertService,
-    protected tanqueService: TanqueService
+    protected tanqueService: TanqueService,
+    protected recetaInsumoService: RecetaInsumoService
   ) {}
 
   ngOnInit() {
@@ -57,6 +77,7 @@ export class LoteDetailComponent implements OnInit {
       );
     this.recetaService.find(this.lote.recetaId).subscribe(response => {
       this.receta = response.body;
+      this.loadDataEdit();
     });
     this.tanqueService.queryByEmpresa(null, this.lote.empresaId).subscribe(resp => {
       this.tanques = resp.body;
@@ -82,6 +103,27 @@ export class LoteDetailComponent implements OnInit {
     this.etapaLote = new EtapaLote();
     console.log(this.etapaLotes);
     this.dataSource = new MatTableDataSource<IEtapaLote>(this.etapaLotes);
+  }
+
+  loadDataEdit() {
+    this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.MALTA).subscribe(malta => {
+      this.maltasList = malta.body;
+      this.dataSourceMalta = new MatTableDataSource<IRecetaInsumo>(this.maltasList);
+    });
+    this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.LUPULO).subscribe(lupulo => {
+      this.lupulosList = lupulo.body;
+      this.dataSourceLupulo = new MatTableDataSource<IRecetaInsumo>(this.lupulosList);
+    });
+    this.recetaInsumoService.queryByInsumo(this.receta.id, TipoInsumo.LEVADURA).subscribe(leva => {
+      this.levadurasList = leva.body;
+      this.dataSourceLeva = new MatTableDataSource<IRecetaInsumo>(this.levadurasList);
+    });
+    this.recetaInsumoService
+      .queryByInsumoNotIn(this.receta.id, { tipoInsumos: [TipoInsumo.LEVADURA, TipoInsumo.MALTA, TipoInsumo.LUPULO] })
+      .subscribe(leva => {
+        this.otrosList = leva.body;
+        this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
+      });
   }
 
   previousState() {

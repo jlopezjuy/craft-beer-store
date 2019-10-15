@@ -65,8 +65,8 @@
                             </ul>
                         </li>
                       <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'admin'}">
-                        <a class="has-arrow" (click)="activeInactiveMenu('admin')"><i class="icon-settings"></i>
-                          <span>Admin</span></a>
+                        <a class="has-arrow" (click)="activeInactiveMenu('admin')"><i class="icon-lock"></i>
+                          <span>Administración</span></a>
                         <ul *ngIf="currentActiveMenu == 'admin'">
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/cliente']">Cliente</a></li>
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/admin/barril']">Barril</a></li>
