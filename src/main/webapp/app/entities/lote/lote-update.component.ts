@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
-import { ILote } from 'app/shared/model/lote.model';
+import { EstadoLote, ILote } from 'app/shared/model/lote.model';
 import { LoteService } from './lote.service';
 import { IReceta } from 'app/shared/model/receta.model';
 import { RecetaService } from 'app/entities/receta';
@@ -57,20 +57,7 @@ export class LoteUpdateComponent implements OnInit {
         this.fechaCoccionDp = moment(this.lote.fechaCoccion, 'dd/MM/yyy').format();
       }
     });
-    // this.recetaService
-    //   .query()
-    //   .pipe(
-    //     filter((mayBeOk: HttpResponse<IReceta[]>) => mayBeOk.ok),
-    //     map((response: HttpResponse<IReceta[]>) => response.body)
-    //   )
-    //   .subscribe((res: IReceta[]) => (this.recetas = res), (res: HttpErrorResponse) => this.onError(res.message));
-    // this.empresaService
-    //   .query()
-    //   .pipe(
-    //     filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-    //     map((response: HttpResponse<IEmpresa[]>) => response.body)
-    //   )
-    //   .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
+
     this.productoService
       .query()
       .pipe(
@@ -78,13 +65,6 @@ export class LoteUpdateComponent implements OnInit {
         map((response: HttpResponse<IProducto[]>) => response.body)
       )
       .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
-    // this.tanqueService
-    //   .query()
-    //   .pipe(
-    //     filter((mayBeOk: HttpResponse<ITanque[]>) => mayBeOk.ok),
-    //     map((response: HttpResponse<ITanque[]>) => response.body)
-    //   )
-    //   .subscribe((res: ITanque[]) => (this.tanques = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   previousState() {
@@ -98,6 +78,7 @@ export class LoteUpdateComponent implements OnInit {
     if (this.lote.id !== undefined) {
       this.subscribeToSaveResponse(this.loteService.update(this.lote));
     } else {
+      this.lote.estado = EstadoLote.PLANIFICADO;
       this.subscribeToSaveResponse(this.loteService.create(this.lote));
     }
   }

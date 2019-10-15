@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 
 export const enum EstadoLote {
+  EN_PROCESO = 'EN_PROCESO',
   PLANIFICADO = 'PLANIFICADO',
   FINALIZADO = 'FINALIZADO',
   ANULADO = 'ANULADO',

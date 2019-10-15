@@ -2,6 +2,7 @@
   "craftBeerStoreApp": {
     "EstadoLote": {
       "null": "",
+      "EN_PROCESO": "EN_PROCESO",
       "PLANIFICADO": "PLANIFICADO",
       "FINALIZADO": "FINALIZADO",
       "ANULADO": "ANULADO",

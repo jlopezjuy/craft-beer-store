@@ -25,7 +25,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Lote(0, 'AAAAAAA', currentDate, 0, 'AAAAAAA', false, EstadoLote.PLANIFICADO, 0, 0, 0, 0);
+      elemDefault = new Lote(0, 'AAAAAAA', currentDate, 0, 'AAAAAAA', false, EstadoLote.EN_PROCESO, 0, 0, 0, 0);
     });
 
     describe('Service methods', async () => {

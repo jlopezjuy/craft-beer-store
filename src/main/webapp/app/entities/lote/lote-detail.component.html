@@ -13,7 +13,20 @@
   </div>
   <div class="card">
     <div class="header">
-      <!--      <h2><span jhiTranslate="craftBeerStoreApp.tanque.detail.title">Caja</span></h2>-->
+      <h2><span jhiTranslate="craftBeerStoreApp.lote.estado">Estado
+
+
+
+      </span></h2>
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip *ngIf="lote.estado === 'EN_PROCESO'" class="mat-chip-en-proceso">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'PLANIFICADO'" class="mat-chip-planificado">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'FINALIZADO'" class="mat-chip-finalizado">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'ANULADO'" class="mat-chip-anulado">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'FERMENTACION'" class="mat-chip-fermentacion">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'MADURACION'" class="mat-chip-maduracion">{{lote.estado}}</mat-chip>
+      </mat-chip-list>
+
     </div>
     <div class="body">
       <div class="row justify-content-center">
@@ -53,14 +66,14 @@
                   </dd>
                 </mat-card-content>
                 <mat-card-actions>
-                  <button type="submit"
+                  <button type="button"
                           (click)="previousState()"
                           mat-raised-button class="mat-back">
                     <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
                   </button>
 
                   <button type="button"
-                          [routerLink]="['/lote', lote.id, 'edit']"
+                          (click)="save()"
                           mat-raised-button class="mat-success">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                   </button>
@@ -128,7 +141,7 @@
                             <div class="form-group">
                               <label class="form-control-label" jhiTranslate="craftBeerStoreApp.etapaLote.etapa" for="field_etapa">Etapa</label>
                               <select class="form-control" name="etapa" [(ngModel)]="etapaLote.etapa" id="field_etapa" >
-                                <option value="COCCION">{{'craftBeerStoreApp.EtapaLoteEnum.COCCION' | translate}}</option>
+<!--                                <option value="COCCION">{{'craftBeerStoreApp.EtapaLoteEnum.COCCION' | translate}}</option>-->
                                 <option value="FERMENTACION">{{'craftBeerStoreApp.EtapaLoteEnum.FERMENTACION' | translate}}</option>
                                 <option value="MADURACION">{{'craftBeerStoreApp.EtapaLoteEnum.MADURACION' | translate}}</option>
                                 <option value="ENVASADO">{{'craftBeerStoreApp.EtapaLoteEnum.ENVASADO' | translate}}</option>

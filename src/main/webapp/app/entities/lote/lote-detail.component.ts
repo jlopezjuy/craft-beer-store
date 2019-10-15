@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ILote } from 'app/shared/model/lote.model';
+import { EstadoLote, ILote } from 'app/shared/model/lote.model';
 import { EtapaLoteService } from '../etapa-lote';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { EtapaLote, IEtapaLote } from '../../shared/model/etapa-lote.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { RecetaService } from '../receta';
 import { IReceta } from '../../shared/model/receta.model';
 import { TanqueService } from '../tanque';
 import { ITanque } from '../../shared/model/tanque.model';
-import moment = require('moment');
 import { DATE_FORMAT } from '../../shared';
 import { MatTableDataSource } from '@angular/material';
 import { IRecetaInsumo, RecetaInsumo } from '../../shared/model/receta-insumo.model';
 import { TipoInsumo } from '../../shared/model/insumo.model';
 import { RecetaInsumoService } from '../receta-insumo';
+import { LoteService } from './lote.service';
+import moment = require('moment');
 
 @Component({
   selector: 'jhi-lote-detail',
@@ -53,7 +54,8 @@ export class LoteDetailComponent implements OnInit {
     protected recetaService: RecetaService,
     protected jhiAlertService: JhiAlertService,
     protected tanqueService: TanqueService,
-    protected recetaInsumoService: RecetaInsumoService
+    protected recetaInsumoService: RecetaInsumoService,
+    protected loteService: LoteService
   ) {}
 
   ngOnInit() {
@@ -124,6 +126,13 @@ export class LoteDetailComponent implements OnInit {
         this.otrosList = leva.body;
         this.dataSourceOtro = new MatTableDataSource<IRecetaInsumo>(this.otrosList);
       });
+  }
+
+  save() {
+    this.lote.estado = EstadoLote.EN_PROCESO;
+    this.loteService.update(this.lote).subscribe(resp => {
+      console.log();
+    });
   }
 
   previousState() {

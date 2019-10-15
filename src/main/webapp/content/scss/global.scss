@@ -241,6 +241,36 @@ ui bootstrap tweaks
   width: 50%;
 }
 
+.mat-chip-planificado {
+  background-color: #fdfd96 !important;
+  color: #000000 !important;
+}
+
+.mat-chip-en-proceso {
+  background-color: #ffb347 !important;
+  color: #000000 !important;
+}
+
+.mat-chip-anulado {
+  background-color: #ff6961 !important;
+  color: #fff !important;
+}
+
+.mat-chip-finalizado {
+  background-color: #499149 !important;
+  color: #fff !important;
+}
+
+.mat-chip-fermentacion {
+  background-color: #77dd77 !important;
+  color: #fff !important;
+}
+
+.mat-chip-maduracion {
+  background-color: #ffb347 !important;
+  color: #fff !important;
+}
+
 .mat-success {
   background-color: #5cb85c;
   color: #fff;

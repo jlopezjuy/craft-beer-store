@@ -62,8 +62,8 @@ public class LoteResourceIntTest {
     private static final Boolean DEFAULT_DESCUENTA_STOCK = false;
     private static final Boolean UPDATED_DESCUENTA_STOCK = true;
 
-    private static final EstadoLote DEFAULT_ESTADO = EstadoLote.PLANIFICADO;
-    private static final EstadoLote UPDATED_ESTADO = EstadoLote.FINALIZADO;
+    private static final EstadoLote DEFAULT_ESTADO = EstadoLote.EN_PROCESO;
+    private static final EstadoLote UPDATED_ESTADO = EstadoLote.PLANIFICADO;
 
     private static final BigDecimal DEFAULT_LITROS_ESTIMADOS = new BigDecimal(1);
     private static final BigDecimal UPDATED_LITROS_ESTIMADOS = new BigDecimal(2);
