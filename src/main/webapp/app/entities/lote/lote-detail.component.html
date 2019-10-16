@@ -71,11 +71,13 @@
                           mat-raised-button class="mat-back">
                     <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
                   </button>
-
-                  <button type="button"
-                          (click)="save()"
+                  <button type="button" *ngIf="lote.estado === 'PLANIFICADO'"
+                          [routerLink]="['/admin/produccion/lote', lote.id, 'edit']"
                           mat-raised-button class="mat-success">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+                  </button>
+                  <button type="button" mat-raised-button class="mat-chip-planificado" (click)="openDialog()" *ngIf="lote.estado === 'PLANIFICADO'">
+                    <i class="cocina-icon"></i><span jhiTranslate="entity.action.inicio">Inicio</span>
                   </button>
                 </mat-card-actions>
               </mat-card>
@@ -127,7 +129,7 @@
               </mat-card-content>
             </mat-card>
           </div>
-          <div class="mt-2">
+          <div class="mt-2" *ngIf="lote.estado !== 'PLANIFICADO'">
             <mat-card class="example-card">
               <mat-card-header>
               </mat-card-header>
@@ -473,7 +475,19 @@
   </div>
 </div>
 
-
+<!--<ol>-->
+<!--  <li>-->
+<!--    <mat-form-field>-->
+<!--      <input matInput [(ngModel)]="name" placeholder="What's your name?">-->
+<!--    </mat-form-field>-->
+<!--  </li>-->
+<!--  <li>-->
+<!--    <button mat-raised-button (click)="openDialog()">Pick one</button>-->
+<!--  </li>-->
+<!--  <li *ngIf="animal">-->
+<!--    You chose: <i>{{animal}}</i>-->
+<!--  </li>-->
+<!--</ol>-->
 
 <!--<div class="row justify-content-center">-->
 <!--    <div class="col-8">-->

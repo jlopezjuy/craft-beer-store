@@ -135,7 +135,9 @@
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
-      "view": "View"
+      "view": "View",
+      "inicio": "Start",
+      "confirm": "Se, seguro"
     },
     "detail": {
       "field": "Field",

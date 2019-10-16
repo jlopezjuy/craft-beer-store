@@ -16,6 +16,8 @@ import { IRecetaInsumo, RecetaInsumo } from '../../shared/model/receta-insumo.mo
 import { TipoInsumo } from '../../shared/model/insumo.model';
 import { RecetaInsumoService } from '../receta-insumo';
 import { LoteService } from './lote.service';
+import { LoteDetailDialogComponent } from './lote-detail-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import moment = require('moment');
 
 @Component({
@@ -55,7 +57,8 @@ export class LoteDetailComponent implements OnInit {
     protected jhiAlertService: JhiAlertService,
     protected tanqueService: TanqueService,
     protected recetaInsumoService: RecetaInsumoService,
-    protected loteService: LoteService
+    protected loteService: LoteService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -101,10 +104,17 @@ export class LoteDetailComponent implements OnInit {
 
   saveEtapa() {
     this.etapaLote.inicio = moment(new Date(), DATE_FORMAT);
-    this.etapaLotes.push(this.etapaLote);
-    this.etapaLote = new EtapaLote();
+    this.etapaLote.loteId = this.lote.id;
+    this.etapaLoteService.create(this.etapaLote).subscribe(resp => {
+      this.tanqueService.find(this.etapaLote.tanqueId).subscribe(tanque => {
+        resp.body.tanqueNombre = tanque.body.nombre;
+        this.etapaLotes.push(resp.body);
+        this.etapaLote = new EtapaLote();
+        this.dataSource = new MatTableDataSource<IEtapaLote>(this.etapaLotes);
+      });
+    });
+
     console.log(this.etapaLotes);
-    this.dataSource = new MatTableDataSource<IEtapaLote>(this.etapaLotes);
   }
 
   loadDataEdit() {
@@ -129,7 +139,6 @@ export class LoteDetailComponent implements OnInit {
   }
 
   save() {
-    this.lote.estado = EstadoLote.EN_PROCESO;
     this.loteService.update(this.lote).subscribe(resp => {
       console.log();
     });
@@ -137,5 +146,23 @@ export class LoteDetailComponent implements OnInit {
 
   previousState() {
     window.history.back();
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LoteDetailDialogComponent, {
+      width: '350px',
+      data: this.lote
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if (result !== undefined) {
+        console.log('Confirmo accion');
+        this.lote.estado = EstadoLote.EN_PROCESO;
+        this.save();
+      }
+      // this.animal = result;
+    });
   }
 }

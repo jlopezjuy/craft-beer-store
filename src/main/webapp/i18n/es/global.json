@@ -135,7 +135,9 @@
       "edit": "Editar",
       "open": "Open",
       "save": "Guardar",
-      "view": "Vista"
+      "view": "Vista",
+      "inicio": "Inicio",
+      "confirm": "Se, seguro"
     },
     "detail": {
       "field": "Campo",

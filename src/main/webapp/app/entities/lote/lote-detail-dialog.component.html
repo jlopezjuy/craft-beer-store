@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Alerta</h1>
+<div mat-dialog-content>
+  <p>¿Esta seguro que desea comenzar la cocción de este lote?</p>
+<!--  <mat-form-field>-->
+<!--&lt;!&ndash;    <input matInput [(ngModel)]="data.animal">&ndash;&gt;-->
+<!--  </mat-form-field>-->
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">
+    <span jhiTranslate="entity.action.cancel">Cancel</span>
+  </button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    <span jhiTranslate="entity.action.confirm">Si</span>
+  </button>
+</div>
