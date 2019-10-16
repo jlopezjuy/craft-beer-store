@@ -62,7 +62,17 @@
           </ng-container>
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="estado"> <span jhiTranslate="craftBeerStoreApp.lote.estado">Estado</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let lote" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}"> {{lote.estado}} </td>
+            <td mat-cell *matCellDef="let lote">
+              <mat-chip-list>
+                <mat-chip *ngIf="lote.estado === 'EN_PROCESO'" class="mat-chip-en-proceso" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+                <mat-chip *ngIf="lote.estado === 'COCCION'" class="mat-chip-coccion"jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+                <mat-chip *ngIf="lote.estado === 'PLANIFICADO'" class="mat-chip-planificado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+                <mat-chip *ngIf="lote.estado === 'FINALIZADO'" class="mat-chip-finalizado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+                <mat-chip *ngIf="lote.estado === 'ANULADO'" class="mat-chip-anulado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+                <mat-chip *ngIf="lote.estado === 'FERMENTACION'" class="mat-chip-fermentacion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+                <mat-chip *ngIf="lote.estado === 'MADURACION'" class="mat-chip-maduracion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+              </mat-chip-list>
+            </td>
           </ng-container>
           <ng-container matColumnDef="litrosEstimados">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="litrosEstimados"> <span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span><fa-icon [icon]="'sort'"></fa-icon> </th>

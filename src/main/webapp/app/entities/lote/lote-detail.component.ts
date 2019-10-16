@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EstadoLote, ILote } from 'app/shared/model/lote.model';
 import { EtapaLoteService } from '../etapa-lote';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { EtapaLote, IEtapaLote } from '../../shared/model/etapa-lote.model';
+import { EtapaLote, EtapaLoteEnum, IEtapaLote } from '../../shared/model/etapa-lote.model';
 import { JhiAlertService } from 'ng-jhipster';
 import { RecetaService } from '../receta';
 import { IReceta } from '../../shared/model/receta.model';
@@ -108,6 +108,16 @@ export class LoteDetailComponent implements OnInit {
   saveEtapa() {
     this.etapaLote.inicio = moment(new Date(), DATE_FORMAT);
     this.etapaLote.loteId = this.lote.id;
+    if (this.etapaLote.etapa === EtapaLoteEnum.FERMENTACION) {
+      this.lote.estado = EstadoLote.FERMENTACION;
+    }
+    if (this.etapaLote.etapa === EtapaLoteEnum.MADURACION) {
+      this.lote.estado = EstadoLote.MADURACION;
+    }
+
+    this.loteService.update(this.lote).subscribe(lot => {
+      console.log('lote actualizado');
+    });
 
     this.etapaLoteService.create(this.etapaLote).subscribe(resp => {
       const movimiento = new MovimientoTanque();

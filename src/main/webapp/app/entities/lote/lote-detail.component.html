@@ -14,20 +14,16 @@
   <div class="card">
     <div class="header">
       <h2><span jhiTranslate="craftBeerStoreApp.lote.estado">Estado
-
-
-
       </span></h2>
-      <mat-chip-list aria-label="Fish selection">
-        <mat-chip *ngIf="lote.estado === 'EN_PROCESO'" class="mat-chip-en-proceso">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'COCCION'" class="mat-chip-coccion">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'PLANIFICADO'" class="mat-chip-planificado">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'FINALIZADO'" class="mat-chip-finalizado">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'ANULADO'" class="mat-chip-anulado">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'FERMENTACION'" class="mat-chip-fermentacion">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'MADURACION'" class="mat-chip-maduracion">{{lote.estado}}</mat-chip>
+      <mat-chip-list aria-label="Estado de Lote">
+        <mat-chip *ngIf="lote.estado === 'EN_PROCESO'" class="mat-chip-en-proceso" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'COCCION'" class="mat-chip-coccion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'PLANIFICADO'" class="mat-chip-planificado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'FINALIZADO'" class="mat-chip-finalizado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'ANULADO'" class="mat-chip-anulado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'FERMENTACION'" class="mat-chip-fermentacion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'MADURACION'" class="mat-chip-maduracion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
       </mat-chip-list>
-
     </div>
     <div class="body">
       <div class="row justify-content-center">

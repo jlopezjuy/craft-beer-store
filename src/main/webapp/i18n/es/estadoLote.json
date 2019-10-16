@@ -2,13 +2,13 @@
   "craftBeerStoreApp": {
     "EstadoLote": {
       "null": "",
-      "EN_PROCESO": "EN_PROCESO",
-      "PLANIFICADO": "PLANIFICADO",
-      "COCCION": "COCCION",
-      "FINALIZADO": "FINALIZADO",
-      "ANULADO": "ANULADO",
-      "FERMENTACION": "FERMENTACION",
-      "MADURACION": "MADURACION"
+      "EN_PROCESO": "En Proceso",
+      "PLANIFICADO": "Planificado",
+      "COCCION": "Cocción",
+      "FINALIZADO": "Finalizado",
+      "ANULADO": "Anulado",
+      "FERMENTACION": "Fermentación",
+      "MADURACION": "Maduración"
     }
   }
 }
