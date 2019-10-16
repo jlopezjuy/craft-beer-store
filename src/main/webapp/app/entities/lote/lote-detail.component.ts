@@ -178,7 +178,7 @@ export class LoteDetailComponent implements OnInit {
       console.log(result);
       if (result !== undefined) {
         console.log('Confirmo accion');
-        this.lote.estado = EstadoLote.EN_PROCESO;
+        this.lote.estado = EstadoLote.COCCION;
         this.save();
       }
       // this.animal = result;

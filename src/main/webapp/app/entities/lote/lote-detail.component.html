@@ -20,6 +20,7 @@
       </span></h2>
       <mat-chip-list aria-label="Fish selection">
         <mat-chip *ngIf="lote.estado === 'EN_PROCESO'" class="mat-chip-en-proceso">{{lote.estado}}</mat-chip>
+        <mat-chip *ngIf="lote.estado === 'COCCION'" class="mat-chip-coccion">{{lote.estado}}</mat-chip>
         <mat-chip *ngIf="lote.estado === 'PLANIFICADO'" class="mat-chip-planificado">{{lote.estado}}</mat-chip>
         <mat-chip *ngIf="lote.estado === 'FINALIZADO'" class="mat-chip-finalizado">{{lote.estado}}</mat-chip>
         <mat-chip *ngIf="lote.estado === 'ANULADO'" class="mat-chip-anulado">{{lote.estado}}</mat-chip>

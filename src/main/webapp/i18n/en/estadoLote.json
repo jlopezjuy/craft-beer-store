@@ -4,6 +4,7 @@
       "null": "",
       "EN_PROCESO": "EN_PROCESO",
       "PLANIFICADO": "PLANIFICADO",
+      "COCCION": "COCCION",
       "FINALIZADO": "FINALIZADO",
       "ANULADO": "ANULADO",
       "FERMENTACION": "FERMENTACION",

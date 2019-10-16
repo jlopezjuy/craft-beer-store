@@ -59,7 +59,7 @@
         {
             "fieldName": "estado",
             "fieldType": "EstadoLote",
-            "fieldValues": "EN_PROCESO,PLANIFICADO,FINALIZADO,ANULADO,FERMENTACION,MADURACION"
+            "fieldValues": "EN_PROCESO,PLANIFICADO,COCCION,FINALIZADO,ANULADO,FERMENTACION,MADURACION"
         },
         {
             "fieldName": "litrosEstimados",
