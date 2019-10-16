@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="movimientoTanque">
+            <h2><span jhiTranslate="craftBeerStoreApp.movimientoTanque.detail.title">Movimiento Tanque</span> {{movimientoTanque.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoTanque.fecha">Fecha</span></dt>
+                <dd>
+                    <span>{{movimientoTanque.fecha}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoTanque.estado">Estado</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoUsoTanque.' + movimientoTanque.estado}}">{{movimientoTanque.estado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoTanque.dias">Dias</span></dt>
+                <dd>
+                    <span>{{movimientoTanque.dias}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoTanque.tanque">Tanque</span></dt>
+                <dd>
+                    <div *ngIf="movimientoTanque.tanqueId">
+                        <a [routerLink]="['/tanque', movimientoTanque.tanqueId, 'view']">{{movimientoTanque.tanqueNombre}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoTanque.producto">Producto</span></dt>
+                <dd>
+                    <div *ngIf="movimientoTanque.productoId">
+                        <a [routerLink]="['/producto', movimientoTanque.productoId, 'view']">{{movimientoTanque.productoNombreComercial}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.movimientoTanque.lote">Lote</span></dt>
+                <dd>
+                    <div *ngIf="movimientoTanque.loteId">
+                        <a [routerLink]="['/lote', movimientoTanque.loteId, 'view']">{{movimientoTanque.loteCodigo}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/movimiento-tanque', movimientoTanque.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

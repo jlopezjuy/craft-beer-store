@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "tanque",
+            "otherEntityName": "tanque",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipName": "producto",
+            "otherEntityName": "producto",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombreComercial"
+        },
+        {
+            "relationshipName": "lote",
+            "otherEntityName": "lote",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "codigo"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "fecha",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "EstadoUsoTanque",
+            "fieldValues": "EN_USO,VACIO"
+        },
+        {
+            "fieldName": "dias",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20191016014659",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "movimiento_tanque",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

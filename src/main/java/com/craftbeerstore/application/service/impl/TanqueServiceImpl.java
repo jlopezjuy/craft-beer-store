@@ -2,6 +2,7 @@ package com.craftbeerstore.application.service.impl;
 
 import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.domain.Tanque;
+import com.craftbeerstore.application.domain.enumeration.EstadoTanque;
 import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.repository.TanqueRepository;
 import com.craftbeerstore.application.service.TanqueService;
@@ -69,6 +70,12 @@ public class TanqueServiceImpl implements TanqueService {
   public Page<TanqueDTO> findAll(Pageable pageable, Long empresaId) {
     Empresa empresa = this.empresaRepository.getOne(empresaId);
     return tanqueRepository.findAllByEmpresa(pageable, empresa).map(tanqueMapper::toDto);
+  }
+
+  @Override
+  public Page<TanqueDTO> findAll(Pageable pageable, Long empresaId, EstadoTanque estadoTanque) {
+    Empresa empresa = this.empresaRepository.getOne(empresaId);
+    return tanqueRepository.findAllByEmpresaAndEstado(pageable, empresa, estadoTanque).map(tanqueMapper::toDto);
   }
 
 

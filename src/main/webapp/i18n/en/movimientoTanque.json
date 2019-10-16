@@ -1,0 +1,26 @@
+{
+  "craftBeerStoreApp": {
+    "movimientoTanque": {
+      "home": {
+        "title": "Movimiento Tanques",
+        "createLabel": "Create a new Movimiento Tanque",
+        "createOrEditLabel": "Create or edit a Movimiento Tanque"
+      },
+      "created": "A new Movimiento Tanque is created with identifier {{ param }}",
+      "updated": "A Movimiento Tanque is updated with identifier {{ param }}",
+      "deleted": "A Movimiento Tanque is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Movimiento Tanque {{ id }}?"
+      },
+      "detail": {
+        "title": "Movimiento Tanque"
+      },
+      "fecha": "Fecha",
+      "estado": "Estado",
+      "dias": "Dias",
+      "tanque": "Tanque",
+      "producto": "Producto",
+      "lote": "Lote"
+    }
+  }
+}

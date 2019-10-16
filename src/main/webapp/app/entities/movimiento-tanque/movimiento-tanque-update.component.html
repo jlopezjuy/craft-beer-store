@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-movimiento-tanque-heading" jhiTranslate="craftBeerStoreApp.movimientoTanque.home.createOrEditLabel">Create or edit a Movimiento Tanque</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!movimientoTanque.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="movimientoTanque.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoTanque.fecha" for="field_fecha">Fecha</label>
+                    <div class="input-group">
+                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" [(ngModel)]="movimientoTanque.fecha"
+                        />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoTanque.estado" for="field_estado">Estado</label>
+                    <select class="form-control" name="estado" [(ngModel)]="movimientoTanque.estado" id="field_estado" >
+                        <option value="EN_USO">{{'craftBeerStoreApp.EstadoUsoTanque.EN_USO' | translate}}</option>
+                        <option value="VACIO">{{'craftBeerStoreApp.EstadoUsoTanque.VACIO' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoTanque.dias" for="field_dias">Dias</label>
+                    <input type="number" class="form-control" name="dias" id="field_dias"
+                        [(ngModel)]="movimientoTanque.dias" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoTanque.tanque" for="field_tanque">Tanque</label>
+                    <select class="form-control" id="field_tanque" name="tanque" [(ngModel)]="movimientoTanque.tanqueId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tanqueOption.id" *ngFor="let tanqueOption of tanques; trackBy: trackTanqueById">{{tanqueOption.nombre}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoTanque.producto" for="field_producto">Producto</label>
+                    <select class="form-control" id="field_producto" name="producto" [(ngModel)]="movimientoTanque.productoId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoTanque.lote" for="field_lote">Lote</label>
+                    <select class="form-control" id="field_lote" name="lote" [(ngModel)]="movimientoTanque.loteId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="loteOption.id" *ngFor="let loteOption of lotes; trackBy: trackLoteById">{{loteOption.codigo}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

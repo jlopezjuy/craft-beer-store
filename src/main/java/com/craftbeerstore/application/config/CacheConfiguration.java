@@ -62,6 +62,7 @@ public class CacheConfiguration {
             cm.createCache(com.craftbeerstore.application.domain.Tanque.class.getName(), jcacheConfiguration);
             cm.createCache(com.craftbeerstore.application.domain.MovimientoBarril.class.getName(), jcacheConfiguration);
             cm.createCache(com.craftbeerstore.application.domain.EtapaLote.class.getName(), jcacheConfiguration);
+            cm.createCache(com.craftbeerstore.application.domain.MovimientoTanque.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

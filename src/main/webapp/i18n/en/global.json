@@ -43,6 +43,7 @@
         "tanque": "Tanque",
         "movimientoBarril": "Movimiento Barril",
         "etapaLote": "Etapa Lote",
+        "movimientoTanque": "Movimiento Tanque",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

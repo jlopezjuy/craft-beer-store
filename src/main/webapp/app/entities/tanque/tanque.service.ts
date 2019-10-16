@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { ITanque } from 'app/shared/model/tanque.model';
+import { EstadoTanque, ITanque } from 'app/shared/model/tanque.model';
 
 type EntityResponseType = HttpResponse<ITanque>;
 type EntityArrayResponseType = HttpResponse<ITanque[]>;
@@ -48,6 +48,11 @@ export class TanqueService {
   queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<ITanque[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' });
+  }
+
+  queryByEmpresaEstadoVacio(req?: any, empresaId?: number, estadoTanque?: EstadoTanque): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ITanque[]>(`${this.resourceUrl}/empresa/${empresaId}/${estadoTanque}`, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<any>> {

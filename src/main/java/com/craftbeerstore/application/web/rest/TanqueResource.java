@@ -1,5 +1,6 @@
 package com.craftbeerstore.application.web.rest;
 
+import com.craftbeerstore.application.domain.enumeration.EstadoTanque;
 import com.craftbeerstore.application.service.TanqueService;
 import com.craftbeerstore.application.service.dto.TanqueDTO;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
@@ -101,6 +102,20 @@ public class TanqueResource {
     log.debug("REST request to get a page of Tanques");
     Page<TanqueDTO> page = tanqueService.findAll(pageable, empresaId);
     HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tanques/empresa/{empresaId}");
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
+
+  /**
+   * GET  /tanques/empresa/:empresaId : get all the tanques.
+   *
+   * @param pageable the pagination information
+   * @return the ResponseEntity with status 200 (OK) and the list of tanques in body
+   */
+  @GetMapping("/tanques/empresa/{empresaId}/{estadoTanque}")
+  public ResponseEntity<List<TanqueDTO>> getAllTanquesEstadoEmpresa(Pageable pageable, @PathVariable Long empresaId, @PathVariable EstadoTanque estadoTanque) {
+    log.debug("REST request to get a page of Tanques");
+    Page<TanqueDTO> page = tanqueService.findAll(pageable, empresaId, estadoTanque);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tanques/empresa/{empresaId}/{estadoTanque}");
     return ResponseEntity.ok().headers(headers).body(page.getContent());
   }
 

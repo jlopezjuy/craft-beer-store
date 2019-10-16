@@ -9,7 +9,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { RecetaService } from '../receta';
 import { IReceta } from '../../shared/model/receta.model';
 import { TanqueService } from '../tanque';
-import { ITanque } from '../../shared/model/tanque.model';
+import { EstadoTanque, ITanque } from '../../shared/model/tanque.model';
 import { DATE_FORMAT } from '../../shared';
 import { MatTableDataSource } from '@angular/material';
 import { IRecetaInsumo, RecetaInsumo } from '../../shared/model/receta-insumo.model';
@@ -18,6 +18,8 @@ import { RecetaInsumoService } from '../receta-insumo';
 import { LoteService } from './lote.service';
 import { LoteDetailDialogComponent } from './lote-detail-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MovimientoTanqueService } from '../movimiento-tanque';
+import { EstadoUsoTanque, MovimientoTanque } from '../../shared/model/movimiento-tanque.model';
 import moment = require('moment');
 
 @Component({
@@ -58,7 +60,8 @@ export class LoteDetailComponent implements OnInit {
     protected tanqueService: TanqueService,
     protected recetaInsumoService: RecetaInsumoService,
     protected loteService: LoteService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    protected movimientoTanqueService: MovimientoTanqueService
   ) {}
 
   ngOnInit() {
@@ -84,7 +87,7 @@ export class LoteDetailComponent implements OnInit {
       this.receta = response.body;
       this.loadDataEdit();
     });
-    this.tanqueService.queryByEmpresa(null, this.lote.empresaId).subscribe(resp => {
+    this.tanqueService.queryByEmpresaEstadoVacio(null, this.lote.empresaId, EstadoTanque.VACIO).subscribe(resp => {
       this.tanques = resp.body;
     });
   }
@@ -105,12 +108,28 @@ export class LoteDetailComponent implements OnInit {
   saveEtapa() {
     this.etapaLote.inicio = moment(new Date(), DATE_FORMAT);
     this.etapaLote.loteId = this.lote.id;
+
     this.etapaLoteService.create(this.etapaLote).subscribe(resp => {
+      const movimiento = new MovimientoTanque();
+      movimiento.estado = EstadoUsoTanque.EN_USO;
+      movimiento.loteId = this.lote.id;
+      movimiento.tanqueId = resp.body.tanqueId;
+      movimiento.productoId = this.lote.productoId;
+      this.movimientoTanqueService.create(movimiento).subscribe(mov => {
+        console.log('movimiento tanque creado');
+      });
       this.tanqueService.find(this.etapaLote.tanqueId).subscribe(tanque => {
         resp.body.tanqueNombre = tanque.body.nombre;
         this.etapaLotes.push(resp.body);
         this.etapaLote = new EtapaLote();
         this.dataSource = new MatTableDataSource<IEtapaLote>(this.etapaLotes);
+        tanque.body.estado = EstadoTanque.EN_USO;
+        tanque.body.loteId = this.lote.id;
+        tanque.body.productoId = this.lote.productoId;
+        this.tanqueService.update(tanque.body).subscribe(tan => {
+          console.log('tanque actualizado');
+          this.loadAll();
+        });
       });
     });
 
