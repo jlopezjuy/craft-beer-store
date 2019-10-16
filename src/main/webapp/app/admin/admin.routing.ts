@@ -210,39 +210,48 @@ const routesAdminRouting: Routes = [
         children: [
           {
             path: 'cliente',
-            loadChildren: '../entities/cliente/cliente.module#CraftBeerStoreClienteModule'
+            loadChildren: '../entities/cliente/cliente.module#CraftBeerStoreClienteModule',
+            data: { title: ':: Craft Beer Management :: Clientes ::' }
           },
           {
             path: 'punto-de-venta',
-            loadChildren: '../entities/punto-de-venta/punto-de-venta.module#CraftBeerStorePuntoDeVentaModule'
+            loadChildren: '../entities/punto-de-venta/punto-de-venta.module#CraftBeerStorePuntoDeVentaModule',
+            data: { title: ':: CBM :: Puntos de Venta ::' }
           },
           {
             path: 'barril',
-            loadChildren: '../entities/barril/barril.module#CraftBeerStoreBarrilModule'
+            loadChildren: '../entities/barril/barril.module#CraftBeerStoreBarrilModule',
+            data: { title: ':: CBM :: Barril ::' }
           },
           {
             path: 'insumo',
-            loadChildren: '../entities/insumo/insumo.module#CraftBeerStoreInsumoModule'
+            loadChildren: '../entities/insumo/insumo.module#CraftBeerStoreInsumoModule',
+            data: { title: ':: CBM :: Insumos ::' }
           },
           {
             path: 'producto',
-            loadChildren: '../entities/producto/producto.module#CraftBeerStoreProductoModule'
+            loadChildren: '../entities/producto/producto.module#CraftBeerStoreProductoModule',
+            data: { title: ':: CBM :: Productos ::' }
           },
           {
             path: 'presentacion',
-            loadChildren: '../entities/presentacion/presentacion.module#CraftBeerStorePresentacionModule'
+            loadChildren: '../entities/presentacion/presentacion.module#CraftBeerStorePresentacionModule',
+            data: { title: ':: CBM :: Presentacion ::' }
           },
           {
             path: 'receta',
-            loadChildren: '../entities/receta/receta.module#CraftBeerStoreRecetaModule'
+            loadChildren: '../entities/receta/receta.module#CraftBeerStoreRecetaModule',
+            data: { title: ':: CBM :: Receta ::' }
           },
           {
             path: 'proveedor',
-            loadChildren: '../entities/proveedor/proveedor.module#CraftBeerStoreProveedorModule'
+            loadChildren: '../entities/proveedor/proveedor.module#CraftBeerStoreProveedorModule',
+            data: { title: ':: CBM :: Proveedores ::' }
           },
           {
             path: 'tanque',
-            loadChildren: '../entities/tanque/tanque.module#CraftBeerStoreTanqueModule'
+            loadChildren: '../entities/tanque/tanque.module#CraftBeerStoreTanqueModule',
+            data: { title: ':: CBM :: Tanques ::' }
           }
         ]
       },
@@ -251,7 +260,8 @@ const routesAdminRouting: Routes = [
         children: [
           {
             path: 'lote',
-            loadChildren: '../entities/lote/lote.module#CraftBeerStoreLoteModule'
+            loadChildren: '../entities/lote/lote.module#CraftBeerStoreLoteModule',
+            data: { title: ':: CBM :: Lote ::' }
           }
         ]
       },
@@ -260,25 +270,32 @@ const routesAdminRouting: Routes = [
         children: [
           {
             path: 'caja',
-            loadChildren: '../entities/caja/caja.module#CraftBeerStoreCajaModule'
+            loadChildren: '../entities/caja/caja.module#CraftBeerStoreCajaModule',
+            data: { title: ':: CBM :: Caja ::' }
           },
           {
             path: 'movimientos',
-            loadChildren: '../entities/movimientos/movimientos.module#CraftBeerStoreMovimientosModule'
+            loadChildren: '../entities/movimientos/movimientos.module#CraftBeerStoreMovimientosModule',
+            data: { title: ':: CBM :: Ventas ::' }
           }
         ]
       },
-      { path: 'entity', loadChildren: '../entities/entity.module#CraftBeerStoreEntityModule' },
+      {
+        path: 'entity',
+        loadChildren: '../entities/entity.module#CraftBeerStoreEntityModule'
+      },
       {
         path: 'compras',
         children: [
           {
             path: 'compra-insumo',
-            loadChildren: '../entities/compra-insumo/compra-insumo.module#CraftBeerStoreCompraInsumoModule'
+            loadChildren: '../entities/compra-insumo/compra-insumo.module#CraftBeerStoreCompraInsumoModule',
+            data: { title: ':: CBM :: Compra Insumo ::' }
           },
           {
             path: 'equipamiento',
-            loadChildren: '../entities/equipamiento/equipamiento.module#CraftBeerStoreEquipamientoModule'
+            loadChildren: '../entities/equipamiento/equipamiento.module#CraftBeerStoreEquipamientoModule',
+            data: { title: ':: CBM :: Equipamiento ::' }
           }
         ]
       },
@@ -336,74 +353,74 @@ const routesAdminRouting: Routes = [
           {
             path: 'page-blank',
             component: PageBlankComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Blank ::' }
+            data: { title: ':: CBM :: Pages :: Blank ::' }
           },
           {
             path: 'page-profile',
             component: PageProfileComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Profile ::' }
+            data: { title: ':: CBM :: Pages :: Profile ::' }
           },
           {
             path: 'page-profile2',
             component: PageProfileV2Component,
-            data: { title: ':: Craft Beer Management :: Pages :: Profile - V2 ::' }
+            data: { title: ':: CBM :: Pages :: Profile - V2 ::' }
           },
           {
             path: 'page-gallery',
             component: PageGalleryComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Gallery ::' }
+            data: { title: ':: CBM :: Pages :: Gallery ::' }
           },
           {
             path: 'page-timeline',
             component: PageTimelineComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Timeline ::' }
+            data: { title: ':: CBM :: Pages :: Timeline ::' }
           },
           {
             path: 'page-pricing',
             component: PagePricingComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Pricing ::' }
+            data: { title: ':: CBM :: Pages :: Pricing ::' }
           },
           {
             path: 'page-invoices',
             component: PageInvoicesComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Invoices ::' }
+            data: { title: ':: CBM :: Pages :: Invoices ::' }
           },
           {
             path: 'page-invoices2',
             component: PageInvoicesV2Component,
-            data: { title: ':: Craft Beer Management :: Pages :: Invoices - V2 ::' }
+            data: { title: ':: CBM :: Pages :: Invoices - V2 ::' }
           },
           {
             path: 'page-search-results',
             component: PageSearchResultsComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Search Results ::' }
+            data: { title: ':: CBM :: Pages :: Search Results ::' }
           },
           {
             path: 'page-helper-class',
             component: PageHelperClassComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Classes ::' }
+            data: { title: ':: CBM :: Pages :: Classes ::' }
           },
           {
             path: 'page-teams-board',
             component: PageTeamsBoardComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Team ::' }
+            data: { title: ':: CBM :: Pages :: Team ::' }
           },
           {
             path: 'page-projects-list',
             component: PageProjectsListComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Projects ::' }
+            data: { title: ':: CBM :: Pages :: Projects ::' }
           },
           {
             path: 'page-maintenance',
             component: PageProjectsListComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Maintenance ::' }
+            data: { title: ':: CBM :: Pages :: Maintenance ::' }
           },
           {
             path: 'page-testimonials',
             component: PageTestimonialsComponent,
-            data: { title: ':: Craft Beer Management :: Pages :: Testimonials ::' }
+            data: { title: ':: CBM :: Pages :: Testimonials ::' }
           },
-          { path: 'page-faq', component: PageFaqComponent, data: { title: ':: Craft Beer Management :: Pages :: Faq ::' } }
+          { path: 'page-faq', component: PageFaqComponent, data: { title: ':: CBM :: Pages :: Faq ::' } }
         ]
       },
       {
@@ -413,7 +430,7 @@ const routesAdminRouting: Routes = [
           {
             path: 'chart-echarts',
             component: ChartEchartComponent,
-            data: { title: ':: Craft Beer Management :: Charts :: E-Charts ::' }
+            data: { title: ':: CBM :: Charts :: E-Charts ::' }
           }
         ]
       },
@@ -424,12 +441,12 @@ const routesAdminRouting: Routes = [
           {
             path: 'forms-validation',
             component: FormsValidationComponent,
-            data: { title: ':: Craft Beer Management :: Form Validations :: Forms ::' }
+            data: { title: ':: CBM :: Form Validations :: Forms ::' }
           },
           {
             path: 'forms-basic',
             component: FormsBasicComponent,
-            data: { title: ':: Craft Beer Management :: Form Basic :: Forms ::' }
+            data: { title: ':: CBM :: Form Basic :: Forms ::' }
           }
         ]
       },
@@ -440,17 +457,17 @@ const routesAdminRouting: Routes = [
           {
             path: 'blog-post',
             component: BlogPostComponent,
-            data: { title: ':: Craft Beer Management :: Blog Post :: Blog ::' }
+            data: { title: ':: CBM :: Blog Post :: Blog ::' }
           },
           {
             path: 'blog-list',
             component: BlogListComponent,
-            data: { title: ':: Craft Beer Management :: Blog List :: Blog ::' }
+            data: { title: ':: CBM :: Blog List :: Blog ::' }
           },
           {
             path: 'blog-details',
             component: BlogDetailsComponent,
-            data: { title: ':: Craft Beer Management :: Blog Details :: Blog ::' }
+            data: { title: ':: CBM :: Blog Details :: Blog ::' }
           }
         ]
       },
@@ -461,22 +478,22 @@ const routesAdminRouting: Routes = [
           {
             path: 'widgets-data',
             component: WidgetsDataComponent,
-            data: { title: ':: Craft Beer Management :: Widgets Data :: Widgets ::' }
+            data: { title: ':: CBM :: Widgets Data :: Widgets ::' }
           },
           {
             path: 'widgets-weather',
             component: WidgetsWeatherComponent,
-            data: { title: ':: Craft Beer Management :: Widgets Weather :: Widgets ::' }
+            data: { title: ':: CBM :: Widgets Weather :: Widgets ::' }
           },
           {
             path: 'widgets-blog',
             component: WidgetsBlogComponent,
-            data: { title: ':: Craft Beer Management :: Widgets Blog :: Widgets ::' }
+            data: { title: ':: CBM :: Widgets Blog :: Widgets ::' }
           },
           {
             path: 'widgets-ecommerce',
             component: WidgetsEcommerceComponent,
-            data: { title: ':: Craft Beer Management :: Widgets eCommerce :: Widgets ::' }
+            data: { title: ':: CBM :: Widgets eCommerce :: Widgets ::' }
           }
         ]
       },
@@ -487,7 +504,7 @@ const routesAdminRouting: Routes = [
           {
             path: 'leaflet',
             component: PageLeafletComponent,
-            data: { title: ':: Craft Beer Management :: Maps :: Leaflet ::' }
+            data: { title: ':: CBM :: Maps :: Leaflet ::' }
           }
         ]
       }
