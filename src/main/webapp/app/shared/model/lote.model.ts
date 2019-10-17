@@ -7,7 +7,8 @@ export const enum EstadoLote {
   FINALIZADO = 'FINALIZADO',
   ANULADO = 'ANULADO',
   FERMENTACION = 'FERMENTACION',
-  MADURACION = 'MADURACION'
+  MADURACION = 'MADURACION',
+  ENVASADO = 'ENVASADO'
 }
 
 export interface ILote {

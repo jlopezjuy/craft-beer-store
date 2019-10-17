@@ -114,6 +114,11 @@ export class LoteDetailComponent implements OnInit {
     if (this.etapaLote.etapa === EtapaLoteEnum.MADURACION) {
       this.lote.estado = EstadoLote.MADURACION;
     }
+    if (this.etapaLote.etapa === EtapaLoteEnum.ENVASADO) {
+      this.lote.estado = EstadoLote.ENVASADO;
+    }
+
+    this.lote.litrosEstimados = this.etapaLote.litros;
 
     this.loteService.update(this.lote).subscribe(lot => {
       console.log('lote actualizado');
