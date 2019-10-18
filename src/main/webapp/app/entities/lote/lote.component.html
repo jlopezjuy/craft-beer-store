@@ -71,6 +71,7 @@
                 <mat-chip *ngIf="lote.estado === 'ANULADO'" class="mat-chip-anulado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
                 <mat-chip *ngIf="lote.estado === 'FERMENTACION'" class="mat-chip-fermentacion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
                 <mat-chip *ngIf="lote.estado === 'MADURACION'" class="mat-chip-maduracion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+                <mat-chip *ngIf="lote.estado === 'ENVASADO'" class="mat-chip-envasado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
               </mat-chip-list>
             </td>
           </ng-container>
@@ -94,7 +95,7 @@
                         [routerLink]="['/admin/produccion/lote/', lote.id, 'view' ]"
                         mat-raised-button color="primary">
                   <fa-icon [icon]="'eye'"></fa-icon>
-                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.seleccionar">Seleccionar</span>
                 </button>
                 <button type="submit"
                         [routerLink]="['/admin/produccion/lote/', lote.id, 'edit']"

@@ -94,6 +94,13 @@ public class EtapaLoteServiceImpl implements EtapaLoteService {
       .map(etapaLoteMapper::toDto);
   }
 
+  @Override
+  public Optional<EtapaLoteDTO> findOneTopByLote(Long loteId) {
+    Lote lote = this.loteRepository.getOne(loteId);
+    return etapaLoteRepository.findTopByLoteOrderByIdDesc(lote)
+      .map(etapaLoteMapper::toDto);
+  }
+
   /**
    * Delete the etapaLote by id.
    *

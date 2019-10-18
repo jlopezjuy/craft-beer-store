@@ -118,6 +118,19 @@ public class EtapaLoteResource {
         return ResponseUtil.wrapOrNotFound(etapaLoteDTO);
     }
 
+  /**
+   * GET  /etapa-lotes/lote/:id : get the "id" etapaLote.
+   *
+   * @param id the id of the etapaLoteDTO to retrieve
+   * @return the ResponseEntity with status 200 (OK) and with body the etapaLoteDTO, or with status 404 (Not Found)
+   */
+  @GetMapping("/etapa-lotes/lote/top/{loteId}")
+  public ResponseEntity<EtapaLoteDTO> getEtapaLoteTop(@PathVariable Long loteId) {
+    log.debug("REST request to get EtapaLote : {}", loteId);
+    Optional<EtapaLoteDTO> etapaLoteDTO = etapaLoteService.findOneTopByLote(loteId);
+    return ResponseUtil.wrapOrNotFound(etapaLoteDTO);
+  }
+
     /**
      * DELETE  /etapa-lotes/:id : delete the "id" etapaLote.
      *

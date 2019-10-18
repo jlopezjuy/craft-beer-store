@@ -138,7 +138,9 @@
       "save": "Guardar",
       "view": "Vista",
       "inicio": "Inicio",
-      "confirm": "Se, seguro"
+      "confirm": "Si, seguro",
+      "seleccionar": "Seleccionar",
+      "finalizar": "Finalizar"
     },
     "detail": {
       "field": "Campo",

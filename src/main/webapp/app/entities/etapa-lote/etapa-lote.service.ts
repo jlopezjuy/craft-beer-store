@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IEtapaLote } from 'app/shared/model/etapa-lote.model';
+import { ILote } from '../../shared/model/lote.model';
 
 type EntityResponseType = HttpResponse<IEtapaLote>;
 type EntityArrayResponseType = HttpResponse<IEtapaLote[]>;
@@ -35,6 +36,12 @@ export class EtapaLoteService {
   find(id: number): Observable<EntityResponseType> {
     return this.http
       .get<IEtapaLote>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  findTop(loteId: number): Observable<EntityResponseType> {
+    return this.http
+      .get<ILote>(`${this.resourceUrl}/lote/top/${loteId}`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 

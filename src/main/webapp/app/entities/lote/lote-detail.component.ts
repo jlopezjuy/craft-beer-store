@@ -87,7 +87,7 @@ export class LoteDetailComponent implements OnInit {
       this.receta = response.body;
       this.loadDataEdit();
     });
-    this.tanqueService.queryByEmpresaEstadoVacio(null, this.lote.empresaId, EstadoTanque.VACIO).subscribe(resp => {
+    this.tanqueService.queryByEmpresa(null, this.lote.empresaId).subscribe(resp => {
       this.tanques = resp.body;
     });
   }
@@ -108,6 +108,16 @@ export class LoteDetailComponent implements OnInit {
   saveEtapa() {
     this.etapaLote.inicio = moment(new Date(), DATE_FORMAT);
     this.etapaLote.loteId = this.lote.id;
+
+    this.etapaLoteService.findTop(this.lote.id).subscribe(etapaTop => {
+      const etapa: IEtapaLote = etapaTop.body;
+      etapa.fin = moment(new Date(), DATE_FORMAT);
+      etapa.dias = etapa.fin.diff(etapa.inicio, 'days');
+      this.etapaLoteService.update(etapa).subscribe(upd => {
+        console.log('etapa fecha actualizada');
+      });
+    });
+
     if (this.etapaLote.etapa === EtapaLoteEnum.FERMENTACION) {
       this.lote.estado = EstadoLote.FERMENTACION;
     }
@@ -119,20 +129,24 @@ export class LoteDetailComponent implements OnInit {
     }
 
     this.lote.litrosEstimados = this.etapaLote.litros;
+    this.lote.litrosEnTanque = this.etapaLote.litros;
 
     this.loteService.update(this.lote).subscribe(lot => {
       console.log('lote actualizado');
     });
 
+    const movimiento = new MovimientoTanque();
+    movimiento.estado = EstadoUsoTanque.EN_USO;
+    movimiento.loteId = this.lote.id;
+    movimiento.tanqueId = this.etapaLote.tanqueId;
+    movimiento.productoId = this.lote.productoId;
+    movimiento.fecha = moment(new Date(), DATE_FORMAT);
+    this.movimientoTanqueService.create(movimiento).subscribe(mov => {
+      console.log('movimiento tanque creado');
+    });
+
     this.etapaLoteService.create(this.etapaLote).subscribe(resp => {
-      const movimiento = new MovimientoTanque();
-      movimiento.estado = EstadoUsoTanque.EN_USO;
-      movimiento.loteId = this.lote.id;
-      movimiento.tanqueId = resp.body.tanqueId;
-      movimiento.productoId = this.lote.productoId;
-      this.movimientoTanqueService.create(movimiento).subscribe(mov => {
-        console.log('movimiento tanque creado');
-      });
+      console.log('etapa lote creado ok');
       this.tanqueService.find(this.etapaLote.tanqueId).subscribe(tanque => {
         resp.body.tanqueNombre = tanque.body.nombre;
         this.etapaLotes.push(resp.body);
@@ -143,11 +157,11 @@ export class LoteDetailComponent implements OnInit {
         tanque.body.productoId = this.lote.productoId;
         this.tanqueService.update(tanque.body).subscribe(tan => {
           console.log('tanque actualizado');
+          console.log(tan);
           this.loadAll();
         });
       });
     });
-
     console.log(this.etapaLotes);
   }
 
@@ -184,7 +198,7 @@ export class LoteDetailComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LoteDetailDialogComponent, {
-      width: '350px',
+      width: '450px',
       data: this.lote
     });
 
@@ -199,4 +213,6 @@ export class LoteDetailComponent implements OnInit {
       // this.animal = result;
     });
   }
+
+  finalizar() {}
 }

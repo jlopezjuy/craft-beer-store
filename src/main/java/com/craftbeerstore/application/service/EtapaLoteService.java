@@ -46,6 +46,14 @@ public interface EtapaLoteService {
      */
     Optional<EtapaLoteDTO> findOne(Long id);
 
+  /**
+   * Get the "loteId" lote.
+   *
+   * @param loteId the id of the entity
+   * @return the entity
+   */
+  Optional<EtapaLoteDTO> findOneTopByLote(Long loteId);
+
     /**
      * Delete the "id" etapaLote.
      *

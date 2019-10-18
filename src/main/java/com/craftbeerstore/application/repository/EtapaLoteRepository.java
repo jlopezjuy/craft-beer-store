@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
 
 /**
@@ -16,4 +17,6 @@ import org.springframework.stereotype.Repository;
 public interface EtapaLoteRepository extends JpaRepository<EtapaLote, Long> {
 
   Page<EtapaLote> findAllByLote(Pageable pageable, Lote lote);
+
+  Optional<EtapaLote> findTopByLoteOrderByIdDesc(Lote lote);
 }

@@ -138,7 +138,9 @@
       "save": "Save",
       "view": "View",
       "inicio": "Start",
-      "confirm": "Se, seguro"
+      "confirm": "Sei, seguro",
+      "seleccionar": "Seleccionar",
+      "finalizar": "Finalizar"
     },
     "detail": {
       "field": "Field",
