@@ -30,8 +30,8 @@
     <div class="body">
       <jhi-alert></jhi-alert>
       <br/>
-      <div class="mat-elevation-z8 table-responsive" *ngIf="lotes">
-        <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+      <div class="mat-elevation-z8 table-responsive br8" *ngIf="lotes">
+        <table mat-table [dataSource]="dataSource" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)" class="w-100 br8">
           <ng-container matColumnDef="codigo">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="codigo"> <span jhiTranslate="craftBeerStoreApp.lote.codigo">Codigo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let lote" > {{lote.codigo}} </td>

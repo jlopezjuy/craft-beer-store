@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Tanque;
+import com.craftbeerstore.application.repository.TanqueRepository;
 import com.craftbeerstore.application.service.MovimientoTanqueService;
 import com.craftbeerstore.application.domain.MovimientoTanque;
 import com.craftbeerstore.application.repository.MovimientoTanqueRepository;
@@ -28,9 +30,12 @@ public class MovimientoTanqueServiceImpl implements MovimientoTanqueService {
 
     private final MovimientoTanqueMapper movimientoTanqueMapper;
 
-    public MovimientoTanqueServiceImpl(MovimientoTanqueRepository movimientoTanqueRepository, MovimientoTanqueMapper movimientoTanqueMapper) {
+    private final TanqueRepository tanqueRepository;
+
+    public MovimientoTanqueServiceImpl(MovimientoTanqueRepository movimientoTanqueRepository, MovimientoTanqueMapper movimientoTanqueMapper, TanqueRepository tanqueRepository) {
         this.movimientoTanqueRepository = movimientoTanqueRepository;
         this.movimientoTanqueMapper = movimientoTanqueMapper;
+      this.tanqueRepository = tanqueRepository;
     }
 
     /**
@@ -61,8 +66,20 @@ public class MovimientoTanqueServiceImpl implements MovimientoTanqueService {
             .map(movimientoTanqueMapper::toDto);
     }
 
+  /**
+   *
+   * @param pageable the pagination information
+   * @param tanqueId the id of tanque entity
+   * @return
+   */
+  @Override
+  public Page<MovimientoTanqueDTO> findAll(Pageable pageable, Long tanqueId) {
+    Tanque tanque = this.tanqueRepository.getOne(tanqueId);
+    return movimientoTanqueRepository.findAllByTanque(pageable, tanque).map(movimientoTanqueMapper::toDto);
+  }
 
-    /**
+
+  /**
      * Get one movimientoTanque by id.
      *
      * @param id the id of the entity

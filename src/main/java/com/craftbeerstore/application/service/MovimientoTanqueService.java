@@ -28,6 +28,15 @@ public interface MovimientoTanqueService {
      */
     Page<MovimientoTanqueDTO> findAll(Pageable pageable);
 
+  /**
+   * Get all the movimientoTanques.
+   *
+   * @param pageable the pagination information
+   * @param tanqueId the id of tanque entity
+   * @return the list of entities
+   */
+  Page<MovimientoTanqueDTO> findAll(Pageable pageable, Long tanqueId);
+
 
     /**
      * Get the "id" movimientoTanque.
