@@ -79,7 +79,7 @@
                   </button>
                   <button type="button" *ngIf="lote.estado === 'ENVASADO'"
                           (click)="finalizar()"
-                          mat-raised-button class="mat-success">
+                          mat-raised-button color="warn">
                     <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.finalizar">Finalizar</span>
                   </button>
                 </mat-card-actions>
@@ -132,7 +132,7 @@
               </mat-card-content>
             </mat-card>
           </div>
-          <div class="mt-2" *ngIf="lote.estado !== 'PLANIFICADO' && lote.estado !== 'ENVASADO'">
+          <div class="mt-2" *ngIf="lote.estado !== 'PLANIFICADO' && lote.estado !== 'ENVASADO' && lote.estado !== 'FINALIZADO'">
             <mat-card class="example-card">
               <mat-card-header>
               </mat-card-header>

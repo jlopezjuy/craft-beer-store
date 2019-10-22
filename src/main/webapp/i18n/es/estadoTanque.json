@@ -2,8 +2,8 @@
   "craftBeerStoreApp": {
     "EstadoTanque": {
       "null": "",
-      "VACIO": "VACIO",
-      "EN_USO": "EN_USO"
+      "EN_USO": "En uso",
+      "VACIO": "Vacio"
     }
   }
 }

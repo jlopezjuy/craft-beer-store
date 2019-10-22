@@ -47,7 +47,12 @@
           </ng-container>
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="estado"> <span jhiTranslate="craftBeerStoreApp.tanque.estado">Estado</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" > {{tanque.estado}} </td>
+            <td mat-cell *matCellDef="let tanque" >
+              <mat-chip-list aria-label="Estado de Lote">
+                <mat-chip *ngIf="tanque.estado === 'EN_USO'" class="mat-chip-en-proceso" jhiTranslate="{{'craftBeerStoreApp.EstadoTanque.' + tanque.estado}}">{{tanque.estado}}</mat-chip>
+                <mat-chip *ngIf="tanque.estado === 'VACIO'" class="mat-chip-coccion" jhiTranslate="{{'craftBeerStoreApp.EstadoTanque.' + tanque.estado}}">{{tanque.estado}}</mat-chip>
+              </mat-chip-list>
+            </td>
           </ng-container>
           <ng-container matColumnDef="listrosDisponible">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="listrosDisponible"> <span jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible">Estado</span><fa-icon [icon]="'sort'"></fa-icon> </th>

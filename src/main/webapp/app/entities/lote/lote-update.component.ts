@@ -27,7 +27,7 @@ export class LoteUpdateComponent implements OnInit {
   isSaving: boolean;
 
   recetas: IReceta[];
-
+  events: string[] = [];
   empresas: IEmpresa[];
 
   empresa: IEmpresa;
@@ -121,5 +121,13 @@ export class LoteUpdateComponent implements OnInit {
     this.recetaService.findAllByProducto(null, this.lote.productoId).subscribe(resp => {
       this.recetas = resp.body;
     });
+  }
+
+  updateCalcs() {
+    const fecha = this.fechaCoccionDp != null ? moment(this.fechaCoccionDp, DATE_FORMAT) : null;
+    const fecha2 = moment(fecha).format('MMDDYYYY');
+    if (this.lote.productoId) {
+      this.lote.codigo = this.lote.productoId + fecha2;
+    }
   }
 }

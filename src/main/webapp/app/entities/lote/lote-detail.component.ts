@@ -214,5 +214,37 @@ export class LoteDetailComponent implements OnInit {
     });
   }
 
-  finalizar() {}
+  finalizar() {
+    this.etapaLoteService.findTop(this.lote.id).subscribe(etapaTop => {
+      const etapa: IEtapaLote = etapaTop.body;
+      etapa.fin = moment(new Date(), DATE_FORMAT);
+      etapa.dias = etapa.fin.diff(etapa.inicio, 'days');
+      this.etapaLoteService.update(etapa).subscribe(upd => {
+        console.log('etapa fecha actualizada');
+        const movimiento = new MovimientoTanque();
+        movimiento.estado = EstadoUsoTanque.VACIO;
+        movimiento.loteId = this.lote.id;
+        movimiento.tanqueId = upd.body.tanqueId;
+        movimiento.productoId = this.lote.productoId;
+        movimiento.fecha = moment(new Date(), DATE_FORMAT);
+        this.movimientoTanqueService.create(movimiento).subscribe(mov => {
+          console.log('movimiento tanque creado');
+          this.tanqueService.find(movimiento.tanqueId).subscribe(respTanq => {
+            console.log('movimiento tanque ok...');
+            console.log(respTanq);
+            const tanque: ITanque = respTanq.body;
+            tanque.estado = EstadoTanque.VACIO;
+            this.tanqueService.update(tanque).subscribe(resp => {
+              console.log('tanque actualizado');
+            });
+          });
+        });
+
+        this.lote.estado = EstadoLote.FINALIZADO;
+        this.loteService.update(this.lote).subscribe(lot => {
+          console.log('lote actualizado');
+        });
+      });
+    });
+  }
 }

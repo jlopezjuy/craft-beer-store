@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ITanque } from 'app/shared/model/tanque.model';
 import { MovimientoTanqueService } from '../movimiento-tanque';
@@ -31,12 +31,16 @@ export class TanqueDetailComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected jhiAlertService: JhiAlertService,
     protected parseLinks: JhiParseLinks,
+    protected router: Router,
     protected movimientoTanqueService: MovimientoTanqueService
-  ) {}
+  ) {
+    this.itemsPerPage = 10;
+  }
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ tanque }) => {
       this.tanque = tanque;
+      this.page = 1;
       if (this.tanque.id) {
         this.loadAll();
       }
@@ -45,7 +49,13 @@ export class TanqueDetailComponent implements OnInit {
 
   loadAll() {
     this.movimientoTanqueService
-      .queryByTanque(null, this.tanque.id)
+      .queryByTanque(
+        {
+          page: this.page - 1,
+          size: this.itemsPerPage
+        },
+        this.tanque.id
+      )
       .subscribe(
         (res: HttpResponse<IMovimientoTanque[]>) => this.paginateMovimientoTanques(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
@@ -62,6 +72,37 @@ export class TanqueDetailComponent implements OnInit {
 
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  sort() {
+    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.predicate !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
+
+  transition() {
+    // this.router.navigate(['/tanque'], {
+    //   queryParams: {
+    //     page: this.page,
+    //     size: this.itemsPerPage,
+    //     sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+    //   }
+    // });
+    this.loadAll();
+  }
+
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.transition();
+    }
+  }
+
+  onPaginateChange(event: PageEvent) {
+    this.page = event.pageIndex + 1;
+    this.loadPage(event.pageIndex + 1);
   }
 
   previousState() {

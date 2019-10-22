@@ -50,7 +50,7 @@
                       Coccion
                     </mat-label>
                     <input matInput name="fechaCoccion" [matDatepicker]="picker" placeholder="Choose a date"
-                           [(ngModel)]="fechaCoccionDp">
+                           [(ngModel)]="fechaCoccionDp" (ngModelChange)="updateCalcs()">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
