@@ -36,17 +36,14 @@ export class LoteComponent implements OnInit, OnDestroy {
   empresa: IEmpresa;
   dataSource: any;
   displayedColumns: string[] = [
-    'codigo',
     'fechaCoccion',
-    'coccion',
+    'codigo',
     'descripcion',
     'descuentaStock',
-    'estado',
-    'litrosEstimados',
     'recetaNombre',
     'producto',
     'tanque',
-    'litrosDisponible',
+    'estado',
     'actions'
   ];
   pageEvent: PageEvent;

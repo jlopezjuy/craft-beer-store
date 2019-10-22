@@ -140,7 +140,8 @@
       "inicio": "Start",
       "confirm": "Sei, seguro",
       "seleccionar": "Seleccionar",
-      "finalizar": "Finalizar"
+      "finalizar": "Finalizar",
+      "envasar": "Envasar"
     },
     "detail": {
       "field": "Field",

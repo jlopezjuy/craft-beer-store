@@ -12,6 +12,7 @@ import { LoteDetailComponent } from './lote-detail.component';
 import { LoteUpdateComponent } from './lote-update.component';
 import { LoteDeletePopupComponent } from './lote-delete-dialog.component';
 import { ILote } from 'app/shared/model/lote.model';
+import { LoteEnvasadoComponent } from './lote-envasado/lote-envasado.component';
 
 @Injectable({ providedIn: 'root' })
 export class LoteResolve implements Resolve<ILote> {
@@ -91,6 +92,18 @@ export const loteRoute: Routes = [
     },
     canActivate: [UserRouteAccessService],
     outlet: 'popup'
+  },
+  {
+    path: ':id/envasado',
+    component: LoteEnvasadoComponent,
+    resolve: {
+      lote: LoteResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'craftBeerStoreApp.lote.home.title'
+    },
+    canActivate: [UserRouteAccessService]
   }
 ];
 

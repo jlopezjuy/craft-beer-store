@@ -13,6 +13,7 @@ import {
   lotePopupRoute
 } from './';
 import { LoteDetailDialogComponent } from './lote-detail-dialog.component';
+import { LoteEnvasadoComponent } from './lote-envasado/lote-envasado.component';
 
 const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
 
@@ -24,9 +25,17 @@ const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
     LoteUpdateComponent,
     LoteDeleteDialogComponent,
     LoteDeletePopupComponent,
-    LoteDetailDialogComponent
+    LoteDetailDialogComponent,
+    LoteEnvasadoComponent
   ],
-  entryComponents: [LoteComponent, LoteUpdateComponent, LoteDeleteDialogComponent, LoteDeletePopupComponent, LoteDetailDialogComponent],
+  entryComponents: [
+    LoteComponent,
+    LoteUpdateComponent,
+    LoteDeleteDialogComponent,
+    LoteDeletePopupComponent,
+    LoteDetailDialogComponent,
+    LoteEnvasadoComponent
+  ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

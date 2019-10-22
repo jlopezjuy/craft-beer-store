@@ -48,10 +48,6 @@
             <th mat-header-cell *matHeaderCellDef jhiSortBy="tanque"> <span jhiTranslate="craftBeerStoreApp.lote.tanque">Tanque</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let lote" > {{lote.tanqueNombre}} </td>
           </ng-container>
-          <ng-container matColumnDef="coccion">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="coccion"> <span jhiTranslate="craftBeerStoreApp.lote.coccion">Coccion</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let lote" > {{lote.coccion}} </td>
-          </ng-container>
           <ng-container matColumnDef="descripcion">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="descripcion"> <span jhiTranslate="craftBeerStoreApp.lote.descripcion">Descripcion</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let lote" > {{lote.descripcion}} </td>
@@ -75,14 +71,6 @@
               </mat-chip-list>
             </td>
           </ng-container>
-          <ng-container matColumnDef="litrosEstimados">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="litrosEstimados"> <span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let lote" > {{lote.litrosEstimados}} </td>
-          </ng-container>
-          <ng-container matColumnDef="litrosDisponible">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="litrosDisponible"> <span jhiTranslate="craftBeerStoreApp.lote.litrosDisponible">Litros Disponible</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let lote" > {{lote.litrosDisponible}} </td>
-          </ng-container>
           <ng-container matColumnDef="recetaNombre">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="recetaNombre"> <span jhiTranslate="craftBeerStoreApp.lote.receta">Receta</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let lote" > {{lote.recetaNombre}} </td>
@@ -91,6 +79,12 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let lote" style="width: 20%">
               <div class="btn-group flex-btn-group-container">
+                <button type="submit"
+                        [routerLink]="['/admin/produccion/lote/', lote.id, 'envasado' ]"
+                        mat-raised-button class="mat-receta">
+                  <i class="beer-keg-icon"></i>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.envasar">Envasar</span>
+                </button>
                 <button type="submit"
                         [routerLink]="['/admin/produccion/lote/', lote.id, 'view' ]"
                         mat-raised-button color="primary">
