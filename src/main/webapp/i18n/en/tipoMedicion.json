@@ -1,0 +1,9 @@
+{
+  "craftBeerStoreApp": {
+    "TipoMedicion": {
+      "null": "",
+      "DENSIDAD": "DENSIDAD",
+      "TEMPERATURA": "TEMPERATURA"
+    }
+  }
+}

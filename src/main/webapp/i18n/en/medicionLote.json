@@ -1,0 +1,28 @@
+{
+  "craftBeerStoreApp": {
+    "medicionLote": {
+      "home": {
+        "title": "Medicion Lotes",
+        "createLabel": "Create a new Medicion Lote",
+        "createOrEditLabel": "Create or edit a Medicion Lote"
+      },
+      "created": "A new Medicion Lote is created with identifier {{ param }}",
+      "updated": "A Medicion Lote is updated with identifier {{ param }}",
+      "deleted": "A Medicion Lote is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Medicion Lote {{ id }}?"
+      },
+      "detail": {
+        "title": "Medicion Lote"
+      },
+      "dia": "Dia",
+      "tipoMedicion": "Tipo Medicion",
+      "estado": "Estado",
+      "fechaRealizado": "Fecha Realizado",
+      "valor": "Valor",
+      "observacion": "Observacion",
+      "lote": "Lote",
+      "tanque": "Tanque"
+    }
+  }
+}

@@ -31,6 +31,7 @@
     <include file="config/liquibase/changelog/20190921234435_added_entity_MovimientoBarril.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190926022042_added_entity_EtapaLote.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191016014659_added_entity_MovimientoTanque.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191023105640_added_entity_MedicionLote.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190407234855_added_entity_constraints_Empresa.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408000453_added_entity_constraints_Insumo.xml" relativeToChangelogFile="false"/>
@@ -70,5 +71,6 @@
     <include file="config/liquibase/changelog/20190921234435_added_entity_constraints_MovimientoBarril.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190926022042_added_entity_constraints_EtapaLote.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191016014659_added_entity_constraints_MovimientoTanque.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191023105640_added_entity_constraints_MedicionLote.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

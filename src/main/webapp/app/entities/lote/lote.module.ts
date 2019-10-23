@@ -14,6 +14,7 @@ import {
 } from './';
 import { LoteDetailDialogComponent } from './lote-detail-dialog.component';
 import { LoteEnvasadoComponent } from './lote-envasado/lote-envasado.component';
+import { LoteMedicionesComponent } from './lote-mediciones/lote-mediciones.component';
 
 const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
 
@@ -26,7 +27,8 @@ const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
     LoteDeleteDialogComponent,
     LoteDeletePopupComponent,
     LoteDetailDialogComponent,
-    LoteEnvasadoComponent
+    LoteEnvasadoComponent,
+    LoteMedicionesComponent
   ],
   entryComponents: [
     LoteComponent,
@@ -34,7 +36,8 @@ const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
     LoteDeleteDialogComponent,
     LoteDeletePopupComponent,
     LoteDetailDialogComponent,
-    LoteEnvasadoComponent
+    LoteEnvasadoComponent,
+    LoteMedicionesComponent
   ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -259,7 +259,7 @@ export class LoteDetailComponent implements OnInit {
           console.log('lote actualizado');
         });
 
-        this.tanqueService.queryByEmpresaLote(this.lote.empresaId, this.lote.id).subscribe(resp => {
+        this.tanqueService.queryByEmpresaLote(null, this.lote.empresaId, this.lote.id).subscribe(resp => {
           resp.body.forEach(tanque => {
             tanque.productoId = null;
             tanque.loteId = null;

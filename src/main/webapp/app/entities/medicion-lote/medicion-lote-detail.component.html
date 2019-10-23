@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="medicionLote">
+            <h2><span jhiTranslate="craftBeerStoreApp.medicionLote.detail.title">Medicion Lote</span> {{medicionLote.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.medicionLote.dia">Dia</span></dt>
+                <dd>
+                    <span>{{medicionLote.dia}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.medicionLote.tipoMedicion">Tipo Medicion</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoMedicion.' + medicionLote.tipoMedicion}}">{{medicionLote.tipoMedicion}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.medicionLote.estado">Estado</span></dt>
+                <dd>
+                    <span>{{medicionLote.estado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.medicionLote.fechaRealizado">Fecha Realizado</span></dt>
+                <dd>
+                    <span>{{medicionLote.fechaRealizado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.medicionLote.valor">Valor</span></dt>
+                <dd>
+                    <span>{{medicionLote.valor}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.medicionLote.observacion">Observacion</span></dt>
+                <dd>
+                    <span>{{medicionLote.observacion}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.medicionLote.lote">Lote</span></dt>
+                <dd>
+                    <div *ngIf="medicionLote.loteId">
+                        <a [routerLink]="['/lote', medicionLote.loteId, 'view']">{{medicionLote.loteCodigo}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.medicionLote.tanque">Tanque</span></dt>
+                <dd>
+                    <div *ngIf="medicionLote.tanqueId">
+                        <a [routerLink]="['/tanque', medicionLote.tanqueId, 'view']">{{medicionLote.tanqueNombre}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/medicion-lote', medicionLote.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

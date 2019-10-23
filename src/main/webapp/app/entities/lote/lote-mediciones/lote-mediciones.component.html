@@ -1,0 +1,111 @@
+<div class="container-fluid">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-5 col-md-8 col-sm-12">
+        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
+               (click)="toggleFullWidth()">
+          <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
+          <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
+        </a>Meición</h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+          <li class="breadcrumb-item">Producción</li>
+          <li class="breadcrumb-item active">Lotes</li>
+          <li class="breadcrumb-item active">Medición</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="header">
+      <h2 id="page-heading">
+        <button (click)="previousState()" type="button" mat-raised-button class="mat-back">
+          <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>
+      </h2>
+    </div>
+    <div class="body">
+      <jhi-alert></jhi-alert>
+      <br/>
+      <div class="row justify-content-center">
+        <div class="col-lg-3">
+          <div *ngIf="lote">
+            <div>
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <mat-card-title>
+                    <!--                    <h2><span jhiTranslate="craftBeerStoreApp.lote.detail.title">Tanque</span> {{lote.codigo}}</h2>-->
+                  </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <dl class="row-md jh-entity-details align-center">
+                    <img src="/assets/images/tanque.jpg" width="200">
+                  </dl>
+                  <dl class="row-md jh-entity-details">
+                    <dt><span jhiTranslate="craftBeerStoreApp.lote.detail.title">Codigo</span></dt>
+                    <dd>
+                      <span>{{lote.codigo}}</span>
+                    </dd>
+                  </dl>
+                  <dl class="row-md jh-entity-details">
+                    <dt><span jhiTranslate="craftBeerStoreApp.lote.fechaCoccion">Fecha Coccion</span></dt>
+                    <dd>
+                      <span>{{lote.fechaCoccion | date:'mediumDate'}}</span>
+                    </dd>
+                  </dl>
+                  <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEstimados">Litros Estimados</span></dt>
+                  <dd>
+                    <span>{{lote.litrosEstimados}}</span>
+                  </dd>
+                  <dt><span jhiTranslate="craftBeerStoreApp.lote.litrosEnTanque">Litros En Tanque</span></dt>
+                  <dd>
+                    <span>{{lote.litrosEnTanque}}</span>
+                  </dd>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <div class="mt-2">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>
+
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="mt-2">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>
+
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="mt-2">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>
+
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

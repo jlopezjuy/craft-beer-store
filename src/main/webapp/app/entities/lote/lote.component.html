@@ -71,11 +71,17 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let lote" style="width: 20%">
               <div class="btn-group flex-btn-group-container">
-                <button type="submit"
+                <button type="submit" *ngIf="lote.estado === 'ENVASADO'"
                         [routerLink]="['/admin/produccion/lote/', lote.id, 'envasado' ]"
                         mat-raised-button class="mat-receta">
                   <i class="beer-keg-icon"></i>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.envasar">Envasar</span>
+                </button>
+                <button type="submit" *ngIf="lote.estado === 'FERMENTACION'"
+                        [routerLink]="['/admin/produccion/lote/', lote.id, 'medicion' ]"
+                        mat-raised-button class="mat-receta">
+                  <i class="beer-keg-icon"></i>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.medicion">Medición</span>
                 </button>
                 <button type="submit"
                         [routerLink]="['/admin/produccion/lote/', lote.id, 'view' ]"

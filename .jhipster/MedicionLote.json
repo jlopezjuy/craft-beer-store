@@ -1,0 +1,54 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipName": "lote",
+            "otherEntityName": "lote",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "codigo"
+        },
+        {
+            "relationshipName": "tanque",
+            "otherEntityName": "tanque",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nombre"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "dia",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "tipoMedicion",
+            "fieldType": "TipoMedicion",
+            "fieldValues": "DENSIDAD,TEMPERATURA"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fechaRealizado",
+            "fieldType": "Instant",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldName": "valor",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "observacion",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20191023105640",
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "medicion_lote",
+    "databaseType": "sql",
+    "jpaMetamodelFiltering": false,
+    "pagination": "infinite-scroll"
+}

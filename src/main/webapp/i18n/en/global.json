@@ -44,6 +44,7 @@
         "movimientoBarril": "Movimiento Barril",
         "etapaLote": "Etapa Lote",
         "movimientoTanque": "Movimiento Tanque",
+        "medicionLote": "Medicion Lote",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -141,7 +142,8 @@
       "confirm": "Sei, seguro",
       "seleccionar": "Seleccionar",
       "finalizar": "Finalizar",
-      "envasar": "Envasar"
+      "envasar": "Envasar",
+      "medicion": "Medición"
     },
     "detail": {
       "field": "Field",

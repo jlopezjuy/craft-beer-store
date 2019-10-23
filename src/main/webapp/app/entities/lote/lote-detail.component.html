@@ -14,14 +14,14 @@
   <div class="card">
     <div class="header">
       <div class="row">
-        <div class="col-1">
+        <div class="col-md-2">
           <button type="button"
                   (click)="previousState()"
                   mat-raised-button class="mat-back">
             <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
           </button>
         </div>
-        <div class="row col-5 align-items-center">
+        <div class="row col-md-10 align-items-center">
           <h2 class="p-r-5"><span jhiTranslate="craftBeerStoreApp.lote.estado">Estado</span></h2>
           <mat-chip-list aria-label="Estado de Lote">
             <mat-chip *ngIf="lote.estado === 'EN_PROCESO'" class="mat-chip-en-proceso" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
@@ -74,12 +74,12 @@
                   <dd>
                     <span>{{lote.litrosEnTanque}}</span>
                   </dd>
-                  <dt><span jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</span></dt>
-                  <dd>
+                  <dt *ngIf="producto"><span jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</span></dt>
+                  <dd *ngIf="producto">
                     <span jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.tipo}}">{{producto.tipo}}</span>
                   </dd>
-                  <dt><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span></dt>
-                  <dd>
+                  <dt *ngIf="producto"><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span></dt>
+                  <dd *ngIf="producto">
                     <span>{{producto.nombreComercial}}</span>
                   </dd>
                 </mat-card-content>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity MedicionLote.
+    -->
+    <changeSet id="20191023105640-1" author="jhipster">
+        <createTable tableName="medicion_lote">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="dia" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tipo_medicion" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="estado" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="fecha_realizado" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="valor" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="observacion" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="lote_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="tanque_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="medicion_lote" columnName="fecha_realizado" columnDataType="datetime"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

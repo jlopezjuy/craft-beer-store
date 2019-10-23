@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-medicion-lote-heading" jhiTranslate="craftBeerStoreApp.medicionLote.home.createOrEditLabel">Create or edit a Medicion Lote</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!medicionLote.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="medicionLote.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.medicionLote.dia" for="field_dia">Dia</label>
+                    <input type="number" class="form-control" name="dia" id="field_dia"
+                        [(ngModel)]="medicionLote.dia" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.medicionLote.tipoMedicion" for="field_tipoMedicion">Tipo Medicion</label>
+                    <select class="form-control" name="tipoMedicion" [(ngModel)]="medicionLote.tipoMedicion" id="field_tipoMedicion" >
+                        <option value="DENSIDAD">{{'craftBeerStoreApp.TipoMedicion.DENSIDAD' | translate}}</option>
+                        <option value="TEMPERATURA">{{'craftBeerStoreApp.TipoMedicion.TEMPERATURA' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.medicionLote.estado" for="field_estado">Estado</label>
+                    <input type="text" class="form-control" name="estado" id="field_estado"
+                        [(ngModel)]="medicionLote.estado" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.medicionLote.fechaRealizado" for="field_fechaRealizado">Fecha Realizado</label>
+                    <div class="d-flex">
+                        <input id="field_fechaRealizado" type="datetime-local" class="form-control" name="fechaRealizado" [(ngModel)]="fechaRealizado" placeholder="YYYY-MM-DD HH:mm"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.medicionLote.valor" for="field_valor">Valor</label>
+                    <input type="number" class="form-control" name="valor" id="field_valor"
+                        [(ngModel)]="medicionLote.valor" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.medicionLote.observacion" for="field_observacion">Observacion</label>
+                    <input type="text" class="form-control" name="observacion" id="field_observacion"
+                        [(ngModel)]="medicionLote.observacion" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.medicionLote.lote" for="field_lote">Lote</label>
+                    <select class="form-control" id="field_lote" name="lote" [(ngModel)]="medicionLote.loteId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="loteOption.id" *ngFor="let loteOption of lotes; trackBy: trackLoteById">{{loteOption.codigo}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.medicionLote.tanque" for="field_tanque">Tanque</label>
+                    <select class="form-control" id="field_tanque" name="tanque" [(ngModel)]="medicionLote.tanqueId" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="tanqueOption.id" *ngFor="let tanqueOption of tanques; trackBy: trackTanqueById">{{tanqueOption.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
