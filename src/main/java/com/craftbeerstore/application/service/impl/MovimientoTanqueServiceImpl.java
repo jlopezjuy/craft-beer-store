@@ -75,7 +75,7 @@ public class MovimientoTanqueServiceImpl implements MovimientoTanqueService {
   @Override
   public Page<MovimientoTanqueDTO> findAll(Pageable pageable, Long tanqueId) {
     Tanque tanque = this.tanqueRepository.getOne(tanqueId);
-    return movimientoTanqueRepository.findAllByTanque(pageable, tanque).map(movimientoTanqueMapper::toDto);
+    return movimientoTanqueRepository.findAllByTanqueOrderByFechaDesc(pageable, tanque).map(movimientoTanqueMapper::toDto);
   }
 
 

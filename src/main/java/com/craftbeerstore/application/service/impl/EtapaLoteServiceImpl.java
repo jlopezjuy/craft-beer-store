@@ -75,7 +75,7 @@ public class EtapaLoteServiceImpl implements EtapaLoteService {
   @Override
   public Page<EtapaLoteDTO> findAll(Pageable pageable, Long loteId) {
     Lote lote = this.loteRepository.getOne(loteId);
-    return etapaLoteRepository.findAllByLote(pageable, lote)
+    return etapaLoteRepository.findAllByLoteOrderByIdDesc(pageable, lote)
       .map(etapaLoteMapper::toDto);
   }
 

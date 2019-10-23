@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MovimientoTanqueRepository extends JpaRepository<MovimientoTanque, Long> {
 
-  Page<MovimientoTanque> findAllByTanque(Pageable pageable, Tanque tanque);
+  Page<MovimientoTanque> findAllByTanqueOrderByFechaDesc(Pageable pageable, Tanque tanque);
 }

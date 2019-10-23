@@ -55,6 +55,11 @@ export class TanqueService {
     return this.http.get<ITanque[]>(`${this.resourceUrl}/empresa/${empresaId}/${estadoTanque}`, { params: options, observe: 'response' });
   }
 
+  queryByEmpresaLote(req?: any, empresaId?: number, loteId?: number): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ITanque[]>(`${this.resourceUrl}/empresa/${empresaId}/lote/${loteId}`, { params: options, observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

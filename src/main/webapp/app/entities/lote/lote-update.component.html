@@ -28,7 +28,7 @@
                 <div class="col-sm-4">
                   <mat-form-field class="example-full-width">
                     <mat-label jhiTranslate="craftBeerStoreApp.lote.producto" for="field_producto">Producto</mat-label>
-                    <mat-select  id="field_producto" name="producto" [(ngModel)]="lote.productoId" (selectionChange)="changeProducto()">
+                    <mat-select  id="field_producto" name="producto" [(ngModel)]="lote.productoId" (selectionChange)="changeProducto()" required>
                       <mat-option value=""></mat-option>
                       <mat-option [value]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</mat-option>
                     </mat-select>
@@ -37,7 +37,7 @@
                 <div class="col-sm-4">
                     <mat-form-field class="example-full-width">
                       <mat-label jhiTranslate="craftBeerStoreApp.lote.receta" for="field_receta">Receta</mat-label>
-                      <mat-select id="field_receta" name="receta" [(ngModel)]="lote.recetaId">
+                      <mat-select id="field_receta" name="receta" [(ngModel)]="lote.recetaId" (selectionChange)="changeReceta()" required>
                         <mat-option value=""></mat-option>
                         <mat-option [value]="recetaOption.id"
                                     *ngFor="let recetaOption of recetas; trackBy: trackRecetaById">{{recetaOption.nombre}}</mat-option>

@@ -16,7 +16,7 @@ import java.util.Optional;
 @Repository
 public interface EtapaLoteRepository extends JpaRepository<EtapaLote, Long> {
 
-  Page<EtapaLote> findAllByLote(Pageable pageable, Lote lote);
+  Page<EtapaLote> findAllByLoteOrderByIdDesc(Pageable pageable, Lote lote);
 
   Optional<EtapaLote> findTopByLoteOrderByIdDesc(Lote lote);
 }

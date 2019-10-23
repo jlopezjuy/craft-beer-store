@@ -1,9 +1,11 @@
 package com.craftbeerstore.application.service.impl;
 
 import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.domain.Lote;
 import com.craftbeerstore.application.domain.Tanque;
 import com.craftbeerstore.application.domain.enumeration.EstadoTanque;
 import com.craftbeerstore.application.repository.EmpresaRepository;
+import com.craftbeerstore.application.repository.LoteRepository;
 import com.craftbeerstore.application.repository.TanqueRepository;
 import com.craftbeerstore.application.service.TanqueService;
 import com.craftbeerstore.application.service.dto.TanqueDTO;
@@ -32,10 +34,13 @@ public class TanqueServiceImpl implements TanqueService {
 
   private final EmpresaRepository empresaRepository;
 
-  public TanqueServiceImpl(TanqueRepository tanqueRepository, TanqueMapper tanqueMapper, EmpresaRepository empresaRepository) {
+  private final LoteRepository loteRepository;
+
+  public TanqueServiceImpl(TanqueRepository tanqueRepository, TanqueMapper tanqueMapper, EmpresaRepository empresaRepository, LoteRepository loteRepository) {
     this.tanqueRepository = tanqueRepository;
     this.tanqueMapper = tanqueMapper;
     this.empresaRepository = empresaRepository;
+    this.loteRepository = loteRepository;
   }
 
   /**
@@ -76,6 +81,13 @@ public class TanqueServiceImpl implements TanqueService {
   public Page<TanqueDTO> findAll(Pageable pageable, Long empresaId, EstadoTanque estadoTanque) {
     Empresa empresa = this.empresaRepository.getOne(empresaId);
     return tanqueRepository.findAllByEmpresaAndEstado(pageable, empresa, estadoTanque).map(tanqueMapper::toDto);
+  }
+
+  @Override
+  public Page<TanqueDTO> findAll(Pageable pageable, Long empresaId, Long loteId) {
+    Lote lote = this.loteRepository.getOne(loteId);
+    Empresa empresa = this.empresaRepository.getOne(empresaId);
+    return this.tanqueRepository.findAllByEmpresaAndLote(pageable, empresa, lote).map(tanqueMapper::toDto);
   }
 
 

@@ -120,6 +120,14 @@ export class LoteUpdateComponent implements OnInit {
     console.log(this.lote.productoId);
     this.recetaService.findAllByProducto(null, this.lote.productoId).subscribe(resp => {
       this.recetas = resp.body;
+      // this.lote.litrosEstimados = this.recetas
+    });
+  }
+
+  changeReceta() {
+    console.log(this.lote.recetaId);
+    this.recetaService.find(this.lote.recetaId).subscribe(resp => {
+      this.lote.litrosEstimados = resp.body.batch;
     });
   }
 

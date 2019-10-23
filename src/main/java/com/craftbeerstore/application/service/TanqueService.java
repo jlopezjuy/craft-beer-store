@@ -46,6 +46,16 @@ public interface TanqueService {
    */
   Page<TanqueDTO> findAll(Pageable pageable, Long empresaId, EstadoTanque estadoTanque);
 
+  /**
+   * Get all the tanques.
+   *
+   * @param pageable  the pagination information
+   * @param empresaId the the id of empresa
+   * @param loteId the the id of empresa
+   * @return the list of entities
+   */
+  Page<TanqueDTO> findAll(Pageable pageable, Long empresaId, Long loteId);
+
 
   /**
    * Get the "id" tanque.

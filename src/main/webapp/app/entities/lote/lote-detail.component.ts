@@ -77,6 +77,11 @@ export class LoteDetailComponent implements OnInit {
 
   loadAll() {
     console.log(this.lote);
+    this.loadEtapa();
+    this.loadTanque();
+  }
+
+  loadEtapa() {
     this.etapaLoteService
       .queryByLote(null, this.lote.id)
       .subscribe(
@@ -87,9 +92,20 @@ export class LoteDetailComponent implements OnInit {
       this.receta = response.body;
       this.loadDataEdit();
     });
-    this.tanqueService.queryByEmpresa(null, this.lote.empresaId).subscribe(resp => {
-      this.tanques = resp.body;
-    });
+  }
+
+  loadTanque() {
+    if (this.lote.estado !== EstadoLote.COCCION && this.lote.estado !== EstadoLote.PLANIFICADO) {
+      this.tanqueService.queryByEmpresaLote(null, this.lote.empresaId, this.lote.id).subscribe(respo => {
+        this.tanques = respo.body;
+        console.log(this.tanques);
+      });
+    } else {
+      this.tanqueService.queryByEmpresaEstadoVacio(null, this.lote.empresaId, EstadoTanque.VACIO).subscribe(resp => {
+        this.tanques = resp.body;
+        console.log(this.tanques);
+      });
+    }
   }
 
   protected paginateEtapaLotes(data: IEtapaLote[]) {
@@ -128,7 +144,6 @@ export class LoteDetailComponent implements OnInit {
       this.lote.estado = EstadoLote.ENVASADO;
     }
 
-    this.lote.litrosEstimados = this.etapaLote.litros;
     this.lote.litrosEnTanque = this.etapaLote.litros;
 
     this.loteService.update(this.lote).subscribe(lot => {
@@ -157,8 +172,9 @@ export class LoteDetailComponent implements OnInit {
         tanque.body.productoId = this.lote.productoId;
         this.tanqueService.update(tanque.body).subscribe(tan => {
           console.log('tanque actualizado');
-          console.log(tan);
-          this.loadAll();
+          // console.log(tan);
+          // this.loadAll();
+          this.loadEtapa();
         });
       });
     });
@@ -229,20 +245,22 @@ export class LoteDetailComponent implements OnInit {
         movimiento.fecha = moment(new Date(), DATE_FORMAT);
         this.movimientoTanqueService.create(movimiento).subscribe(mov => {
           console.log('movimiento tanque creado');
-          this.tanqueService.find(movimiento.tanqueId).subscribe(respTanq => {
-            console.log('movimiento tanque ok...');
-            console.log(respTanq);
-            const tanque: ITanque = respTanq.body;
-            tanque.estado = EstadoTanque.VACIO;
-            this.tanqueService.update(tanque).subscribe(resp => {
-              console.log('tanque actualizado');
-            });
-          });
         });
 
         this.lote.estado = EstadoLote.FINALIZADO;
         this.loteService.update(this.lote).subscribe(lot => {
           console.log('lote actualizado');
+        });
+
+        this.tanqueService.queryByEmpresaLote(this.lote.empresaId, this.lote.id).subscribe(resp => {
+          resp.body.forEach(tanque => {
+            tanque.productoId = null;
+            tanque.loteId = null;
+            tanque.estado = EstadoTanque.VACIO;
+            this.tanqueService.update(tanque).subscribe(upd => {
+              console.log('tanque actualizado');
+            });
+          });
         });
       });
     });

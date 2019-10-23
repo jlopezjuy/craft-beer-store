@@ -109,6 +109,22 @@ public class TanqueResource {
    * GET  /tanques/empresa/:empresaId : get all the tanques.
    *
    * @param pageable the pagination information
+   * @param empresaId the id of empresa entity
+   * @param loteId the id of lote entity
+   * @return the ResponseEntity with status 200 (OK) and the list of tanques in body
+   */
+  @GetMapping("/tanques/empresa/{empresaId}/lote/{loteId}")
+  public ResponseEntity<List<TanqueDTO>> getAllTanquesEmpresaLote(Pageable pageable, @PathVariable Long empresaId,  @PathVariable Long loteId) {
+    log.debug("REST request to get a page of Tanques");
+    Page<TanqueDTO> page = tanqueService.findAll(pageable, empresaId, loteId);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tanques/empresa/{empresaId}/lote/{loteId}");
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
+
+  /**
+   * GET  /tanques/empresa/:empresaId : get all the tanques.
+   *
+   * @param pageable the pagination information
    * @return the ResponseEntity with status 200 (OK) and the list of tanques in body
    */
   @GetMapping("/tanques/empresa/{empresaId}/{estadoTanque}")
