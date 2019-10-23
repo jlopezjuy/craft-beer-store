@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ILote } from '../../../shared/model/lote.model';
 import { ActivatedRoute } from '@angular/router';
 import { SidebarService } from '../../../services/sidebar.service';
+import { MedicionLoteService } from '../../medicion-lote';
+import { IMedicionLote } from '../../../shared/model/medicion-lote.model';
 
 @Component({
   selector: 'jhi-lote-mediciones',
@@ -10,8 +12,15 @@ import { SidebarService } from '../../../services/sidebar.service';
 })
 export class LoteMedicionesComponent implements OnInit {
   public sidebarVisible = true;
+  medicionesLote: IMedicionLote[];
   lote: ILote;
-  constructor(protected activatedRoute: ActivatedRoute, private sidebarService: SidebarService, private cdr: ChangeDetectorRef) {}
+
+  constructor(
+    protected activatedRoute: ActivatedRoute,
+    private sidebarService: SidebarService,
+    private cdr: ChangeDetectorRef,
+    private medicionLoteService: MedicionLoteService
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ lote }) => {
@@ -23,7 +32,11 @@ export class LoteMedicionesComponent implements OnInit {
     });
   }
 
-  loadAll() {}
+  loadAll() {
+    this.medicionLoteService.queryLote(null, this.lote.id).subscribe(resp => {
+      this.medicionesLote = resp.body;
+    });
+  }
 
   toggleFullWidth() {
     this.sidebarService.toggle();

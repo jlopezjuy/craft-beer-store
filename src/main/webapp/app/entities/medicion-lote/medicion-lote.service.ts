@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { IMedicionLote } from 'app/shared/model/medicion-lote.model';
+import { IMedicionLote, TipoMedicion } from 'app/shared/model/medicion-lote.model';
 
 type EntityResponseType = HttpResponse<IMedicionLote>;
 type EntityArrayResponseType = HttpResponse<IMedicionLote[]>;
@@ -42,6 +42,20 @@ export class MedicionLoteService {
     const options = createRequestOption(req);
     return this.http
       .get<IMedicionLote[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  queryLote(req?: any, loteId?: number): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<IMedicionLote[]>(`${this.resourceUrl}/lote/${loteId}`, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  queryLoteTipo(req?: any, loteId?: number, tipoMedicion?: TipoMedicion): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<IMedicionLote[]>(`${this.resourceUrl}/lote/${loteId}/tipo/${tipoMedicion}`, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
