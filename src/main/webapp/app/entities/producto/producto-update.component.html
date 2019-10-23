@@ -78,7 +78,10 @@
                                 <mat-option *ngFor="let color of colores"
                                             [value]="color.name">
                                   <div class="row">
-                                    <div class="col-sm-6"> <div [ngStyle]="setMyStyles(color.name)" class="logo-glass"> </div></div>
+                                    <div class="col-sm-6">
+                                      <div [ngStyle]="setMyStyles(color.name)" class="logo-glass">
+                                      </div>
+                                    </div>
                                     <div class="col-sm-6">{{color.id}}</div>
                                   </div>
 

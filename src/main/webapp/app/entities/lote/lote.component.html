@@ -48,14 +48,6 @@
             <th mat-header-cell *matHeaderCellDef jhiSortBy="tanque"> <span jhiTranslate="craftBeerStoreApp.lote.tanque">Tanque</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let lote" > {{lote.tanqueNombre}} </td>
           </ng-container>
-          <ng-container matColumnDef="descripcion">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="descripcion"> <span jhiTranslate="craftBeerStoreApp.lote.descripcion">Descripcion</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let lote" > {{lote.descripcion}} </td>
-          </ng-container>
-          <ng-container matColumnDef="descuentaStock">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="descuentaStock"> <span jhiTranslate="craftBeerStoreApp.lote.descuentaStock">Descuenta Stock</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let lote" > {{lote.descuentaStock}} </td>
-          </ng-container>
           <ng-container matColumnDef="estado">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="estado"> <span jhiTranslate="craftBeerStoreApp.lote.estado">Estado</span><fa-icon [icon]="'sort'"></fa-icon> </th>
             <td mat-cell *matCellDef="let lote">

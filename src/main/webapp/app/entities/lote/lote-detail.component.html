@@ -13,18 +13,30 @@
   </div>
   <div class="card">
     <div class="header">
-      <h2><span jhiTranslate="craftBeerStoreApp.lote.estado">Estado
-      </span></h2>
-      <mat-chip-list aria-label="Estado de Lote">
-        <mat-chip *ngIf="lote.estado === 'EN_PROCESO'" class="mat-chip-en-proceso" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'COCCION'" class="mat-chip-coccion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'PLANIFICADO'" class="mat-chip-planificado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'FINALIZADO'" class="mat-chip-finalizado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'ANULADO'" class="mat-chip-anulado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'FERMENTACION'" class="mat-chip-fermentacion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'MADURACION'" class="mat-chip-maduracion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
-        <mat-chip *ngIf="lote.estado === 'ENVASADO'" class="mat-chip-envasado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
-      </mat-chip-list>
+      <div class="row">
+        <div class="col-1">
+          <button type="button"
+                  (click)="previousState()"
+                  mat-raised-button class="mat-back">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+          </button>
+        </div>
+        <div class="row col-5 align-items-center">
+          <h2 class="p-r-5"><span jhiTranslate="craftBeerStoreApp.lote.estado">Estado</span></h2>
+          <mat-chip-list aria-label="Estado de Lote">
+            <mat-chip *ngIf="lote.estado === 'EN_PROCESO'" class="mat-chip-en-proceso" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+            <mat-chip *ngIf="lote.estado === 'COCCION'" class="mat-chip-coccion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+            <mat-chip *ngIf="lote.estado === 'PLANIFICADO'" class="mat-chip-planificado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+            <mat-chip *ngIf="lote.estado === 'FINALIZADO'" class="mat-chip-finalizado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+            <mat-chip *ngIf="lote.estado === 'ANULADO'" class="mat-chip-anulado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+            <mat-chip *ngIf="lote.estado === 'FERMENTACION'" class="mat-chip-fermentacion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+            <mat-chip *ngIf="lote.estado === 'MADURACION'" class="mat-chip-maduracion" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+            <mat-chip *ngIf="lote.estado === 'ENVASADO'" class="mat-chip-envasado" jhiTranslate="{{'craftBeerStoreApp.EstadoLote.' + lote.estado}}">{{lote.estado}}</mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+
+
     </div>
     <div class="body">
       <div class="row justify-content-center">
@@ -62,13 +74,16 @@
                   <dd>
                     <span>{{lote.litrosEnTanque}}</span>
                   </dd>
+                  <dt><span jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</span></dt>
+                  <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EstiloCerveza.' + producto.tipo}}">{{producto.tipo}}</span>
+                  </dd>
+                  <dt><span jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</span></dt>
+                  <dd>
+                    <span>{{producto.nombreComercial}}</span>
+                  </dd>
                 </mat-card-content>
                 <mat-card-actions>
-                  <button type="button"
-                          (click)="previousState()"
-                          mat-raised-button class="mat-back">
-                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-                  </button>
                   <button type="button" *ngIf="lote.estado === 'PLANIFICADO' && lote.estado !== 'ENVASADO'"
                           [routerLink]="['/admin/produccion/lote', lote.id, 'edit']"
                           mat-raised-button class="mat-success">
@@ -132,7 +147,7 @@
               </mat-card-content>
             </mat-card>
           </div>
-          <div class="mt-2" *ngIf="lote.estado !== 'PLANIFICADO' && lote.estado !== 'ENVASADO' && lote.estado !== 'FINALIZADO'">
+          <div class="mt-2" *ngIf="lote.estado !== 'PLANIFICADO' && lote.estado !== 'FINALIZADO'">
             <mat-card class="example-card">
               <mat-card-header>
               </mat-card-header>

@@ -21,6 +21,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MovimientoTanqueService } from '../movimiento-tanque';
 import { EstadoUsoTanque, MovimientoTanque } from '../../shared/model/movimiento-tanque.model';
 import moment = require('moment');
+import { IProducto } from '../../shared/model/producto.model';
+import { ProductoService } from '../producto';
 
 @Component({
   selector: 'jhi-lote-detail',
@@ -34,6 +36,7 @@ export class LoteDetailComponent implements OnInit {
   tanques: ITanque[];
   dataSource: any;
   displayedColumns: string[] = ['etapa', 'tanqueNombre', 'litros', 'inicio', 'fin', 'dias'];
+  producto: IProducto;
 
   recetaInsumo: IRecetaInsumo = new RecetaInsumo();
   recetaInsumoLupulo: IRecetaInsumo = new RecetaInsumo();
@@ -61,7 +64,8 @@ export class LoteDetailComponent implements OnInit {
     protected recetaInsumoService: RecetaInsumoService,
     protected loteService: LoteService,
     public dialog: MatDialog,
-    protected movimientoTanqueService: MovimientoTanqueService
+    protected movimientoTanqueService: MovimientoTanqueService,
+    protected productoService: ProductoService
   ) {}
 
   ngOnInit() {
@@ -71,6 +75,9 @@ export class LoteDetailComponent implements OnInit {
       this.lote = lote;
       if (this.lote.id) {
         this.loadAll();
+        this.productoService.find(this.lote.productoId).subscribe(prod => {
+          this.producto = prod.body;
+        });
       }
     });
   }
@@ -257,7 +264,7 @@ export class LoteDetailComponent implements OnInit {
             tanque.productoId = null;
             tanque.loteId = null;
             tanque.estado = EstadoTanque.VACIO;
-            this.tanqueService.update(tanque).subscribe(upd => {
+            this.tanqueService.update(tanque).subscribe(updt => {
               console.log('tanque actualizado');
             });
           });
