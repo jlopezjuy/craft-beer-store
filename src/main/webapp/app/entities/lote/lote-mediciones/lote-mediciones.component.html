@@ -90,9 +90,10 @@
                     <div class="col-md-4">
                       <div class="row">
                         <mat-form-field>
-                          <input matInput [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly name="hora" [(ngModel)]="horaRealizado">
-                          <ngx-material-timepicker-toggle [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
-                          <ngx-material-timepicker #toggleTimepicker></ngx-material-timepicker>
+                          <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.fechaRealizado" for="field_hora">Fecha Realizado</mat-label>
+                          <input matInput placeholder="12hr format (default settings)" aria-label="12hr format" [ngxTimepicker]="default" readonly
+                                 name="hora" [(ngModel)]="horaRealizado" id="field_hora">
+                          <ngx-material-timepicker #default></ngx-material-timepicker>
                         </mat-form-field>
                       </div>
 
