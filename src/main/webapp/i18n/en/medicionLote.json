@@ -22,7 +22,9 @@
       "valor": "Valor",
       "observacion": "Observacion",
       "lote": "Lote",
-      "tanque": "Tanque"
+      "tanque": "Tanque",
+      "densidad": "Densidad",
+      "temperatura": "Temperatura"
     }
   }
 }

@@ -14,6 +14,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { NgxGalleryModule } from 'ngx-gallery';
 import 'hammerjs';
 import * as moment from 'moment';
+import 'moment-timezone';
 
 import * as $ from 'jquery';
 import { NgxUiLoaderConfig, NgxUiLoaderModule } from 'ngx-ui-loader';

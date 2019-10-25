@@ -17,6 +17,8 @@ export interface IMedicionLote {
   loteId?: number;
   tanqueNombre?: string;
   tanqueId?: number;
+  densidad?: number;
+  temperatura?: number;
 }
 
 export class MedicionLote implements IMedicionLote {

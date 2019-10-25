@@ -76,7 +76,64 @@
                 </mat-card-title>
               </mat-card-header>
               <mat-card-content>
-
+                <form name="editForm" role="form" novalidate #editForm="ngForm">
+                  <div class="row">
+                    <div class="col-md-4">
+<!--                      <mat-form-field>-->
+<!--                        <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.fechaRealizado" for="field_fechaAlta">Fecha Realizado</mat-label>-->
+<!--                        <input matInput id="field_fechaAlta" name="fechaAlta" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fechaRealizado">-->
+<!--                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--                        <mat-datepicker #picker></mat-datepicker>-->
+<!--                      </mat-form-field>-->
+                      <div class="24hr-example">
+                        <input placeholder="24hr format" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24"  readonly>
+                        <ngx-material-timepicker #fullTime></ngx-material-timepicker>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+<!--                      <input placeholder="12hr format (default settings)" aria-label="12hr format" [ngxTimepicker]="default" readonly>-->
+<!--                      <ngx-material-timepicker #default></ngx-material-timepicker>-->
+                      <mat-form-field>
+                        <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.fechaRealizado" for="field_fecha">Fecha Realizado</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="Choose a date"  id="field_fecha">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.tanque" for="field_tanque">Tanque</mat-label>
+                        <mat-select id="field_tanque" name="tanque" [(ngModel)]="medicionLote.tanqueId" >
+                          <mat-option value="null"></mat-option>
+                          <mat-option [value]="tanqueOption.id" *ngFor="let tanqueOption of tanques; trackBy: trackTanqueById">{{tanqueOption.nombre}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.densidad" for="field_densidad">Densidad</mat-label>
+                        <input type="number" matInput name="dia" id="field_densidad"
+                               [(ngModel)]="medicionLote.densidad" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.temperatura" for="field_temperatura">Temperatura</mat-label>
+                        <input type="number" matInput name="dia" id="field_temperatura"
+                               [(ngModel)]="medicionLote.temperatura" />
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-8">
+                      <mat-form-field>
+                        <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.observacion" for="field_observacion">Observacion</mat-label>
+                        <input type="text" matInput name="observacion" id="field_observacion"
+                               [(ngModel)]="medicionLote.observacion" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
               </mat-card-content>
             </mat-card>
           </div>

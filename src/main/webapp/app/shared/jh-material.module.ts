@@ -44,8 +44,11 @@ import {
     MatTreeModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from "ng-pick-datetime";
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
+  imports: [NgxMaterialTimepickerModule],
     exports: [
         A11yModule,
         CdkStepperModule,
@@ -89,7 +92,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatTreeModule,
         ScrollingModule,
         ReactiveFormsModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+      OwlDateTimeModule,
+      OwlNativeDateTimeModule,
+      NgxMaterialTimepickerModule
     ]
 })
 export class JhMaterialModule {}
