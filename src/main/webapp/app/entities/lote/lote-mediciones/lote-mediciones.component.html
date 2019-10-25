@@ -79,26 +79,23 @@
                 <form name="editForm" role="form" novalidate #editForm="ngForm">
                   <div class="row">
                     <div class="col-md-4">
-<!--                      <mat-form-field>-->
-<!--                        <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.fechaRealizado" for="field_fechaAlta">Fecha Realizado</mat-label>-->
-<!--                        <input matInput id="field_fechaAlta" name="fechaAlta" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fechaRealizado">-->
-<!--                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--                        <mat-datepicker #picker></mat-datepicker>-->
-<!--                      </mat-form-field>-->
-                      <div class="24hr-example">
-                        <input placeholder="24hr format" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24"  readonly>
-                        <ngx-material-timepicker #fullTime></ngx-material-timepicker>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-<!--                      <input placeholder="12hr format (default settings)" aria-label="12hr format" [ngxTimepicker]="default" readonly>-->
-<!--                      <ngx-material-timepicker #default></ngx-material-timepicker>-->
                       <mat-form-field>
-                        <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.fechaRealizado" for="field_fecha">Fecha Realizado</mat-label>
-                        <input matInput [matDatepicker]="picker" placeholder="Choose a date"  id="field_fecha">
+                        <mat-label jhiTranslate="craftBeerStoreApp.medicionLote.fechaRealizado" for="field_fechaAlta">Fecha Realizado</mat-label>
+                        <input matInput id="field_fechaAlta" name="fechaAlta" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fechaRealizado">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                       </mat-form-field>
+
+                    </div>
+                    <div class="col-md-4">
+                      <div class="row">
+                        <mat-form-field>
+                          <input matInput [ngxTimepicker]="toggleTimepicker" [disableClick]="true" readonly name="hora" [(ngModel)]="horaRealizado">
+                          <ngx-material-timepicker-toggle [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
+                          <ngx-material-timepicker #toggleTimepicker></ngx-material-timepicker>
+                        </mat-form-field>
+                      </div>
+
                     </div>
                     <div class="col-md-4">
                       <mat-form-field>
