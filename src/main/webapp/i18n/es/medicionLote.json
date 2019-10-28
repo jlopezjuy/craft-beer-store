@@ -19,6 +19,7 @@
       "tipoMedicion": "Tipo Medicion",
       "estado": "Estado",
       "fechaRealizado": "Fecha Realizado",
+      "horaRealizado": "Hora Realizado",
       "valor": "Valor",
       "observacion": "Observacion",
       "lote": "Lote",

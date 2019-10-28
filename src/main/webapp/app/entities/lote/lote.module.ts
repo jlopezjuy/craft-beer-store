@@ -15,11 +15,12 @@ import {
 import { LoteDetailDialogComponent } from './lote-detail-dialog.component';
 import { LoteEnvasadoComponent } from './lote-envasado/lote-envasado.component';
 import { LoteMedicionesComponent } from './lote-mediciones/lote-mediciones.component';
+import {NgxEchartsModule} from "ngx-echarts";
 
 const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
 
 @NgModule({
-  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES), NgxEchartsModule],
   declarations: [
     LoteComponent,
     LoteDetailComponent,
