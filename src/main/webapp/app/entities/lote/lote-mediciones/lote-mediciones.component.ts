@@ -1,18 +1,18 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ILote} from '../../../shared/model/lote.model';
-import {ActivatedRoute} from '@angular/router';
-import {SidebarService} from '../../../services/sidebar.service';
-import {MedicionLoteService} from '../../medicion-lote';
-import {IMedicionLote, MedicionLote, TipoMedicion} from '../../../shared/model/medicion-lote.model';
-import {ITanque} from "../../../shared/model/tanque.model";
-import {filter, map} from "rxjs/operators";
-import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
-import {TanqueService} from "../../tanque";
-import {JhiAlertService} from "ng-jhipster";
-import {IProducto} from "../../../shared/model/producto.model";
-import {ProductoService} from "../../producto";
-import * as moment from "moment";
-import {DATE_TIME_FORMAT} from "../../../shared";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ILote } from '../../../shared/model/lote.model';
+import { ActivatedRoute } from '@angular/router';
+import { SidebarService } from '../../../services/sidebar.service';
+import { MedicionLoteService } from '../../medicion-lote';
+import { IMedicionLote, MedicionLote, TipoMedicion } from '../../../shared/model/medicion-lote.model';
+import { ITanque } from '../../../shared/model/tanque.model';
+import { filter, map } from 'rxjs/operators';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { TanqueService } from '../../tanque';
+import { JhiAlertService } from 'ng-jhipster';
+import { IProducto } from '../../../shared/model/producto.model';
+import { ProductoService } from '../../producto';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from '../../../shared';
 
 @Component({
   selector: 'jhi-lote-mediciones',
@@ -56,24 +56,24 @@ export class LoteMedicionesComponent implements OnInit {
   }
 
   loadAll() {
-
     this.tanqueService
       .queryByEmpresaLote(null, this.lote.empresaId, this.lote.id)
       .pipe(
         filter((mayBeOk: HttpResponse<ITanque[]>) => mayBeOk.ok),
         map((response: HttpResponse<ITanque[]>) => response.body)
       )
-      .subscribe((res: ITanque[]) => {
-        this.tanques = res;
-        this.medicionLoteService.queryLote(null, this.lote.id).subscribe(resp => {
-          this.medicionesLote = resp.body;
-          const densidades = this.medicionesLote.filter( densidad => densidad.tipoMedicion === TipoMedicion.DENSIDAD);
-          const temperaturas = this.medicionesLote.filter( temp => temp.tipoMedicion === TipoMedicion.TEMPERATURA);
-          this.loadGraph(densidades, temperaturas, this.tanques);
-        });
-      }, (res: HttpErrorResponse) => this.onError(res.message));
-
-
+      .subscribe(
+        (res: ITanque[]) => {
+          this.tanques = res;
+          this.medicionLoteService.queryLote(null, this.lote.id).subscribe(resp => {
+            this.medicionesLote = resp.body;
+            const densidades = this.medicionesLote.filter(densidad => densidad.tipoMedicion === TipoMedicion.DENSIDAD);
+            const temperaturas = this.medicionesLote.filter(temp => temp.tipoMedicion === TipoMedicion.TEMPERATURA);
+            this.loadGraph(densidades, temperaturas, this.tanques);
+          });
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
   }
 
   loadGraph(densidades: IMedicionLote[], temperaturas: IMedicionLote[], tanques: ITanque[]) {
@@ -88,20 +88,26 @@ export class LoteMedicionesComponent implements OnInit {
       valorDensidades.push(tanque.nombre);
       colorsDensidades.push(this.random_rgba());
       densidades.forEach(densidad => {
-        if(tanque.nombre === densidad.tanqueNombre){
+        if (tanque.nombre === densidad.tanqueNombre) {
           serieDensidad.push(densidad.valor);
-          fechas.push(moment(densidad.fechaRealizado).format("DD/MM/YYYY"));
+          fechas.push(moment(densidad.fechaRealizado).format('DD/MM/YYYY'));
         }
       });
 
-      let serie = {
-        name: tanque.nombre,
-        type: 'line',
-        stack: 'counts',
-        areaStyle: { normal: {} },
-        data: serieDensidad
-      }
-      series.push(serie);
+      // let serie = {
+      //   name: tanque.nombre,
+      //   type: 'line',
+      //   stack: 'counts',
+      //   areaStyle: { normal: {} },
+      //   data: serieDensidad
+      // }
+      let dataSet = {
+        label: tanque.nombre,
+        data: serieDensidad,
+        fill: false,
+        borderColor: this.random_rgba()
+      };
+      series.push(dataSet);
     });
     fechas = fechas.filter(function(item, pos) {
       return fechas.indexOf(item) == pos;
@@ -109,65 +115,69 @@ export class LoteMedicionesComponent implements OnInit {
     console.log(fechas);
     console.log(series);
     this.chartOptionsDensidad = {
-      color: colorsDensidades,
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross',
-          label: {
-            backgroundColor: '#6a7985'
-          }
-        }
-      },
-      legend: {
-        data: valorDensidades,
-        textStyle: {
-          color: '#8bc28d'
-        }
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: [
-        {
-          type: 'category',
-          boundaryGap: false,
-          data: fechas,
-          axisLine: {
-            lineStyle: {
-              color: '#C2C2C2'
-            }
-          },
-          axisLabel: {
-            textStyle: {
-              color: '#C2C2C2'
-            }
-          }
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value',
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#C2C2C2'
-            }
-          },
-          axisLabel: {
-            textStyle: {
-              color: '#C2C2C2'
-            }
-          }
-        }
-      ],
-      series: series
+      labels: fechas,
+      datasets: series
     };
+    // this.chartOptionsDensidad = {
+    //   color: colorsDensidades,
+    //   tooltip: {
+    //     trigger: 'axis',
+    //     axisPointer: {
+    //       type: 'cross',
+    //       label: {
+    //         backgroundColor: '#6a7985'
+    //       }
+    //     }
+    //   },
+    //   legend: {
+    //     data: valorDensidades,
+    //     textStyle: {
+    //       color: '#8bc28d'
+    //     }
+    //   },
+    //   grid: {
+    //     left: '3%',
+    //     right: '4%',
+    //     bottom: '3%',
+    //     containLabel: true
+    //   },
+    //   xAxis: [
+    //     {
+    //       type: 'category',
+    //       boundaryGap: false,
+    //       data: fechas,
+    //       axisLine: {
+    //         lineStyle: {
+    //           color: '#C2C2C2'
+    //         }
+    //       },
+    //       axisLabel: {
+    //         textStyle: {
+    //           color: '#C2C2C2'
+    //         }
+    //       }
+    //     }
+    //   ],
+    //   yAxis: [
+    //     {
+    //       type: 'value',
+    //       splitLine: {
+    //         show: false
+    //       },
+    //       axisLine: {
+    //         lineStyle: {
+    //           color: '#C2C2C2'
+    //         }
+    //       },
+    //       axisLabel: {
+    //         textStyle: {
+    //           color: '#C2C2C2'
+    //         }
+    //       }
+    //     }
+    //   ],
+    //   series: series
+    // };
     this.chartOptionsTemperatura = {
       color: [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()],
       tooltip: {
@@ -272,11 +282,10 @@ export class LoteMedicionesComponent implements OnInit {
     };
   }
 
-
   saveMedicion() {
-    const hora = Number(this.horaRealizado.toString().substr(0,2));
-    const minutos = Number(this.horaRealizado.toString().substr(3,2));
-    const fechaNueva = this.fechaRealizado != null ? moment(this.fechaRealizado, DATE_TIME_FORMAT): null;
+    const hora = Number(this.horaRealizado.toString().substr(0, 2));
+    const minutos = Number(this.horaRealizado.toString().substr(3, 2));
+    const fechaNueva = this.fechaRealizado != null ? moment(this.fechaRealizado, DATE_TIME_FORMAT) : null;
     const fechaFormateada = moment(fechaNueva).toDate();
     fechaFormateada.setMinutes(minutos);
     fechaFormateada.setHours(hora);
@@ -300,7 +309,7 @@ export class LoteMedicionesComponent implements OnInit {
       this.medicionLoteService.create(medicionLoteTemperatura).subscribe(temp => {
         console.log('save temp ok');
         this.medicionLote = new MedicionLote();
-      })
+      });
     });
   }
 
@@ -323,7 +332,9 @@ export class LoteMedicionesComponent implements OnInit {
   }
 
   private random_rgba() {
-    const o = Math.round, r = Math.random, s = 255;
-    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    const o = Math.round,
+      r = Math.random,
+      s = 255;
+    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
   }
 }

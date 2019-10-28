@@ -15,7 +15,8 @@ import {
 import { LoteDetailDialogComponent } from './lote-detail-dialog.component';
 import { LoteEnvasadoComponent } from './lote-envasado/lote-envasado.component';
 import { LoteMedicionesComponent } from './lote-mediciones/lote-mediciones.component';
-import {NgxEchartsModule} from "ngx-echarts";
+import { NgxEchartsModule } from 'ngx-echarts';
+import { LinechartComponent } from '../../dashboard/linechart';
 
 const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
 
@@ -29,7 +30,8 @@ const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
     LoteDeletePopupComponent,
     LoteDetailDialogComponent,
     LoteEnvasadoComponent,
-    LoteMedicionesComponent
+    LoteMedicionesComponent,
+    LinechartComponent
   ],
   entryComponents: [
     LoteComponent,
