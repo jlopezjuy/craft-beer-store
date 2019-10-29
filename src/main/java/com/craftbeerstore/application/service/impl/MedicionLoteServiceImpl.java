@@ -56,13 +56,13 @@ public class MedicionLoteServiceImpl implements MedicionLoteService {
   @Override
   public Page<MedicionLoteDTO> findAll(Pageable pageable, Long loteId) {
       Lote lote = this.loteRepository.getOne(loteId);
-    return this.medicionLoteRepository.findAllByLote(pageable, lote).map(medicionLoteMapper::toDto);
+    return this.medicionLoteRepository.findAllByLoteOrderByFechaRealizadoAsc(pageable, lote).map(medicionLoteMapper::toDto);
   }
 
   @Override
   public Page<MedicionLoteDTO> findAll(Pageable pageable, Long loteId, TipoMedicion tipoMedicion) {
     Lote lote = this.loteRepository.getOne(loteId);
-    return this.medicionLoteRepository.findAllByLoteAndTipoMedicion(pageable, lote, tipoMedicion).map(medicionLoteMapper::toDto);
+    return this.medicionLoteRepository.findAllByLoteAndTipoMedicionOrderByFechaRealizadoDesc(pageable, lote, tipoMedicion).map(medicionLoteMapper::toDto);
   }
 
   /**

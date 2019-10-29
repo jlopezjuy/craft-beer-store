@@ -42,6 +42,7 @@ export class LoteMedicionesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.fechaRealizado = moment(moment(), 'dd/MM/yyy').format();
     this.medicionLote = new MedicionLote();
     this.activatedRoute.data.subscribe(({ lote }) => {
       this.lote = lote;
@@ -67,6 +68,7 @@ export class LoteMedicionesComponent implements OnInit {
           this.tanques = res;
           this.medicionLoteService.queryLote(null, this.lote.id).subscribe(resp => {
             this.medicionesLote = resp.body;
+            console.log(this.medicionesLote);
             const densidades = this.medicionesLote.filter(densidad => densidad.tipoMedicion === TipoMedicion.DENSIDAD);
             const temperaturas = this.medicionesLote.filter(temp => temp.tipoMedicion === TipoMedicion.TEMPERATURA);
             this.loadGraph(densidades, temperaturas, this.tanques);
@@ -91,6 +93,7 @@ export class LoteMedicionesComponent implements OnInit {
       densidades.forEach(densidad => {
         if (tanque.nombre === densidad.tanqueNombre) {
           serieDensidad.push(densidad.valor);
+          console.log(moment(densidad.fechaRealizado).format('DD/MM/YYYY'));
           fechas.push(moment(densidad.fechaRealizado).format('DD/MM/YYYY'));
         }
       });
@@ -121,6 +124,8 @@ export class LoteMedicionesComponent implements OnInit {
     fechasTemp = fechasTemp.filter(function(item, pos) {
       return fechasTemp.indexOf(item) == pos;
     });
+    console.log(fechas);
+    console.log(fechasTemp);
     this.chartOptionsDensidad = {
       labels: fechas,
       datasets: series
@@ -138,7 +143,6 @@ export class LoteMedicionesComponent implements OnInit {
     const fechaFormateada = moment(fechaNueva).toDate();
     fechaFormateada.setMinutes(minutos);
     fechaFormateada.setHours(hora);
-    console.log(fechaFormateada);
     const medicionLoteDensidad: IMedicionLote = new MedicionLote();
     const medicionLoteTemperatura: IMedicionLote = new MedicionLote();
     medicionLoteDensidad.fechaRealizado = moment(fechaFormateada, DATE_TIME_FORMAT);
@@ -156,10 +160,9 @@ export class LoteMedicionesComponent implements OnInit {
     console.log(this.validateMedicion(this.medicionLote, fechaFormateada));
     if (this.validateMedicion(this.medicionLote, fechaFormateada) === true) {
       this.medicionLoteService.create(medicionLoteDensidad).subscribe(resp => {
-        console.log('save densidad ok');
         this.medicionLoteService.create(medicionLoteTemperatura).subscribe(temp => {
-          console.log('save temp ok');
           this.medicionLote = new MedicionLote();
+          this.loadAll();
         });
       });
     } else {

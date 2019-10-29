@@ -16,8 +16,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MedicionLoteRepository extends JpaRepository<MedicionLote, Long> {
 
-  Page<MedicionLote> findAllByLote(Pageable pageable, Lote lote);
+  Page<MedicionLote> findAllByLoteOrderByFechaRealizadoAsc(Pageable pageable, Lote lote);
 
-  Page<MedicionLote> findAllByLoteAndTipoMedicion(Pageable pageable, Lote lote, TipoMedicion tipoMedicion);
+  Page<MedicionLote> findAllByLoteAndTipoMedicionOrderByFechaRealizadoDesc(Pageable pageable, Lote lote, TipoMedicion tipoMedicion);
 
 }
