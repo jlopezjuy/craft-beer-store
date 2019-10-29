@@ -77,8 +77,6 @@ export class LoteMedicionesComponent implements OnInit {
   }
 
   loadGraph(densidades: IMedicionLote[], temperaturas: IMedicionLote[], tanques: ITanque[]) {
-    console.log(densidades);
-    console.log(temperaturas);
     const colorsDensidades = [];
     const valorDensidades = [];
     let fechas = [];
@@ -102,7 +100,6 @@ export class LoteMedicionesComponent implements OnInit {
           fechasTemp.push(moment(temperatura.fechaRealizado).format('DD/MM/YYYY'));
         }
       });
-
       const dataSet = {
         label: tanque.nombre,
         data: serieDensidad,
@@ -128,7 +125,6 @@ export class LoteMedicionesComponent implements OnInit {
       labels: fechas,
       datasets: series
     };
-
     this.chartOptionsTemperatura = {
       labels: fechasTemp,
       datasets: seriesTemp
@@ -157,13 +153,30 @@ export class LoteMedicionesComponent implements OnInit {
     medicionLoteTemperatura.tipoMedicion = TipoMedicion.TEMPERATURA;
     medicionLoteDensidad.loteId = this.lote.id;
     medicionLoteTemperatura.loteId = this.lote.id;
-    this.medicionLoteService.create(medicionLoteDensidad).subscribe(resp => {
-      console.log('save densidad ok');
-      this.medicionLoteService.create(medicionLoteTemperatura).subscribe(temp => {
-        console.log('save temp ok');
-        this.medicionLote = new MedicionLote();
+    console.log(this.validateMedicion(this.medicionLote, fechaFormateada));
+    if (this.validateMedicion(this.medicionLote, fechaFormateada) === true) {
+      this.medicionLoteService.create(medicionLoteDensidad).subscribe(resp => {
+        console.log('save densidad ok');
+        this.medicionLoteService.create(medicionLoteTemperatura).subscribe(temp => {
+          console.log('save temp ok');
+          this.medicionLote = new MedicionLote();
+        });
       });
+    } else {
+      this.jhiAlertService.warning('craftBeerStoreApp.medicionLote.exist');
+    }
+  }
+
+  validateMedicion(medicionLote: IMedicionLote, fechaFormateada: any): boolean {
+    let validate = true;
+    this.medicionesLote.forEach(medicion => {
+      const fechaSaved = moment(medicion.fechaRealizado).format('DD/MM/YYYY');
+      const fechaToSave = moment(fechaFormateada).format('DD/MM/YYYY');
+      if (fechaSaved === fechaToSave && medicion.tanqueId === medicionLote.tanqueId) {
+        validate = false;
+      }
     });
+    return validate;
   }
 
   toggleFullWidth() {

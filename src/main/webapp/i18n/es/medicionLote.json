@@ -9,6 +9,7 @@
       "created": "Un nuevo Medicion Lote ha sido creado con el identificador {{ param }}",
       "updated": "Un Medicion Lote ha sido actualizado con el identificador {{ param }}",
       "deleted": "Un Medicion Lote ha sido eliminado con el identificador {{ param }}",
+      "exist": "Una medición ya se encuentra cargada en esta fecha.",
       "delete": {
         "question": "¿Seguro que quiere eliminar Medicion Lote {{ id }}?"
       },
