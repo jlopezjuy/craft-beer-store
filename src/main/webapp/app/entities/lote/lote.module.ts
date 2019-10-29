@@ -30,8 +30,7 @@ const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
     LoteDeletePopupComponent,
     LoteDetailDialogComponent,
     LoteEnvasadoComponent,
-    LoteMedicionesComponent,
-    LinechartComponent
+    LoteMedicionesComponent
   ],
   entryComponents: [
     LoteComponent,

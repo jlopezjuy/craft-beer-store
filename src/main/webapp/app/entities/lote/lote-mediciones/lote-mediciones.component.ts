@@ -28,7 +28,7 @@ export class LoteMedicionesComponent implements OnInit {
   horaRealizado: any;
   tanques: ITanque[];
   producto: IProducto;
-  public chartOptionsDensidad: any = {};
+  public chartOptionsDensidad: any;
   public chartOptionsTemperatura: any = {};
 
   constructor(
@@ -82,9 +82,12 @@ export class LoteMedicionesComponent implements OnInit {
     const colorsDensidades = [];
     const valorDensidades = [];
     let fechas = [];
+    let fechasTemp = [];
     const series = [];
+    const seriesTemp = [];
     tanques.forEach(tanque => {
       const serieDensidad = [];
+      const serieTemperatura = [];
       valorDensidades.push(tanque.nombre);
       colorsDensidades.push(this.random_rgba());
       densidades.forEach(densidad => {
@@ -93,192 +96,42 @@ export class LoteMedicionesComponent implements OnInit {
           fechas.push(moment(densidad.fechaRealizado).format('DD/MM/YYYY'));
         }
       });
+      temperaturas.forEach(temperatura => {
+        if (tanque.nombre === temperatura.tanqueNombre) {
+          serieTemperatura.push(temperatura.valor);
+          fechasTemp.push(moment(temperatura.fechaRealizado).format('DD/MM/YYYY'));
+        }
+      });
 
-      // let serie = {
-      //   name: tanque.nombre,
-      //   type: 'line',
-      //   stack: 'counts',
-      //   areaStyle: { normal: {} },
-      //   data: serieDensidad
-      // }
-      let dataSet = {
+      const dataSet = {
         label: tanque.nombre,
         data: serieDensidad,
         fill: false,
         borderColor: this.random_rgba()
       };
+      const dataSetTemp = {
+        label: tanque.nombre,
+        data: serieTemperatura,
+        fill: false,
+        borderColor: this.random_rgba()
+      };
       series.push(dataSet);
+      seriesTemp.push(dataSetTemp);
     });
     fechas = fechas.filter(function(item, pos) {
       return fechas.indexOf(item) == pos;
     });
-    console.log(fechas);
-    console.log(series);
+    fechasTemp = fechasTemp.filter(function(item, pos) {
+      return fechasTemp.indexOf(item) == pos;
+    });
     this.chartOptionsDensidad = {
       labels: fechas,
       datasets: series
     };
-    // this.chartOptionsDensidad = {
-    //   color: colorsDensidades,
-    //   tooltip: {
-    //     trigger: 'axis',
-    //     axisPointer: {
-    //       type: 'cross',
-    //       label: {
-    //         backgroundColor: '#6a7985'
-    //       }
-    //     }
-    //   },
-    //   legend: {
-    //     data: valorDensidades,
-    //     textStyle: {
-    //       color: '#8bc28d'
-    //     }
-    //   },
-    //   grid: {
-    //     left: '3%',
-    //     right: '4%',
-    //     bottom: '3%',
-    //     containLabel: true
-    //   },
-    //   xAxis: [
-    //     {
-    //       type: 'category',
-    //       boundaryGap: false,
-    //       data: fechas,
-    //       axisLine: {
-    //         lineStyle: {
-    //           color: '#C2C2C2'
-    //         }
-    //       },
-    //       axisLabel: {
-    //         textStyle: {
-    //           color: '#C2C2C2'
-    //         }
-    //       }
-    //     }
-    //   ],
-    //   yAxis: [
-    //     {
-    //       type: 'value',
-    //       splitLine: {
-    //         show: false
-    //       },
-    //       axisLine: {
-    //         lineStyle: {
-    //           color: '#C2C2C2'
-    //         }
-    //       },
-    //       axisLabel: {
-    //         textStyle: {
-    //           color: '#C2C2C2'
-    //         }
-    //       }
-    //     }
-    //   ],
-    //   series: series
-    // };
+
     this.chartOptionsTemperatura = {
-      color: [this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba(), this.random_rgba()],
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross',
-          label: {
-            backgroundColor: '#6a7985'
-          }
-        }
-      },
-      legend: {
-        data: ['Email marketing', 'Alliance advertising', 'Video ad', 'Direct interview', 'Search engine'],
-        textStyle: {
-          color: '#C2C2C2'
-        }
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: [
-        {
-          type: 'category',
-          boundaryGap: false,
-          data: ['Monday', 'Tuesday', 'Wednessday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-          axisLine: {
-            lineStyle: {
-              color: '#C2C2C2'
-            }
-          },
-          axisLabel: {
-            textStyle: {
-              color: '#C2C2C2'
-            }
-          }
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value',
-          splitLine: {
-            show: false
-          },
-          axisLine: {
-            lineStyle: {
-              color: '#C2C2C2'
-            }
-          },
-          axisLabel: {
-            textStyle: {
-              color: '#C2C2C2'
-            }
-          }
-        }
-      ],
-      series: [
-        {
-          name: 'Email marketing',
-          type: 'line',
-          stack: 'Total amount',
-          areaStyle: {},
-          data: [120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-          name: 'Alliance advertising',
-          type: 'line',
-          stack: 'Total amount',
-          areaStyle: {},
-          data: [220, 182, 191, 234, 290, 330, 310]
-        },
-        {
-          name: 'Video ad',
-          type: 'line',
-          stack: 'Total amount',
-          areaStyle: {},
-          data: [150, 232, 201, 154, 190, 330, 410]
-        },
-        {
-          name: 'Direct interview',
-          type: 'line',
-          stack: 'Total amount',
-          areaStyle: { normal: {} },
-          data: [320, 332, 301, 334, 390, 330, 320]
-        },
-        {
-          name: 'Search engine',
-          type: 'line',
-          stack: 'Total amount',
-          label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
-          },
-          areaStyle: { normal: {} },
-          data: [820, 932, 901, 934, 1290, 1330, 1320]
-        }
-      ]
+      labels: fechasTemp,
+      datasets: seriesTemp
     };
   }
 

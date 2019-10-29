@@ -5,18 +5,20 @@ import { NgbDateMomentAdapter } from './util/datepicker-adapter';
 import { CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
 
 import { JhMaterialModule } from 'app/shared/jh-material.module';
+import { LinechartComponent } from '../dashboard/linechart';
+import { ChartModule } from 'primeng/chart';
 @NgModule({
-    imports: [JhMaterialModule, CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule],
-    declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],
-    providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
-    entryComponents: [JhiLoginModalComponent],
-    exports: [JhMaterialModule, CraftBeerStoreSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [JhMaterialModule, CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule, ChartModule],
+  declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective, LinechartComponent],
+  providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
+  entryComponents: [JhiLoginModalComponent],
+  exports: [JhMaterialModule, CraftBeerStoreSharedCommonModule, ChartModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CraftBeerStoreSharedModule {
-    static forRoot() {
-        return {
-            ngModule: CraftBeerStoreSharedModule
-        };
-    }
+  static forRoot() {
+    return {
+      ngModule: CraftBeerStoreSharedModule
+    };
+  }
 }
