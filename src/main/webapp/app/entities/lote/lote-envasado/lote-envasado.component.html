@@ -76,6 +76,167 @@
                 </mat-card-title>
               </mat-card-header>
               <mat-card-content>
+                <mat-tab-group>
+                  <mat-tab label="First"> Content 1 </mat-tab>
+                  <mat-tab label="Second">
+                    <div class="row w-100 d-flex justify-content-center">
+                      <div class="col-12">
+                        <form name="editForm" role="form" novalidate (ngSubmit)="savePresentacion()" #editForm="ngForm">
+                          <div>
+                            <jhi-alert-error></jhi-alert-error>
+                            <div class="row">
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion" for="field_tipoPresentacion">
+                                    Tipo Presentacion
+                                  </mat-label>
+                                  <mat-select name="tipoPresentacion" [(ngModel)]="presentacion.tipoPresentacion"
+                                              id="field_tipoPresentacion">
+                                    <mat-option
+                                      value="BOTELLA_330">{{'craftBeerStoreApp.TipoPresentacion.BOTELLA_330' | translate}}</mat-option>
+                                    <mat-option
+                                      value="BOTELLA_355">{{'craftBeerStoreApp.TipoPresentacion.BOTELLA_355' | translate}}</mat-option>
+                                    <mat-option
+                                      value="BOTELLA_500">{{'craftBeerStoreApp.TipoPresentacion.BOTELLA_500' | translate}}</mat-option>
+                                    <mat-option
+                                      value="BOTELLA_750">{{'craftBeerStoreApp.TipoPresentacion.BOTELLA_750' | translate}}</mat-option>
+                                    <mat-option
+                                      value="BOTELLA_1000">{{'craftBeerStoreApp.TipoPresentacion.BOTELLA_1000' | translate}}</mat-option>
+                                  </mat-select>
+                                  <div
+                                    [hidden]="!(editForm.controls.tipoPresentacion?.dirty && editForm.controls.tipoPresentacion?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.tipoPresentacion?.errors?.required"
+                                           jhiTranslate="entity.validation.required">
+                                      This field is required.
+                                    </small>
+                                  </div>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</mat-label>
+                                  <input type="number" name="cantidad" matInput id="field_cantidad" [(ngModel)]="presentacion.cantidad"
+                                         (change)="changeCantidad()"/>
+                                  <div [hidden]="!(editForm.controls.cantidad?.dirty && editForm.controls.cantidad?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.cantidad?.errors?.required"
+                                           jhiTranslate="entity.validation.required">
+                                      This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.cantidad?.errors?.number" jhiTranslate="entity.validation.number">
+                                      This field should be a number.
+                                    </small>
+                                  </div>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field>
+                                  <mat-label jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</mat-label>
+                                  <input matInput name="fecha" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fecha"
+                                  >
+                                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario" for="field_costoUnitario">Costo
+                                    Unitario
+                                  </mat-label>
+                                  <input type="number" matInput name="costoUnitario" id="field_costoUnitario" min="1" jhiMin="1"
+                                         (change)="changePrecioUnitario()"
+                                         [(ngModel)]="presentacion.costoUnitario"/>
+                                  <mat-error
+                                    [hidden]="!(editForm.controls.costoUnitario?.dirty && editForm.controls.costoUnitario?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.costoUnitario?.errors?.required"
+                                           jhiTranslate="entity.validation.required">
+                                      This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.costoUnitario?.errors?.min" jhiTranslate="entity.validation.min"
+                                           [translateValues]="{ min: 1 }">
+                                      This field should be at least 1.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.costoUnitario?.errors?.number"
+                                           jhiTranslate="entity.validation.number">
+                                      This field should be a number.
+                                    </small>
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario"
+                                             for="field_precioVentaUnitario">Precio de Venta Unitario
+                                  </mat-label>
+                                  <input type="number" matInput name="precioVentaUnitario" id="field_precioVentaUnitario" min="1"
+                                         jhiMin="1" (change)="changePrecioVenta()"
+                                         [(ngModel)]="presentacion.precioVentaUnitario"/>
+                                  <mat-error
+                                    [hidden]="!(editForm.controls.precioVentaUnitario?.dirty && editForm.controls.precioVentaUnitario?.invalid)">
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.precioVentaUnitario?.errors?.required"
+                                           jhiTranslate="entity.validation.required">
+                                      This field is required.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.precioVentaUnitario?.errors?.min"
+                                           jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">
+                                      This field should be at least 1.
+                                    </small>
+                                    <small class="form-text text-danger"
+                                           [hidden]="!editForm.controls.precioVentaUnitario?.errors?.number"
+                                           jhiTranslate="entity.validation.number">
+                                      This field should be a number.
+                                    </small>
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal" for="field_precioVentaTotal">
+                                    Precio de Venta Total
+                                  </mat-label>
+                                  <input matInput type="number" id="field_precioVentaTotal" name="precioVentaTotal"
+                                         [(ngModel)]="presentacion.precioVentaTotal" disabled/>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal" for="field_precioCostoTotal">
+                                    Precio de Costo Total
+                                  </mat-label>
+                                  <input matInput type="number" id="field_precioCostoTotal" name="precioCostoTotal"
+                                         [(ngModel)]="presentacion.precioCostoTotal" disabled/>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                          <div>
+                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel" (click)="previousState()">
+                              <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button
+                                    class="mat-success">
+                              <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="">
+
+                    </div>
+
+                  </mat-tab>
+                  <mat-tab label="Third"> Content 3 </mat-tab>
+                </mat-tab-group>
 
               </mat-card-content>
             </mat-card>
@@ -100,7 +261,53 @@
                 </mat-card-title>
               </mat-card-header>
               <mat-card-content>
+                <div *ngIf="presentacions">
+                  <div class="table-responsive">
+                    <table  mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
 
+                      <ng-container matColumnDef="tipoPresentacion">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="tipoPresentacion"> <span jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let presentacion" jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}"> {{presentacion.tipoPresentacion}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="cantidad">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="cantidad"> <span jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let presentacion"> {{presentacion.cantidad}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="fecha">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="fecha"> <span jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let presentacion"> {{presentacion.fecha | date:'mediumDate'}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="costoUnitario">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="costoUnitario"> <span jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario">Costo Unitario</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let presentacion"> ${{presentacion.costoUnitario}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="precioVentaUnitario">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="precioVentaUnitario"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario">Precio Venta Unitario</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioVentaUnitario}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="precioVentaTotal">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="precioVentaTotal" > <span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio Venta Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioVentaTotal}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="precioCostoTotal">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="precioCostoTotal"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
+                        <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioCostoTotal}} </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [length]="totalItems"
+                                   [pageSize]="itemsPerPage"
+                                   (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
+                  </div>
+                </div>
               </mat-card-content>
             </mat-card>
           </div>
