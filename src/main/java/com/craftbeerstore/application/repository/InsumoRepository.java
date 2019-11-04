@@ -4,6 +4,8 @@ import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.domain.Insumo;
 import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import java.util.List;
+
+import com.craftbeerstore.application.domain.enumeration.Unidad;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -24,4 +26,6 @@ public interface InsumoRepository extends JpaRepository<Insumo, Long> {
     List<Insumo> findAllByEmpresaAndTipoNotIn(Empresa empresa, List<TipoInsumo> tipoInsumos);
 
     Insumo findByNombreInsumoAndEmpresa(String nombreInsumo, Empresa empresa);
+
+    Insumo findByNombreInsumoAndEmpresaAndUnidad(String nombreInsumo, Empresa empresa, Unidad unidad);
 }

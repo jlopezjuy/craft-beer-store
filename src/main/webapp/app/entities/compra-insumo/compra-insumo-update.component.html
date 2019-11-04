@@ -181,7 +181,7 @@
                               <option [ngValue]="null"></option>
                               <option [ngValue]="insumoRecomendadoOption.id"
                                       *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">
-                                {{insumoRecomendadoOption.nombre}}- {{insumoRecomendadoOption.marca}}
+                                {{insumoRecomendadoOption.marca}} - {{insumoRecomendadoOption.nombre}}
                                 -{{insumoRecomendadoOption.tipo}}</option>
                             </select>
                           </div>

@@ -65,7 +65,7 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
       detalles.forEach(detalle -> {
         Insumo insumo = new Insumo();
         if (null == detalle.getInsumoRecomendado()) {
-          insumo = this.insumoRepository.findByNombreInsumoAndEmpresa(detalle.getCodigoReferencia(), compraInsumo.getEmpresa());
+          insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(detalle.getCodigoReferencia(), compraInsumo.getEmpresa(), detalle.getUnidad());
           if (null == insumo) {
             insumo = new Insumo();
             insumo.setNombreInsumo(detalle.getCodigoReferencia());
@@ -79,7 +79,7 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
           }
 
         } else {
-          insumo = this.insumoRepository.findByNombreInsumoAndEmpresa(detalle.getInsumoRecomendado().getNombre(), compraInsumo.getEmpresa());
+          insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(detalle.getInsumoRecomendado().getNombre(), compraInsumo.getEmpresa(), detalle.getUnidad());
           if (null == insumo) {
             insumo = new Insumo();
             insumo.setEmpresa(compraInsumo.getEmpresa());

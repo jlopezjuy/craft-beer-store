@@ -39,11 +39,6 @@
             <div *ngIf="productos">
                 <div class="mat-elevation-z8 table-responsive">
                     <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                        <ng-container matColumnDef="id">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="id"> <span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let producto"> {{producto.id}} </td>
-                        </ng-container>
-
                         <!-- Name Column -->
                         <ng-container matColumnDef="descripcion">
                             <th mat-header-cell *matHeaderCellDef jhiSortBy="descripcion"> <span jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon> </th>

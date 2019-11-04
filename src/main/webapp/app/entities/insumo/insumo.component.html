@@ -14,16 +14,16 @@
                 </ul>
             </div>
             <div class="col-lg-7 col-md-4 col-sm-12 text-right">
-                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">
-                    <!--                    <div echarts [options]="visitorsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">-->
-                    <!--                    </div>-->
-                    <span>Visitors</span>
-                </div>
-                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">
-                    <!--                    <div echarts [options]="visitsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">-->
-                    <!--                    </div>-->
-                    <span>Visits</span>
-                </div>
+<!--                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">-->
+<!--                    &lt;!&ndash;                    <div echarts [options]="visitorsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <span>Visitors</span>-->
+<!--                </div>-->
+<!--                <div class="inlineblock text-center m-r-15 m-l-15 hidden-sm pt-2">-->
+<!--                    &lt;!&ndash;                    <div echarts [options]="visitsOptions" class="echart-line-chart" [autoResize]="true" style="height: 20px;">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                    <span>Visits</span>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -42,22 +42,22 @@
         </div>
         <div class="body">
             <jhi-alert></jhi-alert>
-            <div class="row">
-                <div class="col-sm-12">
-                    <form name="searchForm" class="form-inline">
-                        <div class="input-group w-100 mt-3">
-                            <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.insumo.home.search' | translate }}">
-                            <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
-                                <fa-icon [icon]="'search'"></fa-icon>
-                            </button>
-                            <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                                <fa-icon [icon]="'trash-alt'"></fa-icon>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <br/>
+<!--            <div class="row">-->
+<!--                <div class="col-sm-12">-->
+<!--                    <form name="searchForm" class="form-inline">-->
+<!--                        <div class="input-group w-100 mt-3">-->
+<!--                            <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'craftBeerStoreApp.insumo.home.search' | translate }}">-->
+<!--                            <button class="input-group-append btn btn-info" (click)="search(currentSearch)">-->
+<!--                                <fa-icon [icon]="'search'"></fa-icon>-->
+<!--                            </button>-->
+<!--                            <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">-->
+<!--                                <fa-icon [icon]="'trash-alt'"></fa-icon>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <br/>-->
             <div *ngIf="insumos">
                 <div class="mat-elevation-z8 table-responsive">
                     <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">

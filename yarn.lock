@@ -6970,6 +6970,11 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+luxon@^1.11.3:
+  version "1.19.3"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.19.3.tgz#86c04a1395529b4386ae235a8fe16d0a82a0695b"
+  integrity sha512-YwTDjGRQC0QC9Iya2g2eKZfgEFqRId4ZoLHORQcfTMB/5xrTx427V7ZPjQJ1vzvhA2vJfG2bh1Kv8V8IFMWCUA==
+
 macos-release@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/macos-release/-/macos-release-1.1.0.tgz#831945e29365b470aa8724b0ab36c8f8959d10fb"
@@ -7561,6 +7566,11 @@ ng-multiselect-dropdown@^0.2.3:
   dependencies:
     tslib "^1.7.1"
 
+ng-pick-datetime@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/ng-pick-datetime/-/ng-pick-datetime-7.0.0.tgz#c78d1cfaee183691a4a44cd4f39c98f9c1d1595f"
+  integrity sha512-SbS+zKX6gOlYpgH8zDSx2EL32ak0Z0y1Ksu1ECP/FiwVBM2mHgbzdfyDYhMmKFB0GKn5yCwXTandR1FCQXe62w==
+
 ngx-cookie@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/ngx-cookie/-/ngx-cookie-2.0.1.tgz#031d8938bf9026954356b3b3ae668e2e1964e584"
@@ -7584,6 +7594,14 @@ ngx-infinite-scroll@7.0.1:
   integrity sha512-be9DAAuabV7VGI06/JUnS6pXC6mcBOzA4+SBCwOcP9WwJ2r5GjdZyOa34ls9hi1MnCOj3zrXLvPKQ/UDp6csIw==
   dependencies:
     opencollective "^1.0.3"
+
+ngx-material-timepicker@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/ngx-material-timepicker/-/ngx-material-timepicker-3.3.1.tgz#8ae5ce28e65d31060c398b308126cd75018442f2"
+  integrity sha512-Tm29NwIqwv6tfxaKDVY7TxUJ1AAZKW96AQHW6hb9GGlZA1TkdoiIosZ+eNjoSVjhH8o/YaIiDFAnufG24+D+1g==
+  dependencies:
+    luxon "^1.11.3"
+    tslib "^1.9.0"
 
 ngx-toastr@^9.1.2:
   version "9.2.0"
