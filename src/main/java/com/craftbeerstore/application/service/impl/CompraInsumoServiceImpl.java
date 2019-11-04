@@ -63,9 +63,8 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
     if (compraInsumo.getEstadoCompra().equals(EstadoCompra.PEDIDO_RECIBIDO)) {
       List<CompraInsumoDetalle> detalles = this.compraInsumoDetalleRepository.findAllByCompraInsumo(compraInsumo);
       detalles.forEach(detalle -> {
-        Insumo insumo = new Insumo();
         if (null == detalle.getInsumoRecomendado()) {
-          insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(detalle.getCodigoReferencia(), compraInsumo.getEmpresa(), detalle.getUnidad());
+          Insumo insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(detalle.getCodigoReferencia(), compraInsumo.getEmpresa(), detalle.getUnidad());
           if (null == insumo) {
             insumo = new Insumo();
             insumo.setNombreInsumo(detalle.getCodigoReferencia());
@@ -77,9 +76,9 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
           } else {
             insumo.setStock(insumo.getStock().add(detalle.getStock()));
           }
-
+          this.insumoRepository.save(insumo);
         } else {
-          insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(detalle.getInsumoRecomendado().getNombre(), compraInsumo.getEmpresa(), detalle.getUnidad());
+          Insumo insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(detalle.getInsumoRecomendado().getNombre(), compraInsumo.getEmpresa(), detalle.getUnidad());
           if (null == insumo) {
             insumo = new Insumo();
             insumo.setEmpresa(compraInsumo.getEmpresa());
@@ -92,8 +91,8 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
           } else {
             insumo.setStock(insumo.getStock().add(detalle.getStock()));
           }
+          this.insumoRepository.save(insumo);
         }
-        this.insumoRepository.save(insumo);
       });
     }
     CompraInsumo compraInsumoSalida = compraInsumoRepository.save(compraInsumo);

@@ -172,19 +172,30 @@ export class MovimientosUpdateComponent implements OnInit {
   }
 
   addPresentacion() {
-    this.presentacionService.find(this.productoSave.presentacionId).subscribe(resp => {
-      this.productoService.find(resp.body.productoId).subscribe(prod => {
-        const pres = resp.body;
-        pres.cantidad = this.productoSave.cantidadPresentacion;
-        pres.nombreComercial = prod.body.nombreComercial;
-        pres.precioVentaTotal = pres.cantidad * this.productoSave.precioUnitario;
-        pres.movimientoId = resp.body.movimientoId;
-        this.presentacions.push(pres);
-        this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioVentaTotal;
-        this.movimientos.litrosTotales = this.movimientos.litrosTotales + this.loadCantidadLitros(this.productoSave);
-        this.clearFormProduct();
+    if (this.validateCantidad) {
+      this.presentacionService.find(this.productoSave.presentacionId).subscribe(resp => {
+        this.productoService.find(resp.body.productoId).subscribe(prod => {
+          const pres = resp.body;
+          pres.cantidad = this.productoSave.cantidadPresentacion;
+          pres.nombreComercial = prod.body.nombreComercial;
+          pres.precioVentaTotal = pres.cantidad * this.productoSave.precioUnitario;
+          pres.movimientoId = resp.body.movimientoId;
+          this.presentacions.push(pres);
+          this.movimientos.precioTotal = this.movimientos.precioTotal + pres.precioVentaTotal;
+          this.movimientos.litrosTotales = this.movimientos.litrosTotales + this.loadCantidadLitros(this.productoSave);
+          this.clearFormProduct();
+        });
       });
-    });
+    }
+  }
+
+  validateCantidad(): boolean {
+    let validate = false;
+    if (this.productoSave.cantidadPresentacion > 0) {
+      this.jhiAlertService.warning('Cantidad debe ser mayor a 0');
+      validate = true;
+    }
+    return validate;
   }
 
   loadCantidadLitros(producto: IProducto) {

@@ -4,11 +4,11 @@
             <div class="col-lg-5 col-md-8 col-sm-12">
                 <h2 id="jhi-movimientos-heading"
                     jhiTranslate="craftBeerStoreApp.movimientos.home.createOrEditLabel">Create or edit a
-                    Movimientos</h2>
+                    Venta</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
                     <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Movimiento</li>
+                    <li class="breadcrumb-item active">Venta</li>
                 </ul>
             </div>
         </div>
@@ -67,7 +67,7 @@
                                         <mat-form-field class="example-full-width">
                                             <mat-label jhiTranslate="craftBeerStoreApp.movimientos.cliente">Cliente</mat-label>
                                             <mat-select  name="cliente" [(ngModel)]="movimientos.clienteId" id="field_cliente" (selectionChange)="clienteChange($event.value)"
-                                                         required [disabled]="!isEditable">
+                                                         [disabled]="!isEditable">
                                                 <mat-option value=""></mat-option>
                                                 <mat-option *ngFor="let clienteOption of clientes; trackBy: trackClienteById" [value]="clienteOption.id">
                                                     {{clienteOption.nombreApellido}}
@@ -79,7 +79,7 @@
                                         <mat-form-field class="example-full-width">
                                             <mat-label jhiTranslate="craftBeerStoreApp.movimientos.puntoDeVenta">Punto de Venta</mat-label>
                                             <mat-select  name="puntoDeVenta" [(ngModel)]="movimientos.puntoDeVentaId" id="field_puntoDeVenta"
-                                                         required [disabled]="!isEditable">
+                                                         [disabled]="!isEditable">
                                                 <mat-option value=""></mat-option>
                                                 <mat-option *ngFor="let puntoDeVentasOption of puntosDeVentas; trackBy: trackClienteById" [value]="puntoDeVentasOption.id">
                                                     {{puntoDeVentasOption.nombre}}
@@ -160,7 +160,7 @@
                                                         <mat-form-field class="example-full-width">
                                                             <mat-label jhiTranslate="craftBeerStoreApp.presentacion.cantidad" for="field_cantidad">Cantidad</mat-label>
                                                             <input matInput type="number" id="field_cantidad" name="cantidad"
-                                                                   [(ngModel)]="productoSave.cantidadPresentacion" required />
+                                                                   [(ngModel)]="productoSave.cantidadPresentacion"/>
                                                             <mat-error [hidden]="!(editForm.controls.cantidad?.dirty && editForm.controls.cantidad?.invalid)">
                                                                 <small class="form-text text-danger"
                                                                        [hidden]="!editForm.controls.cantidad?.errors?.required" jhiTranslate="entity.validation.required">
