@@ -7,7 +7,7 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
-    
+
     <property name="now" value="now()" dbms="mysql"/>
     <property name="autoIncrement" value="true"/>
 
@@ -17,13 +17,13 @@
     <!--
         Added the entity Presentacion.
     -->
-    <changeSet id="20190517033705-1" author="jlopez">
-        <renameColumn
-            newColumnName="precio_venta_total"
-            oldColumnName="precio_total"
-            tableName="presentacion"
-            columnDataType="decimal(10,2)"/>
-    </changeSet>
+<!--    <changeSet id="20190517033705-1" author="jlopez">-->
+<!--        <renameColumn-->
+<!--            newColumnName="precio_venta_total"-->
+<!--            oldColumnName="precio_total"-->
+<!--            tableName="presentacion"-->
+<!--            columnDataType="decimal(10,2)"/>-->
+<!--    </changeSet>-->
 
     <changeSet id="20190517033705-2" author="jlopez">
         <renameColumn

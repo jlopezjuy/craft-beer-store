@@ -1,9 +1,9 @@
 package com.craftbeerstore.application.service.mapper;
 
-import com.craftbeerstore.application.domain.Presentacion;
+import com.craftbeerstore.application.domain.*;
 import com.craftbeerstore.application.service.dto.PresentacionDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
+import org.mapstruct.*;
 
 /**
  * Mapper for the entity Presentacion and its DTO PresentacionDTO.
@@ -12,6 +12,7 @@ import org.mapstruct.Mapping;
 public interface PresentacionMapper extends EntityMapper<PresentacionDTO, Presentacion> {
 
   @Mapping(source = "producto.id", target = "productoId")
+  @Mapping(source = "producto.nombreComercial", target = "productoNombreComercial")
   PresentacionDTO toDto(Presentacion presentacion);
 
   @Mapping(source = "productoId", target = "producto")

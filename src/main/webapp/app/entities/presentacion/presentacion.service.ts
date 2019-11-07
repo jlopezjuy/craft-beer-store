@@ -15,7 +15,6 @@ type EntityArrayResponseType = HttpResponse<IPresentacion[]>;
 @Injectable({ providedIn: 'root' })
 export class PresentacionService {
   public resourceUrl = SERVER_API_URL + 'api/presentacions';
-  public resourceSearchUrl = SERVER_API_URL + 'api/_search/presentacions';
 
   constructor(protected http: HttpClient) {}
 
@@ -55,13 +54,6 @@ export class PresentacionService {
 
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  search(req?: any): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http
-      .get<IPresentacion[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   protected convertDateFromClient(presentacion: IPresentacion): IPresentacion {

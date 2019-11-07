@@ -81,20 +81,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.producto = this.$localStorage.retrieve('producto');
-    if (this.currentSearch) {
-      this.presentacionService
-        .search({
-          page: this.page - 1,
-          query: this.currentSearch,
-          size: this.itemsPerPage,
-          sort: this.sort()
-        })
-        .subscribe(
-          (res: HttpResponse<IPresentacion[]>) => this.paginatePresentacions(res.body, res.headers),
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
-      return;
-    }
     this.presentacionService
       .queryByProducto(
         {

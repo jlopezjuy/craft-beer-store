@@ -1,12 +1,12 @@
 package com.craftbeerstore.application.service.dto;
 
-import com.craftbeerstore.application.domain.enumeration.TipoPresentacion;
-
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Objects;
+
+import com.craftbeerstore.application.domain.enumeration.TipoPresentacion;
 
 /**
  * A DTO for the Presentacion entity.
@@ -38,6 +38,8 @@ public class PresentacionDTO implements Serializable {
 
 
   private Long productoId;
+
+  private String productoNombreComercial;
 
   public Long getId() {
     return id;
@@ -111,6 +113,14 @@ public class PresentacionDTO implements Serializable {
     this.productoId = productoId;
   }
 
+  public String getProductoNombreComercial() {
+    return productoNombreComercial;
+  }
+
+  public void setProductoNombreComercial(String productoNombreComercial) {
+    this.productoNombreComercial = productoNombreComercial;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -144,6 +154,7 @@ public class PresentacionDTO implements Serializable {
       ", precioVentaTotal=" + getPrecioVentaTotal() +
       ", precioCostoTotal=" + getPrecioCostoTotal() +
       ", producto=" + getProductoId() +
+      ", producto='" + getProductoNombreComercial() + "'" +
       "}";
   }
 }
