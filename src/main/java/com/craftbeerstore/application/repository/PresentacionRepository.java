@@ -18,7 +18,7 @@ public interface PresentacionRepository extends JpaRepository<Presentacion, Long
 
     Page<Presentacion> findAllByProducto(Pageable pageable, Producto producto);
 
-    @Query(value = "select * from presentacion p where p.producto_id in( select producto_id from producto where empresa_id = :empresaId)",
+    @Query(value = "select * from presentacion p where p.producto_id in( select producto_id from producto where empresa_id = :empresaId) order by p.producto_id",
     nativeQuery = true)
     Page<Presentacion> getAllPresentationsByEmpresa(Pageable pageable, @Param("empresaId")Long empresaId);
 }
