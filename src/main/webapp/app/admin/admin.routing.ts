@@ -266,6 +266,16 @@ const routesAdminRouting: Routes = [
         ]
       },
       {
+        path: 'stock',
+        children: [
+          {
+            path: 'presentacion',
+            loadChildren: '../entities/presentacion/presentacion.module#CraftBeerStorePresentacionModule',
+            data: { title: ':: CBM :: Productos en Existencia ::' }
+          }
+        ]
+      },
+      {
         path: 'ventas',
         children: [
           {

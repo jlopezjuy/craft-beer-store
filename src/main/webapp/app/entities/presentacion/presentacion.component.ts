@@ -15,6 +15,7 @@ import { IProducto } from 'app/shared/model/producto.model';
 import { MatTableDataSource, PageEvent } from '@angular/material';
 import { SidebarService } from '../../services/sidebar.service';
 import { EChartOption } from 'echarts';
+import { IEmpresa } from '../../shared/model/empresa.model';
 
 @Component({
   selector: 'jhi-presentacion',
@@ -39,6 +40,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
   producto: IProducto;
   dataSource: any;
   displayedColumns: string[] = [
+    'productoNombreComercial',
     'tipoPresentacion',
     'cantidad',
     'fecha',
@@ -80,15 +82,15 @@ export class PresentacionComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    this.producto = this.$localStorage.retrieve('producto');
+    const empresa: IEmpresa = this.$localStorage.retrieve('empresa');
     this.presentacionService
-      .queryByProducto(
+      .queryByEmpresa(
         {
           page: this.page - 1,
           size: this.itemsPerPage,
           sort: this.sort()
         },
-        this.producto.id
+        empresa.id
       )
       .subscribe(
         (res: HttpResponse<IPresentacion[]>) => this.paginatePresentacions(res.body, res.headers),

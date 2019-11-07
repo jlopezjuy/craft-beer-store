@@ -110,6 +110,13 @@
                         </ul>
                       </li>
                       <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'user-management'}">
+                        <a class="has-arrow" (click)="activeInactiveMenu('stock')"><i class="envasado-sidebar-icon"></i>
+                          <span>Stock</span></a>
+                        <ul *ngIf="currentActiveMenu == 'stock'">
+                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/stock/presentacion']">Botellas</a></li>
+                        </ul>
+                      </li>
+                      <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'user-management'}">
                         <a class="has-arrow" (click)="activeInactiveMenu('user-management')"><i class="icon-lock"></i>
                           <span>Administracion</span></a>
                         <ul *ngIf="currentActiveMenu == 'user-management'">
