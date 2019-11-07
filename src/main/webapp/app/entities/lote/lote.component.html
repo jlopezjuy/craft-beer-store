@@ -74,13 +74,13 @@
                 <button type="submit" *ngIf="lote.estado === 'ENVASADO'"
                         [routerLink]="['/admin/produccion/lote/', lote.id, 'envasado' ]"
                         mat-raised-button class="mat-receta">
-                  <i class="beer-keg-icon"></i>
+                  <i class="envasado-icon"></i>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.envasar">Envasar</span>
                 </button>
                 <button type="submit" *ngIf="lote.estado === 'FERMENTACION' || lote.estado === 'MADURACION' || lote.estado === 'ENVASADO'"
                         [routerLink]="['/admin/produccion/lote/', lote.id, 'medicion' ]"
-                        mat-raised-button class="mat-receta">
-                  <i class="beer-keg-icon"></i>
+                        mat-raised-button class="mat-medicion">
+                  <i class="fermentador-icon"></i>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.medicion">Medición</span>
                 </button>
                 <button type="submit"
