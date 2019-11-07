@@ -6,8 +6,7 @@
             "relationshipName": "producto",
             "otherEntityName": "producto",
             "relationshipType": "many-to-one",
-            "relationshipValidateRules": [],
-            "otherEntityField": "id",
+            "otherEntityField": "nombreComercial",
             "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "presentacion"
         }

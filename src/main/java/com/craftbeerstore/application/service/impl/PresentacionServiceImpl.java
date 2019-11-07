@@ -29,7 +29,6 @@ public class PresentacionServiceImpl implements PresentacionService {
 
   private final PresentacionMapper presentacionMapper;
 
-
   private final ProductoRepository productoRepository;
 
   public PresentacionServiceImpl(PresentacionRepository presentacionRepository,
@@ -73,6 +72,11 @@ public class PresentacionServiceImpl implements PresentacionService {
     Producto producto = this.productoRepository.getOne(productoId);
     return this.presentacionRepository.findAllByProducto(pageable, producto)
       .map(presentacionMapper::toDto);
+  }
+
+  @Override
+  public Page<PresentacionDTO> findAllByEmpresa(Pageable pageable, Long empresaId) {
+    return this.presentacionRepository.getAllPresentationsByEmpresa(pageable, empresaId).map(presentacionMapper::toDto);
   }
 
 

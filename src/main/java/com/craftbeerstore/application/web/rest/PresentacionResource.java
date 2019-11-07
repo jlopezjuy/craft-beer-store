@@ -106,6 +106,20 @@ public class PresentacionResource {
   }
 
   /**
+   * GET /presentacions : get all the presentaciones by producto
+   *
+   * @param pageable
+   * @param productoId
+   * @return
+   */
+  @GetMapping("/presentacions/empresa/{empresaId}")
+  public ResponseEntity<List<PresentacionDTO>> getAllPresentacionsByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+    Page<PresentacionDTO> page = presentacionService.findAllByEmpresa(pageable, empresaId);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/presentacions/empresa/{productoId}");
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
+
+  /**
    * GET  /presentacions/:id : get the "id" presentacion.
    *
    * @param id the id of the presentacionDTO to retrieve

@@ -34,6 +34,13 @@ public interface PresentacionService {
    */
   Page<PresentacionDTO> findAllByProducto(Pageable pageable, Long productoId);
 
+  /**
+   * @param pageable the pagination information
+   * @param empresaId id of empresa
+   * @return
+   */
+  Page<PresentacionDTO> findAllByEmpresa(Pageable pageable, Long empresaId);
+
 
   /**
    * Get the "id" presentacion.
