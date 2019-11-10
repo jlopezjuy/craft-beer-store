@@ -45,9 +45,7 @@
     <include file="config/liquibase/changelog/20190505113135_added_entity_constraints_Evento.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190506003908_added_entity_constraints_EventoProducto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190516013240_added_entity_constraints_Equipamiento.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190517033705_alter_column_entity_Presentacion.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190521170700_added_entity_constraints_PuntoDeVenta.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190520033705_alter_column_entity_Producto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190521003410_added_columns_Proveedor.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190521003410_added_columns_Movimientos.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190522003410_added_columns_Cliente.xml" relativeToChangelogFile="false"/>
@@ -59,7 +57,6 @@
     <include file="config/liquibase/changelog/20190525184243_add_column_InsumoReceta.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190524205722_added_entity_RecetaInsumo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190530015188_added_column_EventoProducto.xml" relativeToChangelogFile="false"/>
-
     <include file="config/liquibase/changelog/20190625151012_added_entity_constraints_CompraInsumo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190626184818_added_entity_constraints_CompraInsumoDetalle.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190706205721_added_new_constraints_RecetaInsumo.xml" relativeToChangelogFile="false"/>
