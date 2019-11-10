@@ -1,9 +1,9 @@
 package com.craftbeerstore.application.service.mapper;
 
-import com.craftbeerstore.application.domain.Proveedor;
+import com.craftbeerstore.application.domain.*;
 import com.craftbeerstore.application.service.dto.ProveedorDTO;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
+import org.mapstruct.*;
 
 /**
  * Mapper for the entity Proveedor and its DTO ProveedorDTO.

@@ -1,14 +1,13 @@
 package com.craftbeerstore.application.service.dto;
 
+import java.time.LocalDate;
+import javax.validation.constraints.*;
+import java.io.Serializable;
+import java.util.Objects;
+import javax.persistence.Lob;
+
 import com.craftbeerstore.application.domain.enumeration.CondicionFiscal;
 import com.craftbeerstore.application.domain.enumeration.Provincia;
-
-import javax.persistence.Lob;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * A DTO for the Proveedor entity.

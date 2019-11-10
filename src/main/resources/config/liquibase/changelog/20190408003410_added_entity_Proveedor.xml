@@ -27,15 +27,15 @@
             </column>
 
             <column name="razon_social" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="cuit" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="telefono" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
             <column name="fecha_alta" type="date">
@@ -43,14 +43,34 @@
             </column>
 
             <column name="domicilio" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
 
-            <column name="email" type="varchar(255)">
-                <constraints nullable="false" />
+            <column name="correo" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
 
             <column name="notas" type="clob">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="condicion_fiscal" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="localidad" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="codigo_postal" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="provincia" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="contacto" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
