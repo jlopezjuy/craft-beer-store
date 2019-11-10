@@ -1,13 +1,13 @@
 package com.craftbeerstore.application.service.dto;
 
-import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
-import com.craftbeerstore.application.domain.enumeration.Unidad;
-
-import javax.persistence.Lob;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
+import javax.persistence.Lob;
+
+import com.craftbeerstore.application.domain.enumeration.Unidad;
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 
 /**
  * A DTO for the Insumo entity.
@@ -32,6 +32,8 @@ public class InsumoDTO implements Serializable {
   private byte[] imagen;
 
   private String imagenContentType;
+  private BigDecimal precio;
+
 
   private Long empresaId;
 
@@ -103,6 +105,14 @@ public class InsumoDTO implements Serializable {
     this.imagenContentType = imagenContentType;
   }
 
+  public BigDecimal getPrecio() {
+    return precio;
+  }
+
+  public void setPrecio(BigDecimal precio) {
+    this.precio = precio;
+  }
+
   public Long getEmpresaId() {
     return empresaId;
   }
@@ -158,6 +168,7 @@ public class InsumoDTO implements Serializable {
       ", unidad='" + getUnidad() + "'" +
       ", tipo='" + getTipo() + "'" +
       ", imagen='" + getImagen() + "'" +
+      ", precio=" + getPrecio() +
       ", empresa=" + getEmpresaId() +
       ", insumoRecomendado=" + getInsumoRecomendadoId() +
       ", insumoRecomendado='" + getInsumoRecomendadoNombre() + "'" +

@@ -1,29 +1,29 @@
 {
-    "craftBeerStoreApp": {
-        "insumo": {
-            "home": {
-                "title": "Insumos",
-                "createLabel": "Crear nuevo Insumo",
-                "createOrEditLabel": "Crear o editar Insumo",
-                "search": "Search for Insumo"
-            },
-            "created": "Un nuevo Insumo ha sido creado con el identificador {{ param }}",
-            "updated": "Un Insumo ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Insumo ha sido eliminado con el identificador {{ param }}",
-            "delete": {
-                "question": "¿Seguro que quiere eliminar Insumo {{ id }}?"
-            },
-            "detail": {
-                "title": "Insumo"
-            },
-            "nombreInsumo": "Nombre Insumo",
-            "marca": "Marca",
-            "stock": "Stock",
-            "unidad": "Unidad",
-            "tipo": "Tipo",
-            "imagen": "Imagen",
-            "empresa": "Empresa",
-            "insumoRecomendado": "Insumo Recomendado"
-        }
+  "craftBeerStoreApp": {
+    "insumo": {
+      "home": {
+        "title": "Insumos",
+        "createLabel": "Crear nuevo Insumo",
+        "createOrEditLabel": "Crear o editar Insumo"
+      },
+      "created": "Un nuevo Insumo ha sido creado con el identificador {{ param }}",
+      "updated": "Un Insumo ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Insumo ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Insumo {{ id }}?"
+      },
+      "detail": {
+        "title": "Insumo"
+      },
+      "nombreInsumo": "Nombre Insumo",
+      "marca": "Marca",
+      "stock": "Stock",
+      "unidad": "Unidad",
+      "tipo": "Tipo",
+      "imagen": "Imagen",
+      "precio": "Precio",
+      "empresa": "Empresa",
+      "insumoRecomendado": "Insumo Recomendado"
     }
+  }
 }

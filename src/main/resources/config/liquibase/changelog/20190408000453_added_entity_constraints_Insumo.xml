@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="empresa"/>
 
+        <addForeignKeyConstraint baseColumnNames="insumo_recomendado_id"
+                                 baseTableName="insumo"
+                                 constraintName="fk_insumo_insumo_recomendado_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="insumo_recomendado"/>
+
     </changeSet>
 </databaseChangeLog>

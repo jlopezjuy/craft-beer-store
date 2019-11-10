@@ -78,6 +78,7 @@ class InsumoGatlingTest extends Simulation {
                 , "unidad":"KILOGRAMO"
                 , "tipo":"MALTA"
                 , "imagen":null
+                , "precio":"0"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_insumo_url"))).exitHereIfFailed
