@@ -34,10 +34,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="precio_litro" type="decimal(10,2)">
-                <constraints nullable="false" />
-            </column>
-
             <column name="tipo_producto" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -53,13 +49,17 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="srm_color" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="empresa_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
-            <!--<column name="estilos_id" type="bigint">-->
-                <!--<constraints nullable="true" />-->
-            <!--</column>-->
+            <column name="estilos_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
