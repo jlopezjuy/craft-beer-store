@@ -30,12 +30,35 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="localidad" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="codigo_postal" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="provincia" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="telefono" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
             <column name="correo" type="varchar(255)">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_empresa_correo" />
+            </column>
+
+            <column name="logo_principal" type="longblob">
+                <constraints nullable="true" />
+            </column>
+            <column name="logo_principal_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="fecha_inicio_actividad" type="date">
+                <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_empresa_user_id" />
