@@ -30,6 +30,7 @@ export interface ICompraInsumoDetalle {
   compraInsumoId?: number;
   insumoRecomendadoNombre?: string;
   insumoRecomendadoId?: number;
+  precioUnitario?: number;
 }
 
 export class CompraInsumoDetalle implements ICompraInsumoDetalle {
@@ -43,6 +44,7 @@ export class CompraInsumoDetalle implements ICompraInsumoDetalle {
     public compraInsumoNroFactura?: string,
     public compraInsumoId?: number,
     public insumoRecomendadoNombre?: string,
-    public insumoRecomendadoId?: number
+    public insumoRecomendadoId?: number,
+    public precioUnitario?: number
   ) {}
 }

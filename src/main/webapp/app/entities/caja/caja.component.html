@@ -6,7 +6,7 @@
                        (click)="toggleFullWidth()">
                     <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
                     <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
-                </a> Caja Chica</h2>
+                </a>Movimientos de Caja</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
                     <li class="breadcrumb-item">Entidad</li>
@@ -20,7 +20,7 @@
         <div class="header">
             <h2 id="page-heading">
                 <span jhiTranslate="craftBeerStoreApp.caja.home.title">Cajas</span> - <span jhiTranslate="craftBeerStoreApp.caja.home.saldo"> Saldo actual:</span> : <span style="background: deepskyblue;">${{saldo}}</span>
-                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-caja" [routerLink]="['/admin/entity/caja/new']">
+                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-caja" [routerLink]="['/admin/ventas/caja/new']">
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.caja.home.createLabel">
             Create new Caja

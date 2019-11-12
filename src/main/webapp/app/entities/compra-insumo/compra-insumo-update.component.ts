@@ -162,6 +162,12 @@ export class CompraInsumoUpdateComponent implements OnInit {
     return item.id;
   }
 
+  precioUnitarioChange() {
+    if (this.compraInsumoDetalle.precioUnitario > 0) {
+      this.compraInsumoDetalle.precio = this.compraInsumoDetalle.precioUnitario * this.compraInsumoDetalle.stock;
+    }
+  }
+
   addInsumo() {
     this.compraInsumoDetalles.push(this.compraInsumoDetalle);
     this.compraInsumo.subtotal = this.compraInsumo.subtotal + this.compraInsumoDetalle.precio;
