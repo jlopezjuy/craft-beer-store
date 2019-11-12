@@ -30,19 +30,19 @@
         </div>
         <div class="body">
             <div class="row justify-content-center">
-                <div class="col-8">
+                <div class="col-10">
                     <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
                         <div>
                             <jhi-alert-error></jhi-alert-error>
-<!--                            <mat-form-field class="example-full-width" [hidden]="!insumo.id" appearance="fill">-->
+<!--                            <mat-form-field class="example-full-width" [hidden]="!insumo.id">-->
 <!--                                <mat-label jhiTranslate="global.field.id">ID </mat-label>-->
 <!--                                <input matInput placeholder="id" id="id" name="id"-->
 <!--                                       [(ngModel)]="insumo.id" readonly>-->
 <!--                            </mat-form-field>-->
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.insumo.insumoRecomendado" for="field_insumoRecomendado">Insumo Recomendado</mat-label>
                                         <mat-select id="field_insumoRecomendado" name="insumoRecomendado" [(ngModel)]="insumo.insumoRecomendadoId"
                                                     (selectionChange)="insumoRecomendadoChange($event.value)">
@@ -54,7 +54,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.insumo.nombreInsumo">Nombre Insumo</mat-label>
                                         <input matInput type="text" id="nombreInsumo" name="nombreInsumo"
                                                [(ngModel)]="insumo.nombreInsumo"  required />
@@ -69,7 +69,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.insumo.marca">Marca</mat-label>
                                         <input matInput type="text" id="marca" name="marca"
                                                [(ngModel)]="insumo.marca" required/>
@@ -82,7 +82,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.insumo.stock">Stock</mat-label>
                                         <input matInput type="number" id="stock" name="stock"
                                                [(ngModel)]="insumo.stock"  required/>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</mat-label>
                                         <mat-select  name="unidad" [(ngModel)]="insumo.unidad" id="field_unidad">
                                             <mat-option value="KILOGRAMO">{{'craftBeerStoreApp.Unidad.KILOGRAMO' | translate}}</mat-option>
@@ -112,7 +112,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-form-field class="example-full-width">
                                         <mat-label jhiTranslate="craftBeerStoreApp.insumo.tipo">Unidad</mat-label>
                                         <mat-select  name="tipo" [(ngModel)]="insumo.tipo" id="field_tipo">
                                             <mat-option value="MALTA">{{'craftBeerStoreApp.TipoInsumo.MALTA' | translate}}</mat-option>
@@ -126,6 +126,15 @@
                                     </mat-form-field>
                                 </div>
                             </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.insumo.precio" for="field_precio">Precio</mat-label>
+                                <input type="number" matInput name="precio" id="field_precio"
+                                       [(ngModel)]="insumo.precio" />
+                              </mat-form-field>
+                            </div>
+                          </div>
                             <div class="form-group">
                                 <label class="form-control-label" jhiTranslate="craftBeerStoreApp.insumo.imagen" for="field_imagen">Imagen</label>
                                 <div>

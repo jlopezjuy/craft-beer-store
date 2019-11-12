@@ -39,7 +39,7 @@ export class ProductoComponent implements OnInit, OnDestroy {
   nombreComercial: string;
   nombreProducto: string;
   dataSource: any;
-  displayedColumns: string[] = ['descripcion', 'tipo', 'nombreComercial', 'imagen', 'actions'];
+  displayedColumns: string[] = ['nombreComercial', 'descripcion', 'tipo', 'imagen', 'actions'];
   pageEvent: PageEvent;
   public sidebarVisible = true;
   public visitorsOptions: EChartOption = {};
