@@ -23,7 +23,7 @@
                             <jhi-alert-error></jhi-alert-error>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-form-field class="example-full-width" >
                                         <mat-label jhiTranslate="craftBeerStoreApp.evento.nombreEvento" for="field_nombreEvento">Nombre del Evento</mat-label>
                                         <input type="text" matInput name="nombreEvento" id="field_nombreEvento"
                                                [(ngModel)]="evento.nombreEvento" required/>
@@ -36,7 +36,7 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width" appearance="fill">
+                                    <mat-form-field class="example-full-width" >
                                         <mat-label jhiTranslate="craftBeerStoreApp.evento.fechaEvento">Fecha</mat-label>
                                         <input matInput name="fechaEvento" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fechaEventoDp" required>
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -53,7 +53,7 @@
                             <div class="row">
 
                                 <div class="col-sm-6">
-                                    <mat-form-field class="mid-width" appearance="fill">
+                                    <mat-form-field class="mid-width" >
                                         <mat-label jhiTranslate="craftBeerStoreApp.evento.precioPinta" for="field_precioPinta">Precio por Pinta</mat-label>
                                         <input type="text" matInput name="precioPinta" id="field_precioPinta"
                                                [(ngModel)]="evento.precioPinta" required/>
@@ -89,7 +89,7 @@
                                         <mat-card-content>
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <mat-form-field class="example-full-width" appearance="fill">
+                                                    <mat-form-field class="example-full-width" >
                                                         <mat-label jhiTranslate="craftBeerStoreApp.presentacion.producto" for="field_producto">Producto</mat-label>
                                                         <mat-select  name="proveedor" [(ngModel)]="productoSave.id" id="field_producto">
                                                             <mat-option value=""></mat-option>
@@ -100,7 +100,7 @@
                                                     </mat-form-field>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <mat-form-field class="example-full-width" appearance="fill">
+                                                    <mat-form-field class="example-full-width" >
                                                         <mat-label jhiTranslate="craftBeerStoreApp.eventoProducto.cantidadDeBarriles" for="field_cantidadDeBarriles">Cantidad De Barriles</mat-label>
                                                         <input matInput type="number" name="cantidadDeBarriles" id="field_cantidadDeBarriles"
                                                                [(ngModel)]="productoSave.cantidadBarriles" />
@@ -144,7 +144,7 @@
                         </div>
                         <br/>
                         <div class="col-sm-6">
-                            <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-form-field class="example-full-width" >
                                 <mat-label jhiTranslate="craftBeerStoreApp.evento.cantidadBarriles" for="field_cantidadBarriles">Cantidad Barriles</mat-label>
                                 <input type="number" matInput name="cantidadBarriles" id="field_cantidadBarriles"
                                        [(ngModel)]="evento.cantidadBarriles" min="1" jhiMin="1" disabled/>

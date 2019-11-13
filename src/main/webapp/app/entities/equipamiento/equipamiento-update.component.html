@@ -21,7 +21,7 @@
                     <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
                         <div>
                             <jhi-alert-error></jhi-alert-error>
-                            <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-form-field class="example-full-width" >
                                 <mat-label jhiTranslate="craftBeerStoreApp.equipamiento.nombreEquipamiento" for="field_nombreEquipamiento">Nombre</mat-label>
                                 <input type="text" matInput name="nombreEquipamiento" id="field_nombreEquipamiento"
                                        [(ngModel)]="equipamiento.nombreEquipamiento" />
@@ -32,7 +32,7 @@
                                     </small>
                                 </mat-error>
                             </mat-form-field>
-                            <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-form-field class="example-full-width" >
                                 <mat-label jhiTranslate="craftBeerStoreApp.equipamiento.tipoEquipamiento">Tipo de Equipamiento</mat-label>
                                 <mat-select  name="tipoPago" [(ngModel)]="equipamiento.tipoEquipamiento" id="field_tipoPago" required>
                                     <mat-option value="MEDICION">{{'craftBeerStoreApp.TipoEquipamiento.MEDICION' | translate}}</mat-option>
@@ -57,7 +57,7 @@
                                     </small>
                                 </mat-error>
                             </mat-form-field>
-                            <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-form-field class="example-full-width" >
                                 <mat-label jhiTranslate="craftBeerStoreApp.equipamiento.precio" for="field_precio">Precio</mat-label>
                                 <input type="number" matInput name="precio" id="field_precio" min="0" jhiMin="0"
                                        [(ngModel)]="equipamiento.precio" required/>
@@ -76,7 +76,7 @@
                                     </small>
                                 </mat-error>
                             </mat-form-field>
-                            <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-form-field class="example-full-width" >
                                 <mat-label jhiTranslate="craftBeerStoreApp.equipamiento.costoEnvio" for="field_costoEnvio">Costo de Envio</mat-label>
                                 <input type="number" matInput name="costoEnvio" id="field_costoEnvio" min="0" jhiMin="0"
                                        [(ngModel)]="equipamiento.costoEnvio" required/>
@@ -95,7 +95,7 @@
                                     </small>
                                 </mat-error>
                             </mat-form-field>
-                            <mat-form-field appearance="fill">
+                            <mat-form-field >
                                 <mat-label jhiTranslate="craftBeerStoreApp.equipamiento.fechaCompra">Fecha</mat-label>
                                 <input matInput name="fechaCompra" [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="fechaCompraDp" required>
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

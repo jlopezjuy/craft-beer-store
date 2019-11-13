@@ -8,7 +8,7 @@
 <!--          </div>-->
 
           <!--<jhi-alert-error></jhi-alert-error>-->
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" >
             <mat-label jhiTranslate="craftBeerStoreApp.empresa.nombreEmpresa" for="field_nombreEmpresa">Nombre Empresa</mat-label>
             <input type="text" matInput name="nombreEmpresa" id="field_nombreEmpresa"
                    [(ngModel)]="empresa.nombreEmpresa" />
@@ -19,7 +19,7 @@
               </small>
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" >
             <mat-label jhiTranslate="craftBeerStoreApp.empresa.direccion" for="field_direccion">Direccion</mat-label>
             <input type="text" matInput name="direccion" id="field_direccion"
                    [(ngModel)]="empresa.direccion" />
@@ -74,12 +74,12 @@
           </mat-form-field>
 
 
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" >
             <mat-label jhiTranslate="craftBeerStoreApp.empresa.telefono" for="field_telefono">telefono</mat-label>
             <input type="text" matInput name="telefono" id="field_telefono"
                    [(ngModel)]="empresa.telefono" />
           </mat-form-field>
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width" >
             <mat-label jhiTranslate="craftBeerStoreApp.empresa.correo" for="field_correo">correo</mat-label>
             <input type="text" matInput name="correo" id="field_correo" #correo (blur)="onBlurEmail(correo.value)"
                    [(ngModel)]="empresa.correo" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
