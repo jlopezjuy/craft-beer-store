@@ -24,13 +24,13 @@ export interface ICompraInsumoDetalle {
   unidad?: Unidad;
   codigoReferencia?: string;
   stock?: number;
-  precio?: number;
+  precioUnitario?: number;
+  precioTotal?: number;
   tipo?: TipoInsumo;
   compraInsumoNroFactura?: string;
   compraInsumoId?: number;
   insumoRecomendadoNombre?: string;
   insumoRecomendadoId?: number;
-  precioUnitario?: number;
 }
 
 export class CompraInsumoDetalle implements ICompraInsumoDetalle {
@@ -39,12 +39,12 @@ export class CompraInsumoDetalle implements ICompraInsumoDetalle {
     public unidad?: Unidad,
     public codigoReferencia?: string,
     public stock?: number,
-    public precio?: number,
+    public precioUnitario?: number,
+    public precioTotal?: number,
     public tipo?: TipoInsumo,
     public compraInsumoNroFactura?: string,
     public compraInsumoId?: number,
     public insumoRecomendadoNombre?: string,
-    public insumoRecomendadoId?: number,
-    public precioUnitario?: number
+    public insumoRecomendadoId?: number
   ) {}
 }

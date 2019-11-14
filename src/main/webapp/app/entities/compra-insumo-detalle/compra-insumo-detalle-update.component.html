@@ -33,9 +33,14 @@
                         [(ngModel)]="compraInsumoDetalle.stock" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precio" for="field_precio">Precio</label>
-                    <input type="number" class="form-control" name="precio" id="field_precio"
-                        [(ngModel)]="compraInsumoDetalle.precio" />
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioUnitario" for="field_precioUnitario">Precio Unitario</label>
+                    <input type="number" class="form-control" name="precioUnitario" id="field_precioUnitario"
+                        [(ngModel)]="compraInsumoDetalle.precioUnitario" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioTotal" for="field_precioTotal">Precio Total</label>
+                    <input type="number" class="form-control" name="precioTotal" id="field_precioTotal"
+                        [(ngModel)]="compraInsumoDetalle.precioTotal" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.tipo" for="field_tipo">Tipo</label>

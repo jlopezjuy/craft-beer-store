@@ -39,8 +39,11 @@ public class CompraInsumoDetalle implements Serializable {
     @Column(name = "stock", precision = 10, scale = 2)
     private BigDecimal stock;
 
-    @Column(name = "precio", precision = 10, scale = 2)
-    private BigDecimal precio;
+    @Column(name = "precio_unitario", precision = 10, scale = 2)
+    private BigDecimal precioUnitario;
+
+    @Column(name = "precio_total", precision = 10, scale = 2)
+    private BigDecimal precioTotal;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo")
@@ -102,17 +105,30 @@ public class CompraInsumoDetalle implements Serializable {
         this.stock = stock;
     }
 
-    public BigDecimal getPrecio() {
-        return precio;
+    public BigDecimal getPrecioUnitario() {
+        return precioUnitario;
     }
 
-    public CompraInsumoDetalle precio(BigDecimal precio) {
-        this.precio = precio;
+    public CompraInsumoDetalle precioUnitario(BigDecimal precioUnitario) {
+        this.precioUnitario = precioUnitario;
         return this;
     }
 
-    public void setPrecio(BigDecimal precio) {
-        this.precio = precio;
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public BigDecimal getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public CompraInsumoDetalle precioTotal(BigDecimal precioTotal) {
+        this.precioTotal = precioTotal;
+        return this;
+    }
+
+    public void setPrecioTotal(BigDecimal precioTotal) {
+        this.precioTotal = precioTotal;
     }
 
     public TipoInsumo getTipo() {
@@ -182,7 +198,8 @@ public class CompraInsumoDetalle implements Serializable {
             ", unidad='" + getUnidad() + "'" +
             ", codigoReferencia='" + getCodigoReferencia() + "'" +
             ", stock=" + getStock() +
-            ", precio=" + getPrecio() +
+            ", precioUnitario=" + getPrecioUnitario() +
+            ", precioTotal=" + getPrecioTotal() +
             ", tipo='" + getTipo() + "'" +
             "}";
     }

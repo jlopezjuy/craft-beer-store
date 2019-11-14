@@ -23,7 +23,7 @@
         {
             "fieldName": "unidad",
             "fieldType": "Unidad",
-            "fieldValues": "KILOGRAMO,GRAMO,VEINTICINCO_KILOS,DIES_KILOS,LITRO,CM3,ML,UNIDAD"
+            "fieldValues": "KILOGRAMO,GRAMO,VEINTICINCO_KILOS,DIES_KILOS,LITRO,CM3,ML,UNIDAD,SOBRE_11G"
         },
         {
             "fieldName": "codigoReferencia",
@@ -34,9 +34,13 @@
             "fieldType": "BigDecimal"
         },
         {
-            "fieldName": "precio",
+            "fieldName": "precioUnitario",
             "fieldType": "BigDecimal"
         },
+      {
+        "fieldName": "precioTotal",
+        "fieldType": "BigDecimal"
+      },
         {
             "fieldName": "tipo",
             "fieldType": "TipoInsumo",

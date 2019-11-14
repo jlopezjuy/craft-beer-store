@@ -75,7 +75,8 @@ class CompraInsumoDetalleGatlingTest extends Simulation {
                 , "unidad":"KILOGRAMO"
                 , "codigoReferencia":"SAMPLE_TEXT"
                 , "stock":"0"
-                , "precio":"0"
+                , "precioUnitario":"0"
+                , "precioTotal":"0"
                 , "tipo":"MALTA"
                 }""")).asJSON
             .check(status.is(201))
