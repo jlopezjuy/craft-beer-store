@@ -6,7 +6,8 @@ export const enum Unidad {
   LITRO = 'LITRO',
   CM3 = 'CM3',
   ML = 'ML',
-  UNIDAD = 'UNIDAD'
+  UNIDAD = 'UNIDAD',
+  SOBRE_11G = 'SOBRE_11G'
 }
 
 export const enum TipoInsumo {
