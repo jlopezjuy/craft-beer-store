@@ -6,7 +6,8 @@ export const enum Unidad {
   LITRO = 'LITRO',
   CM3 = 'CM3',
   ML = 'ML',
-  UNIDAD = 'UNIDAD'
+  UNIDAD = 'UNIDAD',
+  SOBRE_11G = 'SOBRE_11G'
 }
 
 export const enum TipoInsumo {
@@ -28,7 +29,8 @@ export interface IInsumo {
   tipo?: TipoInsumo;
   imagenContentType?: string;
   imagen?: any;
-  precio?: number;
+  precioUnitario?: number;
+  precioTotal?: number;
   empresaId?: number;
   insumoRecomendadoNombre?: string;
   insumoRecomendadoId?: number;
@@ -44,7 +46,8 @@ export class Insumo implements IInsumo {
     public tipo?: TipoInsumo,
     public imagenContentType?: string,
     public imagen?: any,
-    public precio?: number,
+    public precioUnitario?: number,
+    public precioTotal?: number,
     public empresaId?: number,
     public insumoRecomendadoNombre?: string,
     public insumoRecomendadoId?: number

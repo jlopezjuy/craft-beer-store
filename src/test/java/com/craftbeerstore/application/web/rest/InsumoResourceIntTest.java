@@ -15,8 +15,6 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -29,14 +27,12 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 
 
 import static com.craftbeerstore.application.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -70,6 +66,12 @@ public class InsumoResourceIntTest {
     private static final byte[] UPDATED_IMAGEN = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_IMAGEN_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGEN_CONTENT_TYPE = "image/png";
+
+    private static final BigDecimal DEFAULT_PRECIO_UNITARIO = new BigDecimal(1);
+    private static final BigDecimal UPDATED_PRECIO_UNITARIO = new BigDecimal(2);
+
+    private static final BigDecimal DEFAULT_PRECIO_TOTAL = new BigDecimal(1);
+    private static final BigDecimal UPDATED_PRECIO_TOTAL = new BigDecimal(2);
 
     @Autowired
     private InsumoRepository insumoRepository;
@@ -125,7 +127,9 @@ public class InsumoResourceIntTest {
             .unidad(DEFAULT_UNIDAD)
             .tipo(DEFAULT_TIPO)
             .imagen(DEFAULT_IMAGEN)
-            .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE);
+            .imagenContentType(DEFAULT_IMAGEN_CONTENT_TYPE)
+            .precioUnitario(DEFAULT_PRECIO_UNITARIO)
+            .precioTotal(DEFAULT_PRECIO_TOTAL);
         return insumo;
     }
 
@@ -157,6 +161,8 @@ public class InsumoResourceIntTest {
         assertThat(testInsumo.getTipo()).isEqualTo(DEFAULT_TIPO);
         assertThat(testInsumo.getImagen()).isEqualTo(DEFAULT_IMAGEN);
         assertThat(testInsumo.getImagenContentType()).isEqualTo(DEFAULT_IMAGEN_CONTENT_TYPE);
+        assertThat(testInsumo.getPrecioUnitario()).isEqualTo(DEFAULT_PRECIO_UNITARIO);
+        assertThat(testInsumo.getPrecioTotal()).isEqualTo(DEFAULT_PRECIO_TOTAL);
     }
 
     @Test
@@ -234,7 +240,9 @@ public class InsumoResourceIntTest {
             .andExpect(jsonPath("$.[*].unidad").value(hasItem(DEFAULT_UNIDAD.toString())))
             .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO.toString())))
             .andExpect(jsonPath("$.[*].imagenContentType").value(hasItem(DEFAULT_IMAGEN_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))));
+            .andExpect(jsonPath("$.[*].imagen").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGEN))))
+            .andExpect(jsonPath("$.[*].precioUnitario").value(hasItem(DEFAULT_PRECIO_UNITARIO.intValue())))
+            .andExpect(jsonPath("$.[*].precioTotal").value(hasItem(DEFAULT_PRECIO_TOTAL.intValue())));
     }
     
     @Test
@@ -254,7 +262,9 @@ public class InsumoResourceIntTest {
             .andExpect(jsonPath("$.unidad").value(DEFAULT_UNIDAD.toString()))
             .andExpect(jsonPath("$.tipo").value(DEFAULT_TIPO.toString()))
             .andExpect(jsonPath("$.imagenContentType").value(DEFAULT_IMAGEN_CONTENT_TYPE))
-            .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)));
+            .andExpect(jsonPath("$.imagen").value(Base64Utils.encodeToString(DEFAULT_IMAGEN)))
+            .andExpect(jsonPath("$.precioUnitario").value(DEFAULT_PRECIO_UNITARIO.intValue()))
+            .andExpect(jsonPath("$.precioTotal").value(DEFAULT_PRECIO_TOTAL.intValue()));
     }
 
     @Test
@@ -284,7 +294,9 @@ public class InsumoResourceIntTest {
             .unidad(UPDATED_UNIDAD)
             .tipo(UPDATED_TIPO)
             .imagen(UPDATED_IMAGEN)
-            .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE);
+            .imagenContentType(UPDATED_IMAGEN_CONTENT_TYPE)
+            .precioUnitario(UPDATED_PRECIO_UNITARIO)
+            .precioTotal(UPDATED_PRECIO_TOTAL);
         InsumoDTO insumoDTO = insumoMapper.toDto(updatedInsumo);
 
         restInsumoMockMvc.perform(put("/api/insumos")
@@ -303,6 +315,8 @@ public class InsumoResourceIntTest {
         assertThat(testInsumo.getTipo()).isEqualTo(UPDATED_TIPO);
         assertThat(testInsumo.getImagen()).isEqualTo(UPDATED_IMAGEN);
         assertThat(testInsumo.getImagenContentType()).isEqualTo(UPDATED_IMAGEN_CONTENT_TYPE);
+        assertThat(testInsumo.getPrecioUnitario()).isEqualTo(UPDATED_PRECIO_UNITARIO);
+        assertThat(testInsumo.getPrecioTotal()).isEqualTo(UPDATED_PRECIO_TOTAL);
     }
 
     @Test

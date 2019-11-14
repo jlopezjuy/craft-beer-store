@@ -49,7 +49,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="precio" type="decimal(10,2)">
+            <column name="precio_unitario" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="precio_total" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
 

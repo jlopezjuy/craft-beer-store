@@ -21,7 +21,8 @@
       "unidad": "Unidad",
       "tipo": "Tipo",
       "imagen": "Imagen",
-      "precio": "Precio",
+      "precioUnitario": "Precio Unitario",
+      "precioTotal": "Precio Total",
       "empresa": "Empresa",
       "insumoRecomendado": "Insumo Recomendado"
     }

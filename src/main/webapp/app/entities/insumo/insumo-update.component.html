@@ -129,9 +129,16 @@
                           <div class="row">
                             <div class="col-sm-6">
                               <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.insumo.precio" for="field_precio">Precio</mat-label>
-                                <input type="number" matInput name="precio" id="field_precio"
-                                       [(ngModel)]="insumo.precio" />
+                                <mat-label jhiTranslate="craftBeerStoreApp.insumo.precioUnitario" for="field_precio">Precio Unitario</mat-label>
+                                <input type="number" matInput name="precioUnitario" id="field_precio"
+                                       [(ngModel)]="insumo.precioUnitario" />
+                              </mat-form-field>
+                            </div>
+                            <div class="col-sm-6">
+                              <mat-form-field class="example-full-width">
+                                <mat-label jhiTranslate="craftBeerStoreApp.insumo.precioTotal" for="field_precio_total">Precio Total</mat-label>
+                                <input type="number" matInput name="precioTotal" id="field_precio_total"
+                                       [(ngModel)]="insumo.precioTotal" />
                               </mat-form-field>
                             </div>
                           </div>
@@ -164,8 +171,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
-
 </div>

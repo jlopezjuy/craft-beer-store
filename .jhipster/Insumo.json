@@ -1,70 +1,74 @@
 {
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "relationships": [
-        {
-            "relationshipName": "empresa",
-            "otherEntityName": "empresa",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "id",
-            "otherEntityRelationshipNameUndefined": true,
-            "otherEntityRelationshipName": "insumo"
-        },
-        {
-            "relationshipName": "insumoRecomendado",
-            "otherEntityName": "insumoRecomendado",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "nombre",
-            "otherEntityRelationshipName": "insumo",
-            "otherEntityRelationshipNameUndefined": true
-        }
-    ],
-    "fields": [
-        {
-            "fieldName": "nombreInsumo",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "unique"
-            ]
-        },
-        {
-            "fieldName": "marca",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "stock",
-            "fieldType": "BigDecimal"
-        },
-        {
-            "fieldName": "unidad",
-            "fieldType": "Unidad",
-            "fieldValues": "KILOGRAMO,GRAMO,VEINTICINCO_KILOS,DIES_KILOS,LITRO,CM3,ML,UNIDAD"
-        },
-        {
-            "fieldName": "tipo",
-            "fieldType": "TipoInsumo",
-            "fieldValues": "MALTA,LUPULO,LEVADURA,ACIDO,CLARIFICANTE,SAL,OTROS"
-        },
-        {
-            "fieldName": "imagen",
-            "fieldType": "byte[]",
-            "fieldTypeBlobContent": "image"
-        },
-      {
-        "fieldName": "precio",
-        "fieldType": "BigDecimal"
-      }
-    ],
-    "changelogDate": "20190408000453",
-    "dto": "mapstruct",
-    "searchEngine": false,
-    "service": "serviceImpl",
-    "entityTableName": "insumo",
-    "databaseType": "sql",
-    "jpaMetamodelFiltering": false,
-    "pagination": "pagination"
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "empresa",
+      "otherEntityName": "empresa",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipNameUndefined": true,
+      "otherEntityRelationshipName": "insumo"
+    },
+    {
+      "relationshipName": "insumoRecomendado",
+      "otherEntityName": "insumoRecomendado",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "nombre",
+      "otherEntityRelationshipName": "insumo",
+      "otherEntityRelationshipNameUndefined": true
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "nombreInsumo",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required",
+        "unique"
+      ]
+    },
+    {
+      "fieldName": "marca",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "stock",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "unidad",
+      "fieldType": "Unidad",
+      "fieldValues": "KILOGRAMO,GRAMO,VEINTICINCO_KILOS,DIES_KILOS,LITRO,CM3,ML,UNIDAD,SOBRE_11G"
+    },
+    {
+      "fieldName": "tipo",
+      "fieldType": "TipoInsumo",
+      "fieldValues": "MALTA,LUPULO,LEVADURA,ACIDO,CLARIFICANTE,SAL,OTROS"
+    },
+    {
+      "fieldName": "imagen",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "precioUnitario",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "precioTotal",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "changelogDate": "20190408000453",
+  "dto": "mapstruct",
+  "searchEngine": false,
+  "service": "serviceImpl",
+  "entityTableName": "insumo",
+  "databaseType": "sql",
+  "jpaMetamodelFiltering": false,
+  "pagination": "pagination"
 }
