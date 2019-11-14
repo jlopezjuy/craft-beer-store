@@ -17,6 +17,8 @@ import { CompraInsumoDetalleService } from '../compra-insumo-detalle';
 import { CompraInsumoDetalle, ICompraInsumoDetalle } from '../../shared/model/compra-insumo-detalle.model';
 import { IInsumoRecomendado } from '../../shared/model/insumo-recomendado.model';
 import { InsumoRecomendadoService } from '../insumo-recomendado';
+import { MatTableDataSource } from '@angular/material/table';
+import { ICliente } from '../../shared/model/cliente.model';
 
 @Component({
   selector: 'jhi-compra-insumo-update',
@@ -31,9 +33,11 @@ export class CompraInsumoUpdateComponent implements OnInit {
   compraInsumoDetalle: ICompraInsumoDetalle;
   insumorecomendados: IInsumoRecomendado[];
   proveedors: IProveedor[];
-
   empresa: IEmpresa;
   fechaDp: any;
+  cantidadTotal: number;
+  dataSource: any;
+  displayedColumns: string[] = ['insumoRecomendado', 'unidad', 'tipo', 'codigoReferencia', 'stock', 'precio'];
 
   constructor(
     protected jhiAlertService: JhiAlertService,
@@ -47,7 +51,9 @@ export class CompraInsumoUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.estadoCompra = EstadoCompra.PEDIDO_REALIZADO;
     this.compraInsumoDetalle = new CompraInsumoDetalle();
+    this.cantidadTotal = 0;
     this.isSaving = false;
     this.empresa = this.$localStorage.retrieve('empresa');
 
@@ -56,6 +62,8 @@ export class CompraInsumoUpdateComponent implements OnInit {
       if (this.compraInsumo.id) {
         this.fechaDp = moment(this.compraInsumo.fecha, 'dd/MM/yyy').format();
         this.loadAllOnEdit();
+        this.compraInsumoAux = new CompraInsumo();
+        this.compraInsumoAux.estadoCompra = this.compraInsumo.estadoCompra;
       } else {
         this.compraInsumo = new CompraInsumo();
         this.compraInsumo.impuesto = 0;
@@ -89,7 +97,9 @@ export class CompraInsumoUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     this.compraInsumo.empresaId = this.empresa.id;
-    this.calculoImportes();
+    if (!this.compraInsumo.id) {
+      this.calculoImportes();
+    }
     this.compraInsumo.fecha = this.fechaDp != null ? moment(this.fechaDp, DATE_FORMAT) : null;
     if (this.compraInsumo.id !== undefined) {
       this.subscribeToSaveResponse(this.compraInsumoService.update(this.compraInsumo));
@@ -101,6 +111,9 @@ export class CompraInsumoUpdateComponent implements OnInit {
   saveCompraInsumos(compraInsumoId: number) {
     this.compraInsumoDetalles.forEach(compra => {
       compra.compraInsumoId = compraInsumoId;
+      if (!this.compraInsumo.id) {
+        compra.precio = compra.precio + this.compraInsumo.gastoDeEnvio / this.cantidadTotal;
+      }
     });
     this.compraInsumoDetalleService.createList(this.compraInsumoDetalles).subscribe(resp => {
       console.log('ok');
@@ -123,6 +136,7 @@ export class CompraInsumoUpdateComponent implements OnInit {
   protected onSaveSuccess(resp: ICompraInsumo) {
     this.saveCompraInsumos(resp.id);
     this.isSaving = false;
+    this.cantidadTotal = 0;
     this.previousState();
   }
 
@@ -151,6 +165,10 @@ export class CompraInsumoUpdateComponent implements OnInit {
 
     this.compraInsumoDetalleService.findAllByCompraInsumo(this.compraInsumo.id).subscribe(response => {
       this.compraInsumoDetalles = response.body;
+      this.compraInsumoDetalles.forEach(det => {
+        this.cantidadTotal = this.cantidadTotal + det.stock;
+      });
+      this.dataSource = new MatTableDataSource<ICompraInsumoDetalle>(this.compraInsumoDetalles);
     });
   }
 
@@ -169,10 +187,13 @@ export class CompraInsumoUpdateComponent implements OnInit {
   }
 
   addInsumo() {
-    this.compraInsumoDetalles.push(this.compraInsumoDetalle);
-    this.compraInsumo.subtotal = this.compraInsumo.subtotal + this.compraInsumoDetalle.precio;
-    this.compraInsumo.total =
-      this.compraInsumo.subtotal + (this.compraInsumo.subtotal * this.compraInsumo.impuesto) / 100 + this.compraInsumo.gastoDeEnvio;
-    this.compraInsumoDetalle = new CompraInsumoDetalle();
+    if (this.compraInsumoDetalle.insumoRecomendadoId !== undefined) {
+      this.cantidadTotal = this.cantidadTotal + this.compraInsumoDetalle.stock;
+      this.compraInsumoDetalles.push(this.compraInsumoDetalle);
+      this.compraInsumo.subtotal = this.compraInsumo.subtotal + this.compraInsumoDetalle.precio;
+      this.compraInsumo.total =
+        this.compraInsumo.subtotal + (this.compraInsumo.subtotal * this.compraInsumo.impuesto) / 100 + this.compraInsumo.gastoDeEnvio;
+      this.compraInsumoDetalle = new CompraInsumoDetalle();
+    }
   }
 }
