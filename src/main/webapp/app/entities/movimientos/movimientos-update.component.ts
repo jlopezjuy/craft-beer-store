@@ -202,15 +202,15 @@ export class MovimientosUpdateComponent implements OnInit {
     let litrosFinales;
     switch (producto.tipoPresentacion) {
       case TipoPresentacion.BOTELLA_330: {
-        litrosFinales = Number(producto.cantidadPresentacion / 3).toFixed(2);
+        litrosFinales = Number((producto.cantidadPresentacion * 330) / 1000).toFixed(2);
         break;
       }
       case TipoPresentacion.BOTELLA_355: {
-        litrosFinales = Number(producto.cantidadPresentacion / 3).toFixed(2);
+        litrosFinales = Number((producto.cantidadPresentacion * 355) / 1000).toFixed(2);
         break;
       }
       case TipoPresentacion.BOTELLA_500: {
-        litrosFinales = Number(producto.cantidadPresentacion / 2).toFixed(2);
+        litrosFinales = Number((producto.cantidadPresentacion * 2) / 1000).toFixed(2);
         break;
       }
       case TipoPresentacion.BOTELLA_1000: {
@@ -247,9 +247,11 @@ export class MovimientosUpdateComponent implements OnInit {
           presentacion.tipoPresentacion = presen.body.tipoPresentacion;
           this.productoService.find(presen.body.productoId).subscribe(prod => {
             presentacion.nombreComercial = prod.body.nombreComercial;
-            this.puntoDeVentaService.findByCliente(this.movimientos.clienteId).subscribe(puntos => {
-              this.puntosDeVentas = puntos.body;
-            });
+            if (this.movimientos.clienteId) {
+              this.puntoDeVentaService.findByCliente(this.movimientos.clienteId).subscribe(puntos => {
+                this.puntosDeVentas = puntos.body;
+              });
+            }
           });
         });
         this.presentacions.push(presentacion);
