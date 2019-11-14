@@ -14,6 +14,7 @@ import { ProductoService } from 'app/entities/producto';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa';
 import { LocalStorageService } from 'ngx-webstorage';
+import { DATE_FORMAT } from '../../shared';
 
 @Component({
   selector: 'jhi-tanque-update',
@@ -22,11 +23,8 @@ import { LocalStorageService } from 'ngx-webstorage';
 export class TanqueUpdateComponent implements OnInit {
   tanque: ITanque;
   isSaving: boolean;
-
   lotes: ILote[];
-
   productos: IProducto[];
-
   empresas: IEmpresa[];
   empresa: IEmpresa;
   fechaIngresoDp: any;
@@ -46,6 +44,7 @@ export class TanqueUpdateComponent implements OnInit {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ tanque }) => {
       this.tanque = tanque;
+      this.fechaIngresoDp = moment(this.tanque.fechaIngreso, 'dd/MM/yyy').format();
     });
     this.loteService
       .query()
@@ -77,6 +76,7 @@ export class TanqueUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     this.tanque.empresaId = this.empresa.id;
+    this.tanque.fechaIngreso = this.fechaIngresoDp != null ? moment(this.fechaIngresoDp, DATE_FORMAT) : null;
     if (this.tanque.id !== undefined) {
       this.subscribeToSaveResponse(this.tanqueService.update(this.tanque));
     } else {

@@ -60,7 +60,7 @@
           </ng-container>
           <ng-container matColumnDef="fechaIngreso">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="fechaIngreso"> <span jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso">Fecha de Ingreso</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" > {{tanque.fechaIngreso}} </td>
+            <td mat-cell *matCellDef="let tanque" > {{tanque.fechaIngreso  | date:'mediumDate'}} </td>
           </ng-container>
           <ng-container matColumnDef="loteCodigo">
             <th mat-header-cell *matHeaderCellDef jhiSortBy="loteCodigo"> <span jhiTranslate="craftBeerStoreApp.tanque.lote">Lote Codigo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
