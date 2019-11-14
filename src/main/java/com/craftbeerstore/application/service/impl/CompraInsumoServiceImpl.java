@@ -73,7 +73,8 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
             insumo.setStock(detalle.getStock());
             insumo.setUnidad(detalle.getUnidad());
             insumo.setTipo(detalle.getTipo());
-            insumo.setPrecioTotal(detalle.getPrecio());
+            insumo.setPrecioUnitario(detalle.getPrecioUnitario());
+            insumo.setPrecioTotal(detalle.getPrecioTotal());
           } else {
             insumo.setStock(insumo.getStock().add(detalle.getStock()));
           }
@@ -89,7 +90,8 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
             insumo.setStock(detalle.getStock());
             insumo.setUnidad(detalle.getUnidad());
             insumo.setTipo(detalle.getTipo());
-            insumo.setPrecioTotal(detalle.getPrecio());
+            insumo.setPrecioUnitario(detalle.getPrecioUnitario());
+            insumo.setPrecioTotal(detalle.getPrecioTotal());
           } else {
             insumo.setStock(insumo.getStock().add(detalle.getStock()));
           }
