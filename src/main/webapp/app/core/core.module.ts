@@ -5,20 +5,20 @@ import { Title } from '@angular/platform-browser';
 import locale from '@angular/common/locales/es';
 
 @NgModule({
-    imports: [HttpClientModule],
-    exports: [],
-    declarations: [],
-    providers: [
-        Title,
-        {
-            provide: LOCALE_ID,
-            useValue: 'es'
-        },
-        DatePipe
-    ]
+  imports: [HttpClientModule],
+  exports: [],
+  declarations: [],
+  providers: [
+    Title,
+    {
+      provide: LOCALE_ID,
+      useValue: 'es-AR'
+    },
+    DatePipe
+  ]
 })
 export class CraftBeerStoreCoreModule {
-    constructor() {
-        registerLocaleData(locale);
-    }
+  constructor() {
+    registerLocaleData(locale);
+  }
 }

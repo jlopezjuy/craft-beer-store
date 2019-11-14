@@ -47,7 +47,7 @@
                         </ng-container>
                       <ng-container matColumnDef="precio">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="precio"> <span jhiTranslate="craftBeerStoreApp.insumo.precio">Precio</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let insumo" > {{insumo.precio}} </td>
+                        <td mat-cell *matCellDef="let insumo" > {{insumo.precio | currency}} </td>
                       </ng-container>
                         <ng-container matColumnDef="unidad">
                             <th mat-header-cell *matHeaderCellDef jhiSortBy="unidad"> <span jhiTranslate="craftBeerStoreApp.insumo.unidad">Unidad</span><fa-icon [icon]="'sort'"></fa-icon> </th>
