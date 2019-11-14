@@ -62,6 +62,12 @@ public class RecetaInsumoServiceImpl implements RecetaInsumoService {
     return recetaInsumoMapper.toDto(recetaInsumo);
   }
 
+  @Override
+  public List<RecetaInsumoDTO> save(List<RecetaInsumoDTO> recetaInsumoDTO) {
+    List<RecetaInsumo> list = this.recetaInsumoRepository.saveAll(this.recetaInsumoMapper.toEntity(recetaInsumoDTO));
+    return this.recetaInsumoMapper.toDto(list);
+  }
+
   /**
    * Get all the recetaInsumos.
    *

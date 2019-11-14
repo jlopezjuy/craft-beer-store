@@ -65,9 +65,6 @@ public class CompraInsumoDetalleResource {
   @PostMapping("/compra-insumo-detalles/list")
   public ResponseEntity<List<CompraInsumoDetalleDTO>> createComprasInsumoDetalle(@RequestBody List<CompraInsumoDetalleDTO> comprasInsumoDetalleDTO) throws URISyntaxException {
     log.debug("REST request to save CompraInsumoDetalle : {}", comprasInsumoDetalleDTO);
-//        if (compraInsumoDetalleDTO.getId() != null) {
-//            throw new BadRequestAlertException("A new compraInsumoDetalle cannot already have an ID", ENTITY_NAME, "idexists");
-//        }
     List<CompraInsumoDetalleDTO> list = compraInsumoDetalleService.save(comprasInsumoDetalleDTO);
     return ResponseEntity.created(new URI("/api/compra-insumo-detalles/list"))
       .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "Ok"))

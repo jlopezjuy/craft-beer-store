@@ -33,7 +33,7 @@ import com.craftbeerstore.application.domain.enumeration.UsoOtro;
 public class RecetaInsumo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,7 +46,7 @@ public class RecetaInsumo implements Serializable {
     private BigDecimal cantidad;
 
     @Min(value = 2L)
-    @Max(value = 40L)
+    @Max(value = 450L)
     @Column(name = "color")
     private Long color;
 

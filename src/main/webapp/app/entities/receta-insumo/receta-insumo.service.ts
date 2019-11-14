@@ -20,6 +20,10 @@ export class RecetaInsumoService {
     return this.http.post<IRecetaInsumo>(this.resourceUrl, recetaInsumo, { observe: 'response' });
   }
 
+  createList(recetaInsumos: IRecetaInsumo[]): Observable<EntityResponseType> {
+    return this.http.post<IRecetaInsumo>(`${this.resourceUrl}/list`, recetaInsumos, { observe: 'response' });
+  }
+
   update(recetaInsumo: IRecetaInsumo): Observable<EntityResponseType> {
     return this.http.put<IRecetaInsumo>(this.resourceUrl, recetaInsumo, { observe: 'response' });
   }

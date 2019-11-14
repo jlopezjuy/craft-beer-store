@@ -17,7 +17,7 @@ import { ProductoService } from 'app/entities/producto';
 import { IProducto, Producto } from 'app/shared/model/producto.model';
 import { PresentacionService } from 'app/entities/presentacion';
 import { DetalleMovimientoService } from 'app/entities/detalle-movimiento';
-import { DetalleMovimiento } from 'app/shared/model/detalle-movimiento.model';
+import { DetalleMovimiento, IDetalleMovimiento } from 'app/shared/model/detalle-movimiento.model';
 import { DATE_FORMAT } from 'app/shared';
 import { PuntoDeVentaService } from 'app/entities/punto-de-venta';
 import { IPuntoDeVenta } from 'app/shared/model/punto-de-venta.model';
@@ -43,6 +43,7 @@ export class MovimientosUpdateComponent implements OnInit {
   isEditable: boolean;
   puntosDeVentas: IPuntoDeVenta[];
   maxDate = new Date();
+  detallesMovimientos: IDetalleMovimiento[] = [];
 
   constructor(
     protected jhiAlertService: JhiAlertService,
@@ -117,7 +118,11 @@ export class MovimientosUpdateComponent implements OnInit {
       detalle.presentacionId = pres.id;
       detalle.cantidad = pres.cantidad;
       detalle.precioTotal = pres.precioVentaTotal;
-      this.detalleMovimientoService.create(detalle).subscribe(det => {});
+      this.detallesMovimientos.push(detalle);
+      // this.detalleMovimientoService.create(detalle).subscribe(det => {});
+    });
+    this.detalleMovimientoService.createList(this.detallesMovimientos).subscribe(dms => {
+      console.log(dms.body);
     });
     this.previousState();
   }

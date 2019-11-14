@@ -58,6 +58,25 @@ public class RecetaInsumoResource {
   }
 
   /**
+   * POST  /receta-insumos : Create a new recetaInsumo.
+   *
+   * @param recetaInsumoDTO the recetaInsumoDTO to create
+   * @return the ResponseEntity with status 201 (Created) and with body the new recetaInsumoDTO, or with status 400 (Bad Request) if the recetaInsumo has already an ID
+   * @throws URISyntaxException if the Location URI syntax is incorrect
+   */
+  @PostMapping("/receta-insumos/list")
+  public ResponseEntity<List<RecetaInsumoDTO>> createRecetaInsumoList(@Valid @RequestBody List<RecetaInsumoDTO> recetaInsumoDTO) throws URISyntaxException {
+    log.debug("REST request to save RecetaInsumo : {}", recetaInsumoDTO);
+    if (recetaInsumoDTO.size() < 1) {
+      throw new BadRequestAlertException("A new recetaInsumo list cannot saved", ENTITY_NAME, "listempty");
+    }
+    List<RecetaInsumoDTO> result = recetaInsumoService.save(recetaInsumoDTO);
+    return ResponseEntity.created(new URI("/api/receta-insumos/list"))
+      .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME,"Ok"))
+      .body(result);
+  }
+
+  /**
    * PUT  /receta-insumos : Updates an existing recetaInsumo.
    *
    * @param recetaInsumoDTO the recetaInsumoDTO to update

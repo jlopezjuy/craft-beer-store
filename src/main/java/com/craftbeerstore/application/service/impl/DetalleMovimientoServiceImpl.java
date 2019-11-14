@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -53,6 +54,12 @@ public class DetalleMovimientoServiceImpl implements DetalleMovimientoService {
     detalleMovimiento = detalleMovimientoRepository.save(detalleMovimiento);
     DetalleMovimientoDTO result = detalleMovimientoMapper.toDto(detalleMovimiento);
     return result;
+  }
+
+  @Override
+  public List<DetalleMovimientoDTO> save(List<DetalleMovimientoDTO> detalleMovimientoDTO) {
+    List<DetalleMovimiento> list = this.detalleMovimientoRepository.saveAll(this.detalleMovimientoMapper.toEntity(detalleMovimientoDTO));
+    return this.detalleMovimientoMapper.toDto(list);
   }
 
   /**

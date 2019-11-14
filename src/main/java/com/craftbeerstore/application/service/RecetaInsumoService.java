@@ -22,6 +22,13 @@ public interface RecetaInsumoService {
   RecetaInsumoDTO save(RecetaInsumoDTO recetaInsumoDTO);
 
   /**
+   *
+   * @param recetaInsumoDTO
+   * @return
+   */
+  List<RecetaInsumoDTO> save(List<RecetaInsumoDTO> recetaInsumoDTO);
+
+  /**
    * Get all the recetaInsumos.
    *
    * @param pageable the pagination information

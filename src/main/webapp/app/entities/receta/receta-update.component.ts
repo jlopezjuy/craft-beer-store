@@ -127,53 +127,57 @@ export class RecetaUpdateComponent implements OnInit {
   }
 
   saveRecetaInsumos(receta: IReceta) {
+    const maltasListAux: IRecetaInsumo[] = [];
+    const lupulosListAux: IRecetaInsumo[] = [];
+    const levadurasListAux: IRecetaInsumo[] = [];
+    const otrosListAux: IRecetaInsumo[] = [];
+    const maltasListAuxUpd: IRecetaInsumo[] = [];
+    const lupulosListAuxUpd: IRecetaInsumo[] = [];
+    const levadurasListAuxUpd: IRecetaInsumo[] = [];
+    const otrosListAuxUpd: IRecetaInsumo[] = [];
     this.maltasList.forEach(malta => {
       malta.recetaId = receta.id;
       if (malta.id) {
-        this.recetaInsumoService.update(malta).subscribe(res => {
-          console.log('ok');
-        });
+        maltasListAuxUpd.push(malta);
       } else {
-        this.recetaInsumoService.create(malta).subscribe(res => {
-          console.log('ok');
-        });
+        maltasListAux.push(malta);
       }
+    });
+    this.recetaInsumoService.createList(this.maltasList).subscribe(malt => {
+      console.log('maltas ok');
     });
     this.lupulosList.forEach(lupulo => {
       lupulo.recetaId = receta.id;
       if (lupulo.id) {
-        this.recetaInsumoService.update(lupulo).subscribe(res => {
-          console.log('ok');
-        });
+        lupulosListAuxUpd.push(lupulo);
       } else {
-        this.recetaInsumoService.create(lupulo).subscribe(res => {
-          console.log('ok');
-        });
+        lupulosListAux.push(lupulo);
       }
     });
-    this.levadurasList.forEach(leva => {
-      leva.recetaId = receta.id;
-      if (leva.id) {
-        this.recetaInsumoService.update(leva).subscribe(res => {
-          console.log('ok');
-        });
+    this.recetaInsumoService.createList(this.lupulosList).subscribe(malt => {
+      console.log('lupulos ok');
+    });
+    this.levadurasList.forEach(levadura => {
+      levadura.recetaId = receta.id;
+      if (levadura.id) {
+        levadurasListAuxUpd.push(levadura);
       } else {
-        this.recetaInsumoService.create(leva).subscribe(res => {
-          console.log('ok');
-        });
+        levadurasListAux.push(levadura);
       }
+    });
+    this.recetaInsumoService.createList(this.levadurasList).subscribe(malt => {
+      console.log('levaduras ok');
     });
     this.otrosList.forEach(otro => {
       otro.recetaId = receta.id;
       if (otro.id) {
-        this.recetaInsumoService.update(otro).subscribe(res => {
-          console.log('ok');
-        });
+        otrosListAuxUpd.push(otro);
       } else {
-        this.recetaInsumoService.create(otro).subscribe(res => {
-          console.log('ok');
-        });
+        otrosListAux.push(otro);
       }
+    });
+    this.recetaInsumoService.createList(this.otrosList).subscribe(malt => {
+      console.log('otros ok');
     });
   }
 

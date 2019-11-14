@@ -19,7 +19,7 @@
         </div>
         <div class="body">
             <div class="row justify-content-center">
-                <div class="col-8">
+                <div class="col-10">
                     <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
                         <div>
                             <jhi-alert-error></jhi-alert-error>
@@ -184,7 +184,7 @@
                                                             <input type="number" matInput name="color"
                                                                    id="field_color"
                                                                    [(ngModel)]="recetaInsumo.color" min="2"
-                                                                   jhiMin="2" max="40" jhiMax="40"/>
+                                                                   jhiMin="2" max="450" jhiMax="450"/>
                                                             <mat-error
                                                                 [hidden]="!(editForm.controls.color?.dirty && editForm.controls.color?.invalid)">
                                                                 <small class="form-text text-danger"
@@ -196,8 +196,8 @@
                                                                 <small class="form-text text-danger"
                                                                        [hidden]="!editForm.controls.color?.errors?.max"
                                                                        jhiTranslate="entity.validation.max"
-                                                                       [translateValues]="{ max: 40 }">
-                                                                    This field cannot be more than 40.
+                                                                       [translateValues]="{ max: 450 }">
+                                                                    This field cannot be more than 450.
                                                                 </small>
                                                                 <small class="form-text text-danger"
                                                                        [hidden]="!editForm.controls.color?.errors?.number"
@@ -289,7 +289,7 @@
                                                                         <input type="number" matInput
                                                                                name="{{randomName(malta, malta.color)}}"
                                                                                [(ngModel)]="malta.color" min="2"
-                                                                               jhiMin="2" max="40" jhiMax="40"
+                                                                               jhiMin="2" max="450" jhiMax="450"
                                                                                (change)="changeSrmRow()"/>
                                                                     </mat-form-field>
                                                                 </td>

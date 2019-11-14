@@ -21,7 +21,7 @@ public class RecetaInsumoDTO implements Serializable {
   private BigDecimal cantidad;
 
   @Min(value = 2L)
-  @Max(value = 40L)
+  @Max(value = 450L)
   private Long color;
 
   @DecimalMax(value = "100")
