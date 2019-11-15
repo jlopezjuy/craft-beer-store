@@ -19,7 +19,7 @@
     </div>
     <div class="body">
       <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-10">
           <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
             <div>
               <jhi-alert-error></jhi-alert-error>
@@ -161,8 +161,7 @@
                   </mat-form-field>
                 </div>
               </div>
-
-              <div class="row" [hidden]="compraInsumo.id">
+              <div class="row">
                 <div class="container mat-elevation-z8">
                   <div class="card mat-elevation-z8">
                     <div class="header">
@@ -225,13 +224,13 @@
                                 <mat-option value="CM3">{{'craftBeerStoreApp.Unidad.CM3' | translate}}</mat-option>
                                 <mat-option value="ML">{{'craftBeerStoreApp.Unidad.ML' | translate}}</mat-option>
                                 <mat-option value="UNIDAD">{{'craftBeerStoreApp.Unidad.UNIDAD' | translate}}</mat-option>
+                                <mat-option value="SOBRE_11G">{{'craftBeerStoreApp.Unidad.SOBRE_11G' | translate}}</mat-option>
                               </mat-select>
                             </mat-form-field>
                           </div>
                           <div class="col-sm-3">
                             <mat-form-field class="example-full-width">
-                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock"
-                                         for="field_stock">Stock</mat-label>
+                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock" for="field_stock">Stock</mat-label>
                               <input type="number" matInput name="stock" id="field_stock"
                                      [(ngModel)]="compraInsumoDetalle.stock"/>
                             </mat-form-field>
@@ -246,10 +245,10 @@
                           </div>
                           <div class="col-sm-3">
                             <mat-form-field class="example-full-width">
-                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precio"
+                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioTotal"
                                          for="field_precio">Precio</mat-label>
                               <input type="number" matInput name="precio" id="field_precio"
-                                     [(ngModel)]="compraInsumoDetalle.precio"/>
+                                     [(ngModel)]="compraInsumoDetalle.precioTotal"/>
                             </mat-form-field>
                           </div>
                         </div>
@@ -287,9 +286,13 @@
                       <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock">Stock</span> </th>
                       <td mat-cell *matCellDef="let compraInsumoDetalle" > {{compraInsumoDetalle.stock}} </td>
                     </ng-container>
-                    <ng-container matColumnDef="precio">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precio">Unidad</span> </th>
-                      <td mat-cell *matCellDef="let compraInsumoDetalle" > {{compraInsumoDetalle.precio}} </td>
+                    <ng-container matColumnDef="precioUnitario">
+                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioUnitario">Unidad</span> </th>
+                      <td mat-cell *matCellDef="let compraInsumoDetalle" > {{compraInsumoDetalle.precioUnitario}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="precioTotal">
+                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioTotal">Unidad</span> </th>
+                      <td mat-cell *matCellDef="let compraInsumoDetalle" > {{compraInsumoDetalle.precioTotal}} </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

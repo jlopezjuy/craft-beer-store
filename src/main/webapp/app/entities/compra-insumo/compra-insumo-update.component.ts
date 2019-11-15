@@ -37,7 +37,7 @@ export class CompraInsumoUpdateComponent implements OnInit {
   fechaDp: any;
   cantidadTotal: number;
   dataSource: any;
-  displayedColumns: string[] = ['insumoRecomendado', 'unidad', 'tipo', 'codigoReferencia', 'stock', 'precio'];
+  displayedColumns: string[] = ['insumoRecomendado', 'unidad', 'tipo', 'codigoReferencia', 'stock', 'precioUnitario', 'precioTotal'];
 
   constructor(
     protected jhiAlertService: JhiAlertService,
@@ -97,9 +97,7 @@ export class CompraInsumoUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     this.compraInsumo.empresaId = this.empresa.id;
-    if (!this.compraInsumo.id) {
-      this.calculoImportes();
-    }
+    this.calculoImportes();
     this.compraInsumo.fecha = this.fechaDp != null ? moment(this.fechaDp, DATE_FORMAT) : null;
     if (this.compraInsumo.id !== undefined) {
       this.subscribeToSaveResponse(this.compraInsumoService.update(this.compraInsumo));
@@ -111,9 +109,7 @@ export class CompraInsumoUpdateComponent implements OnInit {
   saveCompraInsumos(compraInsumoId: number) {
     this.compraInsumoDetalles.forEach(compra => {
       compra.compraInsumoId = compraInsumoId;
-      if (!this.compraInsumo.id) {
-        compra.precio = compra.precio + this.compraInsumo.gastoDeEnvio / this.cantidadTotal;
-      }
+      compra.precioTotal = compra.precioUnitario * compra.stock + this.compraInsumo.gastoDeEnvio / this.cantidadTotal;
     });
     this.compraInsumoDetalleService.createList(this.compraInsumoDetalles).subscribe(resp => {
       console.log('ok');
@@ -123,7 +119,7 @@ export class CompraInsumoUpdateComponent implements OnInit {
   calculoImportes() {
     this.compraInsumo.subtotal = 0;
     this.compraInsumoDetalles.forEach(compra => {
-      this.compraInsumo.subtotal = this.compraInsumo.subtotal + compra.precio;
+      this.compraInsumo.subtotal = this.compraInsumo.subtotal + compra.precioTotal;
     });
     this.compraInsumo.total =
       this.compraInsumo.subtotal + (this.compraInsumo.subtotal * this.compraInsumo.impuesto) / 100 + this.compraInsumo.gastoDeEnvio;
@@ -182,7 +178,7 @@ export class CompraInsumoUpdateComponent implements OnInit {
 
   precioUnitarioChange() {
     if (this.compraInsumoDetalle.precioUnitario > 0) {
-      this.compraInsumoDetalle.precio = this.compraInsumoDetalle.precioUnitario * this.compraInsumoDetalle.stock;
+      this.compraInsumoDetalle.precioTotal = this.compraInsumoDetalle.precioUnitario * this.compraInsumoDetalle.stock;
     }
   }
 
@@ -190,7 +186,9 @@ export class CompraInsumoUpdateComponent implements OnInit {
     if (this.compraInsumoDetalle.insumoRecomendadoId !== undefined) {
       this.cantidadTotal = this.cantidadTotal + this.compraInsumoDetalle.stock;
       this.compraInsumoDetalles.push(this.compraInsumoDetalle);
-      this.compraInsumo.subtotal = this.compraInsumo.subtotal + this.compraInsumoDetalle.precio;
+      this.dataSource = new MatTableDataSource<ICompraInsumoDetalle>(this.compraInsumoDetalles);
+      console.log(this.compraInsumoDetalles);
+      this.compraInsumo.subtotal = this.compraInsumo.subtotal + this.compraInsumoDetalle.precioTotal;
       this.compraInsumo.total =
         this.compraInsumo.subtotal + (this.compraInsumo.subtotal * this.compraInsumo.impuesto) / 100 + this.compraInsumo.gastoDeEnvio;
       this.compraInsumoDetalle = new CompraInsumoDetalle();
