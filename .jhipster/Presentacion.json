@@ -9,6 +9,14 @@
             "otherEntityField": "nombreComercial",
             "otherEntityRelationshipNameUndefined": false,
             "otherEntityRelationshipName": "presentacion"
+        },
+        {
+            "relationshipName": "lote",
+            "otherEntityName": "lote",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "codigo",
+            "otherEntityRelationshipName": "presentacion",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

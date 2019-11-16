@@ -22,7 +22,8 @@
       "precioVentaUnitario": "Precio de Venta Unitario",
       "precioVentaTotal": "Precio de Venta Total",
       "precioCostoTotal": "Precio de Costo Total",
-      "producto": "Producto"
+      "producto": "Producto",
+      "lote": "Lote"
     }
   }
 }

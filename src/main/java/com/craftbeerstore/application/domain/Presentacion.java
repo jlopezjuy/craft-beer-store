@@ -7,6 +7,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -23,7 +24,7 @@ import com.craftbeerstore.application.domain.enumeration.TipoPresentacion;
 public class Presentacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -60,6 +61,10 @@ public class Presentacion implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("presentacions")
     private Producto producto;
+
+    @ManyToOne
+    @JsonIgnoreProperties("presentacions")
+    private Lote lote;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -172,6 +177,19 @@ public class Presentacion implements Serializable {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public Lote getLote() {
+        return lote;
+    }
+
+    public Presentacion lote(Lote lote) {
+        this.lote = lote;
+        return this;
+    }
+
+    public void setLote(Lote lote) {
+        this.lote = lote;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

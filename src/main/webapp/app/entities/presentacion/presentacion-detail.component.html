@@ -86,7 +86,12 @@
                                                 </dd>
                                             </div>
                                             <div class="col-md-6">
-
+                                              <dt><span jhiTranslate="craftBeerStoreApp.presentacion.lote">Lote</span></dt>
+                                              <dd>
+                                                <div *ngIf="presentacion.loteId">
+                                                  <a [routerLink]="['/lote', presentacion.loteId, 'view']">{{presentacion.loteCodigo}}</a>
+                                                </div>
+                                              </dd>
                                             </div>
                                         </div>
 

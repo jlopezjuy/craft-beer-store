@@ -22,6 +22,8 @@ export interface IPresentacion {
   precioCostoTotal?: number;
   productoNombreComercial?: string;
   productoId?: number;
+  loteCodigo?: string;
+  loteId?: number;
   /**
    * transient
    */
@@ -41,6 +43,8 @@ export class Presentacion implements IPresentacion {
     public precioCostoTotal?: number,
     public productoNombreComercial?: string,
     public productoId?: number,
+    public loteCodigo?: string,
+    public loteId?: number,
     /**
      * transient
      */

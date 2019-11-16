@@ -22,7 +22,8 @@
       "precioVentaUnitario": "Unit sale price",
       "precioVentaTotal": "Total sale price",
       "precioCostoTotal": "Total price cost",
-      "producto": "Product"
+      "producto": "Product",
+      "lote": "Lote"
     }
   }
 }

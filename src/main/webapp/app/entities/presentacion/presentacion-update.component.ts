@@ -9,6 +9,8 @@ import { IPresentacion } from 'app/shared/model/presentacion.model';
 import { PresentacionService } from './presentacion.service';
 import { IProducto } from 'app/shared/model/producto.model';
 import { ProductoService } from 'app/entities/producto';
+import { ILote } from 'app/shared/model/lote.model';
+import { LoteService } from 'app/entities/lote';
 import { LocalStorageService } from 'ngx-webstorage';
 import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared';
 
@@ -20,6 +22,8 @@ export class PresentacionUpdateComponent implements OnInit {
   presentacion: IPresentacion;
   isSaving: boolean;
   producto: IProducto;
+  productos: IProducto[];
+  lotes: ILote[];
   fechaDp: any;
   fecha: any;
 
@@ -27,8 +31,8 @@ export class PresentacionUpdateComponent implements OnInit {
     protected jhiAlertService: JhiAlertService,
     protected presentacionService: PresentacionService,
     protected productoService: ProductoService,
-    protected activatedRoute: ActivatedRoute,
-    private $localStorage: LocalStorageService
+    protected loteService: LoteService,
+    protected activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -40,6 +44,20 @@ export class PresentacionUpdateComponent implements OnInit {
       }
     });
     this.producto = this.$localStorage.retrieve('producto');
+    // this.productoService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IProducto[]>) => response.body)
+    //   )
+    //   .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
+    // this.loteService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<ILote[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<ILote[]>) => response.body)
+    //   )
+    //   .subscribe((res: ILote[]) => (this.lotes = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   previousState() {

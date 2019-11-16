@@ -28,7 +28,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
   error: any;
   success: any;
   eventSubscriber: Subscription;
-  currentSearch: string;
   routeData: any;
   links: any;
   totalItems: any;
@@ -77,8 +76,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
-    this.currentSearch =
-      this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
   loadAll() {
@@ -110,7 +107,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
-        search: this.currentSearch,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }
     });
@@ -119,7 +115,7 @@ export class PresentacionComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
-    this.currentSearch = '';
+    // this.currentSearch = '';
     this.router.navigate([
       '/presentacion',
       {
@@ -135,11 +131,10 @@ export class PresentacionComponent implements OnInit, OnDestroy {
       return this.clear();
     }
     this.page = 0;
-    this.currentSearch = query;
+    // this.currentSearch = query;
     this.router.navigate([
       '/presentacion',
       {
-        search: this.currentSearch,
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }

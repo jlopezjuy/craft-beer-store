@@ -8,22 +8,25 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Presentacion and its DTO PresentacionDTO.
  */
-@Mapper(componentModel = "spring", uses = {ProductoMapper.class})
+@Mapper(componentModel = "spring", uses = {ProductoMapper.class, LoteMapper.class})
 public interface PresentacionMapper extends EntityMapper<PresentacionDTO, Presentacion> {
 
-  @Mapping(source = "producto.id", target = "productoId")
-  @Mapping(source = "producto.nombreComercial", target = "productoNombreComercial")
-  PresentacionDTO toDto(Presentacion presentacion);
+    @Mapping(source = "producto.id", target = "productoId")
+    @Mapping(source = "producto.nombreComercial", target = "productoNombreComercial")
+    @Mapping(source = "lote.id", target = "loteId")
+    @Mapping(source = "lote.codigo", target = "loteCodigo")
+    PresentacionDTO toDto(Presentacion presentacion);
 
-  @Mapping(source = "productoId", target = "producto")
-  Presentacion toEntity(PresentacionDTO presentacionDTO);
+    @Mapping(source = "productoId", target = "producto")
+    @Mapping(source = "loteId", target = "lote")
+    Presentacion toEntity(PresentacionDTO presentacionDTO);
 
-  default Presentacion fromId(Long id) {
-    if (id == null) {
-      return null;
+    default Presentacion fromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Presentacion presentacion = new Presentacion();
+        presentacion.setId(id);
+        return presentacion;
     }
-    Presentacion presentacion = new Presentacion();
-    presentacion.setId(id);
-    return presentacion;
-  }
 }
