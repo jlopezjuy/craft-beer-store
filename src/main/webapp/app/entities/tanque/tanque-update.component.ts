@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
-import { ITanque } from 'app/shared/model/tanque.model';
+import { EstadoTanque, ITanque } from 'app/shared/model/tanque.model';
 import { TanqueService } from './tanque.service';
 import { ILote } from 'app/shared/model/lote.model';
 import { LoteService } from 'app/entities/lote';
@@ -46,27 +46,6 @@ export class TanqueUpdateComponent implements OnInit {
       this.tanque = tanque;
       this.fechaIngresoDp = moment(this.tanque.fechaIngreso, 'dd/MM/yyy').format();
     });
-    this.loteService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ILote[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ILote[]>) => response.body)
-      )
-      .subscribe((res: ILote[]) => (this.lotes = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.productoService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IProducto[]>) => response.body)
-      )
-      .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.empresaService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IEmpresa[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IEmpresa[]>) => response.body)
-      )
-      .subscribe((res: IEmpresa[]) => (this.empresas = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   previousState() {
@@ -78,6 +57,7 @@ export class TanqueUpdateComponent implements OnInit {
     this.tanque.empresaId = this.empresa.id;
     this.tanque.fechaIngreso = this.fechaIngresoDp != null ? moment(this.fechaIngresoDp, DATE_FORMAT) : null;
     if (this.tanque.id !== undefined) {
+      this.tanque.estado = EstadoTanque.VACIO;
       this.subscribeToSaveResponse(this.tanqueService.update(this.tanque));
     } else {
       this.subscribeToSaveResponse(this.tanqueService.create(this.tanque));

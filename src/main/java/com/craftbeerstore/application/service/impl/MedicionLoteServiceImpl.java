@@ -16,6 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -60,9 +63,17 @@ public class MedicionLoteServiceImpl implements MedicionLoteService {
   }
 
   @Override
-  public Page<MedicionLoteDTO> findAll(Pageable pageable, Long loteId, TipoMedicion tipoMedicion) {
+  public List<MedicionLoteDTO> findAll(Long loteId, TipoMedicion tipoMedicion) {
     Lote lote = this.loteRepository.getOne(loteId);
-    return this.medicionLoteRepository.findAllByLoteAndTipoMedicionOrderByFechaRealizadoDesc(pageable, lote, tipoMedicion).map(medicionLoteMapper::toDto);
+    log.info("desde");
+    log.info(LocalDate.now().minusDays(Long.valueOf(15)).atStartOfDay().toInstant(ZoneOffset.UTC).toString());
+    log.info("hasta");
+    log.info(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC).toString());
+    return this.medicionLoteMapper.toDto(this.medicionLoteRepository
+      .findAllByLoteAndFechaRealizadoGreaterThanEqualAndFechaRealizadoLessThanEqualAndTipoMedicion
+      (lote, LocalDate.now().minusDays(Long.valueOf(15)).atStartOfDay().toInstant(ZoneOffset.UTC),
+        LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC),
+        tipoMedicion));
   }
 
   /**

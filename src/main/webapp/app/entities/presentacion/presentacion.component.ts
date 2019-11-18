@@ -44,8 +44,6 @@ export class PresentacionComponent implements OnInit, OnDestroy {
     'cantidad',
     'fecha',
     'costoUnitario',
-    'precioVentaUnitario',
-    'precioVentaTotal',
     'precioCostoTotal',
     'actions'
   ];

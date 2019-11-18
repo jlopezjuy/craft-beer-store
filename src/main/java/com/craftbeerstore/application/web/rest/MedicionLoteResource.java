@@ -115,9 +115,8 @@ public class MedicionLoteResource {
   @GetMapping("/medicion-lotes/lote/{loteId}/tipo/{tipoMedicion}")
   public ResponseEntity<List<MedicionLoteDTO>> getAllMedicionesLoteTipo(Pageable pageable, @PathVariable Long loteId, @PathVariable TipoMedicion tipoMedicion) {
     log.debug("REST request to get a page of MedicionLotes");
-    Page<MedicionLoteDTO> page = medicionLoteService.findAll(pageable, loteId, tipoMedicion);
-    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/medicion-lotes");
-    return ResponseEntity.ok().headers(headers).body(page.getContent());
+    List<MedicionLoteDTO> page = medicionLoteService.findAll(loteId, tipoMedicion);
+    return ResponseEntity.ok().body(page);
   }
 
     /**

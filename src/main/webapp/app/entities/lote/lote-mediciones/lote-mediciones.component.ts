@@ -68,71 +68,81 @@ export class LoteMedicionesComponent implements OnInit {
           this.tanques = res;
           this.medicionLoteService.queryLote(null, this.lote.id).subscribe(resp => {
             this.medicionesLote = resp.body;
-            console.log(this.medicionesLote);
-            const densidades = this.medicionesLote.filter(densidad => densidad.tipoMedicion === TipoMedicion.DENSIDAD);
-            const temperaturas = this.medicionesLote.filter(temp => temp.tipoMedicion === TipoMedicion.TEMPERATURA);
-            this.loadGraph(densidades, temperaturas, this.tanques);
+            this.medicionLoteService.queryLoteTipo(null, this.lote.id, TipoMedicion.TEMPERATURA).subscribe(resp => {
+              console.log(resp);
+              this.loadGraphTemperatura(resp.body, res);
+            });
+            this.medicionLoteService.queryLoteTipo(null, this.lote.id, TipoMedicion.DENSIDAD).subscribe(response => {
+              console.log(response);
+              this.loadGraphDensidad(response.body, res);
+            });
           });
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
 
-  loadGraph(densidades: IMedicionLote[], temperaturas: IMedicionLote[], tanques: ITanque[]) {
-    const colorsDensidades = [];
-    const valorDensidades = [];
+  loadGraphDensidad(densidades: IMedicionLote[], tanques: ITanque[]) {
     let fechas = [];
-    let fechasTemp = [];
     const series = [];
-    const seriesTemp = [];
-    tanques.forEach(tanque => {
-      const serieDensidad = [];
-      const serieTemperatura = [];
-      valorDensidades.push(tanque.nombre);
-      colorsDensidades.push(this.random_rgba());
-      densidades.forEach(densidad => {
-        if (tanque.nombre === densidad.tanqueNombre) {
-          serieDensidad.push(densidad.valor);
-          console.log(moment(densidad.fechaRealizado).format('DD/MM/YYYY'));
-          fechas.push(moment(densidad.fechaRealizado).format('DD/MM/YYYY'));
-        }
-      });
-      temperaturas.forEach(temperatura => {
-        if (tanque.nombre === temperatura.tanqueNombre) {
-          serieTemperatura.push(temperatura.valor);
-          fechasTemp.push(moment(temperatura.fechaRealizado).format('DD/MM/YYYY'));
-        }
-      });
-      const dataSet = {
-        label: tanque.nombre,
-        data: serieDensidad,
-        fill: false,
-        borderColor: this.random_rgba()
-      };
-      const dataSetTemp = {
-        label: tanque.nombre,
-        data: serieTemperatura,
-        fill: false,
-        borderColor: this.random_rgba()
-      };
-      series.push(dataSet);
-      seriesTemp.push(dataSetTemp);
+    densidades.forEach(dens => {
+      fechas.push(moment.utc(dens.fechaRealizado).format('DD/MM/YYYY'));
     });
     fechas = fechas.filter(function(item, pos) {
       return fechas.indexOf(item) == pos;
     });
-    fechasTemp = fechasTemp.filter(function(item, pos) {
-      return fechasTemp.indexOf(item) == pos;
+    tanques.forEach(tanque => {
+      const data = [];
+      densidades.forEach(densidad => {
+        if (tanque.nombre === densidad.tanqueNombre) {
+          data.push(densidad.valor);
+        }
+      });
+      series.push({
+        label: tanque.nombre,
+        data: data,
+        fill: false,
+        borderColor: this.random_rgba()
+      });
     });
-    console.log(fechas);
-    console.log(fechasTemp);
+
     this.chartOptionsDensidad = {
       labels: fechas,
       datasets: series
     };
+  }
+
+  loadGraphTemperatura(temperaturas: IMedicionLote[], tanques: ITanque[]) {
+    console.log(temperaturas);
+    let fechas = [];
+    const series = [];
+    temperaturas.forEach(temp => {
+      fechas.push(moment.utc(temp.fechaRealizado).format('DD/MM/YYYY'));
+    });
+    fechas = fechas.filter(function(item, pos) {
+      return fechas.indexOf(item) == pos;
+    });
+    tanques.forEach(tanque => {
+      const data = [];
+      temperaturas.forEach(tempe => {
+        if (tanque.nombre === tempe.tanqueNombre) {
+          console.log(tempe.valor);
+          data.push(tempe.valor);
+        }
+      });
+      console.log(data);
+      series.push({
+        label: tanque.nombre,
+        data: data,
+        fill: false,
+        borderColor: this.random_rgba()
+      });
+    });
+
+    console.log(series);
     this.chartOptionsTemperatura = {
-      labels: fechasTemp,
-      datasets: seriesTemp
+      labels: fechas,
+      datasets: series
     };
   }
 
@@ -201,9 +211,10 @@ export class LoteMedicionesComponent implements OnInit {
   }
 
   private random_rgba() {
-    const o = Math.round,
-      r = Math.random,
-      s = 255;
-    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
+    let length = 6;
+    const chars = '0123456789ABCDEF';
+    let hex = '#';
+    while (length--) hex += chars[(Math.random() * 16) | 0];
+    return hex;
   }
 }

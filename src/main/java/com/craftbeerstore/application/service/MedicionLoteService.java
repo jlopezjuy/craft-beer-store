@@ -6,6 +6,7 @@ import com.craftbeerstore.application.service.dto.MedicionLoteDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -38,7 +39,7 @@ public interface MedicionLoteService {
    * @param tipoMedicion the tipoMedicion of medicion
    * @return the list of entities
    */
-  Page<MedicionLoteDTO> findAll(Pageable pageable, Long loteId, TipoMedicion tipoMedicion);
+  List<MedicionLoteDTO> findAll(Long loteId, TipoMedicion tipoMedicion);
 
   /**
    * Get all the medicionLotes.

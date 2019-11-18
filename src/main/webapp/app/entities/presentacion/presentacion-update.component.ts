@@ -31,8 +31,8 @@ export class PresentacionUpdateComponent implements OnInit {
     protected jhiAlertService: JhiAlertService,
     protected presentacionService: PresentacionService,
     protected productoService: ProductoService,
-    protected loteService: LoteService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    private $localStorage: LocalStorageService
   ) {}
 
   ngOnInit() {
