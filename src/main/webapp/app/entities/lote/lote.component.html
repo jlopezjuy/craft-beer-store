@@ -77,7 +77,7 @@
                   <i class="envasado-icon"></i>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.envasar">Envasar</span>
                 </button>
-                <button type="submit" *ngIf="lote.estado === 'FERMENTACION' || lote.estado === 'MADURACION' || lote.estado === 'ENVASADO'"
+                <button type="submit" *ngIf="lote.estado === 'FERMENTACION' || lote.estado === 'MADURACION'"
                         [routerLink]="['/admin/produccion/lote/', lote.id, 'medicion' ]"
                         mat-raised-button class="mat-medicion">
                   <i class="fermentador-icon"></i>

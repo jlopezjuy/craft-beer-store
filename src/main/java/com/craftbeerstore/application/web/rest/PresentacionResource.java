@@ -92,6 +92,21 @@ public class PresentacionResource {
   }
 
   /**
+   * GET  /presentacions : get all the presentacions.
+   *
+   * @param pageable the pagination information
+   * @param loteId the lote id
+   * @return the ResponseEntity with status 200 (OK) and the list of presentacions in body
+   */
+  @GetMapping("/presentacions/lote/{loteId}")
+  public ResponseEntity<List<PresentacionDTO>> getAllPresentacionsByLote(Pageable pageable,  @PathVariable Long loteId) {
+    log.debug("REST request to get a page of Presentacions");
+    Page<PresentacionDTO> page = presentacionService.findAll(pageable, loteId);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/presentacions/lote/{loteiId}");
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
+
+  /**
    * GET /presentacions : get all the presentaciones by producto
    *
    * @param pageable

@@ -1,5 +1,6 @@
 package com.craftbeerstore.application.repository;
 
+import com.craftbeerstore.application.domain.Lote;
 import com.craftbeerstore.application.domain.Presentacion;
 import com.craftbeerstore.application.domain.Producto;
 import org.springframework.data.domain.Page;
@@ -21,4 +22,6 @@ public interface PresentacionRepository extends JpaRepository<Presentacion, Long
     @Query(value = "select * from presentacion where producto_id in( select producto_id from producto where empresa_id = :empresaId) order by producto_id",
     nativeQuery = true)
     Page<Presentacion> getAllPresentationsByEmpresa(Pageable pageable, @Param("empresaId")Long empresaId);
+
+    Page<Presentacion> getAllByLote(Pageable pageable, Lote lote);
 }

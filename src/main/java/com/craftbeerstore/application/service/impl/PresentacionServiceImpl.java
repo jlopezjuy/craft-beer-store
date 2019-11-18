@@ -1,7 +1,9 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Lote;
 import com.craftbeerstore.application.domain.Presentacion;
 import com.craftbeerstore.application.domain.Producto;
+import com.craftbeerstore.application.repository.LoteRepository;
 import com.craftbeerstore.application.repository.PresentacionRepository;
 import com.craftbeerstore.application.repository.ProductoRepository;
 import com.craftbeerstore.application.service.PresentacionService;
@@ -31,12 +33,15 @@ public class PresentacionServiceImpl implements PresentacionService {
 
   private final ProductoRepository productoRepository;
 
+  private final LoteRepository loteRepository;
+
   public PresentacionServiceImpl(PresentacionRepository presentacionRepository,
                                  PresentacionMapper presentacionMapper,
-                                 ProductoRepository productoRepository) {
+                                 ProductoRepository productoRepository, LoteRepository loteRepository) {
     this.presentacionRepository = presentacionRepository;
     this.presentacionMapper = presentacionMapper;
     this.productoRepository = productoRepository;
+    this.loteRepository = loteRepository;
   }
 
   /**
@@ -65,6 +70,12 @@ public class PresentacionServiceImpl implements PresentacionService {
     log.debug("Request to get all Presentacions");
     return presentacionRepository.findAll(pageable)
       .map(presentacionMapper::toDto);
+  }
+
+  @Override
+  public Page<PresentacionDTO> findAll(Pageable pageable, Long loteId) {
+    Lote lote = this.loteRepository.getOne(loteId);
+    return this.presentacionRepository.getAllByLote(pageable, lote).map(this.presentacionMapper::toDto);
   }
 
   @Override
