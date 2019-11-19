@@ -151,12 +151,6 @@ export class LoteDetailComponent implements OnInit {
       this.lote.estado = EstadoLote.ENVASADO;
     }
 
-    this.lote.litrosEnTanque = this.etapaLote.litros;
-
-    this.loteService.update(this.lote).subscribe(lot => {
-      console.log('lote actualizado');
-    });
-
     const movimiento = new MovimientoTanque();
     movimiento.estado = EstadoUsoTanque.EN_USO;
     movimiento.loteId = this.lote.id;
@@ -177,11 +171,21 @@ export class LoteDetailComponent implements OnInit {
         tanque.body.estado = EstadoTanque.EN_USO;
         tanque.body.loteId = this.lote.id;
         tanque.body.productoId = this.lote.productoId;
+        tanque.body.listrosDisponible = this.etapaLote.litros;
         this.tanqueService.update(tanque.body).subscribe(tan => {
           console.log('tanque actualizado');
-          // console.log(tan);
-          // this.loadAll();
           this.loadEtapa();
+        });
+      });
+      this.tanqueService.queryByEmpresaLote(null, this.lote.empresaId, this.lote.id).subscribe(response => {
+        console.log('tanques usados en el lote');
+        console.log(response.body);
+        this.lote.litrosEnTanque = 0;
+        response.body.forEach(tan => {
+          this.lote.litrosEnTanque = this.lote.litrosEnTanque + this.etapaLote.litros;
+        });
+        this.loteService.update(this.lote).subscribe(lot => {
+          console.log('lote actualizado');
         });
       });
     });

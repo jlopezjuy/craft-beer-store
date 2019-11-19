@@ -199,20 +199,20 @@
                               </div>
                               <div class="col-md-3">
                                 <mat-form-field class="example-full-width">
-                                  <mat-label jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal" for="field_precioVentaTotal">
-                                    Precio de Venta Total
-                                  </mat-label>
-                                  <input matInput type="number" id="field_precioVentaTotal" name="precioVentaTotal"
-                                         [(ngModel)]="presentacion.precioVentaTotal" disabled/>
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-3">
-                                <mat-form-field class="example-full-width">
                                   <mat-label jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal" for="field_precioCostoTotal">
                                     Precio de Costo Total
                                   </mat-label>
                                   <input matInput type="number" id="field_precioCostoTotal" name="precioCostoTotal"
                                          [(ngModel)]="presentacion.precioCostoTotal" disabled/>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3">
+                                <mat-form-field class="example-full-width">
+                                  <mat-label jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal" for="field_precioVentaTotal">
+                                    Precio de Venta Total
+                                  </mat-label>
+                                  <input matInput type="number" id="field_precioVentaTotal" name="precioVentaTotal"
+                                         [(ngModel)]="presentacion.precioVentaTotal" disabled/>
                                 </mat-form-field>
                               </div>
                             </div>
@@ -221,7 +221,7 @@
                             <button type="button" id="cancel-save" mat-raised-button class="mat-cancel" (click)="previousState()">
                               <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                             </button>
-                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid" mat-raised-button
                                     class="mat-success">
                               <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                             </button>

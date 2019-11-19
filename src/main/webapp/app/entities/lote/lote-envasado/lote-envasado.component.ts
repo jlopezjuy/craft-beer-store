@@ -68,13 +68,13 @@ export class LoteEnvasadoComponent implements OnInit {
 
   loadAll() {
     this.presentacionService
-      .queryByProducto(
+      .queryByLote(
         {
           page: this.page - 1,
           size: this.itemsPerPage,
           sort: this.sort()
         },
-        this.lote.productoId
+        this.lote.id
       )
       .subscribe(
         (res: HttpResponse<IPresentacion[]>) => this.paginatePresentacions(res.body, res.headers),
@@ -133,6 +133,11 @@ export class LoteEnvasadoComponent implements OnInit {
 
   savePresentacion() {
     this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
+    this.presentacion.loteId = this.lote.id;
+    this.presentacion.productoId = this.lote.productoId;
+    this.presentacion.productoNombreComercial = this.lote.productoNombreComercial;
+    console.log(this.presentacion);
+    this.presentacions.push(this.presentacion);
     this.presentacion = new Presentacion();
     this.jhiAlertService.info('exito');
   }
