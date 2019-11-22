@@ -61,7 +61,7 @@
                                 <span>Tablero</span></a>
                             <ul *ngIf="currentActiveMenu == 'dashboard'">
                                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/index']">Estadisticas</a></li>
-<!--                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/iot']">IoT</a></li>-->
+                                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/dashboard/iot']">IoT</a></li>
                             </ul>
                         </li>
                       <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'admin'}">
@@ -106,10 +106,9 @@
                         <ul *ngIf="currentActiveMenu == 'ventas'">
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/ventas/caja']">Caja</a></li>
                           <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/ventas/movimientos']">Ventas</a></li>
-<!--                          <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/admin/compras/equipamiento']">Equipamiento</a></li>-->
                         </ul>
                       </li>
-                      <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'user-management'}">
+                      <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [ngClass]="{'active':currentActiveMenu == 'stock'}">
                         <a class="has-arrow" (click)="activeInactiveMenu('stock')"><i class="envasado-sidebar-icon"></i>
                           <span>Stock</span></a>
                         <ul *ngIf="currentActiveMenu == 'stock'">
