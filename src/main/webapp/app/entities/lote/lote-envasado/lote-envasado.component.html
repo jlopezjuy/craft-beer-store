@@ -381,7 +381,6 @@
                   </mat-tab>
                   <mat-tab label="Otros"> Proximamente... </mat-tab>
                 </mat-tab-group>
-
               </mat-card-content>
             </mat-card>
           </div>
@@ -408,37 +407,30 @@
                 <div *ngIf="presentacions">
                   <div class="table-responsive">
                     <table  mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-
                       <ng-container matColumnDef="tipoPresentacion">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="tipoPresentacion"> <span jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let presentacion" jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}"> {{presentacion.tipoPresentacion}} </td>
                       </ng-container>
-
                       <ng-container matColumnDef="cantidad">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="cantidad"> <span jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let presentacion"> {{presentacion.cantidad}} </td>
                       </ng-container>
-
                       <ng-container matColumnDef="fecha">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="fecha"> <span jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let presentacion"> {{presentacion.fecha | date:'mediumDate'}} </td>
                       </ng-container>
-
                       <ng-container matColumnDef="costoUnitario">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="costoUnitario"> <span jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario">Costo Unitario</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let presentacion"> ${{presentacion.costoUnitario}} </td>
                       </ng-container>
-
                       <ng-container matColumnDef="precioVentaUnitario">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="precioVentaUnitario"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario">Precio Venta Unitario</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioVentaUnitario}} </td>
                       </ng-container>
-
                       <ng-container matColumnDef="precioVentaTotal">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="precioVentaTotal" > <span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio Venta Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioVentaTotal}} </td>
                       </ng-container>
-
                       <ng-container matColumnDef="precioCostoTotal">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="precioCostoTotal"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioCostoTotal}} </td>
