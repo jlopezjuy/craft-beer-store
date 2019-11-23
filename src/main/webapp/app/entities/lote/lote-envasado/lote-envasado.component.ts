@@ -10,6 +10,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
 import { DATE_FORMAT } from '../../../shared';
+import { IMovimientos } from '../../../shared/model/movimientos.model';
 
 @Component({
   selector: 'jhi-lote-envasado',
@@ -23,13 +24,14 @@ export class LoteEnvasadoComponent implements OnInit {
   presentacion: IPresentacion;
   totalItems: any;
   itemsPerPage: any;
-  dataSource: any;
+
   links: any;
   page: any;
   previousPage: any;
   predicate: any;
   reverse: any;
   fecha: any;
+  dataSource: any;
   displayedColumns: string[] = [
     'tipoPresentacion',
     'cantidad',
@@ -138,7 +140,9 @@ export class LoteEnvasadoComponent implements OnInit {
     this.presentacion.productoNombreComercial = this.lote.productoNombreComercial;
     console.log(this.presentacion);
     this.presentacions.push(this.presentacion);
+    this.dataSource = new MatTableDataSource<IPresentacion>(this.presentacions);
     this.presentacion = new Presentacion();
+    this.fecha = null;
     this.jhiAlertService.info('exito');
   }
 
@@ -164,6 +168,7 @@ export class LoteEnvasadoComponent implements OnInit {
   }
 
   previousState() {
-    window.history.back();
+    this.presentacion = new Presentacion();
+    this.fecha = null;
   }
 }
