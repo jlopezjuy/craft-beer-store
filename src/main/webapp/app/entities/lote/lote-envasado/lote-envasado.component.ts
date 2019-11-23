@@ -59,7 +59,6 @@ export class LoteEnvasadoComponent implements OnInit {
     this.presentacion = new Presentacion();
     this.activatedRoute.data.subscribe(({ lote }) => {
       this.lote = lote;
-      console.log(this.lote);
       if (this.lote.id) {
         this.loadAll();
       }
