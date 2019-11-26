@@ -16,7 +16,7 @@ import { LoteDetailDialogComponent } from './lote-detail-dialog.component';
 import { LoteEnvasadoComponent } from './lote-envasado/lote-envasado.component';
 import { LoteMedicionesComponent } from './lote-mediciones/lote-mediciones.component';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { LinechartComponent } from '../../dashboard/linechart';
+import { LoteEnvasadoDialogComponent } from './lote-envasado/lote-envasado-dialog.component';
 
 const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
 
@@ -30,7 +30,8 @@ const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
     LoteDeletePopupComponent,
     LoteDetailDialogComponent,
     LoteEnvasadoComponent,
-    LoteMedicionesComponent
+    LoteMedicionesComponent,
+    LoteEnvasadoDialogComponent
   ],
   entryComponents: [
     LoteComponent,
@@ -39,7 +40,8 @@ const ENTITY_STATES = [...loteRoute, ...lotePopupRoute];
     LoteDeletePopupComponent,
     LoteDetailDialogComponent,
     LoteEnvasadoComponent,
-    LoteMedicionesComponent
+    LoteMedicionesComponent,
+    LoteEnvasadoDialogComponent
   ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

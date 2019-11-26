@@ -1,14 +1,33 @@
-<div>
-    <h2 id="page-heading">
+<div class="container-fluid">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-5 col-md-8 col-sm-12">
+        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
+               (click)="toggleFullWidth()">
+          <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
+          <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
+        </a> Insumos</h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
+          <li class="breadcrumb-item">Form</li>
+          <li class="breadcrumb-item active">Insumos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="header">
+      <h2 id="page-heading">
         <span jhiTranslate="craftBeerStoreApp.insumo.home.title">Insumos</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-insumo" [routerLink]="['/insumo/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="craftBeerStoreApp.insumo.home.createLabel">
+        <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-insumo" [routerLink]="['/admin/admin/insumo/new']">
+          <fa-icon [icon]="'plus'"></fa-icon>
+          <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.insumo.home.createLabel">
             Create new Insumo
             </span>
-                </button>
-            </h2>
-        </div>
+        </button>
+      </h2>
+    </div>
         <div class="body">
             <jhi-alert></jhi-alert>
             <div *ngIf="insumos">

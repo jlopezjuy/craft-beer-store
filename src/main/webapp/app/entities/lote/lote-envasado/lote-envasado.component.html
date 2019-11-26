@@ -80,7 +80,7 @@
                   <mat-tab label="Botellas">
                     <div class="row w-100 d-flex justify-content-center">
                       <div class="col-12">
-                        <form name="editForm" role="form" novalidate (ngSubmit)="savePresentacion()" #editForm="ngForm">
+                        <form name="editForm" role="form" novalidate (ngSubmit)="openDialog()" #editForm="ngForm">
                           <div>
                             <jhi-alert-error></jhi-alert-error>
                             <div class="row">
@@ -218,12 +218,12 @@
                             </div>
                           </div>
                           <div>
-                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel" (click)="previousState()">
+                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel" (click)="clear()">
                               <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                             </button>
                             <button type="submit" id="save-entity" [disabled]="editForm.form.invalid" mat-raised-button
-                                    class="mat-success">
-                              <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                                    class="mat-prim">
+                              <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.add">Agregar</span>
                             </button>
                           </div>
                         </form>
@@ -434,6 +434,19 @@
                       <ng-container matColumnDef="precioCostoTotal">
                         <th mat-header-cell *matHeaderCellDef jhiSortBy="precioCostoTotal"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioCostoTotal}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="action" >
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let presentacion" style="width: 20%">
+                          <button type="button"
+                                  (click)="deletePresentacion(presentacion)"
+                                  replaceUrl="true"
+                                  queryParamsHandling="merge"
+                                  mat-raised-button color="warn">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                          </button>
+                        </td>
                       </ng-container>
 
                       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

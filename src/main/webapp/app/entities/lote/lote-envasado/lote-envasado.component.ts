@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SidebarService } from '../../../services/sidebar.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ILote } from '../../../shared/model/lote.model';
+import { EstadoLote, ILote } from '../../../shared/model/lote.model';
 import { PresentacionService } from '../../presentacion';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { IPresentacion, Presentacion } from '../../../shared/model/presentacion.model';
@@ -10,7 +10,8 @@ import { JhiAlertService } from 'ng-jhipster';
 import { PageEvent } from '@angular/material/paginator';
 import * as moment from 'moment';
 import { DATE_FORMAT } from '../../../shared';
-import { IMovimientos } from '../../../shared/model/movimientos.model';
+import { MatDialog } from '@angular/material/dialog';
+import { LoteEnvasadoDialogComponent } from './lote-envasado-dialog.component';
 
 @Component({
   selector: 'jhi-lote-envasado',
@@ -24,7 +25,6 @@ export class LoteEnvasadoComponent implements OnInit {
   presentacion: IPresentacion;
   totalItems: any;
   itemsPerPage: any;
-
   links: any;
   page: any;
   previousPage: any;
@@ -39,7 +39,8 @@ export class LoteEnvasadoComponent implements OnInit {
     'costoUnitario',
     'precioVentaUnitario',
     'precioVentaTotal',
-    'precioCostoTotal'
+    'precioCostoTotal',
+    'action'
   ];
   pageEvent: PageEvent;
 
@@ -49,7 +50,8 @@ export class LoteEnvasadoComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     protected presentacionService: PresentacionService,
     protected jhiAlertService: JhiAlertService,
-    protected router: Router
+    protected router: Router,
+    public dialog: MatDialog
   ) {
     this.page = 1;
     this.previousPage = 1;
@@ -133,16 +135,65 @@ export class LoteEnvasadoComponent implements OnInit {
   }
 
   savePresentacion() {
-    this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
-    this.presentacion.loteId = this.lote.id;
-    this.presentacion.productoId = this.lote.productoId;
-    this.presentacion.productoNombreComercial = this.lote.productoNombreComercial;
     console.log(this.presentacion);
-    this.presentacions.push(this.presentacion);
-    this.dataSource = new MatTableDataSource<IPresentacion>(this.presentacions);
-    this.presentacion = new Presentacion();
-    this.fecha = null;
-    this.jhiAlertService.info('exito');
+    if (this.validateAddBotella()) {
+      this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
+      this.presentacion.loteId = this.lote.id;
+      this.presentacion.productoId = this.lote.productoId;
+      this.presentacion.productoNombreComercial = this.lote.productoNombreComercial;
+      this.presentacionService.create(this.presentacion).subscribe(respo => {
+        console.log('create ok');
+        this.loadAll();
+        this.presentacion = new Presentacion();
+        this.fecha = null;
+      });
+    }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LoteEnvasadoDialogComponent, {
+      width: '450px',
+      data: this.lote
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      if (result !== undefined) {
+        console.log(this.presentacion);
+        if (this.validateAddBotella()) {
+          this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
+          this.presentacion.loteId = this.lote.id;
+          this.presentacion.productoId = this.lote.productoId;
+          this.presentacion.productoNombreComercial = this.lote.productoNombreComercial;
+          this.presentacionService.create(this.presentacion).subscribe(respo => {
+            console.log('create ok');
+            this.loadAll();
+            this.presentacion = new Presentacion();
+            this.fecha = null;
+          });
+        }
+      }
+      // this.animal = result;
+    });
+  }
+
+  validateAddBotella(): boolean {
+    let validate = true;
+    validate =
+      this.fecha !== undefined &&
+      this.presentacion.tipoPresentacion !== undefined &&
+      this.presentacion.cantidad !== undefined &&
+      this.presentacion.precioVentaUnitario !== undefined &&
+      this.presentacion.costoUnitario !== undefined;
+    return validate;
+  }
+
+  deletePresentacion(presentacion: IPresentacion) {
+    this.presentacionService.delete(presentacion.id).subscribe(resp => {
+      console.log('delete ok');
+      this.loadAll();
+    });
   }
 
   changeCantidad() {
@@ -167,6 +218,10 @@ export class LoteEnvasadoComponent implements OnInit {
   }
 
   previousState() {
+    window.history.back();
+  }
+
+  clear() {
     this.presentacion = new Presentacion();
     this.fecha = null;
   }
