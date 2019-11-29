@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.ClienteService;
 import com.craftbeerstore.application.domain.Cliente;
 import com.craftbeerstore.application.repository.ClienteRepository;
@@ -28,9 +30,12 @@ public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteMapper clienteMapper;
 
-    public ClienteServiceImpl(ClienteRepository clienteRepository, ClienteMapper clienteMapper) {
+    private final EmpresaRepository empresaRepository;
+
+    public ClienteServiceImpl(ClienteRepository clienteRepository, ClienteMapper clienteMapper, EmpresaRepository empresaRepository) {
         this.clienteRepository = clienteRepository;
         this.clienteMapper = clienteMapper;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -60,6 +65,12 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository.findAll(pageable)
             .map(clienteMapper::toDto);
     }
+
+  @Override
+  public Page<ClienteDTO> findAll(Pageable pageable, Long empresaId) {
+    Empresa empresa = this.empresaRepository.getOne(empresaId);
+    return clienteRepository.findAllByEmpresa(pageable, empresa).map(clienteMapper::toDto);
+  }
 
 
     /**

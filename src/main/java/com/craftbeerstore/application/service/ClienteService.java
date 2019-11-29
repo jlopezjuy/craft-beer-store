@@ -28,6 +28,13 @@ public interface ClienteService {
      */
     Page<ClienteDTO> findAll(Pageable pageable);
 
+  /**
+   * @param pageable
+   * @param empresaId
+   * @return
+   */
+  Page<ClienteDTO> findAll(Pageable pageable, Long empresaId);
+
 
     /**
      * Get the "id" cliente.

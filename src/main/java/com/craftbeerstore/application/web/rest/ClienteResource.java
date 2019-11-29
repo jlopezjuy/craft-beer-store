@@ -102,6 +102,18 @@ public class ClienteResource {
     }
 
     /**
+     * @param pageable
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/clientes/empresa/{empresaId}")
+    public ResponseEntity<List<ClienteDTO>> getAllClientesByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        Page<ClienteDTO> page = clienteService.findAll(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /clientes/:id} : get the "id" cliente.
      *
      * @param id the id of the clienteDTO to retrieve.
