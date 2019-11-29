@@ -1,28 +1,28 @@
 {
-    "craftBeerStoreApp": {
-        "equipamiento": {
-            "home": {
-                "title": "Equipamientos",
-                "createLabel": "Agregar nuevo Equipamiento",
-                "createOrEditLabel": "Agregar o editar Equipamiento",
-                "search": "Search for Equipamiento"
-            },
-            "created": "Un nuevo Equipamiento ha sido creado con el identificador {{ param }}",
-            "updated": "Un Equipamiento ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Equipamiento ha sido eliminado con el identificador {{ param }}",
-            "delete": {
-                "question": "¿Seguro que quiere eliminar Equipamiento {{ id }}?"
-            },
-            "detail": {
-                "title": "Equipamiento"
-            },
-            "nombreEquipamiento": "Nombre",
-            "tipoEquipamiento": "Tipo de Equipamiento",
-            "precio": "Precio",
-            "costoEnvio": "Costo de Envio",
-            "fechaCompra": "Fecha de Compra",
-            "imagen": "Imagen",
-            "empresa": "Empresa"
-        }
+  "craftBeerStoreApp": {
+    "equipamiento": {
+      "home": {
+        "title": "Equipamientos",
+        "createLabel": "Crear nuevo Equipamiento",
+        "createOrEditLabel": "Crear o editar Equipamiento",
+        "notFound": "Ningún Equipamientos encontrado"
+      },
+      "created": "Un nuevo Equipamiento ha sido creado con el identificador {{ param }}",
+      "updated": "Un Equipamiento ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Equipamiento ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Equipamiento {{ id }}?"
+      },
+      "detail": {
+        "title": "Equipamiento"
+      },
+      "nombreEquipamiento": "Nombre Equipamiento",
+      "tipoEquipamiento": "Tipo Equipamiento",
+      "precio": "Precio",
+      "costoEnvio": "Costo Envio",
+      "fechaCompra": "Fecha Compra",
+      "imagen": "Imagen",
+      "empresa": "Empresa"
     }
+  }
 }

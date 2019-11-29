@@ -2,27 +2,28 @@
   "craftBeerStoreApp": {
     "presentacion": {
       "home": {
-        "title": "Presentation",
-        "createLabel": "Create a new Presentation",
-        "createOrEditLabel": "Create or edit a Presentation"
+        "title": "Presentacions",
+        "createLabel": "Create a new Presentacion",
+        "createOrEditLabel": "Create or edit a Presentacion",
+        "notFound": "No Presentacions found"
       },
-      "created": "A new Presentation is created with identifier {{ param }}",
-      "updated": "A Presentation is updated with identifier {{ param }}",
-      "deleted": "A Presentation is deleted with identifier {{ param }}",
+      "created": "A new Presentacion is created with identifier {{ param }}",
+      "updated": "A Presentacion is updated with identifier {{ param }}",
+      "deleted": "A Presentacion is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Presentation {{ id }}?"
+        "question": "Are you sure you want to delete Presentacion {{ id }}?"
       },
       "detail": {
-        "title": "Presentation"
+        "title": "Presentacion"
       },
-      "tipoPresentacion": "Presentation type",
-      "cantidad": "Amount",
-      "fecha": "Date",
-      "costoUnitario": "Unit Cost",
-      "precioVentaUnitario": "Unit sale price",
-      "precioVentaTotal": "Total sale price",
-      "precioCostoTotal": "Total price cost",
-      "producto": "Product",
+      "tipoPresentacion": "Tipo Presentacion",
+      "cantidad": "Cantidad",
+      "fecha": "Fecha",
+      "costoUnitario": "Costo Unitario",
+      "precioVentaUnitario": "Precio Venta Unitario",
+      "precioVentaTotal": "Precio Venta Total",
+      "precioCostoTotal": "Precio Costo Total",
+      "producto": "Producto",
       "lote": "Lote"
     }
   }

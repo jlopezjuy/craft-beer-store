@@ -1,16 +1,12 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import { HOME_ROUTE, HomeComponent, IngresoEgresoGraphComponent } from './';
-import { ChartModule } from 'primeng/chart';
-import { MovimientoSemanaGraphComponent } from '../admin/movimiento-semana-graph/movimiento-semana-graph.component';
-import { MovimientoProductosSemanaComponent } from '../admin/movimiento-productos-semana/movimiento-productos-semana.component';
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { HOME_ROUTE } from './home.route';
+import { HomeComponent } from './home.component';
 
 @NgModule({
-  imports: [CraftBeerStoreSharedModule, RouterModule.forChild([HOME_ROUTE]), ChartModule],
-  // declarations: [HomeComponent, IngresoEgresoGraphComponent, MovimientoSemanaGraphComponent, MovimientoProductosSemanaComponent],
-  declarations: [HomeComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild([HOME_ROUTE])],
+  declarations: [HomeComponent]
 })
 export class CraftBeerStoreHomeModule {}

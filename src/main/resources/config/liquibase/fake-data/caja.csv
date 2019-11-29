@@ -1,0 +1,11 @@
+id;tipo_movimiento;tipo_pago;descripcion;saldo_cta_cte;importe;fecha
+1;INGRESO;TARJETA_DEBITO;../fake-data/blob/hipster.txt;73758;73227;2019-11-29
+2;INGRESO;TARJETA_CREDITO;../fake-data/blob/hipster.txt;71555;23360;2019-11-29
+3;EGRESO;CHEQUE;../fake-data/blob/hipster.txt;94996;79798;2019-11-28
+4;INGRESO;TARJETA_DEBITO;../fake-data/blob/hipster.txt;98918;16703;2019-11-28
+5;EGRESO;EFECTIVO;../fake-data/blob/hipster.txt;18643;95727;2019-11-28
+6;EGRESO;TARJETA_CREDITO;../fake-data/blob/hipster.txt;51524;75823;2019-11-29
+7;EGRESO;EFECTIVO;../fake-data/blob/hipster.txt;59293;89492;2019-11-29
+8;INGRESO;CHEQUE;../fake-data/blob/hipster.txt;3542;80951;2019-11-29
+9;INGRESO;TARJETA_DEBITO;../fake-data/blob/hipster.txt;72342;4878;2019-11-29
+10;EGRESO;TARJETA_CREDITO;../fake-data/blob/hipster.txt;51607;59240;2019-11-28

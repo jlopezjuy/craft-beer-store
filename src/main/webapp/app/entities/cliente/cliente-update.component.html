@@ -1,276 +1,122 @@
-<div class="container-fluid">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12">
-                <h2 id="jhi-cliente-heading"
-                    jhiTranslate="craftBeerStoreApp.cliente.home.createOrEditLabel">Create or edit a
-                    Cliente</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Clientes</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-cliente-heading" jhiTranslate="craftBeerStoreApp.cliente.home.createOrEditLabel">Create or edit a Cliente</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.cliente.nombreApellido" for="field_nombreApellido">Nombre Apellido</label>
+                    <input type="text" class="form-control" name="nombreApellido" id="field_nombreApellido"
+                           formControlName="nombreApellido"/>
+                    <div *ngIf="editForm.get('nombreApellido').invalid && (editForm.get('nombreApellido').dirty || editForm.get('nombreApellido').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nombreApellido').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.cliente.domicilio" for="field_domicilio">Domicilio</label>
+                    <input type="text" class="form-control" name="domicilio" id="field_domicilio"
+                           formControlName="domicilio"/>
+                    <div *ngIf="editForm.get('domicilio').invalid && (editForm.get('domicilio').dirty || editForm.get('domicilio').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('domicilio').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.cliente.localidad" for="field_localidad">Localidad</label>
+                    <input type="text" class="form-control" name="localidad" id="field_localidad"
+                           formControlName="localidad"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.cliente.codigoPostal" for="field_codigoPostal">Codigo Postal</label>
+                    <input type="number" class="form-control" name="codigoPostal" id="field_codigoPostal"
+                           formControlName="codigoPostal"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.cliente.provincia" for="field_provincia">Provincia</label>
+                    <select class="form-control" name="provincia" formControlName="provincia" id="field_provincia">
+                        <option value="MISIONES">{{'craftBeerStoreApp.Provincia.MISIONES' | translate}}</option>
+                        <option value="SAN_LUIS">{{'craftBeerStoreApp.Provincia.SAN_LUIS' | translate}}</option>
+                        <option value="SAN_JUAN">{{'craftBeerStoreApp.Provincia.SAN_JUAN' | translate}}</option>
+                        <option value="ENTRE_RIOS">{{'craftBeerStoreApp.Provincia.ENTRE_RIOS' | translate}}</option>
+                        <option value="SANTA_CRUZ">{{'craftBeerStoreApp.Provincia.SANTA_CRUZ' | translate}}</option>
+                        <option value="RIO_NEGRO">{{'craftBeerStoreApp.Provincia.RIO_NEGRO' | translate}}</option>
+                        <option value="CHUBUT">{{'craftBeerStoreApp.Provincia.CHUBUT' | translate}}</option>
+                        <option value="CORDOBA">{{'craftBeerStoreApp.Provincia.CORDOBA' | translate}}</option>
+                        <option value="MENDOZA">{{'craftBeerStoreApp.Provincia.MENDOZA' | translate}}</option>
+                        <option value="LA_RIOJA">{{'craftBeerStoreApp.Provincia.LA_RIOJA' | translate}}</option>
+                        <option value="CATAMARCA">{{'craftBeerStoreApp.Provincia.CATAMARCA' | translate}}</option>
+                        <option value="LA_PAMPA">{{'craftBeerStoreApp.Provincia.LA_PAMPA' | translate}}</option>
+                        <option value="SANTIAGO_DEL_ESTERO">{{'craftBeerStoreApp.Provincia.SANTIAGO_DEL_ESTERO' | translate}}</option>
+                        <option value="CORRIENTES">{{'craftBeerStoreApp.Provincia.CORRIENTES' | translate}}</option>
+                        <option value="SANTA_FE">{{'craftBeerStoreApp.Provincia.SANTA_FE' | translate}}</option>
+                        <option value="TUCUMAN">{{'craftBeerStoreApp.Provincia.TUCUMAN' | translate}}</option>
+                        <option value="NEUQUEN">{{'craftBeerStoreApp.Provincia.NEUQUEN' | translate}}</option>
+                        <option value="SALTA">{{'craftBeerStoreApp.Provincia.SALTA' | translate}}</option>
+                        <option value="CHACO">{{'craftBeerStoreApp.Provincia.CHACO' | translate}}</option>
+                        <option value="FORMOSA">{{'craftBeerStoreApp.Provincia.FORMOSA' | translate}}</option>
+                        <option value="JUJUY">{{'craftBeerStoreApp.Provincia.JUJUY' | translate}}</option>
+                        <option value="CIUDAD_AUTONOMA_DE_BUENOS_AIRES">{{'craftBeerStoreApp.Provincia.CIUDAD_AUTONOMA_DE_BUENOS_AIRES' | translate}}</option>
+                        <option value="BUENOS_AIRES">{{'craftBeerStoreApp.Provincia.BUENOS_AIRES' | translate}}</option>
+                        <option value="TIERRA_DEL_FUEGO_ANTARTIDA_E_ISLAS_DEL_ATLANTICO_SUR">{{'craftBeerStoreApp.Provincia.TIERRA_DEL_FUEGO_ANTARTIDA_E_ISLAS_DEL_ATLANTICO_SUR' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.cliente.tipoCliente" for="field_tipoCliente">Tipo Cliente</label>
+                    <select class="form-control" name="tipoCliente" formControlName="tipoCliente" id="field_tipoCliente">
+                        <option value="CONSUMIDOR_FINAL">{{'craftBeerStoreApp.TipoCliente.CONSUMIDOR_FINAL' | translate}}</option>
+                        <option value="RESPONSABLE_INSCRIPTO">{{'craftBeerStoreApp.TipoCliente.RESPONSABLE_INSCRIPTO' | translate}}</option>
+                        <option value="OTRO">{{'craftBeerStoreApp.TipoCliente.OTRO' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('tipoCliente').invalid && (editForm.get('tipoCliente').dirty || editForm.get('tipoCliente').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('tipoCliente').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.cliente.telefono" for="field_telefono">Telefono</label>
+                    <input type="text" class="form-control" name="telefono" id="field_telefono"
+                           formControlName="telefono"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.cliente.correo" for="field_correo">Correo</label>
+                    <input type="text" class="form-control" name="correo" id="field_correo"
+                           formControlName="correo"/>
+                    <div *ngIf="editForm.get('correo').invalid && (editForm.get('correo').dirty || editForm.get('correo').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('correo').errors.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Correo' }">
+                            This field should follow pattern for "Correo".
+                        </small>
+                    </div>
+                </div>
 
-    <div class="card">
-        <div class="header">
-
-        </div>
-        <div class="body">
-            <div class="row justify-content-center">
-                <div class="col-8">
-                    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-                        <div>
-                            <jhi-alert-error></jhi-alert-error>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label jhiTranslate="craftBeerStoreApp.cliente.nombreApellido"
-                                                   for="field_nombreApellido">Nombre Apellido
-                                        </mat-label>
-                                        <input type="text" matInput name="nombreApellido" id="field_nombreApellido"
-                                               [(ngModel)]="cliente.nombreApellido" required/>
-                                        <mat-error
-                                            [hidden]="!(editForm.controls.nombreApellido?.dirty && editForm.controls.nombreApellido?.invalid)">
-                                            <small class="form-text text-danger"
-                                                   [hidden]="!editForm.controls.nombreApellido?.errors?.required"
-                                                   jhiTranslate="entity.validation.required">
-                                                This field is required.
-                                            </small>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label jhiTranslate="craftBeerStoreApp.cliente.domicilio"
-                                                   for="field_domicilio">Domicilio
-                                        </mat-label>
-                                        <input type="text" matInput name="domicilio" id="field_domicilio"
-                                               [(ngModel)]="cliente.domicilio" required/>
-                                        <mat-error
-                                            [hidden]="!(editForm.controls.domicilio?.dirty && editForm.controls.domicilio?.invalid)">
-                                            <small class="form-text text-danger"
-                                                   [hidden]="!editForm.controls.domicilio?.errors?.required"
-                                                   jhiTranslate="entity.validation.required">
-                                                This field is required.
-                                            </small>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label jhiTranslate="craftBeerStoreApp.cliente.localidad" for="field_localidad">Localidad</mat-label>
-                                        <input type="text" matInput name="localidad" id="field_localidad"
-                                               [(ngModel)]="cliente.localidad" />
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label jhiTranslate="craftBeerStoreApp.cliente.codigoPostal" for="field_codigoPostal">Codigo postal</mat-label>
-                                        <input type="number" matInput name="codigoPostal" id="field_codigoPostal"
-                                               [(ngModel)]="cliente.codigoPostal" />
-                                    </mat-form-field>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label jhiTranslate="craftBeerStoreApp.cliente.provincia" for="field_provincia">Provincia</mat-label>
-                                        <mat-select name="provincia" [(ngModel)]="cliente.provincia" id="field_provincia">
-                                            <mat-option value="MISIONES">{{'craftBeerStoreApp.Provincia.MISIONES' | translate}}</mat-option>
-                                            <mat-option value="SAN_LUIS">{{'craftBeerStoreApp.Provincia.SAN_LUIS' | translate}}</mat-option>
-                                            <mat-option value="SAN_JUAN">{{'craftBeerStoreApp.Provincia.SAN_JUAN' | translate}}</mat-option>
-                                            <mat-option value="ENTRE_RIOS">{{'craftBeerStoreApp.Provincia.ENTRE_RIOS' | translate}}</mat-option>
-                                            <mat-option value="SANTA_CRUZ">{{'craftBeerStoreApp.Provincia.SANTA_CRUZ' | translate}}</mat-option>
-                                            <mat-option value="RIO_NEGRO">{{'craftBeerStoreApp.Provincia.RIO_NEGRO' | translate}}</mat-option>
-                                            <mat-option value="CHUBUT">{{'craftBeerStoreApp.Provincia.CHUBUT' | translate}}</mat-option>
-                                            <mat-option value="CORDOBA">{{'craftBeerStoreApp.Provincia.CORDOBA' | translate}}</mat-option>
-                                            <mat-option value="MENDOZA">{{'craftBeerStoreApp.Provincia.MENDOZA' | translate}}</mat-option>
-                                            <mat-option value="LA_RIOJA">{{'craftBeerStoreApp.Provincia.LA_RIOJA' | translate}}</mat-option>
-                                            <mat-option value="CATAMARCA">{{'craftBeerStoreApp.Provincia.CATAMARCA' | translate}}</mat-option>
-                                            <mat-option value="LA_PAMPA">{{'craftBeerStoreApp.Provincia.LA_PAMPA' | translate}}</mat-option>
-                                            <mat-option value="SANTIAGO_DEL_ESTERO">{{'craftBeerStoreApp.Provincia.SANTIAGO_DEL_ESTERO' | translate}}</mat-option>
-                                            <mat-option value="CORRIENTES">{{'craftBeerStoreApp.Provincia.CORRIENTES' | translate}}</mat-option>
-                                            <mat-option value="SANTA_FE">{{'craftBeerStoreApp.Provincia.SANTA_FE' | translate}}</mat-option>
-                                            <mat-option value="TUCUMAN">{{'craftBeerStoreApp.Provincia.TUCUMAN' | translate}}</mat-option>
-                                            <mat-option value="NEUQUEN">{{'craftBeerStoreApp.Provincia.NEUQUEN' | translate}}</mat-option>
-                                            <mat-option value="SALTA">{{'craftBeerStoreApp.Provincia.SALTA' | translate}}</mat-option>
-                                            <mat-option value="CHACO">{{'craftBeerStoreApp.Provincia.CHACO' | translate}}</mat-option>
-                                            <mat-option value="FORMOSA">{{'craftBeerStoreApp.Provincia.FORMOSA' | translate}}</mat-option>
-                                            <mat-option value="JUJUY">{{'craftBeerStoreApp.Provincia.JUJUY' | translate}}</mat-option>
-                                            <mat-option value="CIUDAD_AUTONOMA_DE_BUENOS_AIRES">{{'craftBeerStoreApp.Provincia.CIUDAD_AUTONOMA_DE_BUENOS_AIRES' | translate}}</mat-option>
-                                            <mat-option value="BUENOS_AIRES">{{'craftBeerStoreApp.Provincia.BUENOS_AIRES' | translate}}</mat-option>
-                                            <mat-option value="TIERRA_DEL_FUEGO_ANTARTIDA_E_ISLAS_DEL_ATLANTICO_SUR">{{'craftBeerStoreApp.Provincia.TIERRA_DEL_FUEGO_ANTARTIDA_E_ISLAS_DEL_ATLANTICO_SUR' | translate}}</mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente
-                                        </mat-label>
-                                        <mat-select name="tipoCliente" [(ngModel)]="cliente.tipoCliente"
-                                                    id="field_tipoCliente" required>
-                                            <mat-option
-                                                value="CONSUMIDOR_FINAL">{{'craftBeerStoreApp.TipoCliente.CONSUMIDOR_FINAL' | translate}}</mat-option>
-                                            <mat-option
-                                                value="RESPONSABLE_INSCRIPTO">{{'craftBeerStoreApp.TipoCliente.RESPONSABLE_INSCRIPTO' | translate}}</mat-option>
-                                            <mat-option
-                                                value="OTRO">{{'craftBeerStoreApp.TipoCliente.OTRO' | translate}}</mat-option>
-                                        </mat-select>
-                                        <mat-error
-                                            [hidden]="!(editForm.controls.tipoCliente?.dirty && editForm.controls.tipoCliente?.invalid)">
-                                            <small class="form-text text-danger"
-                                                   [hidden]="!editForm.controls.tipoCliente?.errors?.required"
-                                                   jhiTranslate="entity.validation.required">
-                                                This field is required.
-                                            </small>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label jhiTranslate="craftBeerStoreApp.cliente.telefono"
-                                                   for="field_telefono">Telefono
-                                        </mat-label>
-                                        <input type="text" matInput name="telefono" id="field_telefono"
-                                               [(ngModel)]="cliente.telefono"/>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-sm-6">
-                                    <mat-form-field class="example-full-width">
-                                        <mat-label jhiTranslate="craftBeerStoreApp.cliente.correo" for="field_correo">
-                                            Correo
-                                        </mat-label>
-                                        <input type="text" matInput name="correo" id="field_correo"
-                                               [(ngModel)]="cliente.correo" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
-                                        <mat-error [hidden]="!(editForm.controls.correo?.dirty && editForm.controls.correo?.invalid)">
-                                            <small class="form-text text-danger"
-                                                   [hidden]="!editForm.controls.correo?.errors?.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Email' }">
-                                                This field should follow pattern for "Email".
-                                            </small>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="container">
-                                    <div class="mat-elevation-z8">
-                                        <mat-card class="example-card">
-                                            <mat-card-header>
-                                                <mat-card-title>Puntos de Venta</mat-card-title>
-                                            </mat-card-header>
-                                            <mat-card-content>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-label jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre" for="field_nombre">
-                                                                nombre
-                                                            </mat-label>
-                                                            <input type="text" matInput name="nombre" id="field_nombre"
-                                                                   [(ngModel)]="puntoDeVenta.nombre"/>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-label jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega" for="field_direccionDeEntrega">
-                                                                Direccion de Entrega
-                                                            </mat-label>
-                                                            <input type="text" matInput name="direccionDeEntrega" id="field_direccionDeEntrega"
-                                                                   [(ngModel)]="puntoDeVenta.direccionDeEntrega"/>
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-label jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad" for="field_localidad_punto_venta">
-                                                                Direccion de Entrega
-                                                            </mat-label>
-                                                            <input type="text" matInput name="localidad" id="field_localidad_punto_venta"
-                                                                   [(ngModel)]="puntoDeVenta.localidad"/>
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <mat-form-field class="example-full-width">
-                                                            <mat-label jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas" for="field_notas">
-                                                                Notas
-                                                            </mat-label>
-                                                            <textarea type="text" matInput name="notas" id="field_notas"
-                                                                      [(ngModel)]="puntoDeVenta.notas"></textarea>
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <button type="button" mat-raised-button
-                                                                class="mat-success" (click)="addPuntoDeVenta()">
-                                                            Agregar
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-6"></div>
-                                                </div>
-                                            </mat-card-content>
-                                        </mat-card>
-                                    </div>
-                                </div>
-                            </div>
-                            <br/>
-                            <div class="row">
-                                <div class="mat-elevation-z8 table-responsive">
-                                    <table mat-table [dataSource]="dataSource" style="width: 100%;">
-                                        <ng-container matColumnDef="nombre">
-                                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre">Nombre</span> </th>
-                                            <td mat-cell *matCellDef="let punto"> {{punto.nombre}} </td>
-                                        </ng-container>
-                                        <ng-container matColumnDef="direccionDeEntrega">
-                                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega">Nombre</span></th>
-                                            <td mat-cell *matCellDef="let punto"> {{punto.direccionDeEntrega}} </td>
-                                        </ng-container>
-                                        <ng-container matColumnDef="localidad">
-                                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad">Nombre</span></th>
-                                            <td mat-cell *matCellDef="let punto"> {{punto.localidad}} </td>
-                                        </ng-container>
-                                        <ng-container matColumnDef="notas">
-                                            <th mat-header-cell *matHeaderCellDef> <span jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas">Nombre</span></th>
-                                            <td mat-cell *matCellDef="let punto"> {{punto.notas}} </td>
-                                        </ng-container>
-
-
-                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <br/>
-                        <div>
-                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"
-                                    (click)="previousState()">
-                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
-                                jhiTranslate="entity.action.cancel">Cancel</span>
-                            </button>
-                            <button type="submit" id="save-entity"
-                                    [disabled]="editForm.form.invalid || isSaving" mat-raised-button
-                                    class="mat-success">
-                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
-                                jhiTranslate="entity.action.save">Save</span>
-                            </button>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.cliente.empresa" for="field_empresa">Empresa</label>
+                    <select class="form-control" id="field_empresa" name="empresa" formControlName="empresaId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>
+                    </select>
                 </div>
             </div>
-
-        </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
     </div>
 </div>

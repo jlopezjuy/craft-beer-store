@@ -4,7 +4,8 @@
       "home": {
         "title": "Barrils",
         "createLabel": "Create a new Barril",
-        "createOrEditLabel": "Create or edit a Barril"
+        "createOrEditLabel": "Create or edit a Barril",
+        "notFound": "No Barrils found"
       },
       "created": "A new Barril is created with identifier {{ param }}",
       "updated": "A Barril is updated with identifier {{ param }}",

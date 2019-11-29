@@ -4,7 +4,8 @@
       "home": {
         "title": "Receta Insumos",
         "createLabel": "Crear nuevo Receta Insumo",
-        "createOrEditLabel": "Crear o editar Receta Insumo"
+        "createOrEditLabel": "Crear o editar Receta Insumo",
+        "notFound": "Ningún Receta Insumos encontrado"
       },
       "created": "Un nuevo Receta Insumo ha sido creado con el identificador {{ param }}",
       "updated": "Un Receta Insumo ha sido actualizado con el identificador {{ param }}",
@@ -33,11 +34,7 @@
       "usoOtro": "Uso Otro",
       "tiempoOtro": "Tiempo Otro",
       "insumoRecomendado": "Insumo Recomendado",
-      "receta": "Receta",
-      "nombreMalta": "Malta",
-      "nombreLupulo": "Lúpulo",
-      "nombreLevadura": "Levadura",
-      "nombreOtro": "Otro"
+      "receta": "Receta"
     }
   }
 }

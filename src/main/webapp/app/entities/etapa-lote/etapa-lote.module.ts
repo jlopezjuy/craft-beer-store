@@ -1,40 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-  EtapaLoteComponent,
-  EtapaLoteDetailComponent,
-  EtapaLoteUpdateComponent,
-  EtapaLoteDeletePopupComponent,
-  EtapaLoteDeleteDialogComponent,
-  etapaLoteRoute,
-  etapaLotePopupRoute
-} from './';
-
-const ENTITY_STATES = [...etapaLoteRoute, ...etapaLotePopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { EtapaLoteComponent } from './etapa-lote.component';
+import { EtapaLoteDetailComponent } from './etapa-lote-detail.component';
+import { EtapaLoteUpdateComponent } from './etapa-lote-update.component';
+import { EtapaLoteDeleteDialogComponent } from './etapa-lote-delete-dialog.component';
+import { etapaLoteRoute } from './etapa-lote.route';
 
 @NgModule({
-  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [
-    EtapaLoteComponent,
-    EtapaLoteDetailComponent,
-    EtapaLoteUpdateComponent,
-    EtapaLoteDeleteDialogComponent,
-    EtapaLoteDeletePopupComponent
-  ],
-  entryComponents: [EtapaLoteComponent, EtapaLoteUpdateComponent, EtapaLoteDeleteDialogComponent, EtapaLoteDeletePopupComponent],
-  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(etapaLoteRoute)],
+  declarations: [EtapaLoteComponent, EtapaLoteDetailComponent, EtapaLoteUpdateComponent, EtapaLoteDeleteDialogComponent],
+  entryComponents: [EtapaLoteDeleteDialogComponent]
 })
-export class CraftBeerStoreEtapaLoteModule {
-  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-    this.languageHelper.language.subscribe((languageKey: string) => {
-      if (languageKey !== undefined) {
-        this.languageService.changeLanguage(languageKey);
-      }
-    });
-  }
-}
+export class CraftBeerStoreEtapaLoteModule {}

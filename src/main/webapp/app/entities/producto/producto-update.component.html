@@ -1,135 +1,96 @@
-<div class="container-fluid">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12">
-                <h2>{{producto.nombreComercial}}</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Producto</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="header">
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-producto-heading" jhiTranslate="craftBeerStoreApp.producto.home.createOrEditLabel">Create or edit a Producto</h2>
-        </div>
-        <div class="body">
-            <div class="row justify-content-center">
-                <div class="col-8">
-                    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-
-                        <div>
-                            <jhi-alert-error></jhi-alert-error>
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.producto.estilos">Estilos</mat-label>
-                                <input type="text" id="field_estilos" name="estilos" placeholder="Busca estilo" aria-label="Number"
-                                       matInput [(ngModel)]="producto.estilosId" [formControl]="myControl" [matAutocomplete]="auto">
-                                <mat-autocomplete #auto="matAutocomplete">
-                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombreEstilo">
-                                        {{option.nombreEstilo}}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.producto.descripcion">Descripcion</mat-label>
-                                <!--<input matInput placeholder="Favorite food" value="Sushi">-->
-                                <input matInput type="text" name="descripcion" id="field_descripcion"
-                                       [(ngModel)]="producto.descripcion" required/>
-                                <!--<mat-error *ngIf="(!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">{{getErrorMessage()}}</mat-error>-->
-                                <mat-error [hidden]="!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">
-                                    <small class="form-text text-danger"
-                                           [hidden]="!editForm.controls.descripcion?.errors?.required" jhiTranslate="entity.validation.required">
-                                        This field is required.
-                                    </small>
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.producto.tipo">Tipo</mat-label>
-                                <mat-select  name="tipo" [(ngModel)]="producto.tipo" id="field_tipo">
-                                    <mat-option value="ALE">{{'craftBeerStoreApp.EstiloCerveza.ALE' | translate}}</mat-option>
-                                    <mat-option value="LAGER">{{'craftBeerStoreApp.EstiloCerveza.LAGER' | translate}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.producto.nombreComercial">Nombre Comercial</mat-label>
-                                <input matInput type="text" class="form-control" id="nombreComercial" name="nombreComercial"
-                                       [(ngModel)]="producto.nombreComercial" required />
-                            </mat-form-field>
-
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.producto.tipoProducto" for="field_tipoProducto">Tipo Producto</mat-label>
-                                <mat-select name="tipoProducto" [(ngModel)]="producto.tipoProducto" id="field_tipoProducto">
-                                    <mat-option value="FIJO">{{'craftBeerStoreApp.TipoProducto.FIJO' | translate}}</mat-option>
-                                    <mat-option value="ROTATIVO">{{'craftBeerStoreApp.TipoProducto.ROTATIVO' | translate}}</mat-option>
-                                    <mat-option value="ESPECIAL">{{'craftBeerStoreApp.TipoProducto.ESPECIAL' | translate}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <mat-form-field>
-                              <mat-label jhiTranslate="craftBeerStoreApp.producto.srmColor">
-                                Lupulo
-                              </mat-label>
-                              <mat-select name="srmColor"
-                                          [(ngModel)]="producto.srmColor"
-                                          id="field_srmColor" required>
-                                <mat-option value=""></mat-option>
-                                <mat-option *ngFor="let color of colores"
-                                            [value]="color.name">
-                                  <div class="row">
-                                    <div class="col-sm-6">
-                                      <div [ngStyle]="setMyStyles(color.name)" class="logo-glass">
-                                      </div>
-                                    </div>
-                                    <div class="col-sm-6">{{color.id}}</div>
-                                  </div>
-
-                                </mat-option>
-                              </mat-select>
-
-<!--                                <mat-label jhiTranslate="craftBeerStoreApp.producto.srmColor" for="field_srmColor">Srm Color</mat-label>-->
-<!--                                <input matInput type="text" name="srmColor" id="field_srmColor2"-->
-<!--                                       [(ngModel)]="producto.srmColor" />-->
-
-                              <div [ngStyle]="setMyStyles(producto.srmColor)" class="logo-glass"></div>
-                            </mat-form-field>
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.imagen" for="field_imagen">Imagen</label>
-                                <div>
-                                    <img [src]="'data:' + producto.imagenContentType + ';base64,' + producto.imagen" style="max-height: 100px;" *ngIf="producto.imagen" alt="producto image"/>
-                                    <div *ngIf="producto.imagen" class="form-text text-danger clearfix">
-                                        <span class="pull-left">{{producto.imagenContentType}}, {{byteSize(producto.imagen)}}</span>
-                                        <button mat-mini-fab color="warn" type="button" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')" >
-                                            <fa-icon [icon]="'times'"></fa-icon>
-                                        </button>
-                                    </div>
-                                    <input type="file" id="file_imagen" (change)="setFileData($event, producto, 'imagen', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
-                                </div>
-                                <input type="hidden" class="form-control" name="imagen" id="field_imagen"
-                                       [(ngModel)]="producto.imagen" />
-                                <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
-                                       [(ngModel)]="producto.imagenContentType" />
-                            </div>
-                            <mat-form-field class="example-full-width">
-                                <mat-label jhiTranslate="craftBeerStoreApp.producto.observacion">Observacion</mat-label>
-                                <textarea matInput type="text" class="form-control" id="observacion" name="observacion"
-                                          [(ngModel)]="producto.observacion"></textarea>
-                            </mat-form-field>
-                        </div>
-                        <div>
-                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"  (click)="previousState()">
-                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                            </button>
-                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
-                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.descripcion" for="field_descripcion">Descripcion</label>
+                    <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                           formControlName="descripcion"/>
+                    <div *ngIf="editForm.get('descripcion').invalid && (editForm.get('descripcion').dirty || editForm.get('descripcion').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('descripcion').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.tipo" for="field_tipo">Tipo</label>
+                    <select class="form-control" name="tipo" formControlName="tipo" id="field_tipo">
+                        <option value="ALE">{{'craftBeerStoreApp.EstiloCerveza.ALE' | translate}}</option>
+                        <option value="LAGER">{{'craftBeerStoreApp.EstiloCerveza.LAGER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.nombreComercial" for="field_nombreComercial">Nombre Comercial</label>
+                    <input type="text" class="form-control" name="nombreComercial" id="field_nombreComercial"
+                           formControlName="nombreComercial"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.tipoProducto" for="field_tipoProducto">Tipo Producto</label>
+                    <select class="form-control" name="tipoProducto" formControlName="tipoProducto" id="field_tipoProducto">
+                        <option value="FIJO">{{'craftBeerStoreApp.TipoProducto.FIJO' | translate}}</option>
+                        <option value="ROTATIVO">{{'craftBeerStoreApp.TipoProducto.ROTATIVO' | translate}}</option>
+                        <option value="ESPECIAL">{{'craftBeerStoreApp.TipoProducto.ESPECIAL' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.imagen" for="field_imagen">Imagen</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('imagenContentType').value + ';base64,' + editForm.get('imagen').value" style="max-height: 100px;" *ngIf="editForm.get('imagen').value" alt="producto image"/>
+                        <div *ngIf="editForm.get('imagen').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('imagenContentType').value}}, {{byteSize(editForm.get('imagen').value)}}</span>
+                            <button type="button" (click)="clearInputImage('imagen', 'imagenContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
                             </button>
                         </div>
-                    </form>
+                        <input type="file" id="file_imagen" (change)="setFileData($event, 'imagen', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="imagen" id="field_imagen"
+                           formControlName="imagen"/>
+                    <input type="hidden" class="form-control" name="imagenContentType" id="field_imagenContentType"
+                           formControlName="imagenContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.observacion" for="field_observacion">Observacion</label>
+                    <textarea class="form-control" name="observacion" id="field_observacion"
+                              formControlName="observacion"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.srmColor" for="field_srmColor">Srm Color</label>
+                    <input type="text" class="form-control" name="srmColor" id="field_srmColor"
+                           formControlName="srmColor"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.empresa" for="field_empresa">Empresa</label>
+                    <select class="form-control" id="field_empresa" name="empresa" formControlName="empresaId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.producto.estilos" for="field_estilos">Estilos</label>
+                    <select class="form-control" id="field_estilos" name="estilos" formControlName="estilosId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="estilosOption.id" *ngFor="let estilosOption of estilos; trackBy: trackEstilosById">{{estilosOption.nombreEstilo}}</option>
+                    </select>
                 </div>
             </div>
-
-        </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
-

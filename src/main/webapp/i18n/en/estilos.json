@@ -1,36 +1,36 @@
 {
-    "craftBeerStoreApp": {
-        "estilos": {
-            "home": {
-                "title": "Estilos",
-                "createLabel": "Create a new Estilos",
-                "createOrEditLabel": "Create or edit a Estilos",
-                "search": "Search for Estilos"
-            },
-            "created": "A new Estilos is created with identifier {{ param }}",
-            "updated": "A Estilos is updated with identifier {{ param }}",
-            "deleted": "A Estilos is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete Estilos {{ id }}?"
-            },
-            "detail": {
-                "title": "Estilos"
-            },
-            "number": "Number",
-            "nombreEstilo": "Nombre Estilo",
-            "categoriaEstilo": "Categoria Estilo",
-            "abvMin": "Abv Min",
-            "abvMax": "Abv Max",
-            "abvMed": "Abv Med",
-            "ibuMin": "Ibu Min",
-            "ibuMax": "Ibu Max",
-            "ibuMed": "Ibu Med",
-            "srmMin": "Srm Min",
-            "srmMax": "Srm Max",
-            "srmMed": "Srm Med",
-            "descripcion": "Descripcion",
-            "ejemploNombreComercial": "Ejemplo Nombre Comercial",
-            "ejemploImagenComercial": "Ejemplo Imagen Comercial"
-        }
+  "craftBeerStoreApp": {
+    "estilos": {
+      "home": {
+        "title": "Estilos",
+        "createLabel": "Create a new Estilos",
+        "createOrEditLabel": "Create or edit a Estilos",
+        "notFound": "No Estilos found"
+      },
+      "created": "A new Estilos is created with identifier {{ param }}",
+      "updated": "A Estilos is updated with identifier {{ param }}",
+      "deleted": "A Estilos is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Estilos {{ id }}?"
+      },
+      "detail": {
+        "title": "Estilos"
+      },
+      "number": "Number",
+      "nombreEstilo": "Nombre Estilo",
+      "categoriaEstilo": "Categoria Estilo",
+      "abvMin": "Abv Min",
+      "abvMax": "Abv Max",
+      "abvMed": "Abv Med",
+      "ibuMin": "Ibu Min",
+      "ibuMax": "Ibu Max",
+      "ibuMed": "Ibu Med",
+      "srmMin": "Srm Min",
+      "srmMax": "Srm Max",
+      "srmMed": "Srm Med",
+      "descripcion": "Descripcion",
+      "ejemploNombreComercial": "Ejemplo Nombre Comercial",
+      "ejemploImagenComercial": "Ejemplo Imagen Comercial"
     }
+  }
 }

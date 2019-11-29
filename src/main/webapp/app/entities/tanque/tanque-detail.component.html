@@ -1,164 +1,65 @@
-<div class="container-fluid">
-  <div class="block-header">
-    <div class="row">
-      <div class="col-lg-5 col-md-8 col-sm-12">
-        <h2><span jhiTranslate="craftBeerStoreApp.tanque.detail.title">Caja</span></h2>
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-          <li class="breadcrumb-item">Entidad</li>
-          <li class="breadcrumb-item active"><a (click)="previousState()">Caja</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="header">
-<!--      <h2><span jhiTranslate="craftBeerStoreApp.tanque.detail.title">Caja</span></h2>-->
-    </div>
-    <div class="body">
-      <div class="row justify-content-center">
-        <jhi-alert-error></jhi-alert-error>
-        <div class="col-lg-3">
-          <div *ngIf="tanque">
-            <div>
-              <mat-card class="example-card">
-                <mat-card-header>
-                  <mat-card-title>
-                    <h2><span jhiTranslate="craftBeerStoreApp.tanque.detail.title">Tanque</span> {{tanque.id}}</h2>
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tanque">
+            <h2><span jhiTranslate="craftBeerStoreApp.tanque.detail.title">Tanque</span> {{tanque.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.nombre">Nombre</span></dt>
+                <dd>
+                    <span>{{tanque.nombre}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.litros">Litros</span></dt>
+                <dd>
+                    <span>{{tanque.litros}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.tipo">Tipo</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.TipoTanque.' + tanque.tipo}}">{{tanque.tipo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.estado">Estado</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'craftBeerStoreApp.EstadoTanque.' + tanque.estado}}">{{tanque.estado}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible">Listros Disponible</span></dt>
+                <dd>
+                    <span>{{tanque.listrosDisponible}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso">Fecha Ingreso</span></dt>
+                <dd>
+                    <span>{{tanque.fechaIngreso}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.lote">Lote</span></dt>
+                <dd>
+                    <div *ngIf="tanque.loteId">
+                        <a [routerLink]="['/lote', tanque.loteId, 'view']">{{tanque.loteCodigo}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.producto">Producto</span></dt>
+                <dd>
+                    <div *ngIf="tanque.productoId">
+                        <a [routerLink]="['/producto', tanque.productoId, 'view']">{{tanque.productoNombreComercial}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.tanque.empresa">Empresa</span></dt>
+                <dd>
+                    <div *ngIf="tanque.empresaId">
+                        <a [routerLink]="['/empresa', tanque.empresaId, 'view']">{{tanque.empresaNombreEmpresa}}</a>
+                    </div>
+                </dd>
+            </dl>
 
-                  <dl class="row-md jh-entity-details">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <dt><span jhiTranslate="craftBeerStoreApp.tanque.nombre">Nombre</span></dt>
-                        <dd>
-                          <span>{{tanque.nombre}}</span>
-                        </dd>
-                      </div>
-                      <div class="col-md-6">
-                        <dt><span jhiTranslate="craftBeerStoreApp.tanque.litros">Litros</span></dt>
-                        <dd>
-                          <span>{{tanque.litros}}</span>
-                        </dd>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <dt><span jhiTranslate="craftBeerStoreApp.tanque.tipo">Tipo</span></dt>
-                        <dd>
-                          <span jhiTranslate="{{'craftBeerStoreApp.TipoTanque.' + tanque.tipo}}">{{tanque.tipo}}</span>
-                        </dd>
-                      </div>
-                      <div class="col-md-6">
-                        <dt><span jhiTranslate="craftBeerStoreApp.tanque.estado">Estado</span></dt>
-                        <dd>
-                          <span jhiTranslate="{{'craftBeerStoreApp.EstadoTanque.' + tanque.estado}}">{{tanque.estado}}</span>
-                        </dd>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <dt><span jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible">Listros Disponible</span></dt>
-                        <dd>
-                          <span>{{tanque.listrosDisponible}}</span>
-                        </dd>
-                      </div>
-                      <div class="col-md-6">
-                        <dt><span jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso">Fecha Ingreso</span></dt>
-                        <dd>
-                          <span>{{tanque.fechaIngreso  | date:'mediumDate'}}</span>
-                        </dd>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <dt><span jhiTranslate="craftBeerStoreApp.tanque.lote">Lote</span></dt>
-                        <dd>
-                          <div *ngIf="tanque.loteId">
-                            <a [routerLink]="['/lote', tanque.loteId, 'view']">{{tanque.loteCodigo}}</a>
-                          </div>
-                        </dd>
-                      </div>
-                      <div class="col-md-6">
-                        <dt><span jhiTranslate="craftBeerStoreApp.tanque.producto">Producto</span></dt>
-                        <dd>
-                          <div *ngIf="tanque.productoId">
-                            <a [routerLink]="['/admin/entity/producto', tanque.productoId, 'view']">{{tanque.productoNombreComercial}}</a>
-                          </div>
-                        </dd>
-                      </div>
-                    </div>
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
 
-                  </dl>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button type="submit"
-                          (click)="previousState()"
-                          mat-raised-button class="mat-back">
-                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-                  </button>
-
-                  <button type="button"
-                          [routerLink]="['/admin/admin/tanque', tanque.id, 'edit']"
-                          mat-raised-button class="mat-success">
-                    <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-                  </button>
-                </mat-card-actions>
-              </mat-card>
-            </div>
-          </div>
+            <button type="button"
+                    [routerLink]="['/tanque', tanque.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
         </div>
-        <div class="col-lg-9">
-          <div>
-            <mat-card class="example-card">
-              <mat-card-content>
-                <div class="table-responsive" *ngIf="movimientoTanques">
-                  <table mat-table [dataSource]="dataSource" style="width: 100%;" >
-                    <ng-container matColumnDef="fecha">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.movimientoTanque.fecha">Fecha</span></th>
-                      <td mat-cell *matCellDef="let movLote" > {{movLote.fecha | date:'mediumDate'}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="estado">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.movimientoTanque.estado">Fecha</span></th>
-                      <td mat-cell *matCellDef="let movLote">
-                        <mat-chip-list aria-label="Estado de Lote">
-                          <mat-chip *ngIf="movLote.estado === 'EN_USO'" class="mat-chip-en-proceso" jhiTranslate="{{'craftBeerStoreApp.EstadoUsoTanque.' + movLote.estado}}">{{movLote.estado}}</mat-chip>
-                          <mat-chip *ngIf="movLote.estado === 'VACIO'" class="mat-chip-coccion" jhiTranslate="{{'craftBeerStoreApp.EstadoUsoTanque.' + movLote.estado}}">{{movLote.estado}}</mat-chip>
-                        </mat-chip-list>
-                      </td>
-                    </ng-container>
-                    <ng-container matColumnDef="dias">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.movimientoTanque.dias">Fecha</span></th>
-                      <td mat-cell *matCellDef="let movLote" > {{movLote.dias}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="tanque">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.movimientoTanque.tanque">Fecha</span></th>
-                      <td mat-cell *matCellDef="let movLote" > {{movLote.tanqueNombre}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="producto">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.movimientoTanque.producto">Fecha</span></th>
-                      <td mat-cell *matCellDef="let movLote" > {{movLote.productoNombreComercial}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="lote">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.movimientoTanque.lote">Fecha</span></th>
-                      <td mat-cell *matCellDef="let movLote" > {{movLote.loteCodigo}} </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                  <mat-paginator [length]="totalItems"
-                                 [pageSize]="itemsPerPage"
-                                 (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-
-        </div>
-      </div>
     </div>
-  </div>
 </div>

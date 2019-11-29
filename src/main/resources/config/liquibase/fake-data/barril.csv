@@ -1,0 +1,11 @@
+id;codigo;litros;conector;estado;imagen;imagen_content_type
+1;FTP Chile Realigned;CINCO;D;RETIRADO;../fake-data/blob/hipster.png;image/png
+2;Home Loan Account bricks-and-clicks;CINCO;G;VACIO;../fake-data/blob/hipster.png;image/png
+3;Colombian Peso Unidad de Valor Real;DIEZ;M;VACIO;../fake-data/blob/hipster.png;image/png
+4;groupware invoice Interactions;VEINTICINCO;D;LLENO;../fake-data/blob/hipster.png;image/png
+5;Cotton web services;CINCUENTA;BALL_LOCK;LIMPIEZA;../fake-data/blob/hipster.png;image/png
+6;hard drive migration;DIEZ;S;VACIO;../fake-data/blob/hipster.png;image/png
+7;Focused;VEINTICINCO;BALL_LOCK;RETIRADO;../fake-data/blob/hipster.png;image/png
+8;Grocery;VEINTE;A;ENTREGADO;../fake-data/blob/hipster.png;image/png
+9;Baby IB Refined Frozen Towels;DIECINUEVE;D;LIMPIEZA;../fake-data/blob/hipster.png;image/png
+10;initiatives;TREINTA;A;LLENO;../fake-data/blob/hipster.png;image/png

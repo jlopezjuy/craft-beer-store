@@ -1,26 +1,26 @@
 {
-    "craftBeerStoreApp": {
-        "puntoDeVenta": {
-            "home": {
-                "title": "Punto De Ventas",
-                "createLabel": "Create a new Punto De Venta",
-                "createOrEditLabel": "Create or edit a Punto De Venta",
-                "search": "Search for Punto De Venta"
-            },
-            "created": "A new Punto De Venta is created with identifier {{ param }}",
-            "updated": "A Punto De Venta is updated with identifier {{ param }}",
-            "deleted": "A Punto De Venta is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete Punto De Venta {{ id }}?"
-            },
-            "detail": {
-                "title": "Punto De Venta"
-            },
-            "nombre": "Nombre",
-            "direccionDeEntrega": "Direccion De Entrega",
-            "localidad": "Localidad",
-            "notas": "Notas",
-            "cliente": "Cliente"
-        }
+  "craftBeerStoreApp": {
+    "puntoDeVenta": {
+      "home": {
+        "title": "Punto De Ventas",
+        "createLabel": "Create a new Punto De Venta",
+        "createOrEditLabel": "Create or edit a Punto De Venta",
+        "notFound": "No Punto De Ventas found"
+      },
+      "created": "A new Punto De Venta is created with identifier {{ param }}",
+      "updated": "A Punto De Venta is updated with identifier {{ param }}",
+      "deleted": "A Punto De Venta is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Punto De Venta {{ id }}?"
+      },
+      "detail": {
+        "title": "Punto De Venta"
+      },
+      "nombre": "Nombre",
+      "direccionDeEntrega": "Direccion De Entrega",
+      "localidad": "Localidad",
+      "notas": "Notas",
+      "cliente": "Cliente"
     }
+  }
 }

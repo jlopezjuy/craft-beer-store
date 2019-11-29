@@ -1,10 +1,10 @@
 {
-    "craftBeerStoreApp": {
-        "TipoProducto": {
-            "null": "",
-            "FIJO": "Fijo",
-            "ROTATIVO": "Rotativo",
-            "ESPECIAL": "Especial"
-        }
+  "craftBeerStoreApp": {
+    "TipoProducto": {
+      "null": "",
+      "FIJO": "FIJO",
+      "ROTATIVO": "ROTATIVO",
+      "ESPECIAL": "ESPECIAL"
     }
+  }
 }

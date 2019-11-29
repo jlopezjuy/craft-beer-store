@@ -1,18 +1,10 @@
 @import 'bootstrap-variables';
-
-//@import '../node_modules/bootstrap/scss/bootstrap';
-
-@import '~bootstrap/dist/css/bootstrap.min.css';
-@import '~font-awesome/css/font-awesome.css';
-//@import "~ngx-toastr/toastr.css";
-@import '~leaflet/dist/leaflet.css';
-@import '~ngx-toastr/toastr.css';
-@import 'icons';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
 
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
-@import '~ng-pick-datetime/assets/style/picker.min.css';
 
 body,
 h1,
@@ -22,16 +14,20 @@ h4 {
   font-weight: 300;
 }
 
-a {
+/* Increase contrast of links to get 100% on Lighthouse Accessability Audit. Override this color if you want to change the link color, or use a Bootswatch theme */
+a,
+a:hover {
   color: #533f03;
   font-weight: bold;
 }
 
 a:hover {
-  color: #533f03;
-  font-weight: bold;
   /* make sure browsers use the pointer cursor for anchors, even with no href */
   cursor: pointer;
+}
+
+.dropdown-item:hover {
+  color: $dropdown-link-hover-color;
 }
 
 /* ==========================================================================
@@ -120,7 +116,7 @@ Custom alerts for notification
       font-size: 10px;
     }
   }
-  .toast {
+  .jhi-toast {
     position: fixed;
     width: 100%;
     &.left {
@@ -139,49 +135,9 @@ Custom alerts for notification
 }
 
 @media screen and (min-width: 480px) {
-  .alerts .toast {
+  .alerts .jhi-toast {
     width: 50%;
   }
-}
-
-/* ==========================================================================
-entity tables helpers
-========================================================================== */
-
-/* Remove Bootstrap padding from the element
-http://stackoverflow.com/questions/19562903/remove-padding-from-columns-in-bootstrap-3 */
-@mixin no-padding($side) {
-  @if $side == 'all' {
-    .no-padding {
-      padding: 0 !important;
-    }
-  } @else {
-    .no-padding-#{$side} {
-      padding-#{$side}: 0 !important;
-    }
-  }
-}
-@include no-padding('left');
-@include no-padding('right');
-@include no-padding('top');
-@include no-padding('bottom');
-@include no-padding('all');
-
-/* bootstrap 3 input-group 100% width
-http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
-.width-min {
-  width: 1% !important;
-}
-
-/* Makes toolbar not wrap on smaller screens
-http://www.sketchingwithcss.com/samplechapter/cheatsheet.html#right */
-.flex-btn-group-container {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-justify-content: flex-end;
-  justify-content: flex-end;
 }
 
 /* ==========================================================================
@@ -216,16 +172,6 @@ ui bootstrap tweaks
   cursor: pointer;
 }
 
-.datetime-picker-dropdown > li.date-picker-menu div > table .btn-default,
-.uib-datepicker-popup > li > div.uib-datepicker > table .btn-default {
-  border: 0;
-}
-
-.datetime-picker-dropdown > li.date-picker-menu div > table:focus,
-.uib-datepicker-popup > li > div.uib-datepicker > table:focus {
-  outline: none;
-}
-
 .thread-dump-modal-lock {
   max-width: 450px;
   overflow: hidden;
@@ -234,132 +180,3 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
-.example-full-width {
-  width: 100%;
-}
-
-.mid-width {
-  width: 50%;
-}
-
-.mat-chip-planificado {
-  background-color: #fdfd96 !important;
-  color: #000000 !important;
-}
-
-.mat-chip-en-proceso {
-  background-color: #ffb347 !important;
-  color: #000000 !important;
-}
-
-.mat-chip-coccion {
-  background-color: #329bff !important;
-  color: #000000 !important;
-}
-
-.mat-chip-anulado {
-  background-color: #ff6961 !important;
-  color: #fff !important;
-}
-
-.mat-chip-finalizado {
-  background-color: #499149 !important;
-  color: #fff !important;
-}
-
-.mat-chip-fermentacion {
-  background-color: #77dd77 !important;
-  color: #fff !important;
-}
-
-.mat-chip-maduracion {
-  background-color: #ffb347 !important;
-  color: #fff !important;
-}
-
-.mat-chip-envasado {
-  background-color: #00fff1 !important;
-  color: #fff !important;
-}
-
-.mat-success {
-  background-color: #5cb85c;
-  color: #fff;
-}
-.mat-receta {
-  background-color: #dd992e;
-  color: #fff;
-}
-.mat-medicion {
-  background-color: #0080dd;
-  color: #fff;
-}
-.mat-edit {
-  background-color: #4ea7cb;
-  color: #fff;
-}
-.mat-prim {
-  background-color: #00aae4;
-  color: #fff;
-}
-.mat-back {
-  background-color: #646264;
-  color: #fff;
-}
-
-.mat-cancel {
-  background-color: #969496;
-  color: #fff;
-}
-
-.readonly-wrapper {
-  cursor: not-allowed;
-}
-
-.readonly-wrapper .readonly-block {
-  pointer-events: none;
-}
-
-/* You can add global styles to this file, and also import other style files */
-.echart-line-chart {
-  height: 3em;
-  width: 8em;
-}
-.echart-line-chart-area {
-  height: 50px;
-}
-.fix-h-292 {
-  height: 292px !important;
-}
-.echart-doughnut {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto;
-}
-
-.cwidget-scroll {
-  height: 260px;
-  overflow: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.sidebar {
-  overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-}
-.sidebar::-webkit-scrollbar,
-.cwidget-scroll::-webkit-scrollbar {
-  /* WebKit */
-  width: 0px;
-}
-.parsley-errors-list {
-  list-style-type: none;
-  line-height: 0.9em;
-  padding-left: 5px;
-}
-.form-control,
-.custom-file-input {
-  height: auto;
-}

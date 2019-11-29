@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "¡Bienvenido, a Craft Beer Management!",
+    "title": "¡Bienvenido, Java Hipster!",
     "subtitle": "Esta es su página de inicio",
     "logged": {
       "message": "Está conectado como \"{{username}}\"."
@@ -11,11 +11,9 @@
       "stackoverflow": "JHipster en Stack Overflow",
       "bugtracker": "JHipster seguimiento de errores",
       "chat": "Sala de chat pública de JHipster",
-      "follow": "contacto @java_hipster en Twitter"
+      "follow": "contacto @jhipster en Twitter"
     },
     "like": "Si te gusta JHipster, danos una estrella en",
-    "github": "GitHub",
-    "configurarEmpresa": "No configuro aun su cuenta empresa!",
-    "newEmpresa": "Agregar Empresa"
+    "github": "GitHub"
   }
 }

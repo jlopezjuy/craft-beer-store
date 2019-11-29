@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.craftbeerstore.application.domain.enumeration.EstadoUsoTanque;
 
 /**
- * A DTO for the MovimientoTanque entity.
+ * A DTO for the {@link com.craftbeerstore.application.domain.MovimientoTanque} entity.
  */
 public class MovimientoTanqueDTO implements Serializable {
 

@@ -1,4 +1,3 @@
-/* tslint:disable max-line-length */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
@@ -8,33 +7,33 @@ import { EventoDetailComponent } from 'app/entities/evento/evento-detail.compone
 import { Evento } from 'app/shared/model/evento.model';
 
 describe('Component Tests', () => {
-    describe('Evento Management Detail Component', () => {
-        let comp: EventoDetailComponent;
-        let fixture: ComponentFixture<EventoDetailComponent>;
-        const route = ({ data: of({ evento: new Evento(123) }) } as any) as ActivatedRoute;
+  describe('Evento Management Detail Component', () => {
+    let comp: EventoDetailComponent;
+    let fixture: ComponentFixture<EventoDetailComponent>;
+    const route = ({ data: of({ evento: new Evento(123) }) } as any) as ActivatedRoute;
 
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-                imports: [CraftBeerStoreTestModule],
-                declarations: [EventoDetailComponent],
-                providers: [{ provide: ActivatedRoute, useValue: route }]
-            })
-                .overrideTemplate(EventoDetailComponent, '')
-                .compileComponents();
-            fixture = TestBed.createComponent(EventoDetailComponent);
-            comp = fixture.componentInstance;
-        });
-
-        describe('OnInit', () => {
-            it('Should call load all on init', () => {
-                // GIVEN
-
-                // WHEN
-                comp.ngOnInit();
-
-                // THEN
-                expect(comp.evento).toEqual(jasmine.objectContaining({ id: 123 }));
-            });
-        });
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [CraftBeerStoreTestModule],
+        declarations: [EventoDetailComponent],
+        providers: [{ provide: ActivatedRoute, useValue: route }]
+      })
+        .overrideTemplate(EventoDetailComponent, '')
+        .compileComponents();
+      fixture = TestBed.createComponent(EventoDetailComponent);
+      comp = fixture.componentInstance;
     });
+
+    describe('OnInit', () => {
+      it('Should call load all on init', () => {
+        // GIVEN
+
+        // WHEN
+        comp.ngOnInit();
+
+        // THEN
+        expect(comp.evento).toEqual(jasmine.objectContaining({ id: 123 }));
+      });
+    });
+  });
 });

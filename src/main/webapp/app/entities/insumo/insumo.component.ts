@@ -1,31 +1,25 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiDataUtils } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IInsumo } from 'app/shared/model/insumo.model';
-import { AccountService } from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
+import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { InsumoService } from './insumo.service';
-import { LocalStorageService } from 'ngx-webstorage';
-import { MatTableDataSource, PageEvent } from '@angular/material';
-import { SidebarService } from '../../services/sidebar.service';
-import { EChartOption } from 'echarts';
+import { InsumoDeleteDialogComponent } from './insumo-delete-dialog.component';
 
 @Component({
   selector: 'jhi-insumo',
   templateUrl: './insumo.component.html'
 })
 export class InsumoComponent implements OnInit, OnDestroy {
-  currentAccount: any;
   insumos: IInsumo[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
-  currentSearch: string;
   routeData: any;
   links: any;
   totalItems: any;
@@ -34,28 +28,15 @@ export class InsumoComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
-  dataSource: any;
-  displayedColumns: string[] = ['nombreInsumo', 'marca', 'stock', 'precio', 'unidad', 'tipo', 'imagen', 'actions'];
-  pageEvent: PageEvent;
-  public sidebarVisible = true;
-  public visitorsOptions: EChartOption = {};
-  public visitsOptions: EChartOption = {};
-  public dropdownList: Array<any>;
-  public selectedItems: Array<any>;
-  public dropdownSettings: any;
 
   constructor(
     protected insumoService: InsumoService,
     protected parseLinks: JhiParseLinks,
-    protected jhiAlertService: JhiAlertService,
-    protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    private $localStorage: LocalStorageService,
-    private sidebarService: SidebarService,
-    private cdr: ChangeDetectorRef
+    protected modalService: NgbModal
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -67,20 +48,13 @@ export class InsumoComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    const empresa = this.$localStorage.retrieve('empresa');
     this.insumoService
-      .queryByEmpresa(
-        {
-          page: this.page - 1,
-          size: this.itemsPerPage,
-          sort: this.sort()
-        },
-        empresa.id
-      )
-      .subscribe(
-        (res: HttpResponse<IInsumo[]>) => this.paginateInsumos(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .query({
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort()
+      })
+      .subscribe((res: HttpResponse<IInsumo[]>) => this.paginateInsumos(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -115,9 +89,6 @@ export class InsumoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInInsumos();
   }
 
@@ -138,7 +109,12 @@ export class InsumoComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInInsumos() {
-    this.eventSubscriber = this.eventManager.subscribe('insumoListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('insumoListModification', () => this.loadAll());
+  }
+
+  delete(insumo: IInsumo) {
+    const modalRef = this.modalService.open(InsumoDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.insumo = insumo;
   }
 
   sort() {
@@ -153,21 +129,5 @@ export class InsumoComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.insumos = data;
-    this.dataSource = new MatTableDataSource<IInsumo>(this.insumos);
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  onPaginateChange(event: PageEvent) {
-    this.page = event.pageIndex + 1;
-    this.loadPage(event.pageIndex + 1);
-  }
-
-  toggleFullWidth() {
-    this.sidebarService.toggle();
-    this.sidebarVisible = this.sidebarService.getStatus();
-    this.cdr.detectChanges();
   }
 }

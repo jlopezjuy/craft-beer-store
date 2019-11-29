@@ -1,14 +1,12 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A PuntoDeVenta.
@@ -19,7 +17,7 @@ import java.util.Objects;
 public class PuntoDeVenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,6 +39,7 @@ public class PuntoDeVenta implements Serializable {
     private String notas;
 
     @ManyToOne
+    @JsonIgnoreProperties("puntoDeVentas")
     private Cliente cliente;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -123,19 +122,15 @@ public class PuntoDeVenta implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof PuntoDeVenta)) {
             return false;
         }
-        PuntoDeVenta puntoDeVenta = (PuntoDeVenta) o;
-        if (puntoDeVenta.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), puntoDeVenta.getId());
+        return id != null && id.equals(((PuntoDeVenta) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

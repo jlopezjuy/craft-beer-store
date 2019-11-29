@@ -1,7 +1,5 @@
 package com.craftbeerstore.application.repository;
-
 import com.craftbeerstore.application.domain.Estilos;
-import java.util.List;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +10,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface EstilosRepository extends JpaRepository<Estilos, Long> {
-
-    List<Estilos> findAllByOrderByNombreEstilo();
 
 }

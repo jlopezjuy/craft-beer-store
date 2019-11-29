@@ -1,45 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-  MovimientoBarrilComponent,
-  MovimientoBarrilDetailComponent,
-  MovimientoBarrilUpdateComponent,
-  MovimientoBarrilDeletePopupComponent,
-  MovimientoBarrilDeleteDialogComponent,
-  movimientoBarrilRoute,
-  movimientoBarrilPopupRoute
-} from './';
-
-const ENTITY_STATES = [...movimientoBarrilRoute, ...movimientoBarrilPopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { MovimientoBarrilComponent } from './movimiento-barril.component';
+import { MovimientoBarrilDetailComponent } from './movimiento-barril-detail.component';
+import { MovimientoBarrilUpdateComponent } from './movimiento-barril-update.component';
+import { MovimientoBarrilDeleteDialogComponent } from './movimiento-barril-delete-dialog.component';
+import { movimientoBarrilRoute } from './movimiento-barril.route';
 
 @NgModule({
-  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(movimientoBarrilRoute)],
   declarations: [
     MovimientoBarrilComponent,
     MovimientoBarrilDetailComponent,
     MovimientoBarrilUpdateComponent,
-    MovimientoBarrilDeleteDialogComponent,
-    MovimientoBarrilDeletePopupComponent
+    MovimientoBarrilDeleteDialogComponent
   ],
-  entryComponents: [
-    MovimientoBarrilComponent,
-    MovimientoBarrilUpdateComponent,
-    MovimientoBarrilDeleteDialogComponent,
-    MovimientoBarrilDeletePopupComponent
-  ],
-  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  entryComponents: [MovimientoBarrilDeleteDialogComponent]
 })
-export class CraftBeerStoreMovimientoBarrilModule {
-  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-    this.languageHelper.language.subscribe((languageKey: string) => {
-      if (languageKey !== undefined) {
-        this.languageService.changeLanguage(languageKey);
-      }
-    });
-  }
-}
+export class CraftBeerStoreMovimientoBarrilModule {}

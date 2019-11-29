@@ -1,12 +1,5 @@
 import { Moment } from 'moment';
-
-export const enum EstadoMovimientoBarril {
-  VACIO = 'VACIO',
-  LLENO = 'LLENO',
-  ENTREGADO = 'ENTREGADO',
-  RETIRADO = 'RETIRADO',
-  ROTO = 'ROTO'
-}
+import { EstadoMovimientoBarril } from 'app/shared/model/enumerations/estado-movimiento-barril.model';
 
 export interface IMovimientoBarril {
   id?: number;

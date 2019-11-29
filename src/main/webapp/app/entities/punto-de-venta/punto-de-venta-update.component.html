@@ -1,93 +1,69 @@
-<div class="container-fluid">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12">
-                <h2 id="jhi-punto-de-venta-heading" jhiTranslate="craftBeerStoreApp.puntoDeVenta.home.createOrEditLabel">Create or edit a Punto De Venta</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Punto de Venta</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-punto-de-venta-heading" jhiTranslate="craftBeerStoreApp.puntoDeVenta.home.createOrEditLabel">Create or edit a Punto De Venta</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre" for="field_nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="field_nombre"
+                           formControlName="nombre"/>
+                    <div *ngIf="editForm.get('nombre').invalid && (editForm.get('nombre').dirty || editForm.get('nombre').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nombre').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega" for="field_direccionDeEntrega">Direccion De Entrega</label>
+                    <input type="text" class="form-control" name="direccionDeEntrega" id="field_direccionDeEntrega"
+                           formControlName="direccionDeEntrega"/>
+                    <div *ngIf="editForm.get('direccionDeEntrega').invalid && (editForm.get('direccionDeEntrega').dirty || editForm.get('direccionDeEntrega').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('direccionDeEntrega').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad" for="field_localidad">Localidad</label>
+                    <input type="text" class="form-control" name="localidad" id="field_localidad"
+                           formControlName="localidad"/>
+                    <div *ngIf="editForm.get('localidad').invalid && (editForm.get('localidad').dirty || editForm.get('localidad').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('localidad').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas" for="field_notas">Notas</label>
+                    <textarea class="form-control" name="notas" id="field_notas"
+                              formControlName="notas"></textarea>
+                </div>
 
-    <div class="card">
-        <div class="header">
-<!--            <h2 id="jhi-punto-de-venta-heading" jhiTranslate="craftBeerStoreApp.puntoDeVenta.home.createOrEditLabel">Create or edit a Punto De Venta</h2>-->
-        </div>
-        <div class="body">
-            <div class="row justify-content-center">
-                <div class="col-8">
-                    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-
-                        <div>
-                            <jhi-alert-error></jhi-alert-error>
-<!--                            <div class="form-group" [hidden]="!puntoDeVenta.id">-->
-<!--                                <label for="id" jhiTranslate="global.field.id">ID</label>-->
-<!--                                <input type="text" class="form-control" id="id" name="id"-->
-<!--                                       [(ngModel)]="puntoDeVenta.id" readonly />-->
-<!--                            </div>-->
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre" for="field_nombre">Nombre</label>
-                                <input type="text" class="form-control" name="nombre" id="field_nombre"
-                                       [(ngModel)]="puntoDeVenta.nombre" required/>
-                                <div [hidden]="!(editForm.controls.nombre?.dirty && editForm.controls.nombre?.invalid)">
-                                    <small class="form-text text-danger"
-                                           [hidden]="!editForm.controls.nombre?.errors?.required" jhiTranslate="entity.validation.required">
-                                        This field is required.
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega" for="field_direccionDeEntrega">Direccion De Entrega</label>
-                                <input type="text" class="form-control" name="direccionDeEntrega" id="field_direccionDeEntrega"
-                                       [(ngModel)]="puntoDeVenta.direccionDeEntrega" required/>
-                                <div [hidden]="!(editForm.controls.direccionDeEntrega?.dirty && editForm.controls.direccionDeEntrega?.invalid)">
-                                    <small class="form-text text-danger"
-                                           [hidden]="!editForm.controls.direccionDeEntrega?.errors?.required" jhiTranslate="entity.validation.required">
-                                        This field is required.
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad" for="field_localidad">Localidad</label>
-                                <input type="text" class="form-control" name="localidad" id="field_localidad"
-                                       [(ngModel)]="puntoDeVenta.localidad" required/>
-                                <div [hidden]="!(editForm.controls.localidad?.dirty && editForm.controls.localidad?.invalid)">
-                                    <small class="form-text text-danger"
-                                           [hidden]="!editForm.controls.localidad?.errors?.required" jhiTranslate="entity.validation.required">
-                                        This field is required.
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas" for="field_notas">Notas</label>
-                                <textarea class="form-control" name="notas" id="field_notas"
-                                          [(ngModel)]="puntoDeVenta.notas" ></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.cliente" for="field_cliente">Cliente</label>
-                                <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="puntoDeVenta.clienteId" >
-                                    <option [ngValue]="null"></option>
-                                    <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.nombreApellido}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-                            </button>
-                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-                            </button>
-                        </div>
-                    </form>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.puntoDeVenta.cliente" for="field_cliente">Cliente</label>
+                    <select class="form-control" id="field_cliente" name="cliente" formControlName="clienteId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.nombreApellido}}</option>
+                    </select>
                 </div>
             </div>
-
-        </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
-

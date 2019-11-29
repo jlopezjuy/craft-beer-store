@@ -1,24 +1,22 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
+import { CraftBeerStoreSharedLibsModule } from './shared-libs.module';
+import { FindLanguageFromKeyPipe } from './language/find-language-from-key.pipe';
+import { JhiAlertComponent } from './alert/alert.component';
+import { JhiAlertErrorComponent } from './alert/alert-error.component';
+import { JhiLoginModalComponent } from './login/login.component';
+import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 
-import { NgbDateMomentAdapter } from './util/datepicker-adapter';
-import { CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
-
-import { JhMaterialModule } from 'app/shared/jh-material.module';
-import { LinechartComponent } from '../dashboard/linechart';
-import { ChartModule } from 'primeng/chart';
 @NgModule({
-  imports: [JhMaterialModule, CraftBeerStoreSharedLibsModule, CraftBeerStoreSharedCommonModule, ChartModule],
-  declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective, LinechartComponent],
-  providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
+  imports: [CraftBeerStoreSharedLibsModule],
+  declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, JhiLoginModalComponent, HasAnyAuthorityDirective],
   entryComponents: [JhiLoginModalComponent],
-  exports: [JhMaterialModule, CraftBeerStoreSharedCommonModule, ChartModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  exports: [
+    CraftBeerStoreSharedLibsModule,
+    FindLanguageFromKeyPipe,
+    JhiAlertComponent,
+    JhiAlertErrorComponent,
+    JhiLoginModalComponent,
+    HasAnyAuthorityDirective
+  ]
 })
-export class CraftBeerStoreSharedModule {
-  static forRoot() {
-    return {
-      ngModule: CraftBeerStoreSharedModule
-    };
-  }
-}
+export class CraftBeerStoreSharedModule {}

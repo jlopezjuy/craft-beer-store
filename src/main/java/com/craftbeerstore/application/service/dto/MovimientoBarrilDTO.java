@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.craftbeerstore.application.domain.enumeration.EstadoMovimientoBarril;
 
 /**
- * A DTO for the MovimientoBarril entity.
+ * A DTO for the {@link com.craftbeerstore.application.domain.MovimientoBarril} entity.
  */
 public class MovimientoBarrilDTO implements Serializable {
 

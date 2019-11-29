@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,7 +8,6 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 
@@ -42,16 +39,16 @@ public class RecetaInsumo implements Serializable {
     @Column(name = "tipo_insumo")
     private TipoInsumo tipoInsumo;
 
-    @Column(name = "cantidad", precision = 10, scale = 2)
+    @Column(name = "cantidad", precision = 21, scale = 2)
     private BigDecimal cantidad;
 
     @Min(value = 2L)
-    @Max(value = 450L)
+    @Max(value = 40L)
     @Column(name = "color")
     private Long color;
 
     @DecimalMax(value = "100")
-    @Column(name = "porcentaje", precision = 10, scale = 2)
+    @Column(name = "porcentaje", precision = 21, scale = 2)
     private BigDecimal porcentaje;
 
     @Enumerated(EnumType.STRING)
@@ -66,7 +63,7 @@ public class RecetaInsumo implements Serializable {
     @Column(name = "modo_lupulo")
     private ModoLupulo modoLupulo;
 
-    @Column(name = "gramos", precision = 10, scale = 2)
+    @Column(name = "gramos", precision = 21, scale = 2)
     private BigDecimal gramos;
 
     @Enumerated(EnumType.STRING)
@@ -78,10 +75,10 @@ public class RecetaInsumo implements Serializable {
     @Column(name = "tiempo")
     private Long tiempo;
 
-    @Column(name = "ibu", precision = 10, scale = 2)
+    @Column(name = "ibu", precision = 21, scale = 2)
     private BigDecimal ibu;
 
-    @Column(name = "densidad_leva", precision = 10, scale = 2)
+    @Column(name = "densidad_leva", precision = 21, scale = 2)
     private BigDecimal densidadLeva;
 
     @Column(name = "tam_sobre")
@@ -371,19 +368,15 @@ public class RecetaInsumo implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof RecetaInsumo)) {
             return false;
         }
-        RecetaInsumo recetaInsumo = (RecetaInsumo) o;
-        if (recetaInsumo.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), recetaInsumo.getId());
+        return id != null && id.equals(((RecetaInsumo) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

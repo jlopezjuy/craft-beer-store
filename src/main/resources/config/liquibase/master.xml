@@ -2,7 +2,16 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="clobType" value="clob" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
+    <property name="uuidType" value="varchar(36)" dbms="h2, mysql, mariadb"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190407234855_added_entity_Empresa.xml" relativeToChangelogFile="false"/>
@@ -17,7 +26,6 @@
     <include file="config/liquibase/changelog/20190505113135_added_entity_Evento.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190506003908_added_entity_EventoProducto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190507170732_added_entity_Estilos.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190507170732_insert_entity_Estilos.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190516013240_added_entity_Equipamiento.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190521170700_added_entity_PuntoDeVenta.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190523184243_added_entity_Receta.xml" relativeToChangelogFile="false"/>
@@ -46,13 +54,8 @@
     <include file="config/liquibase/changelog/20190506003908_added_entity_constraints_EventoProducto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190516013240_added_entity_constraints_Equipamiento.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190521170700_added_entity_constraints_PuntoDeVenta.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190521003410_added_columns_Movimientos.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190522003410_added_columns_Cliente.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190523184243_added_entity_constraints_Receta.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190523184243_added_column_Receta.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190523304243_added_entity_constraints_Receta.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190524205721_added_entity_constraints_RecetaInsumo.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190530015188_added_column_EventoProducto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190625151012_added_entity_constraints_CompraInsumo.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190626184818_added_entity_constraints_CompraInsumoDetalle.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190905031759_added_entity_constraints_Barril.xml" relativeToChangelogFile="false"/>

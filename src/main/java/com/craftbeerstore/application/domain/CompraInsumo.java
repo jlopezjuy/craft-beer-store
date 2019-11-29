@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.EstadoCompra;
 
@@ -23,7 +20,7 @@ import com.craftbeerstore.application.domain.enumeration.EstadoCompra;
 public class CompraInsumo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,16 +31,16 @@ public class CompraInsumo implements Serializable {
     @Column(name = "fecha")
     private LocalDate fecha;
 
-    @Column(name = "subtotal", precision = 10, scale = 2)
+    @Column(name = "subtotal", precision = 21, scale = 2)
     private BigDecimal subtotal;
 
-    @Column(name = "gasto_de_envio", precision = 10, scale = 2)
+    @Column(name = "gasto_de_envio", precision = 21, scale = 2)
     private BigDecimal gastoDeEnvio;
 
-    @Column(name = "impuesto", precision = 10, scale = 2)
+    @Column(name = "impuesto", precision = 21, scale = 2)
     private BigDecimal impuesto;
 
-    @Column(name = "total", precision = 10, scale = 2)
+    @Column(name = "total", precision = 21, scale = 2)
     private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
@@ -190,19 +187,15 @@ public class CompraInsumo implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof CompraInsumo)) {
             return false;
         }
-        CompraInsumo compraInsumo = (CompraInsumo) o;
-        if (compraInsumo.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), compraInsumo.getId());
+        return id != null && id.equals(((CompraInsumo) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

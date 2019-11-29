@@ -1,77 +1,63 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
-import { IEvento } from 'app/shared/model/evento.model';
+import { JhiAlertService } from 'ng-jhipster';
+import { IEvento, Evento } from 'app/shared/model/evento.model';
 import { EventoService } from './evento.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
-import { EmpresaService } from 'app/account/settings/empresa';
-import { LocalStorageService } from 'ngx-webstorage';
-import { EventoProductoService } from 'app/entities/evento-producto';
-import { ProductoService } from 'app/entities/producto';
-import { IProducto, Producto } from 'app/shared/model/producto.model';
-import { EventoProducto, IEventoProducto } from 'app/shared/model/evento-producto.model';
-import { MatSnackBar, MatTableDataSource } from '@angular/material';
-import { Message } from 'primeng/components/common/api';
-import { MessageService } from 'primeng/components/common/messageservice';
-import { TranslateService } from '@ngx-translate/core';
-import { DATE_FORMAT } from 'app/shared';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
 
 @Component({
   selector: 'jhi-evento-update',
-  templateUrl: './evento-update.component.html',
-  providers: [MessageService]
+  templateUrl: './evento-update.component.html'
 })
 export class EventoUpdateComponent implements OnInit {
-  evento: IEvento;
   isSaving: boolean;
 
-  empresa: IEmpresa;
+  empresas: IEmpresa[];
   fechaEventoDp: any;
-  productos: IProducto[];
-  productosList: IProducto[];
-  productoSave: Producto;
-  msgs: Message[] = [];
-  dataSource: any;
-  displayedColumns: string[] = ['descripcion', 'tipo', 'nombreComercial', 'cantidadBarriles'];
+
+  editForm = this.fb.group({
+    id: [],
+    nombreEvento: [null, [Validators.required]],
+    fechaEvento: [null, [Validators.required]],
+    cantidadBarriles: [null, [Validators.required, Validators.min(1)]],
+    precioPinta: [null, [Validators.required]],
+    empresaId: []
+  });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected eventoService: EventoService,
     protected empresaService: EmpresaService,
     protected activatedRoute: ActivatedRoute,
-    protected $localStorage: LocalStorageService,
-    protected eventoProductoService: EventoProductoService,
-    protected productoService: ProductoService,
-    private snackBar: MatSnackBar,
-    private languageService: JhiLanguageService,
-    private translateService: TranslateService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
-    this.productosList = [];
     this.activatedRoute.data.subscribe(({ evento }) => {
-      this.evento = evento;
-      if (this.evento.id) {
-        this.loadProductos(this.evento.id);
-        this.fechaEventoDp = moment(this.evento.fechaEvento, 'dd/MM/yyy').format();
-      } else {
-        this.evento.cantidadBarriles = 0;
-      }
+      this.updateForm(evento);
     });
-    this.empresa = this.$localStorage.retrieve('empresa');
-    this.productoService
-      .queryByEmpresa(null, this.empresa.id)
-      .pipe(
-        filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IProducto[]>) => response.body)
-      )
-      .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.productoSave = new Producto();
+    this.empresaService
+      .query()
+      .subscribe((res: HttpResponse<IEmpresa[]>) => (this.empresas = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+  }
+
+  updateForm(evento: IEvento) {
+    this.editForm.patchValue({
+      id: evento.id,
+      nombreEvento: evento.nombreEvento,
+      fechaEvento: evento.fechaEvento,
+      cantidadBarriles: evento.cantidadBarriles,
+      precioPinta: evento.precioPinta,
+      empresaId: evento.empresaId
+    });
   }
 
   previousState() {
@@ -80,108 +66,43 @@ export class EventoUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    this.evento.empresaId = this.empresa.id;
-    this.evento.fechaEvento = this.fechaEventoDp != null ? moment(this.fechaEventoDp, DATE_FORMAT) : null;
-    if (this.evento.id !== undefined) {
-      this.subscribeToSaveResponse(this.eventoService.update(this.evento));
+    const evento = this.createFromForm();
+    if (evento.id !== undefined) {
+      this.subscribeToSaveResponse(this.eventoService.update(evento));
     } else {
-      this.subscribeToSaveResponse(this.eventoService.create(this.evento));
+      this.subscribeToSaveResponse(this.eventoService.create(evento));
     }
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IEvento>>) {
-    result.subscribe((res: HttpResponse<IEvento>) => this.onSaveSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
+  private createFromForm(): IEvento {
+    return {
+      ...new Evento(),
+      id: this.editForm.get(['id']).value,
+      nombreEvento: this.editForm.get(['nombreEvento']).value,
+      fechaEvento: this.editForm.get(['fechaEvento']).value,
+      cantidadBarriles: this.editForm.get(['cantidadBarriles']).value,
+      precioPinta: this.editForm.get(['precioPinta']).value,
+      empresaId: this.editForm.get(['empresaId']).value
+    };
   }
 
-  protected onSaveSuccess(res: HttpResponse<IEvento>) {
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IEvento>>) {
+    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+  }
+
+  protected onSaveSuccess() {
     this.isSaving = false;
-    this.saveEventoProducto(res.body.id);
     this.previousState();
   }
 
   protected onSaveError() {
     this.isSaving = false;
   }
-
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
   trackEmpresaById(index: number, item: IEmpresa) {
     return item.id;
-  }
-
-  productoChange(value: number) {
-    if (value && value.toString() !== 'null') {
-    } else {
-      this.productoSave.precioUnitario = null;
-      this.productoSave.cantidadPresentacion = null;
-    }
-  }
-
-  addProducto() {
-    if (this.productoSave.id) {
-      this.productoService.find(this.productoSave.id).subscribe(resp => {
-        if (this.validateProductoList(resp.body)) {
-          let producto: IProducto;
-          producto = resp.body;
-          producto.cantidadBarriles = this.productoSave.cantidadBarriles;
-          this.evento.cantidadBarriles = this.evento.cantidadBarriles + producto.cantidadBarriles;
-          this.productosList.push(producto);
-          this.dataSource = new MatTableDataSource<IProducto>(this.productosList);
-        } else {
-          this.jhiAlertService.warning('craftBeerStoreApp.evento.validate.producto');
-          this.translateService.get('craftBeerStoreApp.evento.validate.producto').subscribe(mess => {
-            this.openSnackBar(mess, '');
-          });
-        }
-        this.productoSave = new Producto();
-      });
-    }
-  }
-
-  validateProductoList(producto: IProducto) {
-    let validate = true;
-    this.productosList.forEach(prod => {
-      if (prod.id === producto.id) {
-        validate = false;
-      }
-    });
-    return validate;
-  }
-
-  saveEventoProducto(eventoId: number) {
-    this.productosList.forEach(prod => {
-      const eventoProducto: IEventoProducto = new EventoProducto();
-      eventoProducto.eventoId = eventoId;
-      eventoProducto.productoId = prod.id;
-      eventoProducto.id = prod.eventoId;
-      eventoProducto.cantidadDeBarriles = prod.cantidadBarriles;
-      if (eventoProducto.id) {
-        this.eventoProductoService.update(eventoProducto).subscribe(resp => {});
-      } else {
-        this.eventoProductoService.create(eventoProducto).subscribe(resp => {});
-      }
-    });
-  }
-
-  loadProductos(eventoId: number) {
-    this.eventoProductoService.queryByEvento(eventoId).subscribe(resp => {
-      resp.body.forEach(evento => {
-        this.productoService.find(evento.productoId).subscribe(prod => {
-          const producto = prod.body;
-          producto.eventoId = eventoId;
-          producto.cantidadBarriles = evento.cantidadDeBarriles;
-          this.productosList.push(producto);
-          this.dataSource = new MatTableDataSource<IProducto>(this.productosList);
-        });
-      });
-    });
-  }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000
-    });
   }
 }

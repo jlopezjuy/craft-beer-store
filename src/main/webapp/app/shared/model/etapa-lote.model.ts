@@ -1,11 +1,5 @@
 import { Moment } from 'moment';
-
-export const enum EtapaLoteEnum {
-  COCCION = 'COCCION',
-  FERMENTACION = 'FERMENTACION',
-  MADURACION = 'MADURACION',
-  ENVASADO = 'ENVASADO'
-}
+import { EtapaLoteEnum } from 'app/shared/model/enumerations/etapa-lote-enum.model';
 
 export interface IEtapaLote {
   id?: number;

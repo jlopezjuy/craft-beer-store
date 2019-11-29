@@ -1,95 +1,91 @@
-<div class="container-fluid">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12">
-                <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
-                       (click)="toggleFullWidth()">
-                    <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
-                    <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
-                </a>Ventas</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Ventas</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="header">
-            <h2 id="page-heading">
-                <span jhiTranslate="craftBeerStoreApp.movimientos.home.title">Ventas</span>
-                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-movimientos" [routerLink]="['/admin/ventas/movimientos/new']">
-                    <fa-icon [icon]="'plus'"></fa-icon>
-                    <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.movimientos.home.createLabel">
-            Create new Venta
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="craftBeerStoreApp.movimientos.home.title">Movimientos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-movimientos" [routerLink]="['/movimientos/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="craftBeerStoreApp.movimientos.home.createLabel">
+            Create a new Movimientos
             </span>
-                </button>
-            </h2>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="movimientos?.length === 0">
+        <span jhiTranslate="craftBeerStoreApp.movimientos.home.notFound">No movimientos found</span>
+    </div>
+    <div class="table-responsive" *ngIf="movimientos?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tipoMovimiento"><span jhiTranslate="craftBeerStoreApp.movimientos.tipoMovimiento">Tipo Movimiento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="fechaMovimiento"><span jhiTranslate="craftBeerStoreApp.movimientos.fechaMovimiento">Fecha Movimiento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="precioTotal"><span jhiTranslate="craftBeerStoreApp.movimientos.precioTotal">Precio Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="numeroMovimiento"><span jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento">Numero Movimiento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="estado"><span jhiTranslate="craftBeerStoreApp.movimientos.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="litrosTotales"><span jhiTranslate="craftBeerStoreApp.movimientos.litrosTotales">Litros Totales</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="clienteNombreApellido"><span jhiTranslate="craftBeerStoreApp.movimientos.cliente">Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="empresaNombreEmpresa"><span jhiTranslate="craftBeerStoreApp.movimientos.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="puntoDeVentaId"><span jhiTranslate="craftBeerStoreApp.movimientos.puntoDeVenta">Punto De Venta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let movimientos of movimientos ;trackBy: trackId">
+                <td><a [routerLink]="['/movimientos', movimientos.id, 'view' ]">{{movimientos.id}}</a></td>
+                <td jhiTranslate="{{'craftBeerStoreApp.TipoMovimiento.' + movimientos.tipoMovimiento}}">{{movimientos.tipoMovimiento}}</td>
+                <td>{{movimientos.fechaMovimiento | date:'mediumDate'}}</td>
+                <td>{{movimientos.precioTotal}}</td>
+                <td>{{movimientos.numeroMovimiento}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.EstadoMovimiento.' + movimientos.estado}}">{{movimientos.estado}}</td>
+                <td>{{movimientos.litrosTotales}}</td>
+                <td>
+                    <div *ngIf="movimientos.clienteId">
+                        <a [routerLink]="['/cliente', movimientos.clienteId , 'view' ]" >{{movimientos.clienteNombreApellido}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="movimientos.empresaId">
+                        <a [routerLink]="['/empresa', movimientos.empresaId , 'view' ]" >{{movimientos.empresaNombreEmpresa}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="movimientos.puntoDeVentaId">
+                        <a [routerLink]="['/punto-de-venta', movimientos.puntoDeVentaId , 'view' ]" >{{movimientos.puntoDeVentaId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/movimientos', movimientos.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/movimientos', movimientos.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(movimientos)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="movimientos?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
-        <div class="body">
-            <jhi-alert></jhi-alert>
-
-            <br/>
-            <div class="mat-elevation-z8 table-responsive" *ngIf="movimientos">
-                <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                    <ng-container matColumnDef="tipoMovimiento">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="tipoMovimiento"> <span jhiTranslate="craftBeerStoreApp.movimientos.tipoMovimiento">Tipo Movimiento</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let movimiento" jhiTranslate="{{'craftBeerStoreApp.TipoMovimiento.' + movimiento.tipoMovimiento}}"> {{movimiento.tipoMovimiento}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="fechaMovimiento">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="fechaMovimiento"> <span jhiTranslate="craftBeerStoreApp.movimientos.fechaMovimiento">Fecha Movimiento</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let movimiento" > {{movimiento.fechaMovimiento | date:'mediumDate'}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="precioTotal">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="precioTotal"> <span jhiTranslate="craftBeerStoreApp.movimientos.precioTotal">Precio Total</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let movimiento" > {{movimiento.precioTotal}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="numeroMovimiento">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="numeroMovimiento"> <span jhiTranslate="craftBeerStoreApp.movimientos.numeroMovimiento">Numero Movimiento</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let movimiento" > {{movimiento.numeroMovimiento}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="estado">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="estado"> <span jhiTranslate="craftBeerStoreApp.movimientos.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let movimiento" jhiTranslate="{{'craftBeerStoreApp.EstadoMovimiento.' + movimiento.estado}}"> {{movimiento.estado}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="clienteNombreApellido">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="clienteNombreApellido"> <span jhiTranslate="craftBeerStoreApp.movimientos.cliente">Numero Movimiento</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let movimiento" >
-                            <div *ngIf="movimiento.clienteId">
-                                <a [routerLink]="['../cliente', movimiento.clienteId , 'view' ]" >{{movimiento.clienteNombreApellido}}</a>
-                            </div>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="actions" >
-                        <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let movimiento" style="width: 20%">
-                            <div class="btn-group flex-btn-group-container">
-                                <button type="submit"
-                                        [routerLink]="['/admin/ventas/movimientos', movimiento.id, 'edit' ]"
-                                        mat-raised-button color="primary">
-                                    <fa-icon [icon]="'eye'"></fa-icon>
-                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                                </button>
-                                <button type="submit"
-                                        [routerLink]="['/admin/ventas/', 'movimientos', { outlets: { popup: movimiento.id + '/delete'} }]"
-                                        replaceUrl="true"
-                                        queryParamsHandling="merge"
-                                        mat-raised-button color="warn">
-                                    <fa-icon [icon]="'times'"></fa-icon>
-                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                                </button>
-                            </div>
-                        </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <mat-paginator [length]="totalItems"
-                               [pageSize]="itemsPerPage"
-                               (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
-            </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

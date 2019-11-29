@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -9,7 +7,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.Unidad;
 
@@ -24,7 +21,7 @@ import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 public class CompraInsumoDetalle implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,13 +33,13 @@ public class CompraInsumoDetalle implements Serializable {
     @Column(name = "codigo_referencia")
     private String codigoReferencia;
 
-    @Column(name = "stock", precision = 10, scale = 2)
+    @Column(name = "stock", precision = 21, scale = 2)
     private BigDecimal stock;
 
-    @Column(name = "precio_unitario", precision = 10, scale = 2)
+    @Column(name = "precio_unitario", precision = 21, scale = 2)
     private BigDecimal precioUnitario;
 
-    @Column(name = "precio_total", precision = 10, scale = 2)
+    @Column(name = "precio_total", precision = 21, scale = 2)
     private BigDecimal precioTotal;
 
     @Enumerated(EnumType.STRING)
@@ -176,19 +173,15 @@ public class CompraInsumoDetalle implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof CompraInsumoDetalle)) {
             return false;
         }
-        CompraInsumoDetalle compraInsumoDetalle = (CompraInsumoDetalle) o;
-        if (compraInsumoDetalle.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), compraInsumoDetalle.getId());
+        return id != null && id.equals(((CompraInsumoDetalle) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

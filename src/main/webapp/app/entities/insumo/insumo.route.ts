@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
-import { UserRouteAccessService } from 'app/core';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Insumo } from 'app/shared/model/insumo.model';
 import { InsumoService } from './insumo.service';
 import { InsumoComponent } from './insumo.component';
 import { InsumoDetailComponent } from './insumo-detail.component';
 import { InsumoUpdateComponent } from './insumo-update.component';
-import { InsumoDeletePopupComponent } from './insumo-delete-dialog.component';
 import { IInsumo } from 'app/shared/model/insumo.model';
 
 @Injectable({ providedIn: 'root' })
 export class InsumoResolve implements Resolve<IInsumo> {
   constructor(private service: InsumoService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IInsumo> {
-    const id = route.params['id'] ? route.params['id'] : null;
+  resolve(route: ActivatedRouteSnapshot): Observable<IInsumo> {
+    const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Insumo>) => response.ok),
-        map((insumo: HttpResponse<Insumo>) => insumo.body)
-      );
+      return this.service.find(id).pipe(map((insumo: HttpResponse<Insumo>) => insumo.body));
     }
     return of(new Insumo());
   }
@@ -78,21 +74,5 @@ export const insumoRoute: Routes = [
       pageTitle: 'craftBeerStoreApp.insumo.home.title'
     },
     canActivate: [UserRouteAccessService]
-  }
-];
-
-export const insumoPopupRoute: Routes = [
-  {
-    path: ':id/delete',
-    component: InsumoDeletePopupComponent,
-    resolve: {
-      insumo: InsumoResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.insumo.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
   }
 ];

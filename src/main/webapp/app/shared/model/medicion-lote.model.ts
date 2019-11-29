@@ -1,9 +1,5 @@
 import { Moment } from 'moment';
-
-export const enum TipoMedicion {
-  DENSIDAD = 'DENSIDAD',
-  TEMPERATURA = 'TEMPERATURA'
-}
+import { TipoMedicion } from 'app/shared/model/enumerations/tipo-medicion.model';
 
 export interface IMedicionLote {
   id?: number;
@@ -17,8 +13,6 @@ export interface IMedicionLote {
   loteId?: number;
   tanqueNombre?: string;
   tanqueId?: number;
-  densidad?: number;
-  temperatura?: number;
 }
 
 export class MedicionLote implements IMedicionLote {

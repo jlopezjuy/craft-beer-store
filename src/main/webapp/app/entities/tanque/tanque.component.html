@@ -1,110 +1,91 @@
-<div class="container-fluid">
-  <div class="block-header">
-    <div class="row">
-      <div class="col-lg-5 col-md-8 col-sm-12">
-        <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
-               (click)="toggleFullWidth()">
-          <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
-          <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
-        </a>Tanques</h2>
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-          <li class="breadcrumb-item">Administración</li>
-          <li class="breadcrumb-item active">Tanques</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="header">
-      <h2 id="page-heading">
+<div>
+    <h2 id="page-heading">
         <span jhiTranslate="craftBeerStoreApp.tanque.home.title">Tanques</span>
-        <button id="jh-create-entity"  mat-raised-button color="primary" class="float-right jh-create-entity create-tanque" [routerLink]="['/admin/admin/tanque/new']">
-          <fa-icon [icon]="'plus'"></fa-icon>
-          <span  jhiTranslate="craftBeerStoreApp.tanque.home.createLabel">
-            Create new Tanque
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tanque" [routerLink]="['/tanque/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="craftBeerStoreApp.tanque.home.createLabel">
+            Create a new Tanque
             </span>
         </button>
-      </h2>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="tanques?.length === 0">
+        <span jhiTranslate="craftBeerStoreApp.tanque.home.notFound">No tanques found</span>
     </div>
-    <div class="body">
-      <jhi-alert></jhi-alert>
-      <br/>
-      <div class="mat-elevation-z8 table-responsive" *ngIf="tanques">
-        <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-          <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="nombre"> <span jhiTranslate="craftBeerStoreApp.tanque.nombre">Nombre</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" > {{tanque.nombre}} </td>
-          </ng-container>
-          <ng-container matColumnDef="litros">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="litros"> <span jhiTranslate="craftBeerStoreApp.tanque.litros">Litros</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" > {{tanque.litros}} </td>
-          </ng-container>
-          <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="tipo"> <span jhiTranslate="craftBeerStoreApp.tanque.tipo">Tipo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" > {{tanque.tipo}} </td>
-          </ng-container>
-          <ng-container matColumnDef="estado">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="estado"> <span jhiTranslate="craftBeerStoreApp.tanque.estado">Estado</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" >
-              <mat-chip-list aria-label="Estado de Lote">
-                <mat-chip *ngIf="tanque.estado === 'EN_USO'" class="mat-chip-en-proceso" jhiTranslate="{{'craftBeerStoreApp.EstadoTanque.' + tanque.estado}}">{{tanque.estado}}</mat-chip>
-                <mat-chip *ngIf="tanque.estado === 'VACIO'" class="mat-chip-coccion" jhiTranslate="{{'craftBeerStoreApp.EstadoTanque.' + tanque.estado}}">{{tanque.estado}}</mat-chip>
-              </mat-chip-list>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="listrosDisponible">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="listrosDisponible"> <span jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible">Estado</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" > {{tanque.listrosDisponible}} </td>
-          </ng-container>
-          <ng-container matColumnDef="fechaIngreso">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="fechaIngreso"> <span jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso">Fecha de Ingreso</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" > {{tanque.fechaIngreso  | date:'mediumDate'}} </td>
-          </ng-container>
-          <ng-container matColumnDef="loteCodigo">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="loteCodigo"> <span jhiTranslate="craftBeerStoreApp.tanque.lote">Lote Codigo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" > {{tanque.loteCodigo}} </td>
-          </ng-container>
-          <ng-container matColumnDef="productoNombreComercial">
-            <th mat-header-cell *matHeaderCellDef jhiSortBy="productoNombreComercial"> <span jhiTranslate="craftBeerStoreApp.tanque.producto">Producto</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-            <td mat-cell *matCellDef="let tanque" > {{tanque.productoNombreComercial}} </td>
-          </ng-container>
-          <ng-container matColumnDef="actions" >
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let tanque" style="width: 20%">
-              <div class="btn-group flex-btn-group-container">
-                <button type="submit"
-                        [routerLink]="['/admin/admin/tanque', tanque.id, 'view' ]"
-                        mat-raised-button color="primary">
-                  <fa-icon [icon]="'eye'"></fa-icon>
-                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                </button>
-                <button type="submit"
-                        [routerLink]="['/admin/admin/tanque', tanque.id, 'edit']"
-                        mat-raised-button class="mat-edit">
-                  <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                </button>
-                <button type="submit"
-                        (click)="deleteControl(tanque)"
-                        replaceUrl="true"
-                        queryParamsHandling="merge"
-                        mat-raised-button color="warn">
-                  <fa-icon [icon]="'times'"></fa-icon>
-                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                </button>
-              </div>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <div class="table-responsive" *ngIf="tanques?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="nombre"><span jhiTranslate="craftBeerStoreApp.tanque.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="litros"><span jhiTranslate="craftBeerStoreApp.tanque.litros">Litros</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tipo"><span jhiTranslate="craftBeerStoreApp.tanque.tipo">Tipo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="estado"><span jhiTranslate="craftBeerStoreApp.tanque.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="listrosDisponible"><span jhiTranslate="craftBeerStoreApp.tanque.listrosDisponible">Listros Disponible</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="fechaIngreso"><span jhiTranslate="craftBeerStoreApp.tanque.fechaIngreso">Fecha Ingreso</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.tanque.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="productoNombreComercial"><span jhiTranslate="craftBeerStoreApp.tanque.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="empresaNombreEmpresa"><span jhiTranslate="craftBeerStoreApp.tanque.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tanque of tanques ;trackBy: trackId">
+                <td><a [routerLink]="['/tanque', tanque.id, 'view' ]">{{tanque.id}}</a></td>
+                <td>{{tanque.nombre}}</td>
+                <td>{{tanque.litros}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.TipoTanque.' + tanque.tipo}}">{{tanque.tipo}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.EstadoTanque.' + tanque.estado}}">{{tanque.estado}}</td>
+                <td>{{tanque.listrosDisponible}}</td>
+                <td>{{tanque.fechaIngreso | date:'mediumDate'}}</td>
+                <td>
+                    <div *ngIf="tanque.loteId">
+                        <a [routerLink]="['/lote', tanque.loteId , 'view' ]" >{{tanque.loteCodigo}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="tanque.productoId">
+                        <a [routerLink]="['/producto', tanque.productoId , 'view' ]" >{{tanque.productoNombreComercial}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="tanque.empresaId">
+                        <a [routerLink]="['/empresa', tanque.empresaId , 'view' ]" >{{tanque.empresaNombreEmpresa}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/tanque', tanque.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/tanque', tanque.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(tanque)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
         </table>
-        <mat-paginator [length]="totalItems"
-                       [pageSize]="itemsPerPage"
-                       (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
-      </div>
     </div>
-  </div>
+    <div [hidden]="tanques?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

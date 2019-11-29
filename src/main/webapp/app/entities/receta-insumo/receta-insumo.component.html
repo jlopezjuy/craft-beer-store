@@ -4,37 +4,41 @@
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-receta-insumo" [routerLink]="['/receta-insumo/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="craftBeerStoreApp.recetaInsumo.home.createLabel">
-            Create new Receta Insumo
+            Create a new Receta Insumo
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="recetaInsumos">
-        <table class="table table-striped">
+    <div class="alert alert-warning" *ngIf="recetaInsumos?.length === 0">
+        <span jhiTranslate="craftBeerStoreApp.recetaInsumo.home.notFound">No recetaInsumos found</span>
+    </div>
+    <div class="table-responsive" *ngIf="recetaInsumos?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tipoInsumo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoInsumo">Tipo Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="cantidad"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="color"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.color">Color</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="porcentaje"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.porcentaje">Porcentaje</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="usoMalta"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta">Uso Malta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="alpha"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha">Alpha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="modoLupulo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo">Modo Lupulo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="gramos"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Gramos</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="usoLupulo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo">Uso Lupulo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tiempo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo">Tiempo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="ibu"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu">Ibu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="densidadLeva"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva">Densidad Leva</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tamSobre"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre">Tam Sobre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="atenuacion"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion">Atenuacion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tipoOtro"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro">Tipo Otro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="usoOtro"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro">Uso Otro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tiempoOtro"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro">Tiempo Otro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="insumoRecomendadoNombre"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.insumoRecomendado">Insumo Recomendado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="recetaId"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.receta">Receta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tipoInsumo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoInsumo">Tipo Insumo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="cantidad"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="color"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.color">Color</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="porcentaje"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.porcentaje">Porcentaje</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="usoMalta"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta">Uso Malta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="alpha"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha">Alpha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="modoLupulo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo">Modo Lupulo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="gramos"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos">Gramos</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="usoLupulo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo">Uso Lupulo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tiempo"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo">Tiempo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="ibu"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu">Ibu</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="densidadLeva"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva">Densidad Leva</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tamSobre"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre">Tam Sobre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="atenuacion"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion">Atenuacion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tipoOtro"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro">Tipo Otro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="usoOtro"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro">Uso Otro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tiempoOtro"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro">Tiempo Otro</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="insumoRecomendadoNombre"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.insumoRecomendado">Insumo Recomendado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="recetaId"><span jhiTranslate="craftBeerStoreApp.recetaInsumo.receta">Receta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -59,16 +63,16 @@
                 <td>{{recetaInsumo.tiempoOtro}}</td>
                 <td>
                     <div *ngIf="recetaInsumo.insumoRecomendadoId">
-                        <a [routerLink]="['../insumo-recomendado', recetaInsumo.insumoRecomendadoId , 'view' ]" >{{recetaInsumo.insumoRecomendadoNombre}}</a>
+                        <a [routerLink]="['/insumo-recomendado', recetaInsumo.insumoRecomendadoId , 'view' ]" >{{recetaInsumo.insumoRecomendadoNombre}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="recetaInsumo.recetaId">
-                        <a [routerLink]="['../receta', recetaInsumo.recetaId , 'view' ]" >{{recetaInsumo.recetaId}}</a>
+                        <a [routerLink]="['/receta', recetaInsumo.recetaId , 'view' ]" >{{recetaInsumo.recetaId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/receta-insumo', recetaInsumo.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -81,10 +85,7 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'receta-insumo', { outlets: { popup: recetaInsumo.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                        <button type="submit" (click)="delete(recetaInsumo)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
@@ -95,9 +96,9 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="recetaInsumos && recetaInsumos.length">
+    <div [hidden]="recetaInsumos?.length === 0">
         <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>

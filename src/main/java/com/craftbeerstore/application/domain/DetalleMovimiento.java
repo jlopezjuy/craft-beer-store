@@ -1,15 +1,13 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * A DetalleMovimiento.
@@ -20,7 +18,7 @@ import java.util.Objects;
 public class DetalleMovimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,13 +28,15 @@ public class DetalleMovimiento implements Serializable {
     private Long cantidad;
 
     @NotNull
-    @Column(name = "precio_total", precision = 10, scale = 2, nullable = false)
+    @Column(name = "precio_total", precision = 21, scale = 2, nullable = false)
     private BigDecimal precioTotal;
 
     @ManyToOne
+    @JsonIgnoreProperties("detalleMovimientos")
     private Presentacion presentacion;
 
     @ManyToOne
+    @JsonIgnoreProperties("detalleMovimientos")
     private Movimientos movimientos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -106,19 +106,15 @@ public class DetalleMovimiento implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof DetalleMovimiento)) {
             return false;
         }
-        DetalleMovimiento detalleMovimiento = (DetalleMovimiento) o;
-        if (detalleMovimiento.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), detalleMovimiento.getId());
+        return id != null && id.equals(((DetalleMovimiento) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

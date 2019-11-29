@@ -2,11 +2,11 @@
   "craftBeerStoreApp": {
     "UsoOtro": {
       "null": "",
-      "BOIL": "Boil",
-      "MASH": "Mash",
-      "LICOR": "Licor",
-      "PRIMARY": "Primary",
-      "SECONDARY": "Secondary"
+      "BOIL": "BOIL",
+      "MASH": "MASH",
+      "LICOR": "LICOR",
+      "PRIMARY": "PRIMARY",
+      "SECONDARY": "SECONDARY"
     }
   }
 }

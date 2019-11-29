@@ -1,91 +1,75 @@
-<div class="container-fluid">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12">
-                <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
-                       (click)="toggleFullWidth()">
-                    <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
-                    <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
-                </a> Eventos</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Eventos</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="header">
-            <h2 id="page-heading">
-                <span jhiTranslate="craftBeerStoreApp.evento.home.title">Eventos</span>
-                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-evento" [routerLink]="['/admin/entity/evento/new']">
-                    <fa-icon [icon]="'plus'"></fa-icon>
-                    <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.evento.home.createLabel">
-            Create new Evento
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="craftBeerStoreApp.evento.home.title">Eventos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-evento" [routerLink]="['/evento/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="craftBeerStoreApp.evento.home.createLabel">
+            Create a new Evento
             </span>
-                </button>
-            </h2>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="eventos?.length === 0">
+        <span jhiTranslate="craftBeerStoreApp.evento.home.notFound">No eventos found</span>
+    </div>
+    <div class="table-responsive" *ngIf="eventos?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="nombreEvento"><span jhiTranslate="craftBeerStoreApp.evento.nombreEvento">Nombre Evento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="fechaEvento"><span jhiTranslate="craftBeerStoreApp.evento.fechaEvento">Fecha Evento</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="cantidadBarriles"><span jhiTranslate="craftBeerStoreApp.evento.cantidadBarriles">Cantidad Barriles</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="precioPinta"><span jhiTranslate="craftBeerStoreApp.evento.precioPinta">Precio Pinta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="empresaId"><span jhiTranslate="craftBeerStoreApp.evento.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let evento of eventos ;trackBy: trackId">
+                <td><a [routerLink]="['/evento', evento.id, 'view' ]">{{evento.id}}</a></td>
+                <td>{{evento.nombreEvento}}</td>
+                <td>{{evento.fechaEvento | date:'mediumDate'}}</td>
+                <td>{{evento.cantidadBarriles}}</td>
+                <td>{{evento.precioPinta}}</td>
+                <td>
+                    <div *ngIf="evento.empresaId">
+                        <a [routerLink]="['/empresa', evento.empresaId , 'view' ]" >{{evento.empresaId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/evento', evento.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/evento', evento.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(evento)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="eventos?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
-        <div class="body">
-            <jhi-alert></jhi-alert>
-            <div *ngIf="eventos">
-
-                <div class="mat-elevation-z8 table-responsive">
-                    <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                        <ng-container matColumnDef="nombreEvento">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="nombreEvento"> <span jhiTranslate="craftBeerStoreApp.evento.nombreEvento">Nombre del Evento</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let evento"> {{evento.nombreEvento}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="fechaEvento">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="fechaEvento"> <span jhiTranslate="craftBeerStoreApp.evento.fechaEvento">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let evento"> {{evento.fechaEvento | date:'mediumDate'}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="cantidadBarriles">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="cantidadBarriles"> <span jhiTranslate="craftBeerStoreApp.evento.cantidadBarriles">Cantidad de Barriles</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let evento"> {{evento.cantidadBarriles}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="precioPinta">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="precioPinta"> <span jhiTranslate="craftBeerStoreApp.evento.precioPinta">Precio por Pinta</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let evento"> {{evento.precioPinta}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="actions" >
-                            <th mat-header-cell *matHeaderCellDef></th>
-                            <td mat-cell *matCellDef="let evento" style="width: 20%">
-                                <div class="btn-group flex-btn-group-container">
-                                    <button type="submit"
-                                            [routerLink]="['/admin/entity/evento', evento.id, 'view' ]"
-                                            mat-raised-button color="primary">
-                                        <fa-icon [icon]="'eye'"></fa-icon>
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/admin/entity/evento', evento.id, 'edit']"
-                                            mat-raised-button class="mat-edit">
-                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/admin/entity/', 'evento', { outlets: { popup: evento.id + '/delete'} }]"
-                                            replaceUrl="true"
-                                            queryParamsHandling="merge"
-                                            mat-raised-button color="warn">
-                                        <fa-icon [icon]="'times'"></fa-icon>
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-                    <mat-paginator [length]="totalItems"
-                                   [pageSize]="itemsPerPage"
-                                   (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
-                </div>
-            </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

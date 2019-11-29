@@ -1,45 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { EventoProductoComponent } from './evento-producto.component';
+import { EventoProductoDetailComponent } from './evento-producto-detail.component';
+import { EventoProductoUpdateComponent } from './evento-producto-update.component';
+import { EventoProductoDeleteDialogComponent } from './evento-producto-delete-dialog.component';
+import { eventoProductoRoute } from './evento-producto.route';
+
+@NgModule({
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(eventoProductoRoute)],
+  declarations: [
     EventoProductoComponent,
     EventoProductoDetailComponent,
     EventoProductoUpdateComponent,
-    EventoProductoDeletePopupComponent,
-    EventoProductoDeleteDialogComponent,
-    eventoProductoRoute,
-    eventoProductoPopupRoute
-} from './';
-
-const ENTITY_STATES = [...eventoProductoRoute, ...eventoProductoPopupRoute];
-
-@NgModule({
-    imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        EventoProductoComponent,
-        EventoProductoDetailComponent,
-        EventoProductoUpdateComponent,
-        EventoProductoDeleteDialogComponent,
-        EventoProductoDeletePopupComponent
-    ],
-    entryComponents: [
-        EventoProductoComponent,
-        EventoProductoUpdateComponent,
-        EventoProductoDeleteDialogComponent,
-        EventoProductoDeletePopupComponent
-    ],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    EventoProductoDeleteDialogComponent
+  ],
+  entryComponents: [EventoProductoDeleteDialogComponent]
 })
-export class CraftBeerStoreEventoProductoModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class CraftBeerStoreEventoProductoModule {}

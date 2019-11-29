@@ -1,80 +1,56 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit } from '@angular/core';
-import { JhiDataUtils, JhiLanguageService } from 'ng-jhipster';
-import { AccountService, JhiLanguageHelper } from 'app/core';
-import { EChartOption } from 'echarts';
-import { SidebarService } from '../../services/sidebar.service';
-import { Empresa, IEmpresa } from '../../shared/model/empresa.model';
-import { LocalStorageService } from 'ngx-webstorage';
-import { EmpresaService } from '../../entities/empresa';
-import { Observable } from 'rxjs';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { JhiLanguageService } from 'ng-jhipster';
+
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
+import { JhiLanguageHelper } from 'app/core/language/language.helper';
 
 @Component({
   selector: 'jhi-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  templateUrl: './settings.component.html'
 })
 export class SettingsComponent implements OnInit {
   error: string;
   success: string;
-  settingsAccount: any;
   languages: any[];
-  empresa: IEmpresa;
-  public visitorsOptions: EChartOption = {};
-  public visitsOptions: EChartOption = {};
-  public sidebarVisible: boolean = true;
-  public activeTab: string = 'Settings';
+  settingsForm = this.fb.group({
+    firstName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    lastName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    email: [undefined, [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
+    activated: [false],
+    authorities: [[]],
+    langKey: ['en'],
+    login: [],
+    imageUrl: []
+  });
 
   constructor(
     private accountService: AccountService,
+    private fb: FormBuilder,
     private languageService: JhiLanguageService,
-    private languageHelper: JhiLanguageHelper,
-    private sidebarService: SidebarService,
-    private cdr: ChangeDetectorRef,
-    protected $localStorage: LocalStorageService,
-    protected dataUtils: JhiDataUtils,
-    protected elementRef: ElementRef,
-    protected empresaService: EmpresaService
+    private languageHelper: JhiLanguageHelper
   ) {}
 
   ngOnInit() {
-    this.empresa = this.$localStorage.retrieve('empresa');
-    if (!this.empresa) {
-      this.empresa = new Empresa();
-    } else {
-      this.sidebarService.loadEmpresa(this.empresa);
-    }
-    this.accountService.identity().then(account => {
-      this.settingsAccount = this.copyAccount(account);
+    this.accountService.identity().subscribe(account => {
+      this.updateForm(account);
     });
-    this.languageHelper.getAll().then(languages => {
-      this.languages = languages;
-    });
-    this.visitorsOptions = this.loadLineChartOptions([3, 5, 1, 6, 5, 4, 8, 3], '#49c5b6');
-    this.visitsOptions = this.loadLineChartOptions([4, 6, 3, 2, 5, 6, 5, 4], '#f4516c');
-  }
-
-  loadEmpresa(isUpdated: boolean) {
-    if (isUpdated) {
-      this.empresa = this.$localStorage.retrieve('empresa');
-      this.sidebarService.loadEmpresa(this.empresa);
-    }
+    this.languages = this.languageHelper.getAll();
   }
 
   save() {
-    this.accountService.save(this.settingsAccount).subscribe(
+    const settingsAccount = this.accountFromForm();
+    this.accountService.save(settingsAccount).subscribe(
       () => {
         this.error = null;
         this.success = 'OK';
-        this.accountService.identity(true).then(account => {
-          this.settingsAccount = this.copyAccount(account);
+        this.accountService.identity(true).subscribe(account => {
+          this.updateForm(account);
         });
         this.languageService.getCurrent().then(current => {
-          console.log(current);
-          console.log(this.settingsAccount.langKey);
-          console.log(this.settingsAccount.langKey !== current);
-          if (this.settingsAccount.langKey !== current) {
-            this.languageService.changeLanguage(this.settingsAccount.langKey);
+          if (settingsAccount.langKey !== current) {
+            this.languageService.changeLanguage(settingsAccount.langKey);
           }
         });
       },
@@ -85,89 +61,31 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IEmpresa>>) {
-    result.subscribe((res: HttpResponse<IEmpresa>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
-  }
-
-  protected onSaveSuccess() {
-    this.sidebarService.loadEmpresa(this.empresa);
-  }
-
-  protected onSaveError() {}
-
-  copyAccount(account) {
+  private accountFromForm(): any {
+    const account = {};
     return {
-      activated: account.activated,
-      email: account.email,
-      firstName: account.firstName,
-      langKey: account.langKey,
-      lastName: account.lastName,
-      login: account.login,
-      imageUrl: account.imageUrl
+      ...account,
+      firstName: this.settingsForm.get('firstName').value,
+      lastName: this.settingsForm.get('lastName').value,
+      email: this.settingsForm.get('email').value,
+      activated: this.settingsForm.get('activated').value,
+      authorities: this.settingsForm.get('authorities').value,
+      langKey: this.settingsForm.get('langKey').value,
+      login: this.settingsForm.get('login').value,
+      imageUrl: this.settingsForm.get('imageUrl').value
     };
   }
 
-  toggleFullWidth() {
-    this.sidebarService.toggle();
-    this.sidebarVisible = this.sidebarService.getStatus();
-    this.cdr.detectChanges();
-  }
-
-  toggleTabs(tab: string) {
-    if (tab) {
-      this.activeTab = tab;
-    }
-  }
-
-  loadLineChartOptions(data, color) {
-    let chartOption: EChartOption;
-    let xAxisData: Array<any> = new Array<any>();
-
-    data.forEach(element => {
-      xAxisData.push('');
-    });
-
-    return (chartOption = {
-      xAxis: {
-        type: 'category',
-        show: false,
-        data: xAxisData,
-        boundaryGap: false
-      },
-      yAxis: {
-        type: 'value',
-        show: false
-      },
-      tooltip: {
-        trigger: 'axis',
-        formatter: function(params, ticket, callback) {
-          return (
-            '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:' +
-            color +
-            ';"></span>' +
-            params[0].value
-          );
-        }
-      },
-      grid: {
-        left: '0%',
-        right: '0%',
-        bottom: '0%',
-        top: '0%',
-        containLabel: false
-      },
-      series: [
-        {
-          data: data,
-          type: 'line',
-          showSymbol: false,
-          symbolSize: 1,
-          lineStyle: {
-            color: color,
-            width: 1
-          }
-        }
-      ]
+  updateForm(account: Account): void {
+    this.settingsForm.patchValue({
+      firstName: account.firstName,
+      lastName: account.lastName,
+      email: account.email,
+      activated: account.activated,
+      authorities: account.authorities,
+      langKey: account.langKey,
+      login: account.login,
+      imageUrl: account.imageUrl
     });
   }
 }

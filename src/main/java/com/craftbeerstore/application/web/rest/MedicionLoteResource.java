@@ -1,17 +1,20 @@
 package com.craftbeerstore.application.web.rest;
-import com.craftbeerstore.application.domain.enumeration.TipoMedicion;
+
 import com.craftbeerstore.application.service.MedicionLoteService;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
-import com.craftbeerstore.application.web.rest.util.HeaderUtil;
-import com.craftbeerstore.application.web.rest.util.PaginationUtil;
 import com.craftbeerstore.application.service.dto.MedicionLoteDTO;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST controller for managing MedicionLote.
+ * REST controller for managing {@link com.craftbeerstore.application.domain.MedicionLote}.
  */
 @RestController
 @RequestMapping("/api")
@@ -32,6 +35,9 @@ public class MedicionLoteResource {
 
     private static final String ENTITY_NAME = "medicionLote";
 
+    @Value("${jhipster.clientApp.name}")
+    private String applicationName;
+
     private final MedicionLoteService medicionLoteService;
 
     public MedicionLoteResource(MedicionLoteService medicionLoteService) {
@@ -39,11 +45,11 @@ public class MedicionLoteResource {
     }
 
     /**
-     * POST  /medicion-lotes : Create a new medicionLote.
+     * {@code POST  /medicion-lotes} : Create a new medicionLote.
      *
-     * @param medicionLoteDTO the medicionLoteDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new medicionLoteDTO, or with status 400 (Bad Request) if the medicionLote has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param medicionLoteDTO the medicionLoteDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new medicionLoteDTO, or with status {@code 400 (Bad Request)} if the medicionLote has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/medicion-lotes")
     public ResponseEntity<MedicionLoteDTO> createMedicionLote(@RequestBody MedicionLoteDTO medicionLoteDTO) throws URISyntaxException {
@@ -53,18 +59,18 @@ public class MedicionLoteResource {
         }
         MedicionLoteDTO result = medicionLoteService.save(medicionLoteDTO);
         return ResponseEntity.created(new URI("/api/medicion-lotes/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /medicion-lotes : Updates an existing medicionLote.
+     * {@code PUT  /medicion-lotes} : Updates an existing medicionLote.
      *
-     * @param medicionLoteDTO the medicionLoteDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated medicionLoteDTO,
-     * or with status 400 (Bad Request) if the medicionLoteDTO is not valid,
-     * or with status 500 (Internal Server Error) if the medicionLoteDTO couldn't be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param medicionLoteDTO the medicionLoteDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated medicionLoteDTO,
+     * or with status {@code 400 (Bad Request)} if the medicionLoteDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the medicionLoteDTO couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/medicion-lotes")
     public ResponseEntity<MedicionLoteDTO> updateMedicionLote(@RequestBody MedicionLoteDTO medicionLoteDTO) throws URISyntaxException {
@@ -74,56 +80,31 @@ public class MedicionLoteResource {
         }
         MedicionLoteDTO result = medicionLoteService.save(medicionLoteDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, medicionLoteDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, medicionLoteDTO.getId().toString()))
             .body(result);
     }
 
     /**
-     * GET  /medicion-lotes : get all the medicionLotes.
+     * {@code GET  /medicion-lotes} : get all the medicionLotes.
      *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of medicionLotes in body
+
+     * @param pageable the pagination information.
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of medicionLotes in body.
      */
     @GetMapping("/medicion-lotes")
     public ResponseEntity<List<MedicionLoteDTO>> getAllMedicionLotes(Pageable pageable) {
         log.debug("REST request to get a page of MedicionLotes");
         Page<MedicionLoteDTO> page = medicionLoteService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/medicion-lotes");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-  /**
-   * GET  /medicion-lotes : get all the medicionLotes.
-   *
-   * @param pageable the pagination information
-   * @return the ResponseEntity with status 200 (OK) and the list of medicionLotes in body
-   */
-  @GetMapping("/medicion-lotes/lote/{loteId}")
-  public ResponseEntity<List<MedicionLoteDTO>> getAllMedicionesLote(Pageable pageable, @PathVariable Long loteId) {
-    log.debug("REST request to get a page of MedicionLotes");
-    Page<MedicionLoteDTO> page = medicionLoteService.findAll(pageable, loteId);
-    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/medicion-lotes");
-    return ResponseEntity.ok().headers(headers).body(page.getContent());
-  }
-
-  /**
-   * GET  /medicion-lotes : get all the medicionLotes.
-   *
-   * @param pageable the pagination information
-   * @return the ResponseEntity with status 200 (OK) and the list of medicionLotes in body
-   */
-  @GetMapping("/medicion-lotes/lote/{loteId}/tipo/{tipoMedicion}")
-  public ResponseEntity<List<MedicionLoteDTO>> getAllMedicionesLoteTipo(Pageable pageable, @PathVariable Long loteId, @PathVariable TipoMedicion tipoMedicion) {
-    log.debug("REST request to get a page of MedicionLotes");
-    List<MedicionLoteDTO> page = medicionLoteService.findAll(loteId, tipoMedicion);
-    return ResponseEntity.ok().body(page);
-  }
-
     /**
-     * GET  /medicion-lotes/:id : get the "id" medicionLote.
+     * {@code GET  /medicion-lotes/:id} : get the "id" medicionLote.
      *
-     * @param id the id of the medicionLoteDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the medicionLoteDTO, or with status 404 (Not Found)
+     * @param id the id of the medicionLoteDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the medicionLoteDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/medicion-lotes/{id}")
     public ResponseEntity<MedicionLoteDTO> getMedicionLote(@PathVariable Long id) {
@@ -133,15 +114,15 @@ public class MedicionLoteResource {
     }
 
     /**
-     * DELETE  /medicion-lotes/:id : delete the "id" medicionLote.
+     * {@code DELETE  /medicion-lotes/:id} : delete the "id" medicionLote.
      *
-     * @param id the id of the medicionLoteDTO to delete
-     * @return the ResponseEntity with status 200 (OK)
+     * @param id the id of the medicionLoteDTO to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/medicion-lotes/{id}")
     public ResponseEntity<Void> deleteMedicionLote(@PathVariable Long id) {
         log.debug("REST request to delete MedicionLote : {}", id);
         medicionLoteService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

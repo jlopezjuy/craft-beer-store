@@ -1,22 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiDataUtils } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IEmpresa } from 'app/shared/model/empresa.model';
-import { AccountService } from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
+import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { EmpresaService } from './empresa.service';
+import { EmpresaDeleteDialogComponent } from './empresa-delete-dialog.component';
 
 @Component({
   selector: 'jhi-empresa',
   templateUrl: './empresa.component.html'
 })
 export class EmpresaComponent implements OnInit, OnDestroy {
-  currentAccount: any;
   empresas: IEmpresa[];
   error: any;
   success: any;
@@ -33,12 +32,11 @@ export class EmpresaComponent implements OnInit, OnDestroy {
   constructor(
     protected empresaService: EmpresaService,
     protected parseLinks: JhiParseLinks,
-    protected jhiAlertService: JhiAlertService,
-    protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected modalService: NgbModal
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -56,10 +54,7 @@ export class EmpresaComponent implements OnInit, OnDestroy {
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe(
-        (res: HttpResponse<IEmpresa[]>) => this.paginateEmpresas(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .subscribe((res: HttpResponse<IEmpresa[]>) => this.paginateEmpresas(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -94,9 +89,6 @@ export class EmpresaComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInEmpresas();
   }
 
@@ -117,7 +109,12 @@ export class EmpresaComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInEmpresas() {
-    this.eventSubscriber = this.eventManager.subscribe('empresaListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('empresaListModification', () => this.loadAll());
+  }
+
+  delete(empresa: IEmpresa) {
+    const modalRef = this.modalService.open(EmpresaDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.empresa = empresa;
   }
 
   sort() {
@@ -132,9 +129,5 @@ export class EmpresaComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.empresas = data;
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

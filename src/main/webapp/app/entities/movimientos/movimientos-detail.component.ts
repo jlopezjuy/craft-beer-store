@@ -4,21 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import { IMovimientos } from 'app/shared/model/movimientos.model';
 
 @Component({
-    selector: 'jhi-movimientos-detail',
-    templateUrl: './movimientos-detail.component.html'
+  selector: 'jhi-movimientos-detail',
+  templateUrl: './movimientos-detail.component.html'
 })
 export class MovimientosDetailComponent implements OnInit {
-    movimientos: IMovimientos;
+  movimientos: IMovimientos;
 
-    constructor(protected activatedRoute: ActivatedRoute) {}
+  constructor(protected activatedRoute: ActivatedRoute) {}
 
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ movimientos }) => {
-            this.movimientos = movimientos;
-        });
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ movimientos }) => {
+      this.movimientos = movimientos;
+    });
+  }
 
-    previousState() {
-        window.history.back();
-    }
+  previousState() {
+    window.history.back();
+  }
 }

@@ -5,28 +5,28 @@ import { JhiDataUtils } from 'ng-jhipster';
 import { IProveedor } from 'app/shared/model/proveedor.model';
 
 @Component({
-    selector: 'jhi-proveedor-detail',
-    templateUrl: './proveedor-detail.component.html'
+  selector: 'jhi-proveedor-detail',
+  templateUrl: './proveedor-detail.component.html'
 })
 export class ProveedorDetailComponent implements OnInit {
-    proveedor: IProveedor;
+  proveedor: IProveedor;
 
-    constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
+  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
 
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ proveedor }) => {
-            this.proveedor = proveedor;
-        });
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ proveedor }) => {
+      this.proveedor = proveedor;
+    });
+  }
 
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
 
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
-    previousState() {
-        window.history.back();
-    }
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
+  previousState() {
+    window.history.back();
+  }
 }

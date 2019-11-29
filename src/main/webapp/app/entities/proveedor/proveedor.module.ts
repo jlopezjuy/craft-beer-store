@@ -1,40 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-    ProveedorComponent,
-    ProveedorDetailComponent,
-    ProveedorUpdateComponent,
-    ProveedorDeletePopupComponent,
-    ProveedorDeleteDialogComponent,
-    proveedorRoute,
-    proveedorPopupRoute
-} from './';
-
-const ENTITY_STATES = [...proveedorRoute, ...proveedorPopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { ProveedorComponent } from './proveedor.component';
+import { ProveedorDetailComponent } from './proveedor-detail.component';
+import { ProveedorUpdateComponent } from './proveedor-update.component';
+import { ProveedorDeleteDialogComponent } from './proveedor-delete-dialog.component';
+import { proveedorRoute } from './proveedor.route';
 
 @NgModule({
-    imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        ProveedorComponent,
-        ProveedorDetailComponent,
-        ProveedorUpdateComponent,
-        ProveedorDeleteDialogComponent,
-        ProveedorDeletePopupComponent
-    ],
-    entryComponents: [ProveedorComponent, ProveedorUpdateComponent, ProveedorDeleteDialogComponent, ProveedorDeletePopupComponent],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(proveedorRoute)],
+  declarations: [ProveedorComponent, ProveedorDetailComponent, ProveedorUpdateComponent, ProveedorDeleteDialogComponent],
+  entryComponents: [ProveedorDeleteDialogComponent]
 })
-export class CraftBeerStoreProveedorModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class CraftBeerStoreProveedorModule {}

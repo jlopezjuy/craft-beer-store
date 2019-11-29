@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.TipoTanque;
 
@@ -25,7 +22,7 @@ import com.craftbeerstore.application.domain.enumeration.EstadoTanque;
 public class Tanque implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,7 +30,7 @@ public class Tanque implements Serializable {
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "litros", precision = 10, scale = 2)
+    @Column(name = "litros", precision = 21, scale = 2)
     private BigDecimal litros;
 
     @Enumerated(EnumType.STRING)
@@ -44,7 +41,7 @@ public class Tanque implements Serializable {
     @Column(name = "estado")
     private EstadoTanque estado;
 
-    @Column(name = "listros_disponible", precision = 10, scale = 2)
+    @Column(name = "listros_disponible", precision = 21, scale = 2)
     private BigDecimal listrosDisponible;
 
     @Column(name = "fecha_ingreso")
@@ -194,19 +191,15 @@ public class Tanque implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Tanque)) {
             return false;
         }
-        Tanque tanque = (Tanque) o;
-        if (tanque.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), tanque.getId());
+        return id != null && id.equals(((Tanque) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

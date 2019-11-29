@@ -1,15 +1,13 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * A Receta.
@@ -20,7 +18,7 @@ import java.util.Objects;
 public class Receta implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,28 +29,28 @@ public class Receta implements Serializable {
     @Column(name = "brew_master")
     private String brewMaster;
 
-    @Column(name = "batch", precision = 10, scale = 2)
+    @Column(name = "batch", precision = 21, scale = 2)
     private BigDecimal batch;
 
-    @Column(name = "temperatura_de_macerado", precision = 10, scale = 2)
+    @Column(name = "temperatura_de_macerado", precision = 21, scale = 2)
     private BigDecimal temperaturaDeMacerado;
 
-    @Column(name = "og", precision = 10, scale = 2)
+    @Column(name = "og", precision = 21, scale = 2)
     private BigDecimal og;
 
-    @Column(name = "fg", precision = 10, scale = 2)
+    @Column(name = "fg", precision = 21, scale = 2)
     private BigDecimal fg;
 
-    @Column(name = "abv", precision = 10, scale = 2)
+    @Column(name = "abv", precision = 21, scale = 2)
     private BigDecimal abv;
 
-    @Column(name = "ibu", precision = 10, scale = 2)
+    @Column(name = "ibu", precision = 21, scale = 2)
     private BigDecimal ibu;
 
-    @Column(name = "srm", precision = 10, scale = 2)
+    @Column(name = "srm", precision = 21, scale = 2)
     private BigDecimal srm;
 
-    @Column(name = "empaste", precision = 10, scale = 2)
+    @Column(name = "empaste", precision = 21, scale = 2)
     private BigDecimal empaste;
 
     @Column(name = "fecha")
@@ -301,19 +299,15 @@ public class Receta implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Receta)) {
             return false;
         }
-        Receta receta = (Receta) o;
-        if (receta.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), receta.getId());
+        return id != null && id.equals(((Receta) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

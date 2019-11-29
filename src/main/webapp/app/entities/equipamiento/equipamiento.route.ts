@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
-import { UserRouteAccessService } from 'app/core';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Equipamiento } from 'app/shared/model/equipamiento.model';
 import { EquipamientoService } from './equipamiento.service';
 import { EquipamientoComponent } from './equipamiento.component';
 import { EquipamientoDetailComponent } from './equipamiento-detail.component';
 import { EquipamientoUpdateComponent } from './equipamiento-update.component';
-import { EquipamientoDeletePopupComponent } from './equipamiento-delete-dialog.component';
 import { IEquipamiento } from 'app/shared/model/equipamiento.model';
 
 @Injectable({ providedIn: 'root' })
 export class EquipamientoResolve implements Resolve<IEquipamiento> {
   constructor(private service: EquipamientoService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IEquipamiento> {
-    const id = route.params['id'] ? route.params['id'] : null;
+  resolve(route: ActivatedRouteSnapshot): Observable<IEquipamiento> {
+    const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Equipamiento>) => response.ok),
-        map((equipamiento: HttpResponse<Equipamiento>) => equipamiento.body)
-      );
+      return this.service.find(id).pipe(map((equipamiento: HttpResponse<Equipamiento>) => equipamiento.body));
     }
     return of(new Equipamiento());
   }
@@ -78,21 +74,5 @@ export const equipamientoRoute: Routes = [
       pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
     },
     canActivate: [UserRouteAccessService]
-  }
-];
-
-export const equipamientoPopupRoute: Routes = [
-  {
-    path: ':id/delete',
-    component: EquipamientoDeletePopupComponent,
-    resolve: {
-      equipamiento: EquipamientoResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.equipamiento.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
   }
 ];

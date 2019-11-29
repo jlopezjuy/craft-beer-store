@@ -4,7 +4,8 @@
       "home": {
         "title": "Etapa Lotes",
         "createLabel": "Create a new Etapa Lote",
-        "createOrEditLabel": "Create or edit a Etapa Lote"
+        "createOrEditLabel": "Create or edit a Etapa Lote",
+        "notFound": "No Etapa Lotes found"
       },
       "created": "A new Etapa Lote is created with identifier {{ param }}",
       "updated": "A Etapa Lote is updated with identifier {{ param }}",

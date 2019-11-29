@@ -1,45 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-  CompraInsumoComponent,
-  CompraInsumoDetailComponent,
-  CompraInsumoUpdateComponent,
-  CompraInsumoDeletePopupComponent,
-  CompraInsumoDeleteDialogComponent,
-  compraInsumoRoute,
-  compraInsumoPopupRoute
-} from './';
-
-const ENTITY_STATES = [...compraInsumoRoute, ...compraInsumoPopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { CompraInsumoComponent } from './compra-insumo.component';
+import { CompraInsumoDetailComponent } from './compra-insumo-detail.component';
+import { CompraInsumoUpdateComponent } from './compra-insumo-update.component';
+import { CompraInsumoDeleteDialogComponent } from './compra-insumo-delete-dialog.component';
+import { compraInsumoRoute } from './compra-insumo.route';
 
 @NgModule({
-  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [
-    CompraInsumoComponent,
-    CompraInsumoDetailComponent,
-    CompraInsumoUpdateComponent,
-    CompraInsumoDeleteDialogComponent,
-    CompraInsumoDeletePopupComponent
-  ],
-  entryComponents: [
-    CompraInsumoComponent,
-    CompraInsumoUpdateComponent,
-    CompraInsumoDeleteDialogComponent,
-    CompraInsumoDeletePopupComponent
-  ],
-  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(compraInsumoRoute)],
+  declarations: [CompraInsumoComponent, CompraInsumoDetailComponent, CompraInsumoUpdateComponent, CompraInsumoDeleteDialogComponent],
+  entryComponents: [CompraInsumoDeleteDialogComponent]
 })
-export class CraftBeerStoreCompraInsumoModule {
-  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-    this.languageHelper.language.subscribe((languageKey: string) => {
-      if (languageKey !== undefined) {
-        this.languageService.changeLanguage(languageKey);
-      }
-    });
-  }
-}
+export class CraftBeerStoreCompraInsumoModule {}

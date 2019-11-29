@@ -1,14 +1,15 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ProdConfig } from './blocks/config/prod.config';
-import { AppModule } from './app.module';
+import { CraftBeerStoreAppModule } from './app.module';
 
 ProdConfig();
 
 if (module['hot']) {
-    module['hot'].accept();
+  module['hot'].accept();
 }
 
 platformBrowserDynamic()
-    .bootstrapModule(AppModule, { preserveWhitespaces: true })
-    .then(success => console.log(`Application started`))
-    .catch(err => console.error(err));
+  .bootstrapModule(CraftBeerStoreAppModule, { preserveWhitespaces: true })
+  // eslint-disable-next-line no-console
+  .then(() => console.log('Application started'))
+  .catch(err => console.error(err));

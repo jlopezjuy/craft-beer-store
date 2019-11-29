@@ -8,48 +8,39 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 /**
- * Service Interface for managing MovimientoTanque.
+ * Service Interface for managing {@link com.craftbeerstore.application.domain.MovimientoTanque}.
  */
 public interface MovimientoTanqueService {
 
     /**
      * Save a movimientoTanque.
      *
-     * @param movimientoTanqueDTO the entity to save
-     * @return the persisted entity
+     * @param movimientoTanqueDTO the entity to save.
+     * @return the persisted entity.
      */
     MovimientoTanqueDTO save(MovimientoTanqueDTO movimientoTanqueDTO);
 
     /**
      * Get all the movimientoTanques.
      *
-     * @param pageable the pagination information
-     * @return the list of entities
+     * @param pageable the pagination information.
+     * @return the list of entities.
      */
     Page<MovimientoTanqueDTO> findAll(Pageable pageable);
-
-  /**
-   * Get all the movimientoTanques.
-   *
-   * @param pageable the pagination information
-   * @param tanqueId the id of tanque entity
-   * @return the list of entities
-   */
-  Page<MovimientoTanqueDTO> findAll(Pageable pageable, Long tanqueId);
 
 
     /**
      * Get the "id" movimientoTanque.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     Optional<MovimientoTanqueDTO> findOne(Long id);
 
     /**
      * Delete the "id" movimientoTanque.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     void delete(Long id);
 }

@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
-import { UserRouteAccessService } from 'app/core';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Cliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from './cliente.service';
 import { ClienteComponent } from './cliente.component';
 import { ClienteDetailComponent } from './cliente-detail.component';
 import { ClienteUpdateComponent } from './cliente-update.component';
-import { ClienteDeletePopupComponent } from './cliente-delete-dialog.component';
 import { ICliente } from 'app/shared/model/cliente.model';
 
 @Injectable({ providedIn: 'root' })
 export class ClienteResolve implements Resolve<ICliente> {
   constructor(private service: ClienteService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ICliente> {
-    const id = route.params['id'] ? route.params['id'] : null;
+  resolve(route: ActivatedRouteSnapshot): Observable<ICliente> {
+    const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Cliente>) => response.ok),
-        map((cliente: HttpResponse<Cliente>) => cliente.body)
-      );
+      return this.service.find(id).pipe(map((cliente: HttpResponse<Cliente>) => cliente.body));
     }
     return of(new Cliente());
   }
@@ -78,21 +74,5 @@ export const clienteRoute: Routes = [
       pageTitle: 'craftBeerStoreApp.cliente.home.title'
     },
     canActivate: [UserRouteAccessService]
-  }
-];
-
-export const clientePopupRoute: Routes = [
-  {
-    path: ':id/delete',
-    component: ClienteDeletePopupComponent,
-    resolve: {
-      cliente: ClienteResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.cliente.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
   }
 ];

@@ -4,7 +4,8 @@
       "home": {
         "title": "Movimiento Tanques",
         "createLabel": "Crear nuevo Movimiento Tanque",
-        "createOrEditLabel": "Crear o editar Movimiento Tanque"
+        "createOrEditLabel": "Crear o editar Movimiento Tanque",
+        "notFound": "Ningún Movimiento Tanques encontrado"
       },
       "created": "Un nuevo Movimiento Tanque ha sido creado con el identificador {{ param }}",
       "updated": "Un Movimiento Tanque ha sido actualizado con el identificador {{ param }}",

@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.craftbeerstore.application.domain.enumeration.EtapaLoteEnum;
 
 /**
- * A DTO for the EtapaLote entity.
+ * A DTO for the {@link com.craftbeerstore.application.domain.EtapaLote} entity.
  */
 public class EtapaLoteDTO implements Serializable {
 

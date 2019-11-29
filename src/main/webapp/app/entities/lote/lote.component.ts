@@ -1,18 +1,14 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ILote } from 'app/shared/model/lote.model';
-import { AccountService } from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
+import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { LoteService } from './lote.service';
-import { IEmpresa } from '../../shared/model/empresa.model';
-import { LocalStorageService } from 'ngx-webstorage';
-import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
-import { SidebarService } from '../../services/sidebar.service';
 import { LoteDeleteDialogComponent } from './lote-delete-dialog.component';
 
 @Component({
@@ -20,7 +16,6 @@ import { LoteDeleteDialogComponent } from './lote-delete-dialog.component';
   templateUrl: './lote.component.html'
 })
 export class LoteComponent implements OnInit, OnDestroy {
-  currentAccount: any;
   lotes: ILote[];
   error: any;
   success: any;
@@ -33,24 +28,14 @@ export class LoteComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
-  empresa: IEmpresa;
-  dataSource: any;
-  displayedColumns: string[] = ['fechaCoccion', 'codigo', 'recetaNombre', 'producto', 'tanque', 'estado', 'actions'];
-  pageEvent: PageEvent;
-  public sidebarVisible = true;
 
   constructor(
     protected loteService: LoteService,
     protected parseLinks: JhiParseLinks,
-    protected jhiAlertService: JhiAlertService,
-    protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    private $localStorage: LocalStorageService,
-    public dialog: MatDialog,
-    private sidebarService: SidebarService,
-    private cdr: ChangeDetectorRef
+    protected modalService: NgbModal
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -63,18 +48,12 @@ export class LoteComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.loteService
-      .queryByEmpresa(
-        {
-          page: this.page - 1,
-          size: this.itemsPerPage,
-          sort: this.sort()
-        },
-        this.empresa.id
-      )
-      .subscribe(
-        (res: HttpResponse<ILote[]>) => this.paginateLotes(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .query({
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort()
+      })
+      .subscribe((res: HttpResponse<ILote[]>) => this.paginateLotes(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -108,11 +87,7 @@ export class LoteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.empresa = this.$localStorage.retrieve('empresa');
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInLotes();
   }
 
@@ -125,7 +100,12 @@ export class LoteComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInLotes() {
-    this.eventSubscriber = this.eventManager.subscribe('loteListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('loteListModification', () => this.loadAll());
+  }
+
+  delete(lote: ILote) {
+    const modalRef = this.modalService.open(LoteDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.lote = lote;
   }
 
   sort() {
@@ -140,38 +120,5 @@ export class LoteComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.lotes = data;
-    this.dataSource = new MatTableDataSource<ILote>(this.lotes);
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  toggleFullWidth() {
-    this.sidebarService.toggle();
-    this.sidebarVisible = this.sidebarService.getStatus();
-    this.cdr.detectChanges();
-  }
-
-  onPaginateChange(event: PageEvent) {
-    this.page = event.pageIndex + 1;
-    this.loadPage(event.pageIndex + 1);
-  }
-
-  deleteControl(lote: ILote): void {
-    console.log(lote);
-    const dialogRef = this.dialog.open(LoteDeleteDialogComponent, {
-      width: '50%',
-      data: {
-        id: lote.id,
-        codigo: lote.codigo
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-      this.loadAll();
-    });
   }
 }

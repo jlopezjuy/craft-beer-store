@@ -4,7 +4,8 @@
       "home": {
         "title": "Lotes",
         "createLabel": "Crear nuevo Lote",
-        "createOrEditLabel": "Crear o editar Lote"
+        "createOrEditLabel": "Crear o editar Lote",
+        "notFound": "Ningún Lotes encontrado"
       },
       "created": "Un nuevo Lote ha sido creado con el identificador {{ param }}",
       "updated": "Un Lote ha sido actualizado con el identificador {{ param }}",
@@ -16,9 +17,9 @@
         "title": "Lote"
       },
       "codigo": "Codigo",
-      "fechaCoccion": "Fecha de Cocción",
-      "coccion": "Cocción",
-      "descripcion": "Descripción",
+      "fechaCoccion": "Fecha Coccion",
+      "coccion": "Coccion",
+      "descripcion": "Descripcion",
       "descuentaStock": "Descuenta Stock",
       "estado": "Estado",
       "litrosEstimados": "Litros Estimados",

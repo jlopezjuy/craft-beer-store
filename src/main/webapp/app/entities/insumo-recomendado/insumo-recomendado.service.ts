@@ -3,9 +3,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
+import { createRequestOption } from 'app/shared/util/request-util';
 import { IInsumoRecomendado } from 'app/shared/model/insumo-recomendado.model';
-import { IInsumo, TipoInsumo } from '../../shared/model/insumo.model';
 
 type EntityResponseType = HttpResponse<IInsumoRecomendado>;
 type EntityArrayResponseType = HttpResponse<IInsumoRecomendado[]>;
@@ -33,20 +32,7 @@ export class InsumoRecomendadoService {
     return this.http.get<IInsumoRecomendado[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
-  queryAll(): Observable<EntityArrayResponseType> {
-    return this.http.get<IInsumoRecomendado[]>(this.resourceUrl + '/all', { observe: 'response' });
-  }
-
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  queryByEmpresaTipo(tipoInsumo: TipoInsumo): Observable<EntityArrayResponseType> {
-    return this.http.get<IInsumo[]>(`${this.resourceUrl}/tipo/${tipoInsumo}`, { observe: 'response' });
-  }
-
-  queryByEmpresaNotInTipo(req: any): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<IInsumo[]>(`${this.resourceUrl}/tipo`, { params: options, observe: 'response' });
   }
 }

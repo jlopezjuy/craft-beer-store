@@ -1,7 +1,5 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.domain.Barril;
-import com.craftbeerstore.application.repository.BarrilRepository;
 import com.craftbeerstore.application.service.MovimientoBarrilService;
 import com.craftbeerstore.application.domain.MovimientoBarril;
 import com.craftbeerstore.application.repository.MovimientoBarrilRepository;
@@ -18,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 /**
- * Service Implementation for managing MovimientoBarril.
+ * Service Implementation for managing {@link MovimientoBarril}.
  */
 @Service
 @Transactional
@@ -30,19 +28,16 @@ public class MovimientoBarrilServiceImpl implements MovimientoBarrilService {
 
     private final MovimientoBarrilMapper movimientoBarrilMapper;
 
-    private final BarrilRepository barrilRepository;
-
-    public MovimientoBarrilServiceImpl(MovimientoBarrilRepository movimientoBarrilRepository, MovimientoBarrilMapper movimientoBarrilMapper, BarrilRepository barrilRepository) {
+    public MovimientoBarrilServiceImpl(MovimientoBarrilRepository movimientoBarrilRepository, MovimientoBarrilMapper movimientoBarrilMapper) {
         this.movimientoBarrilRepository = movimientoBarrilRepository;
         this.movimientoBarrilMapper = movimientoBarrilMapper;
-      this.barrilRepository = barrilRepository;
     }
 
     /**
      * Save a movimientoBarril.
      *
-     * @param movimientoBarrilDTO the entity to save
-     * @return the persisted entity
+     * @param movimientoBarrilDTO the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public MovimientoBarrilDTO save(MovimientoBarrilDTO movimientoBarrilDTO) {
@@ -55,8 +50,8 @@ public class MovimientoBarrilServiceImpl implements MovimientoBarrilService {
     /**
      * Get all the movimientoBarrils.
      *
-     * @param pageable the pagination information
-     * @return the list of entities
+     * @param pageable the pagination information.
+     * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
@@ -66,26 +61,12 @@ public class MovimientoBarrilServiceImpl implements MovimientoBarrilService {
             .map(movimientoBarrilMapper::toDto);
     }
 
-  /**
-   * Get all the movimientoBarrils.
-   *
-   * @param pageable the pagination information
-   * @param barrilId the id of barril
-   * @return the list of entities
-   */
-  @Override
-  public Page<MovimientoBarrilDTO> findAll(Pageable pageable, Long barrilId) {
-    Barril barril = this.barrilRepository.getOne(barrilId);
-    return movimientoBarrilRepository.findAllByBarril(pageable, barril)
-      .map(movimientoBarrilMapper::toDto);
-  }
 
-
-  /**
+    /**
      * Get one movimientoBarril by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     @Transactional(readOnly = true)
@@ -98,7 +79,7 @@ public class MovimientoBarrilServiceImpl implements MovimientoBarrilService {
     /**
      * Delete the movimientoBarril by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(Long id) {

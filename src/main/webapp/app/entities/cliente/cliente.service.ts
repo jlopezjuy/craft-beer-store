@@ -3,7 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
+import { createRequestOption } from 'app/shared/util/request-util';
 import { ICliente } from 'app/shared/model/cliente.model';
 
 type EntityResponseType = HttpResponse<ICliente>;
@@ -12,7 +12,6 @@ type EntityArrayResponseType = HttpResponse<ICliente[]>;
 @Injectable({ providedIn: 'root' })
 export class ClienteService {
   public resourceUrl = SERVER_API_URL + 'api/clientes';
-  public resourceSearchUrl = SERVER_API_URL + 'api/_search/clientes';
 
   constructor(protected http: HttpClient) {}
 
@@ -33,20 +32,7 @@ export class ClienteService {
     return this.http.get<ICliente[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
-  queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<ICliente[]>(`${this.resourceUrl}/empresa/${empresaId}`, {
-      params: options,
-      observe: 'response'
-    });
-  }
-
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  search(req?: any): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<ICliente[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
   }
 }

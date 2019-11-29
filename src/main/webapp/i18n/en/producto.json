@@ -2,32 +2,29 @@
   "craftBeerStoreApp": {
     "producto": {
       "home": {
-        "title": "Products",
-        "createLabel": "Create a new Product",
-        "createOrEditLabel": "Create or edit a Product",
-        "search": "Search for Product"
+        "title": "Productos",
+        "createLabel": "Create a new Producto",
+        "createOrEditLabel": "Create or edit a Producto",
+        "notFound": "No Productos found"
       },
-      "created": "A new Product is created with identifier {{ param }}",
-      "updated": "A Product is updated with identifier {{ param }}",
-      "deleted": "A Product is deleted with identifier {{ param }}",
+      "created": "A new Producto is created with identifier {{ param }}",
+      "updated": "A Producto is updated with identifier {{ param }}",
+      "deleted": "A Producto is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Product {{ id }}?"
+        "question": "Are you sure you want to delete Producto {{ id }}?"
       },
       "detail": {
-        "title": "Product"
+        "title": "Producto"
       },
-      "descripcion": "Description",
-      "tipo": "Type",
-      "nombreComercial": "Comercial Name",
-      "precioLitro": "Price per litre",
-      "tipoProducto": "Product Type",
+      "descripcion": "Descripcion",
+      "tipo": "Tipo",
+      "nombreComercial": "Nombre Comercial",
+      "tipoProducto": "Tipo Producto",
       "imagen": "Imagen",
-      "observacion": "Observations",
+      "observacion": "Observacion",
       "srmColor": "Srm Color",
       "empresa": "Empresa",
-      "presentacion": "Presentation",
-      "estilos": "Estilos",
-      "receta": "Receta"
+      "estilos": "Estilos"
     }
   }
 }

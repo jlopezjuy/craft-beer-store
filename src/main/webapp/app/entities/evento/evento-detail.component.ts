@@ -4,21 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import { IEvento } from 'app/shared/model/evento.model';
 
 @Component({
-    selector: 'jhi-evento-detail',
-    templateUrl: './evento-detail.component.html'
+  selector: 'jhi-evento-detail',
+  templateUrl: './evento-detail.component.html'
 })
 export class EventoDetailComponent implements OnInit {
-    evento: IEvento;
+  evento: IEvento;
 
-    constructor(protected activatedRoute: ActivatedRoute) {}
+  constructor(protected activatedRoute: ActivatedRoute) {}
 
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ evento }) => {
-            this.evento = evento;
-        });
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ evento }) => {
+      this.evento = evento;
+    });
+  }
 
-    previousState() {
-        window.history.back();
-    }
+  previousState() {
+    window.history.back();
+  }
 }

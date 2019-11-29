@@ -4,7 +4,8 @@
       "home": {
         "title": "Receta Insumos",
         "createLabel": "Create a new Receta Insumo",
-        "createOrEditLabel": "Create or edit a Receta Insumo"
+        "createOrEditLabel": "Create or edit a Receta Insumo",
+        "notFound": "No Receta Insumos found"
       },
       "created": "A new Receta Insumo is created with identifier {{ param }}",
       "updated": "A Receta Insumo is updated with identifier {{ param }}",
@@ -16,7 +17,7 @@
         "title": "Receta Insumo"
       },
       "tipoInsumo": "Tipo Insumo",
-      "cantidad": "Cantidad Kg.",
+      "cantidad": "Cantidad",
       "color": "Color",
       "porcentaje": "Porcentaje",
       "usoMalta": "Uso Malta",
@@ -33,11 +34,7 @@
       "usoOtro": "Uso Otro",
       "tiempoOtro": "Tiempo Otro",
       "insumoRecomendado": "Insumo Recomendado",
-      "receta": "Recipe",
-      "nombreMalta": "Malt",
-      "nombreLupulo": "Hop",
-      "nombreLevadura": "Yeast",
-      "nombreOtro": "Other"
+      "receta": "Receta"
     }
   }
 }

@@ -1,16 +1,14 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.TipoMovimientoCaja;
 
@@ -25,7 +23,7 @@ import com.craftbeerstore.application.domain.enumeration.TipoPago;
 public class Caja implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,11 +42,11 @@ public class Caja implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "saldo_cta_cte", precision = 10, scale = 2)
+    @Column(name = "saldo_cta_cte", precision = 21, scale = 2)
     private BigDecimal saldoCtaCte;
 
     @NotNull
-    @Column(name = "importe", precision = 10, scale = 2, nullable = false)
+    @Column(name = "importe", precision = 21, scale = 2, nullable = false)
     private BigDecimal importe;
 
     @NotNull
@@ -199,19 +197,15 @@ public class Caja implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Caja)) {
             return false;
         }
-        Caja caja = (Caja) o;
-        if (caja.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), caja.getId());
+        return id != null && id.equals(((Caja) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

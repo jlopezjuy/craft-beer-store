@@ -1,7 +1,5 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.domain.Tanque;
-import com.craftbeerstore.application.repository.TanqueRepository;
 import com.craftbeerstore.application.service.MovimientoTanqueService;
 import com.craftbeerstore.application.domain.MovimientoTanque;
 import com.craftbeerstore.application.repository.MovimientoTanqueRepository;
@@ -18,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 /**
- * Service Implementation for managing MovimientoTanque.
+ * Service Implementation for managing {@link MovimientoTanque}.
  */
 @Service
 @Transactional
@@ -30,19 +28,16 @@ public class MovimientoTanqueServiceImpl implements MovimientoTanqueService {
 
     private final MovimientoTanqueMapper movimientoTanqueMapper;
 
-    private final TanqueRepository tanqueRepository;
-
-    public MovimientoTanqueServiceImpl(MovimientoTanqueRepository movimientoTanqueRepository, MovimientoTanqueMapper movimientoTanqueMapper, TanqueRepository tanqueRepository) {
+    public MovimientoTanqueServiceImpl(MovimientoTanqueRepository movimientoTanqueRepository, MovimientoTanqueMapper movimientoTanqueMapper) {
         this.movimientoTanqueRepository = movimientoTanqueRepository;
         this.movimientoTanqueMapper = movimientoTanqueMapper;
-      this.tanqueRepository = tanqueRepository;
     }
 
     /**
      * Save a movimientoTanque.
      *
-     * @param movimientoTanqueDTO the entity to save
-     * @return the persisted entity
+     * @param movimientoTanqueDTO the entity to save.
+     * @return the persisted entity.
      */
     @Override
     public MovimientoTanqueDTO save(MovimientoTanqueDTO movimientoTanqueDTO) {
@@ -55,8 +50,8 @@ public class MovimientoTanqueServiceImpl implements MovimientoTanqueService {
     /**
      * Get all the movimientoTanques.
      *
-     * @param pageable the pagination information
-     * @return the list of entities
+     * @param pageable the pagination information.
+     * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
@@ -66,24 +61,12 @@ public class MovimientoTanqueServiceImpl implements MovimientoTanqueService {
             .map(movimientoTanqueMapper::toDto);
     }
 
-  /**
-   *
-   * @param pageable the pagination information
-   * @param tanqueId the id of tanque entity
-   * @return
-   */
-  @Override
-  public Page<MovimientoTanqueDTO> findAll(Pageable pageable, Long tanqueId) {
-    Tanque tanque = this.tanqueRepository.getOne(tanqueId);
-    return movimientoTanqueRepository.findAllByTanqueOrderByFechaDesc(pageable, tanque).map(movimientoTanqueMapper::toDto);
-  }
 
-
-  /**
+    /**
      * Get one movimientoTanque by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     @Override
     @Transactional(readOnly = true)
@@ -96,7 +79,7 @@ public class MovimientoTanqueServiceImpl implements MovimientoTanqueService {
     /**
      * Delete the movimientoTanque by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     @Override
     public void delete(Long id) {

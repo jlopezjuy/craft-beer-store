@@ -1,15 +1,5 @@
 import { Moment } from 'moment';
-
-export const enum TipoPresentacion {
-  BOTELLA_330 = 'BOTELLA_330',
-  BOTELLA_355 = 'BOTELLA_355',
-  BOTELLA_500 = 'BOTELLA_500',
-  BOTELLA_750 = 'BOTELLA_750',
-  BOTELLA_1000 = 'BOTELLA_1000',
-  BARRIL_20 = 'BARRIL_20',
-  BARRIL_30 = 'BARRIL_30',
-  BARRIL_50 = 'BARRIL_50'
-}
+import { TipoPresentacion } from 'app/shared/model/enumerations/tipo-presentacion.model';
 
 export interface IPresentacion {
   id?: number;
@@ -24,11 +14,6 @@ export interface IPresentacion {
   productoId?: number;
   loteCodigo?: string;
   loteId?: number;
-  /**
-   * transient
-   */
-  nombreComercial?: string;
-  movimientoId?: number;
 }
 
 export class Presentacion implements IPresentacion {
@@ -44,11 +29,6 @@ export class Presentacion implements IPresentacion {
     public productoNombreComercial?: string,
     public productoId?: number,
     public loteCodigo?: string,
-    public loteId?: number,
-    /**
-     * transient
-     */
-    public nombreComercial?: string,
-    public movimientoId?: number
+    public loteId?: number
   ) {}
 }

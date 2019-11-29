@@ -1,40 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-  EmpresaComponent,
-  EmpresaDetailComponent,
-  EmpresaUpdateComponent,
-  EmpresaDeletePopupComponent,
-  EmpresaDeleteDialogComponent,
-  empresaRoute,
-  empresaPopupRoute
-} from './';
-
-const ENTITY_STATES = [...empresaRoute, ...empresaPopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { EmpresaComponent } from './empresa.component';
+import { EmpresaDetailComponent } from './empresa-detail.component';
+import { EmpresaUpdateComponent } from './empresa-update.component';
+import { EmpresaDeleteDialogComponent } from './empresa-delete-dialog.component';
+import { empresaRoute } from './empresa.route';
 
 @NgModule({
-  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [
-    EmpresaComponent,
-    EmpresaDetailComponent,
-    EmpresaUpdateComponent,
-    EmpresaDeleteDialogComponent,
-    EmpresaDeletePopupComponent
-  ],
-  entryComponents: [EmpresaComponent, EmpresaUpdateComponent, EmpresaDeleteDialogComponent, EmpresaDeletePopupComponent],
-  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(empresaRoute)],
+  declarations: [EmpresaComponent, EmpresaDetailComponent, EmpresaUpdateComponent, EmpresaDeleteDialogComponent],
+  entryComponents: [EmpresaDeleteDialogComponent]
 })
-export class CraftBeerStoreEmpresaModule {
-  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-    this.languageHelper.language.subscribe((languageKey: string) => {
-      if (languageKey !== undefined) {
-        this.languageService.changeLanguage(languageKey);
-      }
-    });
-  }
-}
+export class CraftBeerStoreEmpresaModule {}

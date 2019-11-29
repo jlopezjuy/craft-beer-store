@@ -2,10 +2,10 @@
   "craftBeerStoreApp": {
     "UsoMalta": {
       "null": "",
-      "MASH": "Mash",
-      "RECIRCULATING": "Recirculating",
-      "BOIL": "Boil",
-      "FERMENTATION": "Fermentation"
+      "MASH": "MASH",
+      "RECIRCULATING": "RECIRCULATING",
+      "BOIL": "BOIL",
+      "FERMENTATION": "FERMENTATION"
     }
   }
 }

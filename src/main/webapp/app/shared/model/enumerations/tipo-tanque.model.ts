@@ -1,0 +1,6 @@
+export const enum TipoTanque {
+  UNITANK_INOX = 'UNITANK_INOX',
+  FERMENTADOR = 'FERMENTADOR',
+  MADURADOR = 'MADURADOR',
+  BARRICA = 'BARRICA'
+}

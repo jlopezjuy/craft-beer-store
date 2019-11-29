@@ -1,15 +1,5 @@
 import { Moment } from 'moment';
-
-export const enum EstadoLote {
-  EN_PROCESO = 'EN_PROCESO',
-  PLANIFICADO = 'PLANIFICADO',
-  COCCION = 'COCCION',
-  FINALIZADO = 'FINALIZADO',
-  ANULADO = 'ANULADO',
-  FERMENTACION = 'FERMENTACION',
-  MADURACION = 'MADURACION',
-  ENVASADO = 'ENVASADO'
-}
+import { EstadoLote } from 'app/shared/model/enumerations/estado-lote.model';
 
 export interface ILote {
   id?: number;

@@ -1,9 +1,5 @@
 import { Moment } from 'moment';
-
-export const enum EstadoCompra {
-  PEDIDO_REALIZADO = 'PEDIDO_REALIZADO',
-  PEDIDO_RECIBIDO = 'PEDIDO_RECIBIDO'
-}
+import { EstadoCompra } from 'app/shared/model/enumerations/estado-compra.model';
 
 export interface ICompraInsumo {
   id?: number;

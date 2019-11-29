@@ -5,29 +5,28 @@ import { JhiDataUtils } from 'ng-jhipster';
 import { IProducto } from 'app/shared/model/producto.model';
 
 @Component({
-    selector: 'jhi-producto-detail',
-    templateUrl: './producto-detail.component.html',
-    styleUrls: ['producto-detail.component.scss']
+  selector: 'jhi-producto-detail',
+  templateUrl: './producto-detail.component.html'
 })
 export class ProductoDetailComponent implements OnInit {
-    producto: IProducto;
+  producto: IProducto;
 
-    constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
+  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
 
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ producto }) => {
-            this.producto = producto;
-        });
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ producto }) => {
+      this.producto = producto;
+    });
+  }
 
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
 
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
-    previousState() {
-        window.history.back();
-    }
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
+  previousState() {
+    window.history.back();
+  }
 }

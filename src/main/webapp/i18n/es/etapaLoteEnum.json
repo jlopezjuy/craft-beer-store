@@ -2,10 +2,10 @@
   "craftBeerStoreApp": {
     "EtapaLoteEnum": {
       "null": "",
-      "COCCION": "Cocción",
-      "FERMENTACION": "Fermentación",
-      "MADURACION": "Maduración",
-      "ENVASADO": "Envasado"
+      "COCCION": "COCCION",
+      "FERMENTACION": "FERMENTACION",
+      "MADURACION": "MADURACION",
+      "ENVASADO": "ENVASADO"
     }
   }
 }

@@ -4,7 +4,8 @@
       "home": {
         "title": "Tanques",
         "createLabel": "Crear nuevo Tanque",
-        "createOrEditLabel": "Crear o editar Tanque"
+        "createOrEditLabel": "Crear o editar Tanque",
+        "notFound": "Ningún Tanques encontrado"
       },
       "created": "Un nuevo Tanque ha sido creado con el identificador {{ param }}",
       "updated": "Un Tanque ha sido actualizado con el identificador {{ param }}",

@@ -1,32 +1,6 @@
-export const enum LitrosBarril {
-  CINCO = 'CINCO',
-  DIEZ = 'DIEZ',
-  QUINCE = 'QUINCE',
-  DIECINUEVE = 'DIECINUEVE',
-  VEINTE = 'VEINTE',
-  VEINTICINCO = 'VEINTICINCO',
-  TREINTA = 'TREINTA',
-  CINCUENTA = 'CINCUENTA'
-}
-
-export const enum ConectorBarril {
-  G = 'G',
-  A = 'A',
-  S = 'S',
-  D = 'D',
-  U = 'U',
-  M = 'M',
-  PIN_LOCK = 'PIN_LOCK',
-  BALL_LOCK = 'BALL_LOCK'
-}
-
-export const enum EstadoBarril {
-  VACIO = 'VACIO',
-  LLENO = 'LLENO',
-  ENTREGADO = 'ENTREGADO',
-  RETIRADO = 'RETIRADO',
-  LIMPIEZA = 'LIMPIEZA'
-}
+import { LitrosBarril } from 'app/shared/model/enumerations/litros-barril.model';
+import { ConectorBarril } from 'app/shared/model/enumerations/conector-barril.model';
+import { EstadoBarril } from 'app/shared/model/enumerations/estado-barril.model';
 
 export interface IBarril {
   id?: number;

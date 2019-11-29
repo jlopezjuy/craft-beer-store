@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
+import { createRequestOption } from 'app/shared/util/request-util';
 import { IDetalleMovimiento } from 'app/shared/model/detalle-movimiento.model';
 
 type EntityResponseType = HttpResponse<IDetalleMovimiento>;
@@ -11,16 +12,11 @@ type EntityArrayResponseType = HttpResponse<IDetalleMovimiento[]>;
 @Injectable({ providedIn: 'root' })
 export class DetalleMovimientoService {
   public resourceUrl = SERVER_API_URL + 'api/detalle-movimientos';
-  public resourceSearchUrl = SERVER_API_URL + 'api/_search/detalle-movimientos';
 
   constructor(protected http: HttpClient) {}
 
   create(detalleMovimiento: IDetalleMovimiento): Observable<EntityResponseType> {
     return this.http.post<IDetalleMovimiento>(this.resourceUrl, detalleMovimiento, { observe: 'response' });
-  }
-
-  createList(detalleMovimiento: IDetalleMovimiento[]): Observable<EntityArrayResponseType> {
-    return this.http.post<IDetalleMovimiento[]>(`${this.resourceUrl}/list`, detalleMovimiento, { observe: 'response' });
   }
 
   update(detalleMovimiento: IDetalleMovimiento): Observable<EntityResponseType> {
@@ -36,20 +32,7 @@ export class DetalleMovimientoService {
     return this.http.get<IDetalleMovimiento[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
-  queryByMovimiento(req?: any, movimientoId?: number): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<IDetalleMovimiento[]>(`${this.resourceUrl}/movimiento/${movimientoId}`, {
-      params: options,
-      observe: 'response'
-    });
-  }
-
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  search(req?: any): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<IDetalleMovimiento[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
   }
 }

@@ -1,42 +1,9 @@
-import { TipoInsumo } from 'app/shared/model/insumo.model';
-
-export const enum UsoMalta {
-  MASH = 'MASH',
-  RECIRCULATING = 'RECIRCULATING',
-  BOIL = 'BOIL',
-  FERMENTATION = 'FERMENTATION'
-}
-
-export const enum ModoLupulo {
-  PELLET = 'PELLET',
-  PLUG = 'PLUG',
-  WHOLE_LEAF = 'WHOLE_LEAF'
-}
-
-export const enum UsoLupulo {
-  BOIL = 'BOIL',
-  FIRST_WORT = 'FIRST_WORT',
-  DRY_HOP = 'DRY_HOP',
-  AROMA = 'AROMA',
-  MASH = 'MASH'
-}
-
-export const enum TipoOtro {
-  FINING = 'FINING',
-  WATER_AGENT = 'WATER_AGENT',
-  SPICE = 'SPICE',
-  HERB = 'HERB',
-  FLAVOR = 'FLAVOR',
-  OTHER = 'OTHER'
-}
-
-export const enum UsoOtro {
-  BOIL = 'BOIL',
-  MASH = 'MASH',
-  LICOR = 'LICOR',
-  PRIMARY = 'PRIMARY',
-  SECONDARY = 'SECONDARY'
-}
+import { TipoInsumo } from 'app/shared/model/enumerations/tipo-insumo.model';
+import { UsoMalta } from 'app/shared/model/enumerations/uso-malta.model';
+import { ModoLupulo } from 'app/shared/model/enumerations/modo-lupulo.model';
+import { UsoLupulo } from 'app/shared/model/enumerations/uso-lupulo.model';
+import { TipoOtro } from 'app/shared/model/enumerations/tipo-otro.model';
+import { UsoOtro } from 'app/shared/model/enumerations/uso-otro.model';
 
 export interface IRecetaInsumo {
   id?: number;

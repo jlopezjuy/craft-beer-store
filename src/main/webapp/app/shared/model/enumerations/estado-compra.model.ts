@@ -1,0 +1,4 @@
+export const enum EstadoCompra {
+  PEDIDO_REALIZADO = 'PEDIDO_REALIZADO',
+  PEDIDO_RECIBIDO = 'PEDIDO_RECIBIDO'
+}

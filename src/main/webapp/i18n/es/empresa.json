@@ -2,31 +2,30 @@
   "craftBeerStoreApp": {
     "empresa": {
       "home": {
-        "title": "Cerveceria",
-        "createLabel": "Crear nueva Cerveceria",
-        "createOrEditLabel": "Crear o editar Cerveceria",
-        "search": "Search for Cerveceria"
+        "title": "Empresas",
+        "createLabel": "Crear nuevo Empresa",
+        "createOrEditLabel": "Crear o editar Empresa",
+        "notFound": "Ningún Empresas encontrado"
       },
-      "created": "Un nueva Cerveceria ha sido creada con el identificador {{ param }}",
-      "updated": "Un Cerveceria ha sido actualizada con el identificador {{ param }}",
-      "deleted": "Un Cerveceria ha sido eliminada con el identificador {{ param }}",
+      "created": "Un nuevo Empresa ha sido creado con el identificador {{ param }}",
+      "updated": "Un Empresa ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Empresa ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar la Cerveceria {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Empresa {{ id }}?"
       },
       "detail": {
-        "title": "Cerveceria"
+        "title": "Empresa"
       },
-      "nombreEmpresa": "Nombre de la Cerveceria",
-      "direccion": "Dirección",
+      "nombreEmpresa": "Nombre Empresa",
+      "direccion": "Direccion",
       "localidad": "Localidad",
       "codigoPostal": "Codigo Postal",
       "provincia": "Provincia",
-      "telefono": "Teléfono",
+      "telefono": "Telefono",
       "correo": "Correo",
-      "logoPrincipal": "Logo de Cerveceria",
+      "logoPrincipal": "Logo Principal",
       "fechaInicioActividad": "Fecha Inicio Actividad",
-      "user": "User",
-      "mailError": "La cuenta de correo ya existe!"
+      "user": "User"
     }
   }
 }

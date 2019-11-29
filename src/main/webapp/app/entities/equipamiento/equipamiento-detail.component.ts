@@ -5,28 +5,28 @@ import { JhiDataUtils } from 'ng-jhipster';
 import { IEquipamiento } from 'app/shared/model/equipamiento.model';
 
 @Component({
-    selector: 'jhi-equipamiento-detail',
-    templateUrl: './equipamiento-detail.component.html'
+  selector: 'jhi-equipamiento-detail',
+  templateUrl: './equipamiento-detail.component.html'
 })
 export class EquipamientoDetailComponent implements OnInit {
-    equipamiento: IEquipamiento;
+  equipamiento: IEquipamiento;
 
-    constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
+  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
 
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ equipamiento }) => {
-            this.equipamiento = equipamiento;
-        });
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ equipamiento }) => {
+      this.equipamiento = equipamiento;
+    });
+  }
 
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
 
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
-    previousState() {
-        window.history.back();
-    }
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
+  previousState() {
+    window.history.back();
+  }
 }

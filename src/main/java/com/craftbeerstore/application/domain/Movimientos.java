@@ -1,16 +1,14 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.TipoMovimiento;
 
@@ -25,7 +23,7 @@ import com.craftbeerstore.application.domain.enumeration.EstadoMovimiento;
 public class Movimientos implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,7 +38,7 @@ public class Movimientos implements Serializable {
     private LocalDate fechaMovimiento;
 
     @NotNull
-    @Column(name = "precio_total", precision = 10, scale = 2, nullable = false)
+    @Column(name = "precio_total", precision = 21, scale = 2, nullable = false)
     private BigDecimal precioTotal;
 
     @NotNull
@@ -52,7 +50,7 @@ public class Movimientos implements Serializable {
     @Column(name = "estado", nullable = false)
     private EstadoMovimiento estado;
 
-    @Column(name = "litros_totales", precision = 10, scale = 2)
+    @Column(name = "litros_totales", precision = 21, scale = 2)
     private BigDecimal litrosTotales;
 
     @ManyToOne
@@ -199,19 +197,15 @@ public class Movimientos implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Movimientos)) {
             return false;
         }
-        Movimientos movimientos = (Movimientos) o;
-        if (movimientos.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), movimientos.getId());
+        return id != null && id.equals(((Movimientos) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

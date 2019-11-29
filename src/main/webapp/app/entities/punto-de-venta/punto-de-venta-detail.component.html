@@ -1,68 +1,45 @@
-<div class="container-fluid">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12">
-                <h2><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.detail.title">Punto De Venta: </span> {{puntoDeVenta.nombre}}</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Punto de Venta</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="header">
-            <!--            <h2 id="jhi-punto-de-venta-heading" jhiTranslate="craftBeerStoreApp.puntoDeVenta.home.createOrEditLabel">Create or edit a Punto De Venta</h2>-->
-        </div>
-        <div class="body">
-            <div class="row justify-content-center">
-                <div class="col-8">
-                    <div *ngIf="puntoDeVenta">
-
-                        <hr>
-                        <jhi-alert-error></jhi-alert-error>
-                        <dl class="row-md jh-entity-details">
-                            <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre">Nombre</span></dt>
-                            <dd>
-                                <span>{{puntoDeVenta.nombre}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega">Direccion De Entrega</span></dt>
-                            <dd>
-                                <span>{{puntoDeVenta.direccionDeEntrega}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad">Localidad</span></dt>
-                            <dd>
-                                <span>{{puntoDeVenta.localidad}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas">Notas</span></dt>
-                            <dd>
-                                <span>{{puntoDeVenta.notas}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.cliente">Cliente</span></dt>
-                            <dd>
-                                <div *ngIf="puntoDeVenta.clienteId">
-                                    <a [routerLink]="['/cliente', puntoDeVenta.clienteId, 'view']">{{puntoDeVenta.clienteNombreApellido}}</a>
-                                </div>
-                            </dd>
-                        </dl>
-
-                        <button type="submit"
-                                (click)="previousState()"
-                                class="btn btn-info">
-                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-                        </button>
-
-                        <button type="button"
-                                [routerLink]="['/punto-de-venta', puntoDeVenta.id, 'edit']"
-                                class="btn btn-primary">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-                        </button>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="puntoDeVenta">
+            <h2><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.detail.title">Punto De Venta</span> {{puntoDeVenta.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.nombre">Nombre</span></dt>
+                <dd>
+                    <span>{{puntoDeVenta.nombre}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.direccionDeEntrega">Direccion De Entrega</span></dt>
+                <dd>
+                    <span>{{puntoDeVenta.direccionDeEntrega}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.localidad">Localidad</span></dt>
+                <dd>
+                    <span>{{puntoDeVenta.localidad}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.notas">Notas</span></dt>
+                <dd>
+                    <span>{{puntoDeVenta.notas}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.puntoDeVenta.cliente">Cliente</span></dt>
+                <dd>
+                    <div *ngIf="puntoDeVenta.clienteId">
+                        <a [routerLink]="['/cliente', puntoDeVenta.clienteId, 'view']">{{puntoDeVenta.clienteNombreApellido}}</a>
                     </div>
-                </div>
-            </div>
+                </dd>
+            </dl>
 
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/punto-de-venta', puntoDeVenta.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
         </div>
     </div>
 </div>

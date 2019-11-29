@@ -4,28 +4,32 @@
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-empresa" [routerLink]="['/empresa/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="craftBeerStoreApp.empresa.home.createLabel">
-            Create new Empresa
+            Create a new Empresa
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="empresas">
-        <table class="table table-striped">
+    <div class="alert alert-warning" *ngIf="empresas?.length === 0">
+        <span jhiTranslate="craftBeerStoreApp.empresa.home.notFound">No empresas found</span>
+    </div>
+    <div class="table-responsive" *ngIf="empresas?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nombreEmpresa"><span jhiTranslate="craftBeerStoreApp.empresa.nombreEmpresa">Nombre Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="direccion"><span jhiTranslate="craftBeerStoreApp.empresa.direccion">Direccion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="localidad"><span jhiTranslate="craftBeerStoreApp.empresa.localidad">Localidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="codigoPostal"><span jhiTranslate="craftBeerStoreApp.empresa.codigoPostal">Codigo Postal</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="provincia"><span jhiTranslate="craftBeerStoreApp.empresa.provincia">Provincia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="telefono"><span jhiTranslate="craftBeerStoreApp.empresa.telefono">Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="correo"><span jhiTranslate="craftBeerStoreApp.empresa.correo">Correo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="logoPrincipal"><span jhiTranslate="craftBeerStoreApp.empresa.logoPrincipal">Logo Principal</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fechaInicioActividad"><span jhiTranslate="craftBeerStoreApp.empresa.fechaInicioActividad">Fecha Inicio Actividad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="userLogin"><span jhiTranslate="craftBeerStoreApp.empresa.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="nombreEmpresa"><span jhiTranslate="craftBeerStoreApp.empresa.nombreEmpresa">Nombre Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="direccion"><span jhiTranslate="craftBeerStoreApp.empresa.direccion">Direccion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="localidad"><span jhiTranslate="craftBeerStoreApp.empresa.localidad">Localidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="codigoPostal"><span jhiTranslate="craftBeerStoreApp.empresa.codigoPostal">Codigo Postal</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="provincia"><span jhiTranslate="craftBeerStoreApp.empresa.provincia">Provincia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="telefono"><span jhiTranslate="craftBeerStoreApp.empresa.telefono">Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="correo"><span jhiTranslate="craftBeerStoreApp.empresa.correo">Correo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="logoPrincipal"><span jhiTranslate="craftBeerStoreApp.empresa.logoPrincipal">Logo Principal</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="fechaInicioActividad"><span jhiTranslate="craftBeerStoreApp.empresa.fechaInicioActividad">Fecha Inicio Actividad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userLogin"><span jhiTranslate="craftBeerStoreApp.empresa.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -49,7 +53,7 @@
                     {{empresa.userLogin}}
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/empresa', empresa.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -62,10 +66,7 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'empresa', { outlets: { popup: empresa.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                        <button type="submit" (click)="delete(empresa)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
@@ -76,9 +77,9 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="empresas && empresas.length">
+    <div [hidden]="empresas?.length === 0">
         <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>

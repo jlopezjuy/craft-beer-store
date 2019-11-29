@@ -1,322 +1,79 @@
-<div class="container-fluid">
-  <div class="block-header">
-    <div class="row">
-      <div class="col-lg-5 col-md-8 col-sm-12">
-        <h2 id="jhi-compra-insumo-heading" jhiTranslate="craftBeerStoreApp.compraInsumo.home.createOrEditLabel">
-          Create or edit a Compra Insumo</h2>
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i
-            class="icon-home"></i></a></li>
-          <li class="breadcrumb-item">Compras</li>
-          <li class="breadcrumb-item active">Insumo</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="header">
-    </div>
-    <div class="body">
-      <div class="row justify-content-center">
-        <div class="col-10">
-          <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-compra-insumo-heading" jhiTranslate="craftBeerStoreApp.compraInsumo.home.createOrEditLabel">Create or edit a Compra Insumo</h2>
             <div>
-              <jhi-alert-error></jhi-alert-error>
-              <div class="row">
-                <div class="col-sm-6">
-                  <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.nroFactura"
-                               for="field_nroFactura">Nro de Factura
-                    </mat-label>
-                    <input type="text" matInput name="nroFactura" id="field_nroFactura"
-                           [(ngModel)]="compraInsumo.nroFactura" required/>
-                    <mat-error
-                      [hidden]="!(editForm.controls.nroFactura?.dirty && editForm.controls.nroFactura?.invalid)">
-                      <small class="form-text text-danger"
-                             [hidden]="!editForm.controls.nroFactura?.errors?.required"
-                             jhiTranslate="entity.validation.required">
-                        This field is required.
-                      </small>
-                    </mat-error>
-                  </mat-form-field>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
-                <div class="col-sm-6">
-                  <mat-form-field class="example-full-width" >
-                    <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.fecha">Fecha</mat-label>
-                    <input matInput name="fecha" [matDatepicker]="picker"
-                           placeholder="Choose a date" [(ngModel)]="fechaDp" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error
-                      [hidden]="!(editForm.controls.fecha?.dirty && editForm.controls.fecha?.invalid)">
-                      <small class="form-text text-danger"
-                             [hidden]="!editForm.controls.fecha?.errors?.required"
-                             jhiTranslate="entity.validation.required">
-                        This field is required.
-                      </small>
-                    </mat-error>
-                  </mat-form-field>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumo.nroFactura" for="field_nroFactura">Nro Factura</label>
+                    <input type="text" class="form-control" name="nroFactura" id="field_nroFactura"
+                           formControlName="nroFactura"/>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.subtotal"
-                               for="field_subtotal">Sub Total
-                    </mat-label>
-                    <input type="number" matInput name="subtotal" id="field_subtotal"
-                           [(ngModel)]="compraInsumo.subtotal" required/>
-                    <mat-error
-                      [hidden]="!(editForm.controls.subtotal?.dirty && editForm.controls.subtotal?.invalid)">
-                      <small class="form-text text-danger"
-                             [hidden]="!editForm.controls.subtotal?.errors?.required"
-                             jhiTranslate="entity.validation.required">
-                        This field is required.
-                      </small>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6">
-                  <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.gastoDeEnvio"
-                               for="field_gastoDeEnvio">Gasto de Envio
-                    </mat-label>
-                    <input type="number" matInput name="gastoDeEnvio" id="field_gastoDeEnvio"
-                           [(ngModel)]="compraInsumo.gastoDeEnvio" required/>
-                    <mat-error
-                      [hidden]="!(editForm.controls.gastoDeEnvio?.dirty && editForm.controls.gastoDeEnvio?.invalid)">
-                      <small class="form-text text-danger"
-                             [hidden]="!editForm.controls.gastoDeEnvio?.errors?.required"
-                             jhiTranslate="entity.validation.required">
-                        This field is required.
-                      </small>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.impuesto"
-                               for="field_impuesto">Impuestos %
-                    </mat-label>
-                    <input type="number" matInput name="impuesto" id="field_impuesto"
-                           [(ngModel)]="compraInsumo.impuesto" required/>
-                    <mat-error
-                      [hidden]="!(editForm.controls.impuesto?.dirty && editForm.controls.impuesto?.invalid)">
-                      <small class="form-text text-danger"
-                             [hidden]="!editForm.controls.impuesto?.errors?.required"
-                             jhiTranslate="entity.validation.required">
-                        This field is required.
-                      </small>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6">
-                  <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.total"
-                               for="field_total">Total
-                    </mat-label>
-                    <input type="number" matInput name="total" id="field_total"
-                           [(ngModel)]="compraInsumo.total" required/>
-                    <mat-error
-                      [hidden]="!(editForm.controls.total?.dirty && editForm.controls.total?.invalid)">
-                      <small class="form-text text-danger"
-                             [hidden]="!editForm.controls.total?.errors?.required"
-                             jhiTranslate="entity.validation.required">
-                        This field is required.
-                      </small>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.proveedor"
-                               for="field_proveedor">Proveedor
-                    </mat-label>
-                    <mat-select name="proveedor" [(ngModel)]="compraInsumo.proveedorId"
-                                id="field_producto">
-                      <mat-option value=""></mat-option>
-                      <mat-option *ngFor="let proveedorOption of proveedors"
-                                  [value]="proveedorOption.id">
-                        {{proveedorOption.nombreProveedor}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6">
-                  <mat-form-field class="example-full-width">
-                    <mat-label jhiTranslate="craftBeerStoreApp.compraInsumo.estadoCompra" for="field_estadoCompra">
-                      Estado Compra
-                    </mat-label>
-                    <mat-select name="estadoCompra" [(ngModel)]="compraInsumo.estadoCompra" id="field_estadoCompra" required>
-                      <mat-option
-                        value="PEDIDO_REALIZADO">{{'craftBeerStoreApp.EstadoCompra.PEDIDO_REALIZADO' | translate}}</mat-option>
-                      <mat-option
-                        value="PEDIDO_RECIBIDO">{{'craftBeerStoreApp.EstadoCompra.PEDIDO_RECIBIDO' | translate}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="container mat-elevation-z8">
-                  <div class="card mat-elevation-z8">
-                    <div class="header">
-                      <mat-card-title>Insumos</mat-card-title>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumo.fecha" for="field_fecha">Fecha</label>
+                    <div class="input-group">
+                        <input id="field_fecha" type="text" class="form-control" name="fecha" ngbDatepicker  #fechaDp="ngbDatepicker" formControlName="fecha"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
                     </div>
-                    <div class="body">
-                      <div class="row justify-content-center">
-                        <div class="row w-100">
-                          <div class="col-sm-4">
-                            <mat-form-field class="example-full-width">
-                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.insumoRecomendado"
-                                         for="field_insumoRecomendado">Insumo Recomendado</mat-label>
-                              <mat-select id="field_insumoRecomendado"
-                                          name="insumoRecomendado"
-                                          [(ngModel)]="compraInsumoDetalle.insumoRecomendadoId">
-                                <mat-option value="null"></mat-option>
-                                <mat-option [value]="insumoRecomendadoOption.id"
-                                            *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">
-                                  {{insumoRecomendadoOption.marca}} - {{insumoRecomendadoOption.nombre}}
-                                  -{{insumoRecomendadoOption.tipo}}</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-sm-4">
-                            <mat-form-field class="example-full-width">
-                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.codigoReferencia"
-                                         for="field_codigoReferencia">Codigo Referencia</mat-label>
-                              <input type="text" matInput name="codigoReferencia" id="field_codigoReferencia"
-                                     [(ngModel)]="compraInsumoDetalle.codigoReferencia"/>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-sm-4">
-                            <mat-form-field class="example-full-width">
-                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.tipo"
-                                         for="field_tipo">Tipo</mat-label>
-                              <mat-select name="tipo" [(ngModel)]="compraInsumoDetalle.tipo" id="field_tipo">
-                                <mat-option value="MALTA">{{'craftBeerStoreApp.TipoInsumo.MALTA' | translate}}</mat-option>
-                                <mat-option value="LUPULO">{{'craftBeerStoreApp.TipoInsumo.LUPULO' | translate}}</mat-option>
-                                <mat-option value="LEVADURA">{{'craftBeerStoreApp.TipoInsumo.LEVADURA' | translate}}</mat-option>
-                                <mat-option value="ACIDO">{{'craftBeerStoreApp.TipoInsumo.ACIDO' | translate}}</mat-option>
-                                <mat-option value="CLARIFICANTE">{{'craftBeerStoreApp.TipoInsumo.CLARIFICANTE' | translate}}</mat-option>
-                                <mat-option value="SAL">{{'craftBeerStoreApp.TipoInsumo.SAL' | translate}}</mat-option>
-                                <mat-option value="OTROS">{{'craftBeerStoreApp.TipoInsumo.OTROS' | translate}}</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-3">
-                            <mat-form-field class="example-full-width">
-                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.unidad"
-                                         for="field_unidad">Unidad</mat-label>
-                              <mat-select name="unidad" [(ngModel)]="compraInsumoDetalle.unidad"
-                                          id="field_unidad">
-                                <mat-option value="KILOGRAMO">{{'craftBeerStoreApp.Unidad.KILOGRAMO' | translate}}</mat-option>
-                                <mat-option value="GRAMO">{{'craftBeerStoreApp.Unidad.GRAMO' | translate}}</mat-option>
-                                <mat-option value="VEINTICINCO_KILOS">{{'craftBeerStoreApp.Unidad.VEINTICINCO_KILOS' | translate}}</mat-option>
-                                <mat-option value="DIES_KILOS">{{'craftBeerStoreApp.Unidad.DIES_KILOS' | translate}}</mat-option>
-                                <mat-option value="LITRO">{{'craftBeerStoreApp.Unidad.LITRO' | translate}}</mat-option>
-                                <mat-option value="CM3">{{'craftBeerStoreApp.Unidad.CM3' | translate}}</mat-option>
-                                <mat-option value="ML">{{'craftBeerStoreApp.Unidad.ML' | translate}}</mat-option>
-                                <mat-option value="UNIDAD">{{'craftBeerStoreApp.Unidad.UNIDAD' | translate}}</mat-option>
-                                <mat-option value="SOBRE_11G">{{'craftBeerStoreApp.Unidad.SOBRE_11G' | translate}}</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-sm-3">
-                            <mat-form-field class="example-full-width">
-                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock" for="field_stock">Stock</mat-label>
-                              <input type="number" matInput name="stock" id="field_stock"
-                                     [(ngModel)]="compraInsumoDetalle.stock"/>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-sm-3">
-                            <mat-form-field class="example-full-width">
-                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioUnitario"
-                                         for="field_precio_unitario">Precio Unitario</mat-label>
-                              <input type="number" matInput name="precioUnitario" id="field_precio_unitario"
-                                     [(ngModel)]="compraInsumoDetalle.precioUnitario" (change)="precioUnitarioChange()"/>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-sm-3">
-                            <mat-form-field class="example-full-width">
-                              <mat-label jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioTotal"
-                                         for="field_precio">Precio</mat-label>
-                              <input type="number" matInput name="precio" id="field_precio"
-                                     [(ngModel)]="compraInsumoDetalle.precioTotal"/>
-                            </mat-form-field>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="action">
-                      <button mat-button type="button" class="btn btn-success"
-                              (click)="addInsumo()"> Agregar
-                      </button>
-                    </div>
-                  </div>
                 </div>
-              </div>
-              <br/>
-              <div class="row">
-                <div class="mat-elevation-z8 table-responsive" *ngIf="compraInsumoDetalles">
-                  <table mat-table [dataSource]="dataSource" style="width: 100%;" >
-                    <ng-container matColumnDef="insumoRecomendado">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.insumoRecomendado">Insumo</span> </th>
-                      <td mat-cell *matCellDef="let compraInsumoDetalle" > {{compraInsumoDetalle.insumoRecomendadoNombre}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="unidad">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.unidad">Unidad</span> </th>
-                      <td mat-cell *matCellDef="let compraInsumoDetalle" jhiTranslate="{{'craftBeerStoreApp.Unidad.' + compraInsumoDetalle.unidad}}"> {{compraInsumoDetalle.unidad}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="tipo">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.tipo">Tipo</span> </th>
-                      <td mat-cell *matCellDef="let compraInsumoDetalle" jhiTranslate="{{'craftBeerStoreApp.TipoInsumo.' + compraInsumoDetalle.tipo}}"> {{compraInsumoDetalle.tipo}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="codigoReferencia">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.codigoReferencia">Unidad</span> </th>
-                      <td mat-cell *matCellDef="let compraInsumoDetalle" > {{compraInsumoDetalle.codigoReferencia}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="stock">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock">Stock</span> </th>
-                      <td mat-cell *matCellDef="let compraInsumoDetalle" > {{compraInsumoDetalle.stock}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="precioUnitario">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioUnitario">Unidad</span> </th>
-                      <td mat-cell *matCellDef="let compraInsumoDetalle" > {{compraInsumoDetalle.precioUnitario}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="precioTotal">
-                      <th mat-header-cell *matHeaderCellDef > <span jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioTotal">Unidad</span> </th>
-                      <td mat-cell *matCellDef="let compraInsumoDetalle" > {{compraInsumoDetalle.precioTotal}} </td>
-                    </ng-container>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumo.subtotal" for="field_subtotal">Subtotal</label>
+                    <input type="number" class="form-control" name="subtotal" id="field_subtotal"
+                           formControlName="subtotal"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumo.gastoDeEnvio" for="field_gastoDeEnvio">Gasto De Envio</label>
+                    <input type="number" class="form-control" name="gastoDeEnvio" id="field_gastoDeEnvio"
+                           formControlName="gastoDeEnvio"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumo.impuesto" for="field_impuesto">Impuesto</label>
+                    <input type="number" class="form-control" name="impuesto" id="field_impuesto"
+                           formControlName="impuesto"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumo.total" for="field_total">Total</label>
+                    <input type="number" class="form-control" name="total" id="field_total"
+                           formControlName="total"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumo.estadoCompra" for="field_estadoCompra">Estado Compra</label>
+                    <select class="form-control" name="estadoCompra" formControlName="estadoCompra" id="field_estadoCompra">
+                        <option value="PEDIDO_REALIZADO">{{'craftBeerStoreApp.EstadoCompra.PEDIDO_REALIZADO' | translate}}</option>
+                        <option value="PEDIDO_RECIBIDO">{{'craftBeerStoreApp.EstadoCompra.PEDIDO_RECIBIDO' | translate}}</option>
+                    </select>
+                </div>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumo.proveedor" for="field_proveedor">Proveedor</label>
+                    <select class="form-control" id="field_proveedor" name="proveedor" formControlName="proveedorId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="proveedorOption.id" *ngFor="let proveedorOption of proveedors; trackBy: trackProveedorById">{{proveedorOption.nombreProveedor}}</option>
+                    </select>
                 </div>
-              </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumo.empresa" for="field_empresa">Empresa</label>
+                    <select class="form-control" id="field_empresa" name="empresa" formControlName="empresaId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="empresaOption.id" *ngFor="let empresaOption of empresas; trackBy: trackEmpresaById">{{empresaOption.nombreEmpresa}}</option>
+                    </select>
+                </div>
             </div>
-            <br/>
             <div>
-              <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"
-                      (click)="previousState()">
-                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
-                jhiTranslate="entity.action.cancel">Cancel</span>
-              </button>
-              <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
-                      mat-raised-button class="mat-success" *ngIf="compraInsumoAux.estadoCompra === estadoCompra">
-                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
-                jhiTranslate="entity.action.save">Save</span>
-              </button>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
             </div>
-          </form>
-        </div>
-      </div>
+        </form>
     </div>
-  </div>
 </div>

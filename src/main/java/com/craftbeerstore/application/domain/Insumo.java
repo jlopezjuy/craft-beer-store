@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,7 +8,6 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.Unidad;
 
@@ -25,7 +22,7 @@ import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 public class Insumo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +35,7 @@ public class Insumo implements Serializable {
     @Column(name = "marca", nullable = false)
     private String marca;
 
-    @Column(name = "stock", precision = 10, scale = 2)
+    @Column(name = "stock", precision = 21, scale = 2)
     private BigDecimal stock;
 
     @Enumerated(EnumType.STRING)
@@ -56,10 +53,10 @@ public class Insumo implements Serializable {
     @Column(name = "imagen_content_type")
     private String imagenContentType;
 
-    @Column(name = "precio_unitario", precision = 10, scale = 2)
+    @Column(name = "precio_unitario", precision = 21, scale = 2)
     private BigDecimal precioUnitario;
 
-    @Column(name = "precio_total", precision = 10, scale = 2)
+    @Column(name = "precio_total", precision = 21, scale = 2)
     private BigDecimal precioTotal;
 
     @ManyToOne
@@ -228,19 +225,15 @@ public class Insumo implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Insumo)) {
             return false;
         }
-        Insumo insumo = (Insumo) o;
-        if (insumo.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), insumo.getId());
+        return id != null && id.equals(((Insumo) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

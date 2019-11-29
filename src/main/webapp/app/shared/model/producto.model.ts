@@ -1,15 +1,5 @@
-import { TipoPresentacion } from 'app/shared/model/presentacion.model';
-
-export const enum EstiloCerveza {
-  ALE = 'ALE',
-  LAGER = 'LAGER'
-}
-
-export const enum TipoProducto {
-  FIJO = 'FIJO',
-  ROTATIVO = 'ROTATIVO',
-  ESPECIAL = 'ESPECIAL'
-}
+import { EstiloCerveza } from 'app/shared/model/enumerations/estilo-cerveza.model';
+import { TipoProducto } from 'app/shared/model/enumerations/tipo-producto.model';
 
 export interface IProducto {
   id?: number;
@@ -24,16 +14,6 @@ export interface IProducto {
   empresaId?: number;
   estilosNombreEstilo?: string;
   estilosId?: number;
-  /**
-   * transient
-   */
-  presentacionId?: number;
-  cantidadPresentacion?: number;
-  precioUnitario?: number;
-  movimientoId?: number;
-  eventoId?: number;
-  tipoPresentacion?: TipoPresentacion;
-  cantidadBarriles?: number;
 }
 
 export class Producto implements IProducto {
@@ -49,16 +29,6 @@ export class Producto implements IProducto {
     public srmColor?: string,
     public empresaId?: number,
     public estilosNombreEstilo?: string,
-    public estilosId?: number,
-    /**
-     * transient
-     */
-    public presentacionId?: number,
-    public cantidadPresentacion?: number,
-    public precioUnitario?: number,
-    public movimientoId?: number,
-    public eventoId?: number,
-    public tipoPresentacion?: TipoPresentacion,
-    public cantidadBarriles?: number
+    public estilosId?: number
   ) {}
 }

@@ -1,12 +1,14 @@
-/* tslint:disable max-line-length */
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { RecetaInsumoService } from 'app/entities/receta-insumo/receta-insumo.service';
-import { IRecetaInsumo, RecetaInsumo, UsoMalta, ModoLupulo, UsoLupulo, TipoOtro, UsoOtro } from 'app/shared/model/receta-insumo.model';
-import { TipoInsumo } from 'app/shared/model/insumo.model';
+import { IRecetaInsumo, RecetaInsumo } from 'app/shared/model/receta-insumo.model';
+import { TipoInsumo } from 'app/shared/model/enumerations/tipo-insumo.model';
+import { UsoMalta } from 'app/shared/model/enumerations/uso-malta.model';
+import { ModoLupulo } from 'app/shared/model/enumerations/modo-lupulo.model';
+import { UsoLupulo } from 'app/shared/model/enumerations/uso-lupulo.model';
+import { TipoOtro } from 'app/shared/model/enumerations/tipo-otro.model';
+import { UsoOtro } from 'app/shared/model/enumerations/uso-otro.model';
 
 describe('Service Tests', () => {
   describe('RecetaInsumo Service', () => {
@@ -14,10 +16,12 @@ describe('Service Tests', () => {
     let service: RecetaInsumoService;
     let httpMock: HttpTestingController;
     let elemDefault: IRecetaInsumo;
+    let expectedResult;
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
       });
+      expectedResult = {};
       injector = getTestBed();
       service = injector.get(RecetaInsumoService);
       httpMock = injector.get(HttpTestingController);
@@ -44,19 +48,20 @@ describe('Service Tests', () => {
       );
     });
 
-    describe('Service methods', async () => {
-      it('should find an element', async () => {
+    describe('Service methods', () => {
+      it('should find an element', () => {
         const returnedFromService = Object.assign({}, elemDefault);
         service
           .find(123)
           .pipe(take(1))
-          .subscribe(resp => expect(resp).toMatchObject({ body: elemDefault }));
+          .subscribe(resp => (expectedResult = resp));
 
         const req = httpMock.expectOne({ method: 'GET' });
-        req.flush(JSON.stringify(returnedFromService));
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject({ body: elemDefault });
       });
 
-      it('should create a RecetaInsumo', async () => {
+      it('should create a RecetaInsumo', () => {
         const returnedFromService = Object.assign(
           {
             id: 0
@@ -67,12 +72,13 @@ describe('Service Tests', () => {
         service
           .create(new RecetaInsumo(null))
           .pipe(take(1))
-          .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
+          .subscribe(resp => (expectedResult = resp));
         const req = httpMock.expectOne({ method: 'POST' });
-        req.flush(JSON.stringify(returnedFromService));
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should update a RecetaInsumo', async () => {
+      it('should update a RecetaInsumo', () => {
         const returnedFromService = Object.assign(
           {
             tipoInsumo: 'BBBBBB',
@@ -100,12 +106,13 @@ describe('Service Tests', () => {
         service
           .update(expected)
           .pipe(take(1))
-          .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
+          .subscribe(resp => (expectedResult = resp));
         const req = httpMock.expectOne({ method: 'PUT' });
-        req.flush(JSON.stringify(returnedFromService));
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should return a list of RecetaInsumo', async () => {
+      it('should return a list of RecetaInsumo', () => {
         const returnedFromService = Object.assign(
           {
             tipoInsumo: 'BBBBBB',
@@ -135,17 +142,19 @@ describe('Service Tests', () => {
             take(1),
             map(resp => resp.body)
           )
-          .subscribe(body => expect(body).toContainEqual(expected));
+          .subscribe(body => (expectedResult = body));
         const req = httpMock.expectOne({ method: 'GET' });
-        req.flush(JSON.stringify([returnedFromService]));
+        req.flush([returnedFromService]);
         httpMock.verify();
+        expect(expectedResult).toContainEqual(expected);
       });
 
-      it('should delete a RecetaInsumo', async () => {
-        const rxPromise = service.delete(123).subscribe(resp => expect(resp.ok));
+      it('should delete a RecetaInsumo', () => {
+        service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
         const req = httpMock.expectOne({ method: 'DELETE' });
         req.flush({ status: 200 });
+        expect(expectedResult);
       });
     });
 

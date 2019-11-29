@@ -8,7 +8,7 @@ import com.craftbeerstore.application.domain.enumeration.Unidad;
 import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 
 /**
- * A DTO for the Insumo entity.
+ * A DTO for the {@link com.craftbeerstore.application.domain.Insumo} entity.
  */
 public class InsumoDTO implements Serializable {
 

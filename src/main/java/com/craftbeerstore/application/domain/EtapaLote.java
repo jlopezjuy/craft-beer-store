@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.EtapaLoteEnum;
 
@@ -23,7 +20,7 @@ import com.craftbeerstore.application.domain.enumeration.EtapaLoteEnum;
 public class EtapaLote implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +29,7 @@ public class EtapaLote implements Serializable {
     @Column(name = "etapa")
     private EtapaLoteEnum etapa;
 
-    @Column(name = "litros", precision = 10, scale = 2)
+    @Column(name = "litros", precision = 21, scale = 2)
     private BigDecimal litros;
 
     @Column(name = "inicio")
@@ -158,19 +155,15 @@ public class EtapaLote implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof EtapaLote)) {
             return false;
         }
-        EtapaLote etapaLote = (EtapaLote) o;
-        if (etapaLote.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), etapaLote.getId());
+        return id != null && id.equals(((EtapaLote) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

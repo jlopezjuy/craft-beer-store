@@ -6,7 +6,7 @@ import com.craftbeerstore.application.service.dto.LoteDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity Lote and its DTO LoteDTO.
+ * Mapper for the entity {@link Lote} and its DTO {@link LoteDTO}.
  */
 @Mapper(componentModel = "spring", uses = {RecetaMapper.class, EmpresaMapper.class, ProductoMapper.class, TanqueMapper.class})
 public interface LoteMapper extends EntityMapper<LoteDTO, Lote> {

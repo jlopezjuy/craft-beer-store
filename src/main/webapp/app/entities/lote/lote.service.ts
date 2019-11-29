@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
+import { createRequestOption } from 'app/shared/util/request-util';
 import { ILote } from 'app/shared/model/lote.model';
 
 type EntityResponseType = HttpResponse<ILote>;
@@ -43,11 +44,6 @@ export class LoteService {
     return this.http
       .get<ILote[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
-  }
-
-  queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<ILote[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<any>> {

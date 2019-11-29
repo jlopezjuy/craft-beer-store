@@ -1,0 +1,6 @@
+export const enum UsoMalta {
+  MASH = 'MASH',
+  RECIRCULATING = 'RECIRCULATING',
+  BOIL = 'BOIL',
+  FERMENTATION = 'FERMENTATION'
+}

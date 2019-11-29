@@ -1,9 +1,9 @@
 {
-    "craftBeerStoreApp": {
-        "TipoMovimientoCaja": {
-            "null": "",
-            "INGRESO": "INGRESO",
-            "EGRESO": "EGRESO"
-        }
+  "craftBeerStoreApp": {
+    "TipoMovimientoCaja": {
+      "null": "",
+      "INGRESO": "INGRESO",
+      "EGRESO": "EGRESO"
     }
+  }
 }

@@ -1,34 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-    EventoComponent,
-    EventoDetailComponent,
-    EventoUpdateComponent,
-    EventoDeletePopupComponent,
-    EventoDeleteDialogComponent,
-    eventoRoute,
-    eventoPopupRoute
-} from './';
-
-const ENTITY_STATES = [...eventoRoute, ...eventoPopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { EventoComponent } from './evento.component';
+import { EventoDetailComponent } from './evento-detail.component';
+import { EventoUpdateComponent } from './evento-update.component';
+import { EventoDeleteDialogComponent } from './evento-delete-dialog.component';
+import { eventoRoute } from './evento.route';
 
 @NgModule({
-    imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [EventoComponent, EventoDetailComponent, EventoUpdateComponent, EventoDeleteDialogComponent, EventoDeletePopupComponent],
-    entryComponents: [EventoComponent, EventoUpdateComponent, EventoDeleteDialogComponent, EventoDeletePopupComponent],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(eventoRoute)],
+  declarations: [EventoComponent, EventoDetailComponent, EventoUpdateComponent, EventoDeleteDialogComponent],
+  entryComponents: [EventoDeleteDialogComponent]
 })
-export class CraftBeerStoreEventoModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class CraftBeerStoreEventoModule {}

@@ -1,50 +1,69 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
-import { ICliente } from 'app/shared/model/cliente.model';
+import { ICliente, Cliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from './cliente.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
-import { EmpresaService } from 'app/account/settings/empresa';
-import { LocalStorageService } from 'ngx-webstorage';
-import { PuntoDeVentaService } from 'app/entities/punto-de-venta';
-import { IPuntoDeVenta, PuntoDeVenta } from 'app/shared/model/punto-de-venta.model';
-import { MatTableDataSource } from '@angular/material';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
 
 @Component({
   selector: 'jhi-cliente-update',
   templateUrl: './cliente-update.component.html'
 })
 export class ClienteUpdateComponent implements OnInit {
-  cliente: ICliente;
   isSaving: boolean;
-  puntosDeVenta: IPuntoDeVenta[] = [];
-  puntoDeVenta: IPuntoDeVenta = new PuntoDeVenta();
-  empresa: IEmpresa;
-  dataSource: any;
-  displayedColumns: string[] = ['nombre', 'direccionDeEntrega', 'localidad', 'notas'];
+
+  empresas: IEmpresa[];
+
+  editForm = this.fb.group({
+    id: [],
+    nombreApellido: [null, [Validators.required]],
+    domicilio: [null, [Validators.required]],
+    localidad: [],
+    codigoPostal: [],
+    provincia: [],
+    tipoCliente: [null, [Validators.required]],
+    telefono: [],
+    correo: [null, [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+    empresaId: []
+  });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected clienteService: ClienteService,
     protected empresaService: EmpresaService,
     protected activatedRoute: ActivatedRoute,
-    protected router: Router,
-    protected $localStorage: LocalStorageService,
-    protected puntoDeVentaService: PuntoDeVentaService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ cliente }) => {
-      this.cliente = cliente;
-      if (this.cliente.id) {
-        this.loadPuntosDeVenta(this.cliente.id);
-      }
+      this.updateForm(cliente);
     });
-    this.empresa = this.$localStorage.retrieve('empresa');
+    this.empresaService
+      .query()
+      .subscribe((res: HttpResponse<IEmpresa[]>) => (this.empresas = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+  }
+
+  updateForm(cliente: ICliente) {
+    this.editForm.patchValue({
+      id: cliente.id,
+      nombreApellido: cliente.nombreApellido,
+      domicilio: cliente.domicilio,
+      localidad: cliente.localidad,
+      codigoPostal: cliente.codigoPostal,
+      provincia: cliente.provincia,
+      tipoCliente: cliente.tipoCliente,
+      telefono: cliente.telefono,
+      correo: cliente.correo,
+      empresaId: cliente.empresaId
+    });
   }
 
   previousState() {
@@ -52,58 +71,48 @@ export class ClienteUpdateComponent implements OnInit {
   }
 
   save() {
-    this.cliente.empresaId = this.empresa.id;
     this.isSaving = true;
-    if (this.cliente.id !== undefined) {
-      this.subscribeToSaveResponse(this.clienteService.update(this.cliente));
+    const cliente = this.createFromForm();
+    if (cliente.id !== undefined) {
+      this.subscribeToSaveResponse(this.clienteService.update(cliente));
     } else {
-      this.subscribeToSaveResponse(this.clienteService.create(this.cliente));
+      this.subscribeToSaveResponse(this.clienteService.create(cliente));
     }
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<ICliente>>) {
-    result.subscribe((res: HttpResponse<ICliente>) => this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+  private createFromForm(): ICliente {
+    return {
+      ...new Cliente(),
+      id: this.editForm.get(['id']).value,
+      nombreApellido: this.editForm.get(['nombreApellido']).value,
+      domicilio: this.editForm.get(['domicilio']).value,
+      localidad: this.editForm.get(['localidad']).value,
+      codigoPostal: this.editForm.get(['codigoPostal']).value,
+      provincia: this.editForm.get(['provincia']).value,
+      tipoCliente: this.editForm.get(['tipoCliente']).value,
+      telefono: this.editForm.get(['telefono']).value,
+      correo: this.editForm.get(['correo']).value,
+      empresaId: this.editForm.get(['empresaId']).value
+    };
   }
 
-  protected onSaveSuccess(cliente: ICliente) {
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<ICliente>>) {
+    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+  }
+
+  protected onSaveSuccess() {
     this.isSaving = false;
-    this.puntosDeVenta.forEach(punto => {
-      punto.clienteId = cliente.id;
-      if (punto.id) {
-        this.puntoDeVentaService.update(punto).subscribe(resp => {
-          console.log('exito');
-        });
-      } else {
-        this.puntoDeVentaService.create(punto).subscribe(reso => {
-          console.log('exito');
-        });
-      }
-    });
     this.previousState();
   }
 
   protected onSaveError() {
     this.isSaving = false;
   }
-
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
   trackEmpresaById(index: number, item: IEmpresa) {
     return item.id;
-  }
-
-  protected loadPuntosDeVenta(clienteId: number) {
-    this.puntoDeVentaService.queryByCliente(null, clienteId).subscribe(resp => {
-      this.puntosDeVenta = resp.body;
-      this.dataSource = new MatTableDataSource<IPuntoDeVenta>(this.puntosDeVenta);
-    });
-  }
-
-  addPuntoDeVenta() {
-    this.puntosDeVenta.push(this.puntoDeVenta);
-    this.puntoDeVenta = new PuntoDeVenta();
-    this.dataSource = new MatTableDataSource<IPuntoDeVenta>(this.puntosDeVenta);
   }
 }

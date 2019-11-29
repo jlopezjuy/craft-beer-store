@@ -5,7 +5,7 @@
         "title": "Productos",
         "createLabel": "Crear nuevo Producto",
         "createOrEditLabel": "Crear o editar Producto",
-        "search": "Search for Producto"
+        "notFound": "Ningún Productos encontrado"
       },
       "created": "Un nuevo Producto ha sido creado con el identificador {{ param }}",
       "updated": "Un Producto ha sido actualizado con el identificador {{ param }}",
@@ -16,18 +16,15 @@
       "detail": {
         "title": "Producto"
       },
-      "descripcion": "Descripción",
+      "descripcion": "Descripcion",
       "tipo": "Tipo",
       "nombreComercial": "Nombre Comercial",
-      "precioLitro": "Precio por Litro",
-      "tipoProducto": "Tipo de Producto",
+      "tipoProducto": "Tipo Producto",
       "imagen": "Imagen",
-      "observacion": "Observación",
+      "observacion": "Observacion",
       "srmColor": "Srm Color",
       "empresa": "Empresa",
-      "presentacion": "Presentación",
-      "estilos": "Estilos",
-      "receta": "Receta"
+      "estilos": "Estilos"
     }
   }
 }

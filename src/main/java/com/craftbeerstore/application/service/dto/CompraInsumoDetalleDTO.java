@@ -6,7 +6,7 @@ import com.craftbeerstore.application.domain.enumeration.Unidad;
 import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 
 /**
- * A DTO for the CompraInsumoDetalle entity.
+ * A DTO for the {@link com.craftbeerstore.application.domain.CompraInsumoDetalle} entity.
  */
 public class CompraInsumoDetalleDTO implements Serializable {
 

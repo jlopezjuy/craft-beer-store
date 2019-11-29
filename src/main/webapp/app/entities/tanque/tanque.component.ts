@@ -1,19 +1,14 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITanque } from 'app/shared/model/tanque.model';
-import { AccountService } from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
+import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { TanqueService } from './tanque.service';
-import { LocalStorageService } from 'ngx-webstorage';
-import { IEmpresa } from '../../shared/model/empresa.model';
-import { MatDialog, MatTableDataSource, PageEvent } from '@angular/material';
-import { SidebarService } from '../../services/sidebar.service';
 import { TanqueDeleteDialogComponent } from './tanque-delete-dialog.component';
 
 @Component({
@@ -21,7 +16,6 @@ import { TanqueDeleteDialogComponent } from './tanque-delete-dialog.component';
   templateUrl: './tanque.component.html'
 })
 export class TanqueComponent implements OnInit, OnDestroy {
-  currentAccount: any;
   tanques: ITanque[];
   error: any;
   success: any;
@@ -34,34 +28,14 @@ export class TanqueComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
-  empresa: IEmpresa;
-  dataSource: any;
-  displayedColumns: string[] = [
-    'nombre',
-    'litros',
-    'tipo',
-    'estado',
-    'listrosDisponible',
-    'fechaIngreso',
-    'loteCodigo',
-    'productoNombreComercial',
-    'actions'
-  ];
-  pageEvent: PageEvent;
-  public sidebarVisible = true;
 
   constructor(
     protected tanqueService: TanqueService,
     protected parseLinks: JhiParseLinks,
-    protected jhiAlertService: JhiAlertService,
-    protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    private $localStorage: LocalStorageService,
-    public dialog: MatDialog,
-    private sidebarService: SidebarService,
-    private cdr: ChangeDetectorRef
+    protected modalService: NgbModal
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -74,18 +48,12 @@ export class TanqueComponent implements OnInit, OnDestroy {
 
   loadAll() {
     this.tanqueService
-      .queryByEmpresa(
-        {
-          page: this.page - 1,
-          size: this.itemsPerPage,
-          sort: this.sort()
-        },
-        this.empresa.id
-      )
-      .subscribe(
-        (res: HttpResponse<ITanque[]>) => this.paginateTanques(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .query({
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort()
+      })
+      .subscribe((res: HttpResponse<ITanque[]>) => this.paginateTanques(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -119,11 +87,7 @@ export class TanqueComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.empresa = this.$localStorage.retrieve('empresa');
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInTanques();
   }
 
@@ -136,7 +100,12 @@ export class TanqueComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInTanques() {
-    this.eventSubscriber = this.eventManager.subscribe('tanqueListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('tanqueListModification', () => this.loadAll());
+  }
+
+  delete(tanque: ITanque) {
+    const modalRef = this.modalService.open(TanqueDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.tanque = tanque;
   }
 
   sort() {
@@ -151,37 +120,5 @@ export class TanqueComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.tanques = data;
-    this.dataSource = new MatTableDataSource<ITanque>(this.tanques);
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  toggleFullWidth() {
-    this.sidebarService.toggle();
-    this.sidebarVisible = this.sidebarService.getStatus();
-    this.cdr.detectChanges();
-  }
-
-  onPaginateChange(event: PageEvent) {
-    this.page = event.pageIndex + 1;
-    this.loadPage(event.pageIndex + 1);
-  }
-
-  deleteControl(tanque: ITanque): void {
-    console.log(tanque);
-    const dialogRef = this.dialog.open(TanqueDeleteDialogComponent, {
-      width: '50%',
-      data: {
-        id: tanque.id
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-      this.loadAll();
-    });
   }
 }

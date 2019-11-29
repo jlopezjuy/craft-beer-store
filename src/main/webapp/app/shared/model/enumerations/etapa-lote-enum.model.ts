@@ -1,0 +1,6 @@
+export const enum EtapaLoteEnum {
+  COCCION = 'COCCION',
+  FERMENTACION = 'FERMENTACION',
+  MADURACION = 'MADURACION',
+  ENVASADO = 'ENVASADO'
+}

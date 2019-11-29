@@ -1,45 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-  CompraInsumoDetalleComponent,
-  CompraInsumoDetalleDetailComponent,
-  CompraInsumoDetalleUpdateComponent,
-  CompraInsumoDetalleDeletePopupComponent,
-  CompraInsumoDetalleDeleteDialogComponent,
-  compraInsumoDetalleRoute,
-  compraInsumoDetallePopupRoute
-} from './';
-
-const ENTITY_STATES = [...compraInsumoDetalleRoute, ...compraInsumoDetallePopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { CompraInsumoDetalleComponent } from './compra-insumo-detalle.component';
+import { CompraInsumoDetalleDetailComponent } from './compra-insumo-detalle-detail.component';
+import { CompraInsumoDetalleUpdateComponent } from './compra-insumo-detalle-update.component';
+import { CompraInsumoDetalleDeleteDialogComponent } from './compra-insumo-detalle-delete-dialog.component';
+import { compraInsumoDetalleRoute } from './compra-insumo-detalle.route';
 
 @NgModule({
-  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(compraInsumoDetalleRoute)],
   declarations: [
     CompraInsumoDetalleComponent,
     CompraInsumoDetalleDetailComponent,
     CompraInsumoDetalleUpdateComponent,
-    CompraInsumoDetalleDeleteDialogComponent,
-    CompraInsumoDetalleDeletePopupComponent
+    CompraInsumoDetalleDeleteDialogComponent
   ],
-  entryComponents: [
-    CompraInsumoDetalleComponent,
-    CompraInsumoDetalleUpdateComponent,
-    CompraInsumoDetalleDeleteDialogComponent,
-    CompraInsumoDetalleDeletePopupComponent
-  ],
-  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  entryComponents: [CompraInsumoDetalleDeleteDialogComponent]
 })
-export class CraftBeerStoreCompraInsumoDetalleModule {
-  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-    this.languageHelper.language.subscribe((languageKey: string) => {
-      if (languageKey !== undefined) {
-        this.languageService.changeLanguage(languageKey);
-      }
-    });
-  }
-}
+export class CraftBeerStoreCompraInsumoDetalleModule {}

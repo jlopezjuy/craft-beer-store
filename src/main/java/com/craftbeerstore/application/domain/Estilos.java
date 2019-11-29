@@ -1,13 +1,11 @@
 package com.craftbeerstore.application.domain;
-
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * A Estilos.
@@ -18,12 +16,12 @@ import java.util.Objects;
 public class Estilos implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "jhi_number")
+    @Column(name = "number")
     private String number;
 
     @Column(name = "nombre_estilo")
@@ -32,31 +30,31 @@ public class Estilos implements Serializable {
     @Column(name = "categoria_estilo")
     private String categoriaEstilo;
 
-    @Column(name = "abv_min", precision = 10, scale = 2)
+    @Column(name = "abv_min", precision = 21, scale = 2)
     private BigDecimal abvMin;
 
-    @Column(name = "abv_max", precision = 10, scale = 2)
+    @Column(name = "abv_max", precision = 21, scale = 2)
     private BigDecimal abvMax;
 
-    @Column(name = "abv_med", precision = 10, scale = 2)
+    @Column(name = "abv_med", precision = 21, scale = 2)
     private BigDecimal abvMed;
 
-    @Column(name = "ibu_min", precision = 10, scale = 2)
+    @Column(name = "ibu_min", precision = 21, scale = 2)
     private BigDecimal ibuMin;
 
-    @Column(name = "ibu_max", precision = 10, scale = 2)
+    @Column(name = "ibu_max", precision = 21, scale = 2)
     private BigDecimal ibuMax;
 
-    @Column(name = "ibu_med", precision = 10, scale = 2)
+    @Column(name = "ibu_med", precision = 21, scale = 2)
     private BigDecimal ibuMed;
 
-    @Column(name = "srm_min", precision = 10, scale = 2)
+    @Column(name = "srm_min", precision = 21, scale = 2)
     private BigDecimal srmMin;
 
-    @Column(name = "srm_max", precision = 10, scale = 2)
+    @Column(name = "srm_max", precision = 21, scale = 2)
     private BigDecimal srmMax;
 
-    @Column(name = "srm_med", precision = 10, scale = 2)
+    @Column(name = "srm_med", precision = 21, scale = 2)
     private BigDecimal srmMed;
 
     @Column(name = "descripcion")
@@ -278,19 +276,15 @@ public class Estilos implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Estilos)) {
             return false;
         }
-        Estilos estilos = (Estilos) o;
-        if (estilos.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), estilos.getId());
+        return id != null && id.equals(((Estilos) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

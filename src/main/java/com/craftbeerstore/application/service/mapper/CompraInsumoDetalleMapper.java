@@ -6,7 +6,7 @@ import com.craftbeerstore.application.service.dto.CompraInsumoDetalleDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity CompraInsumoDetalle and its DTO CompraInsumoDetalleDTO.
+ * Mapper for the entity {@link CompraInsumoDetalle} and its DTO {@link CompraInsumoDetalleDTO}.
  */
 @Mapper(componentModel = "spring", uses = {CompraInsumoMapper.class, InsumoRecomendadoMapper.class})
 public interface CompraInsumoDetalleMapper extends EntityMapper<CompraInsumoDetalleDTO, CompraInsumoDetalle> {

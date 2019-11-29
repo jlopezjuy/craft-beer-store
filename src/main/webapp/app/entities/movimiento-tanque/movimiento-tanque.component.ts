@@ -1,22 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IMovimientoTanque } from 'app/shared/model/movimiento-tanque.model';
-import { AccountService } from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
+import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { MovimientoTanqueService } from './movimiento-tanque.service';
+import { MovimientoTanqueDeleteDialogComponent } from './movimiento-tanque-delete-dialog.component';
 
 @Component({
   selector: 'jhi-movimiento-tanque',
   templateUrl: './movimiento-tanque.component.html'
 })
 export class MovimientoTanqueComponent implements OnInit, OnDestroy {
-  currentAccount: any;
   movimientoTanques: IMovimientoTanque[];
   error: any;
   success: any;
@@ -33,11 +32,10 @@ export class MovimientoTanqueComponent implements OnInit, OnDestroy {
   constructor(
     protected movimientoTanqueService: MovimientoTanqueService,
     protected parseLinks: JhiParseLinks,
-    protected jhiAlertService: JhiAlertService,
-    protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected modalService: NgbModal
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -55,10 +53,7 @@ export class MovimientoTanqueComponent implements OnInit, OnDestroy {
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe(
-        (res: HttpResponse<IMovimientoTanque[]>) => this.paginateMovimientoTanques(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .subscribe((res: HttpResponse<IMovimientoTanque[]>) => this.paginateMovimientoTanques(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -93,9 +88,6 @@ export class MovimientoTanqueComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInMovimientoTanques();
   }
 
@@ -108,7 +100,12 @@ export class MovimientoTanqueComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInMovimientoTanques() {
-    this.eventSubscriber = this.eventManager.subscribe('movimientoTanqueListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('movimientoTanqueListModification', () => this.loadAll());
+  }
+
+  delete(movimientoTanque: IMovimientoTanque) {
+    const modalRef = this.modalService.open(MovimientoTanqueDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.movimientoTanque = movimientoTanque;
   }
 
   sort() {
@@ -123,9 +120,5 @@ export class MovimientoTanqueComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.movimientoTanques = data;
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

@@ -1,13 +1,11 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A EventoProducto.
@@ -18,7 +16,7 @@ import java.util.Objects;
 public class EventoProducto implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -88,19 +86,15 @@ public class EventoProducto implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof EventoProducto)) {
             return false;
         }
-        EventoProducto eventoProducto = (EventoProducto) o;
-        if (eventoProducto.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), eventoProducto.getId());
+        return id != null && id.equals(((EventoProducto) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

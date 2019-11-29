@@ -1,17 +1,17 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-compra-insumo-detalle-heading" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.home.createOrEditLabel">Create or edit a Compra Insumo Detalle</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!compraInsumoDetalle.id">
+                <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="compraInsumoDetalle.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.unidad" for="field_unidad">Unidad</label>
-                    <select class="form-control" name="unidad" [(ngModel)]="compraInsumoDetalle.unidad" id="field_unidad" >
+                    <select class="form-control" name="unidad" formControlName="unidad" id="field_unidad">
                         <option value="KILOGRAMO">{{'craftBeerStoreApp.Unidad.KILOGRAMO' | translate}}</option>
                         <option value="GRAMO">{{'craftBeerStoreApp.Unidad.GRAMO' | translate}}</option>
                         <option value="VEINTICINCO_KILOS">{{'craftBeerStoreApp.Unidad.VEINTICINCO_KILOS' | translate}}</option>
@@ -26,26 +26,26 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.codigoReferencia" for="field_codigoReferencia">Codigo Referencia</label>
                     <input type="text" class="form-control" name="codigoReferencia" id="field_codigoReferencia"
-                        [(ngModel)]="compraInsumoDetalle.codigoReferencia" />
+                           formControlName="codigoReferencia"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.stock" for="field_stock">Stock</label>
                     <input type="number" class="form-control" name="stock" id="field_stock"
-                        [(ngModel)]="compraInsumoDetalle.stock" />
+                           formControlName="stock"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioUnitario" for="field_precioUnitario">Precio Unitario</label>
                     <input type="number" class="form-control" name="precioUnitario" id="field_precioUnitario"
-                        [(ngModel)]="compraInsumoDetalle.precioUnitario" />
+                           formControlName="precioUnitario"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.precioTotal" for="field_precioTotal">Precio Total</label>
                     <input type="number" class="form-control" name="precioTotal" id="field_precioTotal"
-                        [(ngModel)]="compraInsumoDetalle.precioTotal" />
+                           formControlName="precioTotal"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.tipo" for="field_tipo">Tipo</label>
-                    <select class="form-control" name="tipo" [(ngModel)]="compraInsumoDetalle.tipo" id="field_tipo" >
+                    <select class="form-control" name="tipo" formControlName="tipo" id="field_tipo">
                         <option value="MALTA">{{'craftBeerStoreApp.TipoInsumo.MALTA' | translate}}</option>
                         <option value="LUPULO">{{'craftBeerStoreApp.TipoInsumo.LUPULO' | translate}}</option>
                         <option value="LEVADURA">{{'craftBeerStoreApp.TipoInsumo.LEVADURA' | translate}}</option>
@@ -58,14 +58,14 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.compraInsumo" for="field_compraInsumo">Compra Insumo</label>
-                    <select class="form-control" id="field_compraInsumo" name="compraInsumo" [(ngModel)]="compraInsumoDetalle.compraInsumoId" >
+                    <select class="form-control" id="field_compraInsumo" name="compraInsumo" formControlName="compraInsumoId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="compraInsumoOption.id" *ngFor="let compraInsumoOption of comprainsumos; trackBy: trackCompraInsumoById">{{compraInsumoOption.nroFactura}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.compraInsumoDetalle.insumoRecomendado" for="field_insumoRecomendado">Insumo Recomendado</label>
-                    <select class="form-control" id="field_insumoRecomendado" name="insumoRecomendado" [(ngModel)]="compraInsumoDetalle.insumoRecomendadoId" >
+                    <select class="form-control" id="field_insumoRecomendado" name="insumoRecomendado" formControlName="insumoRecomendadoId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="insumoRecomendadoOption.id" *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">{{insumoRecomendadoOption.nombre}}</option>
                     </select>
@@ -75,7 +75,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

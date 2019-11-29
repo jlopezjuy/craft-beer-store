@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
-import { UserRouteAccessService } from 'app/core';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Presentacion } from 'app/shared/model/presentacion.model';
 import { PresentacionService } from './presentacion.service';
 import { PresentacionComponent } from './presentacion.component';
 import { PresentacionDetailComponent } from './presentacion-detail.component';
 import { PresentacionUpdateComponent } from './presentacion-update.component';
-import { PresentacionDeletePopupComponent } from './presentacion-delete-dialog.component';
 import { IPresentacion } from 'app/shared/model/presentacion.model';
 
 @Injectable({ providedIn: 'root' })
 export class PresentacionResolve implements Resolve<IPresentacion> {
   constructor(private service: PresentacionService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPresentacion> {
-    const id = route.params['id'] ? route.params['id'] : null;
+  resolve(route: ActivatedRouteSnapshot): Observable<IPresentacion> {
+    const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Presentacion>) => response.ok),
-        map((presentacion: HttpResponse<Presentacion>) => presentacion.body)
-      );
+      return this.service.find(id).pipe(map((presentacion: HttpResponse<Presentacion>) => presentacion.body));
     }
     return of(new Presentacion());
   }
@@ -78,21 +74,5 @@ export const presentacionRoute: Routes = [
       pageTitle: 'craftBeerStoreApp.presentacion.home.title'
     },
     canActivate: [UserRouteAccessService]
-  }
-];
-
-export const presentacionPopupRoute: Routes = [
-  {
-    path: ':id/delete',
-    component: PresentacionDeletePopupComponent,
-    resolve: {
-      presentacion: PresentacionResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.presentacion.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
   }
 ];

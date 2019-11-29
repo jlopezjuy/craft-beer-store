@@ -1,31 +1,19 @@
 {
   "global": {
-    "title": "Craft Beer Management",
+    "title": "CraftBeerStore",
     "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
     "menu": {
       "home": "Home",
-      "dashboard": {
-        "main": "Dashboard",
-        "barchart": "Movimiento: Ventas",
-        "doughnutchart": "Ingresos / Egresos de Caja",
-        "linechart": "LineChart",
-        "piechart": "PieChart",
-        "polarareachart": "PolarAreaChart",
-        "radarchart": "RadarChart"
-      },
-      "craft-beer-store": "[EN] Craft Beer Management",
-      "manual-usuario": "[EN] Manual Usuario",
-      "resume": "[EN] Resume",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
-        "empresa": "Brewery",
+        "empresa": "Empresa",
         "insumo": "Insumo",
         "producto": "Producto",
         "proveedor": "Proveedor",
         "presentacion": "Presentacion",
         "cliente": "Cliente",
-        "movimientos": "Sales",
+        "movimientos": "Movimientos",
         "detalleMovimiento": "Detalle Movimiento",
         "caja": "Caja",
         "evento": "Evento",
@@ -36,7 +24,7 @@
         "receta": "Receta",
         "recetaInsumo": "Receta Insumo",
         "insumoRecomendado": "Insumo Recomendado",
-        "compraInsumo": "Compra de Insumos",
+        "compraInsumo": "Compra Insumo",
         "compraInsumoDetalle": "Compra Insumo Detalle",
         "barril": "Barril",
         "lote": "Lote",
@@ -72,15 +60,15 @@
       "language": "Language"
     },
     "form": {
-      "username": "Username",
+      "username.label": "Username",
       "username.placeholder": "Your username",
-      "currentpassword": "Current password",
+      "currentpassword.label": "Current password",
       "currentpassword.placeholder": "Current password",
-      "newpassword": "New password",
+      "newpassword.label": "New password",
       "newpassword.placeholder": "New password",
-      "confirmpassword": "New password confirmation",
+      "confirmpassword.label": "New password confirmation",
       "confirmpassword.placeholder": "Confirm the new password",
-      "email": "Email",
+      "email.label": "Email",
       "email.placeholder": "Your email"
     },
     "messages": {
@@ -128,7 +116,6 @@
   },
   "entity": {
     "action": {
-      "add": "Add",
       "addblob": "Add blob",
       "addimage": "Add image",
       "back": "Back",
@@ -137,13 +124,7 @@
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
-      "view": "View",
-      "inicio": "Start",
-      "confirm": "Sei, seguro",
-      "seleccionar": "Seleccionar",
-      "finalizar": "Finalizar",
-      "envasar": "Envasar",
-      "medicion": "Medición"
+      "view": "View"
     },
     "detail": {
       "field": "Field",
@@ -175,8 +156,7 @@
     "userexists": "Login name already used!",
     "emailexists": "Email is already in use!",
     "idexists": "A new {{ entityName }} cannot already have an ID",
-    "idnull": "Invalid ID",
-    "listempty": "La lista que intenta guardar esta vacia"
+    "idnull": "Invalid ID"
   },
   "footer": "This is your footer"
 }

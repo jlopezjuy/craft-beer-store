@@ -5,7 +5,7 @@
         "title": "Recetas",
         "createLabel": "Crear nuevo Receta",
         "createOrEditLabel": "Crear o editar Receta",
-        "search": "Search for Receta"
+        "notFound": "Ningún Recetas encontrado"
       },
       "created": "Un nuevo Receta ha sido creado con el identificador {{ param }}",
       "updated": "Un Receta ha sido actualizado con el identificador {{ param }}",
@@ -20,9 +20,8 @@
       "brewMaster": "Brew Master",
       "batch": "Batch",
       "temperaturaDeMacerado": "Temperatura De Macerado",
-      "macerado": "Macerado",
-      "og": "DI",
-      "fg": "DF",
+      "og": "Og",
+      "fg": "Fg",
       "abv": "Abv",
       "ibu": "Ibu",
       "srm": "Srm",
@@ -30,8 +29,8 @@
       "fecha": "Fecha",
       "producto": "Producto",
       "maltas": "Maltas",
-      "lupulo": "Lúpulos",
-      "levadura": "Levaduras",
+      "lupulo": "Lupulo",
+      "levadura": "Levadura",
       "otros": "Otros"
     }
   }

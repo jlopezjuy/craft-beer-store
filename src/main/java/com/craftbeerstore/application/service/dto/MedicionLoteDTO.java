@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.craftbeerstore.application.domain.enumeration.TipoMedicion;
 
 /**
- * A DTO for the MedicionLote entity.
+ * A DTO for the {@link com.craftbeerstore.application.domain.MedicionLote} entity.
  */
 public class MedicionLoteDTO implements Serializable {
 

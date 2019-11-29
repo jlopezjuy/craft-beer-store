@@ -2,7 +2,7 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <!--
         Added the constraints for entity Receta.
     -->
@@ -13,5 +13,30 @@
                                  constraintName="fk_receta_producto_id"
                                  referencedColumnNames="id"
                                  referencedTableName="producto"/>
+
+        <addForeignKeyConstraint baseColumnNames="maltas_id"
+                                 baseTableName="receta"
+                                 constraintName="fk_receta_maltas_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="insumo"/>
+
+        <addForeignKeyConstraint baseColumnNames="lupulo_id"
+                                 baseTableName="receta"
+                                 constraintName="fk_receta_lupulo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="insumo"/>
+
+        <addForeignKeyConstraint baseColumnNames="levadura_id"
+                                 baseTableName="receta"
+                                 constraintName="fk_receta_levadura_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="insumo"/>
+
+        <addForeignKeyConstraint baseColumnNames="otros_id"
+                                 baseTableName="receta"
+                                 constraintName="fk_receta_otros_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="insumo"/>
+
     </changeSet>
 </databaseChangeLog>

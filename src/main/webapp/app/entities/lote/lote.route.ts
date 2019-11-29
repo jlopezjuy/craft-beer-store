@@ -1,31 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
-import { UserRouteAccessService } from 'app/core';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Lote } from 'app/shared/model/lote.model';
 import { LoteService } from './lote.service';
 import { LoteComponent } from './lote.component';
 import { LoteDetailComponent } from './lote-detail.component';
 import { LoteUpdateComponent } from './lote-update.component';
-import { LoteDeletePopupComponent } from './lote-delete-dialog.component';
 import { ILote } from 'app/shared/model/lote.model';
-import { LoteEnvasadoComponent } from './lote-envasado/lote-envasado.component';
-import { LoteMedicionesComponent } from './lote-mediciones/lote-mediciones.component';
 
 @Injectable({ providedIn: 'root' })
 export class LoteResolve implements Resolve<ILote> {
   constructor(private service: LoteService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ILote> {
-    const id = route.params['id'] ? route.params['id'] : null;
+  resolve(route: ActivatedRouteSnapshot): Observable<ILote> {
+    const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Lote>) => response.ok),
-        map((lote: HttpResponse<Lote>) => lote.body)
-      );
+      return this.service.find(id).pipe(map((lote: HttpResponse<Lote>) => lote.body));
     }
     return of(new Lote());
   }
@@ -80,58 +74,5 @@ export const loteRoute: Routes = [
       pageTitle: 'craftBeerStoreApp.lote.home.title'
     },
     canActivate: [UserRouteAccessService]
-  },
-  {
-    path: ':id/delete',
-    component: LoteDeletePopupComponent,
-    resolve: {
-      barril: LoteResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.lote.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
-  },
-  {
-    path: ':id/envasado',
-    component: LoteEnvasadoComponent,
-    resolve: {
-      lote: LoteResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.lote.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  },
-  {
-    path: ':id/medicion',
-    component: LoteMedicionesComponent,
-    resolve: {
-      lote: LoteResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.lote.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
-];
-
-export const lotePopupRoute: Routes = [
-  {
-    path: ':id/delete',
-    component: LoteDeletePopupComponent,
-    resolve: {
-      lote: LoteResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.lote.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
   }
 ];

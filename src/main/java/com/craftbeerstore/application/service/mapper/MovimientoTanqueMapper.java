@@ -6,7 +6,7 @@ import com.craftbeerstore.application.service.dto.MovimientoTanqueDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity MovimientoTanque and its DTO MovimientoTanqueDTO.
+ * Mapper for the entity {@link MovimientoTanque} and its DTO {@link MovimientoTanqueDTO}.
  */
 @Mapper(componentModel = "spring", uses = {TanqueMapper.class, ProductoMapper.class, LoteMapper.class})
 public interface MovimientoTanqueMapper extends EntityMapper<MovimientoTanqueDTO, MovimientoTanque> {

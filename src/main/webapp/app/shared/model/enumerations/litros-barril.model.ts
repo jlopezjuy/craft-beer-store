@@ -1,0 +1,10 @@
+export const enum LitrosBarril {
+  CINCO = 'CINCO',
+  DIEZ = 'DIEZ',
+  QUINCE = 'QUINCE',
+  DIECINUEVE = 'DIECINUEVE',
+  VEINTE = 'VEINTE',
+  VEINTICINCO = 'VEINTICINCO',
+  TREINTA = 'TREINTA',
+  CINCUENTA = 'CINCUENTA'
+}

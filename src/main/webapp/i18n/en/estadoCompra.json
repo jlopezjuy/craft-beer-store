@@ -2,8 +2,8 @@
   "craftBeerStoreApp": {
     "EstadoCompra": {
       "null": "",
-      "PEDIDO_REALIZADO": "Purchase",
-      "PEDIDO_RECIBIDO": "Purchase received"
+      "PEDIDO_REALIZADO": "PEDIDO_REALIZADO",
+      "PEDIDO_RECIBIDO": "PEDIDO_RECIBIDO"
     }
   }
 }

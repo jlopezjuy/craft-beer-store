@@ -1,40 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-    MovimientosComponent,
-    MovimientosDetailComponent,
-    MovimientosUpdateComponent,
-    MovimientosDeletePopupComponent,
-    MovimientosDeleteDialogComponent,
-    movimientosRoute,
-    movimientosPopupRoute
-} from './';
-
-const ENTITY_STATES = [...movimientosRoute, ...movimientosPopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { MovimientosComponent } from './movimientos.component';
+import { MovimientosDetailComponent } from './movimientos-detail.component';
+import { MovimientosUpdateComponent } from './movimientos-update.component';
+import { MovimientosDeleteDialogComponent } from './movimientos-delete-dialog.component';
+import { movimientosRoute } from './movimientos.route';
 
 @NgModule({
-    imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        MovimientosComponent,
-        MovimientosDetailComponent,
-        MovimientosUpdateComponent,
-        MovimientosDeleteDialogComponent,
-        MovimientosDeletePopupComponent
-    ],
-    entryComponents: [MovimientosComponent, MovimientosUpdateComponent, MovimientosDeleteDialogComponent, MovimientosDeletePopupComponent],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(movimientosRoute)],
+  declarations: [MovimientosComponent, MovimientosDetailComponent, MovimientosUpdateComponent, MovimientosDeleteDialogComponent],
+  entryComponents: [MovimientosDeleteDialogComponent]
 })
-export class CraftBeerStoreMovimientosModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class CraftBeerStoreMovimientosModule {}

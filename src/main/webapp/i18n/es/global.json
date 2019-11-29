@@ -1,31 +1,19 @@
 {
   "global": {
-    "title": "Craft Beer Management",
-    "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
+    "title": "CraftBeerStore",
+    "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=es\">actualice su navegador</a> para mejorar su experiencia.",
     "menu": {
       "home": "Inicio",
-      "dashboard": {
-        "main": "Dashboard",
-        "barchart": "Movimiento: Ventas",
-        "doughnutchart": "Ingresos / Egresos de Caja",
-        "linechart": "LineChart",
-        "piechart": "PieChart",
-        "polarareachart": "PolarAreaChart",
-        "radarchart": "RadarChart"
-      },
-      "craft-beer-store": "Craft Beer Management",
-      "manual-usuario": "Manual Usuario",
-      "resume": "Resume",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
-        "empresa": "Cerveceria",
+        "empresa": "Empresa",
         "insumo": "Insumo",
         "producto": "Producto",
         "proveedor": "Proveedor",
-        "presentacion": "Presentación",
+        "presentacion": "Presentacion",
         "cliente": "Cliente",
-        "movimientos": "Ventas",
+        "movimientos": "Movimientos",
         "detalleMovimiento": "Detalle Movimiento",
         "caja": "Caja",
         "evento": "Evento",
@@ -36,7 +24,7 @@
         "receta": "Receta",
         "recetaInsumo": "Receta Insumo",
         "insumoRecomendado": "Insumo Recomendado",
-        "compraInsumo": "Compra de Insumo",
+        "compraInsumo": "Compra Insumo",
         "compraInsumoDetalle": "Compra Insumo Detalle",
         "barril": "Barril",
         "lote": "Lote",
@@ -59,7 +47,7 @@
       "admin": {
         "main": "Administración",
         "userManagement": "Gestión de usuarios",
-        "tracker": "Registro de los usuarios",
+        "tracker": "Registro de usuarios",
         "metrics": "Métricas",
         "health": "Salud",
         "configuration": "Configuración",
@@ -72,26 +60,26 @@
       "language": "Idioma"
     },
     "form": {
-      "username": "Usuario",
+      "username.label": "Usuario",
       "username.placeholder": "Nombre de usuario",
-      "currentpassword": "Current password",
-      "currentpassword.placeholder": "Current password",
-      "newpassword": "Nueva contraseña",
+      "currentpassword.label": "Contraseña actual",
+      "currentpassword.placeholder": "Contraseña actual",
+      "newpassword.label": "Nueva contraseña",
       "newpassword.placeholder": "Nueva contraseña",
-      "confirmpassword": "Confirmación de la nueva contraseña",
+      "confirmpassword.label": "Confirmación de la nueva contraseña",
       "confirmpassword.placeholder": "Confirmación de la nueva contraseña",
-      "email": "Correo electrónico",
+      "email.label": "Correo electrónico",
       "email.placeholder": "Su correo electrónico"
     },
     "messages": {
       "info": {
         "authenticated": {
           "prefix": "Si desea ",
-          "link": "iniciar una sesión",
-          "suffix": ", puede intentar con las cuentas predeterminadas:<br/>- Administrator (usuario=\"admin\" y contraseña=\"admin\") <br/>- Usuario (usuario=\"user\" y contraseña=\"user\")."
+          "link": "iniciar sesión",
+          "suffix": ", puede intentar con las cuentas predeterminadas:<br/>- Administrador (usuario=\"admin\" y contraseña=\"admin\") <br/>- Usuario (usuario=\"user\" y contraseña=\"user\")."
         },
         "register": {
-          "noaccount": "¿No tienes una cuenta todavía?",
+          "noaccount": "¿Aún no tienes una cuenta?",
           "link": "Crea una cuenta"
         }
       },
@@ -101,13 +89,13 @@
       "validate": {
         "newpassword": {
           "required": "Se requiere que ingrese una contraseña.",
-          "minlength": "Se requiere que su contraseña tenga por lo menos 5 caracteres",
+          "minlength": "Se requiere que su contraseña tenga por lo menos 4 caracteres",
           "maxlength": "Su contraseña no puede tener más de 50 caracteres",
           "strength": "Seguridad de la contraseña:"
         },
         "confirmpassword": {
           "required": "Se requiere que confirme la contraseña.",
-          "minlength": "Se requiere que su contraseña de confirmación tenga por lo menos 5 caracteres",
+          "minlength": "Se requiere que su contraseña de confirmación tenga por lo menos 4 caracteres",
           "maxlength": "Su contraseña de confirmación no puede tener más de 50 caracteres"
         },
         "email": {
@@ -124,26 +112,19 @@
     "ribbon": {
       "dev": "Development"
     },
-    "item-count": "Monstrando {{first}} - {{second}} de {{total}} artículos."
+    "item-count": "Mostrando {{first}} - {{second}} de {{total}} elementos."
   },
   "entity": {
     "action": {
-      "add": "Agregar",
       "addblob": "Añadir fichero",
       "addimage": "Añadir imagen",
       "back": "Volver",
       "cancel": "Cancelar",
       "delete": "Eliminar",
       "edit": "Editar",
-      "open": "Open",
+      "open": "Abrir",
       "save": "Guardar",
-      "view": "Vista",
-      "inicio": "Inicio",
-      "confirm": "Si, seguro",
-      "seleccionar": "Seleccionar",
-      "finalizar": "Finalizar",
-      "envasar": "Envasar",
-      "medicion": "Medición"
+      "view": "Vista"
     },
     "detail": {
       "field": "Campo",
@@ -166,16 +147,15 @@
     }
   },
   "error": {
-    "internalServerError": "Internal server error",
+    "internalServerError": "Error interno en el servidor",
     "server.not.reachable": "Servidor no accesible",
-    "url.not.found": "Not found",
+    "url.not.found": "No existe",
     "NotNull": "¡El campo {{fieldName}} no puede estar vacío!",
     "Size": "¡El campo {{fieldName}} no cumple con los requisitos de tamaño mínimo/máximo!",
-    "userexists": "Login name already used!",
-    "emailexists": "Email is already in use!",
-    "idexists": "A new {{entityName}} cannot already have an ID",
-    "idnull": "Invalid ID",
-    "listempty": "La lista que intenta guardar esta vacia"
+    "userexists": "¡El nombre de usuario ya existe!",
+    "emailexists": "¡La cuenta de correo ya está en uso!",
+    "idexists": "Un/a nuevo/a {{entityName}} no puede tener ID",
+    "idnull": "ID inválido"
   },
-  "footer": "Craft Beer Management Derechos reservados"
+  "footer": "Pie de página"
 }

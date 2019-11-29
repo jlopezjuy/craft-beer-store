@@ -1,24 +1,24 @@
 {
-    "craftBeerStoreApp": {
-        "insumoRecomendado": {
-            "home": {
-                "title": "Insumo Recomendados",
-                "createLabel": "Crear nuevo Insumo Recomendado",
-                "createOrEditLabel": "Crear o editar Insumo Recomendado",
-                "search": "Search for Insumo Recomendado"
-            },
-            "created": "Un nuevo Insumo Recomendado ha sido creado con el identificador {{ param }}",
-            "updated": "Un Insumo Recomendado ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Insumo Recomendado ha sido eliminado con el identificador {{ param }}",
-            "delete": {
-                "question": "¿Seguro que quiere eliminar Insumo Recomendado {{ id }}?"
-            },
-            "detail": {
-                "title": "Insumo Recomendado"
-            },
-            "nombre": "Nombre",
-            "marca": "Marca",
-            "tipo": "Tipo"
-        }
+  "craftBeerStoreApp": {
+    "insumoRecomendado": {
+      "home": {
+        "title": "Insumo Recomendados",
+        "createLabel": "Crear nuevo Insumo Recomendado",
+        "createOrEditLabel": "Crear o editar Insumo Recomendado",
+        "notFound": "Ningún Insumo Recomendados encontrado"
+      },
+      "created": "Un nuevo Insumo Recomendado ha sido creado con el identificador {{ param }}",
+      "updated": "Un Insumo Recomendado ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Insumo Recomendado ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Insumo Recomendado {{ id }}?"
+      },
+      "detail": {
+        "title": "Insumo Recomendado"
+      },
+      "nombre": "Nombre",
+      "marca": "Marca",
+      "tipo": "Tipo"
     }
+  }
 }

@@ -6,7 +6,7 @@ import com.craftbeerstore.application.service.dto.MovimientoBarrilDTO;
 import org.mapstruct.*;
 
 /**
- * Mapper for the entity MovimientoBarril and its DTO MovimientoBarrilDTO.
+ * Mapper for the entity {@link MovimientoBarril} and its DTO {@link MovimientoBarrilDTO}.
  */
 @Mapper(componentModel = "spring", uses = {BarrilMapper.class, ProductoMapper.class, LoteMapper.class, ClienteMapper.class})
 public interface MovimientoBarrilMapper extends EntityMapper<MovimientoBarrilDTO, MovimientoBarril> {

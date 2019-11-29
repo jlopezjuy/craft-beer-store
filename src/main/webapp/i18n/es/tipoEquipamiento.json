@@ -1,21 +1,21 @@
 {
-    "craftBeerStoreApp": {
-        "TipoEquipamiento": {
-            "null": "",
-            "MEDICION": "Medición",
-            "MOLIENDA": "Molienda",
-            "ENFIADOR": "Enfriador",
-            "FERMENTACION": "Fermentación",
-            "EMBOTELLADO": "Embotellado",
-            "CHOPERA": "Chopera",
-            "CANILLA": "Canilla",
-            "MACERACION": "Maceración",
-            "HERVIDO": "Hervido",
-            "TRASVASE": "Trasvase",
-            "EMBARRILADO": "Embarrilado",
-            "LIMPIEZA": "Limpieza",
-            "ACCESORIOS_VARIOS": "Accesorios Varios",
-            "FILTRADO": "Filtrado"
-        }
+  "craftBeerStoreApp": {
+    "TipoEquipamiento": {
+      "null": "",
+      "MEDICION": "MEDICION",
+      "MOLIENDA": "MOLIENDA",
+      "ENFIADOR": "ENFIADOR",
+      "FERMENTACION": "FERMENTACION",
+      "EMBOTELLADO": "EMBOTELLADO",
+      "CHOPERA": "CHOPERA",
+      "CANILLA": "CANILLA",
+      "MACERACION": "MACERACION",
+      "HERVIDO": "HERVIDO",
+      "TRASVASE": "TRASVASE",
+      "EMBARRILADO": "EMBARRILADO",
+      "LIMPIEZA": "LIMPIEZA",
+      "ACCESORIOS_VARIOS": "ACCESORIOS_VARIOS",
+      "FILTRADO": "FILTRADO"
     }
+  }
 }

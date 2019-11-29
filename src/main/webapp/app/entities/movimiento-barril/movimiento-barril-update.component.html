@@ -1,19 +1,18 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-movimiento-barril-heading" jhiTranslate="craftBeerStoreApp.movimientoBarril.home.createOrEditLabel">Create or edit a Movimiento Barril</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!movimientoBarril.id">
+                <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="movimientoBarril.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoBarril.fechaMovimiento" for="field_fechaMovimiento">Fecha Movimiento</label>
                     <div class="input-group">
-                        <input id="field_fechaMovimiento" type="text" class="form-control" name="fechaMovimiento" ngbDatepicker  #fechaMovimientoDp="ngbDatepicker" [(ngModel)]="movimientoBarril.fechaMovimiento"
-                        />
+                        <input id="field_fechaMovimiento" type="text" class="form-control" name="fechaMovimiento" ngbDatepicker  #fechaMovimientoDp="ngbDatepicker" formControlName="fechaMovimiento"/>
                         <span class="input-group-append">
                             <button type="button" class="btn btn-secondary" (click)="fechaMovimientoDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
@@ -21,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoBarril.estado" for="field_estado">Estado</label>
-                    <select class="form-control" name="estado" [(ngModel)]="movimientoBarril.estado" id="field_estado" >
+                    <select class="form-control" name="estado" formControlName="estado" id="field_estado">
                         <option value="VACIO">{{'craftBeerStoreApp.EstadoMovimientoBarril.VACIO' | translate}}</option>
                         <option value="LLENO">{{'craftBeerStoreApp.EstadoMovimientoBarril.LLENO' | translate}}</option>
                         <option value="ENTREGADO">{{'craftBeerStoreApp.EstadoMovimientoBarril.ENTREGADO' | translate}}</option>
@@ -32,33 +31,33 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoBarril.dias" for="field_dias">Dias</label>
                     <input type="number" class="form-control" name="dias" id="field_dias"
-                        [(ngModel)]="movimientoBarril.dias" />
+                           formControlName="dias"/>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoBarril.barril" for="field_barril">Barril</label>
-                    <select class="form-control" id="field_barril" name="barril" [(ngModel)]="movimientoBarril.barrilId" >
+                    <select class="form-control" id="field_barril" name="barril" formControlName="barrilId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="barrilOption.id" *ngFor="let barrilOption of barrils; trackBy: trackBarrilById">{{barrilOption.codigo}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoBarril.producto" for="field_producto">Producto</label>
-                    <select class="form-control" id="field_producto" name="producto" [(ngModel)]="movimientoBarril.productoId" >
+                    <select class="form-control" id="field_producto" name="producto" formControlName="productoId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="productoOption.id" *ngFor="let productoOption of productos; trackBy: trackProductoById">{{productoOption.nombreComercial}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoBarril.lote" for="field_lote">Lote</label>
-                    <select class="form-control" id="field_lote" name="lote" [(ngModel)]="movimientoBarril.loteId" >
+                    <select class="form-control" id="field_lote" name="lote" formControlName="loteId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="loteOption.id" *ngFor="let loteOption of lotes; trackBy: trackLoteById">{{loteOption.codigo}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.movimientoBarril.cliente" for="field_cliente">Cliente</label>
-                    <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="movimientoBarril.clienteId" >
+                    <select class="form-control" id="field_cliente" name="cliente" formControlName="clienteId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.nombreApellido}}</option>
                     </select>
@@ -68,7 +67,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

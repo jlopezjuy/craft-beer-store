@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.EstadoLote;
 
@@ -23,7 +20,7 @@ import com.craftbeerstore.application.domain.enumeration.EstadoLote;
 public class Lote implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,16 +44,16 @@ public class Lote implements Serializable {
     @Column(name = "estado")
     private EstadoLote estado;
 
-    @Column(name = "litros_estimados", precision = 10, scale = 2)
+    @Column(name = "litros_estimados", precision = 21, scale = 2)
     private BigDecimal litrosEstimados;
 
-    @Column(name = "litros_en_tanque", precision = 10, scale = 2)
+    @Column(name = "litros_en_tanque", precision = 21, scale = 2)
     private BigDecimal litrosEnTanque;
 
-    @Column(name = "litros_envasados", precision = 10, scale = 2)
+    @Column(name = "litros_envasados", precision = 21, scale = 2)
     private BigDecimal litrosEnvasados;
 
-    @Column(name = "litros_disponible", precision = 10, scale = 2)
+    @Column(name = "litros_disponible", precision = 21, scale = 2)
     private BigDecimal litrosDisponible;
 
     @ManyToOne
@@ -272,19 +269,15 @@ public class Lote implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Lote)) {
             return false;
         }
-        Lote lote = (Lote) o;
-        if (lote.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), lote.getId());
+        return id != null && id.equals(((Lote) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

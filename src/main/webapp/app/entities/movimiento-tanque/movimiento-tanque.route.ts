@@ -1,29 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
-import { UserRouteAccessService } from 'app/core';
+import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
+import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { MovimientoTanque } from 'app/shared/model/movimiento-tanque.model';
 import { MovimientoTanqueService } from './movimiento-tanque.service';
 import { MovimientoTanqueComponent } from './movimiento-tanque.component';
 import { MovimientoTanqueDetailComponent } from './movimiento-tanque-detail.component';
 import { MovimientoTanqueUpdateComponent } from './movimiento-tanque-update.component';
-import { MovimientoTanqueDeletePopupComponent } from './movimiento-tanque-delete-dialog.component';
 import { IMovimientoTanque } from 'app/shared/model/movimiento-tanque.model';
 
 @Injectable({ providedIn: 'root' })
 export class MovimientoTanqueResolve implements Resolve<IMovimientoTanque> {
   constructor(private service: MovimientoTanqueService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IMovimientoTanque> {
-    const id = route.params['id'] ? route.params['id'] : null;
+  resolve(route: ActivatedRouteSnapshot): Observable<IMovimientoTanque> {
+    const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<MovimientoTanque>) => response.ok),
-        map((movimientoTanque: HttpResponse<MovimientoTanque>) => movimientoTanque.body)
-      );
+      return this.service.find(id).pipe(map((movimientoTanque: HttpResponse<MovimientoTanque>) => movimientoTanque.body));
     }
     return of(new MovimientoTanque());
   }
@@ -78,21 +74,5 @@ export const movimientoTanqueRoute: Routes = [
       pageTitle: 'craftBeerStoreApp.movimientoTanque.home.title'
     },
     canActivate: [UserRouteAccessService]
-  }
-];
-
-export const movimientoTanquePopupRoute: Routes = [
-  {
-    path: ':id/delete',
-    component: MovimientoTanqueDeletePopupComponent,
-    resolve: {
-      movimientoTanque: MovimientoTanqueResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'craftBeerStoreApp.movimientoTanque.home.title'
-    },
-    canActivate: [UserRouteAccessService],
-    outlet: 'popup'
   }
 ];

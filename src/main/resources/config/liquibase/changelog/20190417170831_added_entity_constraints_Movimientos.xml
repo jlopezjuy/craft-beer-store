@@ -2,7 +2,7 @@
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <!--
         Added the constraints for entity Movimientos.
     -->
@@ -19,6 +19,12 @@
                                  constraintName="fk_movimientos_empresa_id"
                                  referencedColumnNames="id"
                                  referencedTableName="empresa"/>
+
+        <addForeignKeyConstraint baseColumnNames="punto_de_venta_id"
+                                 baseTableName="movimientos"
+                                 constraintName="fk_movimientos_punto_de_venta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="punto_de_venta"/>
 
     </changeSet>
 </databaseChangeLog>

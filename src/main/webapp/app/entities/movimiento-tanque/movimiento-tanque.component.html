@@ -4,24 +4,28 @@
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-movimiento-tanque" [routerLink]="['/movimiento-tanque/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="craftBeerStoreApp.movimientoTanque.home.createLabel">
-            Create new Movimiento Tanque
+            Create a new Movimiento Tanque
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="movimientoTanques">
-        <table class="table table-striped">
+    <div class="alert alert-warning" *ngIf="movimientoTanques?.length === 0">
+        <span jhiTranslate="craftBeerStoreApp.movimientoTanque.home.notFound">No movimientoTanques found</span>
+    </div>
+    <div class="table-responsive" *ngIf="movimientoTanques?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fecha"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="estado"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="dias"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.dias">Dias</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tanqueNombre"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.tanque">Tanque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="productoNombreComercial"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="fecha"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="estado"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="dias"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.dias">Dias</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tanqueNombre"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.tanque">Tanque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="productoNombreComercial"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.movimientoTanque.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -32,21 +36,21 @@
                 <td>{{movimientoTanque.dias}}</td>
                 <td>
                     <div *ngIf="movimientoTanque.tanqueId">
-                        <a [routerLink]="['../tanque', movimientoTanque.tanqueId , 'view' ]" >{{movimientoTanque.tanqueNombre}}</a>
+                        <a [routerLink]="['/tanque', movimientoTanque.tanqueId , 'view' ]" >{{movimientoTanque.tanqueNombre}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="movimientoTanque.productoId">
-                        <a [routerLink]="['../producto', movimientoTanque.productoId , 'view' ]" >{{movimientoTanque.productoNombreComercial}}</a>
+                        <a [routerLink]="['/producto', movimientoTanque.productoId , 'view' ]" >{{movimientoTanque.productoNombreComercial}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="movimientoTanque.loteId">
-                        <a [routerLink]="['../lote', movimientoTanque.loteId , 'view' ]" >{{movimientoTanque.loteCodigo}}</a>
+                        <a [routerLink]="['/lote', movimientoTanque.loteId , 'view' ]" >{{movimientoTanque.loteCodigo}}</a>
                     </div>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/movimiento-tanque', movimientoTanque.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -59,10 +63,7 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'movimiento-tanque', { outlets: { popup: movimientoTanque.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                        <button type="submit" (click)="delete(movimientoTanque)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
@@ -73,9 +74,9 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="movimientoTanques && movimientoTanques.length">
+    <div [hidden]="movimientoTanques?.length === 0">
         <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>

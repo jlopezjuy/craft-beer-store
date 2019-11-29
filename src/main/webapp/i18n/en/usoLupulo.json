@@ -2,11 +2,11 @@
   "craftBeerStoreApp": {
     "UsoLupulo": {
       "null": "",
-      "BOIL": "Boil",
-      "FIRST_WORT": "First Wort",
-      "DRY_HOP": "Dry Hop",
-      "AROMA": "Flavor",
-      "MASH": "Mash"
+      "BOIL": "BOIL",
+      "FIRST_WORT": "FIRST_WORT",
+      "DRY_HOP": "DRY_HOP",
+      "AROMA": "AROMA",
+      "MASH": "MASH"
     }
   }
 }

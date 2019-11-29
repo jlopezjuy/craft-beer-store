@@ -1,24 +1,5 @@
-export const enum Unidad {
-  KILOGRAMO = 'KILOGRAMO',
-  GRAMO = 'GRAMO',
-  VEINTICINCO_KILOS = 'VEINTICINCO_KILOS',
-  DIES_KILOS = 'DIES_KILOS',
-  LITRO = 'LITRO',
-  CM3 = 'CM3',
-  ML = 'ML',
-  UNIDAD = 'UNIDAD',
-  SOBRE_11G = 'SOBRE_11G'
-}
-
-export const enum TipoInsumo {
-  MALTA = 'MALTA',
-  LUPULO = 'LUPULO',
-  LEVADURA = 'LEVADURA',
-  ACIDO = 'ACIDO',
-  CLARIFICANTE = 'CLARIFICANTE',
-  SAL = 'SAL',
-  OTROS = 'OTROS'
-}
+import { Unidad } from 'app/shared/model/enumerations/unidad.model';
+import { TipoInsumo } from 'app/shared/model/enumerations/tipo-insumo.model';
 
 export interface ICompraInsumoDetalle {
   id?: number;

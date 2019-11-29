@@ -1,45 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-  MedicionLoteComponent,
-  MedicionLoteDetailComponent,
-  MedicionLoteUpdateComponent,
-  MedicionLoteDeletePopupComponent,
-  MedicionLoteDeleteDialogComponent,
-  medicionLoteRoute,
-  medicionLotePopupRoute
-} from './';
-
-const ENTITY_STATES = [...medicionLoteRoute, ...medicionLotePopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { MedicionLoteComponent } from './medicion-lote.component';
+import { MedicionLoteDetailComponent } from './medicion-lote-detail.component';
+import { MedicionLoteUpdateComponent } from './medicion-lote-update.component';
+import { MedicionLoteDeleteDialogComponent } from './medicion-lote-delete-dialog.component';
+import { medicionLoteRoute } from './medicion-lote.route';
 
 @NgModule({
-  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [
-    MedicionLoteComponent,
-    MedicionLoteDetailComponent,
-    MedicionLoteUpdateComponent,
-    MedicionLoteDeleteDialogComponent,
-    MedicionLoteDeletePopupComponent
-  ],
-  entryComponents: [
-    MedicionLoteComponent,
-    MedicionLoteUpdateComponent,
-    MedicionLoteDeleteDialogComponent,
-    MedicionLoteDeletePopupComponent
-  ],
-  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(medicionLoteRoute)],
+  declarations: [MedicionLoteComponent, MedicionLoteDetailComponent, MedicionLoteUpdateComponent, MedicionLoteDeleteDialogComponent],
+  entryComponents: [MedicionLoteDeleteDialogComponent]
 })
-export class CraftBeerStoreMedicionLoteModule {
-  constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-    this.languageHelper.language.subscribe((languageKey: string) => {
-      if (languageKey !== undefined) {
-        this.languageService.changeLanguage(languageKey);
-      }
-    });
-  }
-}
+export class CraftBeerStoreMedicionLoteModule {}

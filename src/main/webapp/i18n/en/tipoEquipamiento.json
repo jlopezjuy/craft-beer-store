@@ -2,20 +2,20 @@
   "craftBeerStoreApp": {
     "TipoEquipamiento": {
       "null": "",
-      "MEDICION": "Measuring Tools",
-      "MOLIENDA": "Mill",
-      "ENFIADOR": "Cooling Machine",
-      "FERMENTACION": "Fermentation",
-      "EMBOTELLADO": "Bottling",
-      "CHOPERA": "Keg",
-      "CANILLA": "Tap",
-      "MACERACION": "Maceration",
-      "HERVIDO": "Boil",
-      "TRASVASE": "Transfer",
-      "EMBARRILADO": "Embarrilado",
-      "LIMPIEZA": "Clean Up",
-      "ACCESORIOS_VARIOS": "accessories",
-      "FILTRADO": "Strain"
+      "MEDICION": "MEDICION",
+      "MOLIENDA": "MOLIENDA",
+      "ENFIADOR": "ENFIADOR",
+      "FERMENTACION": "FERMENTACION",
+      "EMBOTELLADO": "EMBOTELLADO",
+      "CHOPERA": "CHOPERA",
+      "CANILLA": "CANILLA",
+      "MACERACION": "MACERACION",
+      "HERVIDO": "HERVIDO",
+      "TRASVASE": "TRASVASE",
+      "EMBARRILADO": "EMBARRILADO",
+      "LIMPIEZA": "LIMPIEZA",
+      "ACCESORIOS_VARIOS": "ACCESORIOS_VARIOS",
+      "FILTRADO": "FILTRADO"
     }
   }
 }

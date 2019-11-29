@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,7 +7,6 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.Provincia;
 
@@ -22,7 +19,7 @@ import com.craftbeerstore.application.domain.enumeration.Provincia;
 public class Empresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -224,19 +221,15 @@ public class Empresa implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Empresa)) {
             return false;
         }
-        Empresa empresa = (Empresa) o;
-        if (empresa.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), empresa.getId());
+        return id != null && id.equals(((Empresa) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -9,7 +7,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.EstadoUsoTanque;
 
@@ -22,7 +19,7 @@ import com.craftbeerstore.application.domain.enumeration.EstadoUsoTanque;
 public class MovimientoTanque implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,12 +35,15 @@ public class MovimientoTanque implements Serializable {
     private Integer dias;
 
     @ManyToOne
+    @JsonIgnoreProperties("movimientoTanques")
     private Tanque tanque;
 
     @ManyToOne
+    @JsonIgnoreProperties("movimientoTanques")
     private Producto producto;
 
     @ManyToOne
+    @JsonIgnoreProperties("movimientoTanques")
     private Lote lote;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -139,19 +139,15 @@ public class MovimientoTanque implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof MovimientoTanque)) {
             return false;
         }
-        MovimientoTanque movimientoTanque = (MovimientoTanque) o;
-        if (movimientoTanque.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), movimientoTanque.getId());
+        return id != null && id.equals(((MovimientoTanque) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

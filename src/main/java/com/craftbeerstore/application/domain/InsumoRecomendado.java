@@ -1,12 +1,10 @@
 package com.craftbeerstore.application.domain;
-
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 
@@ -19,7 +17,7 @@ import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 public class InsumoRecomendado implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -88,19 +86,15 @@ public class InsumoRecomendado implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof InsumoRecomendado)) {
             return false;
         }
-        InsumoRecomendado insumoRecomendado = (InsumoRecomendado) o;
-        if (insumoRecomendado.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), insumoRecomendado.getId());
+        return id != null && id.equals(((InsumoRecomendado) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

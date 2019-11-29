@@ -4,7 +4,8 @@
       "home": {
         "title": "Compra Insumo Detalles",
         "createLabel": "Create a new Compra Insumo Detalle",
-        "createOrEditLabel": "Create or edit a Compra Insumo Detalle"
+        "createOrEditLabel": "Create or edit a Compra Insumo Detalle",
+        "notFound": "No Compra Insumo Detalles found"
       },
       "created": "A new Compra Insumo Detalle is created with identifier {{ param }}",
       "updated": "A Compra Insumo Detalle is updated with identifier {{ param }}",

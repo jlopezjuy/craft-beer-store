@@ -1,9 +1,5 @@
 import { Moment } from 'moment';
-
-export const enum EstadoUsoTanque {
-  EN_USO = 'EN_USO',
-  VACIO = 'VACIO'
-}
+import { EstadoUsoTanque } from 'app/shared/model/enumerations/estado-uso-tanque.model';
 
 export interface IMovimientoTanque {
   id?: number;

@@ -1,97 +1,83 @@
-<div class="container-fluid">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12">
-                <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
-                       (click)="toggleFullWidth()">
-                    <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
-                    <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
-                </a>Clientes</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Clientes</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="header">
-            <h2 id="page-heading">
-                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-cliente" [routerLink]="['/admin/admin/cliente/new']">
-                    <fa-icon [icon]="'plus'"></fa-icon>
-                    <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.cliente.home.createLabel">
-            Create new Cliente
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="craftBeerStoreApp.cliente.home.title">Clientes</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cliente" [routerLink]="['/cliente/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="craftBeerStoreApp.cliente.home.createLabel">
+            Create a new Cliente
             </span>
-                </button>
-            </h2>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="clientes?.length === 0">
+        <span jhiTranslate="craftBeerStoreApp.cliente.home.notFound">No clientes found</span>
+    </div>
+    <div class="table-responsive" *ngIf="clientes?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="nombreApellido"><span jhiTranslate="craftBeerStoreApp.cliente.nombreApellido">Nombre Apellido</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="domicilio"><span jhiTranslate="craftBeerStoreApp.cliente.domicilio">Domicilio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="localidad"><span jhiTranslate="craftBeerStoreApp.cliente.localidad">Localidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="codigoPostal"><span jhiTranslate="craftBeerStoreApp.cliente.codigoPostal">Codigo Postal</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="provincia"><span jhiTranslate="craftBeerStoreApp.cliente.provincia">Provincia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tipoCliente"><span jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="telefono"><span jhiTranslate="craftBeerStoreApp.cliente.telefono">Telefono</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="correo"><span jhiTranslate="craftBeerStoreApp.cliente.correo">Correo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="empresaId"><span jhiTranslate="craftBeerStoreApp.cliente.empresa">Empresa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cliente of clientes ;trackBy: trackId">
+                <td><a [routerLink]="['/cliente', cliente.id, 'view' ]">{{cliente.id}}</a></td>
+                <td>{{cliente.nombreApellido}}</td>
+                <td>{{cliente.domicilio}}</td>
+                <td>{{cliente.localidad}}</td>
+                <td>{{cliente.codigoPostal}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.Provincia.' + cliente.provincia}}">{{cliente.provincia}}</td>
+                <td jhiTranslate="{{'craftBeerStoreApp.TipoCliente.' + cliente.tipoCliente}}">{{cliente.tipoCliente}}</td>
+                <td>{{cliente.telefono}}</td>
+                <td>{{cliente.correo}}</td>
+                <td>
+                    <div *ngIf="cliente.empresaId">
+                        <a [routerLink]="['/empresa', cliente.empresaId , 'view' ]" >{{cliente.empresaId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/cliente', cliente.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/cliente', cliente.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(cliente)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="clientes?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
-        <div class="body">
-            <jhi-alert></jhi-alert>
-
-            <br/>
-            <div class="mat-elevation-z8 table-responsive" *ngIf="clientes">
-                <table mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                    <ng-container matColumnDef="nombreApellido">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="nombreApellido"> <span jhiTranslate="craftBeerStoreApp.cliente.nombreApellido">Nombre y Apellido</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let cliente" > {{cliente.nombreApellido}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="domicilio">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="domicilio"> <span jhiTranslate="craftBeerStoreApp.cliente.domicilio">Domicilio</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let cliente" > {{cliente.domicilio}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="tipoCliente">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="tipoCliente"> <span jhiTranslate="craftBeerStoreApp.cliente.tipoCliente">Tipo Cliente</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let cliente" jhiTranslate="{{'craftBeerStoreApp.TipoCliente.' + cliente.tipoCliente}}"> {{cliente.tipoCliente}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="telefono">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="telefono"> <span jhiTranslate="craftBeerStoreApp.cliente.telefono">Telefono</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let cliente" > {{cliente.telefono}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="correo">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="correo"> <span jhiTranslate="craftBeerStoreApp.cliente.correo">Correo</span><fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let cliente" > {{cliente.correo}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="actions" >
-                        <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let cliente" style="width: 20%">
-                            <div class="btn-group flex-btn-group-container">
-                                <button type="submit"
-                                        [routerLink]="['/admin/admin/cliente', cliente.id, 'view' ]"
-                                        mat-raised-button color="primary">
-                                    <fa-icon [icon]="'eye'"></fa-icon>
-                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                                </button>
-                                <button type="submit"
-                                        [routerLink]="['/admin/admin/cliente', cliente.id, 'edit']"
-                                        mat-raised-button class="mat-edit">
-                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                                </button>
-                                <button type="button" (click)="goPuntoDeVenta(cliente)" mat-raised-button class="mat-success">
-                                    <fa-icon [icon]="'store'"></fa-icon>
-                                    <span class="d-none d-md-inline" jhiTranslate="craftBeerStoreApp.cliente.puntoDeVenta">Punto de Venta</span>
-                                </button>
-                                <button type="submit"
-                                        [routerLink]="['/', 'cliente', { outlets: { popup: cliente.id + '/delete'} }]"
-                                        replaceUrl="true"
-                                        queryParamsHandling="merge"
-                                        mat-raised-button color="warn">
-                                    <fa-icon [icon]="'times'"></fa-icon>
-                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                                </button>
-                            </div>
-                        </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <mat-paginator [length]="totalItems"
-                               [pageSize]="itemsPerPage"
-                               (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
-            </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

@@ -12,26 +12,26 @@
                 <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.producto">Producto</span></dt>
                 <dd>
                     <div *ngIf="eventoProducto.productoId">
-                        <a [routerLink]="['/admin/entity/producto', eventoProducto.productoId, 'view']">{{eventoProducto.productoDescripcion}}</a>
+                        <a [routerLink]="['/producto', eventoProducto.productoId, 'view']">{{eventoProducto.productoDescripcion}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.eventoProducto.evento">Evento</span></dt>
                 <dd>
                     <div *ngIf="eventoProducto.eventoId">
-                        <a [routerLink]="['/admin/entity/evento', eventoProducto.eventoId, 'view']">{{eventoProducto.eventoId}}</a>
+                        <a [routerLink]="['/evento', eventoProducto.eventoId, 'view']">{{eventoProducto.eventoId}}</a>
                     </div>
                 </dd>
             </dl>
 
             <button type="submit"
                     (click)="previousState()"
-                    mat-raised-button class="mat-back">
+                    class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/evento-producto', eventoProducto.id, 'edit']"
-                    mat-raised-button class="mat-success">
+                    class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>

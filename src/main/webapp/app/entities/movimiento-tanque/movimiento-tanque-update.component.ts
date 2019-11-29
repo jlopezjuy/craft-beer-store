@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
-import { IMovimientoTanque } from 'app/shared/model/movimiento-tanque.model';
+import { IMovimientoTanque, MovimientoTanque } from 'app/shared/model/movimiento-tanque.model';
 import { MovimientoTanqueService } from './movimiento-tanque.service';
 import { ITanque } from 'app/shared/model/tanque.model';
-import { TanqueService } from 'app/entities/tanque';
+import { TanqueService } from 'app/entities/tanque/tanque.service';
 import { IProducto } from 'app/shared/model/producto.model';
-import { ProductoService } from 'app/entities/producto';
+import { ProductoService } from 'app/entities/producto/producto.service';
 import { ILote } from 'app/shared/model/lote.model';
-import { LoteService } from 'app/entities/lote';
+import { LoteService } from 'app/entities/lote/lote.service';
 
 @Component({
   selector: 'jhi-movimiento-tanque-update',
   templateUrl: './movimiento-tanque-update.component.html'
 })
 export class MovimientoTanqueUpdateComponent implements OnInit {
-  movimientoTanque: IMovimientoTanque;
   isSaving: boolean;
 
   tanques: ITanque[];
@@ -29,41 +30,52 @@ export class MovimientoTanqueUpdateComponent implements OnInit {
   lotes: ILote[];
   fechaDp: any;
 
+  editForm = this.fb.group({
+    id: [],
+    fecha: [],
+    estado: [],
+    dias: [],
+    tanqueId: [],
+    productoId: [],
+    loteId: []
+  });
+
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected movimientoTanqueService: MovimientoTanqueService,
     protected tanqueService: TanqueService,
     protected productoService: ProductoService,
     protected loteService: LoteService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ movimientoTanque }) => {
-      this.movimientoTanque = movimientoTanque;
+      this.updateForm(movimientoTanque);
     });
     this.tanqueService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ITanque[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ITanque[]>) => response.body)
-      )
-      .subscribe((res: ITanque[]) => (this.tanques = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<ITanque[]>) => (this.tanques = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.productoService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IProducto[]>) => response.body)
-      )
-      .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<IProducto[]>) => (this.productos = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.loteService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ILote[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ILote[]>) => response.body)
-      )
-      .subscribe((res: ILote[]) => (this.lotes = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<ILote[]>) => (this.lotes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+  }
+
+  updateForm(movimientoTanque: IMovimientoTanque) {
+    this.editForm.patchValue({
+      id: movimientoTanque.id,
+      fecha: movimientoTanque.fecha,
+      estado: movimientoTanque.estado,
+      dias: movimientoTanque.dias,
+      tanqueId: movimientoTanque.tanqueId,
+      productoId: movimientoTanque.productoId,
+      loteId: movimientoTanque.loteId
+    });
   }
 
   previousState() {
@@ -72,15 +84,29 @@ export class MovimientoTanqueUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    if (this.movimientoTanque.id !== undefined) {
-      this.subscribeToSaveResponse(this.movimientoTanqueService.update(this.movimientoTanque));
+    const movimientoTanque = this.createFromForm();
+    if (movimientoTanque.id !== undefined) {
+      this.subscribeToSaveResponse(this.movimientoTanqueService.update(movimientoTanque));
     } else {
-      this.subscribeToSaveResponse(this.movimientoTanqueService.create(this.movimientoTanque));
+      this.subscribeToSaveResponse(this.movimientoTanqueService.create(movimientoTanque));
     }
   }
 
+  private createFromForm(): IMovimientoTanque {
+    return {
+      ...new MovimientoTanque(),
+      id: this.editForm.get(['id']).value,
+      fecha: this.editForm.get(['fecha']).value,
+      estado: this.editForm.get(['estado']).value,
+      dias: this.editForm.get(['dias']).value,
+      tanqueId: this.editForm.get(['tanqueId']).value,
+      productoId: this.editForm.get(['productoId']).value,
+      loteId: this.editForm.get(['loteId']).value
+    };
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IMovimientoTanque>>) {
-    result.subscribe((res: HttpResponse<IMovimientoTanque>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
   }
 
   protected onSaveSuccess() {
@@ -91,7 +117,6 @@ export class MovimientoTanqueUpdateComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
-
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }

@@ -1,22 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ICompraInsumoDetalle } from 'app/shared/model/compra-insumo-detalle.model';
-import { AccountService } from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
+import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { CompraInsumoDetalleService } from './compra-insumo-detalle.service';
+import { CompraInsumoDetalleDeleteDialogComponent } from './compra-insumo-detalle-delete-dialog.component';
 
 @Component({
   selector: 'jhi-compra-insumo-detalle',
   templateUrl: './compra-insumo-detalle.component.html'
 })
 export class CompraInsumoDetalleComponent implements OnInit, OnDestroy {
-  currentAccount: any;
   compraInsumoDetalles: ICompraInsumoDetalle[];
   error: any;
   success: any;
@@ -33,11 +32,10 @@ export class CompraInsumoDetalleComponent implements OnInit, OnDestroy {
   constructor(
     protected compraInsumoDetalleService: CompraInsumoDetalleService,
     protected parseLinks: JhiParseLinks,
-    protected jhiAlertService: JhiAlertService,
-    protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected modalService: NgbModal
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -55,10 +53,7 @@ export class CompraInsumoDetalleComponent implements OnInit, OnDestroy {
         size: this.itemsPerPage,
         sort: this.sort()
       })
-      .subscribe(
-        (res: HttpResponse<ICompraInsumoDetalle[]>) => this.paginateCompraInsumoDetalles(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .subscribe((res: HttpResponse<ICompraInsumoDetalle[]>) => this.paginateCompraInsumoDetalles(res.body, res.headers));
   }
 
   loadPage(page: number) {
@@ -93,9 +88,6 @@ export class CompraInsumoDetalleComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
     this.registerChangeInCompraInsumoDetalles();
   }
 
@@ -108,7 +100,12 @@ export class CompraInsumoDetalleComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInCompraInsumoDetalles() {
-    this.eventSubscriber = this.eventManager.subscribe('compraInsumoDetalleListModification', response => this.loadAll());
+    this.eventSubscriber = this.eventManager.subscribe('compraInsumoDetalleListModification', () => this.loadAll());
+  }
+
+  delete(compraInsumoDetalle: ICompraInsumoDetalle) {
+    const modalRef = this.modalService.open(CompraInsumoDetalleDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.compraInsumoDetalle = compraInsumoDetalle;
   }
 
   sort() {
@@ -123,9 +120,5 @@ export class CompraInsumoDetalleComponent implements OnInit, OnDestroy {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.compraInsumoDetalles = data;
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

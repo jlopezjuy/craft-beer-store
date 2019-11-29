@@ -4,7 +4,8 @@
       "home": {
         "title": "Insumos",
         "createLabel": "Create a new Insumo",
-        "createOrEditLabel": "Create or edit a Insumo"
+        "createOrEditLabel": "Create or edit a Insumo",
+        "notFound": "No Insumos found"
       },
       "created": "A new Insumo is created with identifier {{ param }}",
       "updated": "A Insumo is updated with identifier {{ param }}",

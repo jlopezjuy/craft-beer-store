@@ -1,13 +1,12 @@
-/* tslint:disable max-line-length */
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { ProveedorService } from 'app/entities/proveedor/proveedor.service';
-import { IProveedor, Proveedor, CondicionFiscal, Provincia } from 'app/shared/model/proveedor.model';
+import { IProveedor, Proveedor } from 'app/shared/model/proveedor.model';
+import { CondicionFiscal } from 'app/shared/model/enumerations/condicion-fiscal.model';
+import { Provincia } from 'app/shared/model/enumerations/provincia.model';
 
 describe('Service Tests', () => {
   describe('Proveedor Service', () => {
@@ -15,11 +14,13 @@ describe('Service Tests', () => {
     let service: ProveedorService;
     let httpMock: HttpTestingController;
     let elemDefault: IProveedor;
+    let expectedResult;
     let currentDate: moment.Moment;
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
       });
+      expectedResult = {};
       injector = getTestBed();
       service = injector.get(ProveedorService);
       httpMock = injector.get(HttpTestingController);
@@ -43,8 +44,8 @@ describe('Service Tests', () => {
       );
     });
 
-    describe('Service methods', async () => {
-      it('should find an element', async () => {
+    describe('Service methods', () => {
+      it('should find an element', () => {
         const returnedFromService = Object.assign(
           {
             fechaAlta: currentDate.format(DATE_FORMAT)
@@ -54,13 +55,14 @@ describe('Service Tests', () => {
         service
           .find(123)
           .pipe(take(1))
-          .subscribe(resp => expect(resp).toMatchObject({ body: elemDefault }));
+          .subscribe(resp => (expectedResult = resp));
 
         const req = httpMock.expectOne({ method: 'GET' });
-        req.flush(JSON.stringify(returnedFromService));
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject({ body: elemDefault });
       });
 
-      it('should create a Proveedor', async () => {
+      it('should create a Proveedor', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
@@ -77,12 +79,13 @@ describe('Service Tests', () => {
         service
           .create(new Proveedor(null))
           .pipe(take(1))
-          .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
+          .subscribe(resp => (expectedResult = resp));
         const req = httpMock.expectOne({ method: 'POST' });
-        req.flush(JSON.stringify(returnedFromService));
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should update a Proveedor', async () => {
+      it('should update a Proveedor', () => {
         const returnedFromService = Object.assign(
           {
             nombreProveedor: 'BBBBBB',
@@ -111,12 +114,13 @@ describe('Service Tests', () => {
         service
           .update(expected)
           .pipe(take(1))
-          .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
+          .subscribe(resp => (expectedResult = resp));
         const req = httpMock.expectOne({ method: 'PUT' });
-        req.flush(JSON.stringify(returnedFromService));
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject({ body: expected });
       });
 
-      it('should return a list of Proveedor', async () => {
+      it('should return a list of Proveedor', () => {
         const returnedFromService = Object.assign(
           {
             nombreProveedor: 'BBBBBB',
@@ -147,17 +151,19 @@ describe('Service Tests', () => {
             take(1),
             map(resp => resp.body)
           )
-          .subscribe(body => expect(body).toContainEqual(expected));
+          .subscribe(body => (expectedResult = body));
         const req = httpMock.expectOne({ method: 'GET' });
-        req.flush(JSON.stringify([returnedFromService]));
+        req.flush([returnedFromService]);
         httpMock.verify();
+        expect(expectedResult).toContainEqual(expected);
       });
 
-      it('should delete a Proveedor', async () => {
-        const rxPromise = service.delete(123).subscribe(resp => expect(resp.ok));
+      it('should delete a Proveedor', () => {
+        service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
         const req = httpMock.expectOne({ method: 'DELETE' });
         req.flush({ status: 200 });
+        expect(expectedResult);
       });
     });
 

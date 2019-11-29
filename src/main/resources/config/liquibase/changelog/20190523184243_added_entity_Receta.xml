@@ -3,16 +3,10 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <property name="now" value="now()" dbms="h2"/>
-    
-    <property name="now" value="now()" dbms="mysql"/>
-    <property name="autoIncrement" value="true"/>
-
-    <property name="floatType" value="float4" dbms="postgresql, h2"/>
-    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+        <property name="autoIncrement" value="true"/>
 
     <!--
         Added the entity Receta.
@@ -25,54 +19,87 @@
             <column name="nombre" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-
             <column name="brew_master" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="batch" type="decimal(10,2)">
+            <column name="batch" type="decimal(21,2)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="temperatura_de_macerado" type="decimal(10,2)">
+            <column name="temperatura_de_macerado" type="decimal(21,2)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="og" type="decimal(10,2)">
+            <column name="og" type="decimal(21,2)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="fg" type="decimal(10,2)">
+            <column name="fg" type="decimal(21,2)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="abv" type="decimal(10,2)">
+            <column name="abv" type="decimal(21,2)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="ibu" type="decimal(10,2)">
+            <column name="ibu" type="decimal(21,2)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="srm" type="decimal(10,2)">
+            <column name="srm" type="decimal(21,2)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="empaste" type="decimal(10,2)">
+            <column name="empaste" type="decimal(21,2)">
                 <constraints nullable="true" />
             </column>
-
-            <column name="temperatura_macerado" type="decimal(10,2)">
+            <column name="fecha" type="date">
                 <constraints nullable="true" />
             </column>
-
             <column name="producto_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-
+            <column name="maltas_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="lupulo_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="levadura_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="otros_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+    </changeSet>
+
+    <changeSet id="20190523184243-1-relations" author="jhipster">
 
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20190523184243-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/receta.csv"
+                  separator=";"
+                  tableName="receta">
+            <column name="id" type="numeric"/>
+            <column name="nombre" type="string"/>
+            <column name="brew_master" type="string"/>
+            <column name="batch" type="numeric"/>
+            <column name="temperatura_de_macerado" type="numeric"/>
+            <column name="og" type="numeric"/>
+            <column name="fg" type="numeric"/>
+            <column name="abv" type="numeric"/>
+            <column name="ibu" type="numeric"/>
+            <column name="srm" type="numeric"/>
+            <column name="empaste" type="numeric"/>
+            <column name="fecha" type="date"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
+        </loadData>
+    </changeSet>
+
 </databaseChangeLog>

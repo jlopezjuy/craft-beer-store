@@ -1,7 +1,7 @@
-/* tslint:disable max-line-length */
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
+import { of } from 'rxjs';
 
 import { CraftBeerStoreTestModule } from '../../../test.module';
 import { CompraInsumoDetalleUpdateComponent } from 'app/entities/compra-insumo-detalle/compra-insumo-detalle-update.component';
@@ -17,7 +17,8 @@ describe('Component Tests', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [CraftBeerStoreTestModule],
-        declarations: [CompraInsumoDetalleUpdateComponent]
+        declarations: [CompraInsumoDetalleUpdateComponent],
+        providers: [FormBuilder]
       })
         .overrideTemplate(CompraInsumoDetalleUpdateComponent, '')
         .compileComponents();
@@ -32,7 +33,7 @@ describe('Component Tests', () => {
         // GIVEN
         const entity = new CompraInsumoDetalle(123);
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
-        comp.compraInsumoDetalle = entity;
+        comp.updateForm(entity);
         // WHEN
         comp.save();
         tick(); // simulate async
@@ -46,7 +47,7 @@ describe('Component Tests', () => {
         // GIVEN
         const entity = new CompraInsumoDetalle();
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
-        comp.compraInsumoDetalle = entity;
+        comp.updateForm(entity);
         // WHEN
         comp.save();
         tick(); // simulate async

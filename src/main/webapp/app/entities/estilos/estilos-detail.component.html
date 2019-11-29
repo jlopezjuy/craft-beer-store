@@ -1,104 +1,83 @@
-<div class="container-fluid">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12">
-                <h2><span jhiTranslate="craftBeerStoreApp.estilos.detail.title">Estilos:</span> {{estilos.nombreEstilo}}</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Estilo</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="estilos">
+            <h2><span jhiTranslate="craftBeerStoreApp.estilos.detail.title">Estilos</span> {{estilos.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.number">Number</span></dt>
+                <dd>
+                    <span>{{estilos.number}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.nombreEstilo">Nombre Estilo</span></dt>
+                <dd>
+                    <span>{{estilos.nombreEstilo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.categoriaEstilo">Categoria Estilo</span></dt>
+                <dd>
+                    <span>{{estilos.categoriaEstilo}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.abvMin">Abv Min</span></dt>
+                <dd>
+                    <span>{{estilos.abvMin}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.abvMax">Abv Max</span></dt>
+                <dd>
+                    <span>{{estilos.abvMax}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.abvMed">Abv Med</span></dt>
+                <dd>
+                    <span>{{estilos.abvMed}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.ibuMin">Ibu Min</span></dt>
+                <dd>
+                    <span>{{estilos.ibuMin}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.ibuMax">Ibu Max</span></dt>
+                <dd>
+                    <span>{{estilos.ibuMax}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.ibuMed">Ibu Med</span></dt>
+                <dd>
+                    <span>{{estilos.ibuMed}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.srmMin">Srm Min</span></dt>
+                <dd>
+                    <span>{{estilos.srmMin}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.srmMax">Srm Max</span></dt>
+                <dd>
+                    <span>{{estilos.srmMax}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.srmMed">Srm Med</span></dt>
+                <dd>
+                    <span>{{estilos.srmMed}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.descripcion">Descripcion</span></dt>
+                <dd>
+                    <span>{{estilos.descripcion}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.ejemploNombreComercial">Ejemplo Nombre Comercial</span></dt>
+                <dd>
+                    <span>{{estilos.ejemploNombreComercial}}</span>
+                </dd>
+                <dt><span jhiTranslate="craftBeerStoreApp.estilos.ejemploImagenComercial">Ejemplo Imagen Comercial</span></dt>
+                <dd>
+                    <span>{{estilos.ejemploImagenComercial}}</span>
+                </dd>
+            </dl>
 
-    <div class="card">
-        <div class="header">
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
 
-        </div>
-        <div class="body">
-            <div class="row justify-content-center">
-                <div class="col-8">
-                    <div *ngIf="estilos">
-                        <jhi-alert-error></jhi-alert-error>
-                        <dl class="row-md jh-entity-details">
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.number">Number</span></dt>
-                            <dd>
-                                <span>{{estilos.number}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.nombreEstilo">Nombre Estilo</span></dt>
-                            <dd>
-                                <span>{{estilos.nombreEstilo}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.categoriaEstilo">Categoria Estilo</span></dt>
-                            <dd>
-                                <span>{{estilos.categoriaEstilo}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.abvMin">Abv Min</span></dt>
-                            <dd>
-                                <span>{{estilos.abvMin}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.abvMax">Abv Max</span></dt>
-                            <dd>
-                                <span>{{estilos.abvMax}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.abvMed">Abv Med</span></dt>
-                            <dd>
-                                <span>{{estilos.abvMed}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.ibuMin">Ibu Min</span></dt>
-                            <dd>
-                                <span>{{estilos.ibuMin}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.ibuMax">Ibu Max</span></dt>
-                            <dd>
-                                <span>{{estilos.ibuMax}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.ibuMed">Ibu Med</span></dt>
-                            <dd>
-                                <span>{{estilos.ibuMed}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.srmMin">Srm Min</span></dt>
-                            <dd>
-                                <span>{{estilos.srmMin}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.srmMax">Srm Max</span></dt>
-                            <dd>
-                                <span>{{estilos.srmMax}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.srmMed">Srm Med</span></dt>
-                            <dd>
-                                <span>{{estilos.srmMed}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.descripcion">Descripcion</span></dt>
-                            <dd>
-                                <span>{{estilos.descripcion}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.ejemploNombreComercial">Ejemplo Nombre Comercial</span></dt>
-                            <dd>
-                                <span>{{estilos.ejemploNombreComercial}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="craftBeerStoreApp.estilos.ejemploImagenComercial">Ejemplo Imagen Comercial</span></dt>
-                            <dd>
-                                <span>{{estilos.ejemploImagenComercial}}</span>
-                            </dd>
-                        </dl>
-
-                        <button type="submit"
-                                (click)="previousState()"
-                                mat-raised-button class="mat-back">
-                            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-                        </button>
-
-                        <button type="button"
-                                [routerLink]="['/estilos', estilos.id, 'edit']"
-                                mat-raised-button class="mat-edit">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+            <button type="button"
+                    [routerLink]="['/estilos', estilos.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
         </div>
     </div>
 </div>

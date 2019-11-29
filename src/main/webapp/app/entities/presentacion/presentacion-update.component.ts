@@ -1,63 +1,79 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
-import { IPresentacion } from 'app/shared/model/presentacion.model';
+import { IPresentacion, Presentacion } from 'app/shared/model/presentacion.model';
 import { PresentacionService } from './presentacion.service';
 import { IProducto } from 'app/shared/model/producto.model';
-import { ProductoService } from 'app/entities/producto';
+import { ProductoService } from 'app/entities/producto/producto.service';
 import { ILote } from 'app/shared/model/lote.model';
-import { LoteService } from 'app/entities/lote';
-import { LocalStorageService } from 'ngx-webstorage';
-import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared';
+import { LoteService } from 'app/entities/lote/lote.service';
 
 @Component({
   selector: 'jhi-presentacion-update',
   templateUrl: './presentacion-update.component.html'
 })
 export class PresentacionUpdateComponent implements OnInit {
-  presentacion: IPresentacion;
   isSaving: boolean;
-  producto: IProducto;
+
   productos: IProducto[];
+
   lotes: ILote[];
   fechaDp: any;
-  fecha: any;
+
+  editForm = this.fb.group({
+    id: [],
+    tipoPresentacion: [null, [Validators.required]],
+    cantidad: [null, [Validators.required]],
+    fecha: [null, [Validators.required]],
+    costoUnitario: [null, [Validators.required]],
+    precioVentaUnitario: [null, [Validators.required]],
+    precioVentaTotal: [null, [Validators.required]],
+    precioCostoTotal: [null, [Validators.required]],
+    productoId: [],
+    loteId: []
+  });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected presentacionService: PresentacionService,
     protected productoService: ProductoService,
+    protected loteService: LoteService,
     protected activatedRoute: ActivatedRoute,
-    private $localStorage: LocalStorageService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ presentacion }) => {
-      this.presentacion = presentacion;
-      if (this.presentacion.id) {
-        this.fecha = moment(this.presentacion.fecha, 'dd/MM/yyy').format();
-      }
+      this.updateForm(presentacion);
     });
-    this.producto = this.$localStorage.retrieve('producto');
-    // this.productoService
-    //   .query()
-    //   .pipe(
-    //     filter((mayBeOk: HttpResponse<IProducto[]>) => mayBeOk.ok),
-    //     map((response: HttpResponse<IProducto[]>) => response.body)
-    //   )
-    //   .subscribe((res: IProducto[]) => (this.productos = res), (res: HttpErrorResponse) => this.onError(res.message));
-    // this.loteService
-    //   .query()
-    //   .pipe(
-    //     filter((mayBeOk: HttpResponse<ILote[]>) => mayBeOk.ok),
-    //     map((response: HttpResponse<ILote[]>) => response.body)
-    //   )
-    //   .subscribe((res: ILote[]) => (this.lotes = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.productoService
+      .query()
+      .subscribe((res: HttpResponse<IProducto[]>) => (this.productos = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+    this.loteService
+      .query()
+      .subscribe((res: HttpResponse<ILote[]>) => (this.lotes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+  }
+
+  updateForm(presentacion: IPresentacion) {
+    this.editForm.patchValue({
+      id: presentacion.id,
+      tipoPresentacion: presentacion.tipoPresentacion,
+      cantidad: presentacion.cantidad,
+      fecha: presentacion.fecha,
+      costoUnitario: presentacion.costoUnitario,
+      precioVentaUnitario: presentacion.precioVentaUnitario,
+      precioVentaTotal: presentacion.precioVentaTotal,
+      precioCostoTotal: presentacion.precioCostoTotal,
+      productoId: presentacion.productoId,
+      loteId: presentacion.loteId
+    });
   }
 
   previousState() {
@@ -65,18 +81,33 @@ export class PresentacionUpdateComponent implements OnInit {
   }
 
   save() {
-    this.presentacion.productoId = this.producto.id;
     this.isSaving = true;
-    this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
-    if (this.presentacion.id !== undefined) {
-      this.subscribeToSaveResponse(this.presentacionService.update(this.presentacion));
+    const presentacion = this.createFromForm();
+    if (presentacion.id !== undefined) {
+      this.subscribeToSaveResponse(this.presentacionService.update(presentacion));
     } else {
-      this.subscribeToSaveResponse(this.presentacionService.create(this.presentacion));
+      this.subscribeToSaveResponse(this.presentacionService.create(presentacion));
     }
   }
 
+  private createFromForm(): IPresentacion {
+    return {
+      ...new Presentacion(),
+      id: this.editForm.get(['id']).value,
+      tipoPresentacion: this.editForm.get(['tipoPresentacion']).value,
+      cantidad: this.editForm.get(['cantidad']).value,
+      fecha: this.editForm.get(['fecha']).value,
+      costoUnitario: this.editForm.get(['costoUnitario']).value,
+      precioVentaUnitario: this.editForm.get(['precioVentaUnitario']).value,
+      precioVentaTotal: this.editForm.get(['precioVentaTotal']).value,
+      precioCostoTotal: this.editForm.get(['precioCostoTotal']).value,
+      productoId: this.editForm.get(['productoId']).value,
+      loteId: this.editForm.get(['loteId']).value
+    };
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IPresentacion>>) {
-    result.subscribe((res: HttpResponse<IPresentacion>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
   }
 
   protected onSaveSuccess() {
@@ -87,7 +118,6 @@ export class PresentacionUpdateComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
-
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
@@ -96,24 +126,7 @@ export class PresentacionUpdateComponent implements OnInit {
     return item.id;
   }
 
-  changeCantidad() {
-    if (this.presentacion.cantidad) {
-      this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
-    }
-    if (this.presentacion.cantidad) {
-      this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
-    }
-  }
-
-  changePrecioUnitario() {
-    if (this.presentacion.cantidad) {
-      this.presentacion.precioCostoTotal = this.presentacion.costoUnitario * this.presentacion.cantidad;
-    }
-  }
-
-  changePrecioVenta() {
-    if (this.presentacion.cantidad) {
-      this.presentacion.precioVentaTotal = this.presentacion.precioVentaUnitario * this.presentacion.cantidad;
-    }
+  trackLoteById(index: number, item: ILote) {
+    return item.id;
   }
 }

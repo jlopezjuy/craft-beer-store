@@ -8,8 +8,8 @@
       "D": "D",
       "U": "U",
       "M": "M",
-      "PIN_LOCK": "Pin Lock",
-      "BALL_LOCK": "Ball Lock"
+      "PIN_LOCK": "PIN_LOCK",
+      "BALL_LOCK": "BALL_LOCK"
     }
   }
 }

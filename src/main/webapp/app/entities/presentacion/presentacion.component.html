@@ -1,112 +1,87 @@
-<div class="container-fluid">
-    <div class="block-header">
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-12">
-                <h2><a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth"
-                       (click)="toggleFullWidth()">
-                    <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
-                    <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
-                </a>Envasados en Existencia</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a [routerLink]="['/admin/dashboard/index']"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item">Entidad</li>
-                    <li class="breadcrumb-item active">Presentaciones</li>
-                </ul>
-            </div>
-        </div>
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="craftBeerStoreApp.presentacion.home.title">Presentacions</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-presentacion" [routerLink]="['/presentacion/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="craftBeerStoreApp.presentacion.home.createLabel">
+            Create a new Presentacion
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="presentacions?.length === 0">
+        <span jhiTranslate="craftBeerStoreApp.presentacion.home.notFound">No presentacions found</span>
     </div>
-
-    <div class="card">
-        <div class="header">
-            <h2 id="page-heading">
-                <span jhiTranslate="craftBeerStoreApp.presentacion.home.title">Presentacions </span>
-<!--                <button (click)="previousState()" type="button" mat-raised-button class="mat-back">-->
-<!--                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>-->
-<!--                </button>-->
-<!--                <button id="jh-create-entity" mat-raised-button color="primary" class="float-right jh-create-entity create-presentacion" [routerLink]="['/admin/admin/presentacion/new']">-->
-<!--                    <fa-icon [icon]="'plus'"></fa-icon>-->
-<!--                    <span class="hidden-sm-down"  jhiTranslate="craftBeerStoreApp.presentacion.home.createLabel">-->
-<!--            Create new Presentacion-->
-<!--            </span>-->
-<!--                </button>-->
-            </h2>
+    <div class="table-responsive" *ngIf="presentacions?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tipoPresentacion"><span jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="cantidad"><span jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="fecha"><span jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="costoUnitario"><span jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario">Costo Unitario</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="precioVentaUnitario"><span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaUnitario">Precio Venta Unitario</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="precioVentaTotal"><span jhiTranslate="craftBeerStoreApp.presentacion.precioVentaTotal">Precio Venta Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="precioCostoTotal"><span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="productoNombreComercial"><span jhiTranslate="craftBeerStoreApp.presentacion.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.presentacion.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let presentacion of presentacions ;trackBy: trackId">
+                <td><a [routerLink]="['/presentacion', presentacion.id, 'view' ]">{{presentacion.id}}</a></td>
+                <td jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}">{{presentacion.tipoPresentacion}}</td>
+                <td>{{presentacion.cantidad}}</td>
+                <td>{{presentacion.fecha | date:'mediumDate'}}</td>
+                <td>{{presentacion.costoUnitario}}</td>
+                <td>{{presentacion.precioVentaUnitario}}</td>
+                <td>{{presentacion.precioVentaTotal}}</td>
+                <td>{{presentacion.precioCostoTotal}}</td>
+                <td>
+                    <div *ngIf="presentacion.productoId">
+                        <a [routerLink]="['/producto', presentacion.productoId , 'view' ]" >{{presentacion.productoNombreComercial}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="presentacion.loteId">
+                        <a [routerLink]="['/lote', presentacion.loteId , 'view' ]" >{{presentacion.loteCodigo}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/presentacion', presentacion.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/presentacion', presentacion.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(presentacion)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="presentacions?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
-        <div class="body">
-            <jhi-alert></jhi-alert>
-            <div class="row">
-
-            </div>
-            <br/>
-            <div *ngIf="presentacions">
-                <div class="mat-elevation-z8 table-responsive">
-                    <table  mat-table [dataSource]="dataSource" style="width: 100%;" jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                      <ng-container matColumnDef="productoNombreComercial">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="producto_id"> <span jhiTranslate="craftBeerStoreApp.presentacion.producto">Producto</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                        <td mat-cell *matCellDef="let presentacion" > {{presentacion.productoNombreComercial}} </td>
-                      </ng-container>
-
-                        <ng-container matColumnDef="tipoPresentacion">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="tipo_presentacion"> <span jhiTranslate="craftBeerStoreApp.presentacion.tipoPresentacion">Tipo Presentacion</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let presentacion" jhiTranslate="{{'craftBeerStoreApp.TipoPresentacion.' + presentacion.tipoPresentacion}}"> {{presentacion.tipoPresentacion}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="cantidad">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="cantidad"> <span jhiTranslate="craftBeerStoreApp.presentacion.cantidad">Cantidad</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let presentacion"> {{presentacion.cantidad}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="fecha">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="fecha"> <span jhiTranslate="craftBeerStoreApp.presentacion.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let presentacion"> {{presentacion.fecha | date:'mediumDate'}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="costoUnitario">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="costo_unitario"> <span jhiTranslate="craftBeerStoreApp.presentacion.costoUnitario">Costo Unitario</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let presentacion"> ${{presentacion.costoUnitario}} </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="precioCostoTotal">
-                            <th mat-header-cell *matHeaderCellDef jhiSortBy="precio_costo_total"> <span jhiTranslate="craftBeerStoreApp.presentacion.precioCostoTotal">Precio Costo Total</span> <fa-icon [icon]="'sort'"></fa-icon> </th>
-                            <td mat-cell *matCellDef="let presentacion"> ${{presentacion.precioCostoTotal}} </td>
-                        </ng-container>
-
-<!--                      <th jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.presentacion.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-
-                        <ng-container matColumnDef="actions" >
-                            <th mat-header-cell *matHeaderCellDef></th>
-                            <td mat-cell *matCellDef="let presentacion" style="width: 20%">
-                                <div class="btn-group flex-btn-group-container">
-                                    <button type="submit"
-                                            [routerLink]="['/admin/admin/presentacion', presentacion.id, 'view' ]"
-                                            mat-raised-button color="primary">
-                                        <fa-icon [icon]="'eye'"></fa-icon>
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/admin/admin/presentacion', presentacion.id, 'edit']"
-                                            mat-raised-button class="mat-edit">
-                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/admin/admin/', 'presentacion', { outlets: { popup: presentacion.id + '/delete'} }]"
-                                            replaceUrl="true"
-                                            queryParamsHandling="merge"
-                                            mat-raised-button color="warn">
-                                        <fa-icon [icon]="'times'"></fa-icon>
-                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-                    <mat-paginator [length]="totalItems"
-                                   [pageSize]="itemsPerPage"
-                                   (page)="pageEvent = $event; onPaginateChange($event)"></mat-paginator>
-                </div>
-            </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

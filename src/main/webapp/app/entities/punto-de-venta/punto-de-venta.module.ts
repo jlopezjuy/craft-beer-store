@@ -1,45 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-    PuntoDeVentaComponent,
-    PuntoDeVentaDetailComponent,
-    PuntoDeVentaUpdateComponent,
-    PuntoDeVentaDeletePopupComponent,
-    PuntoDeVentaDeleteDialogComponent,
-    puntoDeVentaRoute,
-    puntoDeVentaPopupRoute
-} from './';
-
-const ENTITY_STATES = [...puntoDeVentaRoute, ...puntoDeVentaPopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { PuntoDeVentaComponent } from './punto-de-venta.component';
+import { PuntoDeVentaDetailComponent } from './punto-de-venta-detail.component';
+import { PuntoDeVentaUpdateComponent } from './punto-de-venta-update.component';
+import { PuntoDeVentaDeleteDialogComponent } from './punto-de-venta-delete-dialog.component';
+import { puntoDeVentaRoute } from './punto-de-venta.route';
 
 @NgModule({
-    imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        PuntoDeVentaComponent,
-        PuntoDeVentaDetailComponent,
-        PuntoDeVentaUpdateComponent,
-        PuntoDeVentaDeleteDialogComponent,
-        PuntoDeVentaDeletePopupComponent
-    ],
-    entryComponents: [
-        PuntoDeVentaComponent,
-        PuntoDeVentaUpdateComponent,
-        PuntoDeVentaDeleteDialogComponent,
-        PuntoDeVentaDeletePopupComponent
-    ],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(puntoDeVentaRoute)],
+  declarations: [PuntoDeVentaComponent, PuntoDeVentaDetailComponent, PuntoDeVentaUpdateComponent, PuntoDeVentaDeleteDialogComponent],
+  entryComponents: [PuntoDeVentaDeleteDialogComponent]
 })
-export class CraftBeerStorePuntoDeVentaModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class CraftBeerStorePuntoDeVentaModule {}

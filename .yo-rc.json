@@ -1,38 +1,47 @@
 {
   "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.craftbeerstore.application",
+      "nativeLanguage": "es"
+    },
+    "jhipsterVersion": "6.5.1",
     "applicationType": "monolith",
-    "gitCompany": "",
     "baseName": "craftBeerStore",
     "packageName": "com.craftbeerstore.application",
     "packageFolder": "com/craftbeerstore/application",
-    "serverPort": 8082,
-    "serviceDiscoveryType": false,
+    "serverPort": "8080",
     "authenticationType": "jwt",
-    "uaaBaseName": "../uaa",
-    "cacheProvider": "ehcache",
+    "cacheProvider": "hazelcast",
     "enableHibernateCache": true,
     "websocket": "spring-websocket",
     "databaseType": "sql",
     "devDatabaseType": "mysql",
     "prodDatabaseType": "mysql",
     "searchEngine": false,
-    "enableSwaggerCodegen": false,
     "messageBroker": false,
+    "serviceDiscoveryType": false,
     "buildTool": "maven",
+    "enableSwaggerCodegen": true,
+    "jwtSecretKey": "NjIxNTJhY2I2ZGM4OTY4MjdhZGNkMzZiZDIxY2Q2ZTY2OGE2ZDA3NmM1ODhlMDEzZjQ1MDkwYWZkNThkYzdlZjg3ODkwYzZkZGQ1MzZhMDcwNThjMDA0YzgyODFjM2Q3MGM4ZGM4NTdiNTFiZDRiMjFlOTE4MzlhNWU5MjQwN2M=",
+    "embeddableLaunchScript": false,
     "useSass": true,
     "clientPackageManager": "npm",
-    "testFrameworks": ["gatling"],
-    "enableTranslation": true,
-    "nativeLanguage": "es",
-    "languages": ["en", "es"],
     "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "testFrameworks": [
+      "gatling"
+    ],
     "jhiPrefix": "jhi",
-    "jhipsterVersion": "5.8.2",
-    "jwtSecretKey": "ZTA1OTkxYThlZWM1YWJkY2MzNjVmMDY5NDRjYzQyMjYxZjFjYjU4NDdjZjkzNjBjM2IyZjAyMjlkOWFiYTIxOGNmOGYwYmRjYzMwZjgxMDVkMmNkNGNmNDMyNjljNTcwMWMxMDdmNjY2NjY3NjlmNTdmODI3MTU0YmRjMjkzMzY=",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
-    "herokuAppName": "craft-beer-store",
-    "herokuDeployType": "git"
+    "enableTranslation": true,
+    "nativeLanguage": "es",
+    "languages": [
+      "es",
+      "en"
+    ],
+    "blueprints": []
   }
 }

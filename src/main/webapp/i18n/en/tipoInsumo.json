@@ -2,13 +2,13 @@
   "craftBeerStoreApp": {
     "TipoInsumo": {
       "null": "",
-      "MALTA": "Malta",
-      "LUPULO": "Lupúlo",
-      "LEVADURA": "Levadura",
-      "ACIDO": "Acido",
-      "SAL": "Sales",
-      "CLARIFICANTE": "Clarificante",
-      "OTROS": "Otros"
+      "MALTA": "MALTA",
+      "LUPULO": "LUPULO",
+      "LEVADURA": "LEVADURA",
+      "ACIDO": "ACIDO",
+      "CLARIFICANTE": "CLARIFICANTE",
+      "SAL": "SAL",
+      "OTROS": "OTROS"
     }
   }
 }

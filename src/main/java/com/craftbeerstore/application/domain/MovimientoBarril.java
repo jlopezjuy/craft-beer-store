@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -9,7 +7,6 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.EstadoMovimientoBarril;
 
@@ -22,7 +19,7 @@ import com.craftbeerstore.application.domain.enumeration.EstadoMovimientoBarril;
 public class MovimientoBarril implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -159,19 +156,15 @@ public class MovimientoBarril implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof MovimientoBarril)) {
             return false;
         }
-        MovimientoBarril movimientoBarril = (MovimientoBarril) o;
-        if (movimientoBarril.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), movimientoBarril.getId());
+        return id != null && id.equals(((MovimientoBarril) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

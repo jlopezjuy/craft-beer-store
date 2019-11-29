@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -11,7 +9,6 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.TipoPresentacion;
 
@@ -24,7 +21,7 @@ import com.craftbeerstore.application.domain.enumeration.TipoPresentacion;
 public class Presentacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,19 +40,19 @@ public class Presentacion implements Serializable {
     private LocalDate fecha;
 
     @NotNull
-    @Column(name = "costo_unitario", precision = 10, scale = 2, nullable = false)
+    @Column(name = "costo_unitario", precision = 21, scale = 2, nullable = false)
     private BigDecimal costoUnitario;
 
     @NotNull
-    @Column(name = "precio_venta_unitario", precision = 10, scale = 2, nullable = false)
+    @Column(name = "precio_venta_unitario", precision = 21, scale = 2, nullable = false)
     private BigDecimal precioVentaUnitario;
 
     @NotNull
-    @Column(name = "precio_venta_total", precision = 10, scale = 2, nullable = false)
+    @Column(name = "precio_venta_total", precision = 21, scale = 2, nullable = false)
     private BigDecimal precioVentaTotal;
 
     @NotNull
-    @Column(name = "precio_costo_total", precision = 10, scale = 2, nullable = false)
+    @Column(name = "precio_costo_total", precision = 21, scale = 2, nullable = false)
     private BigDecimal precioCostoTotal;
 
     @ManyToOne
@@ -198,19 +195,15 @@ public class Presentacion implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Presentacion)) {
             return false;
         }
-        Presentacion presentacion = (Presentacion) o;
-        if (presentacion.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), presentacion.getId());
+        return id != null && id.equals(((Presentacion) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

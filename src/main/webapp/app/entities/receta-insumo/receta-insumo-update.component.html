@@ -1,17 +1,17 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-receta-insumo-heading" jhiTranslate="craftBeerStoreApp.recetaInsumo.home.createOrEditLabel">Create or edit a Receta Insumo</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!recetaInsumo.id">
+                <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="recetaInsumo.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoInsumo" for="field_tipoInsumo">Tipo Insumo</label>
-                    <select class="form-control" name="tipoInsumo" [(ngModel)]="recetaInsumo.tipoInsumo" id="field_tipoInsumo" >
+                    <select class="form-control" name="tipoInsumo" formControlName="tipoInsumo" id="field_tipoInsumo">
                         <option value="MALTA">{{'craftBeerStoreApp.TipoInsumo.MALTA' | translate}}</option>
                         <option value="LUPULO">{{'craftBeerStoreApp.TipoInsumo.LUPULO' | translate}}</option>
                         <option value="LEVADURA">{{'craftBeerStoreApp.TipoInsumo.LEVADURA' | translate}}</option>
@@ -24,23 +24,23 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.cantidad" for="field_cantidad">Cantidad</label>
                     <input type="number" class="form-control" name="cantidad" id="field_cantidad"
-                        [(ngModel)]="recetaInsumo.cantidad" />
+                           formControlName="cantidad"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.color" for="field_color">Color</label>
                     <input type="number" class="form-control" name="color" id="field_color"
-                        [(ngModel)]="recetaInsumo.color" min="2" jhiMin="2" max="40" jhiMax="40"/>
-                    <div [hidden]="!(editForm.controls.color?.dirty && editForm.controls.color?.invalid)">
+                           formControlName="color"/>
+                    <div *ngIf="editForm.get('color').invalid && (editForm.get('color').dirty || editForm.get('color').touched)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.color?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 2 }">
+                               *ngIf="editForm.get('color').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 2 }">
                             This field should be at least 2.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.color?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 40 }">
+                               *ngIf="editForm.get('color').errors.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 40 }">
                             This field cannot be more than 40.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.color?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.get('color')?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -48,21 +48,21 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.porcentaje" for="field_porcentaje">Porcentaje</label>
                     <input type="number" class="form-control" name="porcentaje" id="field_porcentaje"
-                        [(ngModel)]="recetaInsumo.porcentaje" max="100" jhiMax="100"/>
-                    <div [hidden]="!(editForm.controls.porcentaje?.dirty && editForm.controls.porcentaje?.invalid)">
+                           formControlName="porcentaje"/>
+                    <div *ngIf="editForm.get('porcentaje').invalid && (editForm.get('porcentaje').dirty || editForm.get('porcentaje').touched)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.porcentaje?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
+                               *ngIf="editForm.get('porcentaje').errors.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
                             This field cannot be more than 100.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.porcentaje?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.get('porcentaje')?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.usoMalta" for="field_usoMalta">Uso Malta</label>
-                    <select class="form-control" name="usoMalta" [(ngModel)]="recetaInsumo.usoMalta" id="field_usoMalta" >
+                    <select class="form-control" name="usoMalta" formControlName="usoMalta" id="field_usoMalta">
                         <option value="MASH">{{'craftBeerStoreApp.UsoMalta.MASH' | translate}}</option>
                         <option value="RECIRCULATING">{{'craftBeerStoreApp.UsoMalta.RECIRCULATING' | translate}}</option>
                         <option value="BOIL">{{'craftBeerStoreApp.UsoMalta.BOIL' | translate}}</option>
@@ -72,21 +72,21 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.alpha" for="field_alpha">Alpha</label>
                     <input type="number" class="form-control" name="alpha" id="field_alpha"
-                        [(ngModel)]="recetaInsumo.alpha" max="100" jhiMax="100"/>
-                    <div [hidden]="!(editForm.controls.alpha?.dirty && editForm.controls.alpha?.invalid)">
+                           formControlName="alpha"/>
+                    <div *ngIf="editForm.get('alpha').invalid && (editForm.get('alpha').dirty || editForm.get('alpha').touched)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.alpha?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
+                               *ngIf="editForm.get('alpha').errors.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
                             This field cannot be more than 100.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.alpha?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.get('alpha')?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.modoLupulo" for="field_modoLupulo">Modo Lupulo</label>
-                    <select class="form-control" name="modoLupulo" [(ngModel)]="recetaInsumo.modoLupulo" id="field_modoLupulo" >
+                    <select class="form-control" name="modoLupulo" formControlName="modoLupulo" id="field_modoLupulo">
                         <option value="PELLET">{{'craftBeerStoreApp.ModoLupulo.PELLET' | translate}}</option>
                         <option value="PLUG">{{'craftBeerStoreApp.ModoLupulo.PLUG' | translate}}</option>
                         <option value="WHOLE_LEAF">{{'craftBeerStoreApp.ModoLupulo.WHOLE_LEAF' | translate}}</option>
@@ -95,11 +95,11 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.gramos" for="field_gramos">Gramos</label>
                     <input type="number" class="form-control" name="gramos" id="field_gramos"
-                        [(ngModel)]="recetaInsumo.gramos" />
+                           formControlName="gramos"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.usoLupulo" for="field_usoLupulo">Uso Lupulo</label>
-                    <select class="form-control" name="usoLupulo" [(ngModel)]="recetaInsumo.usoLupulo" id="field_usoLupulo" >
+                    <select class="form-control" name="usoLupulo" formControlName="usoLupulo" id="field_usoLupulo">
                         <option value="BOIL">{{'craftBeerStoreApp.UsoLupulo.BOIL' | translate}}</option>
                         <option value="FIRST_WORT">{{'craftBeerStoreApp.UsoLupulo.FIRST_WORT' | translate}}</option>
                         <option value="DRY_HOP">{{'craftBeerStoreApp.UsoLupulo.DRY_HOP' | translate}}</option>
@@ -110,18 +110,18 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempo" for="field_tiempo">Tiempo</label>
                     <input type="number" class="form-control" name="tiempo" id="field_tiempo"
-                        [(ngModel)]="recetaInsumo.tiempo" min="0" jhiMin="0" max="120" jhiMax="120"/>
-                    <div [hidden]="!(editForm.controls.tiempo?.dirty && editForm.controls.tiempo?.invalid)">
+                           formControlName="tiempo"/>
+                    <div *ngIf="editForm.get('tiempo').invalid && (editForm.get('tiempo').dirty || editForm.get('tiempo').touched)">
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.tiempo?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                               *ngIf="editForm.get('tiempo').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.tiempo?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 120 }">
+                               *ngIf="editForm.get('tiempo').errors.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 120 }">
                             This field cannot be more than 120.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.tiempo?.errors?.number" jhiTranslate="entity.validation.number">
+                            [hidden]="!editForm.get('tiempo')?.errors?.number" jhiTranslate="entity.validation.number">
                             This field should be a number.
                         </small>
                     </div>
@@ -129,26 +129,26 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.ibu" for="field_ibu">Ibu</label>
                     <input type="number" class="form-control" name="ibu" id="field_ibu"
-                        [(ngModel)]="recetaInsumo.ibu" />
+                           formControlName="ibu"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.densidadLeva" for="field_densidadLeva">Densidad Leva</label>
                     <input type="number" class="form-control" name="densidadLeva" id="field_densidadLeva"
-                        [(ngModel)]="recetaInsumo.densidadLeva" />
+                           formControlName="densidadLeva"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.tamSobre" for="field_tamSobre">Tam Sobre</label>
                     <input type="number" class="form-control" name="tamSobre" id="field_tamSobre"
-                        [(ngModel)]="recetaInsumo.tamSobre" />
+                           formControlName="tamSobre"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.atenuacion" for="field_atenuacion">Atenuacion</label>
                     <input type="number" class="form-control" name="atenuacion" id="field_atenuacion"
-                        [(ngModel)]="recetaInsumo.atenuacion" />
+                           formControlName="atenuacion"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.tipoOtro" for="field_tipoOtro">Tipo Otro</label>
-                    <select class="form-control" name="tipoOtro" [(ngModel)]="recetaInsumo.tipoOtro" id="field_tipoOtro" >
+                    <select class="form-control" name="tipoOtro" formControlName="tipoOtro" id="field_tipoOtro">
                         <option value="FINING">{{'craftBeerStoreApp.TipoOtro.FINING' | translate}}</option>
                         <option value="WATER_AGENT">{{'craftBeerStoreApp.TipoOtro.WATER_AGENT' | translate}}</option>
                         <option value="SPICE">{{'craftBeerStoreApp.TipoOtro.SPICE' | translate}}</option>
@@ -159,7 +159,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.usoOtro" for="field_usoOtro">Uso Otro</label>
-                    <select class="form-control" name="usoOtro" [(ngModel)]="recetaInsumo.usoOtro" id="field_usoOtro" >
+                    <select class="form-control" name="usoOtro" formControlName="usoOtro" id="field_usoOtro">
                         <option value="BOIL">{{'craftBeerStoreApp.UsoOtro.BOIL' | translate}}</option>
                         <option value="MASH">{{'craftBeerStoreApp.UsoOtro.MASH' | translate}}</option>
                         <option value="LICOR">{{'craftBeerStoreApp.UsoOtro.LICOR' | translate}}</option>
@@ -170,19 +170,19 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.tiempoOtro" for="field_tiempoOtro">Tiempo Otro</label>
                     <input type="number" class="form-control" name="tiempoOtro" id="field_tiempoOtro"
-                        [(ngModel)]="recetaInsumo.tiempoOtro" />
+                           formControlName="tiempoOtro"/>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.insumoRecomendado" for="field_insumoRecomendado">Insumo Recomendado</label>
-                    <select class="form-control" id="field_insumoRecomendado" name="insumoRecomendado" [(ngModel)]="recetaInsumo.insumoRecomendadoId" >
+                    <select class="form-control" id="field_insumoRecomendado" name="insumoRecomendado" formControlName="insumoRecomendadoId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="insumoRecomendadoOption.id" *ngFor="let insumoRecomendadoOption of insumorecomendados; trackBy: trackInsumoRecomendadoById">{{insumoRecomendadoOption.nombre}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="craftBeerStoreApp.recetaInsumo.receta" for="field_receta">Receta</label>
-                    <select class="form-control" id="field_receta" name="receta" [(ngModel)]="recetaInsumo.recetaId" >
+                    <select class="form-control" id="field_receta" name="receta" formControlName="recetaId">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="recetaOption.id" *ngFor="let recetaOption of recetas; trackBy: trackRecetaById">{{recetaOption.id}}</option>
                     </select>
@@ -192,7 +192,7 @@
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

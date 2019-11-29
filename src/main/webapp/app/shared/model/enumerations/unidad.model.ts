@@ -1,0 +1,11 @@
+export const enum Unidad {
+  KILOGRAMO = 'KILOGRAMO',
+  GRAMO = 'GRAMO',
+  VEINTICINCO_KILOS = 'VEINTICINCO_KILOS',
+  DIES_KILOS = 'DIES_KILOS',
+  LITRO = 'LITRO',
+  CM3 = 'CM3',
+  ML = 'ML',
+  UNIDAD = 'UNIDAD',
+  SOBRE_11G = 'SOBRE_11G'
+}

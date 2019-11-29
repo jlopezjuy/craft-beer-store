@@ -52,31 +52,31 @@
                 <dt><span jhiTranslate="craftBeerStoreApp.receta.producto">Producto</span></dt>
                 <dd>
                     <div *ngIf="receta.productoId">
-                        <a [routerLink]="['/admin/entity/producto', receta.productoId, 'view']">{{receta.productoNombreComercial}}</a>
+                        <a [routerLink]="['/producto', receta.productoId, 'view']">{{receta.productoNombreComercial}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.receta.maltas">Maltas</span></dt>
                 <dd>
                     <div *ngIf="receta.maltasId">
-                        <a [routerLink]="['/admin/entity/insumo', receta.maltasId, 'view']">{{receta.maltasNombreInsumo}}</a>
+                        <a [routerLink]="['/insumo', receta.maltasId, 'view']">{{receta.maltasNombreInsumo}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.receta.lupulo">Lupulo</span></dt>
                 <dd>
                     <div *ngIf="receta.lupuloId">
-                        <a [routerLink]="['/admin/entity/insumo', receta.lupuloId, 'view']">{{receta.lupuloNombreInsumo}}</a>
+                        <a [routerLink]="['/insumo', receta.lupuloId, 'view']">{{receta.lupuloNombreInsumo}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.receta.levadura">Levadura</span></dt>
                 <dd>
                     <div *ngIf="receta.levaduraId">
-                        <a [routerLink]="['/admin/entity/insumo', receta.levaduraId, 'view']">{{receta.levaduraNombreInsumo}}</a>
+                        <a [routerLink]="['/insumo', receta.levaduraId, 'view']">{{receta.levaduraNombreInsumo}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="craftBeerStoreApp.receta.otros">Otros</span></dt>
                 <dd>
                     <div *ngIf="receta.otrosId">
-                        <a [routerLink]="['/admin/entity/insumo', receta.otrosId, 'view']">{{receta.otrosNombreInsumo}}</a>
+                        <a [routerLink]="['/insumo', receta.otrosId, 'view']">{{receta.otrosNombreInsumo}}</a>
                     </div>
                 </dd>
             </dl>
@@ -88,7 +88,7 @@
             </button>
 
             <button type="button"
-                    [routerLink]="['/admin/entity/receta', receta.id, 'edit']"
+                    [routerLink]="['/receta', receta.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>

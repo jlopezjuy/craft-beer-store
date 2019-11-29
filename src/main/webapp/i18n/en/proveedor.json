@@ -1,35 +1,35 @@
 {
-    "craftBeerStoreApp": {
-        "proveedor": {
-            "home": {
-                "title": "Dealers",
-                "createLabel": "Create a new Dealer",
-                "createOrEditLabel": "Create or edit a Dealer",
-                "search": "Search for Dealer"
-            },
-            "created": "A new Dealer is created with identifier {{ param }}",
-            "updated": "A Dealer is updated with identifier {{ param }}",
-            "deleted": "A Dealer is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete Dealer {{ id }}?"
-            },
-            "detail": {
-                "title": "Dealer"
-            },
-            "nombreProveedor": "Dealer Name",
-            "razonSocial": "Business Name",
-            "cuit": "Cuit",
-            "telefono": "Phone",
-            "fechaAlta": "Date in",
-            "domicilio": "Address",
-            "correo": "Email",
-            "notas": "Notes",
-            "condicionFiscal": "Condicion Fiscal",
-            "localidad": "Localidad",
-            "codigoPostal": "Codigo Postal",
-            "provincia": "Provincia",
-            "contacto": "Contact",
-            "empresa": "Company"
-        }
+  "craftBeerStoreApp": {
+    "proveedor": {
+      "home": {
+        "title": "Proveedors",
+        "createLabel": "Create a new Proveedor",
+        "createOrEditLabel": "Create or edit a Proveedor",
+        "notFound": "No Proveedors found"
+      },
+      "created": "A new Proveedor is created with identifier {{ param }}",
+      "updated": "A Proveedor is updated with identifier {{ param }}",
+      "deleted": "A Proveedor is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Proveedor {{ id }}?"
+      },
+      "detail": {
+        "title": "Proveedor"
+      },
+      "nombreProveedor": "Nombre Proveedor",
+      "razonSocial": "Razon Social",
+      "cuit": "Cuit",
+      "telefono": "Telefono",
+      "fechaAlta": "Fecha Alta",
+      "domicilio": "Domicilio",
+      "correo": "Correo",
+      "notas": "Notas",
+      "condicionFiscal": "Condicion Fiscal",
+      "localidad": "Localidad",
+      "codigoPostal": "Codigo Postal",
+      "provincia": "Provincia",
+      "contacto": "Contacto",
+      "empresa": "Empresa"
     }
+  }
 }

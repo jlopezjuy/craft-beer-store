@@ -4,7 +4,8 @@
       "home": {
         "title": "Tanques",
         "createLabel": "Create a new Tanque",
-        "createOrEditLabel": "Create or edit a Tanque"
+        "createOrEditLabel": "Create or edit a Tanque",
+        "notFound": "No Tanques found"
       },
       "created": "A new Tanque is created with identifier {{ param }}",
       "updated": "A Tanque is updated with identifier {{ param }}",

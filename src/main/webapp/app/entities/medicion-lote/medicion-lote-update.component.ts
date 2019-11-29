@@ -1,59 +1,77 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
-import { IMedicionLote } from 'app/shared/model/medicion-lote.model';
+import { IMedicionLote, MedicionLote } from 'app/shared/model/medicion-lote.model';
 import { MedicionLoteService } from './medicion-lote.service';
 import { ILote } from 'app/shared/model/lote.model';
-import { LoteService } from 'app/entities/lote';
+import { LoteService } from 'app/entities/lote/lote.service';
 import { ITanque } from 'app/shared/model/tanque.model';
-import { TanqueService } from 'app/entities/tanque';
+import { TanqueService } from 'app/entities/tanque/tanque.service';
 
 @Component({
   selector: 'jhi-medicion-lote-update',
   templateUrl: './medicion-lote-update.component.html'
 })
 export class MedicionLoteUpdateComponent implements OnInit {
-  medicionLote: IMedicionLote;
   isSaving: boolean;
 
   lotes: ILote[];
 
   tanques: ITanque[];
-  fechaRealizado: string;
+
+  editForm = this.fb.group({
+    id: [],
+    dia: [],
+    tipoMedicion: [],
+    estado: [],
+    fechaRealizado: [],
+    valor: [],
+    observacion: [],
+    loteId: [],
+    tanqueId: []
+  });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected medicionLoteService: MedicionLoteService,
     protected loteService: LoteService,
     protected tanqueService: TanqueService,
-    protected activatedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ medicionLote }) => {
-      this.medicionLote = medicionLote;
-      this.fechaRealizado = this.medicionLote.fechaRealizado != null ? this.medicionLote.fechaRealizado.format(DATE_TIME_FORMAT) : null;
+      this.updateForm(medicionLote);
     });
     this.loteService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ILote[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ILote[]>) => response.body)
-      )
-      .subscribe((res: ILote[]) => (this.lotes = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<ILote[]>) => (this.lotes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.tanqueService
       .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ITanque[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ITanque[]>) => response.body)
-      )
-      .subscribe((res: ITanque[]) => (this.tanques = res), (res: HttpErrorResponse) => this.onError(res.message));
+      .subscribe((res: HttpResponse<ITanque[]>) => (this.tanques = res.body), (res: HttpErrorResponse) => this.onError(res.message));
+  }
+
+  updateForm(medicionLote: IMedicionLote) {
+    this.editForm.patchValue({
+      id: medicionLote.id,
+      dia: medicionLote.dia,
+      tipoMedicion: medicionLote.tipoMedicion,
+      estado: medicionLote.estado,
+      fechaRealizado: medicionLote.fechaRealizado != null ? medicionLote.fechaRealizado.format(DATE_TIME_FORMAT) : null,
+      valor: medicionLote.valor,
+      observacion: medicionLote.observacion,
+      loteId: medicionLote.loteId,
+      tanqueId: medicionLote.tanqueId
+    });
   }
 
   previousState() {
@@ -62,16 +80,34 @@ export class MedicionLoteUpdateComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    this.medicionLote.fechaRealizado = this.fechaRealizado != null ? moment(this.fechaRealizado, DATE_TIME_FORMAT) : null;
-    if (this.medicionLote.id !== undefined) {
-      this.subscribeToSaveResponse(this.medicionLoteService.update(this.medicionLote));
+    const medicionLote = this.createFromForm();
+    if (medicionLote.id !== undefined) {
+      this.subscribeToSaveResponse(this.medicionLoteService.update(medicionLote));
     } else {
-      this.subscribeToSaveResponse(this.medicionLoteService.create(this.medicionLote));
+      this.subscribeToSaveResponse(this.medicionLoteService.create(medicionLote));
     }
   }
 
+  private createFromForm(): IMedicionLote {
+    return {
+      ...new MedicionLote(),
+      id: this.editForm.get(['id']).value,
+      dia: this.editForm.get(['dia']).value,
+      tipoMedicion: this.editForm.get(['tipoMedicion']).value,
+      estado: this.editForm.get(['estado']).value,
+      fechaRealizado:
+        this.editForm.get(['fechaRealizado']).value != null
+          ? moment(this.editForm.get(['fechaRealizado']).value, DATE_TIME_FORMAT)
+          : undefined,
+      valor: this.editForm.get(['valor']).value,
+      observacion: this.editForm.get(['observacion']).value,
+      loteId: this.editForm.get(['loteId']).value,
+      tanqueId: this.editForm.get(['tanqueId']).value
+    };
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IMedicionLote>>) {
-    result.subscribe((res: HttpResponse<IMedicionLote>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
   }
 
   protected onSaveSuccess() {
@@ -82,7 +118,6 @@ export class MedicionLoteUpdateComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
-
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }

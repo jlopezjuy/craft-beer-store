@@ -4,21 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import { IInsumoRecomendado } from 'app/shared/model/insumo-recomendado.model';
 
 @Component({
-    selector: 'jhi-insumo-recomendado-detail',
-    templateUrl: './insumo-recomendado-detail.component.html'
+  selector: 'jhi-insumo-recomendado-detail',
+  templateUrl: './insumo-recomendado-detail.component.html'
 })
 export class InsumoRecomendadoDetailComponent implements OnInit {
-    insumoRecomendado: IInsumoRecomendado;
+  insumoRecomendado: IInsumoRecomendado;
 
-    constructor(protected activatedRoute: ActivatedRoute) {}
+  constructor(protected activatedRoute: ActivatedRoute) {}
 
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ insumoRecomendado }) => {
-            this.insumoRecomendado = insumoRecomendado;
-        });
-    }
+  ngOnInit() {
+    this.activatedRoute.data.subscribe(({ insumoRecomendado }) => {
+      this.insumoRecomendado = insumoRecomendado;
+    });
+  }
 
-    previousState() {
-        window.history.back();
-    }
+  previousState() {
+    window.history.back();
+  }
 }

@@ -1,16 +1,6 @@
 import { Moment } from 'moment';
-
-export const enum TipoTanque {
-  UNITANK_INOX = 'UNITANK_INOX',
-  FERMENTADOR = 'FERMENTADOR',
-  MADURADOR = 'MADURADOR',
-  BARRICA = 'BARRICA'
-}
-
-export const enum EstadoTanque {
-  VACIO = 'VACIO',
-  EN_USO = 'EN_USO'
-}
+import { TipoTanque } from 'app/shared/model/enumerations/tipo-tanque.model';
+import { EstadoTanque } from 'app/shared/model/enumerations/estado-tanque.model';
 
 export interface ITanque {
   id?: number;

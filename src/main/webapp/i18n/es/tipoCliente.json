@@ -1,10 +1,10 @@
 {
-    "craftBeerStoreApp": {
-        "TipoCliente": {
-            "null": "",
-            "CONSUMIDOR_FINAL": "Consumidor Final",
-            "RESPONSABLE_INSCRIPTO": "Responsable Inscripto",
-            "OTRO": "Otro"
-        }
+  "craftBeerStoreApp": {
+    "TipoCliente": {
+      "null": "",
+      "CONSUMIDOR_FINAL": "CONSUMIDOR_FINAL",
+      "RESPONSABLE_INSCRIPTO": "RESPONSABLE_INSCRIPTO",
+      "OTRO": "OTRO"
     }
+  }
 }

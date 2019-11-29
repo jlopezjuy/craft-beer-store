@@ -1,6 +1,4 @@
 package com.craftbeerstore.application.domain;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -8,7 +6,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import com.craftbeerstore.application.domain.enumeration.LitrosBarril;
 
@@ -25,7 +22,7 @@ import com.craftbeerstore.application.domain.enumeration.EstadoBarril;
 public class Barril implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -196,19 +193,15 @@ public class Barril implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Barril)) {
             return false;
         }
-        Barril barril = (Barril) o;
-        if (barril.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), barril.getId());
+        return id != null && id.equals(((Barril) o).id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return 31;
     }
 
     @Override

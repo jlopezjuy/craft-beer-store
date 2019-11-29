@@ -1,45 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { InsumoRecomendadoComponent } from './insumo-recomendado.component';
+import { InsumoRecomendadoDetailComponent } from './insumo-recomendado-detail.component';
+import { InsumoRecomendadoUpdateComponent } from './insumo-recomendado-update.component';
+import { InsumoRecomendadoDeleteDialogComponent } from './insumo-recomendado-delete-dialog.component';
+import { insumoRecomendadoRoute } from './insumo-recomendado.route';
+
+@NgModule({
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(insumoRecomendadoRoute)],
+  declarations: [
     InsumoRecomendadoComponent,
     InsumoRecomendadoDetailComponent,
     InsumoRecomendadoUpdateComponent,
-    InsumoRecomendadoDeletePopupComponent,
-    InsumoRecomendadoDeleteDialogComponent,
-    insumoRecomendadoRoute,
-    insumoRecomendadoPopupRoute
-} from './';
-
-const ENTITY_STATES = [...insumoRecomendadoRoute, ...insumoRecomendadoPopupRoute];
-
-@NgModule({
-    imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        InsumoRecomendadoComponent,
-        InsumoRecomendadoDetailComponent,
-        InsumoRecomendadoUpdateComponent,
-        InsumoRecomendadoDeleteDialogComponent,
-        InsumoRecomendadoDeletePopupComponent
-    ],
-    entryComponents: [
-        InsumoRecomendadoComponent,
-        InsumoRecomendadoUpdateComponent,
-        InsumoRecomendadoDeleteDialogComponent,
-        InsumoRecomendadoDeletePopupComponent
-    ],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    InsumoRecomendadoDeleteDialogComponent
+  ],
+  entryComponents: [InsumoRecomendadoDeleteDialogComponent]
 })
-export class CraftBeerStoreInsumoRecomendadoModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class CraftBeerStoreInsumoRecomendadoModule {}

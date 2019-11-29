@@ -4,12 +4,12 @@
       "home": {
         "title": "Medicion Lotes",
         "createLabel": "Crear nuevo Medicion Lote",
-        "createOrEditLabel": "Crear o editar Medicion Lote"
+        "createOrEditLabel": "Crear o editar Medicion Lote",
+        "notFound": "Ningún Medicion Lotes encontrado"
       },
       "created": "Un nuevo Medicion Lote ha sido creado con el identificador {{ param }}",
       "updated": "Un Medicion Lote ha sido actualizado con el identificador {{ param }}",
       "deleted": "Un Medicion Lote ha sido eliminado con el identificador {{ param }}",
-      "exist": "Una medición ya se encuentra cargada en esta fecha.",
       "delete": {
         "question": "¿Seguro que quiere eliminar Medicion Lote {{ id }}?"
       },
@@ -20,13 +20,10 @@
       "tipoMedicion": "Tipo Medicion",
       "estado": "Estado",
       "fechaRealizado": "Fecha Realizado",
-      "horaRealizado": "Hora Realizado",
       "valor": "Valor",
       "observacion": "Observacion",
       "lote": "Lote",
-      "tanque": "Tanque",
-      "densidad": "Densidad",
-      "temperatura": "Temperatura"
+      "tanque": "Tanque"
     }
   }
 }

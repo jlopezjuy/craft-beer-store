@@ -2,37 +2,36 @@
   "craftBeerStoreApp": {
     "receta": {
       "home": {
-        "title": "Recipes",
-        "createLabel": "Create a new Recipe",
-        "createOrEditLabel": "Create or edit a Recipe",
-        "search": "Search for Recipe"
+        "title": "Recetas",
+        "createLabel": "Create a new Receta",
+        "createOrEditLabel": "Create or edit a Receta",
+        "notFound": "No Recetas found"
       },
-      "created": "A new Recipe is created with identifier {{ param }}",
-      "updated": "A Recipe is updated with identifier {{ param }}",
-      "deleted": "A Recipe is deleted with identifier {{ param }}",
+      "created": "A new Receta is created with identifier {{ param }}",
+      "updated": "A Receta is updated with identifier {{ param }}",
+      "deleted": "A Receta is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Recipe {{ id }}?"
+        "question": "Are you sure you want to delete Receta {{ id }}?"
       },
       "detail": {
-        "title": "Recipe"
+        "title": "Receta"
       },
-      "nombre": "Recipe Name",
+      "nombre": "Nombre",
       "brewMaster": "Brew Master",
       "batch": "Batch",
-      "temperaturaDeMacerado": "Mash Temperature",
-      "macerado": "Mash",
+      "temperaturaDeMacerado": "Temperatura De Macerado",
       "og": "Og",
       "fg": "Fg",
       "abv": "Abv",
       "ibu": "Ibu",
       "srm": "Srm",
       "empaste": "Empaste",
-      "fecha": "Date",
-      "producto": "Product",
-      "maltas": "Malts",
-      "lupulo": "Hops",
-      "levadura": "Yeast",
-      "otros": "Others"
+      "fecha": "Fecha",
+      "producto": "Producto",
+      "maltas": "Maltas",
+      "lupulo": "Lupulo",
+      "levadura": "Levadura",
+      "otros": "Otros"
     }
   }
 }

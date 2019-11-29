@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
-import { EstadoTanque, ITanque } from 'app/shared/model/tanque.model';
+import { createRequestOption } from 'app/shared/util/request-util';
+import { ITanque } from 'app/shared/model/tanque.model';
 
 type EntityResponseType = HttpResponse<ITanque>;
 type EntityArrayResponseType = HttpResponse<ITanque[]>;
@@ -43,21 +44,6 @@ export class TanqueService {
     return this.http
       .get<ITanque[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
-  }
-
-  queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<ITanque[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' });
-  }
-
-  queryByEmpresaEstadoVacio(req?: any, empresaId?: number, estadoTanque?: EstadoTanque): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<ITanque[]>(`${this.resourceUrl}/empresa/${empresaId}/${estadoTanque}`, { params: options, observe: 'response' });
-  }
-
-  queryByEmpresaLote(req?: any, empresaId?: number, loteId?: number): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<ITanque[]>(`${this.resourceUrl}/empresa/${empresaId}/lote/${loteId}`, { params: options, observe: 'response' });
   }
 
   delete(id: number): Observable<HttpResponse<any>> {

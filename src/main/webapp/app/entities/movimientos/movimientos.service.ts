@@ -2,27 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
-import { createRequestOption } from 'app/shared';
+import { createRequestOption } from 'app/shared/util/request-util';
 import { IMovimientos } from 'app/shared/model/movimientos.model';
-import { IMovimientosSemana } from 'app/shared/model/movimientos-semana.model';
-import { IMovimientosProductoSemana } from 'app/shared/model/movimientos-producto-semana.model';
-import { IMovimientoLitroModel, MovimientoLitroModel } from '../../shared/model/movimiento-litro.model';
 
 type EntityResponseType = HttpResponse<IMovimientos>;
 type EntityArrayResponseType = HttpResponse<IMovimientos[]>;
-type EntitySemanaArrayResponseType = HttpResponse<IMovimientosSemana[]>;
-type EntityProductoSemanaArrayResponseType = HttpResponse<IMovimientosProductoSemana[]>;
-type EntityMovimientosProductoSemanaResponseType = HttpResponse<IMovimientosProductoSemana>;
-type EntityMovimientoLitroArrayResponseType = HttpResponse<IMovimientoLitroModel[]>;
 
 @Injectable({ providedIn: 'root' })
 export class MovimientosService {
   public resourceUrl = SERVER_API_URL + 'api/movimientos';
-  public resourceSearchUrl = SERVER_API_URL + 'api/_search/movimientos';
 
   constructor(protected http: HttpClient) {}
 
@@ -53,53 +46,8 @@ export class MovimientosService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  queryByEmpresa(req?: any, empresaId?: number): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http
-      .get<IMovimientos[]>(`${this.resourceUrl}/empresa/${empresaId}`, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
-  }
-
-  queryBySemanaEmpresa(empresaId: number, dias: string): Observable<EntitySemanaArrayResponseType> {
-    return this.http
-      .get<IMovimientos[]>(`${this.resourceUrl}/semana/${empresaId}/${dias}`, { observe: 'response' })
-      .pipe(map((res: EntitySemanaArrayResponseType) => this.convertDateArrayFromServer(res)));
-  }
-
-  queryProductoBySemanaEmpresa(empresaId: number, dias: string): Observable<EntityProductoSemanaArrayResponseType> {
-    return this.http
-      .get<IMovimientos[]>(`${this.resourceUrl}/semana/venta/${empresaId}/${dias}`, { observe: 'response' })
-      .pipe(map((res: EntityProductoSemanaArrayResponseType) => this.convertDateArrayFromServer(res)));
-  }
-
-  queryLitrosBySemanaEmpresa(empresaId: number): Observable<EntityMovimientoLitroArrayResponseType> {
-    return this.http
-      .get<IMovimientoLitroModel[]>(`${this.resourceUrl}/semana/litros/${empresaId}`, { observe: 'response' })
-      .pipe(map((res: EntityMovimientoLitroArrayResponseType) => this.convertDateArrayFromServer(res)));
-  }
-
-  queryLitrosByMesEmpresa(empresaId: number): Observable<EntityMovimientoLitroArrayResponseType> {
-    return this.http
-      .get<IMovimientoLitroModel[]>(`${this.resourceUrl}/mes/litros/${empresaId}`, { observe: 'response' })
-      .pipe(map((res: EntityMovimientoLitroArrayResponseType) => this.convertDateArrayFromServer(res)));
-  }
-
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  search(req?: any): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http
-      .get<IMovimientos[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
-      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
-  }
-
-  protected convertLitroDateFromServer(res: EntityMovimientosProductoSemanaResponseType): EntityMovimientosProductoSemanaResponseType {
-    if (res.body) {
-      res.body.fechaMovimiento = res.body.fechaMovimiento != null ? moment(res.body.fechaMovimiento) : null;
-    }
-    return res;
   }
 
   protected convertDateFromClient(movimientos: IMovimientos): IMovimientos {

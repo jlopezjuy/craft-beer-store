@@ -1,51 +1,115 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { IEstilos } from 'app/shared/model/estilos.model';
+import { IEstilos, Estilos } from 'app/shared/model/estilos.model';
 import { EstilosService } from './estilos.service';
 
 @Component({
-    selector: 'jhi-estilos-update',
-    templateUrl: './estilos-update.component.html'
+  selector: 'jhi-estilos-update',
+  templateUrl: './estilos-update.component.html'
 })
 export class EstilosUpdateComponent implements OnInit {
-    estilos: IEstilos;
-    isSaving: boolean;
+  isSaving: boolean;
 
-    constructor(protected estilosService: EstilosService, protected activatedRoute: ActivatedRoute) {}
+  editForm = this.fb.group({
+    id: [],
+    number: [],
+    nombreEstilo: [],
+    categoriaEstilo: [],
+    abvMin: [],
+    abvMax: [],
+    abvMed: [],
+    ibuMin: [],
+    ibuMax: [],
+    ibuMed: [],
+    srmMin: [],
+    srmMax: [],
+    srmMed: [],
+    descripcion: [],
+    ejemploNombreComercial: [],
+    ejemploImagenComercial: []
+  });
 
-    ngOnInit() {
-        this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ estilos }) => {
-            this.estilos = estilos;
-        });
+  constructor(protected estilosService: EstilosService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.isSaving = false;
+    this.activatedRoute.data.subscribe(({ estilos }) => {
+      this.updateForm(estilos);
+    });
+  }
+
+  updateForm(estilos: IEstilos) {
+    this.editForm.patchValue({
+      id: estilos.id,
+      number: estilos.number,
+      nombreEstilo: estilos.nombreEstilo,
+      categoriaEstilo: estilos.categoriaEstilo,
+      abvMin: estilos.abvMin,
+      abvMax: estilos.abvMax,
+      abvMed: estilos.abvMed,
+      ibuMin: estilos.ibuMin,
+      ibuMax: estilos.ibuMax,
+      ibuMed: estilos.ibuMed,
+      srmMin: estilos.srmMin,
+      srmMax: estilos.srmMax,
+      srmMed: estilos.srmMed,
+      descripcion: estilos.descripcion,
+      ejemploNombreComercial: estilos.ejemploNombreComercial,
+      ejemploImagenComercial: estilos.ejemploImagenComercial
+    });
+  }
+
+  previousState() {
+    window.history.back();
+  }
+
+  save() {
+    this.isSaving = true;
+    const estilos = this.createFromForm();
+    if (estilos.id !== undefined) {
+      this.subscribeToSaveResponse(this.estilosService.update(estilos));
+    } else {
+      this.subscribeToSaveResponse(this.estilosService.create(estilos));
     }
+  }
 
-    previousState() {
-        window.history.back();
-    }
+  private createFromForm(): IEstilos {
+    return {
+      ...new Estilos(),
+      id: this.editForm.get(['id']).value,
+      number: this.editForm.get(['number']).value,
+      nombreEstilo: this.editForm.get(['nombreEstilo']).value,
+      categoriaEstilo: this.editForm.get(['categoriaEstilo']).value,
+      abvMin: this.editForm.get(['abvMin']).value,
+      abvMax: this.editForm.get(['abvMax']).value,
+      abvMed: this.editForm.get(['abvMed']).value,
+      ibuMin: this.editForm.get(['ibuMin']).value,
+      ibuMax: this.editForm.get(['ibuMax']).value,
+      ibuMed: this.editForm.get(['ibuMed']).value,
+      srmMin: this.editForm.get(['srmMin']).value,
+      srmMax: this.editForm.get(['srmMax']).value,
+      srmMed: this.editForm.get(['srmMed']).value,
+      descripcion: this.editForm.get(['descripcion']).value,
+      ejemploNombreComercial: this.editForm.get(['ejemploNombreComercial']).value,
+      ejemploImagenComercial: this.editForm.get(['ejemploImagenComercial']).value
+    };
+  }
 
-    save() {
-        this.isSaving = true;
-        if (this.estilos.id !== undefined) {
-            this.subscribeToSaveResponse(this.estilosService.update(this.estilos));
-        } else {
-            this.subscribeToSaveResponse(this.estilosService.create(this.estilos));
-        }
-    }
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IEstilos>>) {
+    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+  }
 
-    protected subscribeToSaveResponse(result: Observable<HttpResponse<IEstilos>>) {
-        result.subscribe((res: HttpResponse<IEstilos>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
-    }
+  protected onSaveSuccess() {
+    this.isSaving = false;
+    this.previousState();
+  }
 
-    protected onSaveSuccess() {
-        this.isSaving = false;
-        this.previousState();
-    }
-
-    protected onSaveError() {
-        this.isSaving = false;
-    }
+  protected onSaveError() {
+    this.isSaving = false;
+  }
 }

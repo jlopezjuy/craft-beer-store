@@ -1,40 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
 
-import { CraftBeerStoreSharedModule } from 'app/shared';
-import {
-    ProductoComponent,
-    ProductoDetailComponent,
-    ProductoUpdateComponent,
-    ProductoDeletePopupComponent,
-    ProductoDeleteDialogComponent,
-    productoRoute,
-    productoPopupRoute
-} from './';
-
-const ENTITY_STATES = [...productoRoute, ...productoPopupRoute];
+import { CraftBeerStoreSharedModule } from 'app/shared/shared.module';
+import { ProductoComponent } from './producto.component';
+import { ProductoDetailComponent } from './producto-detail.component';
+import { ProductoUpdateComponent } from './producto-update.component';
+import { ProductoDeleteDialogComponent } from './producto-delete-dialog.component';
+import { productoRoute } from './producto.route';
 
 @NgModule({
-    imports: [CraftBeerStoreSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [
-        ProductoComponent,
-        ProductoDetailComponent,
-        ProductoUpdateComponent,
-        ProductoDeleteDialogComponent,
-        ProductoDeletePopupComponent
-    ],
-    entryComponents: [ProductoComponent, ProductoUpdateComponent, ProductoDeleteDialogComponent, ProductoDeletePopupComponent],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [CraftBeerStoreSharedModule, RouterModule.forChild(productoRoute)],
+  declarations: [ProductoComponent, ProductoDetailComponent, ProductoUpdateComponent, ProductoDeleteDialogComponent],
+  entryComponents: [ProductoDeleteDialogComponent]
 })
-export class CraftBeerStoreProductoModule {
-    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-        this.languageHelper.language.subscribe((languageKey: string) => {
-            if (languageKey !== undefined) {
-                this.languageService.changeLanguage(languageKey);
-            }
-        });
-    }
-}
+export class CraftBeerStoreProductoModule {}

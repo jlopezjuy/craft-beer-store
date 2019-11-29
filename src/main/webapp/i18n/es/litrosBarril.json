@@ -2,14 +2,14 @@
   "craftBeerStoreApp": {
     "LitrosBarril": {
       "null": "",
-      "CINCO": "5",
-      "DIEZ": "10",
-      "QUINCE": "15",
-      "DIECINUEVE": "19",
-      "VEINTE": "20",
-      "VEINTICINCO": "25",
-      "TREINTA": "30",
-      "CINCUENTA": "50"
+      "CINCO": "CINCO",
+      "DIEZ": "DIEZ",
+      "QUINCE": "QUINCE",
+      "DIECINUEVE": "DIECINUEVE",
+      "VEINTE": "VEINTE",
+      "VEINTICINCO": "VEINTICINCO",
+      "TREINTA": "TREINTA",
+      "CINCUENTA": "CINCUENTA"
     }
   }
 }

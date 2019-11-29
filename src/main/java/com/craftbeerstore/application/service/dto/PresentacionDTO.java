@@ -7,7 +7,7 @@ import java.util.Objects;
 import com.craftbeerstore.application.domain.enumeration.TipoPresentacion;
 
 /**
- * A DTO for the Presentacion entity.
+ * A DTO for the {@link com.craftbeerstore.application.domain.Presentacion} entity.
  */
 public class PresentacionDTO implements Serializable {
 

@@ -8,48 +8,39 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 /**
- * Service Interface for managing MovimientoBarril.
+ * Service Interface for managing {@link com.craftbeerstore.application.domain.MovimientoBarril}.
  */
 public interface MovimientoBarrilService {
 
     /**
      * Save a movimientoBarril.
      *
-     * @param movimientoBarrilDTO the entity to save
-     * @return the persisted entity
+     * @param movimientoBarrilDTO the entity to save.
+     * @return the persisted entity.
      */
     MovimientoBarrilDTO save(MovimientoBarrilDTO movimientoBarrilDTO);
 
     /**
      * Get all the movimientoBarrils.
      *
-     * @param pageable the pagination information
-     * @return the list of entities
+     * @param pageable the pagination information.
+     * @return the list of entities.
      */
     Page<MovimientoBarrilDTO> findAll(Pageable pageable);
-
-  /**
-   * Get all the movimientoBarrils.
-   *
-   * @param pageable the pagination information
-   * @param barrilId the id of barril
-   * @return the list of entities
-   */
-    Page<MovimientoBarrilDTO> findAll(Pageable pageable, Long barrilId);
 
 
     /**
      * Get the "id" movimientoBarril.
      *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id the id of the entity.
+     * @return the entity.
      */
     Optional<MovimientoBarrilDTO> findOne(Long id);
 
     /**
      * Delete the "id" movimientoBarril.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity.
      */
     void delete(Long id);
 }

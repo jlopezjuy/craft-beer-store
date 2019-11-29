@@ -4,25 +4,29 @@
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-etapa-lote" [routerLink]="['/etapa-lote/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="craftBeerStoreApp.etapaLote.home.createLabel">
-            Create new Etapa Lote
+            Create a new Etapa Lote
             </span>
         </button>
     </h2>
+    <jhi-alert-error></jhi-alert-error>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="etapaLotes">
-        <table class="table table-striped">
+    <div class="alert alert-warning" *ngIf="etapaLotes?.length === 0">
+        <span jhiTranslate="craftBeerStoreApp.etapaLote.home.notFound">No etapaLotes found</span>
+    </div>
+    <div class="table-responsive" *ngIf="etapaLotes?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="etapa"><span jhiTranslate="craftBeerStoreApp.etapaLote.etapa">Etapa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="litros"><span jhiTranslate="craftBeerStoreApp.etapaLote.litros">Litros</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="inicio"><span jhiTranslate="craftBeerStoreApp.etapaLote.inicio">Inicio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fin"><span jhiTranslate="craftBeerStoreApp.etapaLote.fin">Fin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="dias"><span jhiTranslate="craftBeerStoreApp.etapaLote.dias">Dias</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="tanqueNombre"><span jhiTranslate="craftBeerStoreApp.etapaLote.tanque">Tanque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.etapaLote.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="etapa"><span jhiTranslate="craftBeerStoreApp.etapaLote.etapa">Etapa</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="litros"><span jhiTranslate="craftBeerStoreApp.etapaLote.litros">Litros</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="inicio"><span jhiTranslate="craftBeerStoreApp.etapaLote.inicio">Inicio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="fin"><span jhiTranslate="craftBeerStoreApp.etapaLote.fin">Fin</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="dias"><span jhiTranslate="craftBeerStoreApp.etapaLote.dias">Dias</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="tanqueNombre"><span jhiTranslate="craftBeerStoreApp.etapaLote.tanque">Tanque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="loteCodigo"><span jhiTranslate="craftBeerStoreApp.etapaLote.lote">Lote</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -35,16 +39,16 @@
                 <td>{{etapaLote.dias}}</td>
                 <td>
                     <div *ngIf="etapaLote.tanqueId">
-                        <a [routerLink]="['../tanque', etapaLote.tanqueId , 'view' ]" >{{etapaLote.tanqueNombre}}</a>
+                        <a [routerLink]="['/tanque', etapaLote.tanqueId , 'view' ]" >{{etapaLote.tanqueNombre}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="etapaLote.loteId">
-                        <a [routerLink]="['../lote', etapaLote.loteId , 'view' ]" >{{etapaLote.loteCodigo}}</a>
+                        <a [routerLink]="['/lote', etapaLote.loteId , 'view' ]" >{{etapaLote.loteCodigo}}</a>
                     </div>
                 </td>
                 <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
+                    <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/etapa-lote', etapaLote.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -57,10 +61,7 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'etapa-lote', { outlets: { popup: etapaLote.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
+                        <button type="submit" (click)="delete(etapaLote)"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
@@ -71,9 +72,9 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="etapaLotes && etapaLotes.length">
+    <div [hidden]="etapaLotes?.length === 0">
         <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
