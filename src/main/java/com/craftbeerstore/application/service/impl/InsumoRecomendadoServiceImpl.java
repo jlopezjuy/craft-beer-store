@@ -1,18 +1,19 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.InsumoRecomendadoService;
 import com.craftbeerstore.application.domain.InsumoRecomendado;
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import com.craftbeerstore.application.repository.InsumoRecomendadoRepository;
+import com.craftbeerstore.application.service.InsumoRecomendadoService;
 import com.craftbeerstore.application.service.dto.InsumoRecomendadoDTO;
 import com.craftbeerstore.application.service.mapper.InsumoRecomendadoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +86,25 @@ public class InsumoRecomendadoServiceImpl implements InsumoRecomendadoService {
     public void delete(Long id) {
         log.debug("Request to delete InsumoRecomendado : {}", id);
         insumoRecomendadoRepository.deleteById(id);
+    }
+
+    /**
+     * Gel all insumos recomendados
+     *
+     * @return
+     */
+    @Override
+    public List<InsumoRecomendadoDTO> findAll() {
+        return insumoRecomendadoMapper.toDto(insumoRecomendadoRepository.findAll());
+    }
+
+    @Override
+    public List<InsumoRecomendadoDTO> findAllByEmpresaAndTipo(TipoInsumo tipoInsumo) {
+        return this.insumoRecomendadoMapper.toDto(this.insumoRecomendadoRepository.findAllByTipo(tipoInsumo));
+    }
+
+    @Override
+    public List<InsumoRecomendadoDTO> findAllByEmpresaAndTipo(List<TipoInsumo> tipoInsumo) {
+        return this.insumoRecomendadoMapper.toDto(this.insumoRecomendadoRepository.findAllByTipoNotIn(tipoInsumo));
     }
 }

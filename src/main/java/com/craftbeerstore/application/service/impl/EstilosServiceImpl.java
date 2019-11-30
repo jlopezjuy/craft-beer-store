@@ -1,18 +1,18 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.EstilosService;
 import com.craftbeerstore.application.domain.Estilos;
 import com.craftbeerstore.application.repository.EstilosRepository;
+import com.craftbeerstore.application.service.EstilosService;
 import com.craftbeerstore.application.service.dto.EstilosDTO;
 import com.craftbeerstore.application.service.mapper.EstilosMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,5 +85,11 @@ public class EstilosServiceImpl implements EstilosService {
     public void delete(Long id) {
         log.debug("Request to delete Estilos : {}", id);
         estilosRepository.deleteById(id);
+    }
+
+
+    @Override
+    public List<EstilosDTO> findAllEstilos() {
+        return estilosMapper.toDto(estilosRepository.findAllByOrderByNombreEstilo());
     }
 }

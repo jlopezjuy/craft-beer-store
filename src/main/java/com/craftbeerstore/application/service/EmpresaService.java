@@ -1,7 +1,6 @@
 package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.EmpresaDTO;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -43,4 +42,15 @@ public interface EmpresaService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * @return
+     */
+    Optional<EmpresaDTO> findOne();
+
+    /**
+     * @param email
+     * @return
+     */
+    Optional<EmpresaDTO> findOneByEmail(String email);
 }

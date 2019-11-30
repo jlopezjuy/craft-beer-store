@@ -1,7 +1,6 @@
 package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.LoteDTO;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -27,6 +26,15 @@ public interface LoteService {
      * @return the list of entities.
      */
     Page<LoteDTO> findAll(Pageable pageable);
+
+  /**
+   * Get all the lotes.
+   *
+   * @param pageable  the pagination information
+   * @param empresaId the the id of empresa
+   * @return the list of entities
+   */
+  Page<LoteDTO> findAll(Pageable pageable, Long empresaId);
 
 
     /**

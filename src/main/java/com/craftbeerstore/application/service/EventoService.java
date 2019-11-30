@@ -1,7 +1,6 @@
 package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.EventoDTO;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -43,4 +42,11 @@ public interface EventoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * @param pageable
+     * @param empresaId
+     * @return
+     */
+    Page<EventoDTO> findAll(Pageable pageable, Long empresaId);
 }

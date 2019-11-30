@@ -1,7 +1,6 @@
 package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.ProveedorDTO;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -28,6 +27,12 @@ public interface ProveedorService {
      */
     Page<ProveedorDTO> findAll(Pageable pageable);
 
+  /**
+   * @param pageable
+   * @param empresaId
+   * @return
+   */
+  Page<ProveedorDTO> findAllByEmpresa(Pageable pageable, Long empresaId);
 
     /**
      * Get the "id" proveedor.

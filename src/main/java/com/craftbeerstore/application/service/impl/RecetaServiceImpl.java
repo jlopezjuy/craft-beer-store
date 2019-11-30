@@ -1,22 +1,24 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.RecetaService;
+import com.craftbeerstore.application.domain.Producto;
 import com.craftbeerstore.application.domain.Receta;
+import com.craftbeerstore.application.repository.ProductoRepository;
 import com.craftbeerstore.application.repository.RecetaRepository;
+import com.craftbeerstore.application.service.RecetaService;
 import com.craftbeerstore.application.service.dto.RecetaDTO;
 import com.craftbeerstore.application.service.mapper.RecetaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Implementation for managing {@link Receta}.
+ * Service Implementation for managing Receta.
  */
 @Service
 @Transactional
@@ -28,9 +30,14 @@ public class RecetaServiceImpl implements RecetaService {
 
     private final RecetaMapper recetaMapper;
 
-    public RecetaServiceImpl(RecetaRepository recetaRepository, RecetaMapper recetaMapper) {
+
+    private final ProductoRepository productoRepository;
+
+    public RecetaServiceImpl(RecetaRepository recetaRepository, RecetaMapper recetaMapper,
+                             ProductoRepository productoRepository) {
         this.recetaRepository = recetaRepository;
         this.recetaMapper = recetaMapper;
+        this.productoRepository = productoRepository;
     }
 
     /**
@@ -59,6 +66,19 @@ public class RecetaServiceImpl implements RecetaService {
         log.debug("Request to get all Recetas");
         return recetaRepository.findAll(pageable)
             .map(recetaMapper::toDto);
+    }
+
+    @Override
+    public Page<RecetaDTO> findAll(Pageable pageable, Long productoId) {
+        Producto producto = this.productoRepository.getOne(productoId);
+        return recetaRepository.findAllByProducto(pageable, producto)
+            .map(recetaMapper::toDto);
+    }
+
+    @Override
+    public List<RecetaDTO> findAllByProducto(Long productoId) {
+        Producto producto = this.productoRepository.getOne(productoId);
+        return recetaMapper.toDto(recetaRepository.findAllByProducto(producto));
     }
 
 

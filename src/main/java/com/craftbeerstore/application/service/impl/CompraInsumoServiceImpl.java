@@ -1,5 +1,12 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.CompraInsumoDetalle;
+import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.domain.Insumo;
+import com.craftbeerstore.application.domain.enumeration.EstadoCompra;
+import com.craftbeerstore.application.repository.CompraInsumoDetalleRepository;
+import com.craftbeerstore.application.repository.EmpresaRepository;
+import com.craftbeerstore.application.repository.InsumoRepository;
 import com.craftbeerstore.application.service.CompraInsumoService;
 import com.craftbeerstore.application.domain.CompraInsumo;
 import com.craftbeerstore.application.repository.CompraInsumoRepository;
@@ -13,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,9 +36,18 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
 
     private final CompraInsumoMapper compraInsumoMapper;
 
-    public CompraInsumoServiceImpl(CompraInsumoRepository compraInsumoRepository, CompraInsumoMapper compraInsumoMapper) {
+    private final EmpresaRepository empresaRepository;
+
+    private final CompraInsumoDetalleRepository compraInsumoDetalleRepository;
+
+    private final InsumoRepository insumoRepository;
+
+    public CompraInsumoServiceImpl(CompraInsumoRepository compraInsumoRepository, CompraInsumoMapper compraInsumoMapper, EmpresaRepository empresaRepository, CompraInsumoDetalleRepository compraInsumoDetalleRepository, InsumoRepository insumoRepository) {
         this.compraInsumoRepository = compraInsumoRepository;
         this.compraInsumoMapper = compraInsumoMapper;
+        this.empresaRepository = empresaRepository;
+        this.compraInsumoDetalleRepository = compraInsumoDetalleRepository;
+        this.insumoRepository = insumoRepository;
     }
 
     /**
@@ -42,9 +59,48 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
     @Override
     public CompraInsumoDTO save(CompraInsumoDTO compraInsumoDTO) {
         log.debug("Request to save CompraInsumo : {}", compraInsumoDTO);
-        CompraInsumo compraInsumo = compraInsumoMapper.toEntity(compraInsumoDTO);
-        compraInsumo = compraInsumoRepository.save(compraInsumo);
-        return compraInsumoMapper.toDto(compraInsumo);
+        final CompraInsumo compraInsumo = compraInsumoMapper.toEntity(compraInsumoDTO);
+        if (compraInsumo.getEstadoCompra().equals(EstadoCompra.PEDIDO_RECIBIDO)) {
+            List<CompraInsumoDetalle> detalles = this.compraInsumoDetalleRepository.findAllByCompraInsumo(compraInsumo);
+            detalles.forEach(detalle -> {
+                if (null == detalle.getInsumoRecomendado()) {
+                    Insumo insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(detalle.getCodigoReferencia(), compraInsumo.getEmpresa(), detalle.getUnidad());
+                    if (null == insumo) {
+                        insumo = new Insumo();
+                        insumo.setNombreInsumo(detalle.getCodigoReferencia());
+                        insumo.setMarca("");
+                        insumo.setEmpresa(compraInsumo.getEmpresa());
+                        insumo.setStock(detalle.getStock());
+                        insumo.setUnidad(detalle.getUnidad());
+                        insumo.setTipo(detalle.getTipo());
+                        insumo.setPrecioUnitario(detalle.getPrecioUnitario());
+                        insumo.setPrecioTotal(detalle.getPrecioTotal());
+                    } else {
+                        insumo.setStock(insumo.getStock().add(detalle.getStock()));
+                    }
+                    this.insumoRepository.save(insumo);
+                } else {
+                    Insumo insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(detalle.getInsumoRecomendado().getNombre(), compraInsumo.getEmpresa(), detalle.getUnidad());
+                    if (null == insumo) {
+                        insumo = new Insumo();
+                        insumo.setEmpresa(compraInsumo.getEmpresa());
+                        insumo.setInsumoRecomendado(detalle.getInsumoRecomendado());
+                        insumo.setNombreInsumo(detalle.getInsumoRecomendado().getNombre());
+                        insumo.setMarca(detalle.getInsumoRecomendado().getMarca());
+                        insumo.setStock(detalle.getStock());
+                        insumo.setUnidad(detalle.getUnidad());
+                        insumo.setTipo(detalle.getTipo());
+                        insumo.setPrecioUnitario(detalle.getPrecioUnitario());
+                        insumo.setPrecioTotal(detalle.getPrecioTotal());
+                    } else {
+                        insumo.setStock(insumo.getStock().add(detalle.getStock()));
+                    }
+                    this.insumoRepository.save(insumo);
+                }
+            });
+        }
+        CompraInsumo compraInsumoSalida = compraInsumoRepository.save(compraInsumo);
+        return compraInsumoMapper.toDto(compraInsumoSalida);
     }
 
     /**
@@ -85,5 +141,12 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
     public void delete(Long id) {
         log.debug("Request to delete CompraInsumo : {}", id);
         compraInsumoRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<CompraInsumoDTO> findAll(Pageable pageable, Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return compraInsumoRepository.findAllByEmpresa(pageable, empresa)
+            .map(compraInsumoMapper::toDto);
     }
 }

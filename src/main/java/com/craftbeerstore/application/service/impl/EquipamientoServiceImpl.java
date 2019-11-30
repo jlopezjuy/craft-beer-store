@@ -1,13 +1,14 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.EquipamientoService;
+import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.domain.Equipamiento;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.repository.EquipamientoRepository;
+import com.craftbeerstore.application.service.EquipamientoService;
 import com.craftbeerstore.application.service.dto.EquipamientoDTO;
 import com.craftbeerstore.application.service.mapper.EquipamientoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,15 @@ public class EquipamientoServiceImpl implements EquipamientoService {
 
     private final EquipamientoMapper equipamientoMapper;
 
-    public EquipamientoServiceImpl(EquipamientoRepository equipamientoRepository, EquipamientoMapper equipamientoMapper) {
+
+    private final EmpresaRepository empresaRepository;
+
+    public EquipamientoServiceImpl(EquipamientoRepository equipamientoRepository,
+                                   EquipamientoMapper equipamientoMapper,
+                                   EmpresaRepository empresaRepository) {
         this.equipamientoRepository = equipamientoRepository;
         this.equipamientoMapper = equipamientoMapper;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -58,6 +65,14 @@ public class EquipamientoServiceImpl implements EquipamientoService {
     public Page<EquipamientoDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Equipamientos");
         return equipamientoRepository.findAll(pageable)
+            .map(equipamientoMapper::toDto);
+    }
+
+    @Override
+    public Page<EquipamientoDTO> findAll(Pageable pageable, Long empresaId) {
+        log.debug("Request to get all Equipamientos");
+        Empresa empresa = empresaRepository.getOne(empresaId);
+        return equipamientoRepository.findAllByEmpresa(pageable, empresa)
             .map(equipamientoMapper::toDto);
     }
 

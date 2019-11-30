@@ -1,10 +1,10 @@
 package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.DetalleMovimientoDTO;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,6 +19,14 @@ public interface DetalleMovimientoService {
      * @return the persisted entity.
      */
     DetalleMovimientoDTO save(DetalleMovimientoDTO detalleMovimientoDTO);
+
+    /**
+     * Save a detalleMovimiento.
+     *
+     * @param detalleMovimientoDTO the entity to save
+     * @return the persisted entity
+     */
+    List<DetalleMovimientoDTO> save(List<DetalleMovimientoDTO> detalleMovimientoDTO);
 
     /**
      * Get all the detalleMovimientos.
@@ -43,4 +51,11 @@ public interface DetalleMovimientoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * @param pageable
+     * @param movimientoId
+     * @return
+     */
+    Page<DetalleMovimientoDTO> findAllByMovimiento(Pageable pageable, Long movimientoId);
 }

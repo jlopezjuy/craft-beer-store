@@ -1,10 +1,12 @@
 package com.craftbeerstore.application.service;
 
+import com.craftbeerstore.application.service.dto.CajaChartDTO;
 import com.craftbeerstore.application.service.dto.CajaDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,6 +30,13 @@ public interface CajaService {
      */
     Page<CajaDTO> findAll(Pageable pageable);
 
+  /**
+   * @param pageable
+   * @param empresaId
+   * @return
+   */
+  Page<CajaDTO> findAll(Pageable pageable, Long empresaId);
+
 
     /**
      * Get the "id" caja.
@@ -43,4 +52,18 @@ public interface CajaService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Optional<CajaChartDTO> searchIngresoEgreso(Long empresaId);
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    List<CajaDTO> getIngresoWeek(Long empresaId);
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    List<CajaDTO> getIngresoMonth(Long empresaId);
 }

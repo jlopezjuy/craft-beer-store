@@ -28,6 +28,15 @@ public interface EtapaLoteService {
      */
     Page<EtapaLoteDTO> findAll(Pageable pageable);
 
+  /**
+   * Get all the etapaLotes.
+   *
+   * @param pageable the pagination information
+   * @param loteId the id lote
+   * @return the list of entities
+   */
+  Page<EtapaLoteDTO> findAll(Pageable pageable, Long loteId);
+
 
     /**
      * Get the "id" etapaLote.
@@ -36,6 +45,14 @@ public interface EtapaLoteService {
      * @return the entity.
      */
     Optional<EtapaLoteDTO> findOne(Long id);
+
+  /**
+   * Get the "loteId" lote.
+   *
+   * @param loteId the id of the entity
+   * @return the entity
+   */
+  Optional<EtapaLoteDTO> findOneTopByLote(Long loteId);
 
     /**
      * Delete the "id" etapaLote.

@@ -5,6 +5,7 @@ import com.craftbeerstore.application.service.dto.RecetaDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,6 +28,20 @@ public interface RecetaService {
      * @return the list of entities.
      */
     Page<RecetaDTO> findAll(Pageable pageable);
+
+  /**
+   * @param pageable
+   * @param productoId
+   * @return
+   */
+  Page<RecetaDTO> findAll(Pageable pageable, Long productoId);
+
+  /**
+   * @param pageable
+   * @param productoId
+   * @return
+   */
+  List<RecetaDTO> findAllByProducto(Long productoId);
 
 
     /**

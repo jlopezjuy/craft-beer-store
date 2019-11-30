@@ -1,7 +1,6 @@
 package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.EquipamientoDTO;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -27,6 +26,15 @@ public interface EquipamientoService {
      * @return the list of entities.
      */
     Page<EquipamientoDTO> findAll(Pageable pageable);
+
+  /**
+   * Get all the equipamientos by empresa
+   *
+   * @param pageable
+   * @param empresaId
+   * @return
+   */
+  Page<EquipamientoDTO> findAll(Pageable pageable, Long empresaId);
 
 
     /**

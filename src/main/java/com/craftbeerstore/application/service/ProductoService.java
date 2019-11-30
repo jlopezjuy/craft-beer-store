@@ -28,6 +28,13 @@ public interface ProductoService {
      */
     Page<ProductoDTO> findAll(Pageable pageable);
 
+  /**
+   * @param pageable
+   * @param empresaId
+   * @return
+   */
+  Page<ProductoDTO> findAllByEmpresa(Pageable pageable, Long empresaId);
+
 
     /**
      * Get the "id" producto.

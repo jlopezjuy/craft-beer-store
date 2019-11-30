@@ -1,13 +1,14 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.BarrilService;
 import com.craftbeerstore.application.domain.Barril;
+import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.repository.BarrilRepository;
+import com.craftbeerstore.application.repository.EmpresaRepository;
+import com.craftbeerstore.application.service.BarrilService;
 import com.craftbeerstore.application.service.dto.BarrilDTO;
 import com.craftbeerstore.application.service.mapper.BarrilMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,12 @@ public class BarrilServiceImpl implements BarrilService {
 
     private final BarrilMapper barrilMapper;
 
-    public BarrilServiceImpl(BarrilRepository barrilRepository, BarrilMapper barrilMapper) {
+    private final EmpresaRepository empresaRepository;
+
+    public BarrilServiceImpl(BarrilRepository barrilRepository, BarrilMapper barrilMapper, EmpresaRepository empresaRepository) {
         this.barrilRepository = barrilRepository;
         this.barrilMapper = barrilMapper;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -60,6 +64,19 @@ public class BarrilServiceImpl implements BarrilService {
         return barrilRepository.findAll(pageable)
             .map(barrilMapper::toDto);
     }
+
+  /**
+   * Get all the barrils.
+   *
+   * @param pageable  the pagination information
+   * @param empresaId the the id of empresa
+   * @return the list of entities
+   */
+  @Override
+  public Page<BarrilDTO> findAll(Pageable pageable, Long empresaId) {
+    Empresa empresa = this.empresaRepository.getOne(empresaId);
+    return barrilRepository.findAllByEmpresa(pageable, empresa).map(barrilMapper::toDto);
+  }
 
 
     /**

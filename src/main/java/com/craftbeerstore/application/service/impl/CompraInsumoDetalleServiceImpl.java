@@ -1,5 +1,7 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.CompraInsumo;
+import com.craftbeerstore.application.repository.CompraInsumoRepository;
 import com.craftbeerstore.application.service.CompraInsumoDetalleService;
 import com.craftbeerstore.application.domain.CompraInsumoDetalle;
 import com.craftbeerstore.application.repository.CompraInsumoDetalleRepository;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,9 +31,12 @@ public class CompraInsumoDetalleServiceImpl implements CompraInsumoDetalleServic
 
     private final CompraInsumoDetalleMapper compraInsumoDetalleMapper;
 
-    public CompraInsumoDetalleServiceImpl(CompraInsumoDetalleRepository compraInsumoDetalleRepository, CompraInsumoDetalleMapper compraInsumoDetalleMapper) {
+    private final CompraInsumoRepository compraInsumoRepository;
+
+    public CompraInsumoDetalleServiceImpl(CompraInsumoDetalleRepository compraInsumoDetalleRepository, CompraInsumoDetalleMapper compraInsumoDetalleMapper, CompraInsumoRepository compraInsumoRepository) {
         this.compraInsumoDetalleRepository = compraInsumoDetalleRepository;
         this.compraInsumoDetalleMapper = compraInsumoDetalleMapper;
+        this.compraInsumoRepository = compraInsumoRepository;
     }
 
     /**
@@ -85,5 +91,21 @@ public class CompraInsumoDetalleServiceImpl implements CompraInsumoDetalleServic
     public void delete(Long id) {
         log.debug("Request to delete CompraInsumoDetalle : {}", id);
         compraInsumoDetalleRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CompraInsumoDetalleDTO> findAll(Long compraInsumoId) {
+        CompraInsumo compraInsumo = this.compraInsumoRepository.getOne(compraInsumoId);
+        return this.compraInsumoDetalleMapper.toDto(this.compraInsumoDetalleRepository.findAllByCompraInsumo(compraInsumo));
+    }
+
+    /**
+     * @param comprasInsumoDetalleDTO
+     * @return
+     */
+    @Override
+    public List<CompraInsumoDetalleDTO> save(List<CompraInsumoDetalleDTO> comprasInsumoDetalleDTO) {
+        List<CompraInsumoDetalle> list = this.compraInsumoDetalleRepository.saveAll(this.compraInsumoDetalleMapper.toEntity(comprasInsumoDetalleDTO));
+        return this.compraInsumoDetalleMapper.toDto(list);
     }
 }

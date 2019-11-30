@@ -1,18 +1,20 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.EventoProductoService;
+import com.craftbeerstore.application.domain.Evento;
 import com.craftbeerstore.application.domain.EventoProducto;
 import com.craftbeerstore.application.repository.EventoProductoRepository;
+import com.craftbeerstore.application.repository.EventoRepository;
+import com.craftbeerstore.application.service.EventoProductoService;
 import com.craftbeerstore.application.service.dto.EventoProductoDTO;
 import com.craftbeerstore.application.service.mapper.EventoProductoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,9 +30,15 @@ public class EventoProductoServiceImpl implements EventoProductoService {
 
     private final EventoProductoMapper eventoProductoMapper;
 
-    public EventoProductoServiceImpl(EventoProductoRepository eventoProductoRepository, EventoProductoMapper eventoProductoMapper) {
+
+    private final EventoRepository eventoRepository;
+
+    public EventoProductoServiceImpl(EventoProductoRepository eventoProductoRepository,
+                                     EventoProductoMapper eventoProductoMapper,
+                                     EventoRepository eventoRepository) {
         this.eventoProductoRepository = eventoProductoRepository;
         this.eventoProductoMapper = eventoProductoMapper;
+        this.eventoRepository = eventoRepository;
     }
 
     /**
@@ -61,6 +69,11 @@ public class EventoProductoServiceImpl implements EventoProductoService {
             .map(eventoProductoMapper::toDto);
     }
 
+    @Override
+    public List<EventoProductoDTO> findAllByEvento(Long eventoId) {
+        Evento evento = this.eventoRepository.getOne(eventoId);
+        return eventoProductoMapper.toDto(eventoProductoRepository.findByEvento(evento));
+    }
 
     /**
      * Get one eventoProducto by id.

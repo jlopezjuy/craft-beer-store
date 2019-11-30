@@ -1,18 +1,26 @@
 package com.craftbeerstore.application.service.impl;
 
+import com.craftbeerstore.application.domain.Empresa;
+import com.craftbeerstore.application.domain.enumeration.TipoMovimientoCaja;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.service.CajaService;
 import com.craftbeerstore.application.domain.Caja;
 import com.craftbeerstore.application.repository.CajaRepository;
+import com.craftbeerstore.application.service.dto.CajaChartDTO;
 import com.craftbeerstore.application.service.dto.CajaDTO;
 import com.craftbeerstore.application.service.mapper.CajaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -24,13 +32,18 @@ public class CajaServiceImpl implements CajaService {
 
     private final Logger log = LoggerFactory.getLogger(CajaServiceImpl.class);
 
+    private static final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     private final CajaRepository cajaRepository;
 
     private final CajaMapper cajaMapper;
 
-    public CajaServiceImpl(CajaRepository cajaRepository, CajaMapper cajaMapper) {
+    private final EmpresaRepository empresaRepository;
+
+    public CajaServiceImpl(CajaRepository cajaRepository, CajaMapper cajaMapper, EmpresaRepository empresaRepository) {
         this.cajaRepository = cajaRepository;
         this.cajaMapper = cajaMapper;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -61,6 +74,13 @@ public class CajaServiceImpl implements CajaService {
             .map(cajaMapper::toDto);
     }
 
+  @Override
+  public Page<CajaDTO> findAll(Pageable pageable, Long empresaId) {
+    Empresa empresa = this.empresaRepository.getOne(empresaId);
+    return cajaRepository.findAllByEmpresa(pageable, empresa)
+      .map(cajaMapper::toDto);
+  }
+
 
     /**
      * Get one caja by id.
@@ -85,5 +105,37 @@ public class CajaServiceImpl implements CajaService {
     public void delete(Long id) {
         log.debug("Request to delete Caja : {}", id);
         cajaRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<CajaChartDTO> searchIngresoEgreso(Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        BigDecimal ingreso = this.cajaRepository
+            .sumIngreso(empresa, TipoMovimientoCaja.INGRESO);
+        BigDecimal egreso = this.cajaRepository.sumIngreso(empresa, TipoMovimientoCaja.EGRESO);
+
+        return Optional.of(new CajaChartDTO(ingreso, egreso));
+    }
+
+    @Override
+    public List<CajaDTO> getIngresoWeek(Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        List<Object[]> list = this.cajaRepository.getSemanaIngresos(empresa.getId());
+        List<CajaDTO> semanaList = new ArrayList<>();
+        list.forEach(semana ->
+            semanaList.add(new CajaDTO(BigDecimal.valueOf(Double.valueOf(semana[1].toString())), LocalDate.parse(semana[0].toString(), DATEFORMATTER)))
+        );
+        return semanaList;
+    }
+
+    @Override
+    public List<CajaDTO> getIngresoMonth(Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        List<Object[]> list = this.cajaRepository.getMesIngresos(empresa.getId());
+        List<CajaDTO> mesList = new ArrayList<>();
+        list.forEach(semana ->
+            mesList.add(new CajaDTO(BigDecimal.valueOf(Double.valueOf(semana[1].toString())), LocalDate.parse(semana[0].toString(), DATEFORMATTER)))
+        );
+        return mesList;
     }
 }

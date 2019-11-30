@@ -28,6 +28,15 @@ public interface BarrilService {
      */
     Page<BarrilDTO> findAll(Pageable pageable);
 
+  /**
+   * Get all the barrils.
+   *
+   * @param pageable  the pagination information
+   * @param empresaId the the id of empresa
+   * @return the list of entities
+   */
+  Page<BarrilDTO> findAll(Pageable pageable, Long empresaId);
+
 
     /**
      * Get the "id" barril.

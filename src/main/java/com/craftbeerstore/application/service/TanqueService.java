@@ -1,7 +1,7 @@
 package com.craftbeerstore.application.service;
 
+import com.craftbeerstore.application.domain.enumeration.EstadoTanque;
 import com.craftbeerstore.application.service.dto.TanqueDTO;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -27,6 +27,34 @@ public interface TanqueService {
      * @return the list of entities.
      */
     Page<TanqueDTO> findAll(Pageable pageable);
+
+  /**
+   * Get all the tanques.
+   *
+   * @param pageable  the pagination information
+   * @param empresaId the the id of empresa
+   * @return the list of entities
+   */
+  Page<TanqueDTO> findAll(Pageable pageable, Long empresaId);
+
+  /**
+   * Get all the tanques.
+   *
+   * @param pageable  the pagination information
+   * @param empresaId the the id of empresa
+   * @return the list of entities
+   */
+  Page<TanqueDTO> findAll(Pageable pageable, Long empresaId, EstadoTanque estadoTanque);
+
+  /**
+   * Get all the tanques.
+   *
+   * @param pageable  the pagination information
+   * @param empresaId the the id of empresa
+   * @param loteId the the id of empresa
+   * @return the list of entities
+   */
+  Page<TanqueDTO> findAll(Pageable pageable, Long empresaId, Long loteId);
 
 
     /**

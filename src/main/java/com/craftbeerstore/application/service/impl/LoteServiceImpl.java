@@ -1,13 +1,14 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.LoteService;
+import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.domain.Lote;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.repository.LoteRepository;
+import com.craftbeerstore.application.service.LoteService;
 import com.craftbeerstore.application.service.dto.LoteDTO;
 import com.craftbeerstore.application.service.mapper.LoteMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,12 @@ public class LoteServiceImpl implements LoteService {
 
     private final LoteMapper loteMapper;
 
-    public LoteServiceImpl(LoteRepository loteRepository, LoteMapper loteMapper) {
+    private final EmpresaRepository empresaRepository;
+
+    public LoteServiceImpl(LoteRepository loteRepository, LoteMapper loteMapper, EmpresaRepository empresaRepository) {
         this.loteRepository = loteRepository;
         this.loteMapper = loteMapper;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -59,6 +63,12 @@ public class LoteServiceImpl implements LoteService {
         log.debug("Request to get all Lotes");
         return loteRepository.findAll(pageable)
             .map(loteMapper::toDto);
+    }
+
+    @Override
+    public Page<LoteDTO> findAll(Pageable pageable, Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return loteRepository.findAllByEmpresa(pageable, empresa).map(loteMapper::toDto);
     }
 
 

@@ -1,10 +1,13 @@
 package com.craftbeerstore.application.service;
 
+import com.craftbeerstore.application.service.dto.MovimientoLitroDTO;
 import com.craftbeerstore.application.service.dto.MovimientosDTO;
-
+import com.craftbeerstore.application.service.dto.MovimientosProductoSemanaDTO;
+import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,6 +31,15 @@ public interface MovimientosService {
      */
     Page<MovimientosDTO> findAll(Pageable pageable);
 
+  /**
+   * Get all movimientos by empresa
+   *
+   * @param pageable  the pagination information
+   * @param empresaId the id of empresa entity
+   * @return the list of entities
+   */
+  Page<MovimientosDTO> findAll(Pageable pageable, Long empresaId);
+
 
     /**
      * Get the "id" movimientos.
@@ -43,4 +55,38 @@ public interface MovimientosService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    /**
+     * @param empresaId
+     * @param dias
+     * @return
+     */
+    List<MovimientosSemanaDTO> findMovimientosSemana(Long empresaId, String dias);
+
+    /**
+     * @param empresaId
+     * @param dias
+     * @return
+     */
+    List<MovimientosProductoSemanaDTO> findMovimientoProductoSemana(Long empresaId,
+                                                                    String dias);
+
+    /**
+     * @param empresaId
+     * @param dias
+     * @return
+     */
+    MovimientosProductoSemanaDTO findLitrosSemana(Long empresaId, String dias);
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    List<MovimientoLitroDTO> findPeriodoLitrosSemana(Long empresaId);
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    List<MovimientoLitroDTO> findPeriodoLitrosMes(Long empresaId);
 }

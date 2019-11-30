@@ -1,10 +1,11 @@
 package com.craftbeerstore.application.service;
 
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import com.craftbeerstore.application.service.dto.RecetaInsumoDTO;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,12 +22,33 @@ public interface RecetaInsumoService {
     RecetaInsumoDTO save(RecetaInsumoDTO recetaInsumoDTO);
 
     /**
+     *
+     * @param recetaInsumoDTO
+     * @return
+     */
+    List<RecetaInsumoDTO> save(List<RecetaInsumoDTO> recetaInsumoDTO);
+
+    /**
      * Get all the recetaInsumos.
      *
      * @param pageable the pagination information.
      * @return the list of entities.
      */
     Page<RecetaInsumoDTO> findAll(Pageable pageable);
+
+  /**
+   * @param recetaId
+   * @param tipoInsumo
+   * @return
+   */
+  List<RecetaInsumoDTO> findAllByRecetaImsumo(Long recetaId, TipoInsumo tipoInsumo);
+
+  /**
+   * @param recetaId
+   * @param tipoInsumos
+   * @return
+   */
+  List<RecetaInsumoDTO> findAllByRecetaImsumo(Long recetaId, List<TipoInsumo> tipoInsumos);
 
 
     /**
@@ -43,4 +65,6 @@ public interface RecetaInsumoService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    void delete(List<String> list);
 }

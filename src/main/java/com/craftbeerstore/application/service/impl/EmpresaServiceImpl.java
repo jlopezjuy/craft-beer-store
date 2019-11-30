@@ -1,13 +1,12 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.EmpresaService;
 import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.repository.EmpresaRepository;
+import com.craftbeerstore.application.service.EmpresaService;
 import com.craftbeerstore.application.service.dto.EmpresaDTO;
 import com.craftbeerstore.application.service.mapper.EmpresaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -57,7 +56,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Transactional(readOnly = true)
     public Page<EmpresaDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Empresas");
-        return empresaRepository.findAll(pageable)
+        return empresaRepository.findByUserIsCurrentUser(pageable)
             .map(empresaMapper::toDto);
     }
 
@@ -85,5 +84,17 @@ public class EmpresaServiceImpl implements EmpresaService {
     public void delete(Long id) {
         log.debug("Request to delete Empresa : {}", id);
         empresaRepository.deleteById(id);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<EmpresaDTO> findOne() {
+        return empresaRepository.findByUserIsCurrentUser().map(empresaMapper::toDto);
+    }
+
+    @Override
+    public Optional<EmpresaDTO> findOneByEmail(String email) {
+        return empresaRepository.findByCorreo(email).map(empresaMapper::toDto);
     }
 }

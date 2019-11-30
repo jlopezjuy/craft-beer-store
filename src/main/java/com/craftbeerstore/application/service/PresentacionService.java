@@ -28,6 +28,29 @@ public interface PresentacionService {
      */
     Page<PresentacionDTO> findAll(Pageable pageable);
 
+  /**
+   * Get all the presentacions.
+   *
+   * @param pageable the pagination information
+   * @param loteId the lote id
+   * @return the list of entities
+   */
+  Page<PresentacionDTO> findAll(Pageable pageable, Long loteId);
+
+  /**
+   * @param pageable
+   * @param productoId
+   * @return
+   */
+  Page<PresentacionDTO> findAllByProducto(Pageable pageable, Long productoId);
+
+  /**
+   * @param pageable the pagination information
+   * @param empresaId id of empresa
+   * @return
+   */
+  Page<PresentacionDTO> findAllByEmpresa(Pageable pageable, Long empresaId);
+
 
     /**
      * Get the "id" presentacion.

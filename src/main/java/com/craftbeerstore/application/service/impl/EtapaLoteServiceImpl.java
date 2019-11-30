@@ -1,13 +1,14 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.EtapaLoteService;
 import com.craftbeerstore.application.domain.EtapaLote;
+import com.craftbeerstore.application.domain.Lote;
 import com.craftbeerstore.application.repository.EtapaLoteRepository;
+import com.craftbeerstore.application.repository.LoteRepository;
+import com.craftbeerstore.application.service.EtapaLoteService;
 import com.craftbeerstore.application.service.dto.EtapaLoteDTO;
 import com.craftbeerstore.application.service.mapper.EtapaLoteMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,12 @@ public class EtapaLoteServiceImpl implements EtapaLoteService {
 
     private final EtapaLoteMapper etapaLoteMapper;
 
-    public EtapaLoteServiceImpl(EtapaLoteRepository etapaLoteRepository, EtapaLoteMapper etapaLoteMapper) {
+    private final LoteRepository loteRepository;
+
+    public EtapaLoteServiceImpl(EtapaLoteRepository etapaLoteRepository, EtapaLoteMapper etapaLoteMapper, LoteRepository loteRepository) {
         this.etapaLoteRepository = etapaLoteRepository;
         this.etapaLoteMapper = etapaLoteMapper;
+        this.loteRepository = loteRepository;
     }
 
     /**
@@ -61,6 +65,20 @@ public class EtapaLoteServiceImpl implements EtapaLoteService {
             .map(etapaLoteMapper::toDto);
     }
 
+    /**
+     * Get all the etapaLotes.
+     *
+     * @param pageable the pagination information
+     * @param loteId the id lote
+     * @return the list of entities
+     */
+    @Override
+    public Page<EtapaLoteDTO> findAll(Pageable pageable, Long loteId) {
+        Lote lote = this.loteRepository.getOne(loteId);
+        return etapaLoteRepository.findAllByLoteOrderByIdDesc(pageable, lote)
+            .map(etapaLoteMapper::toDto);
+    }
+
 
     /**
      * Get one etapaLote by id.
@@ -73,6 +91,13 @@ public class EtapaLoteServiceImpl implements EtapaLoteService {
     public Optional<EtapaLoteDTO> findOne(Long id) {
         log.debug("Request to get EtapaLote : {}", id);
         return etapaLoteRepository.findById(id)
+            .map(etapaLoteMapper::toDto);
+    }
+
+    @Override
+    public Optional<EtapaLoteDTO> findOneTopByLote(Long loteId) {
+        Lote lote = this.loteRepository.getOne(loteId);
+        return etapaLoteRepository.findTopByLoteOrderByIdDesc(lote)
             .map(etapaLoteMapper::toDto);
     }
 

@@ -1,13 +1,14 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.service.ProveedorService;
+import com.craftbeerstore.application.domain.Empresa;
 import com.craftbeerstore.application.domain.Proveedor;
+import com.craftbeerstore.application.repository.EmpresaRepository;
 import com.craftbeerstore.application.repository.ProveedorRepository;
+import com.craftbeerstore.application.service.ProveedorService;
 import com.craftbeerstore.application.service.dto.ProveedorDTO;
 import com.craftbeerstore.application.service.mapper.ProveedorMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,15 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     private final ProveedorMapper proveedorMapper;
 
-    public ProveedorServiceImpl(ProveedorRepository proveedorRepository, ProveedorMapper proveedorMapper) {
+
+    private final EmpresaRepository empresaRepository;
+
+    public ProveedorServiceImpl(ProveedorRepository proveedorRepository,
+                                ProveedorMapper proveedorMapper,
+                                EmpresaRepository empresaRepository) {
         this.proveedorRepository = proveedorRepository;
         this.proveedorMapper = proveedorMapper;
+        this.empresaRepository = empresaRepository;
     }
 
     /**
@@ -59,6 +66,17 @@ public class ProveedorServiceImpl implements ProveedorService {
         log.debug("Request to get all Proveedors");
         return proveedorRepository.findAll(pageable)
             .map(proveedorMapper::toDto);
+    }
+
+    /**
+     * @param pageable
+     * @param empresaId
+     * @return
+     */
+    @Override
+    public Page<ProveedorDTO> findAllByEmpresa(Pageable pageable, Long empresaId) {
+        Empresa empresa = this.empresaRepository.getOne(empresaId);
+        return proveedorRepository.findAllByEmpresa(pageable, empresa).map(proveedorMapper::toDto);
     }
 
 
