@@ -88,15 +88,28 @@ public class PuntoDeVentaResource {
     /**
      * {@code GET  /punto-de-ventas} : get all the puntoDeVentas.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of puntoDeVentas in body.
      */
     @GetMapping("/punto-de-ventas")
     public ResponseEntity<List<PuntoDeVentaDTO>> getAllPuntoDeVentas(Pageable pageable) {
         log.debug("REST request to get a page of PuntoDeVentas");
         Page<PuntoDeVentaDTO> page = puntoDeVentaService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET /punto-de-ventas/cliente/{clienteId} : get all the puntoDeVentas by Cliente
+     *
+     * @param pageable
+     * @param clienteId the clienteId of the PuntoDeVenta
+     * @return the ResponseEntity with status 200(OK) and the list of Puntos de Ventas in body
+     */
+    @GetMapping("/punto-de-ventas/cliente/{clienteId}")
+    public ResponseEntity<List<PuntoDeVentaDTO>> getAllPuntoDeVentasByCliente(Pageable pageable, @PathVariable Long clienteId) {
+        log.debug("REST request to get a page of PuntoDeVentas");
+        Page<PuntoDeVentaDTO> page = puntoDeVentaService.findAllByCliente(pageable, clienteId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -113,6 +126,18 @@ public class PuntoDeVentaResource {
         Optional<PuntoDeVentaDTO> puntoDeVentaDTO = puntoDeVentaService.findOne(id);
         return ResponseUtil.wrapOrNotFound(puntoDeVentaDTO);
     }
+
+    /**
+     * @param clienteId
+     * @return
+     */
+    @GetMapping("/punto-de-ventas/cliente/puntos/{clienteId}")
+    public ResponseEntity<List<PuntoDeVentaDTO>> getPuntoDeVentaByCliente(@PathVariable Long clienteId) {
+        log.debug("REST request to get PuntoDeVenta by clienteId : {}", clienteId);
+        List<PuntoDeVentaDTO> puntoDeVentaDTO = puntoDeVentaService.findOneByCliente(clienteId);
+        return ResponseEntity.ok().body(puntoDeVentaDTO);
+    }
+
 
     /**
      * {@code DELETE  /punto-de-ventas/:id} : delete the "id" puntoDeVenta.

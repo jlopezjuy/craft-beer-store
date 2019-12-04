@@ -1,9 +1,9 @@
 package com.craftbeerstore.application.web.rest;
 
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import com.craftbeerstore.application.service.RecetaInsumoService;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.service.dto.RecetaInsumoDTO;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -17,11 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +63,25 @@ public class RecetaInsumoResource {
     }
 
     /**
+     * POST  /receta-insumos : Create a new recetaInsumo.
+     *
+     * @param recetaInsumoDTO the recetaInsumoDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new recetaInsumoDTO, or with status 400 (Bad Request) if the recetaInsumo has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/receta-insumos/list")
+    public ResponseEntity<List<RecetaInsumoDTO>> createRecetaInsumoList(@Valid @RequestBody List<RecetaInsumoDTO> recetaInsumoDTO) throws URISyntaxException {
+        log.debug("REST request to save RecetaInsumo : {}", recetaInsumoDTO);
+        if (recetaInsumoDTO.size() < 1) {
+            throw new BadRequestAlertException("A new recetaInsumo list cannot saved", ENTITY_NAME, "listempty");
+        }
+        List<RecetaInsumoDTO> result = recetaInsumoService.save(recetaInsumoDTO);
+        return ResponseEntity.created(new URI("/api/receta-insumos/list"))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,"Ok"))
+            .body(result);
+    }
+
+    /**
      * {@code PUT  /receta-insumos} : Updates an existing recetaInsumo.
      *
      * @param recetaInsumoDTO the recetaInsumoDTO to update.
@@ -88,9 +105,7 @@ public class RecetaInsumoResource {
     /**
      * {@code GET  /receta-insumos} : get all the recetaInsumos.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of recetaInsumos in body.
      */
     @GetMapping("/receta-insumos")
@@ -99,6 +114,27 @@ public class RecetaInsumoResource {
         Page<RecetaInsumoDTO> page = recetaInsumoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * @param recetaId
+     * @param tipoInsumo
+     * @return
+     */
+    @GetMapping("/receta-insumos/receta-insumo-tipo/{recetaId}/{tipoInsumo}")
+    public ResponseEntity<List<RecetaInsumoDTO>> getAllRecetaInsumosTipo(@PathVariable Long recetaId,
+                                                                         @PathVariable TipoInsumo tipoInsumo) {
+        log.debug("REST request to get a page of RecetaInsumos");
+        List<RecetaInsumoDTO> page = recetaInsumoService.findAllByRecetaImsumo(recetaId, tipoInsumo);
+        return ResponseEntity.ok().body(page);
+    }
+
+    @GetMapping("/receta-insumos/receta-insumo-tipo/{recetaId}")
+    public ResponseEntity<List<RecetaInsumoDTO>> getAllRecetaInsumosTipoNotIn(@PathVariable Long recetaId,
+                                                                              @RequestParam List<TipoInsumo> tipoInsumos) {
+        log.debug("REST request to get a page of RecetaInsumos");
+        List<RecetaInsumoDTO> page = recetaInsumoService.findAllByRecetaImsumo(recetaId, tipoInsumos);
+        return ResponseEntity.ok().body(page);
     }
 
     /**

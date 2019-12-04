@@ -87,9 +87,7 @@ public class EtapaLoteResource {
     /**
      * {@code GET  /etapa-lotes} : get all the etapaLotes.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of etapaLotes in body.
      */
     @GetMapping("/etapa-lotes")
@@ -99,6 +97,20 @@ public class EtapaLoteResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+  /**
+   * GET  /etapa-lotes : get all the etapaLotes.
+   *
+   * @param pageable the pagination information
+   * @return the ResponseEntity with status 200 (OK) and the list of etapaLotes in body
+   */
+  @GetMapping("/etapa-lotes/lote/{loteId}")
+  public ResponseEntity<List<EtapaLoteDTO>> getAllEtapaByLotes(Pageable pageable, @PathVariable Long loteId) {
+    log.debug("REST request to get a page of EtapaLotes");
+    Page<EtapaLoteDTO> page = etapaLoteService.findAll(pageable, loteId);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
 
     /**
      * {@code GET  /etapa-lotes/:id} : get the "id" etapaLote.
@@ -110,6 +122,19 @@ public class EtapaLoteResource {
     public ResponseEntity<EtapaLoteDTO> getEtapaLote(@PathVariable Long id) {
         log.debug("REST request to get EtapaLote : {}", id);
         Optional<EtapaLoteDTO> etapaLoteDTO = etapaLoteService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(etapaLoteDTO);
+    }
+
+    /**
+     * GET  /etapa-lotes/lote/:id : get the "id" etapaLote.
+     *
+     * @param loteId the id of the etapaLoteDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the etapaLoteDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/etapa-lotes/lote/top/{loteId}")
+    public ResponseEntity<EtapaLoteDTO> getEtapaLoteTop(@PathVariable Long loteId) {
+        log.debug("REST request to get EtapaLote : {}", loteId);
+        Optional<EtapaLoteDTO> etapaLoteDTO = etapaLoteService.findOneTopByLote(loteId);
         return ResponseUtil.wrapOrNotFound(etapaLoteDTO);
     }
 

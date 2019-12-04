@@ -100,6 +100,21 @@ public class MovimientoTanqueResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+  /**
+   * GET  /movimiento-tanques : get all the movimientoTanques.
+   *
+   * @param pageable the pagination information
+   * @param tanqueId the id of tanque
+   * @return the ResponseEntity with status 200 (OK) and the list of movimientoTanques in body
+   */
+  @GetMapping("/movimiento-tanques/tanque/{tanqueId}")
+  public ResponseEntity<List<MovimientoTanqueDTO>> getAllMovimientoTanquesOfTanque(Pageable pageable, @PathVariable Long tanqueId) {
+    log.debug("REST request to get a page of MovimientoTanques");
+    Page<MovimientoTanqueDTO> page = movimientoTanqueService.findAll(pageable, tanqueId);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
+
     /**
      * {@code GET  /movimiento-tanques/:id} : get the "id" movimientoTanque.
      *

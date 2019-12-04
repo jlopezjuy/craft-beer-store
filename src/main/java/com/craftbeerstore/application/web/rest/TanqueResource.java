@@ -1,5 +1,6 @@
 package com.craftbeerstore.application.web.rest;
 
+import com.craftbeerstore.application.domain.enumeration.EstadoTanque;
 import com.craftbeerstore.application.service.TanqueService;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.service.dto.TanqueDTO;
@@ -96,6 +97,50 @@ public class TanqueResource {
     public ResponseEntity<List<TanqueDTO>> getAllTanques(Pageable pageable) {
         log.debug("REST request to get a page of Tanques");
         Page<TanqueDTO> page = tanqueService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET  /tanques/empresa/:empresaId : get all the tanques.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of tanques in body
+     */
+    @GetMapping("/tanques/empresa/{empresaId}")
+    public ResponseEntity<List<TanqueDTO>> getAllTanquesEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Tanques");
+        Page<TanqueDTO> page = tanqueService.findAll(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET  /tanques/empresa/:empresaId : get all the tanques.
+     *
+     * @param pageable the pagination information
+     * @param empresaId the id of empresa entity
+     * @param loteId the id of lote entity
+     * @return the ResponseEntity with status 200 (OK) and the list of tanques in body
+     */
+    @GetMapping("/tanques/empresa/{empresaId}/lote/{loteId}")
+    public ResponseEntity<List<TanqueDTO>> getAllTanquesEmpresaLote(Pageable pageable, @PathVariable Long empresaId,  @PathVariable Long loteId) {
+        log.debug("REST request to get a page of Tanques");
+        Page<TanqueDTO> page = tanqueService.findAll(pageable, empresaId, loteId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET  /tanques/empresa/:empresaId : get all the tanques.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of tanques in body
+     */
+    @GetMapping("/tanques/empresa/{empresaId}/{estadoTanque}")
+    public ResponseEntity<List<TanqueDTO>> getAllTanquesEstadoEmpresa(Pageable pageable, @PathVariable Long empresaId, @PathVariable EstadoTanque estadoTanque) {
+        log.debug("REST request to get a page of Tanques");
+        Page<TanqueDTO> page = tanqueService.findAll(pageable, empresaId, estadoTanque);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

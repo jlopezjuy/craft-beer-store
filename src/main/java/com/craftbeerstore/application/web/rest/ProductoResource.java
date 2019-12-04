@@ -88,15 +88,28 @@ public class ProductoResource {
     /**
      * {@code GET  /productos} : get all the productos.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of productos in body.
      */
     @GetMapping("/productos")
     public ResponseEntity<List<ProductoDTO>> getAllProductos(Pageable pageable) {
         log.debug("REST request to get a page of Productos");
         Page<ProductoDTO> page = productoService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET /productos/empresa/{empresaId} : get all the productos by empresa
+     *
+     * @param pageable  the pagination information
+     * @param empresaId the id of empresaDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and the list of productos by empresa in body
+     */
+    @GetMapping("/productos/empresa/{empresaId}")
+    public ResponseEntity<List<ProductoDTO>> getAllProductosByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Productos by empresa");
+        Page<ProductoDTO> page = productoService.findAllByEmpresa(pageable, empresaId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

@@ -87,9 +87,7 @@ public class EventoProductoResource {
     /**
      * {@code GET  /evento-productos} : get all the eventoProductos.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of eventoProductos in body.
      */
     @GetMapping("/evento-productos")
@@ -98,6 +96,13 @@ public class EventoProductoResource {
         Page<EventoProductoDTO> page = eventoProductoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/evento-productos/evento/{eventoId}")
+    public ResponseEntity<List<EventoProductoDTO>> getAllEventoProductosByEvento(@PathVariable Long eventoId) {
+        log.debug("REST request to get a page of EventoProductos");
+        List<EventoProductoDTO> page = eventoProductoService.findAllByEvento(eventoId);
+        return ResponseEntity.ok().body(page);
     }
 
     /**

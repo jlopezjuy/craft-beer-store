@@ -88,15 +88,28 @@ public class EventoResource {
     /**
      * {@code GET  /eventos} : get all the eventos.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of eventos in body.
      */
     @GetMapping("/eventos")
     public ResponseEntity<List<EventoDTO>> getAllEventos(Pageable pageable) {
         log.debug("REST request to get a page of Eventos");
         Page<EventoDTO> page = eventoService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET /eventos/empresa/:empresaId : get eventos by empresa
+     *
+     * @param pageable
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/eventos/empresa/{empresaId}")
+    public ResponseEntity<List<EventoDTO>> getAllEventosByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Eventos");
+        Page<EventoDTO> page = eventoService.findAll(pageable, empresaId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

@@ -1,9 +1,9 @@
 package com.craftbeerstore.application.web.rest;
 
+import com.craftbeerstore.application.domain.enumeration.TipoMedicion;
 import com.craftbeerstore.application.service.MedicionLoteService;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.service.dto.MedicionLoteDTO;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -17,10 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -87,9 +85,7 @@ public class MedicionLoteResource {
     /**
      * {@code GET  /medicion-lotes} : get all the medicionLotes.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of medicionLotes in body.
      */
     @GetMapping("/medicion-lotes")
@@ -98,6 +94,33 @@ public class MedicionLoteResource {
         Page<MedicionLoteDTO> page = medicionLoteService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET  /medicion-lotes : get all the medicionLotes.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of medicionLotes in body
+     */
+    @GetMapping("/medicion-lotes/lote/{loteId}")
+    public ResponseEntity<List<MedicionLoteDTO>> getAllMedicionesLote(Pageable pageable, @PathVariable Long loteId) {
+        log.debug("REST request to get a page of MedicionLotes");
+        Page<MedicionLoteDTO> page = medicionLoteService.findAll(pageable, loteId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET  /medicion-lotes : get all the medicionLotes.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of medicionLotes in body
+     */
+    @GetMapping("/medicion-lotes/lote/{loteId}/tipo/{tipoMedicion}")
+    public ResponseEntity<List<MedicionLoteDTO>> getAllMedicionesLoteTipo(Pageable pageable, @PathVariable Long loteId, @PathVariable TipoMedicion tipoMedicion) {
+        log.debug("REST request to get a page of MedicionLotes");
+        List<MedicionLoteDTO> page = medicionLoteService.findAll(loteId, tipoMedicion);
+        return ResponseEntity.ok().body(page);
     }
 
     /**

@@ -65,6 +65,25 @@ public class DetalleMovimientoResource {
     }
 
     /**
+     * POST  /detalle-movimientos : Create a new detalleMovimiento.
+     *
+     * @param detalleMovimientoDTO the detalleMovimientoDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new detalleMovimientoDTO, or with status 400 (Bad Request) if the detalleMovimiento has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/detalle-movimientos/list")
+    public ResponseEntity<List<DetalleMovimientoDTO>> createDetalleMovimientoList(@Valid @RequestBody List<DetalleMovimientoDTO> detalleMovimientoDTO) throws URISyntaxException {
+        log.debug("REST request to save DetalleMovimiento : {}", detalleMovimientoDTO);
+        if (detalleMovimientoDTO.size() < 1) {
+            throw new BadRequestAlertException("A new detalleMovimiento list cannot save", ENTITY_NAME, "listempty");
+        }
+        List<DetalleMovimientoDTO> result = detalleMovimientoService.save(detalleMovimientoDTO);
+        return ResponseEntity.created(new URI("/api/detalle-movimientos/list"))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,"Ok"))
+            .body(result);
+    }
+
+    /**
      * {@code PUT  /detalle-movimientos} : Updates an existing detalleMovimiento.
      *
      * @param detalleMovimientoDTO the detalleMovimientoDTO to update.
@@ -97,6 +116,14 @@ public class DetalleMovimientoResource {
     public ResponseEntity<List<DetalleMovimientoDTO>> getAllDetalleMovimientos(Pageable pageable) {
         log.debug("REST request to get a page of DetalleMovimientos");
         Page<DetalleMovimientoDTO> page = detalleMovimientoService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/detalle-movimientos/movimiento/{movimientoId}")
+    public ResponseEntity<List<DetalleMovimientoDTO>> getAllDetalleMovimientosByMovimiento(Pageable pageable, @PathVariable Long movimientoId) {
+        log.debug("REST request to get a page of DetalleMovimientos by Movimiento");
+        Page<DetalleMovimientoDTO> page = detalleMovimientoService.findAllByMovimiento(pageable, movimientoId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

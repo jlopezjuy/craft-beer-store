@@ -88,15 +88,28 @@ public class ProveedorResource {
     /**
      * {@code GET  /proveedors} : get all the proveedors.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of proveedors in body.
      */
     @GetMapping("/proveedors")
     public ResponseEntity<List<ProveedorDTO>> getAllProveedors(Pageable pageable) {
         log.debug("REST request to get a page of Proveedors");
         Page<ProveedorDTO> page = proveedorService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET /proveedors/empresa/{empresaId} : get all the proveedors by empresa
+     *
+     * @param pageable  the pagination information
+     * @param empresaId the id of empresaDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and the list of productos by empresa in body
+     */
+    @GetMapping("/proveedors/empresa/{empresaId}")
+    public ResponseEntity<List<ProveedorDTO>> getAllProveedorsByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Proveedors");
+        Page<ProveedorDTO> page = proveedorService.findAllByEmpresa(pageable, empresaId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

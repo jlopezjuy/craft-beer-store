@@ -87,15 +87,28 @@ public class LoteResource {
     /**
      * {@code GET  /lotes} : get all the lotes.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of lotes in body.
      */
     @GetMapping("/lotes")
     public ResponseEntity<List<LoteDTO>> getAllLotes(Pageable pageable) {
         log.debug("REST request to get a page of Lotes");
         Page<LoteDTO> page = loteService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET  /lotes/empresa/:empresaId : get all the lotes.
+     *
+     * @param pageable the pagination information
+     * @param empresaId the empresa id
+     * @return the ResponseEntity with status 200 (OK) and the list of lotes in body
+     */
+    @GetMapping("/lotes/empresa/{empresaId}")
+    public ResponseEntity<List<LoteDTO>> getAllLotesEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Lotes");
+        Page<LoteDTO> page = loteService.findAll(pageable, empresaId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

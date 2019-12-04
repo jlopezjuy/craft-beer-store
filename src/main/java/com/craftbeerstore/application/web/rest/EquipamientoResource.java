@@ -88,15 +88,27 @@ public class EquipamientoResource {
     /**
      * {@code GET  /equipamientos} : get all the equipamientos.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of equipamientos in body.
      */
     @GetMapping("/equipamientos")
     public ResponseEntity<List<EquipamientoDTO>> getAllEquipamientos(Pageable pageable) {
         log.debug("REST request to get a page of Equipamientos");
         Page<EquipamientoDTO> page = equipamientoService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET  /equipamientos : get all the equipamientos.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of equipamientos in body
+     */
+    @GetMapping("/equipamientos/empresa/{empresaId}")
+    public ResponseEntity<List<EquipamientoDTO>> getAllEquipamientosByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Equipamientos");
+        Page<EquipamientoDTO> page = equipamientoService.findAll(pageable, empresaId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

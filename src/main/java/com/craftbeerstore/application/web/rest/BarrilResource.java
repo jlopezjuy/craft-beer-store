@@ -85,11 +85,24 @@ public class BarrilResource {
     }
 
     /**
+     * GET  /barrils : get all the barrils.
+     *
+     * @param pageable  the pagination information
+     * @param empresaId the empresaId information
+     * @return the ResponseEntity with status 200 (OK) and the list of barrils in body
+     */
+    @GetMapping("/barrils/empresa/{empresaId}")
+    public ResponseEntity<List<BarrilDTO>> getAllBarrilesByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Barrils");
+        Page<BarrilDTO> page = barrilService.findAll(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /barrils} : get all the barrils.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of barrils in body.
      */
     @GetMapping("/barrils")

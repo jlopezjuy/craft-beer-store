@@ -1,6 +1,9 @@
 package com.craftbeerstore.application.web.rest;
 
 import com.craftbeerstore.application.service.MovimientosService;
+import com.craftbeerstore.application.service.dto.MovimientoLitroDTO;
+import com.craftbeerstore.application.service.dto.MovimientosProductoSemanaDTO;
+import com.craftbeerstore.application.service.dto.MovimientosSemanaDTO;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.service.dto.MovimientosDTO;
 
@@ -88,15 +91,28 @@ public class MovimientosResource {
     /**
      * {@code GET  /movimientos} : get all the movimientos.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of movimientos in body.
      */
     @GetMapping("/movimientos")
     public ResponseEntity<List<MovimientosDTO>> getAllMovimientos(Pageable pageable) {
         log.debug("REST request to get a page of Movimientos");
         Page<MovimientosDTO> page = movimientosService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET /movimientos : get all the movimientos by Empresa
+     *
+     * @param pageable  the pagination information.
+     * @param empresaId the id of empresa entity
+     * @return the ResponseEntity eith status 200 (OK) and the list of movimientos by emprsa in body
+     */
+    @GetMapping("/movimientos/empresa/{empresaId}")
+    public ResponseEntity<List<MovimientosDTO>> getAllMovimientosByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Movimientos by Empresa");
+        Page<MovimientosDTO> page = movimientosService.findAll(pageable, empresaId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -125,5 +141,58 @@ public class MovimientosResource {
         log.debug("REST request to delete Movimientos : {}", id);
         movimientosService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/movimientos/semana/{empresaId}/{dias}")
+    public ResponseEntity<List<MovimientosSemanaDTO>> getAllMovimientosSemanal(@PathVariable Long empresaId, @PathVariable String dias) {
+        log.debug("REST request to get a page of Movimientos by Empresa");
+        List<MovimientosSemanaDTO> list = movimientosService
+            .findMovimientosSemana(empresaId, dias);
+        return ResponseEntity.ok().body(list);
+    }
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/movimientos/semana/venta/{empresaId}/{dias}")
+    public ResponseEntity<List<MovimientosProductoSemanaDTO>> getAllMovimientosProductoSemanal(@PathVariable Long empresaId, @PathVariable String dias) {
+        List<MovimientosProductoSemanaDTO> list = movimientosService.findMovimientoProductoSemana(empresaId, dias);
+        return ResponseEntity.ok().body(list);
+    }
+
+    /**
+     * @param empresaId
+     * @param dias
+     * @return
+     */
+    @GetMapping("/movimientos/semana/litros/{empresaId}/{dias}")
+    public ResponseEntity<MovimientosProductoSemanaDTO> getAllMovimientosLitroSemanal(@PathVariable Long empresaId, @PathVariable String dias) {
+        MovimientosProductoSemanaDTO movimiento = movimientosService.findLitrosSemana(empresaId, dias);
+        return ResponseEntity.ok().body(movimiento);
+    }
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/movimientos/semana/litros/{empresaId}")
+    public ResponseEntity<List<MovimientoLitroDTO>> getMovimientosLitroSemanal(@PathVariable Long empresaId) {
+        List<MovimientoLitroDTO> movimiento = movimientosService.findPeriodoLitrosSemana(empresaId);
+        return ResponseEntity.ok().body(movimiento);
+    }
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/movimientos/mes/litros/{empresaId}")
+    public ResponseEntity<List<MovimientoLitroDTO>> getMovimientosLitroMes(@PathVariable Long empresaId) {
+        List<MovimientoLitroDTO> movimiento = movimientosService.findPeriodoLitrosMes(empresaId);
+        return ResponseEntity.ok().body(movimiento);
     }
 }

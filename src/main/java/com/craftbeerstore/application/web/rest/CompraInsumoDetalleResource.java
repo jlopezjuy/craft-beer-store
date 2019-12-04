@@ -64,6 +64,22 @@ public class CompraInsumoDetalleResource {
     }
 
     /**
+     * POST  /compra-insumo-detalles/list : Create a new compraInsumoDetalle.
+     *
+     * @param comprasInsumoDetalleDTO
+     * @return
+     * @throws URISyntaxException
+     */
+    @PostMapping("/compra-insumo-detalles/list")
+    public ResponseEntity<List<CompraInsumoDetalleDTO>> createComprasInsumoDetalle(@RequestBody List<CompraInsumoDetalleDTO> comprasInsumoDetalleDTO) throws URISyntaxException {
+        log.debug("REST request to save CompraInsumoDetalle : {}", comprasInsumoDetalleDTO);
+        List<CompraInsumoDetalleDTO> list = compraInsumoDetalleService.save(comprasInsumoDetalleDTO);
+        return ResponseEntity.created(new URI("/api/compra-insumo-detalles/list"))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, "Ok"))
+            .body(list);
+    }
+
+    /**
      * {@code PUT  /compra-insumo-detalles} : Updates an existing compraInsumoDetalle.
      *
      * @param compraInsumoDetalleDTO the compraInsumoDetalleDTO to update.
@@ -124,5 +140,18 @@ public class CompraInsumoDetalleResource {
         log.debug("REST request to delete CompraInsumoDetalle : {}", id);
         compraInsumoDetalleService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * GET  /compra-insumo-detalles/compra-insumo/{compraInsumoId} : get all the compraInsumoDetalles.
+     *
+     * @param compraInsumoId the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of compraInsumoDetalles in body
+     */
+    @GetMapping("/compra-insumo-detalles/compra-insumo/{compraInsumoId}")
+    public ResponseEntity<List<CompraInsumoDetalleDTO>> getAllCompraInsumoDetalles(@PathVariable Long compraInsumoId) {
+        log.debug("REST request to get a page of CompraInsumoDetalles");
+        List<CompraInsumoDetalleDTO> page = compraInsumoDetalleService.findAll(compraInsumoId);
+        return ResponseEntity.ok().body(page);
     }
 }

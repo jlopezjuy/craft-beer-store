@@ -115,6 +115,27 @@ public class EmpresaResource {
     }
 
     /**
+     * @param email
+     * @return
+     */
+    @GetMapping("/empresas/email/{email}")
+    public ResponseEntity<EmpresaDTO> getEmpresaByMail(@PathVariable String email) {
+        log.debug("REST request to get Empresa : {}", email);
+        Optional<EmpresaDTO> empresaDTO = empresaService.findOneByEmail(email);
+        return ResponseUtil.wrapOrNotFound(empresaDTO);
+    }
+
+    /**
+     * @return
+     */
+    @GetMapping("/empresas/usuario")
+    public ResponseEntity<EmpresaDTO> getEmpresa() {
+        log.debug("REST request to get Empresa by Loged User");
+        Optional<EmpresaDTO> empresaDTO = empresaService.findOne();
+        return ResponseUtil.wrapOrNotFound(empresaDTO);
+    }
+
+    /**
      * {@code DELETE  /empresas/:id} : delete the "id" empresa.
      *
      * @param id the id of the empresaDTO to delete.

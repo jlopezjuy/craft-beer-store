@@ -1,6 +1,7 @@
 package com.craftbeerstore.application.web.rest;
 
 import com.craftbeerstore.application.service.CajaService;
+import com.craftbeerstore.application.service.dto.CajaChartDTO;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.service.dto.CajaDTO;
 
@@ -102,6 +103,20 @@ public class CajaResource {
     }
 
     /**
+     * GET  /cajas : get all the cajas.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of cajas in body
+     */
+    @GetMapping("/cajas/empresa/{empresaId}")
+    public ResponseEntity<List<CajaDTO>> getAllCajasByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Cajas by empresa : {}", empresaId);
+        Page<CajaDTO> page = cajaService.findAll(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
      * {@code GET  /cajas/:id} : get the "id" caja.
      *
      * @param id the id of the cajaDTO to retrieve.
@@ -125,5 +140,35 @@ public class CajaResource {
         log.debug("REST request to delete Caja : {}", id);
         cajaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/cajas/graph-ingreso-egreso/{empresaId}")
+    public ResponseEntity<CajaChartDTO> searchIngresoEgreso(@PathVariable Long empresaId) {
+        Optional<CajaChartDTO> response = this.cajaService.searchIngresoEgreso(empresaId);
+        return ResponseUtil.wrapOrNotFound(response);
+    }
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/cajas/semana/{empresaId}")
+    public ResponseEntity<List<CajaDTO>> searchWeek(@PathVariable Long empresaId) {
+        List<CajaDTO> response = this.cajaService.getIngresoWeek(empresaId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    /**
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/cajas/mes/{empresaId}")
+    public ResponseEntity<List<CajaDTO>> searchMonth(@PathVariable Long empresaId) {
+        List<CajaDTO> response = this.cajaService.getIngresoMonth(empresaId);
+        return ResponseEntity.ok().body(response);
     }
 }

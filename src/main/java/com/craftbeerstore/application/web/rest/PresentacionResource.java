@@ -88,15 +88,56 @@ public class PresentacionResource {
     /**
      * {@code GET  /presentacions} : get all the presentacions.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of presentacions in body.
      */
     @GetMapping("/presentacions")
     public ResponseEntity<List<PresentacionDTO>> getAllPresentacions(Pageable pageable) {
         log.debug("REST request to get a page of Presentacions");
         Page<PresentacionDTO> page = presentacionService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET  /presentacions : get all the presentacions.
+     *
+     * @param pageable the pagination information
+     * @param loteId   the lote id
+     * @return the ResponseEntity with status 200 (OK) and the list of presentacions in body
+     */
+    @GetMapping("/presentacions/lote/{loteId}")
+    public ResponseEntity<List<PresentacionDTO>> getAllPresentacionsByLote(Pageable pageable, @PathVariable Long loteId) {
+        log.debug("REST request to get a page of Presentacions");
+        Page<PresentacionDTO> page = presentacionService.findAll(pageable, loteId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET /presentacions : get all the presentaciones by producto
+     *
+     * @param pageable
+     * @param productoId
+     * @return
+     */
+    @GetMapping("/presentacions/producto/{productoId}")
+    public ResponseEntity<List<PresentacionDTO>> getAllPresentacionsByProducto(Pageable pageable, @PathVariable Long productoId) {
+        Page<PresentacionDTO> page = presentacionService.findAllByProducto(pageable, productoId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * GET /presentacions : get all the presentaciones by producto
+     *
+     * @param pageable
+     * @param empresaId
+     * @return
+     */
+    @GetMapping("/presentacions/empresa/{empresaId}")
+    public ResponseEntity<List<PresentacionDTO>> getAllPresentacionsByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        Page<PresentacionDTO> page = presentacionService.findAllByEmpresa(pageable, empresaId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

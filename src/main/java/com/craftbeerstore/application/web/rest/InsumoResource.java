@@ -1,9 +1,9 @@
 package com.craftbeerstore.application.web.rest;
 
+import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 import com.craftbeerstore.application.service.InsumoService;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.service.dto.InsumoDTO;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -17,11 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -88,15 +86,54 @@ public class InsumoResource {
     /**
      * {@code GET  /insumos} : get all the insumos.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of insumos in body.
      */
     @GetMapping("/insumos")
     public ResponseEntity<List<InsumoDTO>> getAllInsumos(Pageable pageable) {
         log.debug("REST request to get a page of Insumos");
         Page<InsumoDTO> page = insumoService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * @param empresaId
+     * @param tipoInsumo
+     * @return
+     */
+    @GetMapping("/insumos/tipo/{empresaId}/{tipoInsumo}")
+    public ResponseEntity<List<InsumoDTO>> getAllInsumostIPO(@PathVariable Long empresaId, @PathVariable TipoInsumo tipoInsumo) {
+        log.debug("REST request to get a page of Insumos {}", empresaId);
+        log.debug("REST request to get a page of Insumos {}", tipoInsumo);
+        List<InsumoDTO> page = insumoService.findAllByEmpresaAndTipo(empresaId, tipoInsumo);
+        return ResponseEntity.ok().body(page);
+    }
+
+    /**
+     * @param empresaId
+     * @param tipoInsumos
+     * @return
+     */
+    @GetMapping("/insumos/tipo/{empresaId}")
+    public ResponseEntity<List<InsumoDTO>> getAllInsumostIPO(@PathVariable Long empresaId, @RequestParam List<TipoInsumo> tipoInsumos) {
+        log.debug("REST request to get a page of Insumos {}", empresaId);
+        log.debug("REST request to get a page of Insumos {}", tipoInsumos);
+        List<InsumoDTO> page = insumoService.findAllByEmpresaAndTipo(empresaId, tipoInsumos);
+        return ResponseEntity.ok().body(page);
+    }
+
+    /**
+     * GET /insumos/:empresaId : get all the insumos by empresa
+     *
+     * @param pageable
+     * @param empresaId
+     * @return the ResponseEntity with status 200 (OK) and the list of insumos by empresa in body
+     */
+    @GetMapping("/insumos/empresa/{empresaId}")
+    public ResponseEntity<List<InsumoDTO>> getAllInsumosByEmpresa(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get a page of Insumos by Empresa");
+        Page<InsumoDTO> page = insumoService.findAllByEmpresa(pageable, empresaId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

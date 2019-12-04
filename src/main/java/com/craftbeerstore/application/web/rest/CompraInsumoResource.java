@@ -87,9 +87,7 @@ public class CompraInsumoResource {
     /**
      * {@code GET  /compra-insumos} : get all the compraInsumos.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of compraInsumos in body.
      */
     @GetMapping("/compra-insumos")
@@ -124,5 +122,19 @@ public class CompraInsumoResource {
         log.debug("REST request to delete CompraInsumo : {}", id);
         compraInsumoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * GET  /compra-insumos/empresa/{empresaId} : get all the compraInsumos.
+     *
+     * @param empresaId the id of empresa
+     * @return the ResponseEntity with status 200 (OK) and the list of compraInsumos in body
+     */
+    @GetMapping("/compra-insumos/empresa/{empresaId}")
+    public ResponseEntity<List<CompraInsumoDTO>> getAllCompraInsumos(Pageable pageable, @PathVariable Long empresaId) {
+        log.debug("REST request to get all of CompraInsumos by empresa");
+        Page<CompraInsumoDTO> page = compraInsumoService.findAll(pageable, empresaId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

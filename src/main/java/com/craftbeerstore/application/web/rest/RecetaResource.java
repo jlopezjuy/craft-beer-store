@@ -87,9 +87,7 @@ public class RecetaResource {
     /**
      * {@code GET  /recetas} : get all the recetas.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of recetas in body.
      */
     @GetMapping("/recetas")
@@ -98,6 +96,21 @@ public class RecetaResource {
         Page<RecetaDTO> page = recetaService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/recetas/producto/{productoId}")
+    public ResponseEntity<List<RecetaDTO>> getAllRecetasByProducto(Pageable pageable, @PathVariable Long productoId) {
+        log.debug("REST request to get a page of Recetas");
+        Page<RecetaDTO> page = recetaService.findAll(pageable, productoId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/recetas/producto/list/{productoId}")
+    public ResponseEntity<List<RecetaDTO>> getAllRecetasByProductoList(Pageable pageable, @PathVariable Long productoId) {
+        log.debug("REST request to get a page of Recetas");
+        List<RecetaDTO> page = recetaService.findAllByProducto(productoId);
+        return ResponseEntity.ok().body(page);
     }
 
     /**

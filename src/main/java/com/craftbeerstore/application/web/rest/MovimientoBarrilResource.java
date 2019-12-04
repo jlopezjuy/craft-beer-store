@@ -87,9 +87,7 @@ public class MovimientoBarrilResource {
     /**
      * {@code GET  /movimiento-barrils} : get all the movimientoBarrils.
      *
-
      * @param pageable the pagination information.
-
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of movimientoBarrils in body.
      */
     @GetMapping("/movimiento-barrils")
@@ -99,6 +97,20 @@ public class MovimientoBarrilResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+  /**
+   * GET  /movimiento-barrils : get all the movimientoBarrils.
+   *
+   * @param pageable the pagination information
+   * @return the ResponseEntity with status 200 (OK) and the list of movimientoBarrils in body
+   */
+  @GetMapping("/movimiento-barrils/barril/{barrilId}")
+  public ResponseEntity<List<MovimientoBarrilDTO>> getAllMovimientoBarrils(Pageable pageable, @PathVariable Long barrilId) {
+    log.debug("REST request to get a page of MovimientoBarrils");
+    Page<MovimientoBarrilDTO> page = movimientoBarrilService.findAll(pageable, barrilId);
+    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+    return ResponseEntity.ok().headers(headers).body(page.getContent());
+  }
 
     /**
      * {@code GET  /movimiento-barrils/:id} : get the "id" movimientoBarril.
