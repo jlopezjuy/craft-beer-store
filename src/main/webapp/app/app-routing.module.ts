@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { errorRoute } from './layouts/error/error.route';
 import { navbarRoute } from './layouts/navbar/navbar.route';
 import { DEBUG_INFO_ENABLED } from 'app/app.constants';
@@ -12,8 +12,14 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
   imports: [
     RouterModule.forRoot(
       [
+        { path: '', redirectTo: 'admin', pathMatch: 'full' },
+        { path: 'admin', loadChildren: () => import('app/theme/admin/admin.module').then(m => m.AdminModule) },
         {
-          path: 'admin',
+          path: 'authentication',
+          loadChildren: () => import('app/theme/authentication/authentication.module').then(m => m.AuthenticationModule)
+        },
+        {
+          path: 'adminroot',
           data: {
             authorities: ['ROLE_ADMIN']
           },

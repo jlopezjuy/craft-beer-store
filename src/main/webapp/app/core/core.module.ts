@@ -20,6 +20,12 @@ import { ErrorHandlerInterceptor } from 'app/blocks/interceptor/errorhandler.int
 import { NotificationInterceptor } from 'app/blocks/interceptor/notification.interceptor';
 
 import { fontAwesomeIcons } from './icons/font-awesome-icons';
+import { ToastrModule } from 'ngx-toastr';
+import { RichTextEditorAllModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { FullCalendarModule } from 'ng-fullcalendar';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 @NgModule({
   imports: [
@@ -44,7 +50,13 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
         useFactory: missingTranslationHandler,
         deps: [JhiConfigService]
       }
-    })
+    }),
+    ToastrModule.forRoot(),
+    RichTextEditorAllModule,
+    FullCalendarModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    LeafletModule.forRoot(),
+    NgxGalleryModule
   ],
   providers: [
     Title,
