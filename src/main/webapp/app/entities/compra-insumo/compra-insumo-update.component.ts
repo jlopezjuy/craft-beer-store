@@ -18,7 +18,6 @@ import { CompraInsumoDetalle, ICompraInsumoDetalle } from '../../shared/model/co
 import { IInsumoRecomendado } from '../../shared/model/insumo-recomendado.model';
 import { InsumoRecomendadoService } from '../insumo-recomendado';
 import { MatTableDataSource } from '@angular/material/table';
-import { ICliente } from '../../shared/model/cliente.model';
 
 @Component({
   selector: 'jhi-compra-insumo-update',
@@ -102,7 +101,12 @@ export class CompraInsumoUpdateComponent implements OnInit {
     if (this.compraInsumo.id !== undefined) {
       this.subscribeToSaveResponse(this.compraInsumoService.update(this.compraInsumo));
     } else {
-      this.subscribeToSaveResponse(this.compraInsumoService.create(this.compraInsumo));
+      if (this.compraInsumo.estadoCompra === EstadoCompra.PEDIDO_RECIBIDO) {
+        this.compraInsumo.compraInsumoDetalleList = this.compraInsumoDetalles;
+        this.subscribeToSaveResponse(this.compraInsumoService.createWithDetalles(this.compraInsumo));
+      } else {
+        this.subscribeToSaveResponse(this.compraInsumoService.create(this.compraInsumo));
+      }
     }
   }
 
@@ -185,6 +189,11 @@ export class CompraInsumoUpdateComponent implements OnInit {
   addInsumo() {
     if (this.compraInsumoDetalle.insumoRecomendadoId !== undefined) {
       this.cantidadTotal = this.cantidadTotal + this.compraInsumoDetalle.stock;
+      this.insumorecomendados.forEach(insumoR => {
+        if (insumoR.id === this.compraInsumoDetalle.insumoRecomendadoId) {
+          this.compraInsumoDetalle.insumoRecomendadoNombre = insumoR.nombre;
+        }
+      });
       this.compraInsumoDetalles.push(this.compraInsumoDetalle);
       this.dataSource = new MatTableDataSource<ICompraInsumoDetalle>(this.compraInsumoDetalles);
       console.log(this.compraInsumoDetalles);

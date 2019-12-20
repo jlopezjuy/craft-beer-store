@@ -159,7 +159,7 @@
                                                                 <mat-option value=""></mat-option>
                                                                 <mat-option *ngFor="let insumoOption of maltas"
                                                                             [value]="insumoOption.id">
-                                                                    {{insumoOption.nombre}}
+                                                                    {{insumoOption.nombre}} - {{insumoOption.marca}}
                                                                 </mat-option>
                                                             </mat-select>
                                                         </mat-form-field>
@@ -929,13 +929,13 @@
                             <br/>
                         </div>
                         <div>
-                            <button type="button" id="cancel-save" class="btn btn-secondary"
+                            <button type="button" id="cancel-save" mat-raised-button class="mat-cancel"
                                     (click)="previousState()">
                                 <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span
                                 jhiTranslate="entity.action.cancel">Cancel</span>
                             </button>
                             <button type="submit" id="save-entity"
-                                    [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                                    [disabled]="editForm.form.invalid || isSaving" mat-raised-button class="mat-success">
                                 <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span
                                 jhiTranslate="entity.action.save">Save</span>
                             </button>

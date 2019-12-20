@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { CompraInsumoDetalle } from './compra-insumo-detalle.model';
 
 export const enum EstadoCompra {
   PEDIDO_REALIZADO = 'PEDIDO_REALIZADO',
@@ -18,6 +19,7 @@ export interface ICompraInsumo {
   proveedorId?: number;
   empresaNombreEmpresa?: string;
   empresaId?: number;
+  compraInsumoDetalleList?: CompraInsumoDetalle[];
 }
 
 export class CompraInsumo implements ICompraInsumo {
@@ -33,6 +35,7 @@ export class CompraInsumo implements ICompraInsumo {
     public proveedorNombreProveedor?: string,
     public proveedorId?: number,
     public empresaNombreEmpresa?: string,
-    public empresaId?: number
+    public empresaId?: number,
+    public compraInsumoDetalleList?: CompraInsumoDetalle[]
   ) {}
 }

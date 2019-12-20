@@ -2,6 +2,7 @@ package com.craftbeerstore.application.web.rest;
 
 import com.craftbeerstore.application.service.CompraInsumoService;
 import com.craftbeerstore.application.service.dto.CompraInsumoDTO;
+import com.craftbeerstore.application.service.dto.CompraInsumoDetailsDTO;
 import com.craftbeerstore.application.web.rest.errors.BadRequestAlertException;
 import com.craftbeerstore.application.web.rest.util.HeaderUtil;
 import com.craftbeerstore.application.web.rest.util.PaginationUtil;
@@ -51,6 +52,22 @@ public class CompraInsumoResource {
     }
     CompraInsumoDTO result = compraInsumoService.save(compraInsumoDTO);
     return ResponseEntity.created(new URI("/api/compra-insumos/" + result.getId()))
+      .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+      .body(result);
+  }
+
+  /**
+   * POST  /compra-insumos/detalle : Create a new compraInsumo.
+   *
+   * @param compraInsumoDetailsDTO the compraInsumoDTO to create
+   * @return the ResponseEntity with status 201 (Created) and with body the new compraInsumoDTO, or with status 400 (Bad Request) if the compraInsumo has already an ID
+   * @throws URISyntaxException if the Location URI syntax is incorrect
+   */
+  @PostMapping("/compra-insumos/detalle")
+  public ResponseEntity<CompraInsumoDTO> createCompraInsumoDetalle(@RequestBody CompraInsumoDetailsDTO compraInsumoDetailsDTO) throws URISyntaxException {
+    log.debug("REST request to save CompraInsumo : {}", compraInsumoDetailsDTO);
+    CompraInsumoDTO result = compraInsumoService.save(compraInsumoDetailsDTO);
+    return ResponseEntity.created(new URI("/api/compra-insumos/detalle" + result.getId()))
       .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
       .body(result);
   }

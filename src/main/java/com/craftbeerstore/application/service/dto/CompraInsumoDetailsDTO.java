@@ -5,12 +5,13 @@ import com.craftbeerstore.application.domain.enumeration.EstadoCompra;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 /**
- * A DTO for the CompraInsumo entity.
+ * A DTO for the CompraInsumoDetails entity.
  */
-public class CompraInsumoDTO implements Serializable {
+public class CompraInsumoDetailsDTO implements Serializable {
 
   private Long id;
 
@@ -28,7 +29,6 @@ public class CompraInsumoDTO implements Serializable {
 
   private EstadoCompra estadoCompra;
 
-
   private Long proveedorId;
 
   private String proveedorNombreProveedor;
@@ -37,25 +37,7 @@ public class CompraInsumoDTO implements Serializable {
 
   private String empresaNombreEmpresa;
 
-  public CompraInsumoDTO() {
-  }
-
-  public CompraInsumoDTO(Long id, String nroFactura, LocalDate fecha, BigDecimal subtotal, BigDecimal gastoDeEnvio,
-                         BigDecimal impuesto, BigDecimal total, EstadoCompra estadoCompra, Long proveedorId,
-                         String proveedorNombreProveedor, Long empresaId, String empresaNombreEmpresa) {
-    this.id = id;
-    this.nroFactura = nroFactura;
-    this.fecha = fecha;
-    this.subtotal = subtotal;
-    this.gastoDeEnvio = gastoDeEnvio;
-    this.impuesto = impuesto;
-    this.total = total;
-    this.estadoCompra = estadoCompra;
-    this.proveedorId = proveedorId;
-    this.proveedorNombreProveedor = proveedorNombreProveedor;
-    this.empresaId = empresaId;
-    this.empresaNombreEmpresa = empresaNombreEmpresa;
-  }
+  private List<CompraInsumoDetalleDTO> compraInsumoDetalleList;
 
   public Long getId() {
     return id;
@@ -153,6 +135,14 @@ public class CompraInsumoDTO implements Serializable {
     this.empresaNombreEmpresa = empresaNombreEmpresa;
   }
 
+  public List<CompraInsumoDetalleDTO> getCompraInsumoDetalleList() {
+    return compraInsumoDetalleList;
+  }
+
+  public void setCompraInsumoDetalleList(List<CompraInsumoDetalleDTO> compraInsumoDetalleList) {
+    this.compraInsumoDetalleList = compraInsumoDetalleList;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -162,7 +152,7 @@ public class CompraInsumoDTO implements Serializable {
       return false;
     }
 
-    CompraInsumoDTO compraInsumoDTO = (CompraInsumoDTO) o;
+    CompraInsumoDetailsDTO compraInsumoDTO = (CompraInsumoDetailsDTO) o;
     if (compraInsumoDTO.getId() == null || getId() == null) {
       return false;
     }
@@ -189,6 +179,7 @@ public class CompraInsumoDTO implements Serializable {
       ", proveedor='" + getProveedorNombreProveedor() + "'" +
       ", empresa=" + getEmpresaId() +
       ", empresa='" + getEmpresaNombreEmpresa() + "'" +
+      ", compraInsumoDetalleList='" + getCompraInsumoDetalleList() + "'" +
       "}";
   }
 }

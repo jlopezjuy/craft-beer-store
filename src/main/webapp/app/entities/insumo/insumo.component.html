@@ -45,8 +45,8 @@
                             <th mat-header-cell *matHeaderCellDef jhiSortBy="stock"> <span jhiTranslate="craftBeerStoreApp.insumo.stock">Stock</span><fa-icon [icon]="'sort'"></fa-icon> </th>
                             <td mat-cell *matCellDef="let insumo" > {{insumo.stock}} </td>
                         </ng-container>
-                      <ng-container matColumnDef="precio">
-                        <th mat-header-cell *matHeaderCellDef jhiSortBy="precio"> <span jhiTranslate="craftBeerStoreApp.insumo.precio">Precio</span><fa-icon [icon]="'sort'"></fa-icon> </th>
+                      <ng-container matColumnDef="precioUnitario">
+                        <th mat-header-cell *matHeaderCellDef jhiSortBy="precioUnitario"> <span jhiTranslate="craftBeerStoreApp.insumo.precioUnitario">Precio Unitario</span><fa-icon [icon]="'sort'"></fa-icon> </th>
                         <td mat-cell *matCellDef="let insumo" > ${{insumo.precioUnitario}} </td>
                       </ng-container>
                         <ng-container matColumnDef="unidad">

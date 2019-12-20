@@ -1,16 +1,12 @@
 package com.craftbeerstore.application.service.impl;
 
-import com.craftbeerstore.application.domain.CompraInsumo;
-import com.craftbeerstore.application.domain.CompraInsumoDetalle;
-import com.craftbeerstore.application.domain.Empresa;
-import com.craftbeerstore.application.domain.Insumo;
+import com.craftbeerstore.application.domain.*;
 import com.craftbeerstore.application.domain.enumeration.EstadoCompra;
-import com.craftbeerstore.application.repository.CompraInsumoDetalleRepository;
-import com.craftbeerstore.application.repository.CompraInsumoRepository;
-import com.craftbeerstore.application.repository.EmpresaRepository;
-import com.craftbeerstore.application.repository.InsumoRepository;
+import com.craftbeerstore.application.repository.*;
 import com.craftbeerstore.application.service.CompraInsumoService;
 import com.craftbeerstore.application.service.dto.CompraInsumoDTO;
+import com.craftbeerstore.application.service.dto.CompraInsumoDetailsDTO;
+import com.craftbeerstore.application.service.mapper.CompraInsumoDetalleMapper;
 import com.craftbeerstore.application.service.mapper.CompraInsumoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,15 +35,21 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
 
   private final CompraInsumoDetalleRepository compraInsumoDetalleRepository;
 
+  private final CompraInsumoDetalleMapper compraInsumoDetalleMapper;
+
   private final InsumoRepository insumoRepository;
 
+  private final InsumoRecomendadoRepository insumoRecomendadoRepository;
+
   public CompraInsumoServiceImpl(CompraInsumoRepository compraInsumoRepository, CompraInsumoMapper compraInsumoMapper,
-                                 EmpresaRepository empresaRepository, CompraInsumoDetalleRepository compraInsumoDetalleRepository, InsumoRepository insumoRepository) {
+                                 EmpresaRepository empresaRepository, CompraInsumoDetalleRepository compraInsumoDetalleRepository, CompraInsumoDetalleMapper compraInsumoDetalleMapper, InsumoRepository insumoRepository, InsumoRecomendadoRepository insumoRecomendadoRepository) {
     this.compraInsumoRepository = compraInsumoRepository;
     this.compraInsumoMapper = compraInsumoMapper;
     this.empresaRepository = empresaRepository;
     this.compraInsumoDetalleRepository = compraInsumoDetalleRepository;
+    this.compraInsumoDetalleMapper = compraInsumoDetalleMapper;
     this.insumoRepository = insumoRepository;
+    this.insumoRecomendadoRepository = insumoRecomendadoRepository;
   }
 
   /**
@@ -100,6 +102,67 @@ public class CompraInsumoServiceImpl implements CompraInsumoService {
       });
     }
     CompraInsumo compraInsumoSalida = compraInsumoRepository.save(compraInsumo);
+    return compraInsumoMapper.toDto(compraInsumoSalida);
+  }
+
+  @Override
+  public CompraInsumoDTO save(CompraInsumoDetailsDTO compraInsumoDetailsDTO) {
+    CompraInsumoDTO compraInsumoDTO = new CompraInsumoDTO();
+    compraInsumoDTO.setId(compraInsumoDetailsDTO.getId());
+    compraInsumoDTO.setNroFactura(compraInsumoDetailsDTO.getNroFactura());
+    compraInsumoDTO.setFecha(compraInsumoDetailsDTO.getFecha());
+    compraInsumoDTO.setSubtotal(compraInsumoDetailsDTO.getSubtotal());
+    compraInsumoDTO.setGastoDeEnvio(compraInsumoDetailsDTO.getGastoDeEnvio());
+    compraInsumoDTO.setImpuesto(compraInsumoDetailsDTO.getImpuesto());
+    compraInsumoDTO.setTotal(compraInsumoDetailsDTO.getTotal());
+    compraInsumoDTO.setEstadoCompra(compraInsumoDetailsDTO.getEstadoCompra());
+    compraInsumoDTO.setProveedorId(compraInsumoDetailsDTO.getProveedorId());
+    compraInsumoDTO.setProveedorNombreProveedor(compraInsumoDetailsDTO.getProveedorNombreProveedor());
+    compraInsumoDTO.setEmpresaId(compraInsumoDetailsDTO.getEmpresaId());
+    compraInsumoDTO.setEmpresaNombreEmpresa(compraInsumoDetailsDTO.getEmpresaNombreEmpresa());
+    final CompraInsumo compraInsumo = compraInsumoMapper.toEntity(compraInsumoDTO);
+    CompraInsumo compraInsumoSalida = compraInsumoRepository.save(compraInsumo);
+    if(compraInsumoSalida.getId() != null){
+      List<CompraInsumoDetalle> detalles = this.compraInsumoDetalleRepository.saveAll(this.compraInsumoDetalleMapper.toEntity(compraInsumoDetailsDTO.getCompraInsumoDetalleList()));
+      detalles.forEach(detalle -> {
+        InsumoRecomendado insumoRecomendado = this.insumoRecomendadoRepository.getOne(detalle.getInsumoRecomendado().getId());
+        if (null == insumoRecomendado) {
+          Insumo insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(detalle.getCodigoReferencia(), compraInsumo.getEmpresa(), detalle.getUnidad());
+          if (null == insumo) {
+            insumo = new Insumo();
+            insumo.setNombreInsumo(detalle.getCodigoReferencia());
+            insumo.setMarca("");
+            insumo.setEmpresa(compraInsumo.getEmpresa());
+            insumo.setStock(detalle.getStock());
+            insumo.setUnidad(detalle.getUnidad());
+            insumo.setTipo(detalle.getTipo());
+            insumo.setPrecioUnitario(detalle.getPrecioUnitario());
+            insumo.setPrecioTotal(detalle.getPrecioTotal());
+          } else {
+            insumo.setStock(insumo.getStock().add(detalle.getStock()));
+          }
+          this.insumoRepository.save(insumo);
+        } else {
+          Insumo insumo = this.insumoRepository.findByNombreInsumoAndEmpresaAndUnidad(insumoRecomendado.getNombre(), compraInsumo.getEmpresa(), detalle.getUnidad());
+          if (null == insumo) {
+            insumo = new Insumo();
+            insumo.setEmpresa(compraInsumo.getEmpresa());
+            insumo.setInsumoRecomendado(insumoRecomendado);
+            insumo.setNombreInsumo(insumoRecomendado.getNombre());
+            insumo.setMarca(insumoRecomendado.getMarca());
+            insumo.setStock(detalle.getStock());
+            insumo.setUnidad(detalle.getUnidad());
+            insumo.setTipo(detalle.getTipo());
+            insumo.setPrecioUnitario(detalle.getPrecioUnitario());
+            insumo.setPrecioTotal(detalle.getPrecioTotal());
+          } else {
+            insumo.setStock(insumo.getStock().add(detalle.getStock()));
+          }
+          this.insumoRepository.save(insumo);
+        }
+      });
+    }
+
     return compraInsumoMapper.toDto(compraInsumoSalida);
   }
 

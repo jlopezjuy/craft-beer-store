@@ -6,6 +6,55 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { NgModule } from '@angular/core';
 import {
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule
+} from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
+@NgModule({
+  imports: [NgxMaterialTimepickerModule],
+  exports: [
+    A11yModule,
+    CdkStepperModule,
+    CdkTableModule,
+    CdkTreeModule,
+    DragDropModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
@@ -14,11 +63,11 @@ import {
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatStepperModule,
     MatDatepickerModule,
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
-    MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
     MatInputModule,
@@ -36,66 +85,17 @@ import {
     MatSlideToggleModule,
     MatSnackBarModule,
     MatSortModule,
-    MatStepperModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule
-} from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
-import {OwlDateTimeModule, OwlNativeDateTimeModule} from "ng-pick-datetime";
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-
-@NgModule({
-  imports: [NgxMaterialTimepickerModule],
-    exports: [
-        A11yModule,
-        CdkStepperModule,
-        CdkTableModule,
-        CdkTreeModule,
-        DragDropModule,
-        MatAutocompleteModule,
-        MatBadgeModule,
-        MatBottomSheetModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatChipsModule,
-        MatStepperModule,
-        MatDatepickerModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatExpansionModule,
-        MatGridListModule,
-        MatIconModule,
-        MatInputModule,
-        MatListModule,
-        MatMenuModule,
-        MatNativeDateModule,
-        MatPaginatorModule,
-        MatProgressBarModule,
-        MatProgressSpinnerModule,
-        MatRadioModule,
-        MatRippleModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSliderModule,
-        MatSlideToggleModule,
-        MatSnackBarModule,
-        MatSortModule,
-        MatTableModule,
-        MatTabsModule,
-        MatToolbarModule,
-        MatTooltipModule,
-        MatTreeModule,
-        ScrollingModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-      OwlDateTimeModule,
-      OwlNativeDateTimeModule,
-      NgxMaterialTimepickerModule
-    ]
+    MatTreeModule,
+    ScrollingModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    NgxMaterialTimepickerModule
+  ]
 })
 export class JhMaterialModule {}

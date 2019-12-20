@@ -25,6 +25,13 @@ export class CompraInsumoService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  createWithDetalles(compraInsumo: ICompraInsumo): Observable<EntityResponseType> {
+    const copy = this.convertDateFromClient(compraInsumo);
+    return this.http
+      .post<ICompraInsumo>(`${this.resourceUrl}/detalle`, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   update(compraInsumo: ICompraInsumo): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(compraInsumo);
     return this.http

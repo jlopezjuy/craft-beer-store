@@ -1,6 +1,7 @@
 package com.craftbeerstore.application.service;
 
 import com.craftbeerstore.application.service.dto.CompraInsumoDTO;
+import com.craftbeerstore.application.service.dto.CompraInsumoDetailsDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,6 +19,13 @@ public interface CompraInsumoService {
    * @return the persisted entity
    */
   CompraInsumoDTO save(CompraInsumoDTO compraInsumoDTO);
+
+  /**
+   * Save a compraInsumo with CompraInsumoDetailsDTO
+   * @param compraInsumoDetailsDTO
+   * @return
+   */
+  CompraInsumoDTO save(CompraInsumoDetailsDTO compraInsumoDetailsDTO);
 
   /**
    * Get all the compraInsumos.
