@@ -25,13 +25,13 @@ import com.craftbeerstore.application.domain.enumeration.TipoInsumo;
 public class Insumo implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Column(name = "nombre_insumo", nullable = false, unique = true)
+    @Column(name = "nombre_insumo", nullable = false)
     private String nombreInsumo;
 
     @NotNull

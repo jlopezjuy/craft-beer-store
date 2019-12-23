@@ -188,13 +188,29 @@ export class CompraInsumoUpdateComponent implements OnInit {
 
   addInsumo() {
     if (this.compraInsumoDetalle.insumoRecomendadoId !== undefined) {
+      let add = false;
       this.cantidadTotal = this.cantidadTotal + this.compraInsumoDetalle.stock;
       this.insumorecomendados.forEach(insumoR => {
         if (insumoR.id === this.compraInsumoDetalle.insumoRecomendadoId) {
           this.compraInsumoDetalle.insumoRecomendadoNombre = insumoR.nombre;
         }
       });
-      this.compraInsumoDetalles.push(this.compraInsumoDetalle);
+      this.compraInsumoDetalles.forEach(ci => {
+        if (
+          ci.insumoRecomendadoId === this.compraInsumoDetalle.insumoRecomendadoId &&
+          ci.unidad === this.compraInsumoDetalle.unidad &&
+          ci.tipo === this.compraInsumoDetalle.tipo
+        ) {
+          add = true;
+          ci.stock = ci.stock + this.compraInsumoDetalle.stock;
+          ci.precioTotal = ci.precioTotal + this.compraInsumoDetalle.precioTotal;
+        }
+      });
+
+      if (!add) {
+        this.compraInsumoDetalles.push(this.compraInsumoDetalle);
+      }
+
       this.dataSource = new MatTableDataSource<ICompraInsumoDetalle>(this.compraInsumoDetalles);
       console.log(this.compraInsumoDetalles);
       this.compraInsumo.subtotal = this.compraInsumo.subtotal + this.compraInsumoDetalle.precioTotal;
