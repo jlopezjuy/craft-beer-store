@@ -57,9 +57,9 @@ export class TanqueUpdateComponent implements OnInit {
     this.tanque.empresaId = this.empresa.id;
     this.tanque.fechaIngreso = this.fechaIngresoDp != null ? moment(this.fechaIngresoDp, DATE_FORMAT) : null;
     if (this.tanque.id !== undefined) {
-      this.tanque.estado = EstadoTanque.VACIO;
       this.subscribeToSaveResponse(this.tanqueService.update(this.tanque));
     } else {
+      this.tanque.estado = EstadoTanque.VACIO;
       this.subscribeToSaveResponse(this.tanqueService.create(this.tanque));
     }
   }

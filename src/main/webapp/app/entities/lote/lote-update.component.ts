@@ -79,6 +79,7 @@ export class LoteUpdateComponent implements OnInit {
       this.subscribeToSaveResponse(this.loteService.update(this.lote));
     } else {
       this.lote.estado = EstadoLote.PLANIFICADO;
+      //TODO: redireccionar luego de que se guarde a la pantalla de detalle...
       this.subscribeToSaveResponse(this.loteService.create(this.lote));
     }
   }

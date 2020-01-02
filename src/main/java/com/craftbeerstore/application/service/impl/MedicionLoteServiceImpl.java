@@ -69,6 +69,7 @@ public class MedicionLoteServiceImpl implements MedicionLoteService {
     log.info(LocalDate.now().minusDays(Long.valueOf(15)).atStartOfDay().toInstant(ZoneOffset.UTC).toString());
     log.info("hasta");
     log.info(LocalDate.now().atStartOfDay().toInstant(ZoneOffset.UTC).toString());
+    //TODO: agregar que la fecha sea desde inicio 00:00 y hasta con 23:59
     return this.medicionLoteMapper.toDto(this.medicionLoteRepository
       .findAllByLoteAndFechaRealizadoGreaterThanEqualAndFechaRealizadoLessThanEqualAndTipoMedicion
       (lote, LocalDate.now().minusDays(Long.valueOf(15)).atStartOfDay().toInstant(ZoneOffset.UTC),

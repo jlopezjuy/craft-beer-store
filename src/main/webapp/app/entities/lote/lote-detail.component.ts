@@ -129,6 +129,7 @@ export class LoteDetailComponent implements OnInit {
   }
 
   saveEtapa() {
+    //TODO: revisar funcionalidad de calculo de litros en tanque.
     this.etapaLote.inicio = moment(new Date(), DATE_FORMAT);
     this.etapaLote.loteId = this.lote.id;
 

@@ -1,9 +1,9 @@
 {
-    "craftBeerStoreApp": {
-        "TipoMovimientoCaja": {
-            "null": "",
-            "INGRESO": "Income",
-            "EGRESO": "EGRESO"
-        }
+  "craftBeerStoreApp": {
+    "TipoMovimientoCaja": {
+      "null": "",
+      "INGRESO": "Income",
+      "EGRESO": "Money Outflow"
     }
+  }
 }
