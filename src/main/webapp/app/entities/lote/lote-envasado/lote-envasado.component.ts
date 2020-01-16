@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SidebarService } from '../../../services/sidebar.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EstadoLote, ILote } from '../../../shared/model/lote.model';
+import { ILote } from '../../../shared/model/lote.model';
 import { PresentacionService } from '../../presentacion';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { IPresentacion, Presentacion } from '../../../shared/model/presentacion.model';
+import { IPresentacion, Presentacion, TipoPresentacion } from '../../../shared/model/presentacion.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { JhiAlertService } from 'ng-jhipster';
 import { PageEvent } from '@angular/material/paginator';
@@ -161,6 +161,7 @@ export class LoteEnvasadoComponent implements OnInit {
       console.log(result);
       if (result !== undefined) {
         console.log(this.presentacion);
+        this.calculoLitros();
         if (this.validateAddBotella()) {
           this.presentacion.fecha = this.fecha != null ? moment(this.fecha, DATE_FORMAT) : null;
           this.presentacion.loteId = this.lote.id;
@@ -174,7 +175,6 @@ export class LoteEnvasadoComponent implements OnInit {
           });
         }
       }
-      // this.animal = result;
     });
   }
 
@@ -187,6 +187,29 @@ export class LoteEnvasadoComponent implements OnInit {
       this.presentacion.precioVentaUnitario !== undefined &&
       this.presentacion.costoUnitario !== undefined;
     return validate;
+  }
+
+  calculoLitros(): number {
+    let litros = 0;
+    switch (this.presentacion.tipoPresentacion) {
+      case TipoPresentacion.BOTELLA_330:
+        litros = 0.33 * this.presentacion.cantidad;
+        break;
+      case TipoPresentacion.BOTELLA_355:
+        litros = 0.355 * this.presentacion.cantidad;
+        break;
+      case TipoPresentacion.BOTELLA_500:
+        litros = 0.5 * this.presentacion.cantidad;
+        break;
+      case TipoPresentacion.BOTELLA_750:
+        litros = 0.75 * this.presentacion.cantidad;
+        break;
+      case TipoPresentacion.BOTELLA_1000:
+        litros = (1000 * this.presentacion.cantidad) / 1000;
+        break;
+    }
+    console.log(litros);
+    return litros;
   }
 
   deletePresentacion(presentacion: IPresentacion) {
